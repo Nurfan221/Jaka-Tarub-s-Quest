@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Chapter1_4Session
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: 
+    sentence: Setibanya didesa, mereka disambut oleh warga yang ramah sepanjang perjalanan
+      menuju desa.
+  - name: Warga Desa
+    sentence: Tamashii, selamat pagi. Hei, bajumu tampak kotor, dan siapa pria yang
+      bersamamu itu?
+  - name: Tamashii
+    sentence: Ah! Halo paman, tenang saja, orang ini baru saja menyelamatkanku dari
+      kawanan serigala tadi. Dia kehilangan ingatannya dan mungkin kakakku bisa menolongnya
+      membantu mengingat Kembali
+  - name: Warga Desa
+    sentence: Begitu ya. Baiklah, sampai jumpa lagi Tamashii
+  - name: Tamashii
+    sentence: baik paman, paman jangan lupa jaga diri ya
+  - name: 
+    sentence: Tamashii dan Charibert melanjutkan perjalanannya menuju rumah dan kebun
+      milik Tamashii. Setibanya disana, mereka bertemu dengan kakaknya.
+  mainSpeaker: Tamashii
+  promptAfterDialogue: 3Dialogue

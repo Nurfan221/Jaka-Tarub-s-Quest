@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1089621543159706998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2162460952719231218}
+  - component: {fileID: 2686643974254583594}
+  - component: {fileID: 1546531876476482124}
+  - component: {fileID: 5449077394803582238}
+  - component: {fileID: 2986323977070010781}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2162460952719231218
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089621543159706998}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 659.80316, y: 424.83704, z: -0.7429928}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2686643974254583594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089621543159706998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be3ba8015043f24fa8603963cd423c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Money: 0
+--- !u!114 &1546531876476482124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089621543159706998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c02650208d9d2540b46ac7e6195d097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: Ryn
+  enablePlayerInput: 0
+  player: {fileID: 0}
+  persistentUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  gamePaused: 0
+  pauseUI: {fileID: 0}
+--- !u!114 &5449077394803582238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089621543159706998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288542ae2bef83c4cb61ced2f1a685a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
+  - {fileID: 11400000, guid: 1ebe7bd27dadd9846881d3f800460ce5, type: 2}
+  - {fileID: 11400000, guid: 2aed1d8e4dd753742aa837c1a52433e4, type: 2}
+  - {fileID: 11400000, guid: 124bb59f573d69c498c9e644c327ab91, type: 2}
+  - {fileID: 11400000, guid: de5ba7ded5bd3eb4b89229d8816f79fe, type: 2}
+  - {fileID: 11400000, guid: 3bd66d80fb23e764f9744b7e7fcfaa76, type: 2}
+  - {fileID: 11400000, guid: ad11c4550ca1cba429c788830f9eac28, type: 2}
+  - {fileID: 11400000, guid: 4baf81910ecdd224b980c7d945a20266, type: 2}
+  - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
+  - {fileID: 11400000, guid: 2fb9dd8e5b608d445967137840ac801b, type: 2}
+  - {fileID: 11400000, guid: e7295591444813c4ca6f0e5c700b7b9c, type: 2}
+  - {fileID: 11400000, guid: 48ef919ca5346b84d9e6eed1d76038b4, type: 2}
+  - {fileID: 11400000, guid: 3af936a8fceaf694db4686a262caf9f4, type: 2}
+  - {fileID: 11400000, guid: 692483cde051eb24a98a89d414f63270, type: 2}
+  - {fileID: 11400000, guid: db44f540d5ad1824bbf06e69aeca994b, type: 2}
+  - {fileID: 11400000, guid: b6f7491557836d04b979c05e535782e2, type: 2}
+--- !u!114 &2986323977070010781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089621543159706998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 682e09eed9b63554f8059dde86afde0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashUI: {fileID: 0}
+  specialAttackUI: {fileID: 0}
+  quickSlotsUI_HUD:
+  - {fileID: 0}
+  - {fileID: 0}
+  promptText: {fileID: 0}
+  healthUI: {fileID: 0}
+  staminaUI: {fileID: 0}
+  equippedUI: {fileID: 0}
+  quickSlotsUI_Inventory:
+  - {fileID: 0}
+  - {fileID: 0}
+  inventoryUI: {fileID: 0}

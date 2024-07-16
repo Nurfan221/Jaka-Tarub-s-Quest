@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Chapter1_6Session_Part 2
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: 
+    sentence: "Beberapa saat kemudian, ada kerusuhan terdengar didepan Desa. Sekelompok
+      bandit memalak hasil panen dan uang.\r"
+  - name: 
+    sentence: Ketua Desa mendatangi bandit itu dan memberikan gerobak berisikan hasil
+      panen mereka, dan beberapa uang. Dan mereka menerimanya dengan sedikit kasar.
+  - name: Ketua Desa
+    sentence: Tolong terima ini sebagai tanda damai kami, Tuan
+  - name: Ketua Bandit
+    sentence: Begitu dong! besok-besok kasihnya yg banyak dong, segini mah kita masih
+      akan dateng tiap hari!
+  - name: 
+    sentence: Charibert mendengar kabar itu dan segera menghampiri bandit itu. Ia
+      menghampirinya dari rumah Tamashii.
+  - name: Charibert
+    sentence: HEI!
+  - name: Ketua Bandit
+    sentence: Apa?! Tidak terima barangnya diambil?
+  - name: Charibert
+    sentence: Kembalikan atau aku akan merampasnya dengan tanganku
+  - name: Ketua Bandit
+    sentence: Coba saja, serang dia semuanya!
+  mainSpeaker: 
+  promptAfterDialogue: 5Dialogue

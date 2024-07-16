@@ -1,0 +1,435 @@
+fileFormatVersion: 2
+guid: 60abb6f58eaed234eac8f5ea5f62cad1
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_0
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 3787
+        width: 1961
+        height: 430
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c02a2699932a53409af6b8e185cdfd1
+      internalID: 2116568190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_1
+      rect:
+        serializedVersion: 2
+        x: 2768
+        y: 3787
+        width: 1960
+        height: 430
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8a489782600de14fbd5cd13e1883e95
+      internalID: 2129578907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_2
+      rect:
+        serializedVersion: 2
+        x: 5162
+        y: 3791
+        width: 1965
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c07d955cf35292c4787acf1f86766aa8
+      internalID: 1154350376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_3
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 3170
+        width: 1961
+        height: 429
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fef77ec3629a2c04e9501133069a9e51
+      internalID: -1676503629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_4
+      rect:
+        serializedVersion: 2
+        x: 2768
+        y: 3150
+        width: 1960
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5231c212817dc4a418c645f4c2d0114a
+      internalID: -1680309000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_5
+      rect:
+        serializedVersion: 2
+        x: 5154
+        y: 3170
+        width: 1961
+        height: 430
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad6c95bbb3b0cc04683d1619e5fe4a92
+      internalID: 1268947241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_6
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 2475
+        width: 1961
+        height: 429
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80a1954ef50a0134391d782b94de53d2
+      internalID: -2081038927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_7
+      rect:
+        serializedVersion: 2
+        x: 2744
+        y: 2475
+        width: 1965
+        height: 429
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9f2a635105106a4ba098f832f4daa20
+      internalID: 626319426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_8
+      rect:
+        serializedVersion: 2
+        x: 5213
+        y: 2440
+        width: 1961
+        height: 429
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ce136b97810f264aa333458522c27b8
+      internalID: 39028657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_9
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 1857
+        width: 1961
+        height: 430
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88eb1017e423d2d4bb88a4c03e55166d
+      internalID: -1596011342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_10
+      rect:
+        serializedVersion: 2
+        x: 2701
+        y: 1838
+        width: 1961
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44bb8b5bbcb34a04e8e00f2fa77a890a
+      internalID: 185132387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_11
+      rect:
+        serializedVersion: 2
+        x: 5202
+        y: 1822
+        width: 1964
+        height: 430
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a081284b93205044aa3bdcc4edb0ddad
+      internalID: 428174095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_12
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 1197
+        width: 1961
+        height: 430
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f3e8ee036c455e449ecf218b0eea4ce
+      internalID: 983577892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2 tombol hijau 2-02_13
+      rect:
+        serializedVersion: 2
+        x: 2701
+        y: 1197
+        width: 1961
+        height: 430
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0d4755c86ac89a4aab3756a63bffc5a
+      internalID: 1376061854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      aset ui game 2 tombol hijau 2-02_0: 2116568190
+      aset ui game 2 tombol hijau 2-02_1: 2129578907
+      aset ui game 2 tombol hijau 2-02_10: 185132387
+      aset ui game 2 tombol hijau 2-02_11: 428174095
+      aset ui game 2 tombol hijau 2-02_12: 983577892
+      aset ui game 2 tombol hijau 2-02_13: 1376061854
+      aset ui game 2 tombol hijau 2-02_2: 1154350376
+      aset ui game 2 tombol hijau 2-02_3: -1676503629
+      aset ui game 2 tombol hijau 2-02_4: -1680309000
+      aset ui game 2 tombol hijau 2-02_5: 1268947241
+      aset ui game 2 tombol hijau 2-02_6: -2081038927
+      aset ui game 2 tombol hijau 2-02_7: 626319426
+      aset ui game 2 tombol hijau 2-02_8: 39028657
+      aset ui game 2 tombol hijau 2-02_9: -1596011342
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

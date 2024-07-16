@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Chapter1_AfterQuestsItem
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: 
+    sentence: Dalam Mimpi, Charibert mendapatkan kembali ingatannya, semua begitu
+      kacau, ia setengah tak sadarkan diri. dan ada seseorang yang seakan menguburnya,
+      dan dia mengatakan sesuatu...
+  - name: ???
+    sentence: Hydra Quanta_________kan dunia.________gagal_____Tolong____
+  - name: 
+    sentence: '!!!'
+  - name: 
+    sentence: Charibert terbangun dari mimpinya yang aneh. kebetulan saat itu sudah
+      pagi. ia segera pergi memanen beberapa hasil perkebunan untuk Ren supaya bisa
+      dimasak dan makan bersama
+  - name: 
+    sentence: Tak lama setelahnya, Ren bangun dan Charibert menceritakan tentang
+      mimpinya, dan mengaku dia sudah mulai bisa mengingat apa yang terjadi.
+  - name: 
+    sentence: "Sejenak Ren terkejut bahwa ada kata \u201CHydra Quanta\u201D dalam
+      mimpinya, namun ia masih berpikir bahwa Charibert bukan Hydra Quanta."
+  - name: Kak Ren
+    sentence: "Hmm\u2026 pernah mendengar bahwa pemenang akan menulis sejarah?"
+  - name: Charibert
+    sentence: Ya, itu sudah jelas bukan? tidak ada yang tahu kecuali saksi hidup.
+      aku tidak paham mengapa ada ingatan Hydra Quanta dalam diriku. apakah aku merupakan
+      salah satu dari-
+  - name: Kak Ren
+    sentence: Tentu saja bukan! mereka jelas-jelas seorang klan bengis yang ingin
+      menguasai dunia dan memakan seluruh klan lain.
+  - name: Charibert
+    sentence: Bedasarkan sejarah memang begitu sih, mungkin aku akan mencoba mempelajari
+      dan mencari ingatanku. semua ini kudapatkan sejak aku mulai menemukan barang
+      misterius itu.
+  - name: Charibert
+    sentence: Dimulai dari kulit armor, gagang pedang, tongkat patah, buku sihir
+      yang lusuh, dan lainnya. mungkin disana juga ada buku catatan komandan atau
+      semacamnya.
+  - name: Kak Ren
+    sentence: Begitu ya
+  - name: 
+    sentence: "Tak lama kemudian, dia melihat sekelompok bandit kembali menyerang
+      dengan skala yang tidak wajar. Dia membawa makhluk seperti werewolf bahkan
+      metal lizard datang.\r"
+  - name: 
+    sentence: "Raid ini bukanlah raid biasa\u2026 ada apa ini\u2026.?\r"
+  mainSpeaker: 
+  promptAfterDialogue: FinishDialogue

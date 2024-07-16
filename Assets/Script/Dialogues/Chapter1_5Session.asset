@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Chapter1_5Session
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Kak Ren
+    sentence: Tamashii, Kemana saja kamu?
+  - name: Tamashii
+    sentence: Maaf Kak Ren, aku habis dari Hutan, mengambil beberapa bahan dari hutan
+      untuk memasak nanti, dan berburu daging sapi. Hanya saja tadi aku dikejar oleh
+      serigala. Dan untung saja kakak ini menyelamatkanku
+  - name: Kak Ren
+    sentence: "oh terima kasih sudah menyelamatkan adikku, umm\u2026"
+  - name: Tamashii
+    sentence: Charibert
+  - name: Kak Ren
+    sentence: ya, terima kasih Charibert
+  - name: Charibert
+    sentence: Tidak masalah
+  - name: Tamashii
+    sentence: Kak Ren, bolehkah Kak Charibert tinggal Bersama kita? Kamarnya ada
+      yang kosong 1 kan? Kasihan
+  - name: Kak Ren
+    sentence: "Eh?! Mendadak sekali, tapi\u2026 memangnya kamu kenapa Charibert?"
+  - name: Charibert
+    sentence: Aku kehilangan seluruh ingatanku. Bisakah aku tinggal disini untuk
+      sementara waktu? Setidaknya sampai aku mendapatkan ingatanku kembali
+  - name: Kak Ren
+    sentence: Begitu ya. Baiklah, tapi kamu harus bantu kami ya. mungkin aku bisa
+      menyembuhkan ingatanmu dengan sedikit bantuan penyelidikan
+  - name: Charibert
+    sentence: Tentu, tidak apa-apa. Terima kasih sudah mau membantuku
+  - name: Kak Ren
+    sentence: Tidak masalah, sini ikut aku
+  - name: 
+    sentence: Mereka bertiga pun berkebun Bersama.
+  mainSpeaker: Charibert
+  promptAfterDialogue: 4Dialogue

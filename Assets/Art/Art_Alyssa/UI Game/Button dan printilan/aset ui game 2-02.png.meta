@@ -1,0 +1,875 @@
+fileFormatVersion: 2
+guid: 588c1b5b5402ac046b9554cc2525b7dd
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: aset ui game 2-02_0
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 3748
+        width: 847
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b120b41d9b73544468f68b579a5ca40a
+      internalID: -941537247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_1
+      rect:
+        serializedVersion: 2
+        x: 1526
+        y: 3744
+        width: 847
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b40929da09a26874ea873cd1d670cbab
+      internalID: -320967756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_2
+      rect:
+        serializedVersion: 2
+        x: 2639
+        y: 3744
+        width: 847
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39e9a32348daf8a4a8424341222566dd
+      internalID: -1951128933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_3
+      rect:
+        serializedVersion: 2
+        x: 3580
+        y: 3760
+        width: 848
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e449f79b4cf4384db6600349446b76e
+      internalID: -1950770679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_4
+      rect:
+        serializedVersion: 2
+        x: 4865
+        y: 3822
+        width: 570
+        height: 516
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79d9a88de34e20c4289767b2df792284
+      internalID: -976707446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_5
+      rect:
+        serializedVersion: 2
+        x: 7037
+        y: 1108
+        width: 102
+        height: 3074
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a72ab8ba005852a4ca643d35abab5648
+      internalID: -746754732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_6
+      rect:
+        serializedVersion: 2
+        x: 7291
+        y: 1115
+        width: 105
+        height: 3067
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f001388c99042c94cbee95984474f765
+      internalID: -2024893550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_7
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 3322
+        width: 847
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b67beda37da0a040a63ad5f6b82a010
+      internalID: 1841132200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_8
+      rect:
+        serializedVersion: 2
+        x: 1533
+        y: 3295
+        width: 848
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b0d1cb94bddbc548ba3c7df5f714272
+      internalID: -49265751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_9
+      rect:
+        serializedVersion: 2
+        x: 2639
+        y: 3291
+        width: 847
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dd3e891885c9f44597d04be64740732
+      internalID: -361682282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_10
+      rect:
+        serializedVersion: 2
+        x: 3607
+        y: 3271
+        width: 848
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6a19a026c5ed4346af4d422f3adfdd4
+      internalID: -1830666786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_11
+      rect:
+        serializedVersion: 2
+        x: 4924
+        y: 3182
+        width: 566
+        height: 543
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1197dce1f706fd748b09d2fcfda1ed7d
+      internalID: -1907346235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_12
+      rect:
+        serializedVersion: 2
+        x: 5658
+        y: 3182
+        width: 571
+        height: 554
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7352c5912b0b2ea4c9b7cd041e8e2392
+      internalID: 895329540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_13
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 2834
+        width: 847
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b52259fe489d9364480368d074f6029e
+      internalID: 250220248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_14
+      rect:
+        serializedVersion: 2
+        x: 1529
+        y: 2826
+        width: 848
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faa95ab73dedec540a5568a5d1f6d535
+      internalID: 1310881037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_15
+      rect:
+        serializedVersion: 2
+        x: 2635
+        y: 2822
+        width: 847
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa251698a56fb024784d65ed5007bab1
+      internalID: -1830796522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_16
+      rect:
+        serializedVersion: 2
+        x: 3615
+        y: 2822
+        width: 848
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e08e42ec92186647a4f79148384ea3c
+      internalID: -2084832819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_17
+      rect:
+        serializedVersion: 2
+        x: 5076
+        y: 2643
+        width: 215
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 668df58805a7fe04ba34d9fbd1fee52f
+      internalID: 18147060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_18
+      rect:
+        serializedVersion: 2
+        x: 5471
+        y: 2643
+        width: 215
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f1f86cb84ebae44ea620e3074164830
+      internalID: -2071800056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_19
+      rect:
+        serializedVersion: 2
+        x: 5947
+        y: 2369
+        width: 731
+        height: 711
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44648b90d80feef4d96d610d1beec900
+      internalID: -114539799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_20
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 2342
+        width: 847
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 021b8e04b3ed5824e93fb85341e12a13
+      internalID: -1943929767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_21
+      rect:
+        serializedVersion: 2
+        x: 1533
+        y: 2350
+        width: 848
+        height: 312
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67576d237df14814aaec56e08c054ea1
+      internalID: 860796539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_22
+      rect:
+        serializedVersion: 2
+        x: 2639
+        y: 2350
+        width: 847
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e104c7ec05f1314095c03fec2e5aabe
+      internalID: -1803569266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_23
+      rect:
+        serializedVersion: 2
+        x: 3658
+        y: 2330
+        width: 848
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a27cd90efe0f0354ab1d39d5bedf07ce
+      internalID: -2084637348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_24
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 1822
+        width: 847
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd0bdb2d9a22ca140a8e6e3de831debd
+      internalID: 686666302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_25
+      rect:
+        serializedVersion: 2
+        x: 1529
+        y: 1818
+        width: 848
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f0a04114bae43b48b3de795063b65aa
+      internalID: 1134430401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_26
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 1397
+        width: 847
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60a4cf9000633c24b861c4a9ade16f19
+      internalID: -1350024701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_27
+      rect:
+        serializedVersion: 2
+        x: 1576
+        y: 1369
+        width: 847
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd738d12bd63d9a4ea87ab807c3957f9
+      internalID: -510176043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_28
+      rect:
+        serializedVersion: 2
+        x: 7467
+        y: 1084
+        width: 97
+        height: 566
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c113237869d43be44ab0a1bc422e0567
+      internalID: -805640390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_29
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 908
+        width: 847
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03500876d73b75c439702b3cc60c6731
+      internalID: -193474786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_30
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 900
+        width: 844
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b178a9621be8a345a1925a5cd214a03
+      internalID: 372680857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_31
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 417
+        width: 848
+        height: 319
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b609519cbbc26b49bfe1576af50a2d6
+      internalID: -109415333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_32
+      rect:
+        serializedVersion: 2
+        x: 1573
+        y: 424
+        width: 847
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0404b9141b959f34d9ab62e7192e967c
+      internalID: 163858481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: aset ui game 2-02_33
+      rect:
+        serializedVersion: 2
+        x: 3452
+        y: 260
+        width: 2491
+        height: 547
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97caccf491aba7a4893f6c0a2c69137e
+      internalID: 1010828486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      aset ui game 2-02_0: -941537247
+      aset ui game 2-02_1: -320967756
+      aset ui game 2-02_10: -1830666786
+      aset ui game 2-02_11: -1907346235
+      aset ui game 2-02_12: 895329540
+      aset ui game 2-02_13: 250220248
+      aset ui game 2-02_14: 1310881037
+      aset ui game 2-02_15: -1830796522
+      aset ui game 2-02_16: -2084832819
+      aset ui game 2-02_17: 18147060
+      aset ui game 2-02_18: -2071800056
+      aset ui game 2-02_19: -114539799
+      aset ui game 2-02_2: -1951128933
+      aset ui game 2-02_20: -1943929767
+      aset ui game 2-02_21: 860796539
+      aset ui game 2-02_22: -1803569266
+      aset ui game 2-02_23: -2084637348
+      aset ui game 2-02_24: 686666302
+      aset ui game 2-02_25: 1134430401
+      aset ui game 2-02_26: -1350024701
+      aset ui game 2-02_27: -510176043
+      aset ui game 2-02_28: -805640390
+      aset ui game 2-02_29: -193474786
+      aset ui game 2-02_3: -1950770679
+      aset ui game 2-02_30: 372680857
+      aset ui game 2-02_31: -109415333
+      aset ui game 2-02_32: 163858481
+      aset ui game 2-02_33: 1010828486
+      aset ui game 2-02_4: -976707446
+      aset ui game 2-02_5: -746754732
+      aset ui game 2-02_6: -2024893550
+      aset ui game 2-02_7: 1841132200
+      aset ui game 2-02_8: -49265751
+      aset ui game 2-02_9: -361682282
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
