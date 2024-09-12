@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour // Attach this to the InventoryUI prefab
+public class InventoryUI : MonoBehaviour
 {
     List<Item> Items;
 
@@ -19,17 +18,41 @@ public class InventoryUI : MonoBehaviour // Attach this to the InventoryUI prefa
     [SerializeField] Transform ContentGO;
     [SerializeField] Transform SlotTemplate;
 
-
     [Header("Item Description")]
     [SerializeField] Image itemSprite;
     [SerializeField] TMP_Text itemName;
     [SerializeField] TMP_Text itemDesc;
     [SerializeField] Button itemAction;
 
+    [Header("Six Item Display")]
+    [SerializeField] Transform ContentGO6; // New UI Content for 6 items
+    [SerializeField] Transform SlotTemplate6; // New UI Slot Template for 6 items
+
+    [SerializeField] private ContohFlipCard contohFlipCard;
+
+    // [Header("item active in display")]
+    // [SerializeField] private Image attackHUDImage;
+
+
+
+    
+
     private void Start()
     {
-        
+        // Any initial setup can be added here
+         
     }
+
+    private void OnEnable()
+    {
+        // Pastikan referensi ke ContohFlipCard diatur saat InventoryUI diaktifkan
+        contohFlipCard = FindObjectOfType<ContohFlipCard>();
+        if (contohFlipCard == null)
+        {
+            Debug.LogError("ContohFlipCard tidak ditemukan di scene!");
+        }
+    }
+
     // Handle equipped items
     public void SetActiveItem(int slot, Item item)
     {
@@ -45,9 +68,10 @@ public class InventoryUI : MonoBehaviour // Attach this to the InventoryUI prefa
 
         pickedSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
         pickedSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
+      
     }
 
-     public void UpdateInventoryUI()
+    public void UpdateInventoryUI()
     {
         SetInventory(Player_Inventory.Instance.itemList);
         if (Player_Inventory.Instance.itemList.Count > 0)
@@ -62,28 +86,26 @@ public class InventoryUI : MonoBehaviour // Attach this to the InventoryUI prefa
 
     void RefreshActiveItems()
     {
-        Item item = Player_Inventory.Instance.equippedCombat[0];
-        equippedItem1.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-        equippedItem1.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
+        // Refresh equipped items
+        RefreshItemSlot(equippedItem1, Player_Inventory.Instance.equippedCombat[0]);
+        RefreshItemSlot(equippedItem2, Player_Inventory.Instance.equippedCombat[1]);
 
-        item = Player_Inventory.Instance.equippedCombat[1];
-        equippedItem2.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-        equippedItem2.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
-
-        item = Player_Inventory.Instance.quickSlots[0];
-        quickSlot1.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-        quickSlot1.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
-
-        item = Player_Inventory.Instance.quickSlots[1];
-        quickSlot2.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-        quickSlot2.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
+        // Refresh quick slots
+        RefreshItemSlot(quickSlot1, Player_Inventory.Instance.quickSlots[0]);
+        RefreshItemSlot(quickSlot2, Player_Inventory.Instance.quickSlots[1]);
     }
 
-    // Handle opened inventory with its items
-    public void SetInventory(List<Item> Items)
+    void RefreshItemSlot(Transform slot, Item item)
     {
-        this.Items = Items;
+        slot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
+        slot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
+    }
+
+    public void SetInventory(List<Item> items)
+    {
+        this.Items = items;
         RefreshInventoryItems();
+        UpdateSixItemDisplay();
     }
 
     void RefreshInventoryItems()
@@ -103,69 +125,105 @@ public class InventoryUI : MonoBehaviour // Attach this to the InventoryUI prefa
             itemInInventory.GetChild(0).GetComponent<Image>().sprite = item.sprite;
             itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
 
-
-
             itemInInventory.GetComponent<Button>().onClick.RemoveAllListeners();
             itemInInventory.GetComponent<Button>().onClick.AddListener(() => SetDescription(item));
         }
     }
 
-    public void SetDescription(Item item)
+    void UpdateSixItemDisplay()
     {
-        // Set item's texts
-        itemSprite.sprite = item.sprite;
-        itemName.text = item.itemName;
-        itemDesc.text = item.itemDescription;
-
-        // Set the "equip" button functionality
-        itemAction.onClick.RemoveAllListeners();
-        switch (item.type)
+        // Clear existing items in the 6-item display
+        foreach (Transform child in ContentGO6)
         {
-            case ItemType.Melee_Combat:
-                itemAction.onClick.AddListener(() =>
-                {
-                    Player_Inventory.Instance.EquipItem(item, 0);
-                    SoundManager.Instance.PlaySound("PickUp");
-                });
-                break;
-            case ItemType.Ranged_Combat:
-                itemAction.onClick.AddListener(() =>
-                {
-                    Player_Inventory.Instance.EquipItem(item, 1);
-                    SoundManager.Instance.PlaySound("PickUp");
-                });
-                break;
-            case ItemType.Heal:
-                itemAction.onClick.AddListener(() =>
-                {
-                    Player_Inventory.Instance.AddQuickSlot(item, 0);
-                    SoundManager.Instance.PlaySound("PickUp");
-                });
-                break;
-            case ItemType.Buff:
-                itemAction.onClick.AddListener(() =>
-                {
-                    Player_Inventory.Instance.AddQuickSlot(item, 1);
-                    SoundManager.Instance.PlaySound("PickUp");
-                });
-                break;
-            default:
-                break;
+            if (child == SlotTemplate6) continue;
+            Destroy(child.gameObject);
         }
 
-        // Set the "Equip" button according to item's type
-        string itemUses;
-        if (item.type == ItemType.Item)
+        int itemCount = Mathf.Min(6, Items.Count);
+        for (int i = 0; i < itemCount; i++)
         {
-            itemUses = "CAN'T EQUIP";
-            itemAction.interactable = false;
+            Item item = Items[i];
+            Transform itemInDisplay = Instantiate(SlotTemplate6, ContentGO6);
+            itemInDisplay.gameObject.SetActive(true);
+            itemInDisplay.gameObject.name = item.itemName;
+            itemInDisplay.GetChild(0).GetComponent<Image>().sprite = item.sprite;
+            itemInDisplay.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+
+            itemInDisplay.GetComponent<Button>().onClick.RemoveAllListeners();
+            itemInDisplay.GetComponent<Button>().onClick.AddListener(() => SetDescription(item));
+        }
+    }
+
+    public void SetDescription(Item item)
+{
+    // Set item's texts
+    itemSprite.sprite = item.sprite;
+    itemName.text = item.itemName;
+    itemDesc.text = item.itemDescription;
+
+    // Set the "equip" button functionality
+     itemAction.onClick.RemoveAllListeners();
+    itemAction.onClick.AddListener(() =>
+    {
+        Debug.Log("itemAction clicked");
+        if (contohFlipCard != null)
+        {
+            Debug.Log("yeeeayy kesambung");
+            contohFlipCard.ShowDescription();
         }
         else
         {
-            itemUses = "EQUIP";
-            itemAction.interactable = true;
+            Debug.LogError("ga kesambung kontol !!!!");
         }
-        itemAction.GetComponentInChildren<TMP_Text>().text = itemUses;
+    });
+
+    switch (item.type)
+    {
+        case ItemType.Melee_Combat:
+            itemAction.onClick.AddListener(() =>
+            {
+                Player_Inventory.Instance.EquipItem(item, 0);
+                // SoundManager.Instance.PlaySound("PickUp");
+            });
+            break;
+        case ItemType.Ranged_Combat:
+            itemAction.onClick.AddListener(() =>
+            {
+                Player_Inventory.Instance.EquipItem(item, 1);
+                // SoundManager.Instance.PlaySound("PickUp");
+            });
+            break;
+        case ItemType.Heal:
+            itemAction.onClick.AddListener(() =>
+            {
+                Player_Inventory.Instance.AddQuickSlot(item, 0);
+                // SoundManager.Instance.PlaySound("PickUp");
+            });
+            break;
+        case ItemType.Buff:
+            itemAction.onClick.AddListener(() =>
+            {
+                Player_Inventory.Instance.AddQuickSlot(item, 1);
+                // SoundManager.Instance.PlaySound("PickUp");
+            });
+            break;
+        default:
+            break;
     }
+
+    // Set the "Equip" button according to item's type
+    string itemUses;
+    if (item.type == ItemType.Item)
+    {
+        itemUses = "CAN'T EQUIP";
+        itemAction.interactable = false;
+    }
+    else
+    {
+        itemUses = "EQUIP";
+        itemAction.interactable = true;
+    }
+    itemAction.GetComponentInChildren<TMP_Text>().text = itemUses;
+}
 
 }

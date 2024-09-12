@@ -59,6 +59,7 @@ public class CardFlip : MonoBehaviour
             float t = elapsedTime / duration;
             frontSide.transform.rotation = Quaternion.Euler(Vector3.Lerp(frontStartRotation, frontEndRotation, t));
             backSide.transform.rotation = Quaternion.Euler(Vector3.Lerp(backStartRotation, backEndRotation, t));
+            Debug.Log($"Animating... t: {t} elapsedTime: {elapsedTime} deltaTime: {Time.deltaTime}");
             elapsedTime += Time.deltaTime;
             yield return null;
         }

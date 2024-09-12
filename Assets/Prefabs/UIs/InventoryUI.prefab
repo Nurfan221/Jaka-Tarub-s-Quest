@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7790693175074681335}
   - component: {fileID: 293141000563121513}
   m_Layer: 5
-  m_Name: PauseButton
+  m_Name: Close inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 66.1039, y: 56.55951}
+  m_AnchoredPosition: {x: 61, y: 29}
   m_SizeDelta: {x: 134.691, y: 130.943}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &4594147006893145413
@@ -1571,10 +1571,10 @@ RectTransform:
   - {fileID: 8680487239251697590}
   m_Father: {fileID: 2560615980576877050}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 75, y: -75}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4355456520682370894
 CanvasRenderer:
@@ -1657,7 +1657,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6691726985383444847}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5040801012867731124}
+        m_TargetAssemblyTypeName: ContohFlipCard, Assembly-CSharp
+        m_MethodName: FlipCard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4164975637903402870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,6 +1732,9 @@ MonoBehaviour:
   itemName: {fileID: 8869930622908574026}
   itemDesc: {fileID: 2806293387112027057}
   itemAction: {fileID: 2611578454042883562}
+  ContentGO6: {fileID: 0}
+  SlotTemplate6: {fileID: 0}
+  contohFlipCard: {fileID: 5040801012867731124}
 --- !u!1 &4376393876429807435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,13 +1746,14 @@ GameObject:
   - component: {fileID: 2753969031270658134}
   - component: {fileID: 3370115623261961459}
   - component: {fileID: 6394375202680570921}
+  - component: {fileID: 5040801012867731124}
   m_Layer: 5
   m_Name: ItemActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2753969031270658134
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1797,6 +1813,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5040801012867731124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376393876429807435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd52d0488dec41142921348ecb2d9af3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frontSide: {fileID: 9178971032302750362}
+  backSide: {fileID: 9094427867676508013}
+  flipButton: {fileID: 7876152122611260957}
+  Description: 0
 --- !u!1 &5099324335844945166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2418,8 +2450,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00047112, y: 69.622}
-  m_SizeDelta: {x: 430.13, y: 189.766}
+  m_AnchoredPosition: {x: 0.0010223, y: 74}
+  m_SizeDelta: {x: 215.07, y: 189.766}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1784927077558723451
 CanvasRenderer:
@@ -2629,11 +2661,11 @@ MonoBehaviour:
   m_fontSize: 30
   m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 32
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3266,8 +3298,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.002532959, y: -0.00033569}
-  m_SizeDelta: {x: -0.0048828, y: 564.84}
+  m_AnchoredPosition: {x: 0, y: -0.0010613}
+  m_SizeDelta: {x: 0.00012207, y: 564.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6171052569983773833
 CanvasRenderer:
@@ -3284,7 +3316,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9178971032302750362}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

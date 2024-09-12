@@ -9,12 +9,12 @@ public class Player_Action : MonoBehaviour
     public static Player_Action Instance;
 
     #region KEYBINDINGS
-    KeyCode normalInput = KeyCode.Mouse0;
-    KeyCode specialInput = KeyCode.Mouse1;
     KeyCode actionInput = KeyCode.F;
+    
 
     KeyCode quickSlot1 = KeyCode.Q;
     KeyCode quickSlot2 = KeyCode.E;
+
     #endregion
 
     #region COMBAT
@@ -50,10 +50,55 @@ public class Player_Action : MonoBehaviour
     [SerializeField] bool drawInteractCircle;
     [SerializeField] LayerMask interactablesLayer;
     [SerializeField] float interactsRadius = 2f;
+
+    public Button buttonAttack;
+    public Button specialAttack;
+
+    public Button buttonUse;
+
+    
     bool canInteract = false;
     Interactable interactable;
     #endregion
 
+
+    void Start()
+    {
+        if (buttonAttack != null)
+        {
+            buttonAttack.onClick.AddListener(OnAttackButtonClick);
+        }
+
+        if (specialAttack != null)
+        {
+            specialAttack.onClick.AddListener(OnSpecialAttackButtonClick);
+        }
+
+        if (buttonUse!= null)
+        {
+            buttonUse.onClick.AddListener(OnUseButtonClick);
+        }
+
+      PlayerUI playerUI = FindObjectOfType<PlayerUI>();
+
+        if (playerUI != null)
+        {
+            if (playerUI.actionInputButton != null)
+            {
+                playerUI.actionInputButton.onClick.AddListener(OnActionInputButtonClick);
+            }
+            else
+            {
+                Debug.LogError("actionInputButton is null in PlayerUI");
+            }
+        }
+        else
+        {
+            Debug.LogError("PlayerUI not found");
+        }
+
+
+    }
 
     private void Awake()
     {
@@ -62,28 +107,14 @@ public class Player_Action : MonoBehaviour
 
     void Update()
     {
-        if (GameController.Instance.enablePlayerInput)
+        
         {
             #region INPUTS_ACTION
             // Main Action (Attacking)
-            if (Input.GetKeyDown(normalInput))
-            {
-                if (combatMode && canAttack)
-                {
-                    Attack();
-                }
-            }
+          
 
             // Secondary Action (Sepcial Attacking)
-            if (Input.GetKeyDown(specialInput))
-            {
-                if (combatMode && canAttack && canSpecialAttack)
-                {
-                    canSpecialAttack = false;
-                    SpecialAttack();
-                    StartCoroutine(HandleUICD(PlayerUI.Instance.specialAttackUI, Player_Inventory.Instance.equippedWeapon.SpecialAttackCD));
-                }
-            }
+           
 
             // Quick slots
             HandleQuickSLotUI(0);
@@ -93,7 +124,7 @@ public class Player_Action : MonoBehaviour
                 if (Player_Inventory.Instance.quickSlots[0] != null)
                 {
                     Player_Inventory.Instance.UseQuickSlot(1);
-                    StartCoroutine(HandleUICD(PlayerUI.Instance.quickSlotsUI_HUD[0], quickSlotCD));
+                    // StartCoroutine(HandleUICD(PlayerUI.Instance.quickSlotsUI_HUD[0], quickSlotCD));
                 }
             }
             HandleQuickSLotUI(1);
@@ -103,7 +134,7 @@ public class Player_Action : MonoBehaviour
                 if (Player_Inventory.Instance.quickSlots[1] != null)
                 {
                     Player_Inventory.Instance.UseQuickSlot(2);
-                    StartCoroutine(HandleUICD(PlayerUI.Instance.quickSlotsUI_HUD[1], quickSlotCD));
+                    // StartCoroutine(HandleUICD(PlayerUI.Instance.quickSlotsUI_HUD[1], quickSlotCD));
                 }
             }
 
@@ -129,7 +160,7 @@ public class Player_Action : MonoBehaviour
         if (!canQuickSlots[i])
         {
             quickSlotsTimer[i] += Time.deltaTime;
-            PlayerUI.Instance.quickSlotsUI_HUD[i].fillAmount = quickSlotsTimer[i] / quickSlotCD;
+            // PlayerUI.Instance.quickSlotsUI_HUD[i].fillAmount = quickSlotsTimer[i] / quickSlotCD;
             if (quickSlotsTimer[i] > quickSlotCD)
             {
                 quickSlotsTimer[i] = 0;
@@ -190,9 +221,70 @@ public class Player_Action : MonoBehaviour
         return false;
     }
 
+    public void OnActionInputButtonClick(){
+        if (canInteract)
+        {
+          interactable.BaseInteract();
+          Debug.Log("actionInputButton on click");
+        }
+    }
+
 
 
     #region COMBAT_ACTIONS
+
+    private void OnAttackButtonClick()
+    {
+        if (combatMode && canAttack)
+        {
+            Attack();
+        }
+    }
+
+    private void OnSpecialAttackButtonClick()
+    {
+        if (combatMode && canAttack && canSpecialAttack)
+            {
+                canSpecialAttack = false;
+                 SpecialAttack();
+                 StartCoroutine(HandleUICD(PlayerUI.Instance.specialAttackUI, Player_Inventory.Instance.equippedWeapon.SpecialAttackCD));
+            }
+    }
+
+   private void OnUseButtonClick()
+    {
+        Player_Inventory player_inventory = FindObjectOfType<Player_Inventory>();
+
+        // Pastikan player_inventory ada
+        if (player_inventory != null)
+        {
+            // Cek apakah quickSlot[0] berisi item dan itemUse1 adalah true
+            if (player_inventory.quickSlots[0] != null && player_inventory.itemUse1)
+            {
+                // Gunakan quick slot 1
+                Player_Inventory.Instance.UseQuickSlot(1);
+                StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
+                Debug.Log("Menggunakan item dari quick slot 1");
+            }
+            // Jika quickSlot[0] kosong atau itemUse1 false, cek quickSlot[1]
+            else if (player_inventory.quickSlots[1] != null)
+            {
+                // Gunakan quick slot 2
+                Player_Inventory.Instance.UseQuickSlot(2);
+                StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
+                Debug.Log("Menggunakan item dari quick slot 2");
+            }
+            else
+            {
+                Debug.Log("Tidak ada item yang bisa digunakan.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player_Inventory tidak ditemukan.");
+        }
+    }
+
 
     IEnumerator HandleSpecialAttackCD(float dur)
     {
@@ -319,7 +411,7 @@ public class Player_Action : MonoBehaviour
             StartCoroutine(HandleSpecialAttackCD(itemToAttack.SpecialAttackCD));
             if (itemToAttack.itemName == "Penyiram Tanaman")
             {
-                SoundManager.Instance.PlaySound("Siram");
+                // SoundManager.Instance.PlaySound("Siram");
                 print("watering plants");
                 WaterNearbyPlants();
             }

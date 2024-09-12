@@ -11,14 +11,16 @@ public class PlayerUI : MonoBehaviour
     public Image dashUI;
 
     public Image specialAttackUI;
-    public Image[] quickSlotsUI_HUD = new Image[2];
+    
     public TMP_Text promptText;
 
     public Image healthUI;
     public Image staminaUI;
 
     public Image equippedUI;
-    public Image[] quickSlotsUI_Inventory = new Image[2];
+    public Image itemUseUI;
+    public Button actionInputButton; ///
+    // public Image[] quickSlotsUI_Inventory = new Image[2];
     public GameObject inventoryUI;
 
     public TMP_Text currentQuestText;
