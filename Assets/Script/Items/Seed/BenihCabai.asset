@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
+  m_Name: BenihCabai
+  m_EditorClassIdentifier: 
+  itemName: Benih Cabai
+  type: 4
+  category: 10
+  sprite: {fileID: 21300000, guid: 8ee8449bf8153b6449f262d97b3b2521, type: 3}
+  itemDescription: beih untuk buah termanis
+  QuantityFuel: 0
+  Level: 1
+  MaxLevel: 0
+  Damage: 0
+  AreaOfEffect: 0
+  SpecialAttackCD: 0
+  SpecialAttackStamina: 0
+  UpgradeCost: 0
+  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  isStackable: 1
+  stackCount: 1
+  BuyValue: 0
+  SellValue: 0
+  BurningTime: 0
+  CookTime: 0
+  growthTime: 9
+  growthImages:
+  - {fileID: 21300000, guid: 277bc0ab817f1064cb3bb24de4e43de0, type: 3}
+  - {fileID: 21300000, guid: 7df15aef90504274999b604d71cb93a8, type: 3}
+  - {fileID: 21300000, guid: 537fcc645b177794b8c01828c540b066, type: 3}
+  plantPrefab: {fileID: 2120680195082938319, guid: 329268e891fe0f5408eb97a6158e7804, type: 3}
+  dropItem: {fileID: 4459120725376062254, guid: c31340b66beefb34c856f129319c3407, type: 3}

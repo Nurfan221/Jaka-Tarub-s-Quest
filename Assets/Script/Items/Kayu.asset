@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Kayu
   type: 4
+  category: 2
   sprite: {fileID: 21300000, guid: bbe41c8ebde5ab446927d492cf7a2e0e, type: 3}
   itemDescription: dari mukul pohon tpi pohonnya ga hancur
+  QuantityFuel: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -28,3 +30,5 @@ MonoBehaviour:
   stackCount: 1
   BuyValue: 100
   SellValue: 100
+  BurningTime: 5
+  CookTime: 0

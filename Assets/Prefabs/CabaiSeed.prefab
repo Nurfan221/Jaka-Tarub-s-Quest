@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1926727346964493745}
   - component: {fileID: 2733230255810905508}
   - component: {fileID: 9206981023511161924}
-  - component: {fileID: 4863667371651220497}
-  - component: {fileID: 844028588475844384}
+  - component: {fileID: 2375128868307419422}
+  - component: {fileID: 2262402367362025452}
   m_Layer: 8
-  m_Name: Cabai 1
+  m_Name: CabaiSeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0030587018, y: -0.016029477}
@@ -134,7 +134,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.48001188, y: 0.54477525}
   m_EdgeRadius: 0
---- !u!114 &4863667371651220497
+--- !u!114 &2375128868307419422
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,30 +143,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 2120680195082938319}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76b279178199cc242a16388409039c53, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d0cc03c1d4abb647a53ba144d4dbb6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReadyToHarvest: 0
+  currentStage: 0
   siram: 0
-  growthSprites:
-  - {fileID: 21300000, guid: 277bc0ab817f1064cb3bb24de4e43de0, type: 3}
-  - {fileID: 21300000, guid: 7df15aef90504274999b604d71cb93a8, type: 3}
-  - {fileID: 21300000, guid: 537fcc645b177794b8c01828c540b066, type: 3}
---- !u!114 &844028588475844384
+  isReadyToHarvest: 0
+  growthImages: []
+  growthTime: 0
+  growthSpeed: 0
+  growthTimer: 0
+  namaSeed: 
+  dropItem: {fileID: 0}
+  farmTile: {fileID: 0}
+--- !u!114 &2262402367362025452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120680195082938319}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4feacc05248dc73439894c2ff8dc30fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: 
-  seed: {fileID: 4863667371651220497}
+  seedManager: {fileID: 2375128868307419422}
 --- !u!1 &2681367960847632910
 GameObject:
   m_ObjectHideFlags: 0

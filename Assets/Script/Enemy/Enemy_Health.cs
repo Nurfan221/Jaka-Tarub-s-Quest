@@ -107,7 +107,8 @@ public class Enemy_Health : MonoBehaviour
         if (CanDrop)
         {
             if (Random.Range(0, 100) <= DropChance)
-                ItemPool.Instance.DropItem(ItemDrop, transform.position);
+                // ItemPool.Instance.DropItem(ItemDrop, transform.position);
+                Debug.Log("jatuhkan item dari enemy");
         }
     }
 

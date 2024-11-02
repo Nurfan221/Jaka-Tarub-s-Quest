@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
-  m_Name: DagingPanggang
+  m_Name: Cangkul
   m_EditorClassIdentifier: 
-  itemName: Daging Panggang
-  type: 3
-  category: 4
-  sprite: {fileID: 21300000, guid: 69e696105ccd83d489b74710b7ee8b45, type: 3}
-  itemDescription: 'Sapi yang di masak namun sedikit gosong '
+  itemName: Cangkul
+  type: 0
+  category: 8
+  sprite: {fileID: 21300000, guid: 943c09509834072439edb5c2f51106b8, type: 3}
+  itemDescription: mari mencangkul dunia
   QuantityFuel: 0
   Level: 1
-  MaxLevel: 0
-  Damage: 0
-  AreaOfEffect: 0
+  MaxLevel: 1
+  Damage: 10
+  AreaOfEffect: 5
   SpecialAttackCD: 0
-  SpecialAttackStamina: 0
-  UpgradeCost: 0
+  SpecialAttackStamina: 10
+  UpgradeCost: 500
   RangedWeapon_ProjectilePrefab: {fileID: 0}
-  isStackable: 1
+  isStackable: 0
   stackCount: 1
-  BuyValue: 100
-  SellValue: 100
+  BuyValue: 500
+  SellValue: 500
   BurningTime: 0
-  CookTime: 5
+  CookTime: 0

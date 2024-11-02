@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public enum ItemType
 {
     Melee_Combat,
@@ -11,15 +10,32 @@ public enum ItemType
     Quest
 }
 
+public enum ItemCategory
+{
+    Fruit,
+    Meat,
+    Fuel,
+    Vegetable,
+    Food,
+    Drink,
+    Medicine,
+    Ammo,
+    Weapon,
+    Crafting_Material,
+    Seed
+}
+
 [CreateAssetMenu(menuName = "Make an Item")]
 public class Item : ScriptableObject
 {
     [Header("STATS")]
     public string itemName;
     public ItemType type;
+    public ItemCategory category;
     public Sprite sprite;
     [TextArea]
     public string itemDescription;
+    public int QuantityFuel;
 
     // Combat Item
     [Header("COMBAT")]
@@ -38,4 +54,13 @@ public class Item : ScriptableObject
     public int stackCount;
     public int BuyValue;
     public int SellValue;
+    public int BurningTime;
+    public int CookTime;
+
+    // Seed Properties (khusus untuk benih)
+    [Header("SEED PROPERTIES")]
+    public float growthTime; // Lama pertumbuhan dalam detik
+    public Sprite[] growthImages; // Gambar untuk tiap tahap pertumbuhan
+    public GameObject plantPrefab; // Prefab tanaman yang akan tumbuh dari benih
+    public GameObject dropItem; //prefab untuk buah yang akan di hasilkan
 }

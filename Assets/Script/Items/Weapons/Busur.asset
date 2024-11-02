@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Busur
   type: 1
+  category: 8
   sprite: {fileID: 21300000, guid: d198d234d25532c449f7250996d8f8fb, type: 3}
   itemDescription: 'Menembak anak panah, tidak lebih
 
     Special Skill: Menembakkan
     5 anak panah sekaligus. Stamina: 15; Cd: 10'
+  QuantityFuel: 0
   Level: 1
   MaxLevel: 1
   Damage: 20

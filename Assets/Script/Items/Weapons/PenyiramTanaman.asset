@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Penyiram Tanaman
   type: 0
+  category: 8
   sprite: {fileID: 21300000, guid: 852fa4d32e9f42b4fa8ce8450634d236, type: 3}
   itemDescription: 'Ayolah, masa kalian tidak tahu item ini?
 
     Special skill:
     menyiram tanaman; Stamina: 1'
+  QuantityFuel: 0
   Level: 1
   MaxLevel: 1
   Damage: 1

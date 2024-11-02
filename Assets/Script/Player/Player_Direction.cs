@@ -7,7 +7,12 @@ public class Player_Direction : MonoBehaviour
     public static Player_Direction Instance;
     public Transform Target;
 
-    [SerializeField] Transform arrow;
+    [SerializeField] private Transform arrow; // Tetap private
+
+    public float ArrowRotationZ // Getter untuk rotasi arrow
+    {
+        get { return arrow.eulerAngles.z; }
+    }
 
     private void Awake()
     {
@@ -31,3 +36,4 @@ public class Player_Direction : MonoBehaviour
         }
     }
 }
+

@@ -11,6 +11,9 @@ public class Seed : MonoBehaviour
     private int maxGrowthCount = 2; // Jumlah pertumbuhan maksimum sebelum panen
     private float growthTime = 10f; // Waktu pertumbuhan dalam detik
 
+    public string namaSeed;
+    public GameObject dropItem;
+
     private SpriteRenderer spriteRenderer;
 
     private void Start()
@@ -19,6 +22,13 @@ public class Seed : MonoBehaviour
         transform.GetChild(1).GetComponent<ParticleSystem>().Stop();
         spriteRenderer = GetComponent<SpriteRenderer>();
         StartCoroutine(Grow());
+    }
+
+      // Fungsi untuk inisialisasi properti Seed berdasarkan Item
+    public void InitializeSeed(string itemName, GameObject itemDropPrefab)
+    {
+        namaSeed = itemName;
+        dropItem = itemDropPrefab;
     }
 
     private IEnumerator Grow()
@@ -63,7 +73,7 @@ public class Seed : MonoBehaviour
                 SoundManager.Instance.PlaySound("Pick");
             Debug.Log("Biji dipanen!");
             // Drop item menggunakan ItemPool
-            ItemPool.Instance.DropItem("BuahCabai", transform.position + new Vector3(0, 0.5f, 0));
+            ItemPool.Instance.DropItem(dropItem.name, transform.position + new Vector3(0, 0.5f, 0), dropItem);
             // Atur ulang fase pertumbuhan ke awal dan lain-lain...
 
             growthCount = 0;

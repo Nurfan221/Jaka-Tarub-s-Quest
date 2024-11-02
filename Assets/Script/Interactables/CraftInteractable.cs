@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CraftInteractable : Interactable
 {
-    [SerializeField] CraftUI craftUI;
+    [SerializeField] Craft craft;
     protected override void Interact()
     {
-        craftUI.OpenCraft();
+        craft.OpenCraft();
     }
 }

@@ -42,6 +42,10 @@ public class InventoryUI : MonoBehaviour
         // Any initial setup can be added here
          
     }
+    // private void update()
+    // {
+    //     UpdateSixItemDisplay();
+    // }
 
     private void OnEnable()
     {
@@ -82,6 +86,7 @@ public class InventoryUI : MonoBehaviour
         {
             SetDescription(Player_Inventory.Instance.emptyItem);
         }
+        Debug.Log("Inventory has running");
     }
 
     void RefreshActiveItems()
@@ -104,11 +109,21 @@ public class InventoryUI : MonoBehaviour
     public void SetInventory(List<Item> items)
     {
         this.Items = items;
+
+        // Jika item kosong, tidak perlu lanjutkan refresh
+        if (items == null || items.Count == 0)
+        {
+            Debug.Log("No items to display in the inventory");
+            UpdateSixItemDisplay();  // Tetap update untuk bersihkan display jika kosong
+            return;
+        }
+
         RefreshInventoryItems();
         UpdateSixItemDisplay();
     }
 
-    void RefreshInventoryItems()
+
+    public void RefreshInventoryItems()
     {
         RefreshActiveItems();
         foreach (Transform child in ContentGO)
@@ -127,10 +142,12 @@ public class InventoryUI : MonoBehaviour
 
             itemInInventory.GetComponent<Button>().onClick.RemoveAllListeners();
             itemInInventory.GetComponent<Button>().onClick.AddListener(() => SetDescription(item));
+             // Cek apakah item kategori Seed, jika iya tambahkan SeedDragHandler ke objek UI
+           
         }
     }
 
-    void UpdateSixItemDisplay()
+    public void UpdateSixItemDisplay()
     {
         // Clear existing items in the 6-item display
         foreach (Transform child in ContentGO6)
@@ -139,24 +156,40 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        // Cek apakah item kosong atau tidak
+        if (Items == null || Items.Count == 0)
+        {
+            // Debug.Log("No items to display");
+            return;
+        }
+
         int itemCount = Mathf.Min(6, Items.Count);
         for (int i = 0; i < itemCount; i++)
         {
             Item item = Items[i];
+            if (item == null) continue; // Jika item null, skip
+
             Transform itemInDisplay = Instantiate(SlotTemplate6, ContentGO6);
             itemInDisplay.gameObject.SetActive(true);
             itemInDisplay.gameObject.name = item.itemName;
-            itemInDisplay.GetChild(0).GetComponent<Image>().sprite = item.sprite;
+            
+            // Cek jika sprite item tidak null
+            if (item.sprite != null)
+            {
+                itemInDisplay.GetChild(0).GetComponent<Image>().sprite = item.sprite;
+            }
+
+            // Cek jika stackCount tidak null
             itemInDisplay.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
 
-            itemInDisplay.GetComponent<Button>().onClick.RemoveAllListeners();
-            itemInDisplay.GetComponent<Button>().onClick.AddListener(() => SetDescription(item));
+            
         }
     }
 
     public void SetDescription(Item item)
 {
-    // Set item's texts
+
+   // Set item's texts
     itemSprite.sprite = item.sprite;
     itemName.text = item.itemName;
     itemDesc.text = item.itemDescription;
@@ -173,7 +206,7 @@ public class InventoryUI : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ga kesambung kontol !!!!");
+            Debug.LogError("ga kesambung");
         }
     });
 
@@ -208,12 +241,21 @@ public class InventoryUI : MonoBehaviour
             });
             break;
         default:
+           if (item.category == ItemCategory.Seed)
+        {
+            itemAction.onClick.AddListener(() =>
+            {
+                // Logika khusus untuk kategori 'seed'
+                 Player_Inventory.Instance.EquipItem(item, 0);
+                // SoundManager.Instance.PlaySound("PlantSeed");
+            });
+        }
             break;
     }
 
     // Set the "Equip" button according to item's type
     string itemUses;
-    if (item.type == ItemType.Item)
+    if (item.type == ItemType.Item && item.category != ItemCategory.Seed)
     {
         itemUses = "CAN'T EQUIP";
         itemAction.interactable = false;
@@ -225,5 +267,6 @@ public class InventoryUI : MonoBehaviour
     }
     itemAction.GetComponentInChildren<TMP_Text>().text = itemUses;
 }
+
 
 }

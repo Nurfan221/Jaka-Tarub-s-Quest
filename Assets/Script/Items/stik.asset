@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
-  m_Name: DagingPanggang
+  m_Name: stik
   m_EditorClassIdentifier: 
-  itemName: Daging Panggang
-  type: 3
-  category: 4
-  sprite: {fileID: 21300000, guid: 69e696105ccd83d489b74710b7ee8b45, type: 3}
-  itemDescription: 'Sapi yang di masak namun sedikit gosong '
+  itemName: Stik
+  type: 4
+  category: 9
+  sprite: {fileID: 21300000, guid: bbe41c8ebde5ab446927d492cf7a2e0e, type: 3}
+  itemDescription: dari mukul pohon tpi pohonnya ga hancur
   QuantityFuel: 0
   Level: 1
   MaxLevel: 0
@@ -30,5 +30,9 @@ MonoBehaviour:
   stackCount: 1
   BuyValue: 100
   SellValue: 100
-  BurningTime: 0
-  CookTime: 5
+  BurningTime: 5
+  CookTime: 0
+  growthTime: 0
+  growthImages: []
+  plantPrefab: {fileID: 0}
+  dropItem: {fileID: 0}

@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class PlantInteractable : Interactable
 {
-    public Seed seed; // Changed to public to be accessible
+    public SeedManager seedManager; // Changed to public to be accessible
 
     private void Start()
     {
-        seed = GetComponent<Seed>();
+        seedManager = GetComponent<SeedManager>();
     }
 
     private void Update()
     {
-        if (seed.isReadyToHarvest)
-        {
-            promptMessage = "Panen Tanaman";
-        }
-        else
-        {
-            promptMessage = "";
-        }
+        // if (SeedManager.isReadyToHarvest)
+        // {
+        //     promptMessage = "Panen Tanaman";
+        // }
+        // else
+        // {
+        //     promptMessage = "";
+        // }
     }
 
     protected override void Interact()
     {
-        if (seed.isReadyToHarvest)
+        if (seedManager.isReadyToHarvest)
         {
-            seed.Harvest();
+            seedManager.Harvest();
         }
     }
 }

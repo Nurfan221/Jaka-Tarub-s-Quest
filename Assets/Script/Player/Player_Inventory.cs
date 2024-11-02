@@ -11,6 +11,8 @@ public class Player_Inventory : MonoBehaviour
 
     public List<Item> itemList;
 
+    private int maxItem = 17;
+
     [SerializeField] private Button switchWeaponImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     [SerializeField] private Button switchUseItemImage; // Referensi ke Image yang digunakan untuk mengganti senjata
 
@@ -25,12 +27,15 @@ public class Player_Inventory : MonoBehaviour
     [HideInInspector] public List<Item> quickSlots = new List<Item>(2);
 
     InventoryUI inventoryUI;
+    Player_Action playerAction;
     [HideInInspector] public bool inventoryOpened;
     [HideInInspector] public bool inventoryClosed;
 
     [SerializeField] ParticleSystem healParticle;
     public Button inventoryButton;  // Drag and drop the button in the inspector
     public Button closeInventoryButton;  // Drag and drop the close button in the inspector
+
+   
 
     private void Awake()
     {
@@ -52,6 +57,7 @@ public class Player_Inventory : MonoBehaviour
     private void Start()
     {
         inventoryUI = PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>();
+        Player_Action playerAction = FindObjectOfType<Player_Action>();
         inventoryButton.onClick.AddListener(ToggleInventory); // Add listener to button
         closeInventoryButton.onClick.AddListener(CloseInventory); // Add listener to close button
 
@@ -100,6 +106,11 @@ public class Player_Inventory : MonoBehaviour
 
             UpdateEquippedWeaponUI();
             UpdateItemUseUI();
+            // inventoryUI.UpdateSixItemDisplay();
+
+             
+
+           
     }
 
 
@@ -117,14 +128,19 @@ public class Player_Inventory : MonoBehaviour
     if (inventoryOpened)
     {
         GameController.Instance.PauseGame();
+        Instance.AddItem(ItemPool.Instance.GetItem("Benih Cabai"));
         Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
         Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
         Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
         Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Daging Panggang"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Daging Panggang"));
+        Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
+        Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
+        Instance.AddItem(ItemPool.Instance.GetItem("Daging Sapi"));
+        Instance.AddItem(ItemPool.Instance.GetItem("Daging Sapi"));
         Instance.AddItem(ItemPool.Instance.GetItem("Pedang Ren"));
         Instance.AddItem(ItemPool.Instance.GetItem("Penyiram Tanaman"));
+        Instance.AddItem(ItemPool.Instance.GetItem("Cangkul"));
+        Instance.AddItem(ItemPool.Instance.GetItem("Stik"));
         inventoryUI.UpdateInventoryUI(); // Update UI when inventory is opened
     }
     else
@@ -149,14 +165,20 @@ public class Player_Inventory : MonoBehaviour
     public void AddItem(Item item)
     {
         item = Instantiate(item);
+       if (itemList.Count <= maxItem)
+       {
         if (item.isStackable && itemList.Exists(x => x.itemName == item.itemName))
-        {
-            itemList.Find(x => x.itemName == item.itemName).stackCount++;
-        }
-        else
-        {
-            itemList.Add(item);
-        }
+            {
+                itemList.Find(x => x.itemName == item.itemName).stackCount++;
+            }
+            else
+            {
+                itemList.Add(item);
+            }
+       }else 
+       {
+        Debug.Log("inventory Penuh ");
+       }
 
         print(item.itemName + " added to inventory");
          // Update the inventory UI
@@ -273,15 +295,16 @@ public class Player_Inventory : MonoBehaviour
 
     private void UpdateEquippedWeaponUI()
     {
+        // Mengecek apakah ada senjata di slot melee/ranged (slot 0)
         if (meleeOrRanged && equippedCombat[0] != null)
         {
             equippedWeapon = equippedCombat[0];
             if (PlayerUI.Instance != null && PlayerUI.Instance.equippedUI != null)
             {
                 PlayerUI.Instance.equippedUI.sprite = equippedWeapon.sprite;
-                // print("uhuyyy kepakeee bangsatttt");
             }
         }
+        // Mengecek apakah ada senjata di slot kedua (slot 1)
         else if (equippedCombat[1] != null)
         {
             equippedWeapon = equippedCombat[1];
@@ -290,7 +313,37 @@ public class Player_Inventory : MonoBehaviour
                 PlayerUI.Instance.equippedUI.sprite = equippedWeapon.sprite;
             }
         }
+        
+         // Jika slot 0 (melee/ranged) kosong, set default sprite
+       if (equippedCombat[0] == null)
+        {
+            Debug.Log("Item is not equipped in slot 0");
+            if (PlayerUI.Instance != null && PlayerUI.Instance.equippedUI != null)
+            {
+                if (playerAction != null)
+                    {
+                        // Sekarang Anda bisa mengakses metode atau properti di Player_Action
+                        playerAction.buttonAttack.gameObject.SetActive(false);  // Memanggil metode di Player_Action
+                    }
+                
+            }
+        }
+        // Jika slot 1 kosong, set default sprite
+        else if (equippedCombat[1] == null)
+        {
+            Debug.Log("Item is not equipped in slot 1");
+            if (PlayerUI.Instance != null && PlayerUI.Instance.equippedUI != null)
+            {
+                 if (playerAction != null)
+                    {
+                        // Sekarang Anda bisa mengakses metode atau properti di Player_Action
+                        playerAction.buttonUse.gameObject.SetActive(false);  // Memanggil metode di Player_Action
+                    }
+            }
+        }
+         
     }
+
     private void UpdateItemUseUI()
     {
         if (itemUse1 && quickSlots[0] != null)

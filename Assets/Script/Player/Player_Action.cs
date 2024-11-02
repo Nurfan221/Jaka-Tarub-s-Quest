@@ -47,10 +47,12 @@ public class Player_Action : MonoBehaviour
 
     #region INTERACTS
     [Header("INTERACTS")]
+
+    [SerializeField] private FarmTile farmTile;
+    // [SerializeField] private SeedManager seedManager;
     [SerializeField] bool drawInteractCircle;
     [SerializeField] LayerMask interactablesLayer;
     [SerializeField] float interactsRadius = 2f;
-
     public Button buttonAttack;
     public Button specialAttack;
 
@@ -59,6 +61,9 @@ public class Player_Action : MonoBehaviour
     
     bool canInteract = false;
     Interactable interactable;
+
+    [SerializeField] private Transform face; // Hubungkan di inspector
+
     #endregion
 
 
@@ -111,9 +116,10 @@ public class Player_Action : MonoBehaviour
         {
             #region INPUTS_ACTION
             // Main Action (Attacking)
-          
-
             // Secondary Action (Sepcial Attacking)
+
+
+
            
 
             // Quick slots
@@ -150,6 +156,17 @@ public class Player_Action : MonoBehaviour
                 }
             }
             #endregion
+        }
+    }
+
+    // cek apakah player bersentuhan dengan tanaman
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Cek apakah objek yang disentuh memiliki komponen SeedManager
+        SeedManager seedManager = other.GetComponent<SeedManager>();
+        if (seedManager != null)
+        {
+            seedManager.ShowSeedInfo(); // Panggil fungsi di prefab yang disentuh
         }
     }
 
@@ -195,18 +212,19 @@ public class Player_Action : MonoBehaviour
                 if (interactable is PlantInteractable plantInteractable)
                 {
                     // Check if the seed is ready to be watered
-                    if (plantInteractable.seed.siram)
-                    {
-                        PlayerUI.Instance.promptText.text = " klik kanan untuk " + interactable.promptMessage;
-                    }
-                    else if (plantInteractable.seed.isReadyToHarvest == false)
-                    {
-                        PlayerUI.Instance.promptText.text = interactable.promptMessage;
-                    }
-                    else
-                    {
-                        PlayerUI.Instance.promptText.text = "Tekan F untuk " + interactable.promptMessage;
-                    }
+                    // if (plantInteractable.seedInteractable.siram)
+                    // {
+                    //     PlayerUI.Instance.promptText.text = " klik kanan untuk " + interactable.promptMessage;
+                    // }
+                     if (plantInteractable.seedManager != null && !plantInteractable.seedManager.isReadyToHarvest)
+                        {
+                            PlayerUI.Instance.promptText.text = interactable.promptMessage;
+                        }
+                        else
+                        {
+                            PlayerUI.Instance.promptText.text = "Tekan untuk " + interactable.promptMessage;
+                        }
+
                 }
                 else
                 {
@@ -399,6 +417,8 @@ public class Player_Action : MonoBehaviour
         }
     }
 
+ 
+
 
     public void SpecialAttack()
     {
@@ -413,9 +433,41 @@ public class Player_Action : MonoBehaviour
             {
                 // SoundManager.Instance.PlaySound("Siram");
                 print("watering plants");
-                WaterNearbyPlants();
-            }
-            else if (itemToAttack.itemName == "Pedang Ren")
+                // WaterNearbyPlants();
+                Vector3 playerPosition = transform.position;
+                // ambil arah dari posisi face
+                Vector3 faceDirection = face.localPosition.normalized;
+                
+                
+                 // Radius deteksi di sekitar pemain
+                float detectionRadius = 1.5f;
+
+                // Mendeteksi semua objek dengan collider dalam radius
+                Collider2D[] nearbyObjects = Physics2D.OverlapCircleAll(playerPosition, detectionRadius);
+
+                // Mengecek setiap objek yang terdeteksi
+                foreach (var obj in nearbyObjects)
+                {
+                    SeedManager seedManager = obj.GetComponent<SeedManager>();
+                    if (seedManager != null && farmTile.siram == false)
+                    {
+                        farmTile.WaterTile(playerPosition, faceDirection);
+                        // Panggil ShowSeedInfo jika ada SeedManager
+                        seedManager.Siram();
+                    }
+                }
+
+            }else if (itemToAttack.itemName == "Cangkul")
+            {
+                print("mencangkul tanah");
+                Vector3 playerPosition = transform.position; // Posisi pemain
+
+                // Ambil arah dari posisi face
+                Vector3 faceDirection = face.localPosition.normalized;
+
+                // Panggil HoeTile menggunakan playerPosition dan arah face
+                farmTile.HoeTile(playerPosition, faceDirection);
+            }else if (itemToAttack.itemName == "Pedang Ren")
             {
 
                 print("buffing");
@@ -472,7 +524,7 @@ public class Player_Action : MonoBehaviour
             Seed seed = hitCollider.GetComponent<Seed>();
             if (seed != null)
             {
-                seed.Siram();
+                // seed.Siram();
             }
         }
     }
