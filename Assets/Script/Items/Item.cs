@@ -29,6 +29,7 @@ public enum ItemCategory
 public class Item : ScriptableObject
 {
     [Header("STATS")]
+    public int itemID;
     public string itemName;
     public ItemType type;
     public ItemCategory category;

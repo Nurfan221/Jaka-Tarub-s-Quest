@@ -122,7 +122,6 @@ public class InventoryUI : MonoBehaviour
         UpdateSixItemDisplay();
     }
 
-
     public void RefreshInventoryItems()
     {
         RefreshActiveItems();
@@ -132,20 +131,30 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (Item item in Items)
+        for (int i = 0; i < Items.Count; i++)
         {
+            Item item = Items[i];
             Transform itemInInventory = Instantiate(SlotTemplate, ContentGO);
             itemInInventory.gameObject.SetActive(true);
             itemInInventory.gameObject.name = item.itemName;
+
+            // Set sprite dan stack count
             itemInInventory.GetChild(0).GetComponent<Image>().sprite = item.sprite;
             itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
 
+            // Mengatur itemID berdasarkan indeks
+            ItemDragandDrop itemDragAndDrop = itemInInventory.GetComponent<ItemDragandDrop>();
+            if (itemDragAndDrop != null)
+            {
+                itemDragAndDrop.itemID = i; // Set itemID dengan indeks item
+            }
+
+            // Menambahkan listener untuk deskripsi item
             itemInInventory.GetComponent<Button>().onClick.RemoveAllListeners();
             itemInInventory.GetComponent<Button>().onClick.AddListener(() => SetDescription(item));
-             // Cek apakah item kategori Seed, jika iya tambahkan SeedDragHandler ke objek UI
-           
         }
     }
+
 
     public void UpdateSixItemDisplay()
     {
@@ -255,7 +264,7 @@ public class InventoryUI : MonoBehaviour
 
     // Set the "Equip" button according to item's type
     string itemUses;
-    if (item.type == ItemType.Item && item.category != ItemCategory.Seed)
+    if (item.type == ItemType.Item )
     {
         itemUses = "CAN'T EQUIP";
         itemAction.interactable = false;

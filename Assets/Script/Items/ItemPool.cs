@@ -13,6 +13,12 @@ public class ItemPool : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        // Inisialisasi itemIDs berdasarkan urutan dalam list
+        for (int i = 0; i < items.Count; i++)
+        {
+            items[i].itemID = i + 1; // Mengatur itemID sesuai urutan, dimulai dari 1
+        }
     }
 
     public Item GetItem(string name, int count = 1, int level = 1)
@@ -31,7 +37,7 @@ public class ItemPool : MonoBehaviour
         }
     }
 
-    public void DropItem(string itemName, Vector2 pos, GameObject itemDrop , int count = 1, int level = 1)
+    public void DropItem(string itemName, Vector2 pos, GameObject itemDrop, int count = 1, int level = 1)
     {
         GameObject droppedItem = Instantiate(itemDrop, pos, Quaternion.identity);
 

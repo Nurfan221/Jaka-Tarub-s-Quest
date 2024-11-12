@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Besi
   m_EditorClassIdentifier: 
+  itemID: 4
   itemName: Besi
   type: 4
   category: 9
@@ -30,3 +31,9 @@ MonoBehaviour:
   stackCount: 1
   BuyValue: 100
   SellValue: 100
+  BurningTime: 0
+  CookTime: 0
+  growthTime: 0
+  growthImages: []
+  plantPrefab: {fileID: 0}
+  dropItem: {fileID: 0}

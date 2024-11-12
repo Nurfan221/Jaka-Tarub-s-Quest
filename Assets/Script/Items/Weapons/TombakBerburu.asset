@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: TombakBerburu
   m_EditorClassIdentifier: 
+  itemID: 21
   itemName: TombakBerburu
   type: 0
   category: 8
@@ -32,3 +33,7 @@ MonoBehaviour:
   SellValue: 500
   BurningTime: 0
   CookTime: 0
+  growthTime: 0
+  growthImages: []
+  plantPrefab: {fileID: 0}
+  dropItem: {fileID: 0}

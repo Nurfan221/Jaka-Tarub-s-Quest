@@ -23,16 +23,18 @@ public class SeedManager : MonoBehaviour
     public GameObject dropItem;
 
     public float timeSaatIni;
+     private TimeManager timeManager;
      private FarmTile farmTile;
 
 
 
      private void Start()
     {
-        // Misalnya mencari komponen FarmTile dari objek Tilemap
+        // Misalnya mencari komponen timeManager dari objek Tilemap
+        timeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
         farmTile = GameObject.Find("Tilemap").GetComponent<FarmTile>();
 
-        timeSaatIni = farmTile.time;
+        timeSaatIni = timeManager.date;
         
         if (currentStage == GrowthStage.Seed)
         {
@@ -113,7 +115,7 @@ public class SeedManager : MonoBehaviour
 
      public void ShowSeedInfo()
     {
-        Debug.Log("Nama Seed: " + namaSeed);
+        // Debug.Log("Nama Seed: " + namaSeed);
     }
 
    public void Harvest()
@@ -143,13 +145,13 @@ public class SeedManager : MonoBehaviour
 
     public void TanamanLayu()
     {
-        if (farmTile.siram == false && farmTile.time > timeSaatIni + 3)
+        if (farmTile.siram == false && timeManager.date > timeSaatIni + 3)
         {
             Destroy(gameObject, 0.5f);
             Debug.Log("tanaman layu ");
         }else 
         {
-            timeSaatIni = farmTile.time;
+            timeSaatIni = timeManager.date;
         }
     }
 

@@ -23,6 +23,8 @@ public class StorageUI : MonoBehaviour
     [SerializeField] Transform InventoryContainer;
     [SerializeField] Transform itemSlotTemplate;
 
+    [SerializeField] InventoryUI inventoryUI;
+
     [Header("Button Action")]
     
     // [SerializeField] Button itemAction;
@@ -117,6 +119,10 @@ public class StorageUI : MonoBehaviour
 
             itemInInventory.GetComponent<Button>().onClick.RemoveAllListeners();
             itemInInventory.GetComponent<Button>().onClick.AddListener(() => SetDescription(item, true));
+            storeAllItems.onClick.RemoveAllListeners();
+            storeAllItems.onClick.AddListener(()=> StoreAllItems());
+            storeAllItems.onClick.AddListener(() => RefreshInventoryItems());
+            inventoryUI.UpdateSixItemDisplay();
 
             // Menambahkan logika toggle opacity
             itemInInventory.GetComponent<Button>().onClick.AddListener(() =>
@@ -225,7 +231,8 @@ public class StorageUI : MonoBehaviour
         store1stack.onClick.RemoveAllListeners();
         takeButton.onClick.RemoveAllListeners();
         store1stack.onClick.RemoveAllListeners();
-        storeAllItems.onClick.RemoveAllListeners();
+      
+
 
        
         
@@ -233,7 +240,6 @@ public class StorageUI : MonoBehaviour
         {
             storeButton.onClick.AddListener(() => StoreItem(item));
             store1stack.onClick.AddListener(() => Store1stack(item));
-            storeAllItems.onClick.AddListener(()=> StoreAllItems());
             
         }
         else
@@ -306,7 +312,7 @@ public class StorageUI : MonoBehaviour
         
 
         // Add item to Storage
-        if (Items.Count <= maxItem)
+        if (Items.Count <= maxItem ||(item.isStackable && Items.Exists(x => x.itemName == item.itemName)) )
         {
             Debug.Log("jumlah item di dalam storage : " + Items.Count);
             if (item.isStackable && Items.Exists(x => x.itemName == item.itemName))
@@ -366,88 +372,21 @@ public class StorageUI : MonoBehaviour
     }
 
     public void StoreAllItems()
-{
-    // Menggunakan for loop agar aman saat memodifikasi list
-    for (int i = Player_Inventory.Instance.itemList.Count - 1; i >= 0; i--)
     {
-        Item item = Player_Inventory.Instance.itemList[i]; // Ambil item dari inventory
-        int stackCount = item.stackCount; // Jumlah item yang akan dipindahkan
+        // Buat salinan dari itemList untuk iterasi
+        var itemsToStore = new List<Item>(Player_Inventory.Instance.itemList);
 
-        // Jika ada item yang ingin disimpan dan jumlahnya lebih dari 0
-        if (stackCount > 0)
+        // Iterasi melalui semua item yang telah disalin
+        foreach (var item in itemsToStore)
         {
-            // Cek apakah item ini stackable
-            if (item.isStackable)
-            {
-                // Cek apakah sudah ada item yang sama dalam storage
-                Item existingItem = Items.Find(x => x.itemName == item.itemName);
-
-                if (existingItem != null)
-                {
-                    // Cek total item dalam storage setelah penambahan
-                    if (existingItem.stackCount + stackCount <= maxItem + 1)
-                    {
-                        existingItem.stackCount += stackCount; // Tambahkan jumlah stack
-                        for(i=1; i<=stackCount; i++){
-                            Player_Inventory.Instance.RemoveItem(item); // Hapus item dari inventory
-                        }
-                        Debug.Log("item sama, menambahkan item: " + item.itemName);
-                    }
-                    else
-                    {
-                        int spaceAvailable = maxItem - Items.Count; // Ruang yang tersedia
-                        if (spaceAvailable > 0)
-                        {
-                            // Menyimpan sebanyak mungkin hingga penuh
-                            existingItem.stackCount += spaceAvailable;
-                            item.stackCount -= spaceAvailable;
-                            if (item.stackCount <= 0)
-                            {
-                                Player_Inventory.Instance.RemoveItem(item); // Hapus item dari inventory jika habis
-                            }
-                        }
-                        else
-                        {
-                            Debug.Log("Storage penuh, tidak bisa menyimpan item: " + item.itemName);
-                        }
-                    }
-                }
-                else
-                {
-                    // Jika tidak ada item yang sama dan masih ada ruang
-                    if (Items.Count < maxItem)
-                    {
-                        Items.Add(item); // Tambahkan item ke storage
-                        Player_Inventory.Instance.RemoveItem(item); // Hapus item dari inventory
-                        Debug.Log("item baru ditambahkan: " + item.itemName);
-                    }
-                    else
-                    {
-                        Debug.Log("Storage penuh, tidak bisa menyimpan item: " + item.itemName);
-                    }
-                }
-            }
-            else
-            {
-                // Untuk item yang tidak stackable
-                if (Items.Count < maxItem)
-                {
-                    Items.Add(item); // Tambahkan item yang tidak stackable
-                    Player_Inventory.Instance.RemoveItem(item); // Hapus dari inventory
-                    Debug.Log("item tidak stackable ditambahkan: " + item.itemName);
-                }
-                else
-                {
-                    Debug.Log("Storage penuh, tidak bisa menyimpan item: " + item.itemName);
-                }
-            }
+            // Panggil StoreItem untuk setiap item
+            Store1stack(item);
         }
-    }
 
-    // Setelah semua item disimpan, segarkan tampilan inventory dan storage
-    RefreshInventoryItems();
-    Debug.Log("Semua item telah disimpan.");
-}
+        // Setelah semua item disimpan, segarkan tampilan inventory dan storage
+        RefreshInventoryItems();
+        Debug.Log("Semua item telah disimpan.");
+    }
 
 
 

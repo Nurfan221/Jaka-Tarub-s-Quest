@@ -115,40 +115,51 @@ public class Player_Inventory : MonoBehaviour
 
 
     private void ToggleInventory()
-{
-    if (SoundManager.Instance != null)
-        SoundManager.Instance.PlaySound("Click");
-
-    inventoryOpened = !inventoryOpened;
-    inventoryClosed = !inventoryOpened; // Update inventoryClosed
-    PlayerUI.Instance.inventoryUI.SetActive(inventoryOpened);
-
-    GameController.Instance.ShowPersistentUI(!inventoryOpened);
-
-    if (inventoryOpened)
     {
-        GameController.Instance.PauseGame();
-        Instance.AddItem(ItemPool.Instance.GetItem("Benih Cabai"));
-        Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Daging Sapi"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Daging Sapi"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Pedang Ren"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Penyiram Tanaman"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Cangkul"));
-        Instance.AddItem(ItemPool.Instance.GetItem("Stik"));
-        inventoryUI.UpdateInventoryUI(); // Update UI when inventory is opened
-    }
-    else
-    {
-        GameController.Instance.ResumeGame();
-    }
-}
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlaySound("Click");
 
+        inventoryOpened = !inventoryOpened;
+        inventoryClosed = !inventoryOpened; // Update inventoryClosed
+        PlayerUI.Instance.inventoryUI.SetActive(inventoryOpened);
+
+        GameController.Instance.ShowPersistentUI(!inventoryOpened);
+
+        if (inventoryOpened)
+        {
+            GameController.Instance.PauseGame();
+            Instance.AddItem(ItemPool.Instance.GetItem("Benih Cabai"));
+            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Daging Sapi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Daging Sapi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pedang Ren"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Penyiram Tanaman"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Cangkul"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Stik"));
+            inventoryUI.UpdateInventoryUI(); // Update UI when inventory is opened
+        }
+        else
+        {
+            GameController.Instance.ResumeGame();
+        }
+    }
+
+    public void SwapItems(int id1, int id2)
+    {
+        if (id1 < 0 || id1 >= itemList.Count || id2 < 0 || id2 >= itemList.Count)
+            return; // Pastikan ID valid
+
+        Item tempItem = itemList[id1];
+        itemList[id1] = itemList[id2];
+        itemList[id2] = tempItem;
+
+        // Opsional: Anda bisa menambahkan logika untuk mengupdate status item jika diperlukan
+    }
 
     private void CloseInventory()
     {

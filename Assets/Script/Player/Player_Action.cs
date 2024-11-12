@@ -433,29 +433,14 @@ public class Player_Action : MonoBehaviour
             {
                 // SoundManager.Instance.PlaySound("Siram");
                 print("watering plants");
-                // WaterNearbyPlants();
-                Vector3 playerPosition = transform.position;
-                // ambil arah dari posisi face
+                
+                Vector3 playerPosition = transform.position; // Posisi pemain
+
+                // Ambil arah dari posisi face
                 Vector3 faceDirection = face.localPosition.normalized;
-                
-                
-                 // Radius deteksi di sekitar pemain
-                float detectionRadius = 1.5f;
 
-                // Mendeteksi semua objek dengan collider dalam radius
-                Collider2D[] nearbyObjects = Physics2D.OverlapCircleAll(playerPosition, detectionRadius);
-
-                // Mengecek setiap objek yang terdeteksi
-                foreach (var obj in nearbyObjects)
-                {
-                    SeedManager seedManager = obj.GetComponent<SeedManager>();
-                    if (seedManager != null && farmTile.siram == false)
-                    {
-                        farmTile.WaterTile(playerPosition, faceDirection);
-                        // Panggil ShowSeedInfo jika ada SeedManager
-                        seedManager.Siram();
-                    }
-                }
+                // Panggil HoeTile menggunakan playerPosition dan arah face
+                farmTile.WaterTile(playerPosition, faceDirection);
 
             }else if (itemToAttack.itemName == "Cangkul")
             {
