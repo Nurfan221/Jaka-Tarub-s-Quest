@@ -9,7 +9,7 @@ public class FirstDialogueInteractable : Interactable
     protected override void Interact()
     {
         SoundManager.Instance.PlaySound("BGMDanau");
-        if (GameEventSystem.Instance.DoneDialogue_TamashiiGiveName && !GameEventSystem.Instance.DoneDialogue_DanauPertamaKeDesa)
-            DialogueSystem.Instance.StartDialogue(firDialogue);
+        // if (GameEventSystem.Instance.DoneDialogue_TamashiiGiveName && !GameEventSystem.Instance.DoneDialogue_DanauPertamaKeDesa)
+        //     DialogueSystem.Instance.StartDialogue(firDialogue);
     }
 }

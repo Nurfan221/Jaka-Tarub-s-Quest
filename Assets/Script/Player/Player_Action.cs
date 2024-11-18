@@ -228,7 +228,7 @@ public class Player_Action : MonoBehaviour
                 }
                 else
                 {
-                    PlayerUI.Instance.promptText.text = "Tekan F untuk " + interactable.promptMessage;
+                    PlayerUI.Instance.promptText.text = "Tekan untuk " + interactable.promptMessage;
                 }
 
                 return true;

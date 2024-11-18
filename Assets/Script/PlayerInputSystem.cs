@@ -12,7 +12,7 @@ public class PlayerInputSystem : MonoBehaviour
     public void InputPlayerName()
     {
         GameController.Instance.playerName = inputField.text;
-        DialogueSystem.Instance.StartDialogue(dialogueAfter);
+        // DialogueSystem.Instance.StartDialogue(dialogueAfter);
 
     }
 }

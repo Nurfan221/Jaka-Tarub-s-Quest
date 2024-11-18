@@ -6,6 +6,9 @@ public class TimeManager : MonoBehaviour
 {
     [SerializeField] private WeatherManager weatherManager;
     [SerializeField] private FarmTile farmTile;
+    [SerializeField] private NPCManager npcManager;
+    [SerializeField] private QuestManager questManager;
+    [SerializeField] private DialogueSystem dialogueSystem;
     [Header("Date & Time settings")]
     public int totalHari = 1;
     public int hari = 1;
@@ -33,6 +36,11 @@ public class TimeManager : MonoBehaviour
         {
             tickTimer = 0f;
             AdvanceTime();
+        }
+
+        if (hour >= 6 && hour <=24)
+        {
+            // npcManager.StartSchedule();
         }
     }
 
@@ -74,6 +82,8 @@ public class TimeManager : MonoBehaviour
         farmTile.CheckTile();
 
         farmTile.ResetWateredTiles();
+
+        questManager.CheckQuest();
     }
 
     private void UpdateSeason()

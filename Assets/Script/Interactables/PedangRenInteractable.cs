@@ -8,18 +8,18 @@ public class PedangRenInteractable : Interactable
 
     private void Update()
     {
-        if (GameEventSystem.Instance.DoneDialogue_FirstKakRen && !GameEventSystem.Instance.DoneDialogue_FirstBandit)
-            promptMessage = "Lihat Pedang";
-        else
-            promptMessage = " ";
+        // if (GameEventSystem.Instance.DoneDialogue_FirstKakRen && !GameEventSystem.Instance.DoneDialogue_FirstBandit)
+        //     promptMessage = "Lihat Pedang";
+        // else
+        //     promptMessage = " ";
 
     }
     protected override void Interact()
     {
-        if (GameEventSystem.Instance.DoneDialogue_FirstKakRen && !GameEventSystem.Instance.DoneDialogue_FirstBandit)
-        {
-            DialogueSystem.Instance.StartDialogue(pedangRenDialogue);
-            Destroy(gameObject);
-        }
+        // if (GameEventSystem.Instance.DoneDialogue_FirstKakRen && !GameEventSystem.Instance.DoneDialogue_FirstBandit)
+        // {
+        //     DialogueSystem.Instance.StartDialogue(pedangRenDialogue);
+        //     Destroy(gameObject);
+        // }
     }
 }

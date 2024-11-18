@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
-{
+{   
+    [SerializeField] QuestManager questManager;
     public static DialogueSystem Instance;
     string playerName;
 
-    [SerializeField] Dialogues[] theDialogues;
+    public Dialogues theDialogues;
     Dialogues currentDialogues;
     Queue<Dialogues.Dialogue> dialogues = new();
 
@@ -28,37 +29,46 @@ public class DialogueSystem : MonoBehaviour
             Instance = this;
     }
 
+    
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        
+    }
+
+    
+
+    public void CheckDialogue()
+    {
+         foreach (var quest in questManager.dailyQuest)
         {
-            StartDialogue(theDialogues[1]);
+            if (quest.questActive)
+            {
+                theDialogues = quest.dialogueQuest;
+                
+            }
         }
     }
-
-    public void StartFirstDialogue()
+    public void StartDialogue()
     {
-        StartDialogue(theDialogues[0]);
-    }
+        if (theDialogues == null)
+        {
+            Debug.LogWarning("Dialogue data belum di-set!");
+            return;
+        }
 
-    public void StartDialogue(Dialogues theDialogues)
-    {
         GameController.Instance.PauseGame();
-
         dialogueUI.SetActive(true);
         currentDialogues = theDialogues;
         firstSpeaker = theDialogues.mainSpeaker;
-        dialogues = new();
-        foreach (Dialogues.Dialogue dialogue in theDialogues.TheDialogues)
-        {
-            dialogues.Enqueue(dialogue);
-        }
+        dialogues = new Queue<Dialogues.Dialogue>(theDialogues.TheDialogues);
 
         NextButton.onClick.RemoveAllListeners();
         NextButton.onClick.AddListener(NextDialogue);
 
         NextDialogue();
     }
+
 
     public void NextDialogue()
     {

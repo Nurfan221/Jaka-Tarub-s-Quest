@@ -44,9 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e779b7d43fdd194e8765319deb22ca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theDialogues:
-  - {fileID: 11400000, guid: 153ff6b619192ed478b5e08b2eb3a87f, type: 2}
-  - {fileID: 11400000, guid: 7585a1b4dae62f744a7f9fb0adcff3f4, type: 2}
+  theDialogues: []
   dialogueSpd: 1
   dialogueUI: {fileID: 0}
   speakersText:

@@ -36,11 +36,11 @@ public class ForestController : MonoBehaviour
         if (!GameController.NewGame)
             GameController.Instance.LoadGame();
 
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        if (!GameEventSystem.Instance.DoneFirstNarration)
-        {
-            DialogueSystem.Instance.StartFirstDialogue();
-        }
+        // player = GameObject.FindGameObjectWithTag("Player").transform;
+        // if (!GameEventSystem.Instance.DoneFirstNarration)
+        // {
+        //     DialogueSystem.Instance.StartFirstDialogue();
+        // }
         else
         {
             if (GameController.Instance.fromPortal)
@@ -57,7 +57,7 @@ public class ForestController : MonoBehaviour
             if (FirstSpawner.GetComponent<Enemy_Spawner>().enemies.Count == 0)
             {
                 firstSpawnerDefeated = true;
-                DialogueSystem.Instance.StartDialogue(danauKetenanganDialogue);
+                // DialogueSystem.Instance.StartDialogue(danauKetenanganDialogue);
             }
         }
     }

@@ -211,14 +211,14 @@ public class GameController : MonoBehaviour
         if (data.currentQuest != string.Empty)
             Player_Quest.Instance.SetQuest(data.currentQuest);
 
-        GameEventSystem.Instance.DoneFirstNarration = data.gameEvent_DoneFirstNarration;
-        GameEventSystem.Instance.DoneDialogue_TamashiiGiveName = data.gameEvent_DoneDialogue_1;
-        GameEventSystem.Instance.DoneDialogue_DanauPertamaKeDesa = data.gameEvent_DoneDialogue_2;
-        GameEventSystem.Instance.DoneDialogue_FirstDesaWarga = data.gameEvent_DoneDialogue_3;
-        GameEventSystem.Instance.DoneDialogue_FirstKakRen = data.gameEvent_DoneDialogue_4;
-        GameEventSystem.Instance.DoneDialogue_FirstBandit = data.gameEvent_DoneDialogue_5;
-        GameEventSystem.Instance.DoneDialogue_FirstBanditDone = data.gameEvent_DoneDialogue_6;
-        GameEventSystem.Instance.DoneDialogue_FinshDialogue = data.gameEvent_DoneDialogue_7;
+        // GameEventSystem.Instance.DoneFirstNarration = data.gameEvent_DoneFirstNarration;
+        // GameEventSystem.Instance.DoneDialogue_TamashiiGiveName = data.gameEvent_DoneDialogue_1;
+        // GameEventSystem.Instance.DoneDialogue_DanauPertamaKeDesa = data.gameEvent_DoneDialogue_2;
+        // GameEventSystem.Instance.DoneDialogue_FirstDesaWarga = data.gameEvent_DoneDialogue_3;
+        // GameEventSystem.Instance.DoneDialogue_FirstKakRen = data.gameEvent_DoneDialogue_4;
+        // GameEventSystem.Instance.DoneDialogue_FirstBandit = data.gameEvent_DoneDialogue_5;
+        // GameEventSystem.Instance.DoneDialogue_FirstBanditDone = data.gameEvent_DoneDialogue_6;
+        // GameEventSystem.Instance.DoneDialogue_FinshDialogue = data.gameEvent_DoneDialogue_7;
 
         if (VillageController.Instance != null)
         {

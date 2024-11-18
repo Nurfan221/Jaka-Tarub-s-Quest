@@ -66,8 +66,8 @@ public class Seed : MonoBehaviour
     {
         if (isReadyToHarvest)
         {
-            if (GameEventSystem.Instance.DoneDialogue_FirstKakRen && !GameEventSystem.Instance.DoneDialogue_FirstBandit)
-                Player_Quest.Instance.SetQuest("Cari sebilah pedang di samping rumah");
+            // if (GameEventSystem.Instance.DoneDialogue_FirstKakRen && !GameEventSystem.Instance.DoneDialogue_FirstBandit)
+            //     Player_Quest.Instance.SetQuest("Cari sebilah pedang di samping rumah");
 
             if (SoundManager.Instance != null)
                 SoundManager.Instance.PlaySound("Pick");

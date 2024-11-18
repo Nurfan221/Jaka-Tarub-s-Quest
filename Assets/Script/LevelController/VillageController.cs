@@ -38,10 +38,10 @@ public class VillageController : MonoBehaviour
 
 
 
-        if (!GameEventSystem.Instance.DoneDialogue_FirstDesaWarga && GameEventSystem.Instance.DoneDialogue_DanauPertamaKeDesa)
-        {
-            Player_Direction.Instance.Target = WargaDesaTransform;
-        }
+        // if (!GameEventSystem.Instance.DoneDialogue_FirstDesaWarga && GameEventSystem.Instance.DoneDialogue_DanauPertamaKeDesa)
+        // {
+        //     Player_Direction.Instance.Target = WargaDesaTransform;
+        // }
     }
 
     // Update is called once per frame

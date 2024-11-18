@@ -19,6 +19,6 @@ public class Dialogues : ScriptableObject
     public string promptAfterDialogue;
     public void AfterDialogue()
     {
-        GameEventSystem.Instance.DoAfterDialogue(promptAfterDialogue);
+        // GameEventSystem.Instance.DoAfterDialogue(promptAfterDialogue);
     }
 }

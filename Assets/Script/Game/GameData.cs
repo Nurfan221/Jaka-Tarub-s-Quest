@@ -101,14 +101,14 @@ public class GameData
             currentQuest = Player_Quest.Instance.GetQuest();
 
             // GAME EVENTS
-            gameEvent_DoneFirstNarration = GameEventSystem.Instance.DoneFirstNarration;
-            gameEvent_DoneDialogue_1 = GameEventSystem.Instance.DoneDialogue_TamashiiGiveName;
-            gameEvent_DoneDialogue_2 = GameEventSystem.Instance.DoneDialogue_DanauPertamaKeDesa;
-            gameEvent_DoneDialogue_3 = GameEventSystem.Instance.DoneDialogue_FirstDesaWarga;
-            gameEvent_DoneDialogue_4 = GameEventSystem.Instance.DoneDialogue_FirstKakRen;
-            gameEvent_DoneDialogue_5 = GameEventSystem.Instance.DoneDialogue_FirstBandit;
-            gameEvent_DoneDialogue_6 = GameEventSystem.Instance.DoneDialogue_FirstBanditDone;
-            gameEvent_DoneDialogue_7 = GameEventSystem.Instance.DoneDialogue_FinshDialogue;
+            // gameEvent_DoneFirstNarration = GameEventSystem.Instance.DoneFirstNarration;
+            // gameEvent_DoneDialogue_1 = GameEventSystem.Instance.DoneDialogue_TamashiiGiveName;
+            // gameEvent_DoneDialogue_2 = GameEventSystem.Instance.DoneDialogue_DanauPertamaKeDesa;
+            // gameEvent_DoneDialogue_3 = GameEventSystem.Instance.DoneDialogue_FirstDesaWarga;
+            // gameEvent_DoneDialogue_4 = GameEventSystem.Instance.DoneDialogue_FirstKakRen;
+            // gameEvent_DoneDialogue_5 = GameEventSystem.Instance.DoneDialogue_FirstBandit;
+            // gameEvent_DoneDialogue_6 = GameEventSystem.Instance.DoneDialogue_FirstBanditDone;
+            // gameEvent_DoneDialogue_7 = GameEventSystem.Instance.DoneDialogue_FinshDialogue;
 
             if (VillageController.Instance != null)
             {

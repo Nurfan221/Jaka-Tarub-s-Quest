@@ -38,6 +38,6 @@ public class ItemDisplay : MonoBehaviour
 
     public void DialoguePedangPart2()
     {
-        DialogueSystem.Instance.StartDialogue(PedangRenPart2);
+        // DialogueSystem.Instance.StartDialogue(PedangRenPart2);
     }
 }
