@@ -18,6 +18,7 @@ public class QuestManager : MonoBehaviour
         public int date;
         public string questInfo;
         public string questDetail;
+        public Dialogues finish;
         public bool questActive = false;
     }
 
@@ -28,6 +29,18 @@ public class QuestManager : MonoBehaviour
     [SerializeField] DialogueSystem dialogueSystem;
     [SerializeField] NPCManager npcManager;
     public TextMeshProUGUI TextQuest;
+
+    public Dialogues notFinished;
+    public List<Quest> activeQuests = new List<Quest>(); 
+
+    public void AddQuest(Quest quest)
+    {
+        activeQuests.Add(quest);
+    }
+
+    // buat arrat baru untuk menyimpan quest active 
+
+     
 
 
     // Start is called before the first frame update
@@ -50,11 +63,22 @@ public class QuestManager : MonoBehaviour
             if ((timeManager.date + 1) == quest.date)
             {
                 quest.questActive = true;
-                TextQuest.text = quest.questInfo;
+                activeQuests.Add(quest);
             }
         }
 
+        DisplayActiveQuests();
         npcManager.CheckNPCQuest();
+    }
+
+    private void DisplayActiveQuests()
+    {
+        TextQuest.text = "";
+
+        foreach(var quest in activeQuests)
+        {
+            TextQuest.text += quest.questInfo + "\n";
+        }
     }
 
     

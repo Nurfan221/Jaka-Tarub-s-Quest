@@ -11,7 +11,7 @@ public class NPCManager : MonoBehaviour
         public int totalFrendships;                // menghitung jumlah nilai pertemanan
         public int countGift;
         public Schedule[] schedules;              // Jadwal aktivitas NPC
-        public Frendship friendship;              // Hubungan persahabatan NPC
+        public Frendship frendship;              // Hubungan persahabatan NPC
     }
 
     [System.Serializable]

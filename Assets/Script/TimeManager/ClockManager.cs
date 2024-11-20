@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ClockManager : MonoBehaviour
 {
-    public TextMeshProUGUI Date, Time, Season, Week;
+    public TextMeshProUGUI Date, Time, Season, Money;
 
     public Image weatherSprite;
     public Sprite[] weatherSprites;
@@ -26,6 +26,7 @@ public class ClockManager : MonoBehaviour
     public Color midnightColor = new Color(0.2f, 0.2f, 0.35f); // Warna tengah malam
     
     [SerializeField] private TimeManager timeManager;
+    [SerializeField] GameEconomy gameEconomy;
 
     private void Awake()
     {
@@ -48,7 +49,7 @@ public class ClockManager : MonoBehaviour
         Date.text = timeManager.GetFormattedDate();
         Time.text = timeManager.GetFormattedTime();
         Season.text = timeManager.GetCurrentSeason();
-        Week.text = timeManager.GetCurrentWeek();
+        Money.text = gameEconomy.Money.ToString();
 
         // Ubah intensitas cahaya dan warna berdasarkan waktu
         float t = (float)timeManager.hour / 24f;

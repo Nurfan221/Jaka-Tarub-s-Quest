@@ -1,12 +1,16 @@
 using UnityEngine;
 
 using System.Collections;
+using System.Linq;
 
 
 public class NPCBehavior : MonoBehaviour
 {
     [Header("Daftar Hubungan")]
     [SerializeField] QuestManager questManager;
+    [SerializeField] protected DialogueSystem dialogueSystem;
+    [SerializeField] NPCManager npcManager;
+    [SerializeField] GameEconomy gameEconomy;
     private NPCManager.Schedule currentActivity; // Gunakan NPCManager.Schedule untuk mendeklarasikan tipe
     public NPCManager.Schedule[] dailySchedule; // Jadwal harian menggunakan tipe global
     public NPCManager.Frendship[] frendships;
@@ -197,35 +201,129 @@ public class NPCBehavior : MonoBehaviour
         // Tambahkan logika untuk menerima item
     }
 
-    public void CheckItemGive()
+    public bool CheckItemGive( ref int stackItem)
     {
-        foreach (var quest in questManager.dailyQuest)
+        bool isItemGiven = false;
+
+        foreach (var quest in questManager.activeQuests)
         {
             if (quest.questActive && npcName == quest.nameNPC.name && itemQuest == quest.itemQuest.name)
             {
-                
-                Debug.Log("quest active dan name npc adalah : " + quest.questName);
-                Debug.Log("quest active dan name npc adalah : " + quest.nameNPC.name);
-                // quest.jumlahItem--;
+                if (quest.jumlahItem > 0) // Pastikan masih ada item yang diperlukan
+                {
+                    int jumlahDiBerikan = Mathf.Min(stackItem,quest.jumlahItem); // tentukan jumlah item yang di berikan
+                    quest.jumlahItem -= jumlahDiBerikan; // Kurangi jumlah item
+                    stackItem -= jumlahDiBerikan; //
+                    if (quest.jumlahItem <= 0)
+                    {
+                        quest.finish.TheDialogues[0].name = npcName;
+                        quest.finish.mainSpeaker = npcName;
+                        dialogueSystem.theDialogues = quest.finish;
+                        dialogueSystem.StartDialogue();
+                        gameEconomy.Money += quest.reward;
 
-                quest.jumlahItem = quest.jumlahItem - 1;
+                        
+                        // Debug.Log("quest selesai : " + quest.finish);
+                        quest.questActive = false;
+                        questManager.activeQuests.Remove(quest);
+                        questManager.CheckQuest();
 
 
+                        
+                    }else
+                    {   
+                        questManager.notFinished.TheDialogues[0].name = npcName;
+                        questManager.notFinished.mainSpeaker = npcName;
+                        dialogueSystem.theDialogues = questManager.notFinished;
+                        dialogueSystem.StartDialogue();
+                    }
+                    Debug.Log($"Quest aktif: {quest.questName}, NPC: {quest.nameNPC.name}, Item: {itemQuest}");
+                    Debug.Log($"Sisa jumlah item quest: {quest.jumlahItem}");
+                    isItemGiven = true;
+                    break; // Berhenti setelah menemukan quest yang sesuai
+                }
+                else
+                {
+                    Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
+                }
+            }
 
-                Debug.Log("item quest yang diterima : " + itemQuest);
-                Debug.Log("jumlah item quest di kurangi : " + quest.jumlahItem);
-                
-            }else
+            
+        }
+
+        // checked jika item tidak ada di dalam quest
+        // maka akan menambahkan point frendships sesuai array frendships
+        // CheckItemForfrendship(); // Loop tambahan: Cek itemQuest pada array friendship NPC
+        if (!isItemGiven)
+        {
+            Debug.Log("UHUYyyyyyyyu");
+            foreach (var npcData in npcManager.npcDataArray)
             {
-                Debug.Log("quest tidak active dan name npc adalah : " + quest.questName);
-                Debug.Log("quest tidak active dan name npc adalah : " + quest.nameNPC.name);
-                Debug.Log("quest tidak active dan name item adalah : " + npcName);
-                Debug.Log("quest tidak active dan name npc adalah : " + quest.itemQuest.name);
-                Debug.Log("quest tidak active dan name npc adalah : " + itemQuest);
-                Debug.Log("quest tidak aktif atau nama npc tidak sesuai");
-                // Debug.Log("nama npc : " + npcName + " nama npc di dalam array quest : " + quest.) 
-                // Debug.Log("ada quest active dan nama quest sama dengan yang di drag");
+                int addedValue = CheckFriendshipItem(npcData.frendship, itemQuest, ref stackItem);
+                if (addedValue > 0)
+                {
+                    npcData.totalFrendships += addedValue;
+                    Debug.Log($"Item {itemQuest} ditemukan di kategori persahabatan NPC {npcData.prefab.name}. Total persahabatan sekarang: {npcData.totalFrendships}");
+                    isItemGiven = true;
+                    break;
+                }
+            }
+
+            if (!isItemGiven)
+            {
+                Debug.Log("Tidak ada quest aktif atau item/NPC tidak sesuai.");
             }
         }
+
+        return isItemGiven;
     }
+
+    private int CheckFriendshipItem(NPCManager.Frendship friendship, string itemName, ref int stackItem)
+    {
+        if (friendship == null) return 0;
+        if (stackItem <= 0) return 0;
+
+        if (IsItemInArray(friendship.favorites, itemName))
+        {
+            stackItem -= 1; // Kurangi stackItem sebelum return
+            return friendship.favoriteValue;
+        }
+        else if (IsItemInArray(friendship.like, itemName))
+        {
+            stackItem -= 1; // Kurangi stackItem sebelum return
+            return friendship.likesValue;
+        }
+        else if (IsItemInArray(friendship.normal, itemName))
+        {
+            stackItem -= 1; // Kurangi stackItem sebelum return
+            return friendship.normalValue;
+        }
+        else if (IsItemInArray(friendship.hate, itemName))
+        {
+            stackItem -= 1; // Kurangi stackItem sebelum return
+            return friendship.hateValue;
+        }
+
+        return 0;
+    }
+
+
+    private bool IsItemInArray(Item[] items, string itemName)
+    {
+        if (items == null) return false;
+
+        foreach (var item in items)
+        {
+            if (item.name == itemName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
+
 }

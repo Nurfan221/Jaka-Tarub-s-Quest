@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -18,12 +19,22 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public Transform plantsContainer; // Referensi ke GameObject kosong yang menampung tanaman
 
      private string itemNameSeed;// Ambil nama objek yang di-drag
+
+    [SerializeField] GiveCountContainer giveCountContainer;
+    public int itemCount; // Index item yang di berikan
+     
      [SerializeField] InventoryUI inventoryUI;       
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>(); // Mendapatkan Canvas induk
+    }
+
+     public void UpdateItemCount(int count)
+    {
+        itemCount = count; // Update itemCount dengan nilai yang diterima
+        Debug.Log("Item Count Updated: " + itemCount);
     }
 
     public void CekSeed(Vector3Int cellPosition)
@@ -190,9 +201,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
     }
 
+   
+
     public void CheckItem(NPCBehavior npc)
     {
         bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
+      
+
 
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
@@ -207,13 +222,20 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 
                 // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
                 // PlantSeed(cellPosition, item.itemName, item.dropItem, item.growthImages, item.growthTime);
+
                 npc.itemQuest = item.itemName;
-                npc.jumlahItem ++;
-                npc.CheckItemGive();
+                // giveCountContainer.SetCountActive();
+                // itemCount = giveCountContainer.GetCountGift();
                 
-                // Kurangi stack item setelah menanam
-                stackItem--;
-                item.stackCount = stackItem; // Perbarui jumlah stack dalam item
+
+                // // / Kurangi stack item setelah menanam
+                if (npc.CheckItemGive(ref stackItem))
+                {
+                    
+                    item.stackCount = stackItem; // Perbarui jumlah stack dalam item
+                }
+                
+               
                 
                 if (stackItem <= 0)
                 {
@@ -247,3 +269,4 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Fungsi untuk menempatkan prefab di posisi tile yang valid
     
 }
+
