@@ -49,7 +49,7 @@ public class Player_Action : MonoBehaviour
     [Header("INTERACTS")]
 
     [SerializeField] private FarmTile farmTile;
-    // [SerializeField] private SeedManager seedManager;
+    // [SerializeField] private plantSeed plantSeed;
     [SerializeField] bool drawInteractCircle;
     [SerializeField] LayerMask interactablesLayer;
     [SerializeField] float interactsRadius = 2f;
@@ -63,6 +63,7 @@ public class Player_Action : MonoBehaviour
     Interactable interactable;
 
     [SerializeField] private Transform face; // Hubungkan di inspector
+    //[SerializeField] private TreeBehavior treeBehavior;
 
     #endregion
 
@@ -162,11 +163,11 @@ public class Player_Action : MonoBehaviour
     // cek apakah player bersentuhan dengan tanaman
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Cek apakah objek yang disentuh memiliki komponen SeedManager
-        SeedManager seedManager = other.GetComponent<SeedManager>();
-        if (seedManager != null)
+        // Cek apakah objek yang disentuh memiliki komponen plantSeed
+        PlantSeed plantSeed = other.GetComponent<PlantSeed>();
+        if (plantSeed != null)
         {
-            seedManager.ShowSeedInfo(); // Panggil fungsi di prefab yang disentuh
+            plantSeed.ShowSeedInfo(); // Panggil fungsi di prefab yang disentuh
         }
     }
 
@@ -216,7 +217,7 @@ public class Player_Action : MonoBehaviour
                     // {
                     //     PlayerUI.Instance.promptText.text = " klik kanan untuk " + interactable.promptMessage;
                     // }
-                     if (plantInteractable.seedManager != null && !plantInteractable.seedManager.isReadyToHarvest)
+                     if (plantInteractable.plantSeed != null && !plantInteractable.plantSeed.isReadyToHarvest)
                         {
                             PlayerUI.Instance.promptText.text = interactable.promptMessage;
                         }
@@ -310,48 +311,56 @@ public class Player_Action : MonoBehaviour
         canSpecialAttack = true;
     }
 
-    public void ActivateHitbox(int damage, float area, float howLong = .5f, bool AOE = false)
+
+
+    public void ActivateHitbox(int damage, float area, float howLong = 0.5f, bool AOE = false)
     {
-        if (!AOE)
-        {
-            //ParticleFollow.Instance.StartPath(area);
-            //ParticleSystem.ShapeModule theShape = swordParticle.shape;
-            //theShape.scale = new(area, 1, 1);
-            //swordParticle.Play();
-            swordFX.transform.localPosition = new(0.3f * area, 0, 0);
-            swordFX.transform.localScale = new(0.3f * area, .3f, .3f);
-            swordFX.GetComponent<SwordAnim>().StartFX();
-            Transform theTransform = normalAttackHitArea.transform;
-            theTransform.name = damage.ToString();
-            theTransform.localPosition = new(area / 2, theTransform.localPosition.y, theTransform.localPosition.z);
-            theTransform.localScale = new(area, theTransform.localScale.y, theTransform.localScale.z);
-            StartCoroutine(activatingHitbox(normalAttackHitArea, howLong));
-        }
-        else
-        {
-            //ParticleSystem.ShapeModule theShape = swordAOEParticle.shape;
-            //theShape.scale = new(area, 1, 1);
-            //swordAOEParticle.Play();
+        GameObject activeHitbox = AOE ? specialAttackHitArea : normalAttackHitArea;
 
-            swordAOEFX.transform.localScale = new(area * 4, area * 4, 1);
-            swordAOEFX.GetComponent<SwordAnim>().StartFX();
+        // Tetapkan posisi hitbox ke posisi face
+        activeHitbox.transform.position = face.position;
 
-            // Adding constant so the area isn't too small
-            area += 1;
-            Transform theTransform = specialAttackHitArea.transform;
-            theTransform.name = damage.ToString();
-            theTransform.localScale = new(area, area, theTransform.localScale.z);
-            StartCoroutine(activatingHitbox(specialAttackHitArea, howLong));
+        // Ubah skala hitbox sesuai area serangan
+        activeHitbox.transform.localScale = new Vector3(area, area, 1);
+
+        // Tetapkan nama hitbox untuk menyimpan informasi damage
+        activeHitbox.name = damage.ToString();
+
+        // Cek apakah mengenai pohon
+        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(face.position, area / 2);
+        foreach (Collider2D obj in hitObjects)
+        {
+            if (obj.CompareTag("Tree"))
+            {
+                Debug.Log($"Pohon terkena serangan dengan damage: {damage}");
+                // Contoh: Hancurkan pohon atau kurangi HP
+                TreeBehavior tree = obj.GetComponent<TreeBehavior>();
+                if (tree != null)
+                {
+                    tree.TakeDamage(damage);
+                }
+            }
         }
+
+        // Aktifkan hitbox untuk durasi tertentu
+        StartCoroutine(ActivatingHitbox(activeHitbox, howLong));
     }
 
-    IEnumerator activatingHitbox(GameObject theHitbox, float howLong)
+
+
+    IEnumerator ActivatingHitbox(GameObject hitbox, float duration)
     {
-        theHitbox.SetActive(true);
-        yield return new WaitForSeconds(howLong);
-        theHitbox.SetActive(false);
-        canAttack = true;
+        // Aktifkan hitbox
+        hitbox.SetActive(true);
+
+        // Tunggu selama durasi tertentu
+        yield return new WaitForSeconds(duration);
+
+        // Nonaktifkan hitbox
+        hitbox.SetActive(false);
     }
+
+
 
     public void Attack()
     {
@@ -366,6 +375,7 @@ public class Player_Action : MonoBehaviour
                 SoundManager.Instance.PlaySound("Sword");
 
             print("melee normal attacking");
+            Debug.Log("nama item yang sedan di pakai" + itemToAttack.itemName);
             switch (itemToAttack.itemName)
             {
                 case "Tombak Berburu":
@@ -374,7 +384,23 @@ public class Player_Action : MonoBehaviour
                     {
                         ActivateHitbox(itemToAttack.Damage, itemToAttack.AreaOfEffect);
                     }
-                    break;
+                break;
+
+                case "Kapak":
+                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
+                    {
+                        Debug.Log($"Damage: {itemToAttack.Damage}, Area: {itemToAttack.AreaOfEffect}");
+
+                        ActivateHitbox(itemToAttack.Damage, itemToAttack.AreaOfEffect);
+
+                        Debug.Log("Kapak dijalankan dengan hitbox.");
+                    }
+                    else
+                    {
+                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
+                    }
+                break;
+
 
                 default:
                     ActivateHitbox(itemToAttack.Damage, itemToAttack.AreaOfEffect);

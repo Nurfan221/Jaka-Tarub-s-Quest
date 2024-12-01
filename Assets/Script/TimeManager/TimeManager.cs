@@ -1,14 +1,19 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using System.Collections.Generic;
 
 public class TimeManager : MonoBehaviour
 {
+    // Menambahkan properti Singleton
+    public static TimeManager Instance { get; private set; }
+
     [SerializeField] private WeatherManager weatherManager;
     [SerializeField] private FarmTile farmTile;
     [SerializeField] private NPCManager npcManager;
     [SerializeField] private QuestManager questManager;
     [SerializeField] private DialogueSystem dialogueSystem;
+
     [Header("Date & Time settings")]
     public int totalHari = 1;
     public int hari = 1;
@@ -17,28 +22,46 @@ public class TimeManager : MonoBehaviour
     public int bulan = 1;
     public int tahun = 1;
     public Days currentDay = Days.Mon;
-    public Season currentSeason = Season.Summer; 
-    
+    public Season currentSeason = Season.Summer;
+
     [Header("Logika Waktu")]
-    public int secondsIncrease = 10;  
+    public int secondsIncrease = 10;
     public float tickInterval = 1f;
     private float tickTimer = 0f;
     public int minutes = 0;
     public int hour = 0;
 
-       public static event UnityAction OnTimeChanged;
+    public static event UnityAction OnTimeChanged;
+    public static event Action<int> OnDayChanged;
+
+    private List<TreeBehavior> registeredTrees = new List<TreeBehavior>(); // Menyimpan pohon-pohon yang terdaftar
+
+    private void Awake()
+    {
+        // Pastikan hanya ada satu instance dari TimeManager
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);  // Agar tidak dihancurkan saat scene berganti
+        }
+        else
+        {
+            Destroy(gameObject);  // Hancurkan objek jika sudah ada instance lain
+        }
+    }
+
 
     private void Update()
     {
         tickTimer += Time.deltaTime;
-        
+
         if (tickTimer >= tickInterval)
         {
             tickTimer = 0f;
             AdvanceTime();
         }
 
-        if (hour >= 6 && hour <=24)
+        if (hour >= 6 && hour <= 24)
         {
             // npcManager.StartSchedule();
         }
@@ -47,7 +70,7 @@ public class TimeManager : MonoBehaviour
     private void AdvanceTime()
     {
         minutes += secondsIncrease;
-        
+
         if (minutes >= 60)
         {
             minutes -= 60;
@@ -61,7 +84,7 @@ public class TimeManager : MonoBehaviour
             UpdateDay();
             HitungWaktu(totalHari);
 
-             // Update musim setiap 28 hari
+            // Update musim setiap 28 hari
             if (totalHari % 29 == 0)
             {
                 UpdateSeason();
@@ -71,28 +94,33 @@ public class TimeManager : MonoBehaviour
         OnTimeChanged?.Invoke();
     }
 
-    private void UpdateDay()
+   private void UpdateDay()
     {
         currentDay = (Days)((totalHari % 7 == 0) ? 7 : totalHari % 7);
-         // Tentukan probabilitas hujan berdasarkan musim
+
+        // Tentukan probabilitas hujan berdasarkan musim
         weatherManager.SetRainChance();
-        // Cek apakah hujan terjadi
         weatherManager.CheckForRain();
 
         farmTile.CheckTile();
-
         farmTile.ResetWateredTiles();
 
         questManager.CheckQuest();
+
+        // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
+        Debug.Log($"Hari telah berganti: {totalHari}");
+        OnDayChanged?.Invoke(totalHari); // Mengirim totalHari ke semua pohon
+
+        // Debug jumlah listener yang terdaftar
+        Debug.Log($"Jumlah pohon yang menerima event: {registeredTrees.Count}");
     }
+
 
     private void UpdateSeason()
     {
         // Mengganti musim secara berurutan setiap kali fungsi ini dipanggil
         currentSeason = (Season)(((int)currentSeason + 1) % Enum.GetValues(typeof(Season)).Length);
         Debug.Log("Season updated to: " + currentSeason);
-
-
     }
 
     public void HitungWaktu(int totalHari)
@@ -100,18 +128,17 @@ public class TimeManager : MonoBehaviour
         int hariDalamBulan = 28;
         int bulanDalamTahun = 12;
         int hariDalamMinggu = 7;
-        
+
         tahun = totalHari / (hariDalamBulan * bulanDalamTahun);
         int sisaHari = totalHari % (hariDalamBulan * bulanDalamTahun);
 
-        bulan = sisaHari / hariDalamBulan ;
+        bulan = sisaHari / hariDalamBulan;
         sisaHari %= hariDalamBulan;
 
-        minggu = sisaHari / hariDalamMinggu ;
+        minggu = sisaHari / hariDalamMinggu;
 
         hari = sisaHari % hariDalamMinggu;
         hari = (hari == 0 && totalHari % hariDalamMinggu == 0) ? 7 : hari;
-
 
         date++;
         if (date == 29)
@@ -127,11 +154,10 @@ public class TimeManager : MonoBehaviour
         return $"Time: {hour:D2}:{minutes:D2}, Hari: {currentDay}, Musim: {currentSeason}";
     }
 
-   public string GetFormattedDate()
+    public string GetFormattedDate()
     {
         return $"{currentDay} - {date}";
     }
-
 
     public string GetFormattedTime()
     {
@@ -148,6 +174,24 @@ public class TimeManager : MonoBehaviour
         return $"Minggu ke-{minggu}";
     }
 
+    public void RegisterTree(TreeBehavior tree)
+    {
+        if (!registeredTrees.Contains(tree))
+        {
+            registeredTrees.Add(tree);
+            Debug.Log("Pohon terdaftar: " + tree.name);
+        }
+    }
+
+
+    // Fungsi untuk menghapus pohon dari daftar terdaftar
+    public void UnregisterTree(TreeBehavior tree)
+    {
+        if (registeredTrees.Contains(tree))
+        {
+            registeredTrees.Remove(tree);
+        }
+    }
 
     [Serializable]
     public enum Days

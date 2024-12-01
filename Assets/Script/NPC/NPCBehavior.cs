@@ -33,7 +33,7 @@ public class NPCBehavior : MonoBehaviour
         npcRenderer = GetComponent<Renderer>();
         if (npcRenderer == null)
         {
-            Debug.LogError("Renderer tidak ditemukan pada NPC!");
+            //Debug.LogError("Renderer tidak ditemukan pada NPC!");
         }
         
         npcName = gameObject.name;
@@ -52,11 +52,11 @@ public class NPCBehavior : MonoBehaviour
     {
         if (schedule == null)
         {
-            Debug.LogError("Schedule tidak ditemukan!");
+            //Debug.LogError("Schedule tidak ditemukan!");
             return;
         }
 
-        Debug.Log($"Memulai aktivitas: {schedule.activityName} dengan {schedule.waypoints.Length} waypoints");
+        //Debug.Log($"Memulai aktivitas: {schedule.activityName} dengan {schedule.waypoints.Length} waypoints");
         currentActivity = schedule;
 
         if (!gameObject.activeSelf)
@@ -71,7 +71,7 @@ public class NPCBehavior : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Waypoints kosong pada aktivitas ini!");
+            //Debug.LogError("Waypoints kosong pada aktivitas ini!");
         }
         // OnDrawGizmos();
     }
@@ -83,19 +83,19 @@ public class NPCBehavior : MonoBehaviour
         if (currentWaypointIndex < currentActivity.waypoints.Length)
         {
             Vector3 targetPosition = currentActivity.waypoints[currentWaypointIndex];
-            Debug.Log($"NPC bergerak ke waypoint {currentWaypointIndex}: {targetPosition}");
+            //Debug.Log($"NPC bergerak ke waypoint {currentWaypointIndex}: {targetPosition}");
 
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
                 currentWaypointIndex++;
-                Debug.Log($"NPC mencapai waypoint {currentWaypointIndex - 1}");
+                //Debug.Log($"NPC mencapai waypoint {currentWaypointIndex - 1}");
 
                 if (currentWaypointIndex >= currentActivity.waypoints.Length)
                 {
                     isMoving = false;
-                    Debug.Log($"NPC menyelesaikan aktivitas: {currentActivity.activityName}");
+                    //Debug.Log($"NPC menyelesaikan aktivitas: {currentActivity.activityName}");
 
                     if (currentActivity.activityName == "MulaiSchedule")
                     {
@@ -110,7 +110,7 @@ public class NPCBehavior : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Tidak ada waypoints untuk aktivitas ini.");
+            //Debug.LogError("Tidak ada waypoints untuk aktivitas ini.");
             isMoving = false;
         }
     }
@@ -237,14 +237,14 @@ public class NPCBehavior : MonoBehaviour
                         dialogueSystem.theDialogues = questManager.notFinished;
                         dialogueSystem.StartDialogue();
                     }
-                    Debug.Log($"Quest aktif: {quest.questName}, NPC: {quest.nameNPC.name}, Item: {itemQuest}");
-                    Debug.Log($"Sisa jumlah item quest: {quest.jumlahItem}");
+                    //Debug.Log($"Quest aktif: {quest.questName}, NPC: {quest.nameNPC.name}, Item: {itemQuest}");
+                    //Debug.Log($"Sisa jumlah item quest: {quest.jumlahItem}");
                     isItemGiven = true;
                     break; // Berhenti setelah menemukan quest yang sesuai
                 }
                 else
                 {
-                    Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
+                    //Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
                 }
             }
 
@@ -256,14 +256,14 @@ public class NPCBehavior : MonoBehaviour
         // CheckItemForfrendship(); // Loop tambahan: Cek itemQuest pada array friendship NPC
         if (!isItemGiven)
         {
-            Debug.Log("UHUYyyyyyyyu");
+            //Debug.Log("UHUYyyyyyyyu");
             foreach (var npcData in npcManager.npcDataArray)
             {
                 int addedValue = CheckFriendshipItem(npcData.frendship, itemQuest, ref stackItem);
                 if (addedValue > 0)
                 {
                     npcData.totalFrendships += addedValue;
-                    Debug.Log($"Item {itemQuest} ditemukan di kategori persahabatan NPC {npcData.prefab.name}. Total persahabatan sekarang: {npcData.totalFrendships}");
+                    //Debug.Log($"Item {itemQuest} ditemukan di kategori persahabatan NPC {npcData.prefab.name}. Total persahabatan sekarang: {npcData.totalFrendships}");
                     isItemGiven = true;
                     break;
                 }
@@ -271,7 +271,7 @@ public class NPCBehavior : MonoBehaviour
 
             if (!isItemGiven)
             {
-                Debug.Log("Tidak ada quest aktif atau item/NPC tidak sesuai.");
+                //Debug.Log("Tidak ada quest aktif atau item/NPC tidak sesuai.");
             }
         }
 

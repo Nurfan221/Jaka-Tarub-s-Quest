@@ -250,15 +250,7 @@ public class InventoryUI : MonoBehaviour
             });
             break;
         default:
-           if (item.category == ItemCategory.Seed)
-        {
-            itemAction.onClick.AddListener(() =>
-            {
-                // Logika khusus untuk kategori 'seed'
-                 Player_Inventory.Instance.EquipItem(item, 0);
-                // SoundManager.Instance.PlaySound("PlantSeed");
-            });
-        }
+                Debug.Log("item tidak sesuai");
             break;
     }
 

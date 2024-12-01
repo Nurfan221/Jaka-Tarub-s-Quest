@@ -15,7 +15,7 @@ public class Player_Movement : MonoBehaviour
 
     [SerializeField] Transform sprite;
     [SerializeField] Transform face;
-    [SerializeField] Transform hitboxes;
+    [SerializeField] Transform circleBoundary; // Lingkaran di sekitar player
 
     public bool isMoving;
 
@@ -42,6 +42,9 @@ public class Player_Movement : MonoBehaviour
     public Joystick movementJoystick; // Drag and drop the joystick in the inspector
     [SerializeField] private RectTransform joystickHandle; // Drag and drop the joystick handle in the inspector
     [SerializeField] private RectTransform joystickBackground; // Drag and drop the joystick background in the inspector
+    float inputThreshold = 0.1f; // Batas minimal deteksi gerakan joystick
+    private Vector2 lastDirection = Vector2.up; // simpan nilai default dari face
+    private float radius; // Radius lingkaran boundary
 
     private void Awake()
     {
@@ -50,6 +53,9 @@ public class Player_Movement : MonoBehaviour
 
     private void Start()
     {
+        // Hitung radius lingkaran berdasarkan skala lokal dari circleBoundary
+        radius = circleBoundary.localScale.x / 2f;
+
         // Add listener to the dash button
         dashButton.onClick.AddListener(TriggerDash);
     }
@@ -69,19 +75,8 @@ public class Player_Movement : MonoBehaviour
 
         PlayerUI.Instance.dashUI.color = new(1, 1, 1, Player_Health.Instance.stamina < dashStamina ? .5f : 1);
 
-        if (movement.x > 0)
-        {
-            hitboxes.eulerAngles = new(0, 0, 0);
-            sprite.localScale = new(1, 1, 1);
-        }
-        else if (movement.x < 0)
-        {
-            hitboxes.eulerAngles = new(0, 180, 0);
-            sprite.localScale = new(-1, 1, 1);
-        }
-
-        // Check joystick position to determine speed
-        CheckJoystickPosition();
+        UpdateFacePosition(); // Perbarui posisi face berdasarkan lingkaran
+        moveSpd = walkSpd;
     }
 
     private void FixedUpdate()
@@ -89,33 +84,33 @@ public class Player_Movement : MonoBehaviour
         HandleMovement();
     }
 
-    // Handle all player input regarding movement (axis, run, dash)
     void PlayerInput()
     {
+        // Input dari joystick
         movement.x = movementJoystick.Direction.x;
         movement.y = movementJoystick.Direction.y;
-        movement = movement.normalized;
+        movement = movement.normalized; // Normalisasi input
 
+        // Simpan arah terakhir jika ada input
         if (movement != Vector2.zero)
-            face.localPosition = movement;
+        {
+            lastDirection = movement;
+        }
     }
 
-    void CheckJoystickPosition()
+    private void UpdateFacePosition()
     {
-        // Calculate the distance between the joystick handle and the center of the joystick background
-        float distance = Vector2.Distance(joystickHandle.anchoredPosition, Vector2.zero); // Vector2.zero is the center
-        float maxDistance = joystickBackground.sizeDelta.x / 2; // Assuming the background is a circle
-
-        // Check if the handle is near the edge of the joystick background
-        if (distance >= maxDistance * 0.9f) // 0.9f to add a bit of buffer
+        // Jika ada input, tempatkan face di tepi lingkaran sesuai arah
+        if (movement != Vector2.zero)
         {
-            moveSpd = runSpd;
-            dashParticle.Play();
+            Vector3 newFacePosition = new Vector3(movement.x, movement.y, 0) * radius;
+            face.localPosition = newFacePosition;
         }
         else
         {
-            moveSpd = walkSpd;
-         
+            // Jika tidak ada input, face tetap di posisi terakhir
+            Vector3 lastFacePosition = new Vector3(lastDirection.x, lastDirection.y, 0) * radius;
+            face.localPosition = lastFacePosition;
         }
     }
 
@@ -138,7 +133,6 @@ public class Player_Movement : MonoBehaviour
         }
     }
 
-    // Dashing until certain distance
     IEnumerator StartDashing(Vector2 startPos)
     {
         dashParticle.Play();
@@ -160,7 +154,6 @@ public class Player_Movement : MonoBehaviour
         dashing = false;
     }
 
-    // Method to trigger dash
     private void TriggerDash()
     {
         if (!justDash)

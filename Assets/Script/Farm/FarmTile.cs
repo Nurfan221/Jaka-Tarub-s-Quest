@@ -9,6 +9,7 @@
         [SerializeField] public Tile hoeedTile; // Tile untuk hasil cangkul
         [SerializeField] public Tile wateredTile; // Tile untuk hasil cangkul
         [SerializeField] private Tile emptySoilTile; // Tile tanah kosong (boleh dicangkul)
+        [SerializeField] public Tile grassTile; // tile grass
 
         public bool siram = false;
 
@@ -140,13 +141,13 @@
                 Debug.Log("Collider found on object: " + collider.gameObject.name);
 
                 // Cek apakah objek yang ditemukan memiliki komponen SeedManager
-                SeedManager seedManager = collider.GetComponent<SeedManager>();
-                if (seedManager != null)
+                PlantSeed PlantSeed = collider.GetComponent<PlantSeed>();
+                if (PlantSeed != null)
                 {
                     Debug.Log("Found an object with SeedManager at this tile position.");
-                    
+
                     // Memanggil metode untuk menyiram tanaman
-                    seedManager.Siram();
+                    PlantSeed.Siram();
 
                     // Ubah tile ke wateredTile dan tandai tile sebagai sudah disiram
                     tilemap.SetTile(tilesiram, wateredTile);

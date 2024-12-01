@@ -15179,14 +15179,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3358481639717380379}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2630859602148433873}
   - {fileID: 8929092432712695764}
-  m_Father: {fileID: 5998541882732084300}
+  m_Father: {fileID: 3446040036883624188}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3524925581074746476
 GameObject:
@@ -29882,7 +29882,8 @@ Transform:
   m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1849453207322278355}
   m_Father: {fileID: 5998541882732084300}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &590918729192924437
@@ -30047,6 +30048,7 @@ MonoBehaviour:
   maxStamina: 100
   stamina: 100
   staminaRegenRate: 20
+  sr: {fileID: 0}
 --- !u!61 &8714837341879117471
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34990,7 +34992,6 @@ Transform:
   m_Children:
   - {fileID: 1373323111909539862}
   - {fileID: 3446040036883624188}
-  - {fileID: 1849453207322278355}
   - {fileID: 7271784806429675360}
   - {fileID: 2225370186519257910}
   m_Father: {fileID: 0}
@@ -35044,6 +35045,10 @@ MonoBehaviour:
   dashStamina: 40
   dashDistance: 3
   dashForce: 100
+  dashButton: {fileID: 0}
+  movementJoystick: {fileID: 0}
+  joystickHandle: {fileID: 0}
+  joystickBackground: {fileID: 0}
 --- !u!114 &5684611985928635090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35067,11 +35072,16 @@ MonoBehaviour:
   tombakParticle: {fileID: 7205699056998135868}
   buffParticle: {fileID: 6111915780568683359}
   quickSlotCD: 2
+  farmTile: {fileID: 0}
   drawInteractCircle: 1
   interactablesLayer:
     serializedVersion: 2
     m_Bits: 256
   interactsRadius: 0.7
+  buttonAttack: {fileID: 0}
+  specialAttack: {fileID: 0}
+  buttonUse: {fileID: 0}
+  face: {fileID: 0}
 --- !u!114 &4187796554494207513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35085,17 +35095,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemList: []
+  switchWeaponImage: {fileID: 0}
+  switchUseItemImage: {fileID: 0}
   meleeOrRanged: 1
+  itemUse1: 1
   emptyItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedCombat:
   - {fileID: 0}
   - {fileID: 0}
   equippedWeapon: {fileID: 0}
+  equippedItem: {fileID: 0}
   quickSlots:
   - {fileID: 0}
   - {fileID: 0}
   inventoryOpened: 0
+  inventoryClosed: 0
   healParticle: {fileID: 9013086940009283592}
+  inventoryButton: {fileID: 0}
+  closeInventoryButton: {fileID: 0}
 --- !u!114 &8866308063379065053
 MonoBehaviour:
   m_ObjectHideFlags: 0

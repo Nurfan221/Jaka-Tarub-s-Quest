@@ -145,6 +145,8 @@ public class Player_Inventory : MonoBehaviour
             Instance.AddItem(ItemPool.Instance.GetItem("Penyiram Tanaman"));
             Instance.AddItem(ItemPool.Instance.GetItem("Cangkul"));
             Instance.AddItem(ItemPool.Instance.GetItem("Stik"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Kapak"));
+            Instance.AddItem(ItemPool.Instance.GetItem("BibitJati"));
             inventoryUI.UpdateInventoryUI(); // Update UI when inventory is opened
         }
         else

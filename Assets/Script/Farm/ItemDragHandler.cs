@@ -44,7 +44,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
             // Cek apakah nama item sama dengan itemNameSeed dan kategori item adalah Seed
-            if (item.itemName == itemNameSeed && item.category == ItemCategory.Seed)
+            if (item.itemName == itemNameSeed && item.category == ItemCategory.PlantSeed)
             {
                 itemFound = true; // Tandai bahwa item ditemukan
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
@@ -86,7 +86,60 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
-   
+    //logika menanam pohon
+    public void CekTreeSeed(Vector3Int cellPosition)
+    {
+        bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
+        Debug.Log(" fungsi cek tree seed di jalankan");
+
+        foreach (Item item in Player_Inventory.Instance.itemList)
+        {
+            
+            Debug.Log("nama itemNameSeed  " + itemNameSeed);
+            // Cek apakah nama item sama dengan itemNameSeed dan kategori item adalah Seed
+            if (item.itemName == itemNameSeed && item.category == ItemCategory.TreeSeed)
+            {
+                Debug.Log("nama item.itemname " + item.itemName);
+                itemFound = true; // Tandai bahwa item ditemukan
+                int stackItem = item.stackCount; // Ambil jumlah item yang ada
+                plantPrefab = item.plantPrefab; // Set plantPrefab sesuai item
+
+                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.category);
+
+                // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
+                PlantTree(cellPosition, item.itemName, item.growthImages, item.growthTime);
+
+                // Kurangi stack item setelah menanam
+                stackItem--;
+                item.stackCount = stackItem; // Perbarui jumlah stack dalam item
+
+                if (stackItem <= 0)
+                {
+                    // Jika stack count habis, hapus item dari inventory
+                    Player_Inventory.Instance.RemoveItem(item);
+                    Debug.Log("Item habis dan dihapus dari inventory.");
+                }
+                else
+                {
+                    Debug.Log("Jumlah item tersisa: " + stackItem);
+                }
+
+                rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
+
+                // Refresh UI setelah perubahan
+                inventoryUI.RefreshInventoryItems();
+                inventoryUI.UpdateSixItemDisplay();
+                break; // Keluar dari loop setelah menemukan item
+            }
+        }
+
+        if (!itemFound)
+        {
+            Debug.Log("Item tidak ditemukan atau kategori item bukan Seed");
+            rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
+        }
+    }
+
 
 
 
@@ -96,6 +149,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // Simpan parent asli untuk dikembalikan nanti
         originalParent = rectTransform.parent;
         itemNameSeed = gameObject.name; // Ambil nama objek yang di-drag
+        Debug.Log("nama itemNameSeed  " + itemNameSeed);
 
         // Pindahkan item ke DragLayer (harus berada di bawah canvas)
         rectTransform.SetParent(dragLayer);
@@ -152,6 +206,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             CekSeed(cellPosition);
             return true;
         }
+        else if (currentTile == farmTile.grassTile)
+        {
+            Debug.Log("item di jatuhkan pada tile tanah");
+            Debug.Log("item yang di drag adalah : " + itemNameSeed);
+            CekTreeSeed(cellPosition);
+            return true;
+        }
 
         // Mengecek objek di posisi world
         Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition);
@@ -188,7 +249,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         plant.transform.SetParent(plantsContainer);
 
         // Mendapatkan komponen Seed dari prefab tanaman
-        SeedManager seedComponent = plant.GetComponent<SeedManager>();
+        PlantSeed seedComponent = plant.GetComponent<PlantSeed>();
         if (seedComponent != null)
         {
             // Mengatur nilai namaSeed, dropItem, dan growthImages
@@ -201,7 +262,34 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
     }
 
-   
+
+    // Fungsi untuk menanam benih
+    private void PlantTree(Vector3Int cellPosition, string namaSeed, Sprite[] growthImages, float growthTime)
+    {
+        Debug.Log("Menanam pohon...");
+        // Konversi posisi tile ke World Space
+        Vector3 spawnPosition = farmTilemap.GetCellCenterWorld(cellPosition);
+
+        // Inisiasi prefab tanaman di posisi world yang sesuai dengan tile
+        GameObject plant = Instantiate(plantPrefab, spawnPosition, Quaternion.identity);
+
+        // Set parent prefab tanaman ke plantsContainer
+        plant.transform.SetParent(plantsContainer);
+
+        // Mendapatkan komponen Seed dari prefab tanaman
+        TreeBehavior treeComponent = plant.GetComponent<TreeBehavior>();
+        if (treeComponent != null)
+        {
+            // Mengatur nilai namaSeed, dropItem, dan growthImages
+            treeComponent.namaSeed = namaSeed;
+            treeComponent.growthImages = growthImages; // Simpan growthImages ke komponen Seed
+            treeComponent.growthTime = growthTime; // Simpan growthTime ke komponen Seed
+        }
+
+        Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
+    }
+
+
 
     public void CheckItem(NPCBehavior npc)
     {
@@ -212,7 +300,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
             // Cek apakah nama item sama dengan itemNameSeed dan kategori item adalah Seed
-            if (item.itemName == itemNameSeed && item.category != ItemCategory.Seed)
+            if (item.itemName == itemNameSeed && item.category != ItemCategory.PlantSeed)
             {
                 itemFound = true; // Tandai bahwa item ditemukan
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada

@@ -22,7 +22,8 @@ public enum ItemCategory
     Ammo,
     Weapon,
     Crafting_Material,
-    Seed
+    PlantSeed,
+    TreeSeed
 }
 
 [CreateAssetMenu(menuName = "Make an Item")]
