@@ -49,6 +49,13 @@ public class CookUI : MonoBehaviour
     // Fungsi untuk memulai proses memasak
     private Queue<Item> cookingQueue = new Queue<Item>();
 
+    //deklarasikan perbandikan bahan masakan 
+    public ItemCategory[] validCategories = {
+    ItemCategory.Fruit,
+    ItemCategory.Meat,
+    ItemCategory.Vegetable
+    };
+
     [Header("button")]
     public Button closeButton;
     
@@ -126,15 +133,13 @@ public class CookUI : MonoBehaviour
             theItem.GetComponent<DragCook>().itemName = item.itemName;
 
             // Menambahkan event listener ketika item diklik
-            if (item.category == ItemCategory.Fruit || 
-                    item.category == ItemCategory.Meat || 
-                    item.category == ItemCategory.Vegetable)
-                {
-                    theItem.GetComponent<Button>().onClick.AddListener(() => MoveItemToCook(item));
-                }else if (item.category == ItemCategory.Fuel)
-                {
-                    theItem.GetComponent<Button>().onClick.AddListener(() => MoveFuelToCook(item));
-                }
+            if (validCategories.Any(category => item.IsInCategory(category)))
+            {
+             theItem.GetComponent<Button>().onClick.AddListener(() => MoveItemToCook(item));
+            }else if (item.IsInCategory(ItemCategory.Fuel))
+             {
+              theItem.GetComponent<Button>().onClick.AddListener(() => MoveFuelToCook(item));
+             }
 
         }
     }

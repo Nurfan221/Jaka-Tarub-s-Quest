@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
+
 public class Craft : MonoBehaviour
 {
     [System.Serializable]
@@ -14,6 +15,13 @@ public class Craft : MonoBehaviour
         public List<int> ingredientsCount;    // Jumlah item yang dibutuhkan untuk setiap ingredient
         public Item result;                   // Item hasil craft
     }
+
+    public ItemCategory[] validCategories = {
+    ItemCategory.Fruit,
+    ItemCategory.Meat,
+    ItemCategory.Vegetable,
+    ItemCategory.Crafting_Material
+    };
 
     public List<CraftRecipe> recipes;
 
@@ -83,10 +91,7 @@ public class Craft : MonoBehaviour
             theItem.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
             theItem.GetComponent<DragCook>().itemName = item.itemName;
 
-            if (item.category == ItemCategory.Fruit || 
-                item.category == ItemCategory.Meat || 
-                item.category == ItemCategory.Vegetable ||
-                item.category == ItemCategory.Crafting_Material)
+            if (validCategories.Any(category => item.IsInCategory(category)))
             {
                 theItem.GetComponent<Button>().onClick.AddListener(() => MoveToCraft(item));
             }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1245937808901146366}
   m_Layer: 8
   m_Name: BuahCabai
-  m_TagString: Untagged
+  m_TagString: ItemDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -174,4 +174,5 @@ MonoBehaviour:
   useEvents: 0
   promptMessage: 'Cabai '
   item: {fileID: 11400000, guid: 4baf81910ecdd224b980c7d945a20266, type: 2}
+  itemName: 
   gravityDuration: 1

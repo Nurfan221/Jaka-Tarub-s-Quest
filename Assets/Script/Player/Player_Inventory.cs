@@ -129,16 +129,16 @@ public class Player_Inventory : MonoBehaviour
         {
             GameController.Instance.PauseGame();
             Instance.AddItem(ItemPool.Instance.GetItem("Benih Cabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
             Instance.AddItem(ItemPool.Instance.GetItem("Daging Sapi"));
             Instance.AddItem(ItemPool.Instance.GetItem("Daging Sapi"));
             Instance.AddItem(ItemPool.Instance.GetItem("Pedang Ren"));
@@ -146,7 +146,8 @@ public class Player_Inventory : MonoBehaviour
             Instance.AddItem(ItemPool.Instance.GetItem("Cangkul"));
             Instance.AddItem(ItemPool.Instance.GetItem("Stik"));
             Instance.AddItem(ItemPool.Instance.GetItem("Kapak"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BibitJati"));
+            Instance.AddItem(ItemPool.Instance.GetItem("PickAxe"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Sabit"));
             inventoryUI.UpdateInventoryUI(); // Update UI when inventory is opened
         }
         else

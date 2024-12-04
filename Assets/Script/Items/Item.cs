@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Linq;
+
 
 public enum ItemType
 {
@@ -10,20 +12,22 @@ public enum ItemType
     Quest
 }
 
+[System.Flags]
 public enum ItemCategory
 {
-    Fruit,
-    Meat,
-    Fuel,
-    Vegetable,
-    Food,
-    Drink,
-    Medicine,
-    Ammo,
-    Weapon,
-    Crafting_Material,
-    PlantSeed,
-    TreeSeed
+    None = 0,
+    Fruit = 1,
+    Meat = 2,
+    Fuel = 4,
+    Vegetable = 8,
+    Food = 16,
+    Drink = 32,
+    Medicine = 64,
+    Ammo = 128,
+    Weapon = 256,
+    Crafting_Material = 512,
+    PlantSeed = 1024,
+    TreeSeed = 2048
 }
 
 [CreateAssetMenu(menuName = "Make an Item")]
@@ -33,7 +37,7 @@ public class Item : ScriptableObject
     public int itemID;
     public string itemName;
     public ItemType type;
-    public ItemCategory category;
+    public ItemCategory categories;
     public Sprite sprite;
     [TextArea]
     public string itemDescription;
@@ -65,4 +69,11 @@ public class Item : ScriptableObject
     public Sprite[] growthImages; // Gambar untuk tiap tahap pertumbuhan
     public GameObject plantPrefab; // Prefab tanaman yang akan tumbuh dari benih
     public GameObject dropItem; //prefab untuk buah yang akan di hasilkan
+
+    public bool IsInCategory(ItemCategory category)
+    {
+        return (categories & category) == category;
+    }
+
+
 }

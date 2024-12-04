@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 7647214579536065390}
   - component: {fileID: -1120957155561195157}
   - component: {fileID: 5689379069804323596}
-  - component: {fileID: -3298569906305986760}
   - component: {fileID: 1245937808901146366}
+  - component: {fileID: 3946596619460777457}
   m_Layer: 8
   m_Name: Daun
-  m_TagString: Untagged
+  m_TagString: ItemDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,7 +114,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &-3298569906305986760
+--- !u!114 &1245937808901146366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459120725376062254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af62f5c85e00a94ba211bb3ee9bac35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 0
+  promptMessage: Daun
+  item: {fileID: 11400000, guid: 8fdb94ff32de14d4da4a8e242e804f0b, type: 2}
+  itemName: Daun
+  gravityDuration: 1
+--- !u!61 &3946596619460777457
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,36 +160,19 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.44561, y: 0.15379524}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 80.01488, y: 60.479996}
+    oldSize: {x: 4.000744, y: 3.024}
     newSize: {x: 20, y: 20}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 25.178745, y: 29.761711}
+  m_Size: {x: 4.000744, y: 3.024}
   m_EdgeRadius: 0
---- !u!114 &1245937808901146366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4459120725376062254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9af62f5c85e00a94ba211bb3ee9bac35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useEvents: 0
-  promptMessage: Daun
-  item: {fileID: 11400000, guid: 8fdb94ff32de14d4da4a8e242e804f0b, type: 2}
-  itemName: 
-  gravityDuration: 1

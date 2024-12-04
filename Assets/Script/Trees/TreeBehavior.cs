@@ -29,6 +29,14 @@ public class TreeBehavior : MonoBehaviour
     public int daysSincePlanting = 1; // Hari sejak pohon ditanam
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer untuk mengganti gambar
 
+    //logika menentukan jumlah minimal dan maksimal dari item yang akan di jatuhkan 
+    public int minWood = 1;  // Jumlah minimum kayu
+    public int maxWood = 5;  // Jumlah maksimum kayu
+    public int minSap = 0;   // Jumlah minimum getah
+    public int maxSap = 3;   // Jumlah maksimum getah
+    public int minLeaf = 2;  // Jumlah minimum daun
+    public int maxLeaf = 7;  // Jumlah maksimum daun
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -117,15 +125,38 @@ public class TreeBehavior : MonoBehaviour
     {
         Debug.Log("Pohon dihancurkan!");
 
-        if (kayu != null)
-            ItemPool.Instance.DropItem(kayu.name, transform.position + new Vector3(0, 0.5f, 0), kayu);
-        if (getah != null)
-            ItemPool.Instance.DropItem(getah.name, transform.position + new Vector3(0, 0.5f, 0), getah);
-        if (daun != null)
-            ItemPool.Instance.DropItem(daun.name, transform.position + new Vector3(0, 0.5f, 0), daun);
-        if (benih != null)
-            ItemPool.Instance.DropItem(benih.name, transform.position + new Vector3(0, 0.5f, 0), benih);
+        // Hitung jumlah acak untuk setiap jenis item
+        int woodCount = (int)Random.Range(minWood, maxWood + 1);
+        int sapCount = (int)Random.Range(minSap, maxSap + 1);
+        int leafCount = (int)Random.Range(minLeaf, maxLeaf + 1);
 
+        Debug.Log($"Jumlah kayu: {woodCount}, getah: {sapCount}, daun: {leafCount}");
+
+        // Drop kayu
+        for (int i = 0; i < woodCount; i++)
+        {
+            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+            if (kayu != null)
+                ItemPool.Instance.DropItem(kayu.name, transform.position + offset, kayu);
+        }
+
+        // Drop getah
+        for (int i = 0; i < sapCount; i++)
+        {
+            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+            if (getah != null)
+                ItemPool.Instance.DropItem(getah.name, transform.position + offset, getah);
+        }
+
+        // Drop daun
+        for (int i = 0; i < leafCount; i++)
+        {
+            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+            if (daun != null)
+                ItemPool.Instance.DropItem(daun.name, transform.position + offset, daun);
+        }
+
+        // Hancurkan pohon setelah menjatuhkan item
         Destroy(gameObject);
     }
 }

@@ -163,13 +163,28 @@ public class Player_Action : MonoBehaviour
     // cek apakah player bersentuhan dengan tanaman
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Cek apakah objek yang disentuh memiliki komponen plantSeed
-        PlantSeed plantSeed = other.GetComponent<PlantSeed>();
-        if (plantSeed != null)
+        // Cek apakah objek yang disentuh memiliki tag "itemDrop"
+        if (other.CompareTag("ItemDrop"))
         {
-            plantSeed.ShowSeedInfo(); // Panggil fungsi di prefab yang disentuh
+            // Ambil data item dari komponen ItemDrop
+            ItemDropInteractable itemDrop = other.GetComponent<ItemDropInteractable>();
+            if (itemDrop != null)
+            {
+                string itemName = itemDrop.itemName;
+                // Tambahkan item ke inventory pemain
+                Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(itemDrop.itemName));
+
+                // Hancurkan item setelah diambil
+                Destroy(other.gameObject);
+            }
+            else
+            {
+                Debug.LogWarning("Komponen ItemDrop tidak ditemukan di objek dengan tag 'itemDrop'.");
+            }
         }
     }
+
+
 
     #region UI_HELPER
     // Handling Quick slot cooldown after using
@@ -313,31 +328,51 @@ public class Player_Action : MonoBehaviour
 
 
 
-    public void ActivateHitbox(int damage, float area, float howLong = 0.5f, bool AOE = false)
+    public void ActivateHitbox(int damage, string weaponType, float howLong = 0.5f, bool AOE = false)
     {
+        // Tetapkan ukuran hitbox tetap
+        float defaultHitboxSize = 1.5f; // Ubah sesuai kebutuhan
+
         GameObject activeHitbox = AOE ? specialAttackHitArea : normalAttackHitArea;
 
         // Tetapkan posisi hitbox ke posisi face
         activeHitbox.transform.position = face.position;
 
-        // Ubah skala hitbox sesuai area serangan
-        activeHitbox.transform.localScale = new Vector3(area, area, 1);
+        // Ubah skala hitbox menggunakan ukuran default
+        activeHitbox.transform.localScale = new Vector3(defaultHitboxSize, defaultHitboxSize, 1);
 
         // Tetapkan nama hitbox untuk menyimpan informasi damage
         activeHitbox.name = damage.ToString();
 
-        // Cek apakah mengenai pohon
-        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(face.position, area / 2);
+        // Cek apakah mengenai objek dengan tag "Tree" atau "Stone"
+        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(face.position, defaultHitboxSize / 2);
         foreach (Collider2D obj in hitObjects)
         {
-            if (obj.CompareTag("Tree"))
+            if (obj.CompareTag("Tree") && weaponType == "Kapak")
             {
                 Debug.Log($"Pohon terkena serangan dengan damage: {damage}");
-                // Contoh: Hancurkan pohon atau kurangi HP
                 TreeBehavior tree = obj.GetComponent<TreeBehavior>();
                 if (tree != null)
                 {
                     tree.TakeDamage(damage);
+                }
+            }
+            else if (obj.CompareTag("Stone") && weaponType == "PickAxe")
+            {
+                Debug.Log($"Batu terkena serangan dengan damage : {damage}");
+                StoneBehavior stone = obj.GetComponent<StoneBehavior>();
+                if (stone != null)
+                {
+                    stone.TakeDamage(damage);
+                }
+            }
+            else if (obj.CompareTag("Plant") && weaponType =="Sabit")
+            {
+                Debug.Log($"rumput terkena damage dan akan di panen");
+                PlantSeed plantSeed = obj.GetComponent<PlantSeed>();
+                if(plantSeed != null )
+                {
+                    plantSeed.Harvest();
                 }
             }
         }
@@ -345,6 +380,8 @@ public class Player_Action : MonoBehaviour
         // Aktifkan hitbox untuk durasi tertentu
         StartCoroutine(ActivatingHitbox(activeHitbox, howLong));
     }
+
+
 
 
 
@@ -378,20 +415,21 @@ public class Player_Action : MonoBehaviour
             Debug.Log("nama item yang sedan di pakai" + itemToAttack.itemName);
             switch (itemToAttack.itemName)
             {
-                case "Tombak Berburu":
-                case "Halberd":
-                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
-                    {
-                        ActivateHitbox(itemToAttack.Damage, itemToAttack.AreaOfEffect);
-                    }
-                break;
+                //case "Tombak Berburu":
+                //case "Halberd":
+                //    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
+                //    {
+                //        ActivateHitbox(itemToAttack.Damage, itemToAttack.AreaOfEffect);
+                //    }
+                //break;
 
                 case "Kapak":
                     if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
                     {
-                        Debug.Log($"Damage: {itemToAttack.Damage}, Area: {itemToAttack.AreaOfEffect}");
+                        Debug.Log($"Damage: {itemToAttack.Damage}");
 
-                        ActivateHitbox(itemToAttack.Damage, itemToAttack.AreaOfEffect);
+                        // Memanggil ActivateHitbox tanpa parameter area
+                        ActivateHitbox(itemToAttack.Damage, "Kapak");
 
                         Debug.Log("Kapak dijalankan dengan hitbox.");
                     }
@@ -399,12 +437,45 @@ public class Player_Action : MonoBehaviour
                     {
                         Debug.Log("Stamina tidak mencukupi untuk menyerang.");
                     }
+                    break;
+
+                case "PickAxe":
+                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
+                    {
+                        Debug.Log($"Damage: {itemToAttack.Damage}");
+
+                        // Memanggil ActivateHitbox tanpa parameter area
+                        ActivateHitbox(itemToAttack.Damage, "PickAxe");
+
+                        Debug.Log("PickAxe dijalankan dengan hitbox.");
+                    }
+                    else
+                    {
+                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
+                    }
                 break;
 
+                case "Sabit":
+                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
+                    {
+                        Debug.Log($"Damage: {itemToAttack.Damage}");
 
-                default:
-                    ActivateHitbox(itemToAttack.Damage, itemToAttack.AreaOfEffect);
+                        //Memanggil ActiveHitbox tanpa parameter area
+                        ActivateHitbox(itemToAttack.Damage, "Sabit");
+
+                    }
+                    else
+                    {
+                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
+                    }
+
                     break;
+
+
+
+                    //default:
+                    //    ActivateHitbox(itemToAttack.Damage, itemToAttack.AreaOfEffect);
+                    //    break;
             }
             StartCoroutine(ActivateAttack(.5f));
         }
@@ -491,7 +562,7 @@ public class Player_Action : MonoBehaviour
             else if (itemToAttack.itemName == "Ranting Pohon")
             {
                 print("special attacking with a stick");
-                ActivateHitbox(itemToAttack.Damage * 4, itemToAttack.AreaOfEffect, 1, true);
+                //ActivateHitbox(itemToAttack.Damage * 4, itemToAttack.AreaOfEffect, 1, true);
                 StartCoroutine(ActivateAttack(1));
 
             }

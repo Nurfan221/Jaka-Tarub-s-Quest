@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: 31
   itemName: Getah
   type: 4
-  category: 0
+  categories: 512
   sprite: {fileID: 21300000, guid: f648d3eaaf3038e4490238105212a376, type: 3}
   itemDescription: 
   QuantityFuel: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
   SpecialAttackStamina: 0
   UpgradeCost: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
-  isStackable: 0
+  isStackable: 1
   stackCount: 1
   BuyValue: 0
   SellValue: 0

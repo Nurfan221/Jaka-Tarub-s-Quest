@@ -26,7 +26,8 @@ public class ItemPool : MonoBehaviour
         Item itemToGet = items.Find(x => x.itemName == name);
         if (itemToGet != null)
         {
-            itemToGet.stackCount = count;
+            itemToGet.stackCount = count; // Ini akan menentukan jumlah item yang ada di stack
+
             itemToGet.Level = level;
             return Instantiate(itemToGet);
         }

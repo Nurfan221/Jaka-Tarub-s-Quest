@@ -5,12 +5,13 @@ using UnityEngine;
 public class ItemDropInteractable : Interactable
 {
     public Item item;
-    [SerializeField] string itemName;
+    [SerializeField] public string itemName;
     private Rigidbody2D rb;
     public float gravityDuration = 2f; // Durasi gravitasi setelah item jatuh
 
     private void Start()
     {
+
         if (item == null)
             item = ItemPool.Instance.GetItem(itemName);
         promptMessage = "Ambil " + item.itemName;
@@ -21,11 +22,11 @@ public class ItemDropInteractable : Interactable
     {
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Pick");
-        Debug.Log(item.itemName + " di ambil.");
-        Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(item.itemName));
-        if (item.type == ItemType.Quest) { GetComponent<QuestQuanta>().Take(); }
+            Debug.Log(item.itemName + " di ambil.");
+            Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(item.itemName));
+            if (item.type == ItemType.Quest) { GetComponent<QuestQuanta>().Take(); }
 
-        Destroy(gameObject);
+            Destroy(gameObject);
     }
 
     public IEnumerator StopGravity(Rigidbody2D rb, float delay)

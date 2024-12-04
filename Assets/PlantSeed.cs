@@ -113,10 +113,7 @@ public class PlantSeed : MonoBehaviour
         }
     }
 
-     public void ShowSeedInfo()
-    {
-        // Debug.Log("Nama Seed: " + namaSeed);
-    }
+    
 
    public void Harvest()
     {

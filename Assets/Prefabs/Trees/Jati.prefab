@@ -148,8 +148,15 @@ MonoBehaviour:
   daun: {fileID: 4459120725376062254, guid: 0f22ba3700f36034cac4e5ce9183c9dc, type: 3}
   getah: {fileID: 4459120725376062254, guid: bdb3f5ac6519083489f3b7cc3ba86397, type: 3}
   benih: {fileID: 4459120725376062254, guid: e7ea54c4027bb054488b9e9a8eb0e23c, type: 3}
-  kapak: {fileID: 11400000, guid: 89e00e0c54b34164cb03b392d7714a78, type: 2}
   currentStage: 0
   growthImages: []
   growthTime: 0
   namaSeed: 
+  growthSpeed: 0
+  daysSincePlanting: 1
+  minWood: 1
+  maxWood: 5
+  minSap: 0
+  maxSap: 3
+  minLeaf: 2
+  maxLeaf: 7

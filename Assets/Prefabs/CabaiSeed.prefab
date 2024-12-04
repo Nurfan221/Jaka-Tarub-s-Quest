@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2262402367362025452}
   m_Layer: 8
   m_Name: CabaiSeed
-  m_TagString: Untagged
+  m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: 
-  seedManager: {fileID: 2375128868307419422}
+  plantSeed: {fileID: 0}
 --- !u!1 &2681367960847632910
 GameObject:
   m_ObjectHideFlags: 0

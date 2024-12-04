@@ -37,6 +37,22 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Debug.Log("Item Count Updated: " + itemCount);
     }
 
+    ////cek item category 
+    //public string GetCategoryNames(ItemCategory categories)
+    //{
+    //    List<string> categoryNames = new List<string>();
+
+    //    foreach (ItemCategory category in Enum.GetValues(typeof(ItemCategory)))
+    //    {
+    //        if (categories.HasFlag(category))
+    //        {
+    //            categoryNames.Add(category.ToString());
+    //        }
+    //    }
+
+    //    return string.Join(", ", categoryNames);
+    //}
+
     public void CekSeed(Vector3Int cellPosition)
     {
         bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
@@ -44,14 +60,14 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
             // Cek apakah nama item sama dengan itemNameSeed dan kategori item adalah Seed
-            if (item.itemName == itemNameSeed && item.category == ItemCategory.PlantSeed)
+            if (item.itemName == itemNameSeed && item.IsInCategory(ItemCategory.PlantSeed))
             {
                 itemFound = true; // Tandai bahwa item ditemukan
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
                 plantPrefab = item.plantPrefab; // Set plantPrefab sesuai item
 
-                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.category);
-                
+                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
+
                 // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
                 PlantSeed(cellPosition, item.itemName, item.dropItem, item.growthImages, item.growthTime);
                 
@@ -97,14 +113,14 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             
             Debug.Log("nama itemNameSeed  " + itemNameSeed);
             // Cek apakah nama item sama dengan itemNameSeed dan kategori item adalah Seed
-            if (item.itemName == itemNameSeed && item.category == ItemCategory.TreeSeed)
+            if (item.itemName == itemNameSeed && item.IsInCategory(ItemCategory.TreeSeed))
             {
                 Debug.Log("nama item.itemname " + item.itemName);
                 itemFound = true; // Tandai bahwa item ditemukan
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
                 plantPrefab = item.plantPrefab; // Set plantPrefab sesuai item
 
-                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.category);
+                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
 
                 // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
                 PlantTree(cellPosition, item.itemName, item.growthImages, item.growthTime);
@@ -139,6 +155,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
         }
     }
+
+
 
 
 
@@ -300,13 +318,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
             // Cek apakah nama item sama dengan itemNameSeed dan kategori item adalah Seed
-            if (item.itemName == itemNameSeed && item.category != ItemCategory.PlantSeed)
+            if (item.itemName == itemNameSeed && item.categories != ItemCategory.PlantSeed)
             {
                 itemFound = true; // Tandai bahwa item ditemukan
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
                 
 
-                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.category);
+                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
                 
                 // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
                 // PlantSeed(cellPosition, item.itemName, item.dropItem, item.growthImages, item.growthTime);
