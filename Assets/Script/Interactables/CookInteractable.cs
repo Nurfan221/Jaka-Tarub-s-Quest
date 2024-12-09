@@ -9,7 +9,7 @@ public class CookInteractable : Interactable
     [SerializeField] CookUI cookUI;
     protected override void Interact()
     {
-        cookUI.OpenCook();
+        //cookUI.OpenCook();
     }
 
 

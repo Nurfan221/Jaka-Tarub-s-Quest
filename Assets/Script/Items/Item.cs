@@ -9,7 +9,9 @@ public enum ItemType
     Heal,
     Buff,
     Item,
-    Quest
+    Quest,
+    ItemPrefab,
+    Animal
 }
 
 [System.Flags]
@@ -27,7 +29,8 @@ public enum ItemCategory
     Weapon = 256,
     Crafting_Material = 512,
     PlantSeed = 1024,
-    TreeSeed = 2048
+    TreeSeed = 2048,
+    ItemPrefab = 4096
 }
 
 [CreateAssetMenu(menuName = "Make an Item")]
@@ -62,6 +65,8 @@ public class Item : ScriptableObject
     public int SellValue;
     public int BurningTime;
     public int CookTime;
+    public GameObject prefabItem;
+    
 
     // Seed Properties (khusus untuk benih)
     [Header("SEED PROPERTIES")]

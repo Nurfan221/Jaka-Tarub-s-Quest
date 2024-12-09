@@ -35,7 +35,8 @@ public class TimeManager : MonoBehaviour
     public static event Action<int> OnDayChanged;
 
     private List<TreeBehavior> registeredTrees = new List<TreeBehavior>(); // Menyimpan pohon-pohon yang terdaftar
-
+    private List<PerangkapBehavior> registeredTrap = new List<PerangkapBehavior>();// Menyimpan perangkap-perangkap yang terdaftar
+    public static event Action<int> OnHourChanged; // Event untuk perubahan jam
     private void Awake()
     {
         // Pastikan hanya ada satu instance dari TimeManager
@@ -75,6 +76,7 @@ public class TimeManager : MonoBehaviour
         {
             minutes -= 60;
             hour++;
+            OnHourChanged?.Invoke(hour); // Memanggil event saat jam berubah
         }
 
         if (hour >= 24)
@@ -110,6 +112,12 @@ public class TimeManager : MonoBehaviour
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
         Debug.Log($"Hari telah berganti: {totalHari}");
         OnDayChanged?.Invoke(totalHari); // Mengirim totalHari ke semua pohon
+
+        //Update semua perangkap
+        foreach (var trap in registeredTrap)
+        {
+            trap.GetAnimalToTrap(); // Memanggil logika di perangkap
+        }
 
         // Debug jumlah listener yang terdaftar
         Debug.Log($"Jumlah pohon yang menerima event: {registeredTrees.Count}");
@@ -193,6 +201,24 @@ public class TimeManager : MonoBehaviour
         }
     }
 
+    public void RegisterTrap(PerangkapBehavior trap)
+    {
+        if (!registeredTrap.Contains(trap))
+        {
+            registeredTrap.Add(trap);
+            Debug.Log("Perangkap terdaftar: " + trap.name);
+        }
+    }
+
+    public void UnregisterTrap(PerangkapBehavior trap)
+    {
+        if (registeredTrap.Contains(trap))
+        {
+            registeredTrap.Remove(trap);
+            Debug.Log("Perangkap dihapus: " + trap.name);
+        }
+    }
+
     [Serializable]
     public enum Days
     {
@@ -213,4 +239,9 @@ public class TimeManager : MonoBehaviour
         Rain = 1,
         Dry = 2
     }
+
+    //[Header("logika reset sesuatu setiap hari")]
+
+    
+
 }

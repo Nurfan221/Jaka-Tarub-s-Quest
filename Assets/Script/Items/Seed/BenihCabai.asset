@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: BenihCabai
   m_EditorClassIdentifier: 
+  itemID: 28
   itemName: Benih Cabai
   type: 4
-  category: 10
+  categories: 1024
   sprite: {fileID: 21300000, guid: 8ee8449bf8153b6449f262d97b3b2521, type: 3}
   itemDescription: beih untuk buah termanis
   QuantityFuel: 0
@@ -32,7 +33,7 @@ MonoBehaviour:
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  growthTime: 9
+  growthTime: 3
   growthImages:
   - {fileID: 21300000, guid: 277bc0ab817f1064cb3bb24de4e43de0, type: 3}
   - {fileID: 21300000, guid: 7df15aef90504274999b604d71cb93a8, type: 3}

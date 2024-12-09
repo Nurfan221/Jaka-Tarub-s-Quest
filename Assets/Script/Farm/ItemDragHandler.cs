@@ -17,6 +17,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public Transform dragLayer; // Assign ini ke layer khusus di canvas untuk menempatkan item yang di-drag
     public GameObject plantPrefab; // Prefab tanaman yang akan ditanam
     public Transform plantsContainer; // Referensi ke GameObject kosong yang menampung tanaman
+    public Transform prefabContainer; // referansi ke gameobject kosont yang menampung prefab game objek 
 
      private string itemNameSeed;// Ambil nama objek yang di-drag
 
@@ -37,21 +38,6 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Debug.Log("Item Count Updated: " + itemCount);
     }
 
-    ////cek item category 
-    //public string GetCategoryNames(ItemCategory categories)
-    //{
-    //    List<string> categoryNames = new List<string>();
-
-    //    foreach (ItemCategory category in Enum.GetValues(typeof(ItemCategory)))
-    //    {
-    //        if (categories.HasFlag(category))
-    //        {
-    //            categoryNames.Add(category.ToString());
-    //        }
-    //    }
-
-    //    return string.Join(", ", categoryNames);
-    //}
 
     public void CekSeed(Vector3Int cellPosition)
     {
@@ -113,7 +99,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             
             Debug.Log("nama itemNameSeed  " + itemNameSeed);
             // Cek apakah nama item sama dengan itemNameSeed dan kategori item adalah Seed
-            if (item.itemName == itemNameSeed && item.IsInCategory(ItemCategory.TreeSeed))
+            if (item.itemName == itemNameSeed && !item.IsInCategory(ItemCategory.PlantSeed) && item.type == ItemType.ItemPrefab)
             {
                 Debug.Log("nama item.itemname " + item.itemName);
                 itemFound = true; // Tandai bahwa item ditemukan
@@ -123,7 +109,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
 
                 // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
-                PlantTree(cellPosition, item.itemName, item.growthImages, item.growthTime);
+                if (item.IsInCategory(ItemCategory.TreeSeed))
+                {
+                    PlantTree(cellPosition, item.itemName, item.growthImages, item.growthTime);
+                }else
+                {
+                    PlacePrefab(cellPosition, item.itemName, item.prefabItem);
+                }
 
                 // Kurangi stack item setelah menanam
                 stackItem--;
@@ -370,9 +362,27 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
+    private void PlacePrefab(Vector3Int cellPosition, string namaItem, GameObject prefabItem)
+    {
+
+        Debug.Log("Menambahkan Game Object...");
+        // Konversi posisi tile ke World Space
+        Vector3 spawnPosition = farmTilemap.GetCellCenterWorld(cellPosition);
+
+        // Inisiasi prefab tanaman di posisi world yang sesuai dengan tile
+        GameObject plant = Instantiate(prefabItem, spawnPosition, Quaternion.identity);
+
+        // Set parent prefab tanaman ke plantsContainer
+        plant.transform.SetParent(prefabContainer);
+
+        
+
+        Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
+    }
 
 
-    // Fungsi untuk menempatkan prefab di posisi tile yang valid
-    
-}
+
+        // Fungsi untuk menempatkan prefab di posisi tile yang valid
+
+    }
 

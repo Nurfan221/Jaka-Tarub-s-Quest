@@ -8,45 +8,36 @@ using System.Linq;
 
 public class Craft : MonoBehaviour
 {
-    [System.Serializable]
-    public class CraftRecipe
-    {
-        public List<Item> ingredients;        // Daftar item yang dibutuhkan untuk resep
-        public List<int> ingredientsCount;    // Jumlah item yang dibutuhkan untuk setiap ingredient
-        public Item result;                   // Item hasil craft
-    }
+    [Header("Database Crafting")]
+    [SerializeField] private RecipeDatabase recipeDatabaseInstance;
 
+    [Header("Kategori Item yang Valid")]
     public ItemCategory[] validCategories = {
-    ItemCategory.Fruit,
-    ItemCategory.Meat,
-    ItemCategory.Vegetable,
-    ItemCategory.Crafting_Material
+        ItemCategory.Fruit,
+        ItemCategory.Meat,
+        ItemCategory.Vegetable,
+        ItemCategory.Crafting_Material
     };
 
-    public List<CraftRecipe> recipes;
-
     [Header("Inventory Container")]
-    [SerializeField] Transform itemSlotContainer;
-    [SerializeField] Transform itemSlotTemplate;
+    [SerializeField] private Transform itemSlotContainer;
+    [SerializeField] private Transform itemSlotTemplate;
 
     [Header("Button Container")]
-    public Button buttonClose;
+    [SerializeField] private Button buttonClose;
 
     [Header("Craft container")]
-    public List<Item> itemsInCraft = new List<Item>(); // menyimpan item
+    public List<Item> itemsInCraft = new List<Item>(); // Item yang dimasukkan ke crafting slot
+    public List<GameObject> itemCraftSlots = new List<GameObject>(); // Slot UI untuk crafting
+    public GameObject hasilCraftSlot;
 
+    // Menambahkan UI untuk slot crafting
     public GameObject ItemCraft1;
     public GameObject ItemCraft2;
     public GameObject ItemCraft3;
     public GameObject ItemCraft4;
 
-    public GameObject hasilCraft;
-    public bool ItemCraft1Value = false;
-    public bool ItemCraft2Value = false;
-    public bool ItemCraft3Value = false;
-    public bool ItemCraft4Value = false;
-    public bool ItemCraft5Value = false;
-    public bool hasilCraftValue = false;
+    private bool hasilCraftValue = false; // Variabel untuk status crafting
 
     void Start()
     {
@@ -57,11 +48,11 @@ public class Craft : MonoBehaviour
         }
         else
         {
-            Debug.Log("Tombol close belum terhubung");
+            Debug.LogError("Tombol close belum terhubung");
         }
     }
 
-    void Update() {}
+    void Update() { }
 
     public void OpenCraft()
     {
@@ -69,7 +60,6 @@ public class Craft : MonoBehaviour
             SoundManager.Instance.PlaySound("Click");
         GameController.Instance.ShowPersistentUI(false);
         gameObject.SetActive(true);
-
         RefreshSlots();
     }
 
@@ -103,23 +93,18 @@ public class Craft : MonoBehaviour
         GameController.Instance.ShowPersistentUI(true);
         gameObject.SetActive(false);
         Debug.Log("Crafting ditutup");
-
         RefreshSlots();
     }
 
     public void MoveToCraft(Item item)
     {
-        Debug.Log("MoveToCraft successful");
-
         item = ItemPool.Instance.GetItem(item.itemName);
         Player_Inventory.Instance.RemoveItem(item);
 
         Item existingItem = itemsInCraft.FirstOrDefault(i => i.itemName == item.itemName);
-
         if (existingItem != null)
         {
             existingItem.stackCount++;
-            Debug.Log("Item ada lebih dari 1");
         }
         else
         {
@@ -133,39 +118,20 @@ public class Craft : MonoBehaviour
 
     public void UpdateCraft()
     {
+        // Bersihkan slot crafting
         ClearSlot(ItemCraft1);
         ClearSlot(ItemCraft2);
         ClearSlot(ItemCraft3);
         ClearSlot(ItemCraft4);
-        ClearSlot(hasilCraft);
+        ClearSlot(hasilCraftSlot);
 
-        if (itemsInCraft.Count > 0)
-        {
-            UpdateSlot(ItemCraft1, itemsInCraft[0]);
-            StartCrafting();
-            ItemCraft1Value = true;
-        }
+        // Tempatkan item ke slot crafting berdasarkan urutan
+        if (itemsInCraft.Count > 0) UpdateSlot(ItemCraft1, itemsInCraft[0]);
+        if (itemsInCraft.Count > 1) UpdateSlot(ItemCraft2, itemsInCraft[1]);
+        if (itemsInCraft.Count > 2) UpdateSlot(ItemCraft3, itemsInCraft[2]);
+        if (itemsInCraft.Count > 3) UpdateSlot(ItemCraft4, itemsInCraft[3]);
 
-        if (itemsInCraft.Count > 1)
-        {
-            UpdateSlot(ItemCraft2, itemsInCraft[1]);
-            StartCrafting();
-            ItemCraft2Value = true;
-        }
-
-        if (itemsInCraft.Count > 2)
-        {
-            UpdateSlot(ItemCraft3, itemsInCraft[2]);
-            StartCrafting();
-            ItemCraft3Value = true;
-        }
-
-        if (itemsInCraft.Count > 3)
-        {
-            UpdateSlot(ItemCraft4, itemsInCraft[3]);
-            StartCrafting();
-            ItemCraft4Value = true;
-        }
+        StartCrafting();
     }
 
     private void ClearSlot(GameObject itemCraftSlot)
@@ -196,58 +162,49 @@ public class Craft : MonoBehaviour
 
         UpdateCraft();
         RefreshSlots();
-        ItemCraft1Value = false;
     }
 
     public void StartCrafting()
     {
-        ClearSlot(hasilCraft);
-        hasilCraftValue = true;
+        ClearSlot(hasilCraftSlot);
+        hasilCraftValue = false;
 
-        HashSet<string> craftedItems = new HashSet<string>();
-
-        foreach (CraftRecipe recipe in recipes)
+        foreach (RecipeDatabase.CraftRecipe recipe in recipeDatabaseInstance.craftRecipes)
         {
-            if (itemsInCraft.Count != recipe.ingredients.Count)
+            if (SomeMethod(recipe))
             {
-                Debug.Log("Jumlah item dalam craft tidak sesuai dengan resep.");
-                continue;
-            }
-
-            bool isRecipeMatch = true;
-            for (int i = 0; i < recipe.ingredients.Count; i++)
-            {
-                Item ingredient = recipe.ingredients[i];
-                int requiredCount = recipe.ingredientsCount[i];
-
-                Item craftedItem = itemsInCraft.FirstOrDefault(item => item.itemName == ingredient.itemName);
-
-                if (craftedItem == null || craftedItem.stackCount < requiredCount)
-                {
-                    isRecipeMatch = false;
-                    Debug.Log("Item atau jumlah item tidak sesuai dengan resep. " + i);
-                    break;
-                }
-            }
-
-            if (isRecipeMatch && hasilCraftValue)
-            {
-                hasilCraftValue = true;
-                if (hasilCraftValue)
-                {
-                    UpdateCraftResultUI(recipe.result);
-                }
+                UpdateCraftResultUI(recipe.result);
+                break; // Selesai crafting jika sudah menemukan resep yang cocok
             }
         }
 
-        Debug.Log("Tidak ada resep yang cocok.");
+        if (!hasilCraftValue)
+        {
+            Debug.Log("Tidak ada resep yang cocok.");
+        }
+    }
+
+    public bool SomeMethod(RecipeDatabase.CraftRecipe recipe)
+    {
+        if (itemsInCraft.Count != recipe.ingredients.Count)
+            return false;
+
+        for (int i = 0; i < recipe.ingredients.Count; i++)
+        {
+            Item requiredItem = recipe.ingredients[i];
+            int requiredCount = recipe.ingredientsCount[i];
+
+            Item itemInCraft = itemsInCraft.FirstOrDefault(item => item.itemName == requiredItem.itemName);
+            if (itemInCraft == null || itemInCraft.stackCount < requiredCount)
+                return false;
+        }
+
+        return true;
     }
 
     public void UpdateCraftResultUI(Item result)
     {
-        hasilCraftValue = false;
-
-        Transform theItem = Instantiate(itemSlotTemplate, hasilCraft.transform);
+        Transform theItem = Instantiate(itemSlotTemplate, hasilCraftSlot.transform);
         theItem.name = result.itemName;
         theItem.gameObject.SetActive(true);
 
@@ -260,9 +217,7 @@ public class Craft : MonoBehaviour
 
     public void ReturnItemCraftToInventory(Item result)
     {
-        hasilCraftValue = false;
-
-        foreach (CraftRecipe recipe in recipes)
+        foreach (RecipeDatabase.CraftRecipe recipe in recipeDatabaseInstance.craftRecipes)
         {
             if (recipe.result.itemName == result.itemName)
             {
@@ -272,11 +227,9 @@ public class Craft : MonoBehaviour
                     int requiredCount = recipe.ingredientsCount[i];
 
                     Item craftedItem = itemsInCraft.FirstOrDefault(item => item.itemName == ingredient.itemName);
-
                     if (craftedItem != null)
                     {
                         craftedItem.stackCount -= requiredCount;
-
                         if (craftedItem.stackCount <= 0)
                         {
                             itemsInCraft.Remove(craftedItem);
@@ -286,12 +239,9 @@ public class Craft : MonoBehaviour
             }
         }
 
-        Debug.Log("ReturnItemCraft");
-
         Player_Inventory.Instance.AddItem(result);
-
         UpdateCraft();
         RefreshSlots();
-        ItemCraft1Value = false;
     }
 }
+

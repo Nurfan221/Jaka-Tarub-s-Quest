@@ -375,6 +375,16 @@ public class Player_Action : MonoBehaviour
                     plantSeed.Harvest();
                 }
             }
+            else if (obj.CompareTag("Animal"))
+            {
+                Debug.Log($"Hewan terkena serangan dengan damage: {damage}");
+                AnimalBehavior animal = obj.GetComponent<AnimalBehavior>();
+                if (animal != null)
+                {
+                    animal.TakeDamage(damage);  // Memanggil method TakeDamage untuk memberikan damage
+                }
+            }
+
         }
 
         // Aktifkan hitbox untuk durasi tertentu
