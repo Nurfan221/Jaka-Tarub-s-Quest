@@ -6,8 +6,6 @@ public class ItemPool : MonoBehaviour
 {
     public static ItemPool Instance;
 
-    [SerializeField] GameObject itemDropPrefab;
-
     [SerializeField] List<Item> items;
 
     private void Awake()

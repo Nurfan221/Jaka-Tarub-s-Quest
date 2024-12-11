@@ -45,6 +45,7 @@ public class Item : ScriptableObject
     [TextArea]
     public string itemDescription;
     public int QuantityFuel;
+    public int health; //deklarasikan health untuk menentukan berapa kali item di gunakan
 
     // Combat Item
     [Header("COMBAT")]

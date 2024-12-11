@@ -11,7 +11,7 @@ public class Player_Inventory : MonoBehaviour
 
     public List<Item> itemList;
 
-    private int maxItem = 17;
+    private int maxItem = 18;
 
     [SerializeField] private Button switchWeaponImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     [SerializeField] private Button switchUseItemImage; // Referensi ke Image yang digunakan untuk mengganti senjata
@@ -129,31 +129,31 @@ public class Player_Inventory : MonoBehaviour
         {
             GameController.Instance.PauseGame();
             Instance.AddItem(ItemPool.Instance.GetItem("Benih Cabai"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
+            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
+            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
+            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
+            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
             Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
             Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
             Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
             Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
             Instance.AddItem(ItemPool.Instance.GetItem("Besi"));
             Instance.AddItem(ItemPool.Instance.GetItem("Besi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("DagingSapi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("DagingSapi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Pedang Ren"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Penyiram Tanaman"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Cangkul"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Stik"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Kapak"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("PickAxe"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Sabit"));
+            Instance.AddItem(ItemPool.Instance.GetItem("DagingSapi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("DagingSapi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pedang Ren"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Penyiram Tanaman"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Cangkul"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Stik"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Kapak"));
+            Instance.AddItem(ItemPool.Instance.GetItem("PickAxe"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Sabit"));
 
-    
+
             inventoryUI.UpdateInventoryUI(); // Update UI when inventory is opened
         }
         else
@@ -188,26 +188,74 @@ public class Player_Inventory : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        item = Instantiate(item);
-       if (itemList.Count <= maxItem)
-       {
+        item = Instantiate(item); // Buat clone dari item agar tidak merusak data asli
+
+        // Cek apakah item itu stackable dan sudah ada di inventory
         if (item.isStackable && itemList.Exists(x => x.itemName == item.itemName))
+        {
+            // Tambahkan ke stack item tersebut
+            itemList.Find(x => x.itemName == item.itemName).stackCount++;
+            Debug.Log($"{item.itemName} bertambah stack-nya. Total stack sekarang: {itemList.Find(x => x.itemName == item.itemName).stackCount}");
+        }
+        else
+        {
+            // Jika bukan item stackable, cek apakah inventory penuh
+            if (itemList.Count < maxItem)
             {
-                itemList.Find(x => x.itemName == item.itemName).stackCount++;
+                itemList.Add(item); // Tambahkan item ke dalam inventory
+                Debug.Log($"{item.itemName} ditambahkan ke inventory.");
             }
             else
             {
-                itemList.Add(item);
+                Debug.LogWarning("Inventory penuh, item tidak bisa ditambahkan.");
+                return; // Langsung keluar dari fungsi tanpa menghancurkan item di OnTriggerEnter2D
             }
-       }else 
-       {
-        Debug.Log("inventory Penuh ");
-       }
+        }
 
-        print(item.itemName + " added to inventory");
-         // Update the inventory UI
-    PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().UpdateInventoryUI();
+        // Update inventory UI
+        PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().UpdateInventoryUI();
     }
+
+
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Cek apakah objek yang disentuh memiliki tag "ItemDrop"
+        if (other.CompareTag("ItemDrop"))
+        {
+            // Ambil data item dari komponen ItemDrop
+            ItemDropInteractable itemDrop = other.GetComponent<ItemDropInteractable>();
+            if (itemDrop != null)
+            {
+                string itemName = itemDrop.itemName;
+
+                // Tambahkan item ke inventory pemain dan cek apakah berhasil
+                Item itemToAdd = ItemPool.Instance.GetItem(itemName);
+                int prevCount = itemList.Count; // Hitung jumlah item sebelum AddItem
+
+                AddItem(itemToAdd); // Tambahkan item ke inventory
+
+                // Jika jumlah item di inventory bertambah, berarti item berhasil dimasukkan
+                if (itemList.Count > prevCount ||
+                    (itemToAdd.isStackable && itemList.Exists(x => x.itemName == itemToAdd.itemName)))
+                {
+                    Debug.Log($"{itemName} berhasil ditambahkan ke inventory. Menghancurkan item drop.");
+                    Destroy(other.gameObject); // Hancurkan item drop dari world
+                }
+                else
+                {
+                    Debug.LogWarning($"{itemName} tidak ditambahkan ke inventory karena penuh.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Komponen ItemDrop tidak ditemukan di objek dengan tag 'ItemDrop'.");
+            }
+        }
+    }
+
+
 
     public void RemoveItem(Item item)
     {

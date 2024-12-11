@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Player_Action : MonoBehaviour
 {
     public static Player_Action Instance;
+    [SerializeField] private Player_Inventory player_Inventory;
 
     #region KEYBINDINGS
     KeyCode actionInput = KeyCode.F;
@@ -161,28 +162,7 @@ public class Player_Action : MonoBehaviour
     }
 
     // cek apakah player bersentuhan dengan tanaman
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // Cek apakah objek yang disentuh memiliki tag "itemDrop"
-        if (other.CompareTag("ItemDrop"))
-        {
-            // Ambil data item dari komponen ItemDrop
-            ItemDropInteractable itemDrop = other.GetComponent<ItemDropInteractable>();
-            if (itemDrop != null)
-            {
-                string itemName = itemDrop.itemName;
-                // Tambahkan item ke inventory pemain
-                Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(itemDrop.itemName));
-
-                // Hancurkan item setelah diambil
-                Destroy(other.gameObject);
-            }
-            else
-            {
-                Debug.LogWarning("Komponen ItemDrop tidak ditemukan di objek dengan tag 'itemDrop'.");
-            }
-        }
-    }
+ 
 
 
 
@@ -244,7 +224,7 @@ public class Player_Action : MonoBehaviour
                 }
                 else
                 {
-                    PlayerUI.Instance.promptText.text = "Tekan untuk " + interactable.promptMessage;
+                    PlayerUI.Instance.promptText.text =  interactable.promptMessage;
                 }
 
                 return true;
@@ -538,6 +518,8 @@ public class Player_Action : MonoBehaviour
             StartCoroutine(HandleSpecialAttackCD(itemToAttack.SpecialAttackCD));
             if (itemToAttack.itemName == "Penyiram Tanaman")
             {
+
+
                 // SoundManager.Instance.PlaySound("Siram");
                 print("watering plants");
                 
