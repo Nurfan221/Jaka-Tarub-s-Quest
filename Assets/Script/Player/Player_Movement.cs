@@ -9,9 +9,6 @@ public class Player_Movement : MonoBehaviour
     Rigidbody2D rb;
     Vector2 movement;
 
-    #region KEYBINDINGS
-    KeyCode runInput = KeyCode.LeftShift;
-    #endregion
 
     [SerializeField] Transform sprite;
     [SerializeField] Transform face;
@@ -45,6 +42,7 @@ public class Player_Movement : MonoBehaviour
     float inputThreshold = 0.1f; // Batas minimal deteksi gerakan joystick
     private Vector2 lastDirection = Vector2.up; // simpan nilai default dari face
     private float radius; // Radius lingkaran boundary
+    public Vector2 moveDir { get; private set; }
 
     private void Awake()
     {
@@ -76,7 +74,9 @@ public class Player_Movement : MonoBehaviour
         PlayerUI.Instance.dashUI.color = new(1, 1, 1, Player_Health.Instance.stamina < dashStamina ? .5f : 1);
 
         UpdateFacePosition(); // Perbarui posisi face berdasarkan lingkaran
+        UpdateSpriteDirection(); // Update arah sprite (kanan atau kiri)
         moveSpd = walkSpd;
+        moveDir = movement;
     }
 
     private void FixedUpdate()
@@ -111,6 +111,18 @@ public class Player_Movement : MonoBehaviour
             // Jika tidak ada input, face tetap di posisi terakhir
             Vector3 lastFacePosition = new Vector3(lastDirection.x, lastDirection.y, 0) * radius;
             face.localPosition = lastFacePosition;
+        }
+    }
+
+    private void UpdateSpriteDirection()
+    {
+        if (movement.x > 0.1f) // Jika bergerak ke kanan
+        {
+            sprite.localScale = new Vector3(1, 1, 1); // Pastikan skala normal
+        }
+        else if (movement.x < -0.1f) // Jika bergerak ke kiri
+        {
+            sprite.localScale = new Vector3(-1, 1, 1); // Balik sprite secara horizontal
         }
     }
 

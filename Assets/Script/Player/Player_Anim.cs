@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Player_Anim : MonoBehaviour
 {
@@ -11,37 +10,52 @@ public class Player_Anim : MonoBehaviour
     enum AnimState
     {
         Idle,
-        Sword,
-        Bow,
-        Walking
+        WalkingUp,
+        WalkingDown,
+        WalkingLeft,
+        WalkingRight
     }
     AnimState currentState = AnimState.Idle;
     AnimState prevState = AnimState.Idle;
 
     [SerializeField] float idleAnimSpd = 3;
-    [SerializeField] float walkingAnimSpd = .5f;
-    [SerializeField] float swordAnimSpd = 3;
-    [SerializeField] float bowAnimSpd = .5f;
+    [SerializeField] float walkingAnimSpd = 0.5f;
 
     [SerializeField] Sprite[] idleAnim;
-    [SerializeField] Sprite[] walkingAnim;
-    [SerializeField] Sprite[] swordAnim;
-    [SerializeField] Sprite[] bowAnim;
+    [SerializeField] Sprite[] upAnim;
+    [SerializeField] Sprite[] downAnim;
+    [SerializeField] Sprite[] leftAnim;
+    [SerializeField] Sprite[] rightAnim;
 
-    // Start is called before the first frame update
+    [SerializeField] float upAnimSpd = 0.5f;
+    [SerializeField] float downAnimSpd = 0.5f;
+    [SerializeField] float leftAnimSpd = 0.5f;
+    [SerializeField] float rightAnimSpd = 0.5f;
+
     void Start()
     {
         pm = GetComponent<Player_Movement>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (pm.isMoving)
-            currentState = AnimState.Walking;
-        else
-            currentState = AnimState.Idle;
+        Vector2 moveDir = pm.moveDir;
 
+        if (pm.isMoving)
+        {
+            if (Mathf.Abs(moveDir.x) > Mathf.Abs(moveDir.y))
+            {
+                currentState = moveDir.x > 0 ? AnimState.WalkingRight : AnimState.WalkingLeft;
+            }
+            else
+            {
+                currentState = moveDir.y > 0 ? AnimState.WalkingUp : AnimState.WalkingDown;
+            }
+        }
+        else
+        {
+            currentState = AnimState.Idle;
+        }
 
         if (prevState != currentState)
         {
@@ -50,12 +64,19 @@ public class Player_Anim : MonoBehaviour
                 case AnimState.Idle:
                     LoopSprite(idleAnim, idleAnimSpd);
                     break;
-                case AnimState.Walking:
-                    LoopSprite(walkingAnim, walkingAnimSpd);
+                case AnimState.WalkingUp:
+                    LoopSprite(upAnim, upAnimSpd);
                     break;
-                default: break;
+                case AnimState.WalkingDown:
+                    LoopSprite(downAnim, downAnimSpd);
+                    break;
+                case AnimState.WalkingLeft:
+                    LoopSprite(leftAnim, leftAnimSpd);
+                    break;
+                case AnimState.WalkingRight:
+                    LoopSprite(rightAnim, rightAnimSpd);
+                    break;
             }
-
         }
 
         prevState = currentState;
@@ -66,26 +87,22 @@ public class Player_Anim : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(Looping(images, animSpd));
     }
+
     IEnumerator Looping(Sprite[] images, float animSpd)
     {
         int currentFrame = 0;
         float startTime = Time.time;
+
         while (true)
         {
             currentFrame = (int)((Time.time - startTime) * images.Length / animSpd);
             if (currentFrame >= images.Length)
             {
                 startTime = Time.time;
-                currentFrame = (int)((Time.time - startTime) * images.Length / animSpd);
+                currentFrame = 0;
             }
             theSprite.sprite = images[currentFrame];
             yield return null;
         }
-
-        //foreach (Sprite image in images)
-        //{
-        //    theSprite.sprite = image;
-        //    yield return null;
-        //}
     }
 }
