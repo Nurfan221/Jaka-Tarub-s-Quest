@@ -13,8 +13,10 @@ public class Player_Inventory : MonoBehaviour
 
     private int maxItem = 18;
 
+    [SerializeField] GameObject normalAttackHitArea; //Referensi image hitbox
     [SerializeField] private Button switchWeaponImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     [SerializeField] private Button switchUseItemImage; // Referensi ke Image yang digunakan untuk mengganti senjata
+    [SerializeField] public ContohFlipCard contohFlipCard;
 
     [HideInInspector] public bool meleeOrRanged = true;
     [HideInInspector] public bool itemUse1 = true;
@@ -122,36 +124,25 @@ public class Player_Inventory : MonoBehaviour
         inventoryOpened = !inventoryOpened;
         inventoryClosed = !inventoryOpened; // Update inventoryClosed
         PlayerUI.Instance.inventoryUI.SetActive(inventoryOpened);
+        contohFlipCard.IfClose();
 
         GameController.Instance.ShowPersistentUI(!inventoryOpened);
 
         if (inventoryOpened)
         {
             GameController.Instance.PauseGame();
-            Instance.AddItem(ItemPool.Instance.GetItem("Benih Cabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BuahCabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Benih Cabai"));
+           
+            //Instance.AddItem(ItemPool.Instance.GetItem("Sword"));
             Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
             Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Besi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Besi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("DagingSapi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("DagingSapi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Pedang Ren"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Penyiram Tanaman"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Cangkul"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Stik"));
+            Instance.AddItem(ItemPool.Instance.GetItem("BatangBesi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Penyiram Tanaman"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Cangkul"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Stik"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Kapak"));
             Instance.AddItem(ItemPool.Instance.GetItem("Kapak"));
-            Instance.AddItem(ItemPool.Instance.GetItem("PickAxe"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Sabit"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Sabit"));
 
 
             inventoryUI.UpdateInventoryUI(); // Update UI when inventory is opened
@@ -224,36 +215,54 @@ public class Player_Inventory : MonoBehaviour
         // Cek apakah objek yang disentuh memiliki tag "ItemDrop"
         if (other.CompareTag("ItemDrop"))
         {
-            // Ambil data item dari komponen ItemDrop
-            ItemDropInteractable itemDrop = other.GetComponent<ItemDropInteractable>();
-            if (itemDrop != null)
+            // Ambil data dari PrefabItemBehavior jika ada
+            PrefabItemBehavior prefabItem = other.GetComponent<PrefabItemBehavior>();
+
+            if (prefabItem != null)
             {
-                string itemName = itemDrop.itemName;
+                string itemName = prefabItem.namePrefab;
+                float itemHealth = prefabItem.health;
 
-                // Tambahkan item ke inventory pemain dan cek apakah berhasil
+                // Cari item di ItemPool berdasarkan namePrefab dari PrefabItemBehavior
                 Item itemToAdd = ItemPool.Instance.GetItem(itemName);
-                int prevCount = itemList.Count; // Hitung jumlah item sebelum AddItem
 
-                AddItem(itemToAdd); // Tambahkan item ke inventory
-
-                // Jika jumlah item di inventory bertambah, berarti item berhasil dimasukkan
-                if (itemList.Count > prevCount ||
-                    (itemToAdd.isStackable && itemList.Exists(x => x.itemName == itemToAdd.itemName)))
+                if (itemToAdd != null)
                 {
-                    Debug.Log($"{itemName} berhasil ditambahkan ke inventory. Menghancurkan item drop.");
-                    Destroy(other.gameObject); // Hancurkan item drop dari world
+                    int prevCount = itemList.Count; // Hitung jumlah item sebelum AddItem
+
+                    // Buat clone item agar tidak merusak data asli di ItemPool
+                    itemToAdd = Instantiate(itemToAdd);
+                    itemToAdd.health = itemHealth; // Atur nilai health dari item menggunakan health dari PrefabItemBehavior
+
+                    Debug.Log("nyawa item itu adalah : " + itemHealth);
+                    // Tambahkan item ke inventory
+                    AddItem(itemToAdd);
+
+                    // Jika jumlah item di inventory bertambah, berarti item berhasil dimasukkan
+                    if (itemList.Count > prevCount ||
+                        (itemToAdd.isStackable && itemList.Exists(x => x.itemName == itemToAdd.itemName)))
+                    {
+                        Debug.Log($"{itemName} berhasil ditambahkan ke inventory. Menghancurkan item drop.");
+                        Destroy(other.gameObject); // Hancurkan item drop dari world
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"{itemName} tidak ditambahkan ke inventory karena penuh.");
+                    }
                 }
                 else
                 {
-                    Debug.LogWarning($"{itemName} tidak ditambahkan ke inventory karena penuh.");
+                    Debug.LogWarning($"Item dengan nama {itemName} tidak ditemukan di ItemPool.");
                 }
             }
             else
             {
-                Debug.LogWarning("Komponen ItemDrop tidak ditemukan di objek dengan tag 'ItemDrop'.");
+                Debug.LogWarning("Komponen PrefabItemBehavior tidak ditemukan di objek dengan tag 'ItemDrop'.");
             }
         }
     }
+
+
 
 
 
@@ -374,6 +383,14 @@ public class Player_Inventory : MonoBehaviour
             if (PlayerUI.Instance != null && PlayerUI.Instance.equippedUI != null)
             {
                 PlayerUI.Instance.equippedUI.sprite = equippedWeapon.sprite;
+
+                //SpriteRenderer hitboxSpriteRenderer = normalAttackHitArea.GetComponent<SpriteRenderer>();
+                //// Ganti sprite-nya dengan sprite dari equippedWeapon
+                //if (hitboxSpriteRenderer != null && equippedWeapon != null)
+                //{
+                //    hitboxSpriteRenderer.sprite = equippedWeapon.sprite;
+                //}
+
             }
         }
         // Mengecek apakah ada senjata di slot kedua (slot 1)
@@ -383,6 +400,14 @@ public class Player_Inventory : MonoBehaviour
             if (PlayerUI.Instance != null && PlayerUI.Instance.equippedUI != null)
             {
                 PlayerUI.Instance.equippedUI.sprite = equippedWeapon.sprite;
+
+
+                //SpriteRenderer hitboxSpriteRenderer = normalAttackHitArea.GetComponent<SpriteRenderer>();
+                //// Ganti sprite-nya dengan sprite dari equippedWeapon
+                //if (hitboxSpriteRenderer != null && equippedWeapon != null)
+                //{
+                //    hitboxSpriteRenderer.sprite = equippedWeapon.sprite;
+                //}
             }
         }
         
@@ -396,7 +421,8 @@ public class Player_Inventory : MonoBehaviour
                     {
                         // Sekarang Anda bisa mengakses metode atau properti di Player_Action
                         playerAction.buttonAttack.gameObject.SetActive(false);  // Memanggil metode di Player_Action
-                    }
+
+                }
                 
             }
         }

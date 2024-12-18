@@ -28,19 +28,19 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] Transform ContentGO6; // New UI Content for 6 items
     [SerializeField] Transform SlotTemplate6; // New UI Slot Template for 6 items
 
-    [SerializeField] private ContohFlipCard contohFlipCard;
+    [SerializeField] public ContohFlipCard contohFlipCard;
 
     // [Header("item active in display")]
     // [SerializeField] private Image attackHUDImage;
 
 
 
-    
+
 
     private void Start()
     {
         // Any initial setup can be added here
-         
+
     }
     // private void update()
     // {
@@ -50,7 +50,7 @@ public class InventoryUI : MonoBehaviour
     private void OnEnable()
     {
         // Pastikan referensi ke ContohFlipCard diatur saat InventoryUI diaktifkan
-        contohFlipCard = FindObjectOfType<ContohFlipCard>();
+
         if (contohFlipCard == null)
         {
             Debug.LogError("ContohFlipCard tidak ditemukan di scene!");
@@ -72,7 +72,7 @@ public class InventoryUI : MonoBehaviour
 
         pickedSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
         pickedSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
-      
+
     }
 
     public void UpdateInventoryUI()
@@ -181,7 +181,7 @@ public class InventoryUI : MonoBehaviour
             Transform itemInDisplay = Instantiate(SlotTemplate6, ContentGO6);
             itemInDisplay.gameObject.SetActive(true);
             itemInDisplay.gameObject.name = item.itemName;
-            
+
             // Cek jika sprite item tidak null
             if (item.sprite != null)
             {
@@ -191,83 +191,83 @@ public class InventoryUI : MonoBehaviour
             // Cek jika stackCount tidak null
             itemInDisplay.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
 
-            
+
         }
     }
 
     public void SetDescription(Item item)
-{
-
-   // Set item's texts
-    itemSprite.sprite = item.sprite;
-    itemName.text = item.itemName;
-    itemDesc.text = item.itemDescription;
-
-    // Set the "equip" button functionality
-     itemAction.onClick.RemoveAllListeners();
-    itemAction.onClick.AddListener(() =>
     {
-        Debug.Log("itemAction clicked");
-        if (contohFlipCard != null)
+
+        // Set item's texts
+        itemSprite.sprite = item.sprite;
+        itemName.text = item.itemName;
+        itemDesc.text = item.itemDescription;
+
+        // Set the "equip" button functionality
+        itemAction.onClick.RemoveAllListeners();
+        itemAction.onClick.AddListener(() =>
         {
-            Debug.Log("yeeeayy kesambung");
-            contohFlipCard.ShowDescription();
+            Debug.Log("itemAction clicked");
+            if (contohFlipCard != null)
+            {
+                Debug.Log("yeeeayy kesambung");
+                contohFlipCard.ShowDescription();
+            }
+            else
+            {
+                Debug.LogError("ga kesambung");
+            }
+        });
+
+        switch (item.type)
+        {
+            case ItemType.Melee_Combat:
+                itemAction.onClick.AddListener(() =>
+                {
+                    Player_Inventory.Instance.EquipItem(item, 0);
+                    // SoundManager.Instance.PlaySound("PickUp");
+                });
+                break;
+            case ItemType.Ranged_Combat:
+                itemAction.onClick.AddListener(() =>
+                {
+                    Player_Inventory.Instance.EquipItem(item, 1);
+                    // SoundManager.Instance.PlaySound("PickUp");
+                });
+                break;
+            case ItemType.Heal:
+                itemAction.onClick.AddListener(() =>
+                {
+                    Player_Inventory.Instance.AddQuickSlot(item, 0);
+                    // SoundManager.Instance.PlaySound("PickUp");
+                });
+                break;
+            case ItemType.Buff:
+                itemAction.onClick.AddListener(() =>
+                {
+                    Player_Inventory.Instance.AddQuickSlot(item, 1);
+                    // SoundManager.Instance.PlaySound("PickUp");
+                });
+                break;
+            default:
+                Debug.Log("item tidak sesuai");
+                break;
+        }
+
+        // Set the "Equip" button according to item's type
+        string itemUses;
+        if (item.type == ItemType.Item)
+        {
+            itemUses = "CAN'T EQUIP";
+            itemAction.interactable = false;
         }
         else
         {
-            Debug.LogError("ga kesambung");
+            itemUses = "EQUIP";
+            itemAction.interactable = true;
         }
-    });
-
-    switch (item.type)
-    {
-        case ItemType.Melee_Combat:
-            itemAction.onClick.AddListener(() =>
-            {
-                Player_Inventory.Instance.EquipItem(item, 0);
-                // SoundManager.Instance.PlaySound("PickUp");
-            });
-            break;
-        case ItemType.Ranged_Combat:
-            itemAction.onClick.AddListener(() =>
-            {
-                Player_Inventory.Instance.EquipItem(item, 1);
-                // SoundManager.Instance.PlaySound("PickUp");
-            });
-            break;
-        case ItemType.Heal:
-            itemAction.onClick.AddListener(() =>
-            {
-                Player_Inventory.Instance.AddQuickSlot(item, 0);
-                // SoundManager.Instance.PlaySound("PickUp");
-            });
-            break;
-        case ItemType.Buff:
-            itemAction.onClick.AddListener(() =>
-            {
-                Player_Inventory.Instance.AddQuickSlot(item, 1);
-                // SoundManager.Instance.PlaySound("PickUp");
-            });
-            break;
-        default:
-                Debug.Log("item tidak sesuai");
-            break;
+        itemAction.GetComponentInChildren<TMP_Text>().text = itemUses;
     }
-
-    // Set the "Equip" button according to item's type
-    string itemUses;
-    if (item.type == ItemType.Item )
-    {
-        itemUses = "CAN'T EQUIP";
-        itemAction.interactable = false;
-    }
-    else
-    {
-        itemUses = "EQUIP";
-        itemAction.interactable = true;
-    }
-    itemAction.GetComponentInChildren<TMP_Text>().text = itemUses;
-}
 
 
 }

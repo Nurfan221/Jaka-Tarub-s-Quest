@@ -64,4 +64,10 @@ public class ContohFlipCard : MonoBehaviour
         }
            
     }
+    public void IfClose()
+    {
+        frontSide.SetActive(true);
+        backSide.SetActive(false);
+        Description = false;
+    }
 }

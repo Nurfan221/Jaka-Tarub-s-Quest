@@ -4,105 +4,63 @@ using UnityEngine;
 
 public class Player_Anim : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer theSprite;
+    [SerializeField] Animator animator; // Referensi ke Animator
     Player_Movement pm;
+    SpriteRenderer sr;
 
-    enum AnimState
-    {
-        Idle,
-        WalkingUp,
-        WalkingDown,
-        WalkingLeft,
-        WalkingRight
-    }
-    AnimState currentState = AnimState.Idle;
-    AnimState prevState = AnimState.Idle;
 
-    [SerializeField] float idleAnimSpd = 3;
-    [SerializeField] float walkingAnimSpd = 0.5f;
-
-    [SerializeField] Sprite[] idleAnim;
-    [SerializeField] Sprite[] upAnim;
-    [SerializeField] Sprite[] downAnim;
-    [SerializeField] Sprite[] leftAnim;
-    [SerializeField] Sprite[] rightAnim;
-
-    [SerializeField] float upAnimSpd = 0.5f;
-    [SerializeField] float downAnimSpd = 0.5f;
-    [SerializeField] float leftAnimSpd = 0.5f;
-    [SerializeField] float rightAnimSpd = 0.5f;
-
-    void Start()
+    private void Start()
     {
         pm = GetComponent<Player_Movement>();
+        sr = GetComponent<SpriteRenderer>();  // Ambil SpriteRenderer untuk flip sprite
     }
 
-    void Update()
+    public void Update()
     {
-        Vector2 moveDir = pm.moveDir;
+        bool isMoving = pm.movement != Vector2.zero;
 
-        if (pm.isMoving)
+        if (isMoving)
         {
-            if (Mathf.Abs(moveDir.x) > Mathf.Abs(moveDir.y))
+            // Jika bergerak ke atas
+            if (pm.movement.y > 0.1f)
             {
-                currentState = moveDir.x > 0 ? AnimState.WalkingRight : AnimState.WalkingLeft;
+                SetWalkAnimation(true, false, false, false); // Set WalkTop
             }
-            else
+            // Jika bergerak ke bawah
+            else if (pm.movement.y < -0.1f)
             {
-                currentState = moveDir.y > 0 ? AnimState.WalkingUp : AnimState.WalkingDown;
+                SetWalkAnimation(false, true, false, false); // Set WalkDown
+            }
+            // Jika bergerak ke kanan
+            else if (pm.movement.x > 0.01f)
+            {
+                SetWalkAnimation(false, false, true, false); // Set WalkRight
+                sr.flipX = false; // Tidak perlu membalikkan sprite, biarkan default
+            }
+            // Jika bergerak ke kiri
+            else if (pm.movement.x < -0.1f)
+            {
+                SetWalkAnimation(false, false, false, true); // Set WalkLeft
+                sr.flipX = true; // Membalikkan sprite untuk kiri
             }
         }
         else
         {
-            currentState = AnimState.Idle;
+            // Jika tidak bergerak, set ke idle
+            SetWalkAnimation(false, false, false, false);
         }
-
-        if (prevState != currentState)
-        {
-            switch (currentState)
-            {
-                case AnimState.Idle:
-                    LoopSprite(idleAnim, idleAnimSpd);
-                    break;
-                case AnimState.WalkingUp:
-                    LoopSprite(upAnim, upAnimSpd);
-                    break;
-                case AnimState.WalkingDown:
-                    LoopSprite(downAnim, downAnimSpd);
-                    break;
-                case AnimState.WalkingLeft:
-                    LoopSprite(leftAnim, leftAnimSpd);
-                    break;
-                case AnimState.WalkingRight:
-                    LoopSprite(rightAnim, rightAnimSpd);
-                    break;
-            }
-        }
-
-        prevState = currentState;
     }
 
-    void LoopSprite(Sprite[] images, float animSpd)
+    private void SetWalkAnimation(bool top, bool down, bool right, bool left)
     {
-        StopAllCoroutines();
-        StartCoroutine(Looping(images, animSpd));
+        animator.SetBool("WalkTop", top);
+        animator.SetBool("WalkDown", down);
+        animator.SetBool("WalkRight", right);
+        animator.SetBool("WalkLeft", left);
+
+        // Set PlayerIdle ketika tidak ada pergerakan
+        animator.SetBool("PlayerIdle", !(top || down || right || left));
     }
 
-    IEnumerator Looping(Sprite[] images, float animSpd)
-    {
-        int currentFrame = 0;
-        float startTime = Time.time;
 
-        while (true)
-        {
-            currentFrame = (int)((Time.time - startTime) * images.Length / animSpd);
-            if (currentFrame >= images.Length)
-            {
-                startTime = Time.time;
-                currentFrame = 0;
-            }
-            theSprite.sprite = images[currentFrame];
-            yield return null;
-        }
-    }
 }

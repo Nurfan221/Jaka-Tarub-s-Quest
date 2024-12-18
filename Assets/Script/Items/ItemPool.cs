@@ -6,7 +6,7 @@ public class ItemPool : MonoBehaviour
 {
     public static ItemPool Instance;
 
-    [SerializeField] List<Item> items;
+    [SerializeField]public List<Item> items;
 
     private void Awake()
     {
@@ -38,19 +38,35 @@ public class ItemPool : MonoBehaviour
 
     public void DropItem(string itemName, Vector2 pos, GameObject itemDrop, int count = 1, int level = 1)
     {
+        if (itemDrop == null)
+        {
+            Debug.LogError($"Item drop prefab untuk {itemName} tidak valid.");
+            return;
+        }
+
         GameObject droppedItem = Instantiate(itemDrop, pos, Quaternion.identity);
 
-        // Tambahkan komponen Rigidbody2D jika belum ada
+        // Set tag menjadi ItemDrop agar bisa dideteksi saat player mengambilnya
+        droppedItem.tag = "ItemDrop";
+
+        // Jika item memiliki komponen visual (misalnya SpriteRenderer)
+        SpriteRenderer spriteRenderer = droppedItem.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            Item itemData = ItemPool.Instance.items.Find(item => item.itemName == itemName);
+            if (itemData != null)
+            {
+                spriteRenderer.sprite = itemData.sprite; // Ganti sprite sesuai dengan item
+            }
+        }
+
+        // Menambahkan Rigidbody2D dan force untuk efek jatuh
         Rigidbody2D rb = droppedItem.GetComponent<Rigidbody2D>();
         if (rb == null)
         {
             rb = droppedItem.AddComponent<Rigidbody2D>();
         }
-
-        // Atur gravityScale kecil untuk efek jatuh ringan
         rb.gravityScale = 0.5f;
-
-        // Tambahkan sedikit force untuk gerakan jatuh
         rb.AddForce(new Vector2(Random.Range(-0.5f, 0.5f), -1f), ForceMode2D.Impulse);
 
         // Panggil StopGravity dari komponen ItemDropInteractable
@@ -62,4 +78,5 @@ public class ItemPool : MonoBehaviour
 
         droppedItem.GetComponent<ItemDropInteractable>().item = GetItem(itemName, count, level);
     }
+
 }

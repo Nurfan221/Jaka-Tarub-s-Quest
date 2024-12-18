@@ -52,10 +52,11 @@ public class Craft : MonoBehaviour
         }
     }
 
-    void Update() { }
+
 
     public void OpenCraft()
     {
+        Debug.Log("craft active");
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Click");
         GameController.Instance.ShowPersistentUI(false);

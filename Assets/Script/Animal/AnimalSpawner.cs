@@ -74,7 +74,7 @@ public class AnimalSpawner : MonoBehaviour
         GameObject prefabToSpawn = GetRandomAnimalFromCategory(currentCategory);
         if (prefabToSpawn == null)
         {
-            Debug.LogWarning("Tidak ada hewan yang tersedia untuk kategori ini.");
+            //Debug.LogWarning("Tidak ada hewan yang tersedia untuk kategori ini.");
             return;
         }
 
@@ -111,14 +111,14 @@ public class AnimalSpawner : MonoBehaviour
             currentCategory = SpawnCategory.Malam;
         }
 
-        Debug.Log($"Kategori spawn diperbarui ke: {currentCategory}");
+        //Debug.Log($"Kategori spawn diperbarui ke: {currentCategory}");
     }
 
     private Vector2 GetSpawnPosition()
     {
         if (spawnArea == null)
         {
-            Debug.LogWarning("Spawn area tidak ditemukan, menggunakan posisi default.");
+            //Debug.LogWarning("Spawn area tidak ditemukan, menggunakan posisi default.");
             return transform.position;
         }
 
@@ -138,7 +138,7 @@ public class AnimalSpawner : MonoBehaviour
 
         if (attempts >= maxAttempts)
         {
-            Debug.LogWarning("Gagal menemukan posisi spawn yang valid. Menggunakan posisi default.");
+            //Debug.LogWarning("Gagal menemukan posisi spawn yang valid. Menggunakan posisi default.");
             return bounds.center;
         }
 

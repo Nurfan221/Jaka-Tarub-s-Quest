@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class Player_Movement : MonoBehaviour
 {
     Rigidbody2D rb;
-    Vector2 movement;
+    public Vector2 movement;
 
 
-    [SerializeField] Transform sprite;
+    //[SerializeField] Transform sprite;
     [SerializeField] Transform face;
     [SerializeField] Transform circleBoundary; // Lingkaran di sekitar player
 
@@ -74,7 +74,7 @@ public class Player_Movement : MonoBehaviour
         PlayerUI.Instance.dashUI.color = new(1, 1, 1, Player_Health.Instance.stamina < dashStamina ? .5f : 1);
 
         UpdateFacePosition(); // Perbarui posisi face berdasarkan lingkaran
-        UpdateSpriteDirection(); // Update arah sprite (kanan atau kiri)
+        //UpdateSpriteDirection(); // Update arah sprite (kanan atau kiri)
         moveSpd = walkSpd;
         moveDir = movement;
     }
@@ -105,26 +105,24 @@ public class Player_Movement : MonoBehaviour
         {
             Vector3 newFacePosition = new Vector3(movement.x, movement.y, 0) * radius;
             face.localPosition = newFacePosition;
+
+            // Tentukan animasi berdasarkan arah input
+            //UpdateAnimation(movement);
         }
         else
         {
             // Jika tidak ada input, face tetap di posisi terakhir
             Vector3 lastFacePosition = new Vector3(lastDirection.x, lastDirection.y, 0) * radius;
             face.localPosition = lastFacePosition;
+
+            // Tentukan animasi berdasarkan arah sebelumnya
+            //UpdateAnimation(lastDirection);
         }
     }
 
-    private void UpdateSpriteDirection()
-    {
-        if (movement.x > 0.1f) // Jika bergerak ke kanan
-        {
-            sprite.localScale = new Vector3(1, 1, 1); // Pastikan skala normal
-        }
-        else if (movement.x < -0.1f) // Jika bergerak ke kiri
-        {
-            sprite.localScale = new Vector3(-1, 1, 1); // Balik sprite secara horizontal
-        }
-    }
+    
+
+
 
     void HandleMovement()
     {
@@ -136,11 +134,11 @@ public class Player_Movement : MonoBehaviour
             }
             else
             {
-                rb.velocity = new Vector2(movement.x * moveSpd, movement.y * moveSpd);
+                rb.linearVelocity = new Vector2(movement.x * moveSpd, movement.y * moveSpd);
 
                 // Stops player if no input given
                 if (movement == Vector2.zero)
-                    rb.velocity = Vector2.zero;
+                    rb.linearVelocity = Vector2.zero;
             }
         }
     }
@@ -160,7 +158,7 @@ public class Player_Movement : MonoBehaviour
             yield return null;
         }
         PlayerUI.Instance.dashUI.fillAmount = 1;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         noMovement = false;
         justDash = false;
         dashing = false;

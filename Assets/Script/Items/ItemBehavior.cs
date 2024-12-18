@@ -6,7 +6,7 @@ public class ItemBehavior : MonoBehaviour
 {
     public Item item; // Referensi ke ScriptableObject Item
 
-    private int currentHealth;
+    private float currentHealth;
 
     void Start()
     {

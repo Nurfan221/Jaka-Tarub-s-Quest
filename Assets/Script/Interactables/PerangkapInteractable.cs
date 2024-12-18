@@ -6,6 +6,7 @@ public class PeraangkapInteractable : Interactable
 {
     public PerangkapBehavior perangkapBehavior;
 
+
     void Start()
     {
         // Set prompt sesuai status awal
@@ -25,6 +26,9 @@ public class PeraangkapInteractable : Interactable
         if (perangkapBehavior.isfull)
         {
             perangkapBehavior.TakeAnimal();
+        }else
+        {
+
         }
     }
 }

@@ -9,7 +9,7 @@ public class PerangkapBehavior : MonoBehaviour
     public GameObject[] hewanBuruan; // Daftar prefab hewan yang bisa ditangkap
     public GameObject animalInTrap;  // Hewan yang tertangkap
     public GameObject imageAnimalInTrap; // GameObject di atas perangkap untuk menampilkan sprite hewan
-    public float Health = 1;
+    [SerializeField] private PrefabItemBehavior prefabItemBehavior;
 
 
     void Start()
@@ -23,6 +23,7 @@ public class PerangkapBehavior : MonoBehaviour
     {
 
     }
+
 
     private void OnDestroy()
     {
@@ -42,7 +43,7 @@ public class PerangkapBehavior : MonoBehaviour
     {
         if (!isfull) // Perangkap kosong, bisa menangkap hewan
         {
-            Health -= 1;
+            prefabItemBehavior.health -= 1;
             imageAnimalInTrap.gameObject.SetActive(true);
             // Memilih hewan secara acak dari daftar hewanBuruan
             int randomIndex = Random.Range(0, hewanBuruan.Length);
@@ -102,7 +103,7 @@ public class PerangkapBehavior : MonoBehaviour
 
             animalInTrap = null; // Hapus hewan dari perangkap
             isfull = false; // Set perangkap kosong lagi
-            if (Health <=0)
+            if (prefabItemBehavior.health <=0)
             {
                 Destroy(gameObject);
             }
@@ -115,6 +116,6 @@ public class PerangkapBehavior : MonoBehaviour
 
     
 
-
+     
 
 }

@@ -89,7 +89,7 @@ public class Enemy_Health : MonoBehaviour
             rb.AddForce(knockbackForce * 100f * Time.deltaTime * knockbackDir, ForceMode2D.Impulse);
             yield return null;
         }
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
 
     }
 

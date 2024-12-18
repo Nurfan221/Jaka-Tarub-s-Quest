@@ -89,7 +89,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     //logika menanam pohon
-    public void CekTreeSeed(Vector3Int cellPosition)
+    public void CheckPrefabItem(Vector3Int cellPosition)
     {
         bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
         Debug.Log(" fungsi cek tree seed di jalankan");
@@ -106,7 +106,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
                 plantPrefab = item.plantPrefab; // Set plantPrefab sesuai item
 
-                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
+                //Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
+
+                
 
                 // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
                 if (item.IsInCategory(ItemCategory.TreeSeed))
@@ -114,7 +116,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     PlantTree(cellPosition, item.itemName, item.growthImages, item.growthTime);
                 }else
                 {
-                    PlacePrefab(cellPosition, item.itemName, item.prefabItem);
+                    PlacePrefab(cellPosition, item.itemName, item.prefabItem, item.health);
                 }
 
                 // Kurangi stack item setelah menanam
@@ -220,7 +222,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             Debug.Log("item di jatuhkan pada tile tanah");
             Debug.Log("item yang di drag adalah : " + itemNameSeed);
-            CekTreeSeed(cellPosition);
+            CheckPrefabItem(cellPosition);
             return true;
         }
 
@@ -362,7 +364,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
-    private void PlacePrefab(Vector3Int cellPosition, string namaItem, GameObject prefabItem)
+    private void PlacePrefab(Vector3Int cellPosition, string namaItem, GameObject prefabItem, float health)
     {
 
         Debug.Log("Menambahkan Game Object...");
@@ -375,7 +377,20 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // Set parent prefab tanaman ke plantsContainer
         plant.transform.SetParent(prefabContainer);
 
-        
+        //Cek apakah prefab memiliki komponen PrefabItemBehavior
+        PrefabItemBehavior prefabBehavior = plant.GetComponent<PrefabItemBehavior>();
+        if (prefabBehavior != null)
+        {
+            // Set health dari prefab berdasarkan nilai health dari item di inventory
+            prefabBehavior.health = health;
+            Debug.Log("Prefab memiliki PrefabItemBehavior. Health diset ke: " + health);
+        }
+        else
+        {
+            Debug.LogWarning("Prefab tidak memiliki komponen PrefabItemBehavior.");
+        }
+
+
 
         Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
     }

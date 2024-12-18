@@ -34,7 +34,7 @@ public class ItemDropInteractable : Interactable
         Debug.Log("ItemDropInteractable: StopGravity coroutine started.");
         yield return new WaitForSeconds(delay);
         rb.gravityScale = 0;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         Debug.Log("ItemDropInteractable: Gravity set to 0.");
     }
 }

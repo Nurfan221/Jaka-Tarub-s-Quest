@@ -16,9 +16,10 @@ MonoBehaviour:
   itemName: Kapak
   type: 0
   categories: 256
-  sprite: {fileID: 21300000, guid: 834bd8f0251c4b44a84bcb6172478795, type: 3}
+  sprite: {fileID: -6305548594305476506, guid: 93d1d84024bbe074187d759027a50f86, type: 3}
   itemDescription: 
   QuantityFuel: 0
+  health: 0
   Level: 1
   MaxLevel: 3
   Damage: 3
@@ -33,6 +34,7 @@ MonoBehaviour:
   SellValue: 0
   BurningTime: 0
   CookTime: 0
+  prefabItem: {fileID: 0}
   growthTime: 0
   growthImages: []
   plantPrefab: {fileID: 0}

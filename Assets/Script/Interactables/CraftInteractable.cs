@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CraftInteractable : Interactable
 {
-    [SerializeField] Craft craft;
+    [SerializeField] private Craft craft;
+
     protected override void Interact()
     {
+        Debug.Log("cek interactable ");
         craft.OpenCraft();
     }
 }

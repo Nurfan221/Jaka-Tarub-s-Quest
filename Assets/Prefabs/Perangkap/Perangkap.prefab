@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 221916205474464569}
   - component: {fileID: 8664554216995394883}
   - component: {fileID: 111458419296442766}
+  - component: {fileID: -6987671628748341261}
+  - component: {fileID: 3850026579648043215}
   m_Layer: 8
   m_Name: Perangkap
-  m_TagString: Untagged
+  m_TagString: ObjekDestroy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,6 +55,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -96,6 +101,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4992219504839692284}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -117,9 +123,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0.0316692, y: 0.04394865}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,7 +137,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 0.93878496, y: 0.7837726}
   m_EdgeRadius: 0
 --- !u!114 &8664554216995394883
@@ -150,7 +156,7 @@ MonoBehaviour:
   - {fileID: 3632186851480370098, guid: 1f56aee5c0ed0ec46b61ccfb6a6f1a6a, type: 3}
   animalInTrap: {fileID: 0}
   imageAnimalInTrap: {fileID: 8640419358972590822}
-  Health: 1
+  prefabItemBehavior: {fileID: -6987671628748341261}
 --- !u!114 &111458419296442766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +172,37 @@ MonoBehaviour:
   useEvents: 0
   promptMessage: 
   perangkapBehavior: {fileID: 8664554216995394883}
+--- !u!114 &-6987671628748341261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992219504839692284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f35b7bfeabcee4ba85145e38dd752e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  namePrefab: Perangkap
+--- !u!114 &3850026579648043215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992219504839692284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af62f5c85e00a94ba211bb3ee9bac35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 0
+  promptMessage: Perangkap
+  item: {fileID: 11400000, guid: 380b47082cf4f3346901ef63b07e582b, type: 2}
+  itemName: Perangkap
+  gravityDuration: 2
 --- !u!1 &8640419358972590822
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +252,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

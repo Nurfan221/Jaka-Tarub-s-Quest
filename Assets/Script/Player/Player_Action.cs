@@ -3,20 +3,21 @@ using TMPro;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.UI;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Player_Action : MonoBehaviour
 {
     public static Player_Action Instance;
-    [SerializeField] private Player_Inventory player_Inventory;
+     private Player_Inventory player_Inventory;
+    [SerializeField] PlayerUI playerUI;
+    private Animator animator; // Deklarasikan Animator
+    [SerializeField] private Animator toolsAnimator;
+    public SpriteRenderer hitBoxRenderer;
 
-    #region KEYBINDINGS
-    KeyCode actionInput = KeyCode.F;
-    
+    private Coroutine stopAnimCoroutine;
 
-    KeyCode quickSlot1 = KeyCode.Q;
-    KeyCode quickSlot2 = KeyCode.E;
 
-    #endregion
+
 
     #region COMBAT
     [Header("COMBAT")]
@@ -28,11 +29,11 @@ public class Player_Action : MonoBehaviour
     float specialAttackTimer;
     bool canSpecialAttack = true;
 
-    [SerializeField] GameObject swordFX;
-    [SerializeField] GameObject swordAOEFX;
-    [SerializeField] ParticleSystem swordParticle;
-    [SerializeField] ParticleSystem swordAOEParticle;
-    [SerializeField] ParticleSystem tombakParticle;
+    //[SerializeField] GameObject swordFX;
+    //[SerializeField] GameObject swordAOEFX;
+    //[SerializeField] ParticleSystem swordParticle;
+    //[SerializeField] ParticleSystem swordAOEParticle;
+    //[SerializeField] ParticleSystem tombakParticle;
 
     [SerializeField] ParticleSystem buffParticle;
 
@@ -51,15 +52,13 @@ public class Player_Action : MonoBehaviour
 
     [SerializeField] private FarmTile farmTile;
     // [SerializeField] private plantSeed plantSeed;
-    [SerializeField] bool drawInteractCircle;
-    [SerializeField] LayerMask interactablesLayer;
-    [SerializeField] float interactsRadius = 2f;
+
     public Button buttonAttack;
     public Button specialAttack;
 
     public Button buttonUse;
 
-    
+
     bool canInteract = false;
     Interactable interactable;
 
@@ -81,12 +80,12 @@ public class Player_Action : MonoBehaviour
             specialAttack.onClick.AddListener(OnSpecialAttackButtonClick);
         }
 
-        if (buttonUse!= null)
+        if (buttonUse != null)
         {
             buttonUse.onClick.AddListener(OnUseButtonClick);
         }
 
-      PlayerUI playerUI = FindObjectOfType<PlayerUI>();
+
 
         if (playerUI != null)
         {
@@ -110,59 +109,14 @@ public class Player_Action : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        animator = GetComponent<Animator>(); // Inisialisasi animator dengan komponen Animator yang ada pada GameObject
+        //toolsAnimator = GetComponent<Animator>();
     }
 
-    void Update()
-    {
-        
-        {
-            #region INPUTS_ACTION
-            // Main Action (Attacking)
-            // Secondary Action (Sepcial Attacking)
 
-
-
-           
-
-            // Quick slots
-            HandleQuickSLotUI(0);
-            if (Input.GetKeyDown(quickSlot1) && canQuickSlots[0])
-            {
-                // quick slot 2
-                if (Player_Inventory.Instance.quickSlots[0] != null)
-                {
-                    Player_Inventory.Instance.UseQuickSlot(1);
-                    // StartCoroutine(HandleUICD(PlayerUI.Instance.quickSlotsUI_HUD[0], quickSlotCD));
-                }
-            }
-            HandleQuickSLotUI(1);
-            if (Input.GetKeyDown(quickSlot2) && canQuickSlots[1])
-            {
-                // quick slot 2
-                if (Player_Inventory.Instance.quickSlots[1] != null)
-                {
-                    Player_Inventory.Instance.UseQuickSlot(2);
-                    // StartCoroutine(HandleUICD(PlayerUI.Instance.quickSlotsUI_HUD[1], quickSlotCD));
-                }
-            }
-
-            // Interact action (for interacting with environment)
-            canInteract = CheckInteractables();
-            // jadi logikanya cek dulu di sekitar ada yang bisa di interact gak
-            if (Input.GetKeyDown(actionInput))
-            {
-                // terus kalo udah dicek, baru bisa pencet interact
-                if (canInteract)
-                {
-                    interactable.BaseInteract();
-                }
-            }
-            #endregion
-        }
-    }
 
     // cek apakah player bersentuhan dengan tanaman
- 
+
 
 
 
@@ -196,50 +150,15 @@ public class Player_Action : MonoBehaviour
     #endregion
 
     // Helper function for checking interactables nearby
-    bool CheckInteractables()
+    
+
+
+    public void OnActionInputButtonClick()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, interactsRadius, Vector2.up, 0, interactablesLayer);
-        if (hit.transform != null)
-        {
-            interactable = hit.transform.GetComponent<Interactable>();
-
-            if (interactable != null)
-            {
-                if (interactable is PlantInteractable plantInteractable)
-                {
-                    // Check if the seed is ready to be watered
-                    // if (plantInteractable.seedInteractable.siram)
-                    // {
-                    //     PlayerUI.Instance.promptText.text = " klik kanan untuk " + interactable.promptMessage;
-                    // }
-                     if (plantInteractable.plantSeed != null && !plantInteractable.plantSeed.isReadyToHarvest)
-                        {
-                            PlayerUI.Instance.promptText.text = interactable.promptMessage;
-                        }
-                        else
-                        {
-                            PlayerUI.Instance.promptText.text = "Tekan untuk " + interactable.promptMessage;
-                        }
-
-                }
-                else
-                {
-                    PlayerUI.Instance.promptText.text =  interactable.promptMessage;
-                }
-
-                return true;
-            }
-        }
-
-        PlayerUI.Instance.promptText.text = string.Empty;
-        return false;
-    }
-
-    public void OnActionInputButtonClick(){
         if (canInteract)
         {
-          interactable.BaseInteract();
-          Debug.Log("actionInputButton on click");
+            interactable.BaseInteract();
+            Debug.Log("actionInputButton on click");
         }
     }
 
@@ -258,14 +177,14 @@ public class Player_Action : MonoBehaviour
     private void OnSpecialAttackButtonClick()
     {
         if (combatMode && canAttack && canSpecialAttack)
-            {
-                canSpecialAttack = false;
-                 SpecialAttack();
-                 StartCoroutine(HandleUICD(PlayerUI.Instance.specialAttackUI, Player_Inventory.Instance.equippedWeapon.SpecialAttackCD));
-            }
+        {
+            canSpecialAttack = false;
+            SpecialAttack();
+            StartCoroutine(HandleUICD(PlayerUI.Instance.specialAttackUI, Player_Inventory.Instance.equippedWeapon.SpecialAttackCD));
+        }
     }
 
-   private void OnUseButtonClick()
+    private void OnUseButtonClick()
     {
         Player_Inventory player_inventory = FindObjectOfType<Player_Inventory>();
 
@@ -308,34 +227,40 @@ public class Player_Action : MonoBehaviour
 
 
 
-    public void ActivateHitbox(int damage, string weaponType, float howLong = 0.5f, bool AOE = false)
+    public void ActivateHitbox(int damage, string weaponType, float howLong = 1f, bool AOE = false)
     {
-        // Tetapkan ukuran hitbox tetap
-        float defaultHitboxSize = 1.5f; // Ubah sesuai kebutuhan
-
         GameObject activeHitbox = AOE ? specialAttackHitArea : normalAttackHitArea;
 
         // Tetapkan posisi hitbox ke posisi face
         activeHitbox.transform.position = face.position;
 
-        // Ubah skala hitbox menggunakan ukuran default
-        activeHitbox.transform.localScale = new Vector3(defaultHitboxSize, defaultHitboxSize, 1);
-
         // Tetapkan nama hitbox untuk menyimpan informasi damage
         activeHitbox.name = damage.ToString();
 
+        // Cek arah wajah dan tentukan animasi berdasarkan arah
+        Vector2 faceDirection = face.localPosition.normalized; // Ambil arah wajah dari posisi lokal face
+        UpdateAnimation(faceDirection); // Memanggil fungsi untuk mengatur animasi
+
+        // Jalankan animasi tools
+        activeHitbox.SetActive(true);
+        StartCoroutine(RunToolsAnimationAndDeactivateHitbox(weaponType, faceDirection, activeHitbox, howLong));
+
+
+
         // Cek apakah mengenai objek dengan tag "Tree" atau "Stone"
-        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(face.position, defaultHitboxSize / 2);
+        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(face.position, activeHitbox.transform.localScale.x / 2);
         foreach (Collider2D obj in hitObjects)
         {
             if (obj.CompareTag("Tree") && weaponType == "Kapak")
             {
+
                 Debug.Log($"Pohon terkena serangan dengan damage: {damage}");
                 TreeBehavior tree = obj.GetComponent<TreeBehavior>();
                 if (tree != null)
                 {
                     tree.TakeDamage(damage);
                 }
+
             }
             else if (obj.CompareTag("Stone") && weaponType == "PickAxe")
             {
@@ -346,11 +271,11 @@ public class Player_Action : MonoBehaviour
                     stone.TakeDamage(damage);
                 }
             }
-            else if (obj.CompareTag("Plant") && weaponType =="Sabit")
+            else if (obj.CompareTag("Plant") && weaponType == "Sabit")
             {
-                Debug.Log($"rumput terkena damage dan akan di panen");
+                Debug.Log($"Rumput terkena damage dan akan dipanen");
                 PlantSeed plantSeed = obj.GetComponent<PlantSeed>();
-                if(plantSeed != null )
+                if (plantSeed != null)
                 {
                     plantSeed.Harvest();
                 }
@@ -364,28 +289,229 @@ public class Player_Action : MonoBehaviour
                     animal.TakeDamage(damage);  // Memanggil method TakeDamage untuk memberikan damage
                 }
             }
+            else if (obj.CompareTag("ObjekDestroy") && weaponType == "Kapak")
+            {
+                // Cek apakah objek memiliki script PrefabItemBehavior
+                PrefabItemBehavior prefabItem = obj.GetComponent<PrefabItemBehavior>();
+                Debug.Log("ini bernyawa : " + prefabItem.health);
+                if (prefabItem != null) // Jika PrefabItemBehavior ada di objek tersebut
+                {
+                    // Cari item di ItemPool berdasarkan namePrefab dari PrefabItemBehavior
+                    Item itemData = ItemPool.Instance.items.Find(item => item.itemName == prefabItem.namePrefab);
+                    itemData.health = prefabItem.health;
+                    if (itemData != null)
+                    {
+                        GameObject itemDropPrefab = itemData.prefabItem; // Ambil prefab item dari itemData
+                        if (itemDropPrefab != null)
+                        {
+                            PrefabItemBehavior afterDrop = itemDropPrefab.GetComponent<PrefabItemBehavior>();
+                            if(afterDrop != null)
+                            {
+                                afterDrop.health = prefabItem.health;
+                            }
+                            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+                            // Drop item di posisi objek
+                            ItemPool.Instance.DropItem(itemData.itemName, obj.transform.position + offset, itemDropPrefab);
+                            //ItemPool.Instance.DropItem(getah.name, transform.position + offset, getah);
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"Prefab item untuk {itemData.itemName} tidak ditemukan.");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Item dengan nama {prefabItem.namePrefab} tidak ditemukan di ItemPool.");
+                    }
+
+                    // Hancurkan objek setelah item di-drop
+                    Destroy(obj.gameObject);
+                }
+                else
+                {
+                    Debug.LogWarning("ObjekDestroy tidak memiliki script PrefabItemBehavior.");
+                }
+            }
 
         }
 
-        // Aktifkan hitbox untuk durasi tertentu
-        StartCoroutine(ActivatingHitbox(activeHitbox, howLong));
+        // Aktifkan hitbox untuk durasi animasi
+        //StartCoroutine(ActivatingHitbox(activeHitbox, animationDuration));
     }
 
-
-
-
-
-    IEnumerator ActivatingHitbox(GameObject hitbox, float duration)
+    private IEnumerator RunToolsAnimationAndDeactivateHitbox(string weaponType, Vector2 direction, GameObject activeHitbox, float howLong)
     {
-        // Aktifkan hitbox
-        hitbox.SetActive(true);
+        // Jalankan animasi tool
+        float animationDuration = ToolsAnimation(weaponType, direction);
 
-        // Tunggu selama durasi tertentu
-        yield return new WaitForSeconds(duration);
+        // Tunggu selama animasi selesai
+        yield return new WaitForSeconds(animationDuration);
 
-        // Nonaktifkan hitbox
-        hitbox.SetActive(false);
+        // Setelah animasi selesai, nonaktifkan hitbox
+        activeHitbox.SetActive(false);
     }
+
+
+    private float ToolsAnimation(string weaponType, Vector2 direction)
+    {
+        float animationDuration = 0.4f; // Durasi animasi
+
+        if (weaponType == "PickAxe")
+        {
+            // Pastikan animasi sebelumnya dimatikan sebelum memulai animasi baru
+            if (Vector2.Dot(direction, Vector2.up) > 0.9f) // Mengarah ke atas
+            {
+                toolsAnimator.SetBool("PickAxeUp", true);
+                toolsAnimator.SetBool("PickAxeDown", false);
+                toolsAnimator.SetBool("PickAxeRight", false);
+                toolsAnimator.SetBool("PickAxeLeft", false);
+            }
+            else if (Vector2.Dot(direction, Vector2.down) > 0.9f) // Mengarah ke bawah
+            {
+                toolsAnimator.SetBool("PickAxeUp", false);
+                toolsAnimator.SetBool("PickAxeDown", true);
+                toolsAnimator.SetBool("PickAxeRight", false);
+                toolsAnimator.SetBool("PickAxeLeft", false);
+            }
+            else if (Vector2.Dot(direction, Vector2.right) > 0.9f) // Mengarah ke kanan
+            {
+                toolsAnimator.SetBool("PickAxeUp", false);
+                toolsAnimator.SetBool("PickAxeDown", false);
+                toolsAnimator.SetBool("PickAxeRight", true);
+                toolsAnimator.SetBool("PickAxeLeft", false);
+                hitBoxRenderer.flipX = false; // Tidak perlu membalikkan sprite, biarkan default
+            }
+            else if (Vector2.Dot(direction, Vector2.left) > 0.9f) // Mengarah ke kiri
+            {
+                toolsAnimator.SetBool("PickAxeUp", false);
+                toolsAnimator.SetBool("PickAxeDown", false);
+                toolsAnimator.SetBool("PickAxeRight", false);
+                toolsAnimator.SetBool("PickAxeLeft", true);
+
+                //ubah arah animasi
+                hitBoxRenderer.flipX = true;
+
+            }
+            return animationDuration; // Mengembalikan durasi animasi untuk menunggu sebelum melanjutkan
+        }
+        else if (weaponType == "Sword")
+        {
+            Debug.Log("animasi sword di jalankan");
+            if (Vector2.Dot(direction, Vector2.up) > 0.9f) // Mengarah ke atas
+            {
+                toolsAnimator.SetBool("SwordUp", true);
+                toolsAnimator.SetBool("SwordDown", false);
+                toolsAnimator.SetBool("SwordRight", false);
+                toolsAnimator.SetBool("SwordLeft", false);
+                hitBoxRenderer.flipY = true;
+                Debug.Log("animasi sword di jalankan atas");
+            }
+            else if (Vector2.Dot(direction, Vector2.down) > 0.9f) // Mengarah ke bawah
+            {
+                toolsAnimator.SetBool("SwordUp", false);
+                toolsAnimator.SetBool("SwordDown", true);
+                toolsAnimator.SetBool("SwordRight", false);
+                toolsAnimator.SetBool("SwordLeft", false);
+                hitBoxRenderer.flipY = false;
+                Debug.Log("animasi sword di jalankan bawah");
+            }
+            else if (Vector2.Dot(direction, Vector2.right) > 0.9f) // Mengarah ke kanan
+            {
+                toolsAnimator.SetBool("SwordUp", false);
+                toolsAnimator.SetBool("SwordDown", false);
+                toolsAnimator.SetBool("SwordRight", true);
+                toolsAnimator.SetBool("SwordLeft", false);
+                hitBoxRenderer.flipX = false; // Tidak perlu membalikkan sprite, biarkan default
+                Debug.Log("animasi sword di jalankan kanan");
+            }
+            else if (Vector2.Dot(direction, Vector2.left) > 0.9f) // Mengarah ke kiri
+            {
+                toolsAnimator.SetBool("SwordUp", false);
+                toolsAnimator.SetBool("SwordDown", false);
+                toolsAnimator.SetBool("SwordRight", false);
+                toolsAnimator.SetBool("SwordLeft", true);
+
+                //ubah arah animasi
+                hitBoxRenderer.flipX = true;
+                Debug.Log("animasi sword di jalankan kiri");
+
+            }
+            return animationDuration; // Mengembalikan durasi animasi untuk menunggu sebelum melanjutkan
+        }
+        return 0;
+    }
+
+    // Fungsi untuk mengatur animasi berdasarkan arah wajah
+    private void UpdateAnimation(Vector2 direction)
+    {
+        Debug.Log("logika animation di jalankan ");
+        Debug.Log("direction: " + direction);
+        float animationDuration = 0.4f; // Perpanjang durasi agar lebih mudah terlihat
+
+        // Cancel the previous animation stop coroutine if it exists
+        if (stopAnimCoroutine != null)
+        {
+            StopCoroutine(stopAnimCoroutine);
+        }
+
+        // Play animation based on the direction
+        if (Vector2.Dot(direction, Vector2.up) > 0.9f) // Mengarah ke atas
+        {
+            Debug.Log("atas");
+            animator.SetBool("ActionTop", true);
+            animator.SetBool("ActionDown", false);
+            animator.SetBool("ActionLeft", false);
+            animator.SetBool("ActionRight", false);
+            stopAnimCoroutine = StartCoroutine(StopAnimationAfterDelay(animationDuration));
+        }
+        else if (Vector2.Dot(direction, Vector2.down) > 0.9f) // Mengarah ke bawah
+        {
+            Debug.Log("bawah");
+            animator.SetBool("ActionTop", false);
+            animator.SetBool("ActionDown", true);
+            animator.SetBool("ActionLeft", false);
+            animator.SetBool("ActionRight", false);
+            stopAnimCoroutine = StartCoroutine(StopAnimationAfterDelay(animationDuration));
+        }
+        else if (Vector2.Dot(direction, Vector2.left) > 0.9f) // Mengarah ke kiri
+        {
+            Debug.Log("kiri");
+            animator.SetBool("ActionTop", false);
+            animator.SetBool("ActionDown", false);
+            animator.SetBool("ActionLeft", true);
+            animator.SetBool("ActionRight", false);
+            stopAnimCoroutine = StartCoroutine(StopAnimationAfterDelay(animationDuration));
+        }
+        else if (Vector2.Dot(direction, Vector2.right) > 0.9f) // Mengarah ke kanan
+        {
+            Debug.Log("kanan");
+            animator.SetBool("ActionTop", false);
+            animator.SetBool("ActionDown", false);
+            animator.SetBool("ActionLeft", false);
+            animator.SetBool("ActionRight", true);
+            stopAnimCoroutine = StartCoroutine(StopAnimationAfterDelay(animationDuration));
+        }
+    }
+
+    private IEnumerator StopAnimationAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        animator.SetBool("ActionTop", false);
+        animator.SetBool("ActionDown", false);
+        animator.SetBool("ActionLeft", false);
+        animator.SetBool("ActionRight", false);
+        toolsAnimator.SetBool("SwordDown", false);
+        toolsAnimator.SetBool("PickAxeDown", false);
+        toolsAnimator.SetBool("PickAxeRight", false);
+        toolsAnimator.SetBool("PickAxeLeft", false);
+        toolsAnimator.SetBool("SwordUp", false);
+        toolsAnimator.SetBool("SwordDown", false);
+        toolsAnimator.SetBool("SwordRight", false);
+        toolsAnimator.SetBool("SwordLeft", false);
+    }
+
+
+
 
 
 
@@ -443,7 +569,7 @@ public class Player_Action : MonoBehaviour
                     {
                         Debug.Log("Stamina tidak mencukupi untuk menyerang.");
                     }
-                break;
+                    break;
 
                 case "Sabit":
                     if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
@@ -452,6 +578,21 @@ public class Player_Action : MonoBehaviour
 
                         //Memanggil ActiveHitbox tanpa parameter area
                         ActivateHitbox(itemToAttack.Damage, "Sabit");
+
+                    }
+                    else
+                    {
+                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
+                    }
+
+                    break;
+                case "Sword":
+                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
+                    {
+                        Debug.Log($"Damage: {itemToAttack.Damage}");
+
+                        //Memanggil ActiveHitbox tanpa parameter area
+                        ActivateHitbox(itemToAttack.Damage, "Sword");
 
                     }
                     else
@@ -504,7 +645,7 @@ public class Player_Action : MonoBehaviour
         }
     }
 
- 
+
 
 
     public void SpecialAttack()
@@ -522,7 +663,7 @@ public class Player_Action : MonoBehaviour
 
                 // SoundManager.Instance.PlaySound("Siram");
                 print("watering plants");
-                
+
                 Vector3 playerPosition = transform.position; // Posisi pemain
 
                 // Ambil arah dari posisi face
@@ -531,7 +672,8 @@ public class Player_Action : MonoBehaviour
                 // Panggil HoeTile menggunakan playerPosition dan arah face
                 farmTile.WaterTile(playerPosition, faceDirection);
 
-            }else if (itemToAttack.itemName == "Cangkul")
+            }
+            else if (itemToAttack.itemName == "Cangkul")
             {
                 print("mencangkul tanah");
                 Vector3 playerPosition = transform.position; // Posisi pemain
@@ -541,7 +683,8 @@ public class Player_Action : MonoBehaviour
 
                 // Panggil HoeTile menggunakan playerPosition dan arah face
                 farmTile.HoeTile(playerPosition, faceDirection);
-            }else if (itemToAttack.itemName == "Pedang Ren")
+            }
+            else if (itemToAttack.itemName == "Pedang Ren")
             {
 
                 print("buffing");
@@ -637,13 +780,5 @@ public class Player_Action : MonoBehaviour
 
     #endregion
 
-    #region DEBUG
-    private void OnDrawGizmos()
-    {
-        if (drawInteractCircle)
-        {
-            Gizmos.DrawWireSphere(transform.position, interactsRadius);
-        }
-    }
-    #endregion
+
 }

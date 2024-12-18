@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Perangkap
   m_EditorClassIdentifier: 
-  itemID: 40
+  itemID: 6
   itemName: Perangkap
   type: 6
   categories: 4096
   sprite: {fileID: 21300000, guid: 0fa0e8720c2c28246bf174f4de695b43, type: 3}
   itemDescription: gunakan ini untuk menangkap hewan kecil
   QuantityFuel: 0
-  Level: 0
+  health: 4
+  Level: 1
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0

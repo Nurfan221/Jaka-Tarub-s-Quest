@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 15
   itemName: Batu
-  type: 1
+  type: 4
   categories: 768
-  sprite: {fileID: 21300000, guid: 8f0d593b3dd6cc54e9e2a3466cd3345b, type: 3}
-  itemDescription: ' Batu yang kau temukan di hutan'
+  sprite: {fileID: -8388445113289073859, guid: ec2d2c5ffa3b4b942a915e4b1898d36f, type: 3}
+  itemDescription: Batuan alami yang kokoh dan tahan lama. Cocok digunakan untuk
+    membangun struktur atau membuat alat-alat sederhana.
   QuantityFuel: 0
+  health: 0
   Level: 1
   MaxLevel: 0
   Damage: 1
@@ -33,6 +35,7 @@ MonoBehaviour:
   SellValue: 500
   BurningTime: 0
   CookTime: 0
+  prefabItem: {fileID: 0}
   growthTime: 0
   growthImages: []
   plantPrefab: {fileID: 0}

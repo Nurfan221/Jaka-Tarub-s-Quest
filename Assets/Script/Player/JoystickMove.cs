@@ -25,11 +25,11 @@ public class JoystickMove : MonoBehaviour
 
         if (joystickDirection != Vector2.zero)
         {
-            rb.velocity = joystickDirection * currentSpeed;
+            rb.linearVelocity = joystickDirection * currentSpeed;
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
     }
 }

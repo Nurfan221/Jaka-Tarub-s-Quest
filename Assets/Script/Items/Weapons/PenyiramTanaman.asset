@@ -16,12 +16,13 @@ MonoBehaviour:
   itemName: Penyiram Tanaman
   type: 0
   categories: 256
-  sprite: {fileID: 21300000, guid: 852fa4d32e9f42b4fa8ce8450634d236, type: 3}
+  sprite: {fileID: 4136355292219290567, guid: 93d1d84024bbe074187d759027a50f86, type: 3}
   itemDescription: 'Ayolah, masa kalian tidak tahu item ini?
 
     Special skill:
     menyiram tanaman; Stamina: 1'
   QuantityFuel: 0
+  health: 0
   Level: 1
   MaxLevel: 1
   Damage: 1
@@ -36,6 +37,7 @@ MonoBehaviour:
   SellValue: 500
   BurningTime: 0
   CookTime: 0
+  prefabItem: {fileID: 0}
   growthTime: 0
   growthImages: []
   plantPrefab: {fileID: 0}
