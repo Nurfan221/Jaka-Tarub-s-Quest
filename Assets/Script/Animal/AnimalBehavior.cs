@@ -4,12 +4,28 @@ using UnityEngine;
 
 public class AnimalBehavior : MonoBehaviour
 {
+    [System.Serializable]
+    public class AnimationState
+    {
+        public string stateName;         // Nama state (Idle, Jalan, Makan)
+        public string[] availableStates; // Array animasi yang bisa dituju
+    }
+
+    public AnimationState[] animationStates; // Array semua animasi dan transisinya
+    public string currentState;  // Set awal ke Idle
+
+
     public enum Jenis
     {
         None,
         HewanBuas,
         HewanBuruan
     }
+
+    //[Header("Animasi")]
+    [SerializeField] private Animator animalAnimator;
+    public SpriteRenderer animalRenderer;
+
 
     public string namaHewan;
     public float health;
@@ -24,9 +40,9 @@ public class AnimalBehavior : MonoBehaviour
     public GameObject[] dropitems;
 
     // Logika menentukan jumlah minimal dan maksimal dari item yang akan dijatuhkan
-    public int minNormalItem = 1;  // Jumlah minimum batu
-    public int maxNormalItem = 2;  // Jumlah maksimum batu
-    public int minSpecialItem = 0; // Jumlah item spesial seperti copper, iron, atau gold
+    public int minNormalItem = 1;  // Jumlah minimum normal Item
+    public int maxNormalItem = 2;  // Jumlah maksimum normal Item
+    public int minSpecialItem = 0; // Jumlah item spesial seperti Tulang dll
     public int maxSpecialItem = 1;
 
     //public Transform circleCenter; // Pusat lingkaran
@@ -49,7 +65,13 @@ public class AnimalBehavior : MonoBehaviour
     private void Start()
     {
         // Mulai pergerakan jika hewan tidak sedang tidur atau makan
-        StartCoroutine(AnimalMovement());
+        //StartCoroutine(AnimalMovement());
+
+        currentState = "Idle";  // Set awal ke Idle
+        PlayAnimation(currentState);
+
+        // Mulai random animation setelah 3 detik dan setiap 5 detik
+        InvokeRepeating(nameof(PlayRandomAnimation), 3f, 5f);
     }
 
     public void TakeDamage(int damage)
@@ -160,39 +182,42 @@ public class AnimalBehavior : MonoBehaviour
 
 
 
-    private IEnumerator AnimalMovement()
+    // Pergerakan hewan saat animasi JalanKanan atau JalanKiri
+    private IEnumerator AnimalMovement(string currentAnimation)
     {
-        while (true)
+        // Menunggu animasi selesai sebelum melanjutkan logika berikutnya
+        yield return new WaitForEndOfFrame();  // Pastikan animasi sudah diputar pertama kali
+
+        // Tentukan arah pergerakan berdasarkan animasi
+        if (currentAnimation == "JalanKanan")
         {
-            if (!isEating && !isSleeping)
-            {
-                // Tentukan arah pergerakan hewan (kanan atau kiri)
-                moveDirection = Random.Range(0, 2) == 0 ? Vector2.left : Vector2.right;
+            moveDirection = Vector2.left;  // Gerak ke kanan
+        }
+        else if (currentAnimation == "JalanKiri")
+        {
+            moveDirection = Vector2.right;   // Gerak ke kiri
 
-                isMoving = true;
-                yield return MoveForDuration();
-                isMoving = false;
-            }
-            else if (isEating)
-            {
-                // Hewan buruan sedang makan
-                Debug.Log($"{namaHewan} sedang makan.");
-                yield return new WaitForSeconds(eatDuration); // Durasi makan
-                isEating = false;
-            }
-            else if (isSleeping)
-            {
-                // Hewan buas sedang tidur
-                Debug.Log($"{namaHewan} sedang tidur.");
-                yield return new WaitForSeconds(sleepDuration); // Durasi tidur
-                isSleeping = false;
-            }
+        }
 
-            // Menunggu sebelum kelinci bergerak lagi
-            yield return new WaitForSeconds(2f);
+        // Mulai pergerakan
+        isMoving = true;
+        yield return MoveForDuration();  // Gerak selama durasi tertentu
+        isMoving = false;
+
+        // Setelah bergerak, animasi bisa dilanjutkan
+        if (jenisHewan == Jenis.HewanBuruan)
+        {
+            isEating = true;
+        }
+        else if (jenisHewan == Jenis.HewanBuas)
+        {
+            isSleeping = true;
         }
     }
 
+
+
+    // Fungsi untuk gerak selama durasi tertentu
     private IEnumerator MoveForDuration()
     {
         Vector2 startPosition = transform.position;
@@ -227,4 +252,77 @@ public class AnimalBehavior : MonoBehaviour
     //        Gizmos.DrawWireSphere(circleCenter.position, circleRadius);
     //    }
     //}
+
+    public void TransitionTo(string nextState)
+    {
+        // Cek apakah transisi diperbolehkan
+        AnimationState state = System.Array.Find(animationStates, s => s.stateName == currentState);
+
+        if (state != null && System.Array.Exists(state.availableStates, s => s == nextState))
+        {
+            PlayAnimation(nextState);
+            currentState = nextState;
+        }
+        else
+        {
+            Debug.LogWarning($"Transisi dari {currentState} ke {nextState} tidak diperbolehkan.");
+        }
+    }
+
+    private void PlayAnimation(string state)
+    {
+        // Hentikan animasi sebelumnya jika ada
+        if (state == "JalanKiri")
+        {
+            animalRenderer.flipX = true;
+        }
+        else if (state == "JalanKanan")
+        {
+            animalRenderer.flipX = false;  // Set flipX ke false untuk JalanKanan
+        }
+
+        animalAnimator.Play(state);
+
+        // Jika animasi adalah JalanKanan atau JalanKiri, mulai pergerakan
+        if (state == "JalanKanan" || state == "JalanKiri")
+        {
+            // Pastikan animasi gerakan dimulai dan menunggu sampai selesai
+            StartCoroutine(AnimalMovement(state));
+        }
+        else if (state == "Duduk")
+        {
+            StartCoroutine(TransitionToIdle("Rebahan", 0.8f));  // Delay 0.8 detik
+        }
+        else if (state == "Berdiri")
+        {
+            StartCoroutine(TransitionToIdle("Idle", 0.8f));  // Kembali ke Idle setelah 0.8 detik
+        }
+    }
+
+    // Coroutine untuk delay transisi ke Idle
+    private IEnumerator TransitionToIdle(string nextState, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        animalAnimator.Play(nextState);
+        currentState = nextState;
+    }
+
+
+    // Random Animation dari availableStates
+    private void PlayRandomAnimation()
+    {
+        AnimationState state = System.Array.Find(animationStates, s => s.stateName == currentState);
+
+        if (state != null && state.availableStates.Length > 0)
+        {
+            int randomIndex = Random.Range(0, state.availableStates.Length);
+            string randomState = state.availableStates[randomIndex];
+
+            TransitionTo(randomState);
+        }
+        else
+        {
+            Debug.LogWarning($"Tidak ada animasi yang tersedia untuk {currentState}");
+        }
+    }
 }

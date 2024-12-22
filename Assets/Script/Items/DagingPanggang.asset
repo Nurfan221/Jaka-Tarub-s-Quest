@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: DagingPanggang
   m_EditorClassIdentifier: 
-  itemID: 6
-  itemName: Daging Panggang
+  itemID: 8
+  itemName: DagingPanggang
   type: 3
   categories: 16
   sprite: {fileID: 21300000, guid: 69e696105ccd83d489b74710b7ee8b45, type: 3}
   itemDescription: 'Sapi yang di masak namun sedikit gosong '
   QuantityFuel: 0
+  health: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -33,6 +34,7 @@ MonoBehaviour:
   SellValue: 100
   BurningTime: 0
   CookTime: 5
+  prefabItem: {fileID: 0}
   growthTime: 0
   growthImages: []
   plantPrefab: {fileID: 0}

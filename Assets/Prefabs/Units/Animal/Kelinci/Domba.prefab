@@ -49,6 +49,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -97,8 +100,9 @@ GameObject:
   - component: {fileID: 2381154896837310017}
   - component: {fileID: 1007456806832233708}
   - component: {fileID: -514328421039202242}
+  - component: {fileID: 5094109486713765502}
   m_Layer: 0
-  m_Name: Kelinci
+  m_Name: Domba
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +118,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 46, y: -7, z: 0}
-  m_LocalScale: {x: 0.15875033, y: 0.16930215, z: 1}
+  m_LocalScale: {x: 0.76, y: 0.8105157, z: 4.787392}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8592230839549531711}
@@ -137,6 +141,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -161,7 +168,7 @@ SpriteRenderer:
   m_SortingLayerID: -45341917
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8ac3b68f9646e034b80c16875c0e4282, type: 3}
+  m_Sprite: {fileID: -6294243155114217349, guid: 67994d6ba15916f4387cc44beb934f3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -180,6 +187,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3632186851480370098}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -203,23 +211,23 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.17930698, y: -0.030672312}
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.11232519, y: -0.100458086}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.4, y: 1.4}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.32277012, y: 0.94632196}
+  m_Size: {x: 1.1414402, y: 0.56947815}
   m_EdgeRadius: 0
 --- !u!50 &1007456806832233708
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -230,8 +238,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 2
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -256,7 +264,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cdab25f66972f94480edfca2fb7f3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  namaHewan: Kelinci
+  animationStates:
+  - stateName: Idle
+    availableStates:
+    - JalanKiri
+    - JalanKanan
+    - Makan
+    - Duduk
+  - stateName: JalanKanan
+    availableStates:
+    - Idle
+    - Makan
+    - Duduk
+  - stateName: JalanKiri
+    availableStates:
+    - Idle
+    - Makan
+    - Duduk
+  - stateName: Duduk
+    availableStates:
+    - Rebahan
+  - stateName: Berdiri
+    availableStates:
+    - Idle
+  - stateName: Rebahan
+    availableStates:
+    - Tidur
+    - Berdiri
+  - stateName: Tidur
+    availableStates:
+    - Rebahan
+  - stateName: Makan
+    availableStates:
+    - Idle
+    - Mengunyah
+    - JalanKanan
+    - JalanKiri
+  - stateName: Mengunyah
+    availableStates:
+    - Makan
+    - Idle
+  currentState: 
+  animalAnimator: {fileID: 5094109486713765502}
+  animalRenderer: {fileID: 2863225171348835852}
+  namaHewan: Domba
   health: 3
   jenisHewan: 2
   dropitems:
@@ -270,3 +321,25 @@ MonoBehaviour:
   circleRadius: 10
   moveSpeed: 5
   escapeDuration: 3
+--- !u!95 &5094109486713765502
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3632186851480370098}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 951b52a5be219f8428e55e53194b5818, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

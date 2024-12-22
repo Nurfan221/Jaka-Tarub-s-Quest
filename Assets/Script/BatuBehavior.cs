@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class StoneBehavior : MonoBehaviour
 {
+    //Animation idle 
+    public Sprite[] stoneAnimation;
+    public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
+
+    private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
+    private int currentFrame = 0; // Indeks frame saat ini
+
     public float health; // Kesehatan batu
 
     // Deklarasi resource hasil menghancurkan batu
@@ -18,6 +25,24 @@ public class StoneBehavior : MonoBehaviour
     public int maxStone = 5;  // Jumlah maksimum batu
     public int minSpecialItem = 2; // Jumlah item spesial seperti copper, iron, atau gold
     public int maxSpecialItem = 4;
+
+    public void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>(); // Ambil komponen SpriteRenderer
+        StartCoroutine(PlayStoneAnimation()); // Mulai animasi
+    }
+    private IEnumerator PlayStoneAnimation()
+    {
+        while (true) // Loop tanpa batas (animasi berulang)
+        {
+            if (stoneAnimation.Length > 0) // Pastikan array sprite tidak kosong
+            {
+                spriteRenderer.sprite = stoneAnimation[currentFrame]; // Setel sprite saat ini
+                currentFrame = (currentFrame + 1) % stoneAnimation.Length; // Pindah ke frame berikutnya (loop)
+            }
+            yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
+        }
+    }
 
     public void TakeDamage(int damage)
     {

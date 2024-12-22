@@ -6,8 +6,9 @@ using UnityEngine;
 public class Recipe
 {
     public string recipeName; // Nama resep
-    public GameObject[] ingredients; // Bahan-bahan yang dibutuhkan
-    public GameObject result; // Hasil dari resep ini
+    public Item ingredient;    // Bahan-bahan yang dibutuhkan
+    public float ingredientCount; // jumlah bahan yang di perlukan
+    public Item result;    // Hasil dari resep ini
 }
 
 public class RecipeDatabase : MonoBehaviour
@@ -29,7 +30,7 @@ public class RecipeDatabase : MonoBehaviour
 
 
     [Header("Daftar Resep Makanan")]
-    public Recipe[] foodRecipes; // Array yang menyimpan semua resep makanan
+    public Recipe[] cookRecipes; // Array yang menyimpan semua resep makanan
 
     [Header("Daftar Resep Khusus (Opsional)")]
     public Recipe[] specialRecipes; // Resep khusus atau lainnya

@@ -183,15 +183,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -428,6 +430,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -670,7 +675,6 @@ GameObject:
   - component: {fileID: 358746929330604229}
   - component: {fileID: 3518369179072937464}
   - component: {fileID: 4848705584731667910}
-  - component: {fileID: 40032015947954684}
   - component: {fileID: 1865038838252072966}
   m_Layer: 5
   m_Name: CookIngredients
@@ -737,26 +741,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &40032015947954684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2164863175650380424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76dc674013782844cbe3a2abf4add7d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cookUI: {fileID: 2331850703674890647}
-  parentTransform: {fileID: 8324921224651345082}
-  hasilCook: {fileID: 6709515870203886122}
-  itemCook: {fileID: 6124976776473185007}
-  errorPopup: {fileID: 5243138823216999163}
-  backgroundColor: {r: 0.85, g: 0.85, b: 0.85, a: 1}
-  backgroundImage: {fileID: 1187406993, guid: 0028ed66ab97ab1439f422b594215327, type: 3}
-  cekIngredient: 0
 --- !u!114 &1865038838252072966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1038,15 +1022,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1524,15 +1510,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -2159,27 +2147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5750a225294df874eb7cc3f80e79b4a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cookIngredients: {fileID: 40032015947954684}
-  recipes:
-  - result: {fileID: 11400000, guid: 742d46c8813b91b4d876b849ec4d2da3, type: 2}
-    ingredients:
-    - {fileID: 11400000, guid: b6f7491557836d04b979c05e535782e2, type: 2}
-    ingredientsCount: 01000000
-  isCookUIPanelOpen: 0
-  itemSlotContainer: {fileID: 3681375199530319409}
-  itemSlotTemplate: {fileID: 3873893779673377366}
-  itemsInCook: []
-  fuelInCook: []
-  resultInCook: []
-  ItemCook: {fileID: 6124976776473185007}
-  FuelCook: {fileID: 7928487042069099731}
-  cookingResult: {fileID: 6709515870203886122}
-  fire: {fileID: 1657886940384225665}
-  newFireSprite: {fileID: 21300000, guid: ebbdd06b5837dac4db6be3046fa25556, type: 3}
-  itemCookValue: 0
-  fuelCookValue: 0
-  resultCookValue: 0
-  closeButton: {fileID: 1200500696892354143}
 --- !u!1 &9136266421701280726
 GameObject:
   m_ObjectHideFlags: 0
