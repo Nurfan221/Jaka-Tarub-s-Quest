@@ -286,7 +286,7 @@ public class Player_Action : MonoBehaviour
                 AnimalBehavior animal = obj.GetComponent<AnimalBehavior>();
                 if (animal != null)
                 {
-                    animal.TakeDamage(damage);  // Memanggil method TakeDamage untuk memberikan damage
+                    //animal.TakeDamage(damage);  // Memanggil method TakeDamage untuk memberikan damage
                 }
             }
             else if (obj.CompareTag("ObjekDestroy") && weaponType == "Kapak")

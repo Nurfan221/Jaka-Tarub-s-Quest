@@ -165,7 +165,7 @@ TextureImporter:
       213: -6916054726993782638
     second: Cow_07_53
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -210,7 +210,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -229,7 +229,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -242,7 +242,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -255,7 +255,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -268,7 +268,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -288,13 +288,14 @@ TextureImporter:
       name: Cow_07_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 260
-        width: 26
-        height: 23
+        x: 0
+        y: 256
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -309,13 +310,14 @@ TextureImporter:
       name: Cow_07_1
       rect:
         serializedVersion: 2
-        x: 36
-        y: 260
-        width: 26
-        height: 22
+        x: 32
+        y: 256
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -330,13 +332,14 @@ TextureImporter:
       name: Cow_07_2
       rect:
         serializedVersion: 2
-        x: 3
-        y: 228
-        width: 27
-        height: 24
+        x: 0
+        y: 224
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -351,13 +354,14 @@ TextureImporter:
       name: Cow_07_3
       rect:
         serializedVersion: 2
-        x: 35
-        y: 228
-        width: 27
-        height: 23
+        x: 32
+        y: 224
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -372,13 +376,14 @@ TextureImporter:
       name: Cow_07_4
       rect:
         serializedVersion: 2
-        x: 68
-        y: 228
-        width: 26
-        height: 23
+        x: 64
+        y: 224
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -393,13 +398,14 @@ TextureImporter:
       name: Cow_07_5
       rect:
         serializedVersion: 2
-        x: 99
-        y: 228
-        width: 27
-        height: 24
+        x: 96
+        y: 224
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -414,13 +420,14 @@ TextureImporter:
       name: Cow_07_6
       rect:
         serializedVersion: 2
-        x: 131
-        y: 228
-        width: 27
-        height: 24
+        x: 128
+        y: 224
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -435,13 +442,14 @@ TextureImporter:
       name: Cow_07_7
       rect:
         serializedVersion: 2
-        x: 163
-        y: 228
-        width: 27
-        height: 23
+        x: 160
+        y: 224
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -456,13 +464,14 @@ TextureImporter:
       name: Cow_07_8
       rect:
         serializedVersion: 2
-        x: 196
-        y: 228
-        width: 26
-        height: 23
+        x: 192
+        y: 224
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -477,13 +486,14 @@ TextureImporter:
       name: Cow_07_9
       rect:
         serializedVersion: 2
-        x: 227
-        y: 228
-        width: 27
-        height: 24
+        x: 224
+        y: 224
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -498,13 +508,14 @@ TextureImporter:
       name: Cow_07_10
       rect:
         serializedVersion: 2
-        x: 3
-        y: 196
-        width: 27
-        height: 22
+        x: 0
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -519,13 +530,14 @@ TextureImporter:
       name: Cow_07_11
       rect:
         serializedVersion: 2
-        x: 34
-        y: 196
-        width: 28
-        height: 20
+        x: 32
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -540,13 +552,14 @@ TextureImporter:
       name: Cow_07_12
       rect:
         serializedVersion: 2
-        x: 65
-        y: 196
-        width: 29
-        height: 18
+        x: 64
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -561,13 +574,14 @@ TextureImporter:
       name: Cow_07_13
       rect:
         serializedVersion: 2
-        x: 97
-        y: 196
-        width: 29
-        height: 18
+        x: 96
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -582,13 +596,14 @@ TextureImporter:
       name: Cow_07_14
       rect:
         serializedVersion: 2
-        x: 129
-        y: 196
-        width: 29
-        height: 18
+        x: 128
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -603,13 +618,14 @@ TextureImporter:
       name: Cow_07_15
       rect:
         serializedVersion: 2
-        x: 161
-        y: 196
-        width: 29
-        height: 18
+        x: 160
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -624,13 +640,14 @@ TextureImporter:
       name: Cow_07_16
       rect:
         serializedVersion: 2
-        x: 194
-        y: 196
-        width: 28
-        height: 20
+        x: 192
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -645,13 +662,14 @@ TextureImporter:
       name: Cow_07_17
       rect:
         serializedVersion: 2
-        x: 227
-        y: 196
-        width: 27
-        height: 22
+        x: 224
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -666,13 +684,14 @@ TextureImporter:
       name: Cow_07_18
       rect:
         serializedVersion: 2
-        x: 4
-        y: 164
-        width: 26
-        height: 22
+        x: 0
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -687,13 +706,14 @@ TextureImporter:
       name: Cow_07_19
       rect:
         serializedVersion: 2
-        x: 36
-        y: 164
-        width: 26
-        height: 22
+        x: 32
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -708,13 +728,14 @@ TextureImporter:
       name: Cow_07_20
       rect:
         serializedVersion: 2
-        x: 68
-        y: 164
-        width: 26
-        height: 22
+        x: 64
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -729,13 +750,14 @@ TextureImporter:
       name: Cow_07_21
       rect:
         serializedVersion: 2
-        x: 100
-        y: 164
-        width: 26
-        height: 23
+        x: 96
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -750,13 +772,14 @@ TextureImporter:
       name: Cow_07_22
       rect:
         serializedVersion: 2
-        x: 132
-        y: 164
-        width: 26
-        height: 23
+        x: 128
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -771,13 +794,14 @@ TextureImporter:
       name: Cow_07_23
       rect:
         serializedVersion: 2
-        x: 164
-        y: 164
-        width: 26
-        height: 23
+        x: 160
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -792,13 +816,14 @@ TextureImporter:
       name: Cow_07_24
       rect:
         serializedVersion: 2
-        x: 196
-        y: 164
-        width: 26
-        height: 23
+        x: 192
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -813,13 +838,14 @@ TextureImporter:
       name: Cow_07_25
       rect:
         serializedVersion: 2
-        x: 228
-        y: 164
-        width: 26
-        height: 23
+        x: 224
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -834,13 +860,14 @@ TextureImporter:
       name: Cow_07_26
       rect:
         serializedVersion: 2
-        x: 4
-        y: 132
-        width: 26
-        height: 23
+        x: 0
+        y: 128
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -855,13 +882,14 @@ TextureImporter:
       name: Cow_07_27
       rect:
         serializedVersion: 2
-        x: 36
-        y: 132
-        width: 26
-        height: 23
+        x: 32
+        y: 128
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -876,13 +904,14 @@ TextureImporter:
       name: Cow_07_28
       rect:
         serializedVersion: 2
-        x: 68
-        y: 132
-        width: 26
-        height: 23
+        x: 64
+        y: 128
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -897,13 +926,14 @@ TextureImporter:
       name: Cow_07_29
       rect:
         serializedVersion: 2
-        x: 100
-        y: 132
-        width: 26
-        height: 22
+        x: 96
+        y: 128
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -918,13 +948,14 @@ TextureImporter:
       name: Cow_07_30
       rect:
         serializedVersion: 2
-        x: 132
-        y: 132
-        width: 26
-        height: 21
+        x: 128
+        y: 128
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -939,13 +970,14 @@ TextureImporter:
       name: Cow_07_31
       rect:
         serializedVersion: 2
-        x: 164
-        y: 132
-        width: 26
-        height: 20
+        x: 160
+        y: 128
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -960,13 +992,14 @@ TextureImporter:
       name: Cow_07_32
       rect:
         serializedVersion: 2
-        x: 4
-        y: 100
-        width: 26
-        height: 20
+        x: 0
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -981,13 +1014,14 @@ TextureImporter:
       name: Cow_07_33
       rect:
         serializedVersion: 2
-        x: 36
-        y: 100
-        width: 26
-        height: 21
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1002,13 +1036,14 @@ TextureImporter:
       name: Cow_07_34
       rect:
         serializedVersion: 2
-        x: 68
-        y: 100
-        width: 26
-        height: 22
+        x: 64
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1023,13 +1058,14 @@ TextureImporter:
       name: Cow_07_35
       rect:
         serializedVersion: 2
-        x: 100
-        y: 100
-        width: 26
-        height: 23
+        x: 96
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1044,13 +1080,14 @@ TextureImporter:
       name: Cow_07_36
       rect:
         serializedVersion: 2
-        x: 132
-        y: 100
-        width: 26
-        height: 23
+        x: 128
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1065,13 +1102,14 @@ TextureImporter:
       name: Cow_07_37
       rect:
         serializedVersion: 2
-        x: 164
-        y: 100
-        width: 26
-        height: 23
+        x: 160
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1086,13 +1124,14 @@ TextureImporter:
       name: Cow_07_38
       rect:
         serializedVersion: 2
-        x: 4
-        y: 68
-        width: 26
-        height: 20
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1107,13 +1146,14 @@ TextureImporter:
       name: Cow_07_39
       rect:
         serializedVersion: 2
-        x: 35
-        y: 68
-        width: 27
-        height: 19
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1128,13 +1168,14 @@ TextureImporter:
       name: Cow_07_40
       rect:
         serializedVersion: 2
-        x: 66
-        y: 68
-        width: 28
-        height: 18
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1149,13 +1190,14 @@ TextureImporter:
       name: Cow_07_41
       rect:
         serializedVersion: 2
-        x: 98
-        y: 68
-        width: 28
-        height: 17
+        x: 96
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1170,13 +1212,14 @@ TextureImporter:
       name: Cow_07_42
       rect:
         serializedVersion: 2
-        x: 2
-        y: 36
-        width: 28
-        height: 21
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1191,13 +1234,14 @@ TextureImporter:
       name: Cow_07_43
       rect:
         serializedVersion: 2
-        x: 34
-        y: 36
-        width: 28
-        height: 22
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1212,13 +1256,14 @@ TextureImporter:
       name: Cow_07_44
       rect:
         serializedVersion: 2
-        x: 66
-        y: 36
-        width: 28
-        height: 23
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1233,13 +1278,14 @@ TextureImporter:
       name: Cow_07_45
       rect:
         serializedVersion: 2
-        x: 98
-        y: 36
-        width: 28
-        height: 25
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1254,13 +1300,14 @@ TextureImporter:
       name: Cow_07_46
       rect:
         serializedVersion: 2
-        x: 130
-        y: 36
-        width: 28
-        height: 26
+        x: 128
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1275,13 +1322,14 @@ TextureImporter:
       name: Cow_07_47
       rect:
         serializedVersion: 2
-        x: 162
-        y: 36
-        width: 28
-        height: 27
+        x: 160
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1296,13 +1344,14 @@ TextureImporter:
       name: Cow_07_48
       rect:
         serializedVersion: 2
-        x: 194
-        y: 36
-        width: 28
-        height: 28
+        x: 192
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1317,13 +1366,14 @@ TextureImporter:
       name: Cow_07_49
       rect:
         serializedVersion: 2
-        x: 226
-        y: 36
-        width: 28
-        height: 29
+        x: 224
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1338,13 +1388,14 @@ TextureImporter:
       name: Cow_07_50
       rect:
         serializedVersion: 2
-        x: 4
-        y: 4
-        width: 26
-        height: 23
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1359,13 +1410,14 @@ TextureImporter:
       name: Cow_07_51
       rect:
         serializedVersion: 2
-        x: 36
-        y: 4
-        width: 26
-        height: 23
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1380,13 +1432,14 @@ TextureImporter:
       name: Cow_07_52
       rect:
         serializedVersion: 2
-        x: 68
-        y: 4
-        width: 26
-        height: 23
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1401,13 +1454,14 @@ TextureImporter:
       name: Cow_07_53
       rect:
         serializedVersion: 2
-        x: 100
-        y: 4
-        width: 26
-        height: 23
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1419,15 +1473,18 @@ TextureImporter:
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8c161609f56c5dd4bb5b6dc47535c369
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
       Cow_07_0: -7413471138981615691
       Cow_07_1: 8368837562293469461

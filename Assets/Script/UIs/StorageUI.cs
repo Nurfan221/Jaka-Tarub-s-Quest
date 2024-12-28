@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class StorageUI : MonoBehaviour
 {
+
+    public static StorageUI Instance;
+
     /// <summary>
     /// Store, take, storage limit
     /// </summary>
@@ -22,6 +25,7 @@ public class StorageUI : MonoBehaviour
     [SerializeField] Transform StorageContainer;
     [SerializeField] Transform InventoryContainer;
     [SerializeField] Transform itemSlotTemplate;
+    //[SerializeField] StorageInteractable storageInteractable;
 
     [SerializeField] InventoryUI inventoryUI;
 
@@ -39,6 +43,8 @@ public class StorageUI : MonoBehaviour
     [Header("Button")]
     public Button closeStorageButton;
 
+   
+
     // Need to refresh both inventory and storage slots
     private void Start()
     {
@@ -51,12 +57,12 @@ public class StorageUI : MonoBehaviour
             Debug.Log("tombol close belum terhubung");
         }
 
-       
+        gameObject.SetActive(false);  // Nonaktifkan StorageUI setelah Awake() terpanggil
 
-       
 
-        
-       
+
+
+
     }
 
     private void Update()
@@ -65,12 +71,30 @@ public class StorageUI : MonoBehaviour
        
     }
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
+
     public void OpenStorage(StorageInteractable theStorage, List<Item> Items)
     {
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Click");
+
         GameController.Instance.ShowPersistentUI(false);
         gameObject.SetActive(true);
+
+        // Start the animation coroutine
+
 
         this.theStorage = theStorage;
         this.Items = new();
@@ -78,6 +102,7 @@ public class StorageUI : MonoBehaviour
         {
             this.Items.Add(item);
         }
+
         RefreshInventoryItems();
         storeButton.gameObject.SetActive(false);
         store1stack.gameObject.SetActive(false);
@@ -87,12 +112,19 @@ public class StorageUI : MonoBehaviour
 
     private void CloseStorage()
     {
-       
+        // Tutup UI Storage
         gameObject.SetActive(false);
         GameController.Instance.ShowPersistentUI(true);
-        theStorage.Items = Items;
-             
+
+        // Panggil animasi tutup dari storage yang sedang terbuka
+        if (theStorage != null)
+        {
+            theStorage.StartAnimationClose();  // Jalankan animasi tutup
+        }
+
+        theStorage.Items = Items;  // Simpan item kembali ke storage
     }
+
 
     void RefreshInventoryItems()
     {

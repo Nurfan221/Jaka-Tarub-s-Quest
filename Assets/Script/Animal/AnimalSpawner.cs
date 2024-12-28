@@ -79,8 +79,15 @@ public class AnimalSpawner : MonoBehaviour
         }
 
         // Spawn hewan di posisi yang valid
-        GameObject newEnemy = Instantiate(prefabToSpawn, transform);
+        GameObject newEnemy = Instantiate(prefabToSpawn);
         newEnemy.transform.position = GetSpawnPosition();
+        newEnemy.transform.localScale = Vector3.one;  // Pastikan skala 1,1,1
+        newEnemy.transform.parent = transform;        // Atur parent setelahnya
+
+
+        // Atur skala prefab ke 1 untuk memastikan ukurannya sesuai dengan prefab aslinya
+        newEnemy.transform.localScale = Vector3.one;
+
         enemies.Add(newEnemy);
     }
 
@@ -102,7 +109,7 @@ public class AnimalSpawner : MonoBehaviour
 
     private void UpdateSpawnCategory(int hour)
     {
-        if (hour >= 6 && hour < 18)
+        if (hour >= 1 && hour < 18)
         {
             currentCategory = SpawnCategory.Siang;
         }

@@ -153,7 +153,7 @@ TextureImporter:
       213: -9081641688084140247
     second: Ores_49
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -198,7 +198,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -217,7 +217,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -230,7 +230,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -243,7 +243,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -256,7 +256,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -278,11 +278,12 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 112
-        width: 17
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -297,13 +298,14 @@ TextureImporter:
       name: Ores_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
-        width: 17
+        x: 16
+        y: 112
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -318,13 +320,14 @@ TextureImporter:
       name: Ores_2
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
-        width: 17
-        height: 128
+        x: 32
+        y: 112
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -339,13 +342,14 @@ TextureImporter:
       name: Ores_3
       rect:
         serializedVersion: 2
-        x: 34
-        y: 0
-        width: 14
-        height: 128
+        x: 48
+        y: 112
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -360,13 +364,14 @@ TextureImporter:
       name: Ores_4
       rect:
         serializedVersion: 2
-        x: 49
-        y: 111
-        width: 14
+        x: 64
+        y: 112
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -381,13 +386,14 @@ TextureImporter:
       name: Ores_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 111
+        x: 80
+        y: 112
         width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -402,13 +408,14 @@ TextureImporter:
       name: Ores_6
       rect:
         serializedVersion: 2
-        x: 80
+        x: 96
         y: 112
-        width: 17
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -423,13 +430,14 @@ TextureImporter:
       name: Ores_7
       rect:
         serializedVersion: 2
-        x: 80
-        y: 96
-        width: 17
+        x: 112
+        y: 112
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -444,13 +452,14 @@ TextureImporter:
       name: Ores_8
       rect:
         serializedVersion: 2
-        x: 97
-        y: 112
-        width: 14
+        x: 0
+        y: 96
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -465,13 +474,14 @@ TextureImporter:
       name: Ores_9
       rect:
         serializedVersion: 2
-        x: 97
+        x: 16
         y: 96
-        width: 14
-        height: 17
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -486,13 +496,14 @@ TextureImporter:
       name: Ores_10
       rect:
         serializedVersion: 2
-        x: 111
-        y: 111
-        width: 17
-        height: 17
+        x: 32
+        y: 96
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -507,13 +518,14 @@ TextureImporter:
       name: Ores_11
       rect:
         serializedVersion: 2
-        x: 111
-        y: 95
-        width: 17
-        height: 17
+        x: 48
+        y: 96
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -528,13 +540,14 @@ TextureImporter:
       name: Ores_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 80
-        width: 17
+        x: 64
+        y: 96
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -549,13 +562,14 @@ TextureImporter:
       name: Ores_13
       rect:
         serializedVersion: 2
-        x: 49
-        y: 95
-        width: 14
+        x: 80
+        y: 96
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -570,13 +584,14 @@ TextureImporter:
       name: Ores_14
       rect:
         serializedVersion: 2
-        x: 49
-        y: 79
-        width: 14
+        x: 96
+        y: 96
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -591,13 +606,14 @@ TextureImporter:
       name: Ores_15
       rect:
         serializedVersion: 2
-        x: 64
-        y: 95
+        x: 112
+        y: 96
         width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -612,13 +628,14 @@ TextureImporter:
       name: Ores_16
       rect:
         serializedVersion: 2
-        x: 64
-        y: 79
+        x: 0
+        y: 80
         width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -633,13 +650,14 @@ TextureImporter:
       name: Ores_17
       rect:
         serializedVersion: 2
-        x: 80
+        x: 16
         y: 80
-        width: 17
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -654,13 +672,14 @@ TextureImporter:
       name: Ores_18
       rect:
         serializedVersion: 2
-        x: 97
+        x: 32
         y: 80
-        width: 14
-        height: 17
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -675,13 +694,14 @@ TextureImporter:
       name: Ores_19
       rect:
         serializedVersion: 2
-        x: 111
-        y: 79
-        width: 17
-        height: 17
+        x: 48
+        y: 80
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -696,13 +716,14 @@ TextureImporter:
       name: Ores_20
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
-        width: 17
+        x: 64
+        y: 80
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -717,13 +738,14 @@ TextureImporter:
       name: Ores_21
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
-        width: 17
+        x: 80
+        y: 80
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -738,13 +760,14 @@ TextureImporter:
       name: Ores_22
       rect:
         serializedVersion: 2
-        x: 49
-        y: 63
-        width: 14
+        x: 96
+        y: 80
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -759,13 +782,14 @@ TextureImporter:
       name: Ores_23
       rect:
         serializedVersion: 2
-        x: 64
-        y: 63
+        x: 112
+        y: 80
         width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -780,13 +804,14 @@ TextureImporter:
       name: Ores_24
       rect:
         serializedVersion: 2
-        x: 80
+        x: 0
         y: 64
-        width: 17
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -801,13 +826,14 @@ TextureImporter:
       name: Ores_25
       rect:
         serializedVersion: 2
-        x: 80
-        y: 48
-        width: 17
+        x: 16
+        y: 64
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -822,13 +848,14 @@ TextureImporter:
       name: Ores_26
       rect:
         serializedVersion: 2
-        x: 97
+        x: 32
         y: 64
-        width: 14
-        height: 17
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -843,13 +870,14 @@ TextureImporter:
       name: Ores_27
       rect:
         serializedVersion: 2
-        x: 97
-        y: 48
-        width: 14
-        height: 17
+        x: 48
+        y: 64
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -864,13 +892,14 @@ TextureImporter:
       name: Ores_28
       rect:
         serializedVersion: 2
-        x: 111
-        y: 63
-        width: 17
-        height: 17
+        x: 64
+        y: 64
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -885,13 +914,14 @@ TextureImporter:
       name: Ores_29
       rect:
         serializedVersion: 2
-        x: 111
-        y: 47
-        width: 17
-        height: 17
+        x: 80
+        y: 64
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -906,13 +936,14 @@ TextureImporter:
       name: Ores_30
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
-        width: 17
+        x: 96
+        y: 64
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -927,13 +958,14 @@ TextureImporter:
       name: Ores_31
       rect:
         serializedVersion: 2
-        x: 49
-        y: 47
-        width: 14
+        x: 112
+        y: 64
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -948,13 +980,14 @@ TextureImporter:
       name: Ores_32
       rect:
         serializedVersion: 2
-        x: 49
-        y: 31
-        width: 14
+        x: 0
+        y: 48
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -969,13 +1002,14 @@ TextureImporter:
       name: Ores_33
       rect:
         serializedVersion: 2
-        x: 64
-        y: 47
+        x: 16
+        y: 48
         width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -990,13 +1024,14 @@ TextureImporter:
       name: Ores_34
       rect:
         serializedVersion: 2
-        x: 64
-        y: 31
+        x: 32
+        y: 48
         width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1011,13 +1046,14 @@ TextureImporter:
       name: Ores_35
       rect:
         serializedVersion: 2
-        x: 80
-        y: 32
-        width: 17
+        x: 48
+        y: 48
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1032,13 +1068,14 @@ TextureImporter:
       name: Ores_36
       rect:
         serializedVersion: 2
-        x: 97
-        y: 32
-        width: 14
-        height: 17
+        x: 64
+        y: 48
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1053,13 +1090,14 @@ TextureImporter:
       name: Ores_37
       rect:
         serializedVersion: 2
-        x: 111
-        y: 31
-        width: 17
-        height: 17
+        x: 80
+        y: 48
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1074,13 +1112,14 @@ TextureImporter:
       name: Ores_38
       rect:
         serializedVersion: 2
-        x: 0
-        y: 16
-        width: 17
+        x: 96
+        y: 48
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1095,13 +1134,14 @@ TextureImporter:
       name: Ores_39
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 17
+        x: 112
+        y: 48
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1116,13 +1156,14 @@ TextureImporter:
       name: Ores_40
       rect:
         serializedVersion: 2
-        x: 49
-        y: 15
-        width: 14
+        x: 0
+        y: 32
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1137,13 +1178,14 @@ TextureImporter:
       name: Ores_41
       rect:
         serializedVersion: 2
-        x: 64
-        y: 15
+        x: 16
+        y: 32
         width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1158,13 +1200,14 @@ TextureImporter:
       name: Ores_42
       rect:
         serializedVersion: 2
-        x: 80
-        y: 16
-        width: 17
+        x: 32
+        y: 32
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1179,13 +1222,14 @@ TextureImporter:
       name: Ores_43
       rect:
         serializedVersion: 2
-        x: 80
-        y: 0
-        width: 17
+        x: 48
+        y: 32
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1200,13 +1244,14 @@ TextureImporter:
       name: Ores_44
       rect:
         serializedVersion: 2
-        x: 97
-        y: 16
-        width: 14
-        height: 17
+        x: 64
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1221,13 +1266,14 @@ TextureImporter:
       name: Ores_45
       rect:
         serializedVersion: 2
-        x: 97
-        y: 0
-        width: 14
-        height: 17
+        x: 80
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1242,13 +1288,14 @@ TextureImporter:
       name: Ores_46
       rect:
         serializedVersion: 2
-        x: 111
-        y: 15
-        width: 17
-        height: 17
+        x: 96
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1263,13 +1310,14 @@ TextureImporter:
       name: Ores_47
       rect:
         serializedVersion: 2
-        x: 111
-        y: 0
-        width: 17
+        x: 112
+        y: 32
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1284,13 +1332,14 @@ TextureImporter:
       name: Ores_48
       rect:
         serializedVersion: 2
-        x: 49
-        y: 0
-        width: 14
-        height: 15
+        x: 0
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1305,13 +1354,14 @@ TextureImporter:
       name: Ores_49
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 16
+        y: 16
         width: 16
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1322,16 +1372,327 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Ores_50
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6219d36658b43dc40bffacb09a47baed
+      internalID: -49340934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_51
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0e6b9a8c5946f3488041c5f5e0a9520
+      internalID: -1376477354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_52
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97be6cb614557d544a44fb2b47a4cd8b
+      internalID: 1433292804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_53
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce8b7d0f82f9e3840a34e2f9214be35a
+      internalID: 413946886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_54
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a60153305c177449946c04a97da6cab
+      internalID: 613669825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_55
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f27fd2e3093178a4188399e0a8e4138c
+      internalID: 1587331924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b44e4fc571b47b6428bafaf7338a9f1c
+      internalID: 1447747457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_57
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60b1d778da64bce4da6ed1af494b4f55
+      internalID: -1220795594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_58
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d26d2d32bf1d20f4b9261e4efb1f518f
+      internalID: 544996066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_59
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e59ff31b225d874ab122080a91d1065
+      internalID: 128340802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_60
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55d157f3d8b244846953ce597a13e3ad
+      internalID: -1428618155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_61
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adf01c01646b60a4a8818431ba352b16
+      internalID: 1602490333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_62
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a93f550e09c693846859bb3589747202
+      internalID: -385405772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ores_63
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0309c0ee3eb1204aa63846042f47e91
+      internalID: -250843020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6191e67b7327d424ba6aff0e0106f7ac
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
       Ores_0: -6760471406004971263
       Ores_1: -1555048745898646385
@@ -1379,7 +1740,21 @@ TextureImporter:
       Ores_48: 7054577682481060284
       Ores_49: -9081641688084140247
       Ores_5: -4589752301385710135
+      Ores_50: -49340934
+      Ores_51: -1376477354
+      Ores_52: 1433292804
+      Ores_53: 413946886
+      Ores_54: 613669825
+      Ores_55: 1587331924
+      Ores_56: 1447747457
+      Ores_57: -1220795594
+      Ores_58: 544996066
+      Ores_59: 128340802
       Ores_6: -920277764410375714
+      Ores_60: -1428618155
+      Ores_61: 1602490333
+      Ores_62: -385405772
+      Ores_63: -250843020
       Ores_7: 3008853960674594948
       Ores_8: 5050492222661095950
       Ores_9: 272733314368310961

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
+  m_Name: Perangkap 6
+  m_EditorClassIdentifier: 
+  itemID: 6
+  itemName: Perangkap
+  type: 6
+  categories: 4096
+  sprite: {fileID: 21300000, guid: 0fa0e8720c2c28246bf174f4de695b43, type: 3}
+  itemDescription: gunakan ini untuk menangkap hewan kecil
+  QuantityFuel: 0
+  health: 4
+  Level: 1
+  MaxLevel: 0
+  Damage: 0
+  AreaOfEffect: 0
+  SpecialAttackCD: 0
+  SpecialAttackStamina: 0
+  UpgradeCost: 0
+  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  isStackable: 0
+  stackCount: 1
+  BuyValue: 0
+  SellValue: 0
+  BurningTime: 0
+  CookTime: 0
+  prefabItem: {fileID: 4992219504839692284, guid: 704fea7ce88ee2c49a1cfa225bd6472f, type: 3}
+  growthTime: 0
+  growthImages: []
+  plantPrefab: {fileID: 0}
+  dropItem: {fileID: 0}

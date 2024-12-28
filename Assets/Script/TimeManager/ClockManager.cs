@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -7,31 +6,21 @@ using UnityEngine.UI;
 public class ClockManager : MonoBehaviour
 {
     public TextMeshProUGUI Date, Time, Season, Money;
-
     public Image weatherSprite;
     public Sprite[] weatherSprites;
 
-    private float startingRotation;
-
     public Light sunlight;
-    public float nightIntensity;
-    public float dayIntensity;
-    public AnimationCurve dayNightCurve;
+    public float nightIntensity = 0.05f;  // Malam lebih gelap
+    public float dayIntensity = 1.5f;     // Siang lebih terang
+    public AnimationCurve dayNightCurve;  // Untuk transisi halus
 
-    // Warna untuk berbagai waktu dalam sehari
-    public Color morningColor = new Color(1f, 0.85f, 0.7f);   // Warna pagi
-    public Color noonColor = new Color(1f, 1f, 0.9f);         // Warna siang
-    public Color eveningColor = new Color(1f, 0.6f, 0.4f);    // Warna sore
-    public Color duskColor = new Color(0.5f, 0.3f, 0.3f);     // Warna maghrib (malam sedikit gelap)
-    public Color midnightColor = new Color(0.2f, 0.2f, 0.35f); // Warna tengah malam
-    
+    public Color morningColor = new Color(1f, 0.85f, 0.7f);  // Cahaya pagi (oranye lembut)
+    public Color noonColor = new Color(1f, 1f, 0.95f);       // Cahaya siang (putih cerah)
+    public Color eveningColor = new Color(1f, 0.7f, 0.4f);   // Cahaya sore (jingga)
+    public Color nightColor = new Color(0.1f, 0.1f, 0.2f);   // Cahaya malam (biru gelap)
+
     [SerializeField] private TimeManager timeManager;
     [SerializeField] GameEconomy gameEconomy;
-
-    private void Awake()
-    {
-        // startingRotation = ClockFace.localEulerAngles.z;
-    }
 
     private void OnEnable()
     {
@@ -45,42 +34,56 @@ public class ClockManager : MonoBehaviour
 
     private void UpdateDateTime()
     {
-        // Update UI teks dengan data dari TimeManager
         Date.text = timeManager.GetFormattedDate();
         Time.text = timeManager.GetFormattedTime();
         Season.text = timeManager.GetCurrentSeason();
         Money.text = gameEconomy.Money.ToString();
 
-        // Ubah intensitas cahaya dan warna berdasarkan waktu
-        float t = (float)timeManager.hour / 24f;
+        float hour = timeManager.hour + (timeManager.minutes / 60f);
 
-        // Atur intensitas cahaya sesuai waktu
+        // Skala waktu 24 jam ke rentang 0 - 1
+        float t = hour / 24f;
+
+        // Intensitas siang dan malam menggunakan Animation Curve
         float dayNightT = dayNightCurve.Evaluate(t);
-        sunlight.intensity = Mathf.Lerp(nightIntensity, dayIntensity, dayNightT);
 
-        // Mengatur warna berdasarkan waktu
+        // Atur transisi warna berdasarkan waktu
         Color currentColor;
-        if (t < 0.25f)  // Tengah malam ke pagi
+
+        if (hour >= 18 || hour < 4)  // Malam (18:00 - 04:00)
         {
-            currentColor = Color.Lerp(midnightColor, morningColor, t * 4f);
+            currentColor = nightColor;  // Tetap malam gelap tanpa transisi
         }
-        else if (t < 0.5f)  // Pagi ke siang
+        else if (hour >= 4 && hour < 6)  // Subuh (04:00 - 06:00) 
         {
-            currentColor = Color.Lerp(morningColor, noonColor, (t - 0.25f) * 4f);
+            float subuhProgress = Mathf.InverseLerp(4, 6, hour);  // Transisi dari gelap ke pagi
+            currentColor = Color.Lerp(nightColor, morningColor, subuhProgress);
         }
-        else if (t < 0.75f)  // Siang ke sore
+        else if (hour >= 6 && hour < 12)  // Pagi (06:01 - 12:00)
         {
-            currentColor = Color.Lerp(noonColor, eveningColor, (t - 0.5f) * 4f);
+            float morningProgress = Mathf.InverseLerp(6, 12, hour);
+            currentColor = Color.Lerp(morningColor, noonColor, morningProgress);
         }
-        else if (t < 0.9f)  // Sore ke maghrib
+        else if (hour >= 12 && hour < 15)  // Siang (12:01 - 15:00)
         {
-            currentColor = Color.Lerp(eveningColor, duskColor, (t - 0.75f) * 6.67f);
+            float noonProgress = Mathf.InverseLerp(12, 15, hour);
+            currentColor = Color.Lerp(noonColor, eveningColor, noonProgress);
         }
-        else  // Maghrib ke tengah malam
+        else  // Sore (15:01 - 18:00)
         {
-            currentColor = Color.Lerp(duskColor, midnightColor, (t - 0.9f) * 10f);
+            float eveningProgress = Mathf.InverseLerp(15, 18, hour);
+            currentColor = Color.Lerp(eveningColor, nightColor, eveningProgress);
         }
 
+        // Terapkan intensitas dan warna ke light
+        sunlight.intensity = Mathf.Lerp(nightIntensity, dayIntensity, dayNightT);
         sunlight.color = currentColor;
+
+        // Atur ambient light dan fog agar sesuai suasana
+        RenderSettings.ambientLight = Color.Lerp(nightColor, currentColor, dayNightT);
+        RenderSettings.fogColor = Color.Lerp(new Color(0.03f, 0.03f, 0.08f), currentColor, dayNightT);
+        RenderSettings.fogDensity = Mathf.Lerp(0.07f, 0.015f, dayNightT);
     }
+
+
 }

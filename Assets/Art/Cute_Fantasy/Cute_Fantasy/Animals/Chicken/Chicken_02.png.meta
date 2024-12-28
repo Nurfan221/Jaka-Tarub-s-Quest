@@ -114,7 +114,7 @@ TextureImporter:
       213: 8117172940119525019
     second: Chicken_02_36
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -178,7 +178,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -191,7 +191,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -204,7 +204,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -217,7 +217,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -237,13 +237,14 @@ TextureImporter:
       name: Chicken_02_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 231
-        width: 15
-        height: 16
+        x: 0
+        y: 224
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -258,13 +259,14 @@ TextureImporter:
       name: Chicken_02_1
       rect:
         serializedVersion: 2
-        x: 41
-        y: 231
-        width: 15
-        height: 15
+        x: 32
+        y: 224
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -279,13 +281,14 @@ TextureImporter:
       name: Chicken_02_2
       rect:
         serializedVersion: 2
-        x: 9
-        y: 199
-        width: 15
-        height: 16
+        x: 0
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -300,13 +303,14 @@ TextureImporter:
       name: Chicken_02_3
       rect:
         serializedVersion: 2
-        x: 41
-        y: 199
-        width: 15
-        height: 17
+        x: 32
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -321,13 +325,14 @@ TextureImporter:
       name: Chicken_02_4
       rect:
         serializedVersion: 2
-        x: 73
-        y: 199
-        width: 15
-        height: 17
+        x: 64
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -342,13 +347,14 @@ TextureImporter:
       name: Chicken_02_5
       rect:
         serializedVersion: 2
-        x: 105
-        y: 199
-        width: 15
-        height: 16
+        x: 96
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -363,13 +369,14 @@ TextureImporter:
       name: Chicken_02_6
       rect:
         serializedVersion: 2
-        x: 137
-        y: 199
-        width: 15
-        height: 17
+        x: 128
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -384,13 +391,14 @@ TextureImporter:
       name: Chicken_02_7
       rect:
         serializedVersion: 2
-        x: 169
-        y: 199
-        width: 15
-        height: 17
+        x: 160
+        y: 192
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -405,13 +413,14 @@ TextureImporter:
       name: Chicken_02_8
       rect:
         serializedVersion: 2
-        x: 9
-        y: 167
-        width: 15
-        height: 16
+        x: 0
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -426,13 +435,14 @@ TextureImporter:
       name: Chicken_02_9
       rect:
         serializedVersion: 2
-        x: 39
-        y: 167
-        width: 17
-        height: 15
+        x: 32
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -447,13 +457,14 @@ TextureImporter:
       name: Chicken_02_10
       rect:
         serializedVersion: 2
-        x: 69
-        y: 167
-        width: 19
-        height: 12
+        x: 64
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -468,13 +479,14 @@ TextureImporter:
       name: Chicken_02_11
       rect:
         serializedVersion: 2
-        x: 101
-        y: 167
-        width: 19
-        height: 14
+        x: 96
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -489,13 +501,14 @@ TextureImporter:
       name: Chicken_02_12
       rect:
         serializedVersion: 2
-        x: 133
-        y: 167
-        width: 19
-        height: 12
+        x: 128
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -510,13 +523,14 @@ TextureImporter:
       name: Chicken_02_13
       rect:
         serializedVersion: 2
-        x: 165
-        y: 167
-        width: 19
-        height: 14
+        x: 160
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -531,13 +545,14 @@ TextureImporter:
       name: Chicken_02_14
       rect:
         serializedVersion: 2
-        x: 199
-        y: 167
-        width: 17
-        height: 15
+        x: 192
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -552,13 +567,14 @@ TextureImporter:
       name: Chicken_02_15
       rect:
         serializedVersion: 2
-        x: 233
-        y: 167
-        width: 15
-        height: 16
+        x: 224
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -573,13 +589,14 @@ TextureImporter:
       name: Chicken_02_16
       rect:
         serializedVersion: 2
-        x: 9
-        y: 135
-        width: 15
-        height: 16
+        x: 0
+        y: 128
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -594,13 +611,14 @@ TextureImporter:
       name: Chicken_02_17
       rect:
         serializedVersion: 2
-        x: 41
-        y: 135
-        width: 15
-        height: 15
+        x: 32
+        y: 128
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -615,13 +633,14 @@ TextureImporter:
       name: Chicken_02_18
       rect:
         serializedVersion: 2
-        x: 73
-        y: 135
-        width: 15
-        height: 14
+        x: 64
+        y: 128
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -636,13 +655,14 @@ TextureImporter:
       name: Chicken_02_19
       rect:
         serializedVersion: 2
-        x: 9
-        y: 103
-        width: 15
-        height: 14
+        x: 0
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -657,13 +677,14 @@ TextureImporter:
       name: Chicken_02_20
       rect:
         serializedVersion: 2
-        x: 41
-        y: 103
-        width: 15
-        height: 15
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -678,13 +699,14 @@ TextureImporter:
       name: Chicken_02_21
       rect:
         serializedVersion: 2
-        x: 73
-        y: 103
-        width: 15
-        height: 16
+        x: 64
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -699,13 +721,14 @@ TextureImporter:
       name: Chicken_02_22
       rect:
         serializedVersion: 2
-        x: 9
-        y: 71
-        width: 15
-        height: 14
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -720,13 +743,14 @@ TextureImporter:
       name: Chicken_02_23
       rect:
         serializedVersion: 2
-        x: 41
-        y: 71
-        width: 15
-        height: 14
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -741,13 +765,14 @@ TextureImporter:
       name: Chicken_02_24
       rect:
         serializedVersion: 2
-        x: 73
-        y: 71
-        width: 15
-        height: 14
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -762,13 +787,14 @@ TextureImporter:
       name: Chicken_02_25
       rect:
         serializedVersion: 2
-        x: 9
-        y: 39
-        width: 15
-        height: 18
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -783,13 +809,14 @@ TextureImporter:
       name: Chicken_02_26
       rect:
         serializedVersion: 2
-        x: 41
-        y: 39
-        width: 15
-        height: 19
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -804,13 +831,14 @@ TextureImporter:
       name: Chicken_02_27
       rect:
         serializedVersion: 2
-        x: 73
-        y: 39
-        width: 15
-        height: 20
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -825,13 +853,14 @@ TextureImporter:
       name: Chicken_02_28
       rect:
         serializedVersion: 2
-        x: 105
-        y: 39
-        width: 15
-        height: 22
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -846,13 +875,14 @@ TextureImporter:
       name: Chicken_02_29
       rect:
         serializedVersion: 2
-        x: 137
-        y: 39
-        width: 15
-        height: 23
+        x: 128
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -867,13 +897,14 @@ TextureImporter:
       name: Chicken_02_30
       rect:
         serializedVersion: 2
-        x: 169
-        y: 39
-        width: 15
-        height: 24
+        x: 160
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -888,13 +919,14 @@ TextureImporter:
       name: Chicken_02_31
       rect:
         serializedVersion: 2
-        x: 201
-        y: 39
-        width: 15
-        height: 25
+        x: 192
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -909,13 +941,14 @@ TextureImporter:
       name: Chicken_02_32
       rect:
         serializedVersion: 2
-        x: 233
-        y: 39
-        width: 15
-        height: 26
+        x: 224
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -930,13 +963,14 @@ TextureImporter:
       name: Chicken_02_33
       rect:
         serializedVersion: 2
-        x: 9
-        y: 7
-        width: 15
-        height: 16
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -951,13 +985,14 @@ TextureImporter:
       name: Chicken_02_34
       rect:
         serializedVersion: 2
-        x: 41
-        y: 7
-        width: 15
-        height: 16
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -972,13 +1007,14 @@ TextureImporter:
       name: Chicken_02_35
       rect:
         serializedVersion: 2
-        x: 73
-        y: 7
-        width: 15
-        height: 16
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -993,13 +1029,14 @@ TextureImporter:
       name: Chicken_02_36
       rect:
         serializedVersion: 2
-        x: 105
-        y: 7
-        width: 15
-        height: 16
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1011,15 +1048,18 @@ TextureImporter:
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: decdccc0f8020ed419fe2a4e2b68eadf
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
       Chicken_02_0: -3888248066327895594
       Chicken_02_1: 1473091600484643586

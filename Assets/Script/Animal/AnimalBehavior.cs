@@ -11,16 +11,17 @@ public class AnimalBehavior : MonoBehaviour
         public string[] availableStates; // Array animasi yang bisa dituju
     }
 
+    
     public AnimationState[] animationStates; // Array semua animasi dan transisinya
-    public string currentState;  // Set awal ke Idle
+    public string currentState = "Idle";  // Set awal ke Idle
+    public float jedaAnimasi = 3f;
+    public bool isMoving;
+    public float moveSpeed;
+    private Vector2 lastCollisionPoint; // Menyimpan posisi objek yang disentuh
+    private bool isAvoiding = false;    // Menandakan apakah hewan sedang menghindar
 
 
-    public enum Jenis
-    {
-        None,
-        HewanBuas,
-        HewanBuruan
-    }
+
 
     //[Header("Animasi")]
     [SerializeField] private Animator animalAnimator;
@@ -29,9 +30,9 @@ public class AnimalBehavior : MonoBehaviour
 
     public string namaHewan;
     public float health;
-    public Jenis jenisHewan;
-
   
+
+
     //element 0 harus selalu di isi dengan prefab daging
     //element 1 harus selalu di isi dengan animalSkin
     //element 3 harus selalu di isi dengan animalBone
@@ -39,290 +40,195 @@ public class AnimalBehavior : MonoBehaviour
 
     public GameObject[] dropitems;
 
-    // Logika menentukan jumlah minimal dan maksimal dari item yang akan dijatuhkan
-    public int minNormalItem = 1;  // Jumlah minimum normal Item
-    public int maxNormalItem = 2;  // Jumlah maksimum normal Item
-    public int minSpecialItem = 0; // Jumlah item spesial seperti Tulang dll
-    public int maxSpecialItem = 1;
-
-    //public Transform circleCenter; // Pusat lingkaran
-    public float circleRadius = 10f; // Radius lingkaran
-    public float moveSpeed = 5f; // Kecepatan gerak hewan
-    public float escapeDuration = 3f; // Waktu untuk berlari ke sana kemari sebelum keluar
-    private bool isEscaping = false;
-
-    // Untuk pergerakan hewan
-    private bool isMoving = false;
-    private float moveDuration = 2f; // Durasi pergerakan hewan
-    private Vector2 moveDirection;
-
-    // Untuk kegiatan makan dan tidur
-    private bool isEating = false;
-    private bool isSleeping = false;
-    private float eatDuration = 3f; // Durasi makan
-    private float sleepDuration = 5f; // Durasi tidur
 
     private void Start()
     {
-        // Mulai pergerakan jika hewan tidak sedang tidur atau makan
-        //StartCoroutine(AnimalMovement());
-
-        currentState = "Idle";  // Set awal ke Idle
-        PlayAnimation(currentState);
-
-        // Mulai random animation setelah 3 detik dan setiap 5 detik
-        InvokeRepeating(nameof(PlayRandomAnimation), 3f, 5f);
+        // Mulai Coroutine untuk memilih dan menjalankan animasi secara otomatis
+        StartCoroutine(PlayRandomAnimationPeriodically());
     }
 
-    public void TakeDamage(int damage)
+    private IEnumerator PlayRandomAnimationPeriodically()
     {
-        health -= Mathf.Min(damage, health);
-        Debug.Log($"{namaHewan} terkena damage. Sisa HP: {health}");
+        while (true)  // Loop terus-menerus
+        {
+            // Pilih animasi acak berdasarkan currentState
+            string nextState = GetRandomAnimationForCurrentState();
 
-        if (health <= 0)
-        {
-            DropItem();
-            Destroy(gameObject); // Pastikan objek dihapus setelah drop
-        }
-        else if (jenisHewan == Jenis.HewanBuruan)
-        {
-            Kabur();
+            // Jalankan animasi yang terpilih
+            TransitionTo(nextState);
+
+            // Tunggu selama 5 detik sebelum memilih animasi baru
+            yield return new WaitForSeconds(5f);
         }
     }
 
-
-    public void Kabur()
+    private string GetRandomAnimationForCurrentState()
     {
-        Debug.Log("Arghhh terkena damage...");
-        if (!isEscaping)
+        // Cari state animasi yang sedang aktif
+        AnimationState state = System.Array.Find(animationStates, s => s.stateName == currentState);
+
+        // Jika ada animasi yang tersedia untuk state ini
+        if (state != null && state.availableStates.Length > 0)
         {
-            isEscaping = true;
-            StartCoroutine(EscapeBehavior());
+            // Pilih animasi acak dari availableStates
+            int randomIndex = Random.Range(0, state.availableStates.Length);
+            return state.availableStates[randomIndex];
         }
+
+     
+        // Jika tidak ada animasi yang tersedia, kembalikan animasi default
+        return "Idle";
     }
 
-    private IEnumerator EscapeBehavior()
+    private void TransitionTo(string nextState)
     {
-        float elapsedTime = 0f;
-
-        // Tahap 1: Berlari ke sana kemari
-        while (elapsedTime < escapeDuration)
+        if (animalAnimator != null)
         {
-            Vector2 randomDirection = Random.insideUnitCircle.normalized; // Arah acak
-            Vector2 targetPosition = (Vector2)transform.position + randomDirection * moveSpeed;
-
-            // Gerakkan hewan ke posisi acak
-            while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-                yield return null;
-            }
-
-            elapsedTime += 0.5f; // Interval antara gerakan
+            StartCoroutine(PlayNextStateThenTransition(nextState));
         }
-
-        // Setelah selesai bergerak, kelinci akan menghilang
-        Debug.Log($"{namaHewan} telah kabur dan menghilang.");
-        Destroy(gameObject);  // Menghilangkan objek setelah selesai kabur
+        else
+        {
+            Debug.LogWarning("Animator tidak ditemukan!");
+        }
     }
 
-    private void DropItem()
+    private IEnumerator PlayNextStateThenTransition(string nextState)
     {
-        if (dropitems == null || dropitems.Length < 3)
+        // Jalankan animasi sementara (nextState) terlebih dahulu
+        animalAnimator.Play(nextState);
+        //Debug.Log("Playing animation: " + nextState);
+
+        // Tunggu hingga animasi selesai
+        yield return new WaitUntil(() =>
         {
-            Debug.LogWarning("Drop items array is not properly configured. Ensure at least 3 items exist.");
-            return;
+            AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0);
+            return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0);
+        });
+
+        // Setelah animasi sementara selesai, jalankan animasi target
+        if (nextState == "Duduk")
+        {
+            animalAnimator.Play("Rebahan");
+            currentState = "Rebahan";
+        }
+        else if (nextState == "Berdiri")
+        {
+            animalAnimator.Play("Idle");
+            currentState = "Idle";
+        }
+        else if (nextState == "Makan")
+        {
+            animalAnimator.Play("Mengunyah");
+            currentState = "Mengunyah";
+        }
+        else if (nextState == "JalanKanan" || nextState == "JalanKiri")
+        {
+            animalAnimator.Play(nextState);
+            currentState = nextState;
+            StartCoroutine(AnimalMovement(nextState));
+        }
+        else
+        {
+            animalAnimator.Play(nextState);
+            currentState = nextState;
         }
 
-        int normalItemCount = Random.Range(minNormalItem, maxNormalItem + 1);
-        DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
-
-        if (dropitems.Length > 3) // Jika ada special items
-        {
-            int specialItemCount = Random.Range(minSpecialItem, maxSpecialItem + 1);
-            DropItemsByType(3, dropitems.Length, specialItemCount);
-        }
+        //Debug.Log("Transitioned to: " + currentState);
     }
 
-
-    // Fungsi untuk menjatuhkan item berdasarkan rentang index tertentu
-    private void DropItemsByType(int startIndex, int endIndex, int itemCount)
-    {
-        if (dropitems == null || dropitems.Length == 0)
-        {
-            Debug.LogWarning("Drop items array is empty or null.");
-            return;
-        }
-
-        // Pastikan rentang indeks valid
-        if (startIndex < 0 || endIndex > dropitems.Length || startIndex >= endIndex)
-        {
-            Debug.LogError($"Invalid index range: startIndex={startIndex}, endIndex={endIndex}, arrayLength={dropitems.Length}");
-            return;
-        }
-
-        for (int i = 0; i < itemCount; i++)
-        {
-            int randomIndex = Random.Range(startIndex, endIndex);
-            GameObject itemToDrop = dropitems[randomIndex];
-
-            if (itemToDrop != null)
-            {
-                Debug.Log("nama item yang di drop adalah : " + itemToDrop.name);
-
-                Instantiate(itemToDrop, transform.position, Quaternion.identity);
-            }
-            else
-            {
-                Debug.LogWarning($"Item at index {randomIndex} is null.");
-            }
-        }
-    }
-
-
-
-
-    // Pergerakan hewan saat animasi JalanKanan atau JalanKiri
     private IEnumerator AnimalMovement(string currentAnimation)
     {
-        // Menunggu animasi selesai sebelum melanjutkan logika berikutnya
-        yield return new WaitForEndOfFrame();  // Pastikan animasi sudah diputar pertama kali
-
+        //Debug.Log("animal mencarai jalan");
         // Tentukan arah pergerakan berdasarkan animasi
+        Vector2 randomDirection = Vector2.zero;
+
+        // Cek apakah animasi yang dipilih adalah JalanKanan atau JalanKiri
         if (currentAnimation == "JalanKanan")
         {
-            moveDirection = Vector2.left;  // Gerak ke kanan
+            randomDirection = new Vector2(1, Random.Range(-1f, 1f)); // Kiri dengan variasi atas/bawah
+            //Debug.Log("Moving Left");
+            animalRenderer.flipX = true;
         }
         else if (currentAnimation == "JalanKiri")
         {
-            moveDirection = Vector2.right;   // Gerak ke kiri
-
+            randomDirection = new Vector2(-1, Random.Range(-1f, 1f)); // Kanan dengan variasi atas/bawah
+            //Debug.Log("Moving Right");
+            animalRenderer.flipX = false;
         }
+       
 
-        // Mulai pergerakan
+        // Tentukan posisi target berdasarkan arah pergerakan yang sudah dipilih
+        Vector2 targetPosition = (Vector2)transform.position + randomDirection * 3f; // Target posisi gerakan
+        //Debug.Log("Target Position: " + targetPosition);
+
+        // Mulai pergerakan menuju target
         isMoving = true;
-        yield return MoveForDuration();  // Gerak selama durasi tertentu
+        yield return MoveForDuration(targetPosition);  // Gerak menuju posisi target
         isMoving = false;
 
-        // Setelah bergerak, animasi bisa dilanjutkan
-        if (jenisHewan == Jenis.HewanBuruan)
-        {
-            isEating = true;
-        }
-        else if (jenisHewan == Jenis.HewanBuas)
-        {
-            isSleeping = true;
-        }
+        // Setelah bergerak, beri waktu untuk makan atau tidur
+        yield return new WaitForSeconds(5); // Waktu tunggu sebelum kembali ke aktivitas lain
     }
 
-
-
-    // Fungsi untuk gerak selama durasi tertentu
-    private IEnumerator MoveForDuration()
+    private IEnumerator MoveForDuration(Vector2 targetPosition)
     {
         Vector2 startPosition = transform.position;
-        Vector2 targetPosition = (Vector2)startPosition + moveDirection * 5f; // Jarak pergerakan hewan
 
-        // Gerakkan hewan ke kiri atau kanan
-        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
+        // Cek jarak target
+        //Debug.Log("Starting to move. Current position: " + startPosition + ", Target position: " + targetPosition);
+
+        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)  // Selama jarak masih ada
+        {
+            // Gerakkan objek dengan kecepatan yang sudah diatur
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            yield return null;  // Tunggu frame berikutnya
+        }
+
+        //Debug.Log("Movement finished!");
+        // Setelah bergerak, beri waktu untuk makan atau tidur
+        yield return new WaitForSeconds(3f); // Waktu tunggu sebelum kembali ke aktivitas lain
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Misalnya, jika hewan menyentuh objek dengan tag "Environment"
+        if (other.CompareTag("Environment"))
+        {
+            //Debug.Log("Nabrak OYYY");
+
+            // Menyimpan posisi objek yang disentuh
+            lastCollisionPoint = other.transform.position;
+
+            // Jika hewan sedang bergerak, langsung jalankan pergerakan menjauhi objek
+            if (isMoving && !isAvoiding)
+            {
+                isAvoiding = true;
+                StopCoroutine("AnimalMovement");  // Hentikan pergerakan yang sedang berlangsung
+                StartCoroutine(MoveAwayFromObstacle(other));  // Mulai pergerakan menjauhi objek
+            }
+        }
+    }
+
+    private IEnumerator MoveAwayFromObstacle(Collider2D other)
+    {
+        // Menghitung arah untuk menjauh dari objek yang memiliki tag "Environment"
+        Vector2 directionAwayFromObstacle = ((Vector2)transform.position - (Vector2)other.transform.position).normalized;
+
+        // Tentukan posisi target untuk bergerak menjauhi objek
+        Vector2 targetPosition = (Vector2)transform.position + directionAwayFromObstacle * 5f;  // Menjauh sejauh 5 unit dari objek
+
+        // Gerakkan hewan ke arah target
+        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)  // Selama jarak masih ada
         {
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            yield return null;
+            yield return null;  // Tunggu frame berikutnya
         }
 
-        // Setelah bergerak, hewan akan berhenti untuk makan atau tidur
-        if (jenisHewan == Jenis.HewanBuruan)
-        {
-            isEating = true;
-        }
-        else if (jenisHewan == Jenis.HewanBuas)
-        {
-            isSleeping = true;
-        }
-
-        // Setelah makan atau tidur, kelanjutan aktivitas
-        yield return new WaitForSeconds(2f);
-    }
-
-    //private void OnDrawGizmos()
-    //{
-    //    if (circleCenter != null)
-    //    {
-    //        Gizmos.color = Color.green;
-    //        Gizmos.DrawWireSphere(circleCenter.position, circleRadius);
-    //    }
-    //}
-
-    public void TransitionTo(string nextState)
-    {
-        // Cek apakah transisi diperbolehkan
-        AnimationState state = System.Array.Find(animationStates, s => s.stateName == currentState);
-
-        if (state != null && System.Array.Exists(state.availableStates, s => s == nextState))
-        {
-            PlayAnimation(nextState);
-            currentState = nextState;
-        }
-        else
-        {
-            Debug.LogWarning($"Transisi dari {currentState} ke {nextState} tidak diperbolehkan.");
-        }
-    }
-
-    private void PlayAnimation(string state)
-    {
-        // Hentikan animasi sebelumnya jika ada
-        if (state == "JalanKiri")
-        {
-            animalRenderer.flipX = true;
-        }
-        else if (state == "JalanKanan")
-        {
-            animalRenderer.flipX = false;  // Set flipX ke false untuk JalanKanan
-        }
-
-        animalAnimator.Play(state);
-
-        // Jika animasi adalah JalanKanan atau JalanKiri, mulai pergerakan
-        if (state == "JalanKanan" || state == "JalanKiri")
-        {
-            // Pastikan animasi gerakan dimulai dan menunggu sampai selesai
-            StartCoroutine(AnimalMovement(state));
-        }
-        else if (state == "Duduk")
-        {
-            StartCoroutine(TransitionToIdle("Rebahan", 0.8f));  // Delay 0.8 detik
-        }
-        else if (state == "Berdiri")
-        {
-            StartCoroutine(TransitionToIdle("Idle", 0.8f));  // Kembali ke Idle setelah 0.8 detik
-        }
-    }
-
-    // Coroutine untuk delay transisi ke Idle
-    private IEnumerator TransitionToIdle(string nextState, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        animalAnimator.Play(nextState);
-        currentState = nextState;
+        // Setelah bergerak menjauhi objek, kembalikan status dan lanjutkan pergerakan acak
+        isAvoiding = false;
+        StartCoroutine(AnimalMovement(currentState));  // Mulai pergerakan acak lagi setelah menghindar
     }
 
 
-    // Random Animation dari availableStates
-    private void PlayRandomAnimation()
-    {
-        AnimationState state = System.Array.Find(animationStates, s => s.stateName == currentState);
 
-        if (state != null && state.availableStates.Length > 0)
-        {
-            int randomIndex = Random.Range(0, state.availableStates.Length);
-            string randomState = state.availableStates[randomIndex];
-
-            TransitionTo(randomState);
-        }
-        else
-        {
-            Debug.LogWarning($"Tidak ada animasi yang tersedia untuk {currentState}");
-        }
-    }
 }

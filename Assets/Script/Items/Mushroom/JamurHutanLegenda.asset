@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
+  m_Name: JamurHutanLegenda
+  m_EditorClassIdentifier: 
+  itemID: 0
+  itemName: JamurHutanLegenda
+  type: 3
+  categories: 528
+  sprite: {fileID: 4481352311328703052, guid: 8fc3c73e49b01e64198ff933dfc91d25, type: 3}
+  itemDescription: Jamur langka yang hanya ditemukan di bagian terdalam hutan-hutan
+    kuno. Memiliki tekstur yang kuat dan digunakan untuk menambah daya tahan tubuh.
+    Legenda mengatakan bahwa jamur ini bisa memberikan kekuatan dan keberanian luar
+    biasa.
+  QuantityFuel: 0
+  health: 0
+  Level: 0
+  MaxLevel: 0
+  Damage: 0
+  AreaOfEffect: 0
+  SpecialAttackCD: 0
+  SpecialAttackStamina: 0
+  UpgradeCost: 0
+  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  isStackable: 1
+  stackCount: 1
+  BuyValue: 0
+  SellValue: 0
+  BurningTime: 0
+  CookTime: 0
+  prefabItem: {fileID: 8486291666243436108, guid: 8382bdca49f157b49af21e7e333c9cec, type: 3}
+  growthTime: 0
+  growthImages: []
+  plantPrefab: {fileID: 0}
+  dropItem: {fileID: 8486291666243436108, guid: 8382bdca49f157b49af21e7e333c9cec, type: 3}

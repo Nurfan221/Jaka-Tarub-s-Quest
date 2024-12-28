@@ -31,11 +31,11 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1
-  BuyValue: 1000
-  SellValue: 800
+  BuyValue: 50
+  SellValue: 30
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 0}
+  prefabItem: {fileID: 4459120725376062254, guid: f86b05e5916a77348833bf951d3be7fb, type: 3}
   growthTime: 0
   growthImages: []
   plantPrefab: {fileID: 0}
