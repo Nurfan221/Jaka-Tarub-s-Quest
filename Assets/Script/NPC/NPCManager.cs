@@ -77,26 +77,26 @@ public class NPCManager : MonoBehaviour
 
     public void CheckNPCQuest()
     {
-        foreach (var npcData in npcDataArray)
+        Debug.Log("check npc quest di jalankan");
+       foreach (var quest in questManager.dailyQuest)
         {
-            foreach (var quest in questManager.dailyQuest)
+            if (quest.questActive )
             {
-                if (quest.questActive && quest.nameNPC.name == npcData.prefab.name)
+                string nameNpc = quest.NPC.name;
+                Debug.Log("nama npc dari struck quest adalah" + nameNpc);
+                foreach (var NPC in npcDataArray)
                 {
-                    Debug.Log("NPC: " + quest.nameNPC.name + " found for quest: " + quest.questName);
-                    GameObject npcInstance;
-                    if (npcInstances.TryGetValue(npcData.prefab.name, out npcInstance))
+                    if (NPC.prefab.name == nameNpc)
                     {
-                        QuestInteractable questInteractable = npcInstance.GetComponent<QuestInteractable>();
-                        if (questInteractable != null)
+                        QuestInteractable interactable = NPC.prefab.GetComponent<QuestInteractable>();
+                        if (interactable != null)
                         {
-                            questInteractable.promptMessage = "Detail Quest";
-                            questInteractable.currentDialogue = quest.dialogueQuest;
+                            interactable.currentDialogue = quest.dialogueQuest;
+                            interactable.promptMessage = "Quest " + quest.questName;
                         }
-                        else
-                        {
-                            Debug.LogWarning("QuestInteractable not found on NPC: " + npcData.prefab.name);
-                        }
+                    }else
+                    {
+                        Debug.Log("nama npc berbeda");
                     }
                 }
             }

@@ -10,16 +10,24 @@ public class QuestManager : MonoBehaviour
     public class Quest
     {
         public string questName;
-        public Item itemQuest;
+        
         public Dialogues dialogueQuest;
-        public GameObject nameNPC;
-        public int jumlahItem;
+        public GameObject NPC;
+        public ItemQuest[] itemQuests;
         public int reward;
         public int date;
         public string questInfo;
         public string questDetail;
         public Dialogues finish;
         public bool questActive = false;
+    }
+
+    [System.Serializable]
+
+    public class ItemQuest
+    {
+        public Item item;
+        public int jumlah;
     }
 
     public Quest[] dailyQuest;
@@ -31,12 +39,9 @@ public class QuestManager : MonoBehaviour
     public TextMeshProUGUI TextQuest;
 
     public Dialogues notFinished;
-    public List<Quest> activeQuests = new List<Quest>(); 
 
-    public void AddQuest(Quest quest)
-    {
-        activeQuests.Add(quest);
-    }
+
+
 
     // buat arrat baru untuk menyimpan quest active 
 
@@ -57,29 +62,51 @@ public class QuestManager : MonoBehaviour
 
     public void CheckQuest()
     {
-        Debug.Log("CheckQuest active");
+
         foreach(var quest in dailyQuest)
         {
+            Debug.Log("Tanggal quest active" + quest.date);
             if ((timeManager.date + 1) == quest.date)
             {
                 quest.questActive = true;
-                activeQuests.Add(quest);
             }
         }
 
         DisplayActiveQuests();
         npcManager.CheckNPCQuest();
+
+
+        //inputkan nilai dialogue ke dalam quest interactable 
+        //AccsessQuestInteractable();
     }
 
     private void DisplayActiveQuests()
     {
         TextQuest.text = "";
 
-        foreach(var quest in activeQuests)
+        foreach(var quest in dailyQuest)
         {
-            TextQuest.text += quest.questInfo + "\n";
+            if (quest.questActive == true)
+            {
+                TextQuest.text += quest.questInfo + "\n";
+                 
+            }
         }
     }
 
-    
+    public void AccsessQuestInteractable()
+    {
+        foreach (var quest in dailyQuest)
+        {
+            if (quest.questActive && quest.NPC != null)
+            {
+                QuestInteractable interactable = quest.NPC.GetComponent<QuestInteractable>();
+
+                if (interactable != null)
+                {
+                    interactable.SetCurrentDialogue(quest.dialogueQuest);
+                }
+            }
+        }
+    }
 }

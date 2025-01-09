@@ -55,30 +55,30 @@ public class TreeBehavior : MonoBehaviour
 
     private void OnDayChanged(int currentDay)
     {
-        Debug.Log($"Pohon menerima perubahan hari, Hari ke-{currentDay}");
+        //Debug.Log($"Pohon menerima perubahan hari, Hari ke-{currentDay}");
         PertumbuhanPohon();
-        Debug.Log("pohon tumbuh");
+        //Debug.Log("pohon tumbuh");
     }
 
 
     public void PertumbuhanPohon()
     {
         daysSincePlanting++;  // Meningkatkan hari
-        Debug.Log($"Pertumbuhan pohon dipanggil. Hari ke-{daysSincePlanting} sejak penanaman.");
+        //Debug.Log($"Pertumbuhan pohon dipanggil. Hari ke-{daysSincePlanting} sejak penanaman.");
 
 
 
         // Cek apakah daysSincePlanting telah mencapai growthSpeed
         if (daysSincePlanting % growthSpeed == 0)
         {
-            Debug.Log("fungsi AdvanceGrowthStage di jalankan");
+            //Debug.Log("fungsi AdvanceGrowthStage di jalankan");
             AdvanceGrowthStage(); // Maju ke tahap berikutnya
         }
 
         if (daysSincePlanting >= growthTime)
         {
             currentStage = GrowthTree.MaturePlant;
-            Debug.Log("Pohon siap dipanen!");
+            //Debug.Log("Pohon siap dipanen!");
         }
     }
 

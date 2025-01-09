@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8929092432712695764}
   - component: {fileID: 7471179660650086089}
   - component: {fileID: 902107832278983107}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: SpecialAttackHitArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 229160904883076581}
   - component: {fileID: 9001416965601468573}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TheArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 7707896640489977588}
   - component: {fileID: 9013086940009283592}
   - component: {fileID: 6470700754151514774}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HealParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5065,8 +5065,8 @@ GameObject:
   - component: {fileID: 2630859602148433873}
   - component: {fileID: 8032780791927186798}
   - component: {fileID: 8189016347517366370}
-  - component: {fileID: 1357889103486192770}
-  m_Layer: 6
+  - component: {fileID: 315087869982014116}
+  m_Layer: 3
   m_Name: NormalAttackHitArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5189,7 +5189,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8928354, y: 0.89523464}
   m_EdgeRadius: 0
---- !u!95 &1357889103486192770
+--- !u!95 &315087869982014116
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -5220,8 +5220,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1849453207322278355}
-  - component: {fileID: 245107456056309473}
-  m_Layer: 0
+  - component: {fileID: 3931421818342015873}
+  m_Layer: 3
   m_Name: Hitboxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5245,7 +5245,7 @@ Transform:
   - {fileID: 8929092432712695764}
   m_Father: {fileID: 3446040036883624188}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &245107456056309473
+--- !u!212 &3931421818342015873
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5311,7 +5311,7 @@ GameObject:
   - component: {fileID: 4942226923728888756}
   - component: {fileID: 6111915780568683359}
   - component: {fileID: 5985074008453725711}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BuffParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10142,7 +10142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5038207794598818137}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10175,7 +10175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1499737637291563661}
   - component: {fileID: 7844609410430057050}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: circleBoundary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10263,7 +10263,7 @@ GameObject:
   - component: {fileID: 5601184401379777819}
   - component: {fileID: 3862012485650969772}
   - component: {fileID: 4848343396825960534}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: DashParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15094,7 +15094,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7271784806429675360}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Direction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15127,7 +15127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3446040036883624188}
   - component: {fileID: 590918729192924437}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15214,7 +15214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5998541882732084300}
-  - component: {fileID: 759485188817970098}
+  - component: {fileID: 8831596829291859742}
   - component: {fileID: 3309368558563943548}
   - component: {fileID: 2696770339627116132}
   - component: {fileID: 5854799743846047212}
@@ -15225,8 +15225,10 @@ GameObject:
   - component: {fileID: 2042781221665071364}
   - component: {fileID: 8403737879081081286}
   - component: {fileID: 3153821618895573808}
-  - component: {fileID: 827377339719276174}
-  m_Layer: 0
+  - component: {fileID: 9148936618126250574}
+  - component: {fileID: 8107910504503489556}
+  - component: {fileID: 3587296885951381271}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -15252,7 +15254,7 @@ Transform:
   - {fileID: 1499737637291563661}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &759485188817970098
+--- !u!212 &8831596829291859742
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15295,7 +15297,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -4998809030512954890, guid: c0c72aa3aad592b4ca19dce2a68f21b9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -15341,8 +15343,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.013364792, y: -0.00094795227}
-  m_Radius: 0.46001068
+  m_Offset: {x: 0.013364792, y: 0.11654407}
+  m_Radius: 0.57750267
 --- !u!50 &2696770339627116132
 Rigidbody2D:
   serializedVersion: 5
@@ -15409,7 +15411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerUI: {fileID: 0}
-  toolsAnimator: {fileID: 1357889103486192770}
+  toolsAnimator: {fileID: 315087869982014116}
   hitBoxRenderer: {fileID: 8032780791927186798}
   combatMode: 1
   canAttack: 1
@@ -15493,7 +15495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee75d7af726da2d4ba88ef5f7c387086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 827377339719276174}
+  animator: {fileID: 3587296885951381271}
 --- !u!114 &8403737879081081286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15524,7 +15526,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 074c71fce5cd8a944b6b88bae40f35bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &827377339719276174
+  interactablesLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  interactRadius: 1.5
+  interactableList: []
+--- !u!114 &9148936618126250574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8129610806355446646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee75d7af726da2d4ba88ef5f7c387086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3587296885951381271}
+--- !u!114 &8107910504503489556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8129610806355446646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33799770bf1cf804fb64e4e720dfdf16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  health: 100
+  maxStamina: 100
+  stamina: 100
+  staminaRegenRate: 15
+  sr: {fileID: 590918729192924437}
+--- !u!95 &3587296885951381271
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -15555,7 +15593,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2225370186519257910}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

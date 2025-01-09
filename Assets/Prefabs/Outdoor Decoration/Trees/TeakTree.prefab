@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 5297067821582616087}
   - component: {fileID: 3358023806408393524}
   - component: {fileID: 1888632240794282398}
-  - component: {fileID: 6142773240241071806}
+  - component: {fileID: 2634467464127197574}
+  - component: {fileID: -4298581920160794746}
+  - component: {fileID: 4210655000753567811}
   m_Layer: 0
   m_Name: TeakTree
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,7 +70,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.028027534, y: -0.35811704}
+  m_Offset: {x: 0.011744499, y: -0.8760222}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -78,7 +80,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.22144508, y: 1.5293807}
+  m_Size: {x: 0.5331402, y: 1.8333914}
   m_EdgeRadius: 0
 --- !u!212 &1888632240794282398
 SpriteRenderer:
@@ -123,7 +125,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 8452191100853442476, guid: 51b5141ca5d211b4c8657c1501084bbb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -135,7 +137,66 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6142773240241071806
+--- !u!114 &2634467464127197574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5090815853600988913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4298581920160794746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5090815853600988913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14b53db7d19e334da74b59ac196662f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startYOffset: -1
+  animationDuration: 0.5
+  popUpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.006666676
+      value: 0.7907634
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49002907
+      value: 0.6476951
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0033334
+      value: 0.7926484
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &4210655000753567811
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,13 +210,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   kayu: {fileID: 4459120725376062254, guid: 02a41b6e3057e434dbdda20dc4f9d697, type: 3}
-  daun: {fileID: 0}
+  daun: {fileID: 4459120725376062254, guid: 0f22ba3700f36034cac4e5ce9183c9dc, type: 3}
   getah: {fileID: 4459120725376062254, guid: bdb3f5ac6519083489f3b7cc3ba86397, type: 3}
-  benih: {fileID: 4459120725376062254, guid: 0f22ba3700f36034cac4e5ce9183c9dc, type: 3}
+  benih: {fileID: 0}
   currentStage: 3
-  growthImages: []
+  growthImages:
+  - {fileID: -3296055309056785761, guid: 3918b5cb7b9574140a19dbaa3d81f372, type: 3}
+  - {fileID: 8452191100853442476, guid: 51b5141ca5d211b4c8657c1501084bbb, type: 3}
   growthTime: 0
-  namaSeed: 
+  namaSeed: TeakTree
   growthSpeed: 0
   daysSincePlanting: 1
   minWood: 1

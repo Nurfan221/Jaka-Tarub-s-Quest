@@ -11,9 +11,12 @@ GameObject:
   - component: {fileID: 5297067821582616087}
   - component: {fileID: 3358023806408393524}
   - component: {fileID: 1888632240794282398}
+  - component: {fileID: -7053885941256348187}
+  - component: {fileID: 7617280511646814756}
+  - component: {fileID: 4369746978154805166}
   m_Layer: 0
   m_Name: JatiTreeBig
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,7 +70,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.042987823, y: -0.34401643}
+  m_Offset: {x: 0.042988777, y: -0.37156308}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -77,7 +80,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.20328903, y: 1.5160811}
+  m_Size: {x: 0.3024578, y: 1.5711744}
   m_EdgeRadius: 0
 --- !u!212 &1888632240794282398
 SpriteRenderer:
@@ -122,7 +125,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: -6927793014847252990, guid: ebad6c01e5498f7468727fe4514d9049, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -134,3 +137,94 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7053885941256348187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5090815853600988913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14b53db7d19e334da74b59ac196662f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startYOffset: -1
+  animationDuration: 0.5
+  popUpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.006666676
+      value: 0.7907634
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49002907
+      value: 0.6476951
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0033334
+      value: 0.7926484
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &7617280511646814756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5090815853600988913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4369746978154805166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5090815853600988913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29471c14139b64e4d97ac92590082502, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  kayu: {fileID: 4459120725376062254, guid: 02a41b6e3057e434dbdda20dc4f9d697, type: 3}
+  daun: {fileID: 4459120725376062254, guid: 0f22ba3700f36034cac4e5ce9183c9dc, type: 3}
+  getah: {fileID: 4459120725376062254, guid: bdb3f5ac6519083489f3b7cc3ba86397, type: 3}
+  benih: {fileID: 0}
+  currentStage: 3
+  growthImages:
+  - {fileID: -8582943164656172086, guid: ebad6c01e5498f7468727fe4514d9049, type: 3}
+  - {fileID: 6735665171789789739, guid: ebad6c01e5498f7468727fe4514d9049, type: 3}
+  - {fileID: -6927793014847252990, guid: ebad6c01e5498f7468727fe4514d9049, type: 3}
+  growthTime: 0
+  namaSeed: JatiTreeBig
+  growthSpeed: 0
+  daysSincePlanting: 1
+  minWood: 3
+  maxWood: 5
+  minSap: 2
+  maxSap: 3
+  minLeaf: 3
+  maxLeaf: 4

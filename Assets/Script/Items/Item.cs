@@ -1,17 +1,17 @@
 using UnityEngine;
 using System.Linq;
 
-
+[System.Flags]
 public enum ItemType
 {
-    Melee_Combat,
-    Ranged_Combat,
-    Heal,
-    Buff,
-    Item,
-    Quest,
-    ItemPrefab,
-    Animal
+    Melee_Combat = 0,
+    Ranged_Combat = 1,
+    Heal = 2,
+    Buff = 4,
+    Item = 8,
+    Quest = 16,
+    ItemPrefab = 32,
+    Animal = 64
 }
 
 [System.Flags]

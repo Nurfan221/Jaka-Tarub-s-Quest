@@ -19,12 +19,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public Transform plantsContainer; // Referensi ke GameObject kosong yang menampung tanaman
     public Transform prefabContainer; // referansi ke gameobject kosont yang menampung prefab game objek 
 
-     private string itemNameSeed;// Ambil nama objek yang di-drag
+     private string itemInDrag;// Ambil nama objek yang di-drag
 
     [SerializeField] GiveCountContainer giveCountContainer;
     public int itemCount; // Index item yang di berikan
      
-     [SerializeField] InventoryUI inventoryUI;       
+     [SerializeField] InventoryUI inventoryUI;
+    [SerializeField] FenceBehavior fenceBehavior;
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -45,8 +46,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
-            // Cek apakah nama item sama dengan itemNameSeed dan kategori item adalah Seed
-            if (item.itemName == itemNameSeed && item.IsInCategory(ItemCategory.PlantSeed))
+            // Cek apakah nama item sama dengan itemInDrag dan kategori item adalah Seed
+            if (item.itemName == itemInDrag && item.IsInCategory(ItemCategory.PlantSeed))
             {
                 itemFound = true; // Tandai bahwa item ditemukan
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
@@ -97,9 +98,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
             
-            Debug.Log("nama itemNameSeed  " + itemNameSeed);
-            // Cek apakah nama item sama dengan itemNameSeed dan kategori item adalah Seed
-            if (item.itemName == itemNameSeed && !item.IsInCategory(ItemCategory.PlantSeed) && item.type == ItemType.ItemPrefab)
+            Debug.Log("nama itemInDrag  " + itemInDrag);
+            // Cek apakah nama item sama dengan itemInDrag dan kategori item adalah Seed
+            if (item.itemName == itemInDrag && !item.IsInCategory(ItemCategory.PlantSeed) && item.type == ItemType.ItemPrefab)
             {
                 Debug.Log("nama item.itemname " + item.itemName);
                 itemFound = true; // Tandai bahwa item ditemukan
@@ -160,8 +161,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         // Simpan parent asli untuk dikembalikan nanti
         originalParent = rectTransform.parent;
-        itemNameSeed = gameObject.name; // Ambil nama objek yang di-drag
-        Debug.Log("nama itemNameSeed  " + itemNameSeed);
+        itemInDrag = gameObject.name; // Ambil nama objek yang di-drag
+        Debug.Log("nama itemInDrag  " + itemInDrag);
 
         // Pindahkan item ke DragLayer (harus berada di bawah canvas)
         rectTransform.SetParent(dragLayer);
@@ -188,7 +189,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         else
         {
             
-            Debug.Log("nama item yang di drag adalah : " + itemNameSeed);
+            Debug.Log("nama item yang di drag adalah : " + itemInDrag);
             // PlantSeed(); // Menjalankan logika menanam jika dijatuhkan di tempat yang valid
         }
     }
@@ -221,7 +222,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         else if (currentTile == farmTile.grassTile)
         {
             Debug.Log("item di jatuhkan pada tile tanah");
-            Debug.Log("item yang di drag adalah : " + itemNameSeed);
+            Debug.Log("item yang di drag adalah : " + itemInDrag);
             CheckPrefabItem(cellPosition);
             return true;
         }
@@ -311,8 +312,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
-            // Cek apakah nama item sama dengan itemNameSeed dan kategori item adalah Seed
-            if (item.itemName == itemNameSeed && item.categories != ItemCategory.PlantSeed)
+            // Cek apakah nama item sama dengan itemInDrag dan kategori item adalah Seed
+            if (item.itemName == itemInDrag && item.categories != ItemCategory.PlantSeed)
             {
                 itemFound = true; // Tandai bahwa item ditemukan
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
@@ -320,15 +321,12 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
                 
-                // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
-                // PlantSeed(cellPosition, item.itemName, item.dropItem, item.growthImages, item.growthTime);
+             
 
                 npc.itemQuest = item.itemName;
-                // giveCountContainer.SetCountActive();
-                // itemCount = giveCountContainer.GetCountGift();
-                
+            
 
-                // // / Kurangi stack item setelah menanam
+                // Kurangi stack item setelah memberi
                 if (npc.CheckItemGive(ref stackItem))
                 {
                     
@@ -379,10 +377,12 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         //Cek apakah prefab memiliki komponen PrefabItemBehavior
         PrefabItemBehavior prefabBehavior = plant.GetComponent<PrefabItemBehavior>();
-        if (prefabBehavior != null)
+        FenceBehavior fenceBehavior = plant.GetComponent<FenceBehavior>();
+        if (prefabBehavior != null || fenceBehavior)
         {
             // Set health dari prefab berdasarkan nilai health dari item di inventory
             prefabBehavior.health = health;
+            fenceBehavior.UpdateFenceSprite();
             Debug.Log("Prefab memiliki PrefabItemBehavior. Health diset ke: " + health);
         }
         else

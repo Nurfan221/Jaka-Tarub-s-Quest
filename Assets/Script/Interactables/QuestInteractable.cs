@@ -33,4 +33,9 @@ public class QuestInteractable : Interactable
             Debug.LogWarning("No dialogue assigned to this NPC!");
         }
     }
+
+    public void SetCurrentDialogue(Dialogues dialogue)
+    {
+        currentDialogue = dialogue;
+    }
 }
