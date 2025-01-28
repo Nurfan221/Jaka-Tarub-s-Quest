@@ -40,12 +40,15 @@ public class DialogueSystem : MonoBehaviour
 
     public void CheckDialogue()
     {
-         foreach (var quest in questManager.dailyQuest)
+        foreach (var chapter in questManager.chapters)
         {
-            if (quest.questActive)
+            foreach (var quest in chapter.sideQuest)
             {
-                theDialogues = quest.dialogueQuest;
-                
+                if (quest.questActive)
+                {
+                    theDialogues = quest.dialogueQuest;
+
+                }
             }
         }
     }

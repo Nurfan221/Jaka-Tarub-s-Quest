@@ -12,6 +12,8 @@ public class EnvironmentBehavior : MonoBehaviour
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
     private int currentFrame = 0; // Indeks frame saat ini
 
+    public Item itemDrop;
+
     public void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>(); // Ambil komponen SpriteRenderer

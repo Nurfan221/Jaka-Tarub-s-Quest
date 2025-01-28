@@ -98,7 +98,7 @@ public class GameData
                 }
             }
 
-            currentQuest = Player_Quest.Instance.GetQuest();
+
 
             // GAME EVENTS
             // gameEvent_DoneFirstNarration = GameEventSystem.Instance.DoneFirstNarration;

@@ -7,6 +7,7 @@ public class NPCManager : MonoBehaviour
     [System.Serializable]
     public class NPCData
     {
+        public string npcName;
         public GameObject prefab;                  // Prefab NPC
         public int totalFrendships;                // menghitung jumlah nilai pertemanan
         public int countGift;
@@ -20,6 +21,8 @@ public class NPCManager : MonoBehaviour
         public string activityName;
         public Vector3[] waypoints;
         public float startTime;
+        public bool hasStarted = false; // Tambahkan penanda
+        public bool isOngoing = false; // tanda apakah schedule sudah selesai
     }
 
     [System.Serializable]
@@ -41,7 +44,7 @@ public class NPCManager : MonoBehaviour
     [SerializeField] private DialogueSystem dialogueSystem;
 
     public GameObject wargaDesaParent; // Objek kosong untuk menampung NPC
-    private Dictionary<string, GameObject> npcInstances = new Dictionary<string, GameObject>();
+
 
     private void Update()
     {
@@ -52,51 +55,67 @@ public class NPCManager : MonoBehaviour
     {
         foreach (var npcData in npcDataArray)
         {
+            GameObject npcInstance = npcData.prefab.gameObject;
+            NPCBehavior npcBehavior = npcInstance.GetComponent<NPCBehavior>();
+
+            if (npcBehavior == null)
+                continue;
+
             foreach (var schedule in npcData.schedules)
             {
-                if (Mathf.Approximately(timeManager.hour, schedule.startTime))
+                // Cek apakah waktu cocok dan aktivitas belum dimulai
+                if (Mathf.Approximately(timeManager.hour, schedule.startTime) && !schedule.hasStarted)
                 {
-                    if (!npcInstances.ContainsKey(npcData.prefab.name))
-                    {
-                        GameObject instance = Instantiate(npcData.prefab, schedule.waypoints[0], Quaternion.identity);
-                        instance.transform.SetParent(wargaDesaParent.transform);
-                        npcInstances.Add(npcData.prefab.name, instance);
-                    }
+                    npcBehavior.StartActivity(schedule); // Mulai aktivitas
+                    schedule.isOngoing = true;          // Tandai aktivitas sedang berlangsung
+                    schedule.hasStarted = true;         // Tandai aktivitas sudah dimulai
+                    break; // Keluar dari loop karena hanya satu aktivitas yang boleh dimulai
+                }
 
-                    GameObject npcInstance = npcInstances[npcData.prefab.name];
-                    NPCBehavior npcBehavior = npcInstance.GetComponent<NPCBehavior>();
-                    if (npcBehavior != null)
+                // Jika aktivitas sedang berlangsung, biarkan NPC menyelesaikan aktivitasnya
+                if (schedule.isOngoing)
+                {
+                    // Jika NPC tidak lagi bergerak, tandai aktivitas selesai
+                    if (!npcBehavior.IsMoving())
                     {
-                        npcBehavior.StartActivity(schedule);
+                        schedule.isOngoing = false; // Tandai aktivitas selesai
                     }
-                    break;
                 }
             }
         }
     }
 
+
+
+
+
+
     public void CheckNPCQuest()
     {
         Debug.Log("check npc quest di jalankan");
-       foreach (var quest in questManager.dailyQuest)
+       foreach (var chapter in questManager.chapters)
         {
-            if (quest.questActive )
+            foreach(var quest in chapter.sideQuest)
             {
-                string nameNpc = quest.NPC.name;
-                Debug.Log("nama npc dari struck quest adalah" + nameNpc);
-                foreach (var NPC in npcDataArray)
+                if (quest.questActive)
                 {
-                    if (NPC.prefab.name == nameNpc)
+                    string nameNpc = quest.NPC.name;
+                    Debug.Log("nama npc dari struck quest adalah" + nameNpc);
+                    foreach (var NPC in npcDataArray)
                     {
-                        QuestInteractable interactable = NPC.prefab.GetComponent<QuestInteractable>();
-                        if (interactable != null)
+                        if (NPC.prefab.name == nameNpc)
                         {
-                            interactable.currentDialogue = quest.dialogueQuest;
-                            interactable.promptMessage = "Quest " + quest.questName;
+                            QuestInteractable interactable = NPC.prefab.GetComponent<QuestInteractable>();
+                            if (interactable != null)
+                            {
+                                interactable.currentDialogue = quest.dialogueQuest;
+                                interactable.promptMessage = "Quest " + quest.questName;
+                            }
                         }
-                    }else
-                    {
-                        Debug.Log("nama npc berbeda");
+                        else
+                        {
+                            Debug.Log("nama npc berbeda");
+                        }
                     }
                 }
             }

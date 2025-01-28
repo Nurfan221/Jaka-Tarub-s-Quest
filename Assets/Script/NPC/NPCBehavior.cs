@@ -2,6 +2,7 @@ using UnityEngine;
 
 using System.Collections;
 using System.Linq;
+using Unity.VisualScripting;
 
 
 public class NPCBehavior : MonoBehaviour
@@ -12,23 +13,40 @@ public class NPCBehavior : MonoBehaviour
     [SerializeField] NPCManager npcManager;
     [SerializeField] GameEconomy gameEconomy;
     private NPCManager.Schedule currentActivity; // Gunakan NPCManager.Schedule untuk mendeklarasikan tipe
-    public NPCManager.Schedule[] dailySchedule; // Jadwal harian menggunakan tipe global
-    public NPCManager.Frendship[] frendships;
+
+    [SerializeField] NPCAnimation npcAnimation;
+
+
 
     public string npcName;
-    public Vector3 StartPosition;
+    public Vector3 startPosition;
     public float movementSpeed = 2.0f;
 
 
-    private bool isMoving = false;
-    private int currentWaypointIndex = 0;
+    public bool isMoving = false;
+    public int currentWaypointIndex = 0; //index saat ini
     private Renderer npcRenderer;
     private bool hasStartedActivity = false;
 
     public string itemQuest;
     public int jumlahItem;
 
-   private void Start()
+    //Animasi objek lain contoh pakaian 
+    [System.Serializable]
+    public class Animation
+    {
+        public string name;
+        public Sprite[] sprites;
+        public SpriteRenderer spriteRenderers;
+    }
+
+    public Animation[] animations;
+    public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
+    private int currentFrame = 0; // Indeks frame saat ini
+
+
+
+    private void Start()
     {
         npcRenderer = GetComponent<Renderer>();
         if (npcRenderer == null)
@@ -52,93 +70,153 @@ public class NPCBehavior : MonoBehaviour
     {
         if (schedule == null)
         {
-            //Debug.LogError("Schedule tidak ditemukan!");
             return;
         }
 
-        //Debug.Log($"Memulai aktivitas: {schedule.activityName} dengan {schedule.waypoints.Length} waypoints");
         currentActivity = schedule;
-
-        if (!gameObject.activeSelf)
-        {
-            gameObject.SetActive(true);
-        }
 
         if (currentActivity.waypoints.Length > 0)
         {
-            currentWaypointIndex = 0;
-            isMoving = true;
+            currentWaypointIndex = 0; // Reset indeks waypoint
+            isMoving = true;          // Mulai pergerakan
         }
         else
         {
-            //Debug.LogError("Waypoints kosong pada aktivitas ini!");
+            Debug.Log("Tidak ada aktivitas.");
         }
-        // OnDrawGizmos();
+
+        StartCoroutine(playAnimationClothes());
+    }
+
+    private void CheckNextWaypointDirection(Vector3 targetPosition, Vector3 startPosition)
+    {
+        // Hitung arah berdasarkan posisi saat ini dan posisi target
+        Vector3 direction = targetPosition - startPosition;
+
+        // Tentukan animasi berdasarkan arah dominan (x atau y)
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            if (direction.x > 0.1f)
+            {
+                npcAnimation.SetWalkAnimation(false, false, true, false); // WalkRight
+            }
+            else
+            {
+                npcAnimation.SetWalkAnimation(false, false, false, true); // WalkLeft
+            }
+        }
+        else
+        {
+            if (direction.y > 0.1f)
+            {
+                npcAnimation.SetWalkAnimation(true, false, false, false); // WalkUp
+            }
+            else
+            {
+                npcAnimation.SetWalkAnimation(false, true, false, false); // WalkDown
+            }
+        }
     }
 
 
 
-   private void MoveToNextWaypoint()
+
+    private void MoveToNextWaypoint()
     {
         if (currentWaypointIndex < currentActivity.waypoints.Length)
         {
+            // Ambil waypoint target berdasarkan indeks
             Vector3 targetPosition = currentActivity.waypoints[currentWaypointIndex];
-            //Debug.Log($"NPC bergerak ke waypoint {currentWaypointIndex}: {targetPosition}");
 
+            //ambil posisi awal target sebelum bergerak
+            if (currentWaypointIndex == 1 )
+            {
+                startPosition = transform.position;
+            }else if (currentWaypointIndex > 1)
+            {
+                startPosition = currentActivity.waypoints[currentWaypointIndex - 1];
+            }
+
+
+            // Tentukan arah animasi sebelum NPC mulai bergerak
+            CheckNextWaypointDirection(targetPosition, startPosition);
+
+            // Gerakkan NPC ke target
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
 
+            // Jika mencapai waypoint target, lanjut ke waypoint berikutnya
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
                 currentWaypointIndex++;
-                //Debug.Log($"NPC mencapai waypoint {currentWaypointIndex - 1}");
-
-                if (currentWaypointIndex >= currentActivity.waypoints.Length)
-                {
-                    isMoving = false;
-                    //Debug.Log($"NPC menyelesaikan aktivitas: {currentActivity.activityName}");
-
-                    if (currentActivity.activityName == "MulaiSchedule")
-                    {
-                        StartFirstActivity();
-                    }
-                    else if (currentActivity.activityName == "Istirahat")
-                    {
-                        StartCoroutine(FadeOutAndDestroy());
-                    }
-                }
             }
         }
         else
         {
-            //Debug.LogError("Tidak ada waypoints untuk aktivitas ini.");
-            isMoving = false;
+            // Selesai mencapai semua waypoint
+            isMoving = false; // Hentikan pergerakan
+            currentActivity.isOngoing = false; // Tandai aktivitas selesai
+
+            // Set animasi idle saat semua waypoint selesai
+            npcAnimation.SetWalkAnimation(false, false, false, false);
         }
     }
 
 
-   private void OnDrawGizmos()
+    public bool IsMoving()
     {
-        if (dailySchedule != null)
-        {
-            foreach (var schedule in dailySchedule)
-            {
-                if (schedule.waypoints != null && schedule.waypoints.Length > 0)
-                {
-                    Gizmos.color = Color.cyan; // Warna garis antar waypoint
-                    for (int i = 0; i < schedule.waypoints.Length - 1; i++)
-                    {
-                        Gizmos.DrawLine(schedule.waypoints[i], schedule.waypoints[i + 1]);
-                    }
+        return isMoving;
+    }
 
-                    Gizmos.color = Color.green; // Warna waypoint (bola kecil)
-                    foreach (var waypoint in schedule.waypoints)
+
+
+    private void OnDrawGizmos()
+    {
+        if (npcManager.npcDataArray != null)
+        {
+            foreach (var npc in npcManager.npcDataArray)
+            {
+                if (npc.schedules != null)
+                {
+                    foreach (var schedule in npc.schedules)
                     {
-                        Gizmos.DrawSphere(waypoint, 0.2f); // Gambar bola kecil di setiap waypoint
+                        Gizmos.color = Color.blue;
+
+                        // Gambar titik waypoints dalam posisi global
+                        for (int i = 0; i < schedule.waypoints.Length; i++)
+                        {
+                            Gizmos.DrawSphere(schedule.waypoints[i], 0.2f); // Waypoint sudah dalam posisi global
+                        }
+
+                        // Gambar garis antar-waypoints
+                        for (int i = 0; i < schedule.waypoints.Length - 1; i++)
+                        {
+                            Gizmos.DrawLine(schedule.waypoints[i], schedule.waypoints[i + 1]);
+                        }
                     }
                 }
             }
         }
     }
+
+
+
+
+    private IEnumerator playAnimationClothes()
+    {
+        while (true) // Loop tanpa batas (animasi berulang)
+        {
+            foreach (var sprite in animations)
+            {
+                if (sprite.sprites.Length > 0)
+                {
+                    sprite.spriteRenderers.sprite = sprite.sprites[currentFrame]; // Setel sprite saat ini
+                    currentFrame = (currentFrame + 1) % sprite.sprites.Length; // Pindah ke frame berikutnya (loop)
+                }
+                yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
+            }
+        }
+    }
+
 
 
     private IEnumerator FadeOutAndDestroy()
@@ -206,31 +284,38 @@ public class NPCBehavior : MonoBehaviour
         Debug.Log("check item give di jalankan ");
         bool isItemGiven = false;
 
-        foreach (var quest in questManager.dailyQuest)
+        foreach (var chapter in questManager.chapters)
         {
-            foreach (var item in quest.itemQuests)
+            foreach (var quest in chapter.sideQuest)
             {
-                if (itemQuest  == item.item.name)
+                foreach (var item in quest.itemQuests)
                 {
-                    if (item.jumlah > 0) // Pastikan masih ada item yang diperlukan
+                    if (itemQuest == item.item.name && npcName == quest.NPC.name)
                     {
-                        int jumlahDiBerikan = Mathf.Min(stackItem, item.jumlah); // tentukan jumlah item yang di berikan
-                        item.jumlah -= jumlahDiBerikan; // Kurangi jumlah item
-                        stackItem -= jumlahDiBerikan;
+                        if (item.jumlah > 0) // Pastikan masih ada item yang diperlukan
+                        {
+                            int jumlahDiBerikan = Mathf.Min(stackItem, item.jumlah); // tentukan jumlah item yang di berikan
+                            item.jumlah -= jumlahDiBerikan; // Kurangi jumlah item
+                            stackItem -= jumlahDiBerikan;
 
-                        CheckFinishQuest(quest.questName);
-                       
-                        Debug.Log($"Quest aktif: {quest.questName}, NPC: {quest.NPC.name}, Item: {itemQuest}");
-                        Debug.Log($"Sisa jumlah item quest: {item.jumlah}");
-                        isItemGiven = true;
-                        break; // Berhenti setelah menemukan quest yang sesuai
+                            // Ambil idChapter dari chapter saat ini
+                            int idChapter = chapter.idChapter;
+
+                            CheckFinishQuest(quest.questName, idChapter);
+
+
+                            Debug.Log($"Quest aktif: {quest.questName}, NPC: {quest.NPC.name}, Item: {itemQuest}");
+                            Debug.Log($"Sisa jumlah item quest: {item.jumlah}");
+                            isItemGiven = true;
+                            break; // Berhenti setelah menemukan quest yang sesuai
+                        }
+                        else
+                        {
+                            Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
+
+                        }
+
                     }
-                    else
-                    {
-                        Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
-
-                    }
-
                 }
             }
 
@@ -264,43 +349,78 @@ public class NPCBehavior : MonoBehaviour
     }
 
 
-    public void CheckFinishQuest(string nameQuest)
+    public void CheckFinishQuest(string nameQuest, int idChapter)
     {
-        foreach (var quest in questManager.dailyQuest)
+        foreach (var chapter in questManager.chapters)
         {
-            if (quest.questName == nameQuest)
+            foreach (var quest in chapter.sideQuest)
             {
-                bool allItemsComplete = true; // Asumsi semua item selesai
-
-                foreach (var item in quest.itemQuests)
+                if (quest.questName == nameQuest)
                 {
-                    if (item.jumlah > 0) // Jika ada item yang belum selesai
+
+                    bool allItemsComplete = true; // Asumsi semua item selesai
+
+                    foreach (var item in quest.itemQuests)
                     {
-                        allItemsComplete = false; // Tandai bahwa quest belum selesai
-                        break; // Tidak perlu melanjutkan pengecekan
+                        if (item.jumlah > 0) // Jika ada item yang belum selesai
+                        {
+                            allItemsComplete = false; // Tandai bahwa quest belum selesai
+                            break; // Tidak perlu melanjutkan pengecekan
+                        }
                     }
-                }
 
-                if (allItemsComplete)
-                {
-                    // Tandai quest selesai dan jalankan dialog selesai
-                    quest.finish.TheDialogues[0].name = npcName;
-                    quest.finish.mainSpeaker = npcName;
-                    dialogueSystem.theDialogues = quest.finish;
-                    dialogueSystem.StartDialogue();
-                    gameEconomy.Money += quest.reward;
+                    if (allItemsComplete)
+                    {
+                        // Tandai quest selesai dan jalankan dialog selesai
+                        quest.finish.TheDialogues[0].name = npcName;
+                        quest.finish.mainSpeaker = npcName;
+                        dialogueSystem.theDialogues = quest.finish;
+                        dialogueSystem.StartDialogue();
+                        gameEconomy.Money += quest.reward;
 
-                    Debug.Log("Quest selesai: " + quest.questName);
-                    quest.questActive = false;
-                    questManager.CheckQuest();
-                }
-                else
-                {
-                    // Dialog "belum selesai"
-                    questManager.notFinished.TheDialogues[0].name = npcName;
-                    questManager.notFinished.mainSpeaker = npcName;
-                    dialogueSystem.theDialogues = questManager.notFinished;
-                    dialogueSystem.StartDialogue();
+                        if (quest.rewards.Length > 0)
+                        {
+                            dialogueSystem.theDialogues = quest.rewardItemQuest;
+                            dialogueSystem.StartDialogue();
+                            for (int i = 0; i < quest.rewards.Length; i++)
+                            {
+                                // Pastikan itemReward tidak null untuk menghindari NullReferenceException
+                                if (quest.rewards[i].itemReward != null)
+                                {
+                                    // Mengambil nama item dari itemReward
+                                    string itemRewardName = quest.rewards[i].itemReward.name;
+                                    GameObject itemReward = quest.rewards[i].itemReward;
+
+                                    // Debug untuk memastikan nama itemReward terambil dengan benar
+                                    Debug.Log($"Item Reward Name: {itemRewardName}");
+
+                                    // Men-drop item menggunakan ItemPool
+                                    ItemPool.Instance.DropItem(itemRewardName, transform.position + new Vector3(0, 0.5f, 0), itemReward);
+                                }
+                            }
+                        }
+
+
+                        Debug.Log("Quest selesai: " + quest.questName);
+                        quest.questComplete = true;
+                        if (idChapter == chapter.idChapter)
+                        {
+                            chapter.currentSideQuest++;
+                            questManager.CheckMainQuest(idChapter);
+
+                        }
+                        quest.questActive = false;
+                        questManager.CheckQuest();
+
+                    }
+                    else
+                    {
+                        // Dialog "belum selesai"
+                        questManager.notFinished.TheDialogues[0].name = npcName;
+                        questManager.notFinished.mainSpeaker = npcName;
+                        dialogueSystem.theDialogues = questManager.notFinished;
+                        dialogueSystem.StartDialogue();
+                    }
                 }
             }
         }

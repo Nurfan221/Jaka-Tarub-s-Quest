@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Quest-5
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Pak Teguh
+    sentence: Pagi, Jaka.
+  - name: Jaka Tarub
+    sentence: Pagi, Pak. Ada apa ya?
+  - name: Pak Teguh
+    sentence: Tolong aku, Jaka! Ladangku diserang hewan liar!
+  - name: Jaka Tarub
+    sentence: Waduh, sepertinya ini keadaan genting. Hewan liar apa yang menyerang,
+      Pak?
+  - name: Pak Teguh
+    sentence: Ada sekawanan babi hutan yang merusak tanaman. Mereka sudah menghancurkan
+      sebagian besar sayuranku!
+  - name: Jaka Tarub
+    sentence: Oh tidak! Itu sangat merugikan, Pak. Berapa banyak yang sudah mereka
+      rusak?
+  - name: Pak Teguh
+    sentence: Hampir setengah ladangku, Jaka! Jika tidak segera diusir, bisa-bisa
+      semua tanaman akan hancur!
+  - name: Jaka Tarub
+    sentence: Tenang saja, Pak.  Saya tidak akan membiarkan ladang Bapak hancur lebih
+      jauh.
+  - name: Pak Teguh
+    sentence: Terima kasih, Jaka. Aku sangat berharap kamu bisa mengatasi ini. Jika
+      berhasil, aku akan memberikanmu beberapa uang dan hasil panen sebagai imbalan.
+  - name: Jaka Tarub
+    sentence: Baiklah, Pak. Saya akan segera berangkat. Doakan saya agar berhasil!
+  - name: Pak Teguh
+    sentence: Semoga keberuntungan menyertaimu, Jaka! Ladang ini sangat bergantung
+      padamu.
+  mainSpeaker: Pak Teguh
+  promptAfterDialogue: Misi mengusir Hewan Liar

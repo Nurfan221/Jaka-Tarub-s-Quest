@@ -16,7 +16,7 @@ public class PlayerUI : MonoBehaviour
     public Image itemUseUI;
     public Button actionInputButton;
     public GameObject inventoryUI;
-    public TMP_Text currentQuestText;
+
 
     private void Awake()
     {

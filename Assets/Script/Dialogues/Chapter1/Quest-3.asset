@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Quest-3
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: halo Mas Darmaji! Sedang membuat apa? Sepertinya sibuk sekali.
+  - name: Mas Darmaji
+    sentence: Halo, Jaka. Ini saya sedang membuat sebuah perangkap hewan.
+  - name: Jaka Tarub
+    sentence: Wah, sepuh memang beda ya. Hahaha!
+  - name: Mas Darmaji
+    sentence: Ah, tidak juga. Saya hanya mencoba membuatnya agar lebih mudah menangkap
+      hewan seperti tupai.
+  - name: Jaka Tarub
+    sentence: ' "Boleh tuh, Mas. Aku diajari cara membuatnya!'
+  - name: Mas Darmaji
+    sentence: Tentu saja. Tapi kamu bawakan dulu bahan-bahan yang dibutuhkan, ya.
+  - name: Jaka Tarub
+    sentence: Baik, Mas. Apa saja yang dibutuhkan?
+  - name: Mas Darmaji
+    sentence: 'ini, bahannya: 3 potong kayu, 2 besi batangan, dan 1 tali.'
+  - name: Jaka Tarub
+    sentence: Oke, Mas. Segera saya bawakan!
+  - name: Mas Darmaji
+    sentence: Baiklah, saya tunggu ya.
+  mainSpeaker: Jaka Tarub
+  promptAfterDialogue: PerangkapHewan

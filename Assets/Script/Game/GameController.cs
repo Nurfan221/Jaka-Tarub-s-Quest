@@ -209,7 +209,7 @@ public class GameController : MonoBehaviour
         }
 
         if (data.currentQuest != string.Empty)
-            Player_Quest.Instance.SetQuest(data.currentQuest);
+
 
         // GameEventSystem.Instance.DoneFirstNarration = data.gameEvent_DoneFirstNarration;
         // GameEventSystem.Instance.DoneDialogue_TamashiiGiveName = data.gameEvent_DoneDialogue_1;

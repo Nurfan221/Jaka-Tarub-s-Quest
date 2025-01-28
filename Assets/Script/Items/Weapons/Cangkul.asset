@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Cangkul
   m_EditorClassIdentifier: 
-  itemID: 27
+  itemID: 10
   itemName: Cangkul
   type: 0
   categories: 256
-  sprite: {fileID: 21300000, guid: 943c09509834072439edb5c2f51106b8, type: 3}
+  sprite: {fileID: -8420260034705677426, guid: 93d1d84024bbe074187d759027a50f86, type: 3}
   itemDescription: mari mencangkul dunia
   QuantityFuel: 0
+  health: 0
   Level: 1
   MaxLevel: 1
   Damage: 10
@@ -33,6 +34,7 @@ MonoBehaviour:
   SellValue: 500
   BurningTime: 0
   CookTime: 0
+  prefabItem: {fileID: 0}
   growthTime: 0
   growthImages: []
   plantPrefab: {fileID: 0}

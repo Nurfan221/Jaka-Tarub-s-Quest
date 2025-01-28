@@ -657,7 +657,7 @@ public class Player_Action : MonoBehaviour
         if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
         {
             StartCoroutine(HandleSpecialAttackCD(itemToAttack.SpecialAttackCD));
-            if (itemToAttack.itemName == "Penyiram Tanaman")
+            if (itemToAttack.itemName == "PenyiramTanaman")
             {
 
 

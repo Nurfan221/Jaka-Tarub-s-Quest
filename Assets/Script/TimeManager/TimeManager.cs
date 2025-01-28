@@ -98,6 +98,7 @@ public class TimeManager : MonoBehaviour
 
    private void UpdateDay()
     {
+        hour = 4;   
         currentDay = (Days)((totalHari % 7 == 0) ? 7 : totalHari % 7);
 
         // Tentukan probabilitas hujan berdasarkan musim
@@ -108,6 +109,7 @@ public class TimeManager : MonoBehaviour
         farmTile.ResetWateredTiles();
 
         questManager.CheckQuest();
+
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
         Debug.Log($"Hari telah berganti: {totalHari}");

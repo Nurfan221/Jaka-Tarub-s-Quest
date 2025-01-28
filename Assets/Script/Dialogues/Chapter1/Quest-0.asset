@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Quest-0
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Mbok Rini
+    sentence: Jaka! Sini, nak. Mbok mau ajarin sesuatu yang penting. Kalau kau mau
+      hidup di sini, kau harus tahu caranya bertani! Coba dengar baik-baik ya.
+  - name: Jaka Tarub
+    sentence: Iya, Mbok. Apa yang harus Jaka lakukan?"
+  - name: Mbok Rini
+    sentence: Gampang, kok. Lihat box di sebelah sana? Di situ Mbok sudah siapkan
+      15 seed padi. Kau ambil dulu. Jangan lupa, ada juga tools seperti cangkul dan
+      ember di dekatnya. Semuanya sudah Mbok siapkan untukmu.
+  - name: Mbok Rini
+    sentence: 'Mbok Rini: "Bagus! Sekarang, dengarkan baik-baik ya. Langkah pertama,
+      kau harus menggemburkan tanah dulu dengan cangkul. Tanah yang keras nggak bisa
+      ditanami padi, kan?"'
+  - name: Jaka Tarub
+    sentence: Oke, Mbok. Lalu apa setelah itu?
+  - name: Mbok Rini
+    sentence: Setelah itu, tanam seed padi satu per satu di tanah yang sudah gembur
+      tadi. Jangan lupa jaraknya harus cukup supaya padinya tumbuh dengan baik.
+  - name: Jaka Tarub
+    sentence: Hmm... Menggemburkan tanah, lalu tanam benih... Ada lagi, Mbok?
+  - name: Mbok Rini
+    sentence: Tentu ada! Setelah itu, kau harus sirami tanamanmu pakai air dari penyiram
+      tanaman. Tanaman yang tidak disiram akan layu, nak.
+  - name: Jaka Tarub
+    sentence: Oh, jadi harus disiram juga, ya. Baik, Mbok. Jaka akan coba sekarang.
+  mainSpeaker: Mbok Rini
+  promptAfterDialogue: Tutorial Farming
