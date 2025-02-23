@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class StorageInteractable : Interactable
 {
+
+
     public List<Item> Items = new();
+    private int maxItem = 11;
     //[SerializeField] StorageUI storageUI;
 
     //Animation

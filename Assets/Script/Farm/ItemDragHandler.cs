@@ -105,7 +105,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 Debug.Log("nama item.itemname " + item.itemName);
                 itemFound = true; // Tandai bahwa item ditemukan
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
-                plantPrefab = item.plantPrefab; // Set plantPrefab sesuai item
+                plantPrefab = item.prefabItem; // Set plantPrefab sesuai item
 
                 //Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
 
