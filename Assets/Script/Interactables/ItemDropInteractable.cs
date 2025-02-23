@@ -14,8 +14,8 @@ public class ItemDropInteractable : Interactable
 
         if (item == null)
             item = ItemPool.Instance.GetItem(itemName);
-        promptMessage = "Inventory Full";
-        GetComponent<SpriteRenderer>().sprite = item.sprite;
+        //promptMessage = "Inventory Full";
+        //GetComponent<SpriteRenderer>().sprite = item.sprite;
     }
 
     //protected override void Interact()

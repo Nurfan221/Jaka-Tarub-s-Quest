@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1993785535319985087}
   m_Layer: 0
   m_Name: Domba
-  m_TagString: Environment
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,6 +198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cdab25f66972f94480edfca2fb7f3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animalIdle:
+  - {fileID: -6294243155114217349, guid: 67994d6ba15916f4387cc44beb934f3c, type: 3}
+  - {fileID: -5772777664047436682, guid: 67994d6ba15916f4387cc44beb934f3c, type: 3}
   animationStates:
   - stateName: Idle
     availableStates:
@@ -247,4 +250,9 @@ MonoBehaviour:
   animalRenderer: {fileID: -4335485848235824116}
   namaHewan: Domba
   health: 10
-  dropitems: []
+  dropitems:
+  - {fileID: 4459120725376062254, guid: 4abfe66eb1ac9d545b2f66f6c928611a, type: 3}
+  minNormalItem: 1
+  maxNormalItem: 2
+  minSpecialItem: 0
+  maxSpecialItem: 1

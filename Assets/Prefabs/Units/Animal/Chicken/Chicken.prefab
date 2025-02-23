@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1993785535319985087}
   m_Layer: 0
   m_Name: Chicken
-  m_TagString: Environment
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,4 +239,5 @@ MonoBehaviour:
   animalRenderer: {fileID: -4335485848235824116}
   namaHewan: Chicken
   health: 10
-  dropitems: []
+  dropitems:
+  - {fileID: 4459120725376062254, guid: 4abfe66eb1ac9d545b2f66f6c928611a, type: 3}

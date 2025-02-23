@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using static QuestManager;
-using Microsoft.Unity.VisualStudio.Editor;
+//using Microsoft.Unity.VisualStudio.Editor;
 using static UnityEditor.Progress;
+using System.Net.NetworkInformation;
+
 
 public class QuestManager : MonoBehaviour
 {
@@ -18,11 +21,13 @@ public class QuestManager : MonoBehaviour
 
         
     }
+
     [System.Serializable]
     public class MainQuest
     {
         public string questName;
         public Dialogues dialogueQuest;
+        public Dialogues sideDialogue;
         public GameObject NPC;
         public int date;
         public string questInfo;
@@ -32,11 +37,24 @@ public class QuestManager : MonoBehaviour
         public bool questActive = false;
         public bool questComplete = false;
         public Vector3 locateNpcQuest;
+
         public Sprite spriteQuest;
         public int reward;
         public Reward[] rewards;
         public ItemQuest[] itemQuests;
-        public GameObject[] locationQuest; //buat agar lokasi array di inputkan secara berurutan 
+        public locationMainQuest[] locationMainQuest;
+
+
+    }
+    [System.Serializable]
+
+    public class locationMainQuest
+    {
+        public string infoQuest;
+        public GameObject locationQuest; //buat agar lokasi array di inputkan secara berurutan 
+        public Dialogues dialogueLocation;
+        public GameObject spawner;
+        public GameObject[] prefabObjek;
     }
 
     [System.Serializable]
@@ -82,12 +100,22 @@ public class QuestManager : MonoBehaviour
     [SerializeField] TimeManager timeManager;
     [SerializeField] DialogueSystem dialogueSystem;
     [SerializeField] NPCManager npcManager;
+    [SerializeField] LoadingScreenUI loadingScreenUI;
+    [SerializeField] PlayerQuest playerQuest;
+    public Transform questUI;
+    public Transform displayMainQuest;
+    public string locationInfo;
+    public int indexLocation;
+
+
     [Header("Quest")]
     [SerializeField] Transform ContentGO;
     [SerializeField] Transform SlotTemplate;
+    public int jedaMainQuest;
 
 
     public Dialogues notFinished;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -159,7 +187,7 @@ public class QuestManager : MonoBehaviour
         if (mainQuestQueue.Count > 0)
         {
             currentMainQuest = mainQuestQueue.Dequeue(); // Ambil quest dari queue
-            currentMainQuest.date = timeManager.date + 4; // Ubah date ke waktu saat ini (atau logika lain)
+            currentMainQuest.date = timeManager.date + jedaMainQuest; // Ubah date ke waktu saat ini (atau logika lain)
             currentMainQuest.questActive = true; // Tandai quest sebagai aktif
             Debug.Log($"MainQuest aktif: {currentMainQuest.questName}, Date: {currentMainQuest.date}");
         }
@@ -169,27 +197,6 @@ public class QuestManager : MonoBehaviour
             currentMainQuest = null;
         }
     }
-
-    private void playMainQuest()
-    {
-
-    }
-
-    //// Memanggil saat MainQuest selesai
-    //public void CompleteCurrentMainQuest()
-    //{
-    //    if (currentMainQuest != null)
-    //    {
-    //        currentMainQuest.questComplete = true; // Tandai quest sebagai selesai
-    //        currentMainQuest.questActive = false; // Matikan status aktif
-    //        Debug.Log($"MainQuest selesai: {currentMainQuest.questName}");
-
-    //        // Trigger quest berikutnya
-    //        TriggerNextMainQuest();
-    //    }
-    //}
-
-
 
     private void DisplayActiveQuests()
     {
@@ -218,6 +225,8 @@ public class QuestManager : MonoBehaviour
         if (currentMainQuest != null && (timeManager.date + 1) == currentMainQuest.date)
         {
             CreateQuestDisplay(currentMainQuest.questInfo);
+            PlayMainQuest();
+
         }
     }
 
@@ -232,6 +241,9 @@ public class QuestManager : MonoBehaviour
 
         // Temukan TextMeshPro di dalam objek dan atur teksnya
         TextMeshProUGUI textComponent = questObject.GetComponentInChildren<TextMeshProUGUI>();
+
+        //simpan display quest ke dalam objek displayMainQuest
+        displayMainQuest = questObject;
         if (textComponent != null)
         {
             textComponent.text = questInfo;
@@ -241,6 +253,148 @@ public class QuestManager : MonoBehaviour
             Debug.LogError("TextMeshPro tidak ditemukan di dalam TextQuest!");
         }
     }
+
+    public void UpdateDisplayQuest()
+    {
+        if (displayMainQuest != null && displayMainQuest.name == currentMainQuest.questInfo)
+        {
+            // Temukan TextMeshPro di dalam objek dan atur teksnya
+            TextMeshProUGUI textComponent = displayMainQuest.GetComponentInChildren<TextMeshProUGUI>();
+            if (textComponent != null)
+            {
+                
+                // Cek apakah locationMainQuest memiliki elemen
+                if (currentMainQuest.locationMainQuest != null && currentMainQuest.locationMainQuest.Length > 0)
+                {
+                    if (indexLocation < currentMainQuest.locationMainQuest.Length)
+                    {
+                        // Ambil index ke-0 dari locationMainQuest
+                        locationInfo = currentMainQuest.locationMainQuest[indexLocation].infoQuest;
+                        textComponent.text = locationInfo;
+
+                        playerQuest.objekMainQuest = currentMainQuest.locationMainQuest[indexLocation].locationQuest;
+                        playerQuest.indexLocation = indexLocation;
+                        indexLocation++;
+                    }
+
+
+                }
+
+                else
+                {
+                    textComponent.text = "Lokasi: Tidak Ditemukan";
+                }
+            }
+            else
+            {
+                Debug.LogError("TextMeshPro tidak ditemukan dalam displayMainQuest!");
+            }
+
+        }
+    }
+
+    public void playMainLocationQuest(int indexLocation)
+    {
+        Debug.Log("fungsi playMainLocationQuest di panggil");
+        // Ambil lokasi quest saat ini berdasarkan indexLocation
+        GameObject parentLocation = currentMainQuest.locationMainQuest[indexLocation].locationQuest;
+
+        if (parentLocation == null)
+        {
+            Debug.LogError("Parent lokasi quest tidak ditemukan!");
+            return;
+        }
+
+        // Loop melalui semua prefab yang akan di-spawn
+        GameObject prefabUnitLocation = currentMainQuest.locationMainQuest[indexLocation].prefabObjek[indexLocation];
+        if (prefabUnitLocation != null)
+        {
+            // Spawn prefab dengan menjadikannya child dari parentLocation
+            GameObject spawnedObject = Instantiate(prefabUnitLocation, parentLocation.transform);
+
+            // Atur posisi lokal prefab agar berada di pusat parentLocation
+            spawnedObject.transform.localPosition = Vector3.zero;
+
+            Debug.Log($"Prefab {spawnedObject.name} telah di-instantiate di {parentLocation.name}!");
+
+            dialogueSystem.theDialogues = currentMainQuest.locationMainQuest[indexLocation].dialogueLocation;
+            dialogueSystem.StartDialogue();
+
+            StartCoroutine(WaitForDialogueToEnd());
+        }
+        else
+        {
+            Debug.LogWarning("Prefab objek tidak valid di dalam array prefabObjek!");
+        }
+    }
+
+
+
+
+    private void PlayMainQuest()
+    {
+
+        if (currentMainQuest != null)
+        {
+            //LoadingScreenUI.Instance.LoadScene(1); // Memuat scene dengan index 1
+            questUI.gameObject.SetActive(true);
+
+            questUI.GetChild(0).GetComponent<Image>().sprite = currentMainQuest.spriteQuest;
+
+            
+
+
+            //MulticastIPAddressInformation dialog
+            dialogueSystem.theDialogues = currentMainQuest.dialogueQuest;
+            dialogueSystem.StartDialogue();
+
+            // Tunggu sampai dialog selesai, lalu lanjutkan logika main quest
+            StartCoroutine(WaitForDialogueToEnd());
+
+            GameObject npcMainQuest = currentMainQuest.NPC;
+            Vector3 locationNpcMainQuest = currentMainQuest.locateNpcQuest;
+            Dialogues dialoguesMainQuest = currentMainQuest.sideDialogue;
+
+            npcManager.CheckNPCMainQuest(npcMainQuest, locationNpcMainQuest, dialoguesMainQuest);
+        }
+    }
+
+    IEnumerator WaitForDialogueToEnd()
+    {
+        // Tunggu sampai UI dialog tidak aktif (berarti dialog selesai)
+        while (dialogueSystem.dialogueUI.activeSelf)
+        {
+            yield return null; // Tunggu satu frame
+        }
+
+        Debug.Log("Dialog main quest selesai!");
+
+        // Tandai quest selesai atau lanjutkan logika lain
+        if (currentMainQuest != null)
+        {
+            questUI.gameObject.SetActive(false);
+
+
+        }
+    }
+
+    //// Memanggil saat MainQuest selesai
+    //public void CompleteCurrentMainQuest()
+    //{
+    //    if (currentMainQuest != null)
+    //    {
+    //        currentMainQuest.questComplete = true; // Tandai quest sebagai selesai
+    //        currentMainQuest.questActive = false; // Matikan status aktif
+    //        Debug.Log($"MainQuest selesai: {currentMainQuest.questName}");
+
+    //        // Trigger quest berikutnya
+    //        TriggerNextMainQuest();
+    //    }
+    //}
+
+
+
+
 
 
 

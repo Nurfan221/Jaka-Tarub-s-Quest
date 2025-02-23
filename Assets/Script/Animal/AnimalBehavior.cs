@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic; // Diperlukan jika menggunakan List
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimalBehavior : MonoBehaviour
@@ -10,6 +11,8 @@ public class AnimalBehavior : MonoBehaviour
         public string stateName;         // Nama state (Idle, Jalan, Makan)
         public string[] availableStates; // Array animasi yang bisa dituju
     }
+
+    public Sprite[] animalIdle;
 
     
     public AnimationState[] animationStates; // Array semua animasi dan transisinya
@@ -39,6 +42,11 @@ public class AnimalBehavior : MonoBehaviour
     //element 4 dan seterusnya boleh di isi dengan barang spesial milik hewan yang akan di drop
 
     public GameObject[] dropitems;
+    // Logika menentukan jumlah minimal dan maksimal dari item yang akan dijatuhkan
+    public int minNormalItem = 1;  // Jumlah minimum normal item
+    public int maxNormalItem = 2;  // Jumlah maksimum normal item
+    public int minSpecialItem = 0; // Jumlah item spesial seperti copper, iron, atau gold
+    public int maxSpecialItem = 1;
 
 
     private void Start()
@@ -189,30 +197,31 @@ public class AnimalBehavior : MonoBehaviour
         yield return new WaitForSeconds(3f); // Waktu tunggu sebelum kembali ke aktivitas lain
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // Misalnya, jika hewan menyentuh objek dengan tag "Environment"
-        if (other.CompareTag("Environment"))
+        if (collision.gameObject.CompareTag("Environment") || collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Stone"))
         {
             //Debug.Log("Nabrak OYYY");
 
             // Menyimpan posisi objek yang disentuh
-            lastCollisionPoint = other.transform.position;
+            // Menyimpan posisi objek yang disentuh
+            lastCollisionPoint = collision.transform.position;
 
             // Jika hewan sedang bergerak, langsung jalankan pergerakan menjauhi objek
             if (isMoving && !isAvoiding)
             {
                 isAvoiding = true;
                 StopCoroutine("AnimalMovement");  // Hentikan pergerakan yang sedang berlangsung
-                StartCoroutine(MoveAwayFromObstacle(other));  // Mulai pergerakan menjauhi objek
+                StartCoroutine(MoveAwayFromObstacle(collision));  // Mulai pergerakan menjauhi objek
             }
         }
     }
 
-    private IEnumerator MoveAwayFromObstacle(Collider2D other)
+    private IEnumerator MoveAwayFromObstacle(Collision2D collision)
     {
         // Menghitung arah untuk menjauh dari objek yang memiliki tag "Environment"
-        Vector2 directionAwayFromObstacle = ((Vector2)transform.position - (Vector2)other.transform.position).normalized;
+        Vector2 directionAwayFromObstacle = ((Vector2)transform.position - (Vector2)collision.transform.position).normalized;
 
         // Tentukan posisi target untuk bergerak menjauhi objek
         Vector2 targetPosition = (Vector2)transform.position + directionAwayFromObstacle * 5f;  // Menjauh sejauh 5 unit dari objek
@@ -227,6 +236,58 @@ public class AnimalBehavior : MonoBehaviour
         // Setelah bergerak menjauhi objek, kembalikan status dan lanjutkan pergerakan acak
         isAvoiding = false;
         StartCoroutine(AnimalMovement(currentState));  // Mulai pergerakan acak lagi setelah menghindar
+    }
+
+    public void DropItem()
+    {
+
+        //if (dropitems == null || dropitems.Length < 3)
+        //{
+        //    Debug.LogWarning("Drop items array is not properly configured. Ensure at least 3 items exist.");
+        //    return;
+        //}
+        int normalItemCount = Random.Range(minNormalItem, maxNormalItem + 1);
+        DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
+        if (dropitems.Length > 3) // Jika ada special items
+        {
+            int specialItemCount = Random.Range(minSpecialItem, maxSpecialItem + 1);
+            DropItemsByType(3, dropitems.Length, specialItemCount);
+        }
+    }
+    // Fungsi untuk menjatuhkan item berdasarkan rentang index tertentu
+    private void DropItemsByType(int startIndex, int endIndex, int itemCount)
+    {
+
+        if (dropitems == null || dropitems.Length == 0)
+        {
+            Debug.LogWarning("Drop items array is empty or null.");
+            return;
+        }
+        // Pastikan rentang indeks valid
+        if (startIndex < 0 || endIndex > dropitems.Length || startIndex >= endIndex)
+        {
+            Debug.LogError($"Invalid index range: startIndex={startIndex}, endIndex={endIndex}, arrayLength={dropitems.Length}");
+            return;
+        }
+
+        for (int i = 0; i < itemCount; i++)
+        {
+            //Debug.Log("for untuk perulangan drop item");
+            int randomIndex = Random.Range(startIndex, endIndex);
+            GameObject itemToDrop = dropitems[randomIndex];
+            if (itemToDrop != null)
+            {
+                Debug.Log("nama item yang di drop adalah : " + itemToDrop.name);
+                //Instantiate(itemToDrop, transform.position, Quaternion.identity);
+                Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+                ItemPool.Instance.DropItem(itemToDrop.name, transform.position + offset, itemToDrop);
+            }
+            else
+            {
+                Debug.LogWarning($"Item at index {randomIndex} is null.");
+            }
+        }
+        Destroy(gameObject);
     }
 
 

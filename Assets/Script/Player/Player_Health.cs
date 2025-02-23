@@ -2,21 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static NPCBehavior;
 
 public class Player_Health : MonoBehaviour
 {
     public static Player_Health Instance; // Access this class from the Instace
+    [SerializeField] Player_Anim player_Anim;
 
     [Header("HEALTH VALUE")]
-    [SerializeField] int maxHealth = 100;
-    [SerializeField] int health = 100;
+    public int maxHealth = 100;
+    public int health = 100;
 
     [Header("STAMINA VALUE")]
-    [SerializeField] float maxStamina = 100;
+    public float maxStamina = 100;
     public float stamina = 100;
-    [SerializeField] float staminaRegenRate = 15;
+    public float staminaRegenRate = 15;
 
-    [SerializeField] SpriteRenderer sr;
+    public SpriteRenderer sr;
 
     private void Awake()
     {
@@ -37,14 +39,57 @@ public class Player_Health : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector2 attackerPosition)
     {
-        health -= damage;
+        //health -= damage;
 
-        StartCoroutine(TakeDamageVisual());
+        if (player_Anim != null)
+        {
+            player_Anim.PlayTakeDamageAnimation();
+        }
+
+        // Hitung arah knockback
+        Vector2 knockbackDirection = ((Vector2)transform.position - attackerPosition).normalized;
+
+        // Terapkan knockback dan hentikan kontrol pemain sementara
+        StartCoroutine(ApplyKnockback(knockbackDirection));
+
+        // Jika HP habis, mati
         if (health <= 0)
+        {
             Die();
+        }
     }
+
+    private IEnumerator ApplyKnockback(Vector2 direction)
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            float knockbackForce = 1f;
+            rb.linearVelocity = Vector2.zero; // Reset velocity
+            rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+        }
+
+        // Hentikan gerakan sementara
+        Player_Movement movement = GetComponent<Player_Movement>();
+        if (movement != null)
+        {
+            movement.enabled = false;
+        }
+
+        yield return new WaitForSeconds(0.3f); // Sesuaikan dengan durasi animasi take damage
+
+        // Aktifkan kembali gerakan setelah knockback selesai
+        if (movement != null)
+        {
+            movement.enabled = true;
+        }
+    }
+
+
+
+
 
     IEnumerator TakeDamageVisual()
     {
@@ -81,11 +126,11 @@ public class Player_Health : MonoBehaviour
         GameController.Instance.PlayerDied();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 7)
-        {
-            TakeDamage(3);
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.layer == 7)
+    //    {
+    //        TakeDamage(3);
+    //    }
+    //}
 }

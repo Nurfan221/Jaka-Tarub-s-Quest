@@ -43,7 +43,7 @@ public class Enemy_Spawner : MonoBehaviour
     {
         GameObject newEnemy = Instantiate(enemyPrefab, transform);
         newEnemy.transform.localPosition = GetSpawnPosition();
-        newEnemy.GetComponent<Enemy_Health>().theSpawner = this;
+        //newEnemy.GetComponent<Enemy_Health>().theSpawner = this;
 
         enemies.Add(newEnemy);
     }

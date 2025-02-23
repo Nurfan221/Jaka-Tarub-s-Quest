@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5689379069804323596}
   - component: {fileID: -3298569906305986760}
   - component: {fileID: 1245937808901146366}
+  - component: {fileID: 4707890336747707605}
   m_Layer: 8
   m_Name: Sword
   m_TagString: ItemDrop
@@ -178,5 +179,20 @@ MonoBehaviour:
   useEvents: 0
   promptMessage: Sword
   item: {fileID: 11400000, guid: 3af936a8fceaf694db4686a262caf9f4, type: 2}
-  itemName: 
+  itemName: Sword
   gravityDuration: 1
+--- !u!114 &4707890336747707605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459120725376062254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f35b7bfeabcee4ba85145e38dd752e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  namePrefab: Sword
+  itemDrop: {fileID: 4459120725376062254}

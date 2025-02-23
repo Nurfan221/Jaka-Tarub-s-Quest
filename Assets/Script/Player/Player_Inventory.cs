@@ -32,6 +32,7 @@ public class Player_Inventory : MonoBehaviour
     Player_Action playerAction;
     [HideInInspector] public bool inventoryOpened;
     [HideInInspector] public bool inventoryClosed;
+    [SerializeField] MiniGameHewanUI miniGameHewanUI;
 
     [SerializeField] ParticleSystem healParticle;
     public Button inventoryButton;  // Drag and drop the button in the inspector
@@ -151,6 +152,11 @@ public class Player_Inventory : MonoBehaviour
         }
     }
 
+    public void AddItem(string namaItem)
+    {
+        Instance.AddItem(ItemPool.Instance.GetItem(namaItem));
+    }
+
     public void SwapItems(int id1, int id2)
     {
         if (id1 < 0 || id1 >= itemList.Count || id2 < 0 || id2 >= itemList.Count)
@@ -213,6 +219,7 @@ public class Player_Inventory : MonoBehaviour
         // Cek apakah objek yang disentuh memiliki tag "ItemDrop"
         if (other.CompareTag("ItemDrop"))
         {
+            Debug.Log("terdeteksi item drop");
             // Ambil data dari PrefabItemBehavior jika ada
             PrefabItemBehavior prefabItem = other.GetComponent<PrefabItemBehavior>();
 
@@ -257,6 +264,14 @@ public class Player_Inventory : MonoBehaviour
             {
                 Debug.LogWarning("Komponen PrefabItemBehavior tidak ditemukan di objek dengan tag 'ItemDrop'.");
             }
+        }
+        else if(other.CompareTag("Animal"))
+        {
+            Debug.Log("animal terdeteksi");
+            miniGameHewanUI.Open(other.gameObject);
+
+            //AnimalBehavior animalBehavior = other.GetComponent<AnimalBehavior>();
+            //animalBehavior.DropItem();
         }
     }
 

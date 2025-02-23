@@ -15,13 +15,15 @@ public class DialogueSystem : MonoBehaviour
     Queue<Dialogues.Dialogue> dialogues = new();
 
     [SerializeField] float dialogueSpd = 2;
-    [SerializeField] GameObject dialogueUI;
+    public GameObject dialogueUI;
     [SerializeField] TMP_Text[] speakersText;
     string firstSpeaker;
     [SerializeField] TMP_Text dialogueText;
     [SerializeField] TMP_Text narrationText;
 
     [SerializeField] Button NextButton;
+
+    public GameObject npcToDestroy; // NPC yang akan dihapus setelah dialog selesai
 
     private void Awake()
     {
@@ -124,6 +126,15 @@ public class DialogueSystem : MonoBehaviour
     {
         print("End of conversations");
         currentDialogues.AfterDialogue();
+
+        // Hapus NPC jika ada
+        if (npcToDestroy != null)
+        {
+            Debug.Log($"Menghapus NPC {npcToDestroy.name}");
+            Destroy(npcToDestroy);
+            questManager.UpdateDisplayQuest();
+            npcToDestroy = null;
+        }
         dialogueUI.SetActive(false);
         GameController.Instance.ResumeGame();
     }

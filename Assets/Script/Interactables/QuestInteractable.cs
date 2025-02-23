@@ -7,11 +7,13 @@ public class QuestInteractable : Interactable
     [SerializeField] QuestManager questManager;
     [SerializeField] protected DialogueSystem dialogueSystem;
     public Dialogues currentDialogue; // Properti untuk menyimpan dialog
+    public GameObject npcObject;
 
 
 
     void Start()
     {
+
         // Jika tidak diassign melalui Inspector, berikan peringatan
         if (questManager == null || dialogueSystem == null)
         {
@@ -26,7 +28,12 @@ public class QuestInteractable : Interactable
         if (currentDialogue != null)
         {
             dialogueSystem.theDialogues = currentDialogue;
+
+            // Beri tahu DialogueSystem NPC mana yang harus dihapus setelah dialog selesai
+            dialogueSystem.npcToDestroy = npcObject;
+
             dialogueSystem.StartDialogue();
+
         }
         else
         {

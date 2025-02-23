@@ -121,4 +121,45 @@ public class NPCManager : MonoBehaviour
             }
         }
     }
+
+    public void CheckNPCMainQuest(GameObject npc, Vector3 locationQuest, Dialogues dialoguesMainQuest)
+    {
+        foreach (var objekNPC in npcDataArray)
+        {
+            //string nameNPC = npc.gameObject.name;
+            if (objekNPC.prefab == npc)
+            {
+                GameObject npcPrefab = objekNPC.prefab;
+
+                if (npcPrefab != null)
+                {
+                    GameObject newNpc = Instantiate(npcPrefab, locationQuest, Quaternion.identity);
+                    QuestInteractable questScript = newNpc.GetComponent<QuestInteractable>();
+                    NPCBehavior behaviorScript = newNpc.GetComponent<NPCBehavior>();
+
+                    if (behaviorScript != null)
+                    {
+                        behaviorScript.isMoving = false;
+                    }
+
+                    if (questScript != null)
+                    {
+                        questScript.currentDialogue = dialoguesMainQuest;
+                        questScript.npcObject = newNpc;
+                    }
+
+                    newNpc.name = objekNPC.npcName + "_Clone";
+                    //questManager.UpdateDisplayQuest();
+                }
+                else
+                {
+                    Debug.Log($"NPC {npcPrefab.name} berhasil di duplikasi");
+                }
+                return;
+            }
+        }
+    Debug.LogWarning($"NPC {npc.name} tidak ditemukan dalam npcDataArray");
+    }
+
+
 }

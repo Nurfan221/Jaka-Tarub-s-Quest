@@ -120,7 +120,7 @@ TextureImporter:
       213: -6345554013486325920
     second: Font_38
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -184,7 +184,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -197,7 +197,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -210,7 +210,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -223,7 +223,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -243,13 +243,14 @@ TextureImporter:
       name: Font_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -264,13 +265,14 @@ TextureImporter:
       name: Font_1
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -285,13 +287,14 @@ TextureImporter:
       name: Font_2
       rect:
         serializedVersion: 2
-        x: 6
+        x: 7
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -306,13 +309,14 @@ TextureImporter:
       name: Font_3
       rect:
         serializedVersion: 2
-        x: 6
+        x: 7
         y: 0
-        width: 6
+        width: 4
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -327,13 +331,14 @@ TextureImporter:
       name: Font_4
       rect:
         serializedVersion: 2
-        x: 11
+        x: 12
         y: 0
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -348,13 +353,14 @@ TextureImporter:
       name: Font_5
       rect:
         serializedVersion: 2
-        x: 12
+        x: 13
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -369,13 +375,14 @@ TextureImporter:
       name: Font_6
       rect:
         serializedVersion: 2
-        x: 17
+        x: 18
         y: 0
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -390,13 +397,14 @@ TextureImporter:
       name: Font_7
       rect:
         serializedVersion: 2
-        x: 18
+        x: 19
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -411,13 +419,14 @@ TextureImporter:
       name: Font_8
       rect:
         serializedVersion: 2
-        x: 23
+        x: 24
         y: 0
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -432,13 +441,14 @@ TextureImporter:
       name: Font_9
       rect:
         serializedVersion: 2
-        x: 24
+        x: 25
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -453,13 +463,14 @@ TextureImporter:
       name: Font_10
       rect:
         serializedVersion: 2
-        x: 29
+        x: 30
         y: 0
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -474,13 +485,14 @@ TextureImporter:
       name: Font_11
       rect:
         serializedVersion: 2
-        x: 30
+        x: 31
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -495,13 +507,14 @@ TextureImporter:
       name: Font_12
       rect:
         serializedVersion: 2
-        x: 35
+        x: 36
         y: 0
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -516,13 +529,14 @@ TextureImporter:
       name: Font_13
       rect:
         serializedVersion: 2
-        x: 36
+        x: 37
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -537,13 +551,14 @@ TextureImporter:
       name: Font_14
       rect:
         serializedVersion: 2
-        x: 41
+        x: 42
         y: 0
-        width: 8
+        width: 6
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -558,13 +573,14 @@ TextureImporter:
       name: Font_15
       rect:
         serializedVersion: 2
-        x: 42
+        x: 43
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -579,13 +595,14 @@ TextureImporter:
       name: Font_16
       rect:
         serializedVersion: 2
-        x: 48
+        x: 49
         y: 8
-        width: 6
+        width: 4
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -600,13 +617,14 @@ TextureImporter:
       name: Font_17
       rect:
         serializedVersion: 2
-        x: 48
+        x: 49
         y: 0
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -621,13 +639,14 @@ TextureImporter:
       name: Font_18
       rect:
         serializedVersion: 2
-        x: 53
+        x: 54
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -642,13 +661,14 @@ TextureImporter:
       name: Font_19
       rect:
         serializedVersion: 2
-        x: 54
+        x: 55
         y: 0
-        width: 10
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -663,13 +683,14 @@ TextureImporter:
       name: Font_20
       rect:
         serializedVersion: 2
-        x: 59
+        x: 60
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -684,13 +705,14 @@ TextureImporter:
       name: Font_21
       rect:
         serializedVersion: 2
-        x: 64
+        x: 65
         y: 0
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -705,13 +727,14 @@ TextureImporter:
       name: Font_22
       rect:
         serializedVersion: 2
-        x: 65
+        x: 66
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -726,13 +749,14 @@ TextureImporter:
       name: Font_23
       rect:
         serializedVersion: 2
-        x: 70
+        x: 71
         y: 0
-        width: 22
+        width: 7
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -747,13 +771,14 @@ TextureImporter:
       name: Font_24
       rect:
         serializedVersion: 2
-        x: 71
+        x: 72
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -768,13 +793,14 @@ TextureImporter:
       name: Font_25
       rect:
         serializedVersion: 2
-        x: 77
+        x: 78
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -789,13 +815,14 @@ TextureImporter:
       name: Font_26
       rect:
         serializedVersion: 2
-        x: 83
+        x: 84
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -810,13 +837,14 @@ TextureImporter:
       name: Font_27
       rect:
         serializedVersion: 2
-        x: 89
+        x: 90
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -831,13 +859,14 @@ TextureImporter:
       name: Font_28
       rect:
         serializedVersion: 2
-        x: 91
+        x: 92
         y: 0
-        width: 12
+        width: 4
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -852,13 +881,14 @@ TextureImporter:
       name: Font_29
       rect:
         serializedVersion: 2
-        x: 95
+        x: 96
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -873,13 +903,14 @@ TextureImporter:
       name: Font_30
       rect:
         serializedVersion: 2
-        x: 101
+        x: 102
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -894,13 +925,14 @@ TextureImporter:
       name: Font_31
       rect:
         serializedVersion: 2
-        x: 101
+        x: 106
         y: 0
-        width: 19
-        height: 16
+        width: 1
+        height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -915,13 +947,14 @@ TextureImporter:
       name: Font_32
       rect:
         serializedVersion: 2
-        x: 113
+        x: 114
         y: 8
-        width: 8
+        width: 6
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -936,13 +969,14 @@ TextureImporter:
       name: Font_33
       rect:
         serializedVersion: 2
-        x: 120
+        x: 121
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -957,13 +991,14 @@ TextureImporter:
       name: Font_34
       rect:
         serializedVersion: 2
-        x: 121
-        y: 1
-        width: 13
-        height: 15
+        x: 122
+        y: 0
+        width: 3
+        height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -978,13 +1013,14 @@ TextureImporter:
       name: Font_35
       rect:
         serializedVersion: 2
-        x: 132
+        x: 133
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -999,13 +1035,14 @@ TextureImporter:
       name: Font_36
       rect:
         serializedVersion: 2
-        x: 138
+        x: 139
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1020,13 +1057,14 @@ TextureImporter:
       name: Font_37
       rect:
         serializedVersion: 2
-        x: 144
+        x: 145
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1041,13 +1079,14 @@ TextureImporter:
       name: Font_38
       rect:
         serializedVersion: 2
-        x: 150
+        x: 151
         y: 8
-        width: 7
+        width: 5
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -1058,16 +1097,305 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Font_39
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 0
+        width: 1
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff01537bf50481e40b292a3c1ee882dc
+      internalID: 30595325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_40
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 0
+        width: 3
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 469b30bd228863e4ea605ac6bda78e03
+      internalID: -796767477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_41
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 0
+        width: 3
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a42f40f9f017bc84fb292d3006d50bff
+      internalID: -642714562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_42
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 0
+        width: 4
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7af5f3cb7a92f2e4aa3066e4910f5317
+      internalID: -1227653545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_43
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 0
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88435f5def277184e9c13e5912f422f9
+      internalID: 1899349921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_44
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
+        width: 1
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f68fb25f3f2d82c4aaddda58f9619321
+      internalID: -582753171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_45
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 0
+        width: 1
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c22c807c866cb9468d9b68a0b537460
+      internalID: -892655131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_46
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 1
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 227174755cb22f847be759cd3f6f2cbd
+      internalID: 790442375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_47
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 0
+        width: 3
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44cc4b2aeb3ee214e864b45853267359
+      internalID: -1207186583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_48
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 0
+        width: 3
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab2db09d0bf7da044bf9e341a6387329
+      internalID: -467826692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_49
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 0
+        width: 1
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4650be778f68c2147bf7b255e12ce749
+      internalID: 1534834257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_50
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 8
+        width: 5
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6daf276cb74225042822e5bf44fd5347
+      internalID: 943511747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Font_51
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 8
+        width: 5
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df93d922e1ff4c34b9de5b2e5c3c430e
+      internalID: 283685957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 00736060c40d6f64bae7af540e74258a
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
       Font_0: 4596506743932242536
       Font_1: 4670118941566451196
@@ -1102,8 +1430,21 @@ TextureImporter:
       Font_36: 164272203868115592
       Font_37: 6049317826188568061
       Font_38: -6345554013486325920
+      Font_39: 30595325
       Font_4: -6164975147102908650
+      Font_40: -796767477
+      Font_41: -642714562
+      Font_42: -1227653545
+      Font_43: 1899349921
+      Font_44: -582753171
+      Font_45: -892655131
+      Font_46: 790442375
+      Font_47: -1207186583
+      Font_48: -467826692
+      Font_49: 1534834257
       Font_5: 6075314212058045272
+      Font_50: 943511747
+      Font_51: 283685957
       Font_6: -7298282515548162229
       Font_7: -1679836315009749508
       Font_8: -5539860018132464428

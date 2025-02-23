@@ -285,18 +285,7 @@ public class StorageUI : MonoBehaviour
         takeButton.onClick.AddListener(() => RefreshInventoryItems());
         takeAllButton.onClick.AddListener(() => RefreshInventoryItems());
 
-        // if (item.stackCount <= 1)
-        // {
-            
-        //     if (storeOrTake)
-        //         {
-                    
-        //             storeButton.onClick.AddListener(() => SetDescription(Items[0], false));
-        //         }
-        //     else
-        //         takeButton.onClick.AddListener(() => SetDescription(Player_Inventory.Instance.itemList[0], true));
-        // }
-
+        
        
 
        
@@ -304,35 +293,6 @@ public class StorageUI : MonoBehaviour
 
   
 
-//    public void SetDescription(Item item, bool storeOrTake)
-//     {
-//         // Set item's texts
-//         itemSprite.sprite = item.sprite;
-//         itemName.text = item.itemName;
-//         itemDesc.text = item.itemDescription;
-
-//         // Set the button functionality
-//         itemAction.onClick.RemoveAllListeners();
-//         if (storeOrTake)
-//         {
-//             itemAction.onClick.AddListener(() => StoreItem(item));
-//             itemAction.GetComponentInChildren<TMP_Text>().text = "Store";
-//         }
-//         else
-//         {
-//             itemAction.onClick.AddListener(() => TakeItem(item));
-//             itemAction.GetComponentInChildren<TMP_Text>().text = "Take";
-//         }
-//         itemAction.onClick.AddListener(() => RefreshInventoryItems());
-
-//         if (item.stackCount <= 1)
-//         {
-//             if (storeOrTake)
-//                 itemAction.onClick.AddListener(() => SetDescription(Items[0], false));
-//             else
-//                 itemAction.onClick.AddListener(() => SetDescription(Player_Inventory.Instance.itemList[0], true));
-//         }
-//     }
 
     void StoreItem(Item item)
     {
@@ -348,11 +308,11 @@ public class StorageUI : MonoBehaviour
         {
             Debug.Log("jumlah item di dalam storage : " + Items.Count);
             if (item.isStackable && Items.Exists(x => x.itemName == item.itemName))
-                {
+            {
                     Items.Find(x => x.itemName == item.itemName).stackCount++;
                       // Remove item from inventory
                      Player_Inventory.Instance.RemoveItem(item);
-                }
+            }
                 else
                 {
                     item.stackCount = 1;

@@ -14,13 +14,14 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] Transform face;
     [SerializeField] Transform circleBoundary; // Lingkaran di sekitar player
 
+
     public bool isMoving;
 
     #region SPEEDS
     [Header("SPEEDS")]
     float moveSpd;
-    [SerializeField] float walkSpd = 5f;
-    [SerializeField] float runSpd = 9f;
+    public float walkSpd = 5f;
+
     #endregion
 
     #region DASH
@@ -51,8 +52,16 @@ public class Player_Movement : MonoBehaviour
 
     private void Start()
     {
-        // Hitung radius lingkaran berdasarkan skala lokal dari circleBoundary
-        radius = circleBoundary.localScale.x / 2f;
+        CircleCollider2D circleCollider = circleBoundary.GetComponent<CircleCollider2D>();
+        if (circleCollider != null)
+        {
+            radius = circleCollider.radius * circleBoundary.lossyScale.x; // Pastikan menggunakan lossyscale
+        }
+        else
+        {
+            Debug.LogError("CircleBoundary tidak memiliki CircleCollider2D!");
+        }
+
 
         // Add listener to the dash button
         dashButton.onClick.AddListener(TriggerDash);
@@ -100,27 +109,29 @@ public class Player_Movement : MonoBehaviour
 
     private void UpdateFacePosition()
     {
-        // Jika ada input, tempatkan face di tepi lingkaran sesuai arah
-        if (movement != Vector2.zero)
+        if (movement != Vector2.zero) // Jika bergerak, simpan arah terakhir
         {
-            Vector3 newFacePosition = new Vector3(movement.x, movement.y, 0) * radius;
-            face.localPosition = newFacePosition;
-
-            // Tentukan animasi berdasarkan arah input
-            //UpdateAnimation(movement);
+            lastDirection = movement.normalized;
         }
-        else
-        {
-            // Jika tidak ada input, face tetap di posisi terakhir
-            Vector3 lastFacePosition = new Vector3(lastDirection.x, lastDirection.y, 0) * radius;
-            face.localPosition = lastFacePosition;
 
-            // Tentukan animasi berdasarkan arah sebelumnya
-            //UpdateAnimation(lastDirection);
-        }
+        // Hitung sudut berdasarkan arah terakhir
+        float angle = Mathf.Atan2(lastDirection.y, lastDirection.x);
+
+        // Kalibrasi posisi `face` agar selalu tepat di tepi lingkaran
+        float offset = 0.1f; // Koreksi jika face kurang menyentuh boundary
+        float faceX = Mathf.Cos(angle) * (radius + offset);
+        float faceY = Mathf.Sin(angle) * (radius + offset);
+
+        // Atur posisi `face`
+        face.localPosition = new Vector3(faceX, faceY, 0);
     }
 
-    
+
+
+
+
+
+
 
 
 

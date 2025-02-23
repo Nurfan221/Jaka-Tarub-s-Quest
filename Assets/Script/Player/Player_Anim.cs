@@ -1,65 +1,91 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player_Anim : MonoBehaviour
 {
-    [SerializeField] Animator animator; // Referensi ke Animator
+    public Animator animator;
     Player_Movement pm;
     SpriteRenderer sr;
-
+    public bool isAttacking;
+    public bool isTakingDamage = false;
+    public Vector2 lastDirection = Vector2.down; // Default menghadap bawah
 
     private void Start()
     {
         pm = GetComponent<Player_Movement>();
-        sr = GetComponent<SpriteRenderer>();  // Ambil SpriteRenderer untuk flip sprite
+        sr = GetComponent<SpriteRenderer>();
     }
 
-    public void Update()
+    void Update()
     {
-        bool isMoving = pm.movement != Vector2.zero;
+        UpdateAnimation();
+    }
+
+    public void UpdateAnimation()
+    {
+        if (animator == null)
+        {
+            Debug.LogError("Animator belum di-assign!");
+            return;
+        }
+
+        if (isTakingDamage) return; // Jangan ubah animasi saat terkena damage
+
+        Vector2 movement = pm.movement.normalized; // Normalisasi vektor
+        bool isMoving = movement != Vector2.zero;
 
         if (isMoving)
         {
-            // Jika bergerak ke atas
-            if (pm.movement.y > 0.1f)
-            {
-                SetWalkAnimation(true, false, false, false); // Set WalkTop
-            }
-            // Jika bergerak ke bawah
-            else if (pm.movement.y < -0.1f)
-            {
-                SetWalkAnimation(false, true, false, false); // Set WalkDown
-            }
-            // Jika bergerak ke kanan
-            else if (pm.movement.x > 0.01f)
-            {
-                SetWalkAnimation(false, false, true, false); // Set WalkRight
-                sr.flipX = false; // Tidak perlu membalikkan sprite, biarkan default
-            }
-            // Jika bergerak ke kiri
-            else if (pm.movement.x < -0.1f)
-            {
-                SetWalkAnimation(false, false, false, true); // Set WalkLeft
-                sr.flipX = true; // Membalikkan sprite untuk kiri
-            }
+            lastDirection = movement;
+            animator.SetFloat("MoveX", Mathf.Round(movement.x));
+            animator.SetFloat("MoveY", Mathf.Round(movement.y));
         }
         else
         {
-            // Jika tidak bergerak, set ke idle
-            SetWalkAnimation(false, false, false, false);
+            animator.SetFloat("IdleX", Mathf.Round(lastDirection.x));
+            animator.SetFloat("IdleY", Mathf.Round(lastDirection.y));
         }
+        animator.SetFloat("Speed", isMoving ? 1f : 0f);
     }
 
-    private void SetWalkAnimation(bool top, bool down, bool right, bool left)
-    {
-        animator.SetBool("WalkTop", top);
-        animator.SetBool("WalkDown", down);
-        animator.SetBool("WalkRight", right);
-        animator.SetBool("WalkLeft", left);
 
-        // Set PlayerIdle ketika tidak ada pergerakan
-        animator.SetBool("PlayerIdle", !(top || down || right || left));
+
+    // Fungsi untuk menyerang
+    public void PlayAttackAnimation()
+    {
+        if (animator == null) return;
+
+        isAttacking = true;
+        animator.SetTrigger("Attack");
+
+        // Reset ke mode berjalan setelah animasi selesai
+        StartCoroutine(ResetAttackState());
+    }
+
+    public void PlayTakeDamageAnimation()
+    {
+        if (animator == null) return;
+
+        isTakingDamage = true;
+        animator.SetTrigger("TakeDamage");
+
+        // Pastikan animasi take damage berjalan, lalu kembali ke idle
+        StartCoroutine(ResetTakeDamageState());
+    }
+    private IEnumerator ResetTakeDamageState()
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        isTakingDamage = false;
+        UpdateAnimation(); // Kembalikan ke animasi normal
+    }
+
+
+    private IEnumerator ResetAttackState()
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        isAttacking = false;
+        UpdateAnimation();
     }
 
 
