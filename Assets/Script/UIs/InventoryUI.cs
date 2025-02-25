@@ -158,6 +158,7 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateSixItemDisplay()
     {
+
         // Clear existing items in the 6-item display
         foreach (Transform child in ContentGO6)
         {
@@ -172,26 +173,33 @@ public class InventoryUI : MonoBehaviour
             return;
         }
 
-        int itemCount = Mathf.Min(6, Items.Count);
-        for (int i = 0; i < itemCount; i++)
+        if(Items.Count == 0)
         {
-            Item item = Items[i];
-            if (item == null) continue; // Jika item null, skip
-
-            Transform itemInDisplay = Instantiate(SlotTemplate6, ContentGO6);
-            itemInDisplay.gameObject.SetActive(true);
-            itemInDisplay.gameObject.name = item.itemName;
-
-            // Cek jika sprite item tidak null
-            if (item.sprite != null)
+            return;
+        }
+        else
+        {
+            int itemCount = Mathf.Min(6, Items.Count);
+            for (int i = 0; i < itemCount; i++)
             {
-                itemInDisplay.GetChild(0).GetComponent<Image>().sprite = item.sprite;
+                Item item = Items[i];
+                if (item == null) continue; // Jika item null, skip
+
+                Transform itemInDisplay = Instantiate(SlotTemplate6, ContentGO6);
+                itemInDisplay.gameObject.SetActive(true);
+                itemInDisplay.gameObject.name = item.itemName;
+
+                // Cek jika sprite item tidak null
+                if (item.sprite != null)
+                {
+                    itemInDisplay.GetChild(0).GetComponent<Image>().sprite = item.sprite;
+                }
+
+                // Cek jika stackCount tidak null
+                itemInDisplay.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+
+
             }
-
-            // Cek jika stackCount tidak null
-            itemInDisplay.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
-
-
         }
     }
 

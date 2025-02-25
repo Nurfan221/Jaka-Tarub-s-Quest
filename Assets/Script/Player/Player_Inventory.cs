@@ -11,7 +11,7 @@ public class Player_Inventory : MonoBehaviour
 
     public List<Item> itemList;
 
-    private int maxItem = 18;
+    public int maxItem = 18;
 
     [SerializeField] GameObject normalAttackHitArea; //Referensi image hitbox
     [SerializeField] private Button switchWeaponImage; // Referensi ke Image yang digunakan untuk mengganti senjata
@@ -30,8 +30,8 @@ public class Player_Inventory : MonoBehaviour
 
     InventoryUI inventoryUI;
     Player_Action playerAction;
-    [HideInInspector] public bool inventoryOpened;
-    [HideInInspector] public bool inventoryClosed;
+     public bool inventoryOpened;
+     public bool inventoryClosed;
     [SerializeField] MiniGameHewanUI miniGameHewanUI;
 
     [SerializeField] ParticleSystem healParticle;
@@ -127,7 +127,7 @@ public class Player_Inventory : MonoBehaviour
         PlayerUI.Instance.inventoryUI.SetActive(inventoryOpened);
         contohFlipCard.IfClose();
 
-        GameController.Instance.ShowPersistentUI(!inventoryOpened);
+        GameController.Instance.ShowPersistentUI(false);
 
         if (inventoryOpened)
         {
@@ -183,33 +183,60 @@ public class Player_Inventory : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        item = Instantiate(item); // Buat clone dari item agar tidak merusak data asli
+        item = Instantiate(item); // Clone item agar tidak mempengaruhi data global
 
-        // Cek apakah item itu stackable dan sudah ada di inventory
-        if (item.isStackable && itemList.Exists(x => x.itemName == item.itemName))
+        // Cari item yang bisa di-stack
+        Item existingItem = itemList.Find(x => x.itemName == item.itemName && x.stackCount < x.maxStackCount);
+
+        if (existingItem != null)
         {
-            // Tambahkan ke stack item tersebut
-            itemList.Find(x => x.itemName == item.itemName).stackCount++;
-            Debug.Log($"{item.itemName} bertambah stack-nya. Total stack sekarang: {itemList.Find(x => x.itemName == item.itemName).stackCount}");
+            int availableSpace = existingItem.maxStackCount - existingItem.stackCount;
+            int amountToAdd = Mathf.Min(availableSpace, item.stackCount);
+
+            existingItem.stackCount += amountToAdd;
+            item.stackCount -= amountToAdd;
+
+            // Jika stack penuh, ubah `isStackable` menjadi false
+            if (existingItem.stackCount >= existingItem.maxStackCount)
+            {
+                existingItem.isStackable = false;
+            }
+
+            // Jika masih ada sisa item, tambahkan ke slot baru jika ada ruang
+            if (item.stackCount > 0)
+            {
+                if (itemList.Count < maxItem)
+                {
+                    itemList.Add(item);
+                }
+                else
+                {
+                    Debug.LogWarning("Inventory penuh! Item tidak bisa ditambahkan.");
+                    return;
+                }
+            }
         }
         else
         {
-            // Jika bukan item stackable, cek apakah inventory penuh
+            // Jika tidak ada stack yang bisa diisi, tambahkan sebagai slot baru jika ada ruang
             if (itemList.Count < maxItem)
             {
-                itemList.Add(item); // Tambahkan item ke dalam inventory
-                Debug.Log($"{item.itemName} ditambahkan ke inventory.");
+                itemList.Add(item);
             }
             else
             {
-                Debug.LogWarning("Inventory penuh, item tidak bisa ditambahkan.");
-                return; // Langsung keluar dari fungsi tanpa menghancurkan item di OnTriggerEnter2D
+                Debug.LogWarning("Inventory penuh! Item tidak bisa ditambahkan.");
+                return;
             }
         }
 
-        // Update inventory UI
+        // Update UI
         PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().UpdateInventoryUI();
     }
+
+
+
+
 
 
 

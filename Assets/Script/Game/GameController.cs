@@ -134,6 +134,7 @@ public class GameController : MonoBehaviour
 
     public void ShowPersistentUI(bool show)
     {
+        Debug.Log("pause");
         canPause = show;
         foreach (GameObject ui in persistentUI)
         {

@@ -62,6 +62,7 @@ public class Item : ScriptableObject
     [Header("REGULAR")]
     public bool isStackable = false;
     public int stackCount;
+    public int maxStackCount;
     public int BuyValue;
     public int SellValue;
     public int BurningTime;
