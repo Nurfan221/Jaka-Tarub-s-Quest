@@ -70,8 +70,8 @@ public class InventoryUI : MonoBehaviour
             default: pickedSlot = equippedItem1; break;
         }
 
-        pickedSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-        pickedSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
+        pickedSlot.gameObject.GetComponentInChildren<Image>().sprite = item.sprite;
+        //pickedSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
 
     }
 
@@ -102,8 +102,8 @@ public class InventoryUI : MonoBehaviour
 
     void RefreshItemSlot(Transform slot, Item item)
     {
-        slot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-        slot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
+        slot.gameObject.GetComponentInChildren<Image>().sprite = item.sprite;
+        //slot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
     }
 
     public void SetInventory(List<Item> items)

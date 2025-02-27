@@ -10,6 +10,7 @@ public class Craft : MonoBehaviour
 {
     [Header("Database Crafting")]
     [SerializeField] private RecipeDatabase recipeDatabaseInstance;
+    [SerializeField] private Checkingredients checkingredients;
 
     [Header("Kategori Item yang Valid")]
     public ItemCategory[] validCategories = {
@@ -19,23 +20,18 @@ public class Craft : MonoBehaviour
         ItemCategory.Crafting_Material
     };
 
-    [Header("Inventory Container")]
-    [SerializeField] private Transform itemSlotContainer;
-    [SerializeField] private Transform itemSlotTemplate;
 
     [Header("Button Container")]
     [SerializeField] private Button buttonClose;
 
     [Header("Craft container")]
-    public List<Item> itemsInCraft = new List<Item>(); // Item yang dimasukkan ke crafting slot
-    public List<GameObject> itemCraftSlots = new List<GameObject>(); // Slot UI untuk crafting
-    public GameObject hasilCraftSlot;
+
 
     // Menambahkan UI untuk slot crafting
-    public GameObject ItemCraft1;
-    public GameObject ItemCraft2;
-    public GameObject ItemCraft3;
-    public GameObject ItemCraft4;
+    public GameObject itemCraft1;
+    public GameObject itemCraft2;
+    public GameObject itemCraft3;
+    public GameObject itemCraft4;
 
     private bool hasilCraftValue = false; // Variabel untuk status crafting
 
@@ -61,188 +57,89 @@ public class Craft : MonoBehaviour
             SoundManager.Instance.PlaySound("Click");
         GameController.Instance.ShowPersistentUI(false);
         gameObject.SetActive(true);
-        RefreshSlots();
+
     }
 
-    public void RefreshSlots()
-    {
-        foreach (Transform child in itemSlotContainer)
-        {
-            if (child == itemSlotTemplate)
-                continue;
-            Destroy(child.gameObject);
-        }
-
-        foreach (Item item in Player_Inventory.Instance.itemList)
-        {
-            Transform theItem = Instantiate(itemSlotTemplate, itemSlotContainer);
-            theItem.name = item.itemName;
-            theItem.gameObject.SetActive(true);
-            theItem.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            theItem.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
-            theItem.GetComponent<DragCook>().itemName = item.itemName;
-
-            if (validCategories.Any(category => item.IsInCategory(category)))
-            {
-                theItem.GetComponent<Button>().onClick.AddListener(() => MoveToCraft(item));
-            }
-        }
-    }
 
     private void CloseCraftUI()
     {
         GameController.Instance.ShowPersistentUI(true);
         gameObject.SetActive(false);
         Debug.Log("Crafting ditutup");
-        RefreshSlots();
+
     }
 
-    public void MoveToCraft(Item item)
+    public void CheckItemtoCraft(int jumlahItemActive)
     {
-        item = ItemPool.Instance.GetItem(item.itemName);
-        Player_Inventory.Instance.RemoveItem(item);
+        string item1,item2,item3,item4;
+        item1 = itemCraft1.name;
+        item2 = itemCraft2.name;
+        item3 = itemCraft3.name;
+        item4 = itemCraft4.name;
 
-        Item existingItem = itemsInCraft.FirstOrDefault(i => i.itemName == item.itemName);
-        if (existingItem != null)
+        for (int i = 0; i < jumlahItemActive; i++)
         {
-            existingItem.stackCount++;
-        }
-        else
-        {
-            item.stackCount = 1;
-            itemsInCraft.Add(item);
-        }
-
-        UpdateCraft();
-        RefreshSlots();
-    }
-
-    public void UpdateCraft()
-    {
-        // Bersihkan slot crafting
-        ClearSlot(ItemCraft1);
-        ClearSlot(ItemCraft2);
-        ClearSlot(ItemCraft3);
-        ClearSlot(ItemCraft4);
-        ClearSlot(hasilCraftSlot);
-
-        // Tempatkan item ke slot crafting berdasarkan urutan
-        if (itemsInCraft.Count > 0) UpdateSlot(ItemCraft1, itemsInCraft[0]);
-        if (itemsInCraft.Count > 1) UpdateSlot(ItemCraft2, itemsInCraft[1]);
-        if (itemsInCraft.Count > 2) UpdateSlot(ItemCraft3, itemsInCraft[2]);
-        if (itemsInCraft.Count > 3) UpdateSlot(ItemCraft4, itemsInCraft[3]);
-
-        StartCrafting();
-    }
-
-    private void ClearSlot(GameObject itemCraftSlot)
-    {
-        foreach (Transform child in itemCraftSlot.transform)
-        {
-            Destroy(child.gameObject);
-        }
-    }
-
-    private void UpdateSlot(GameObject itemCraftSlot, Item item)
-    {
-        Transform theItem = Instantiate(itemSlotTemplate, itemCraftSlot.transform);
-        theItem.name = item.itemName;
-        theItem.gameObject.SetActive(true);
-
-        theItem.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-        theItem.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
-
-        theItem.GetComponent<DragCook>().itemName = item.itemName;
-        theItem.GetComponent<Button>().onClick.AddListener(() => ReturnItemToInventory(item));
-    }
-
-    public void ReturnItemToInventory(Item item)
-    {
-        Player_Inventory.Instance.AddItem(item);
-        itemsInCraft.Remove(item);
-
-        UpdateCraft();
-        RefreshSlots();
-    }
-
-    public void StartCrafting()
-    {
-        ClearSlot(hasilCraftSlot);
-        hasilCraftValue = false;
-
-        foreach (RecipeDatabase.CraftRecipe recipe in recipeDatabaseInstance.craftRecipes)
-        {
-            if (SomeMethod(recipe))
+            switch(i)
             {
-                UpdateCraftResultUI(recipe.result);
-                break; // Selesai crafting jika sudah menemukan resep yang cocok
+                case 0:
+                    CheckItemInInventory(itemCraft1, item1); break;
+                case 1:
+                    CheckItemInInventory(itemCraft2, item2); break;
+                case 2:
+                    CheckItemInInventory(itemCraft3, item3); break;
+                case 3:
+                    CheckItemInInventory(itemCraft4, item4); break;
+                default:
+                    Debug.Log("item null");
+                    break;
+
             }
         }
 
-        if (!hasilCraftValue)
-        {
-            Debug.Log("Tidak ada resep yang cocok.");
-        }
     }
-
-    public bool SomeMethod(RecipeDatabase.CraftRecipe recipe)
+    private void CheckItemInInventory(GameObject slotTemplate, string itemName)
     {
-        if (itemsInCraft.Count != recipe.ingredients.Count)
-            return false;
+        GameObject itemSlot = slotTemplate;
+        bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
 
-        for (int i = 0; i < recipe.ingredients.Count; i++)
+        foreach (Item item in Player_Inventory.Instance.itemList)
         {
-            Item requiredItem = recipe.ingredients[i];
-            int requiredCount = recipe.ingredientsCount[i];
-
-            Item itemInCraft = itemsInCraft.FirstOrDefault(item => item.itemName == requiredItem.itemName);
-            if (itemInCraft == null || itemInCraft.stackCount < requiredCount)
-                return false;
-        }
-
-        return true;
-    }
-
-    public void UpdateCraftResultUI(Item result)
-    {
-        Transform theItem = Instantiate(itemSlotTemplate, hasilCraftSlot.transform);
-        theItem.name = result.itemName;
-        theItem.gameObject.SetActive(true);
-
-        theItem.GetChild(0).GetComponent<Image>().sprite = result.sprite;
-        theItem.GetChild(1).GetComponent<TMP_Text>().text = result.stackCount.ToString();
-
-        theItem.GetComponent<DragCook>().itemName = result.itemName;
-        theItem.GetComponent<Button>().onClick.AddListener(() => ReturnItemCraftToInventory(result));
-    }
-
-    public void ReturnItemCraftToInventory(Item result)
-    {
-        foreach (RecipeDatabase.CraftRecipe recipe in recipeDatabaseInstance.craftRecipes)
-        {
-            if (recipe.result.itemName == result.itemName)
+            if (item.itemName == itemName)
             {
-                for (int i = 0; i < recipe.ingredients.Count; i++)
+                // Jika item ditemukan, tampilkan jumlahnya
+                Transform textTransform = itemSlot.transform.Find("ItemInInventory");
+                if (textTransform != null)
                 {
-                    Item ingredient = recipe.ingredients[i];
-                    int requiredCount = recipe.ingredientsCount[i];
-
-                    Item craftedItem = itemsInCraft.FirstOrDefault(item => item.itemName == ingredient.itemName);
-                    if (craftedItem != null)
-                    {
-                        craftedItem.stackCount -= requiredCount;
-                        if (craftedItem.stackCount <= 0)
-                        {
-                            itemsInCraft.Remove(craftedItem);
-                        }
-                    }
+                    textTransform.gameObject.SetActive(true);
+                    TMP_Text targetText = textTransform.GetComponent<TMP_Text>();
+                    targetText.text = item.stackCount.ToString();
                 }
+                else
+                {
+                    Debug.LogWarning("Text untuk item tidak ditemukan di dalam slot!");
+                }
+
+                itemFound = true; // Tandai bahwa item telah ditemukan
+                break; // Keluar dari loop karena sudah menemukan item
             }
         }
 
-        Player_Inventory.Instance.AddItem(result);
-        UpdateCraft();
-        RefreshSlots();
+        // Jika item tidak ditemukan, set jumlah menjadi 0
+        if (!itemFound)
+        {
+            Transform textTransform = itemSlot.transform.Find("ItemInInventory");
+            if (textTransform != null)
+            {
+                textTransform.gameObject.SetActive(true);
+                TMP_Text targetText = textTransform.GetComponent<TMP_Text>();
+                targetText.text = "0"; // Jika tidak ada item, tampilkan 0
+            }
+            else
+            {
+                Debug.LogWarning("Text untuk item tidak ditemukan di dalam slot!");
+            }
+        }
     }
+
 }
 
