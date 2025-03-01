@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CopperIngot
   m_EditorClassIdentifier: 
   itemID: 4
-  itemName: Besi
+  itemName: CopperIngot
   type: 4
   categories: 512
-  sprite: {fileID: -7010895441811636435, guid: cbc3bf089279e414d9244393b3ba7847, type: 3}
+  sprite: {fileID: 437004221507629549, guid: cbc3bf089279e414d9244393b3ba7847, type: 3}
   itemDescription: Batangan tembaga murni hasil dari peleburan tembaga ore. Digunakan
     dalam pembuatan peralatan, atau senjata,
   QuantityFuel: 0
@@ -31,6 +31,7 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1
+  maxStackCount: 32
   BuyValue: 110
   SellValue: 75
   BurningTime: 0
@@ -38,5 +39,4 @@ MonoBehaviour:
   prefabItem: {fileID: 7562009284141931606, guid: 812a1722e53a5a647bd77d4f0b962feb, type: 3}
   growthTime: 0
   growthImages: []
-  plantPrefab: {fileID: 0}
   dropItem: {fileID: 0}

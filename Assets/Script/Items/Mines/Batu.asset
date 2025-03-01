@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Batu
   m_EditorClassIdentifier: 
-  itemID: 15
+  itemID: 29
   itemName: Batu
   type: 4
   categories: 768
@@ -31,6 +31,7 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 6794102656783284840, guid: 909e3c18bff69b747bf9a19f7727bc83, type: 3}
   isStackable: 1
   stackCount: 1
+  maxStackCount: 32
   BuyValue: 5
   SellValue: 2
   BurningTime: 0
@@ -38,5 +39,4 @@ MonoBehaviour:
   prefabItem: {fileID: 7562009284141931606, guid: d4cee6a55e1fb82438aa6521e6a8e45c, type: 3}
   growthTime: 0
   growthImages: []
-  plantPrefab: {fileID: 0}
   dropItem: {fileID: 0}

@@ -135,9 +135,12 @@ public class Player_Inventory : MonoBehaviour
             Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
             Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
             Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BatangBesi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BatangBesi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BatangBesi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("IronIngot"));
+            Instance.AddItem(ItemPool.Instance.GetItem("IronIngot"));
+            Instance.AddItem(ItemPool.Instance.GetItem("IronIngot"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
             Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
             Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
             Instance.AddItem(ItemPool.Instance.GetItem("Sword"));

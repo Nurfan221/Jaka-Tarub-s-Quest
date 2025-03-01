@@ -108,8 +108,8 @@ public class Checkingredients : MonoBehaviour
 
     private void CheckIngredients(string nameResult)
     {
-
-    
+        // Reset slot sebelum menampilkan bahan baru
+        ResetIngredientSlots();
 
         // Iterasi melalui semua resep
         foreach (RecipeDatabase.CraftRecipe recipe in recipeDatabaseInstance.craftRecipes)
@@ -117,53 +117,68 @@ public class Checkingredients : MonoBehaviour
             // Pastikan resep yang dimaksud adalah resep yang sesuai dengan nameResult
             if (recipe.result.name == nameResult)
             {
-
-
                 // Loop untuk menampilkan bahan-bahan yang diperlukan
                 for (int i = 0; i < recipe.ingredients.Count; i++)
                 {
-                    Debug.Log("recipe yang di perlukan: " + recipe.ingredients[i].name);
-                    Debug.Log("jumlah yang di perlukan: " + recipe.ingredientsCount[i]);
+                    Debug.Log("recipe yang diperlukan: " + recipe.ingredients[i].name);
+                    Debug.Log("jumlah yang diperlukan: " + recipe.ingredientsCount[i]);
 
                     // Tentukan slot yang akan digunakan untuk menampilkan ingredient berdasarkan case
                     switch (i)
                     {
                         case 0:
-                            // Tampilkan ingredient di ItemCraft1
                             DisplayIngredientInSlot(ItemCraft1, recipe.ingredients[i], recipe.ingredientsCount[i]);
-
-                            craftScript.CheckItemtoCraft(0);
-                            break;
-
-                        case 1:
-                            // Tampilkan ingredient di ItemCraft2
-                            DisplayIngredientInSlot(ItemCraft2, recipe.ingredients[i], recipe.ingredientsCount[i]);
                             craftScript.CheckItemtoCraft(1);
                             break;
-
-                        case 2:
-                            // Tampilkan ingredient di ItemCraft3
-                            DisplayIngredientInSlot(ItemCraft3, recipe.ingredients[i], recipe.ingredientsCount[i]);
+                        case 1:
+                            DisplayIngredientInSlot(ItemCraft2, recipe.ingredients[i], recipe.ingredientsCount[i]);
                             craftScript.CheckItemtoCraft(2);
                             break;
-
-                        case 3:
-                            // Tampilkan ingredient di ItemCraft4
-                            DisplayIngredientInSlot(ItemCraft4, recipe.ingredients[i], recipe.ingredientsCount[i]);
+                        case 2:
+                            DisplayIngredientInSlot(ItemCraft3, recipe.ingredients[i], recipe.ingredientsCount[i]);
                             craftScript.CheckItemtoCraft(3);
                             break;
-
+                        case 3:
+                            DisplayIngredientInSlot(ItemCraft4, recipe.ingredients[i], recipe.ingredientsCount[i]);
+                            craftScript.CheckItemtoCraft(4);
+                            break;
                         default:
-                            // Jika bahan lebih dari 4, tidak tampilkan
                             Debug.LogWarning("Bahan lebih dari 4 tidak ditampilkan.");
                             break;
                     }
                 }
-
-
             }
         }
     }
+
+    private void ResetIngredientSlots()
+    {
+        // Reset list bahan crafting
+        craftScript.ingredientItemList.Clear();
+
+        // Nonaktifkan semua slot ingredient
+        GameObject[] ingredientSlots = { ItemCraft1, ItemCraft2, ItemCraft3, ItemCraft4 };
+
+        foreach (GameObject slot in ingredientSlots)
+        {
+            ResetChildVisibility(slot, "itemImage");
+            ResetChildVisibility(slot, "ItemInInventory");
+            ResetChildVisibility(slot, "IngridientCount");
+        }
+    }
+    private void ResetChildVisibility(GameObject parent, string childName)
+    {
+        Transform childTransform = parent.transform.Find(childName);
+        if (childTransform != null)
+        {
+            childTransform.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning($"'{childName}' tidak ditemukan dalam {parent.name}!");
+        }
+    }
+
 
     private void DisplayIngredientInSlot(GameObject itemCraftSlot, Item ingredient, int count)
     {
@@ -179,6 +194,10 @@ public class Checkingredients : MonoBehaviour
             // Set nama item (untuk debugging atau keperluan lain)
             craftSlot.gameObject.name = ingredient.name;
 
+            // Buat Clone dari Item Agar Tidak Mengubah Data Asli
+            Item ingredientClone = Instantiate(ingredient);
+            ingredientClone.stackCount = (resultCount * count);  // Set jumlah bahan yang diperlukan
+            craftScript.ingredientItemList.Add(ingredientClone); // Tambahkan ke List
 
             // Set sprite untuk ingredient
             Transform imageTransform = craftSlot.transform.Find("itemImage");
@@ -225,14 +244,15 @@ public class Checkingredients : MonoBehaviour
         // Pastikan itemResultSlot bukan null
         if (itemResultSlot != null)
         {
-
-
             // Instansiasi slot template untuk result
             GameObject resultSlot = itemResultSlot;
             resultSlot.gameObject.SetActive(true);
 
+
+
             // Set nama item (untuk debugging atau keperluan lain)
             resultSlot.gameObject.name = result.name;
+
             // Set sprite untuk ingredient
             Transform imageTransform = resultSlot.transform.Find("itemImage");
             if (imageTransform != null)
@@ -246,20 +266,17 @@ public class Checkingredients : MonoBehaviour
                 Debug.LogWarning("Image untuk item tidak ditemukan di dalam slot!");
             }
 
-
-
-
             // Set jumlah ingredient
-            Transform TextTransform = resultSlot.transform.Find("itemCount");
-            if (TextTransform != null)
+            Transform textTransform = resultSlot.transform.Find("itemCount");
+            if (textTransform != null)
             {
-                TextTransform.gameObject.SetActive(true);
-                TMP_Text targetText = TextTransform.GetComponentInChildren<TMP_Text>();
-                targetText.text = resultCount.ToString();
+                textTransform.gameObject.SetActive(true);
+                TMP_Text targetText = textTransform.GetComponent<TMP_Text>();
+                targetText.text = count.ToString();
             }
             else
             {
-                Debug.LogWarning("text untuk item tidak ditemukan di dalam slot!");
+                Debug.LogWarning("Text untuk item tidak ditemukan di dalam slot!");
             }
 
             // Jika perlu, Anda bisa menambahkan listener untuk deskripsi atau interaksi lainnya
@@ -271,6 +288,7 @@ public class Checkingredients : MonoBehaviour
             }
         }
     }
+
 
 
 
@@ -358,13 +376,23 @@ public class Checkingredients : MonoBehaviour
 
     private void ConfirmResultCraft(Item result, int count)
     {
+        craftScript.hasilCraftItem = result;
+        craftScript.hasilCraftItem.stackCount = count;
+
+        // Cek bahan sebelum crafting
+        CheckIngredients(result.name);
 
         // Menampilkan hasil crafting di slot hasil
         DisplayResultInSlot(ItemResult, result, count);
 
-        // Memeriksa bahan-bahan setelah crafting dikonfirmasi
-        CheckIngredients(result.name);
+        // Pastikan buttonCraft tetap memiliki listener setelah konfirmasi
+        craftScript.buttonCraft.onClick.RemoveAllListeners();
+        craftScript.buttonCraft.onClick.AddListener(craftScript.Crafting);
+
+        // Tutup pop-up setelah crafting dikonfirmasi
         popUp.gameObject.SetActive(false);
     }
+
+
 
 }
