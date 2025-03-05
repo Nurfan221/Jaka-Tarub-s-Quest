@@ -167,60 +167,88 @@ public class Craft : MonoBehaviour
         }
     }
 
-   public void Crafting()
-{
-    Debug.Log("⏳ Memulai proses crafting...");
+    public void Crafting()
+    {
+        Debug.Log("Memulai proses crafting...");
 
-        // **1️⃣ Cek apakah semua bahan tersedia sebelum crafting**
+        // Cek apakah semua bahan tersedia sebelum crafting
         foreach (var item in ingredientItemList)
         {
             Item inventoryItem = Player_Inventory.Instance.itemList.Find(x => x.itemName == item.itemName);
 
             if (inventoryItem == null || inventoryItem.stackCount < item.stackCount)
-
             {
-                Debug.LogWarning($"❌ Bahan {item.itemName} tidak cukup! Crafting dibatalkan.");
-                return; // **Keluar dari fungsi jika bahan tidak cukup**
+                Debug.LogWarning($"Bahan {item.itemName} tidak cukup! Crafting dibatalkan.");
+                return; // Keluar dari fungsi jika bahan tidak cukup
             }
         }
 
-        // **2️⃣ Kurangi bahan yang digunakan**
+        // Kurangi bahan yang digunakan
         foreach (var item in ingredientItemList)
         {
+            int remainingToRemove = item.stackCount;
+
             for (int i = Player_Inventory.Instance.itemList.Count - 1; i >= 0; i--)
             {
-                if (Player_Inventory.Instance.itemList[i].itemName == item.itemName)
-                {
-                    Player_Inventory.Instance.itemList[i].stackCount -= item.stackCount;
+                Item inventoryItem = Player_Inventory.Instance.itemList[i];
 
-                    // Jika stackCount menjadi 0, hapus item dari inventory
-                    if (Player_Inventory.Instance.itemList[i].stackCount <= 0)
+                if (inventoryItem.itemName == item.itemName)
+                {
+                    int amountToRemove = Mathf.Min(inventoryItem.stackCount, remainingToRemove);
+                    inventoryItem.stackCount -= amountToRemove;
+                    remainingToRemove -= amountToRemove;
+
+                    if (inventoryItem.stackCount <= 0)
                     {
-                        Player_Inventory.Instance.itemList.RemoveAt(i);
+                        Player_Inventory.Instance.itemList.RemoveAt(i); // Hapus item jika stackCount habis
                     }
-                    break; // **Keluar dari loop setelah menemukan item**
+
+                    if (remainingToRemove <= 0)
+                        break; // Keluar jika bahan sudah cukup dikurangi
                 }
             }
         }
 
+        // **Tambahkan hasil crafting ke inventory**
+        int remainingToAdd = hasilCraftItem.stackCount;
 
+        foreach (Item inventoryItem in Player_Inventory.Instance.itemList)
+        {
+            if (inventoryItem.itemName == hasilCraftItem.itemName)
+            {
+                int availableSpace = inventoryItem.maxStackCount - inventoryItem.stackCount;
+                int amountToAdd = Mathf.Min(availableSpace, remainingToAdd);
 
-        // **3️⃣ Tambahkan hasil crafting ke inventory**
-        Item craftedItem = Instantiate(hasilCraftItem);  // **Pastikan hasil crafting tidak mempengaruhi ItemPool**
-        craftedItem.stackCount = hasilCraftItem.stackCount;
+                inventoryItem.stackCount += amountToAdd;
+                remainingToAdd -= amountToAdd;
 
-        Player_Inventory.Instance.AddItem(craftedItem); // **Gunakan AddItem agar item bisa di-stack**
+                inventoryItem.isStackable = inventoryItem.stackCount < inventoryItem.maxStackCount;
 
-        Debug.Log($"✅ Berhasil crafting {craftedItem.itemName} x{craftedItem.stackCount}");
+                if (remainingToAdd <= 0)
+                    break;
+            }
+        }
+
+        // Jika masih ada sisa item hasil crafting, buat item baru
+        while (remainingToAdd > 0 && Player_Inventory.Instance.itemList.Count < Player_Inventory.Instance.maxItem)
+        {
+            Item newItem = Instantiate(hasilCraftItem);
+            int amountToTake = Mathf.Min(remainingToAdd, newItem.maxStackCount);
+            newItem.stackCount = amountToTake;
+            remainingToAdd -= amountToTake;
+
+            newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
+
+            Player_Inventory.Instance.itemList.Add(newItem);
+        }
+
+        Debug.Log($"Berhasil crafting {hasilCraftItem.itemName} x{hasilCraftItem.stackCount}");
 
         inventoryUI.RefreshInventoryItems();
         inventoryUI.UpdateSixItemDisplay();
-
         ResetImageItem();
-
-
-
     }
+
 
     public void ResetImageItem()
     {

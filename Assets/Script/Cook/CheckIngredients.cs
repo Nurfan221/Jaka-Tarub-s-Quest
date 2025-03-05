@@ -13,6 +13,9 @@ public class Checkingredients : MonoBehaviour
     public GameObject popUp;
     public Image imagePopUp;
     public TextMeshProUGUI itemCount;
+
+    [Header("Deskripsi Craft")]
+    public bool twoIngredients;
     public bool checkRecipes = false;
     public string itemActive;
     public Item selectedItem;
@@ -55,55 +58,36 @@ public class Checkingredients : MonoBehaviour
         // Perulangan untuk setiap resep di database
         foreach (RecipeDatabase.CraftRecipe recipe in recipeDatabaseInstance.craftRecipes)
         {
-            // Instansiasi SlotTemplate untuk setiap resep
-            Transform recipeSlot = Instantiate(SlotTemplate, ContentGO);
-            recipeSlot.gameObject.SetActive(true); // Mengaktifkan objek SlotTemplate yang baru
+            int ingredientCount = recipe.ingredients.Count; // Hitung jumlah bahan dalam resep
 
-            // Set sprite gambar hasil resep
-            recipeSlot.GetChild(0).GetComponent<Image>().sprite = recipe.result.sprite;
-
-            // Set jumlah hasil (biasanya hanya 1)
-            recipeSlot.GetChild(1).GetComponent<TMP_Text>().text = "1"; // Menampilkan 1 karena hasil craft biasanya 1 item
-
-            // Set nama slot berdasarkan nama hasil resep
-            recipeSlot.name = recipe.result.name; // Mengatur nama SlotTemplate sesuai dengan nama hasil resep
-
-            // Pastikan nama tidak memiliki akhiran "(Clone)" setelah instansiasi
-            recipeSlot.name = recipeSlot.name.Replace("(Clone)", "");
-
-            // Menambahkan listener untuk mendeskripsikan item jika perlu
-            Button button = recipeSlot.GetComponent<Button>();
-            // Update listener untuk button
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() =>
+            // **Filter berdasarkan jumlah ingredients**
+            if ((twoIngredients && ingredientCount == 2) || (!twoIngredients && ingredientCount > 2))
             {
-                PopUpCraftResult(recipe.result);
-                //DisplayResultInSlot(ItemResult, recipe.result, 1);
+                // Instansiasi SlotTemplate untuk setiap resep yang sesuai dengan kondisi
+                Transform recipeSlot = Instantiate(SlotTemplate, ContentGO);
+                recipeSlot.gameObject.SetActive(true);
 
-                //if (checkRecipes == false )
-                //{
-                //    // Jika checkRecipes false, jalankan CheckIngredients
-                //    CheckIngredients(recipeSlot.name);
-                //    checkRecipes = true; // Set checkRecipes menjadi true setelah CheckIngredients dipanggil
-                //    itemActive = recipe.result.name;
-                //}
-                //else if (checkRecipes && itemActive == recipe.result.name)
-                //{
-                //    // Jika checkRecipes true, lakukan "destroy" pada objek yang ditampilkan
-                //    DestroyCraftItems();
-                //    checkRecipes = false; // Set checkRecipes kembali menjadi false setelah menghapus objek
-                //}
-                //else if (checkRecipes && itemActive != recipe.result.name)
-                //{
-                //    // Jika checkRecipes false, jalankan CheckIngredients
-                //    CheckIngredients(recipeSlot.name);
-                //    checkRecipes = true; // Set checkRecipes menjadi true setelah CheckIngredients dipanggil
-                //    itemActive = recipe.result.name;
-                //}
-            });
+                // Set sprite gambar hasil resep
+                recipeSlot.GetChild(0).GetComponent<Image>().sprite = recipe.result.sprite;
 
+                // Set jumlah hasil (biasanya hanya 1)
+                recipeSlot.GetChild(1).GetComponent<TMP_Text>().text = "1";
+
+                // Set nama slot berdasarkan nama hasil resep
+                recipeSlot.name = recipe.result.name;
+                recipeSlot.name = recipeSlot.name.Replace("(Clone)", ""); // Hilangkan "(Clone)"
+
+                // Tambahkan listener untuk menampilkan popup crafting
+                Button button = recipeSlot.GetComponent<Button>();
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() =>
+                {
+                    PopUpCraftResult(recipe.result);
+                });
+            }
         }
     }
+
 
 
     private void CheckIngredients(string nameResult)
