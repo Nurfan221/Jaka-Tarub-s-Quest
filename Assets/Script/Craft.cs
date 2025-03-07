@@ -14,6 +14,7 @@ public class Craft : MonoBehaviour
     [SerializeField] private RecipeDatabase recipeDatabaseInstance;
     [SerializeField] private Checkingredients checkingredients;
     [SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private Craft craftUI;
 
     [Header("Kategori Item yang Valid")]
     public ItemCategory[] validCategories = {
@@ -26,6 +27,7 @@ public class Craft : MonoBehaviour
 
     [Header("Button Container")]
     [SerializeField] private Button buttonClose;
+
 
     [Header("Craft container")]
 
@@ -55,6 +57,11 @@ public class Craft : MonoBehaviour
             Debug.LogError("Tombol close belum terhubung");
         }
 
+        if (itemCraft1 == null || itemCraft2 == null || itemCraft3 == null || itemCraft4 == null)
+        {
+            Debug.Log("itemCraft ada yang belum terhubung");
+        }
+
 
     }
 
@@ -70,13 +77,19 @@ public class Craft : MonoBehaviour
         //buttonCraft.onClick.RemoveAllListeners();
         //buttonCraft.onClick.AddListener(Crafting);
 
+
+
+
     }
 
+ 
 
-    private void CloseCraftUI()
+    public void CloseCraftUI()
     {
         GameController.Instance.ShowPersistentUI(true);
         gameObject.SetActive(false);
+        checkingredients.gameObject.SetActive(false);
+        craftUI.gameObject.SetActive(false);
         Debug.Log("Crafting ditutup");
         ResetImageItem();
 
@@ -93,6 +106,22 @@ public class Craft : MonoBehaviour
         item2 = itemCraft2.name;
         item3 = itemCraft3.name;
         item4 = itemCraft4.name;
+
+        //Cek apakah jumlah bahan cocok dengan mode crafting**
+        if ((checkingredients.twoIngredients && checkingredients.recipeCount > 2) )
+        {
+            item1 = itemCraft1.name;
+            item2 = itemCraft2.name;
+            item3 = itemCraft3.name;
+            item4 = itemCraft4.name;
+        }
+        else if ((!checkingredients.twoIngredients && checkingredients.recipeCount <= 2))
+        {
+            item1 = itemCraft1.name;
+            item2 = itemCraft2.name;
+
+        }
+
 
         Debug.Log($"Item 1: {item1}, Item 2: {item2}, Item 3: {item3}, Item 4: {item4}");
 

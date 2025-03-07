@@ -102,6 +102,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] NPCManager npcManager;
     [SerializeField] LoadingScreenUI loadingScreenUI;
     [SerializeField] PlayerQuest playerQuest;
+    [SerializeField] QuestInfoUI questInfoUI;
     public Transform questUI;
     public Transform displayMainQuest;
     public string locationInfo;
@@ -131,7 +132,6 @@ public class QuestManager : MonoBehaviour
 
     public void CheckQuest()
     {
-
         foreach (var chapter in chapters)
         {
             foreach (var quest in chapter.sideQuest)
@@ -140,21 +140,21 @@ public class QuestManager : MonoBehaviour
 
                 if ((timeManager.date + 1) == quest.date)
                 {
-                    quest.questActive = true;
+                    if (!quest.questActive) // Cek apakah quest belum aktif
+                    {
+                        quest.questActive = true;
+                        questInfoUI.DisplayActiveQuest(quest);
+                    }
+                    else
+                    {
+                        questInfoUI.SetQuestInActive(quest.questName);
+                    }
                 }
-
             }
         }
 
-
-
         DisplayActiveQuests();
         npcManager.CheckNPCQuest();
-
-        // Input nilai dialogue ke dalam quest interactable
-        // AccsessQuestInteractable();
-
-
     }
 
 

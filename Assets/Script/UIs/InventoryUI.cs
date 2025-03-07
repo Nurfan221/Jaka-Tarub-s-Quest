@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +7,9 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
+    [SerializeField] Craft craftScript;
+    [SerializeField] Checkingredients checkingredientsScript;
+
     List<Item> Items;
 
     [Header("Active Slot")]
@@ -17,6 +21,10 @@ public class InventoryUI : MonoBehaviour
     [Header("UI STUFF")]
     [SerializeField] Transform ContentGO;
     [SerializeField] Transform SlotTemplate;
+
+    [Header("Button")]
+    public Button openCraft;
+    public Button openInventory;
 
     [Header("Item Description")]
     [SerializeField] Image itemSprite;
@@ -30,6 +38,19 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField] public ContohFlipCard contohFlipCard;
 
+
+    [System.Serializable]
+    public class MenuPanel
+    {
+        public string menuName;
+        public GameObject panelInventory;
+        public GameObject panelMenu;
+    }
+
+    [Header("UI Elements")]
+    public MenuPanel[] menuPanels;
+    public Button[] btnMenu;
+
     // [Header("item active in display")]
     // [SerializeField] private Image attackHUDImage;
 
@@ -39,9 +60,23 @@ public class InventoryUI : MonoBehaviour
 
     private void Start()
     {
-        // Any initial setup can be added here
+
+
+
+        for (int i = 0; i < btnMenu.Length; i++)
+        {
+            int index = i; //Simpan nilai i dalam variabel lokal agar tidak berubah dalam closure
+            btnMenu[i].onClick.RemoveAllListeners();
+            btnMenu[i].onClick.AddListener(() => ChangeMenu(index));
+        }
+
+
+
+
 
     }
+
+
     // private void update()
     // {
     //     UpdateSixItemDisplay();
@@ -277,5 +312,15 @@ public class InventoryUI : MonoBehaviour
         itemAction.GetComponentInChildren<TMP_Text>().text = itemUses;
     }
 
+    public void ChangeMenu(int menu)
+    {
+        for (int i = 0; i < menuPanels.Length; i++)
+        {
+            bool isActive = (i == menu);
+            menuPanels[i].panelInventory.SetActive(isActive);
+            menuPanels[i].panelMenu.SetActive(isActive);
+        }
 
+        Debug.Log($"Menu {menu} aktif");
+    }
 }

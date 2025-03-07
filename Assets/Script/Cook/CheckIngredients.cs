@@ -17,16 +17,19 @@ public class Checkingredients : MonoBehaviour
     [Header("Deskripsi Craft")]
     public bool twoIngredients;
     public bool checkRecipes = false;
+    public int recipeCount;
     public string itemActive;
     public Item selectedItem;
 
-    //gameobjek untuk menampilkan detail recipe
-    public GameObject ItemCraft1;
-    public GameObject ItemCraft2;
-    public GameObject ItemCraft3;
-    public GameObject ItemCraft4;
-    public GameObject ItemResult;
+    // Menambahkan UI untuk slot crafting
+    public GameObject itemCraft1;
+    public GameObject itemCraft2;
+    public GameObject itemCraft3;
+    public GameObject itemCraft4;
+    public GameObject itemResult;
     public int resultCount;
+    //Loop hanya sesuai jumlah bahan**
+    public GameObject[] craftSlots;
 
     [Header("Button Action")]
 
@@ -43,7 +46,20 @@ public class Checkingredients : MonoBehaviour
     public void Start()
     {
         RefreshRecipe();
+        if (twoIngredients)
+        {
+            recipeCount = 2;
+        }else
+        {
+            recipeCount = 4;
+        }
 
+        if (itemCraft1 == null || itemCraft2 == null || itemCraft3 == null || itemCraft4 == null)
+        {
+            Debug.Log("itemCraft ada yang belum terhubung");
+        }
+
+        craftSlots = new GameObject[] { itemCraft1, itemCraft2, itemCraft3, itemCraft4 };
     }
 
     public void RefreshRecipe()
@@ -92,62 +108,59 @@ public class Checkingredients : MonoBehaviour
 
     private void CheckIngredients(string nameResult)
     {
-        // Reset slot sebelum menampilkan bahan baru
-        ResetIngredientSlots();
+        // Reset SEMUA slot sebelum memproses resep baru
+        ResetIngredientSlots(4); // Reset sampai 4 agar item sebelumnya tidak tersisa
 
-        // Iterasi melalui semua resep
         foreach (RecipeDatabase.CraftRecipe recipe in recipeDatabaseInstance.craftRecipes)
         {
-            // Pastikan resep yang dimaksud adalah resep yang sesuai dengan nameResult
             if (recipe.result.name == nameResult)
             {
-                // Loop untuk menampilkan bahan-bahan yang diperlukan
-                for (int i = 0; i < recipe.ingredients.Count; i++)
+                if ((twoIngredients && recipe.ingredients.Count > 2) || (!twoIngredients && recipe.ingredients.Count <= 2))
                 {
-                    Debug.Log("recipe yang diperlukan: " + recipe.ingredients[i].name);
-                    Debug.Log("jumlah yang diperlukan: " + recipe.ingredientsCount[i]);
+                    Debug.LogWarning($"Resep {nameResult} tidak cocok dengan mode crafting.");
+                    return;
+                }
 
-                    // Tentukan slot yang akan digunakan untuk menampilkan ingredient berdasarkan case
-                    switch (i)
-                    {
-                        case 0:
-                            DisplayIngredientInSlot(ItemCraft1, recipe.ingredients[i], recipe.ingredientsCount[i]);
-                            craftScript.CheckItemtoCraft(1);
-                            break;
-                        case 1:
-                            DisplayIngredientInSlot(ItemCraft2, recipe.ingredients[i], recipe.ingredientsCount[i]);
-                            craftScript.CheckItemtoCraft(2);
-                            break;
-                        case 2:
-                            DisplayIngredientInSlot(ItemCraft3, recipe.ingredients[i], recipe.ingredientsCount[i]);
-                            craftScript.CheckItemtoCraft(3);
-                            break;
-                        case 3:
-                            DisplayIngredientInSlot(ItemCraft4, recipe.ingredients[i], recipe.ingredientsCount[i]);
-                            craftScript.CheckItemtoCraft(4);
-                            break;
-                        default:
-                            Debug.LogWarning("Bahan lebih dari 4 tidak ditampilkan.");
-                            break;
-                    }
+                recipeCount = recipe.ingredients.Count;  // Simpan jumlah bahan saat ini
+                ResetIngredientSlots(recipeCount);      // Reset ulang berdasarkan jumlah baru
+
+                for (int i = 0; i < recipeCount; i++)
+                {
+                    DisplayIngredientInSlot(craftSlots[i], recipe.ingredients[i], recipe.ingredientsCount[i]);
+                    craftScript.CheckItemtoCraft(i + 1);
                 }
             }
         }
     }
 
-    private void ResetIngredientSlots()
+
+
+    private void ResetIngredientSlots(int countRecipe)
     {
         // Reset list bahan crafting
         craftScript.ingredientItemList.Clear();
 
         // Nonaktifkan semua slot ingredient
-        GameObject[] ingredientSlots = { ItemCraft1, ItemCraft2, ItemCraft3, ItemCraft4 };
 
-        foreach (GameObject slot in ingredientSlots)
+
+        if (twoIngredients)
         {
-            ResetChildVisibility(slot, "itemImage");
-            ResetChildVisibility(slot, "ItemInInventory");
-            ResetChildVisibility(slot, "IngridientCount");
+
+            for(int i = 0; i<recipeCount; i++)
+            {
+                ResetChildVisibility(craftSlots[i], "itemImage");
+                ResetChildVisibility(craftSlots[i], "ItemInInventory");
+                ResetChildVisibility(craftSlots[i], "IngridientCount");
+            }
+        }
+        else
+        {
+            for (int i = 0; i < countRecipe; i++)
+            {
+                ResetChildVisibility(craftSlots[i], "itemImage");
+                ResetChildVisibility(craftSlots[i], "ItemInInventory");
+                ResetChildVisibility(craftSlots[i], "IngridientCount");
+            }
         }
     }
     private void ResetChildVisibility(GameObject parent, string childName)
@@ -280,11 +293,11 @@ public class Checkingredients : MonoBehaviour
     {
         popUp.gameObject.SetActive(false);
         // Menghapus item yang ada di setiap ItemCraft slot
-        DestroyItemInSlot(ItemCraft1);
-        DestroyItemInSlot(ItemCraft2);
-        DestroyItemInSlot(ItemCraft3);
-        DestroyItemInSlot(ItemCraft4);
-        DestroyItemInSlot(ItemResult);
+        DestroyItemInSlot(itemCraft1);
+        DestroyItemInSlot(itemCraft2);
+        DestroyItemInSlot(itemCraft3);
+        DestroyItemInSlot(itemCraft4);
+        DestroyItemInSlot(itemResult);
 
     }
 
@@ -367,7 +380,7 @@ public class Checkingredients : MonoBehaviour
         CheckIngredients(result.name);
 
         // Menampilkan hasil crafting di slot hasil
-        DisplayResultInSlot(ItemResult, result, count);
+        DisplayResultInSlot(itemResult, result, count);
 
         // Pastikan buttonCraft tetap memiliki listener setelah konfirmasi
         craftScript.buttonCraft.onClick.RemoveAllListeners();
