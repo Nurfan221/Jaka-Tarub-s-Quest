@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    [SerializeField] Craft craftScript;
-    [SerializeField] Checkingredients checkingredientsScript;
+    [Header("Daftar hubungan Script")]
+    [SerializeField] NPCListUI npcListUI;
 
     List<Item> Items;
 
@@ -319,6 +319,12 @@ public class InventoryUI : MonoBehaviour
             bool isActive = (i == menu);
             menuPanels[i].panelInventory.SetActive(isActive);
             menuPanels[i].panelMenu.SetActive(isActive);
+
+            string nameMenuPanel = menuPanels[i].panelInventory.name;
+            if (nameMenuPanel != null && nameMenuPanel == "NPCList")
+            {
+                npcListUI.RefreshNPCList();
+            }
         }
 
         Debug.Log($"Menu {menu} aktif");

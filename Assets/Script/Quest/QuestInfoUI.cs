@@ -42,65 +42,93 @@ public class QuestInfoUI : MonoBehaviour
 
     public void RefreshActiveQuest()
     {
-        // Hapus elemen lama sebelum menampilkan yang baru
-        foreach (Transform child in ContentDetail)
-        {
-            if (child == SlotTemplateDetail) continue;
-            Destroy(child.gameObject);
-        }
-
-        foreach (Transform child in ContentInfo)
-        {
-            if (child == SlotTemplateInfo) continue;
-            Destroy(child.gameObject);
-        }
+        //Hapus elemen lama sebelum menampilkan yang baru
+        ClearChildrenExceptTemplate(ContentDetail, SlotTemplateDetail);
+        ClearChildrenExceptTemplate(ContentInfo, SlotTemplateInfo);
 
         for (int i = 0; i < quests.Count; i++)
         {
             Quest quest = quests[i];
+
+            //Instansiasi UI untuk Quest
             Transform questDetail = Instantiate(SlotTemplateDetail, ContentDetail);
             Transform questInfo = Instantiate(SlotTemplateInfo, ContentInfo);
-            questInfo.gameObject.SetActive(true);
-            questInfo.gameObject.name = quest.questInfo;
             questDetail.gameObject.SetActive(true);
-            questDetail.gameObject.name = quest.questDetail;
+            questInfo.gameObject.SetActive(true);
+            questDetail.name = quest.questDetail;
+            questInfo.name = quest.questInfo;
 
-            // Cek apakah quest aktif atau tidak
+            //Ambil referensi komponen
+            Image questImage = questInfo.GetChild(0).GetComponent<Image>();
+            Image questImageInfo = questInfo.GetComponent<Image>();
+            Image questDetailImage = questDetail.GetComponent<Image>();
+            TMP_Text questTextInfo = questInfo.GetChild(1).GetComponent<TMP_Text>();
+            TMP_Text questTextDetail = questDetail.GetChild(1).GetComponent<TMP_Text>();
+
+            //Cek apakah quest aktif atau tidak
             if (quest.questActive)
             {
-                // Jika aktif, gunakan sliderActive
-                questDetail.GetChild(0).GetComponent<Image>().sprite = sliderActive;
-                questInfo.GetChild(0).GetComponent<Image>().sprite = sliderActive;
+                Debug.Log("Quest Active");
+                questImage.sprite = sliderActive;
+                SetOpacity(questImage, 1f);
             }
             else
             {
-                // Jika tidak aktif, gunakan sliderInactive
-                questDetail.GetChild(0).GetComponent<Image>().sprite = sliderInactive;
-                questInfo.GetChild(0).GetComponent<Image>().sprite = sliderInactive;
+                Debug.Log("Quest Inactive");
+                questImage.sprite = sliderInactive;
+                SetOpacity(questDetailImage, 0.5f);
+                SetOpacity(questImageInfo, 0.5f);
+                SetOpacity(questImage, 0.8f);
+                SetOpacity(questTextInfo, 0.5f);
+                SetOpacity(questTextDetail, 0.5f);
             }
 
-            // Set teks quest
+            //Set teks quest
             questDetail.GetChild(1).GetComponent<TMP_Text>().text = quest.questDetail;
             questInfo.GetChild(1).GetComponent<TMP_Text>().text = quest.questInfo;
 
-            // Mengatur itemID berdasarkan indeks
+            //Mengatur itemID berdasarkan indeks
             ItemDragandDrop itemDragAndDrop = questDetail.GetComponent<ItemDragandDrop>();
             if (itemDragAndDrop != null)
             {
-                itemDragAndDrop.itemID = i; // Set itemID dengan indeks item
+                itemDragAndDrop.itemID = i;
             }
         }
     }
 
+    //Fungsi untuk menghapus child kecuali template
+    private void ClearChildrenExceptTemplate(Transform parent, Transform template)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child != template)
+                Destroy(child.gameObject);
+        }
+    }
+
+    //Fungsi untuk mengatur opacity elemen UI
+    private void SetOpacity(Graphic element, float alpha)
+    {
+        if (element != null)
+        {
+            Color newColor = element.color;
+            newColor.a = alpha;
+            element.color = newColor;
+        }
+    }
+
+
 
     public void SetQuestInActive(string questName)
     {
+        Debug.Log("SetQuestInActive di jalankan");
         // Set quest menjadi tidak aktif
         foreach (var quest in quests)
         {
             if (quest.questName == questName)
             {
                 quest.questActive = false;
+
             }
         }
 

@@ -349,8 +349,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
                 
                 // Refresh UI setelah perubahan
-                inventoryUI.RefreshInventoryItems();
-                inventoryUI.UpdateSixItemDisplay();
+                //inventoryUI.RefreshInventoryItems();
+                //inventoryUI.UpdateSixItemDisplay();
                 break; // Keluar dari loop setelah menemukan item
             }
         }

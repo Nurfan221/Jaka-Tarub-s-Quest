@@ -8,6 +8,9 @@ public class NPCManager : MonoBehaviour
     public class NPCData
     {
         public string npcName;
+        public string fullName;
+        public string pekerjaan;
+        public Sprite npcSprite;
         public GameObject prefab;                  // Prefab NPC
         public int totalFrendships;                // menghitung jumlah nilai pertemanan
         public int countGift;

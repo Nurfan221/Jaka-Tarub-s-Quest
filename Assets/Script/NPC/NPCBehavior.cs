@@ -12,6 +12,7 @@ public class NPCBehavior : MonoBehaviour
     [SerializeField] protected DialogueSystem dialogueSystem;
     [SerializeField] NPCManager npcManager;
     [SerializeField] GameEconomy gameEconomy;
+    [SerializeField] QuestInfoUI questInfoUI;
     private NPCManager.Schedule currentActivity; // Gunakan NPCManager.Schedule untuk mendeklarasikan tipe
 
     [SerializeField] NPCAnimation npcAnimation;
@@ -411,6 +412,7 @@ public class NPCBehavior : MonoBehaviour
                         }
                         quest.questActive = false;
                         questManager.CheckQuest();
+                        questInfoUI.SetQuestInActive(quest.questName);
 
                     }
                     else

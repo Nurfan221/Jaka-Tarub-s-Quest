@@ -145,10 +145,6 @@ public class QuestManager : MonoBehaviour
                         quest.questActive = true;
                         questInfoUI.DisplayActiveQuest(quest);
                     }
-                    else
-                    {
-                        questInfoUI.SetQuestInActive(quest.questName);
-                    }
                 }
             }
         }
