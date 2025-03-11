@@ -8,12 +8,28 @@ public class NPCListUI : MonoBehaviour
 {
     [Header("Daftar Hubungan")]
     [SerializeField] NPCManager npcManager;
-    public Transform npcDeskripsi;
+
     public NPCData npcData;
 
     [Header("UI STUFF")]
     [SerializeField] Transform ContentList;
     [SerializeField] Transform SlotTemplateList;
+
+    [Header("NPC Deskripsi")]
+    public Transform npcDeskripsi;
+    public Transform namaLengkap;
+    public Image fotoProfil;
+    public Transform[] npcLoved;
+    public int barPerasaan;
+    public bool apakahMemberi;
+    public bool apakahMenyapa;
+    public Image statusMemberi;
+    public Image statusMenyapa;
+    public Sprite iconMemberi;
+    public Sprite iconMenyapa;
+    public Transform ulangTahun;
+    public Transform pekerjaan;
+    public Transform hobi;
 
 
     void Start()
@@ -68,16 +84,16 @@ public class NPCListUI : MonoBehaviour
         Debug.Log("memanggil fungsi npc deskripsi");
         npcDeskripsi.gameObject.SetActive(true);
         // Set jumlah item in inventory
-        Transform textTransform = npcDeskripsi.transform.Find("NamaLengkap");
-        if (textTransform != null)
-        {
-            textTransform.gameObject.SetActive(true);
-            TMP_Text targetText = textTransform.GetComponent<TMP_Text>();
-            targetText.text = npcData.fullName;
-        }
-        else
-        {
-            Debug.LogWarning("Text untuk item tidak ditemukan di dalam slot!");
-        }
+        TMP_Text targetNama = namaLengkap.GetComponent<TMP_Text>();
+        targetNama.text = npcData.fullName;
+
+        TMP_Text targetUltah = ulangTahun.GetComponent<TMP_Text>();
+        targetUltah.text = "Ulang Tahun : " + npcData.tanggalUltah.ToString() + "/" + npcData.bulanUltah.ToString();
+
+        TMP_Text targetperkerjaan = pekerjaan.GetComponent<TMP_Text>();
+        targetperkerjaan.text = "Pekerjaan : " + npcData.pekerjaan;
+
+        TMP_Text targetHobi = hobi.GetComponent<TMP_Text>();
+        targetHobi.text = "Hobi : " + npcData.hobi;
     }
 }

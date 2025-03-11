@@ -10,6 +10,9 @@ public class NPCManager : MonoBehaviour
         public string npcName;
         public string fullName;
         public string pekerjaan;
+        public string hobi;
+        public int tanggalUltah;
+        public int bulanUltah;
         public Sprite npcSprite;
         public GameObject prefab;                  // Prefab NPC
         public int totalFrendships;                // menghitung jumlah nilai pertemanan

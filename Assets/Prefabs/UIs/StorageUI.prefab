@@ -3528,22 +3528,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theStorage: {fileID: 0}
-  StorageContainer: {fileID: 0}
-  InventoryContainer: {fileID: 0}
-  itemSlotTemplate: {fileID: 0}
+  StorageContainer: {fileID: 3516224336219810899}
+  InventoryContainer: {fileID: 112312400398004003}
+  itemSlotTemplate: {fileID: 7431219938062040829}
   inventoryUI: {fileID: 0}
-  popUp: {fileID: 0}
-  itemImage: {fileID: 0}
-  itemCount: {fileID: 0}
-  storeAllButton: {fileID: 0}
-  takeAllButton: {fileID: 0}
-  plusItem: {fileID: 0}
-  minusItem: {fileID: 0}
-  confirm: {fileID: 0}
-  cancel: {fileID: 0}
-  maxItem: {fileID: 0}
-  minItem: {fileID: 0}
-  closeStorageButton: {fileID: 0}
+  popUp: {fileID: 6792664675490709832}
+  itemImage: {fileID: 4973870227551095436}
+  itemCount: {fileID: 785547545562904201}
+  storeAllButton: {fileID: 7901542819150523833}
+  takeAllButton: {fileID: 8001721302873388967}
+  plusItem: {fileID: 1619708459870808121}
+  minusItem: {fileID: 8378455744202379865}
+  confirm: {fileID: 6422267060531172431}
+  cancel: {fileID: 7165100203143632778}
+  maxItem: {fileID: 3925538919266025153}
+  minItem: {fileID: 844751872175854430}
+  closeStorageButton: {fileID: 8222404389858079312}
 --- !u!1 &8076820561816839494
 GameObject:
   m_ObjectHideFlags: 0

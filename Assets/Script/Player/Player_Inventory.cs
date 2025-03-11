@@ -18,15 +18,15 @@ public class Player_Inventory : MonoBehaviour
     [SerializeField] private Button switchUseItemImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     [SerializeField] public ContohFlipCard contohFlipCard;
 
-    [HideInInspector] public bool meleeOrRanged = true;
-    [HideInInspector] public bool itemUse1 = true;
+    public bool meleeOrRanged = true;
+    public bool itemUse1 = true;
 
     [Header("UI ELEMENTS")]
     public Item emptyItem;
-    [HideInInspector] public List<Item> equippedCombat = new List<Item>(2);
-    [HideInInspector] public Item equippedWeapon;
-    [HideInInspector] public Item equippedItem;
-    [HideInInspector] public List<Item> quickSlots = new List<Item>(2);
+    public List<Item> equippedCombat = new List<Item>(2);
+    public Item equippedWeapon;
+    public Item equippedItem;
+    public List<Item> quickSlots = new List<Item>(2);
 
     InventoryUI inventoryUI;
     Player_Action playerAction;
@@ -427,12 +427,7 @@ public class Player_Inventory : MonoBehaviour
             {
                 PlayerUI.Instance.equippedUI.sprite = equippedWeapon.sprite;
 
-                //SpriteRenderer hitboxSpriteRenderer = normalAttackHitArea.GetComponent<SpriteRenderer>();
-                //// Ganti sprite-nya dengan sprite dari equippedWeapon
-                //if (hitboxSpriteRenderer != null && equippedWeapon != null)
-                //{
-                //    hitboxSpriteRenderer.sprite = equippedWeapon.sprite;
-                //}
+                
 
             }
         }
@@ -445,12 +440,7 @@ public class Player_Inventory : MonoBehaviour
                 PlayerUI.Instance.equippedUI.sprite = equippedWeapon.sprite;
 
 
-                //SpriteRenderer hitboxSpriteRenderer = normalAttackHitArea.GetComponent<SpriteRenderer>();
-                //// Ganti sprite-nya dengan sprite dari equippedWeapon
-                //if (hitboxSpriteRenderer != null && equippedWeapon != null)
-                //{
-                //    hitboxSpriteRenderer.sprite = equippedWeapon.sprite;
-                //}
+               
             }
         }
         

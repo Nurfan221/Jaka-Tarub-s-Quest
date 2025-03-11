@@ -1,14 +1,16 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryUI : MonoBehaviour
 {
     [Header("Daftar hubungan Script")]
     [SerializeField] NPCListUI npcListUI;
+    [SerializeField] Player_Inventory player_Inventory;
 
     List<Item> Items;
 
@@ -25,6 +27,7 @@ public class InventoryUI : MonoBehaviour
     [Header("Button")]
     public Button openCraft;
     public Button openInventory;
+    public Button btnHapus;
 
     [Header("Item Description")]
     [SerializeField] Image itemSprite;
@@ -60,21 +63,43 @@ public class InventoryUI : MonoBehaviour
 
     private void Start()
     {
-
-
-
+        //Loop untuk Mengatur Tombol Menu Secara Dinamis
         for (int i = 0; i < btnMenu.Length; i++)
         {
-            int index = i; //Simpan nilai i dalam variabel lokal agar tidak berubah dalam closure
+            int index = i;
             btnMenu[i].onClick.RemoveAllListeners();
             btnMenu[i].onClick.AddListener(() => ChangeMenu(index));
         }
 
+        //impan Tombol dalam Array untuk Menghindari Pengulangan Kode
+        Button[] equippedButtons = {
+        equippedItem1.GetComponent<Button>(),
+        equippedItem2.GetComponent<Button>()
+        };
 
+        Button[] quickSlotButtons = {
+        quickSlot1.GetComponent<Button>(),
+        quickSlot2.GetComponent<Button>()
+        };
 
+        //Loop untuk Menetapkan EventListener pada Equipped Item
+        for (int i = 0; i < equippedButtons.Length; i++)
+        {
+            int index = i;
+            equippedButtons[i].onClick.RemoveAllListeners();
+            equippedButtons[i].onClick.AddListener(() => ShowDeleteButton(() => RisetEquippedUse(index)));
+        }
 
-
+        //Loop untuk Menetapkan EventListener pada Quick Slots
+        for (int i = 0; i < quickSlotButtons.Length; i++)
+        {
+            int index = i;
+            quickSlotButtons[i].onClick.RemoveAllListeners();
+            quickSlotButtons[i].onClick.AddListener(() => ShowDeleteButton(() => RisetQuickSlot(index)));
+        }
     }
+
+ 
 
 
     // private void update()
@@ -106,6 +131,7 @@ public class InventoryUI : MonoBehaviour
         }
 
         pickedSlot.gameObject.GetComponentInChildren<Image>().sprite = item.sprite;
+        pickedSlot.gameObject.SetActive(true);
         //pickedSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
 
     }
@@ -138,6 +164,7 @@ public class InventoryUI : MonoBehaviour
     void RefreshItemSlot(Transform slot, Item item)
     {
         slot.gameObject.GetComponentInChildren<Image>().sprite = item.sprite;
+
         //slot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
     }
 
@@ -329,4 +356,44 @@ public class InventoryUI : MonoBehaviour
 
         Debug.Log($"Menu {menu} aktif");
     }
+
+    //Fungsi untuk Menampilkan Tombol Hapus dan Mengatur Listener
+    private void ShowDeleteButton(System.Action resetAction)
+    {
+        btnHapus.gameObject.SetActive(true);
+        btnHapus.onClick.RemoveAllListeners();
+        btnHapus.onClick.AddListener(() => {
+            resetAction();
+            btnHapus.gameObject.SetActive(false); // Sembunyikan tombol setelah reset
+        });
+    }
+
+    //Fungsi untuk Mereset Equipped Use
+    public void RisetEquippedUse(int index)
+    {
+        Debug.Log("Equipped item di-reset: " + index);
+        player_Inventory.equippedCombat[index] = player_Inventory.emptyItem;
+
+        Image itemImage = (index == 0) ?
+            equippedItem1.GetComponentInChildren<Image>() :
+            equippedItem2.GetComponentInChildren<Image>();
+
+        itemImage.sprite = null; // Hapus sprite
+        itemImage.gameObject.SetActive(false);
+    }
+
+    // **7️⃣ Fungsi untuk Mereset Quick Slot**
+    public void RisetQuickSlot(int index)
+    {
+        Debug.Log("Quick Slot di-reset: " + index);
+        player_Inventory.quickSlots[index] = player_Inventory.emptyItem;
+
+        Image itemImage = (index == 0) ?
+            quickSlot1.GetComponentInChildren<Image>() :
+            quickSlot2.GetComponentInChildren<Image>();
+
+        itemImage.sprite = null; // Hapus sprite
+        itemImage.gameObject.SetActive(false);
+    }
+
 }
