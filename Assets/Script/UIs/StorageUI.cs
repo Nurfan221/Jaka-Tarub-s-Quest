@@ -524,7 +524,7 @@ public class StorageUI : MonoBehaviour
         foreach (Item itemInInventory in Player_Inventory.Instance.itemList)
         {
             int remainingToStore = itemInInventory.stackCount;
-            bool itemExists = false;
+
 
             // Cek apakah item sudah ada di storage
             foreach (Item itemInStorage in Items)
@@ -583,7 +583,6 @@ public class StorageUI : MonoBehaviour
         foreach (Item itemInStorage in Items)
         {
             int remainingToTake = itemInStorage.stackCount;
-            bool itemExists = false;
 
             // Cek apakah item sudah ada di inventory
             foreach (Item itemInInventory in Player_Inventory.Instance.itemList)
