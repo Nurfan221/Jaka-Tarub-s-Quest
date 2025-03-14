@@ -37,7 +37,7 @@ public class ClockManager : MonoBehaviour
         Date.text = timeManager.GetFormattedDate();
         Time.text = timeManager.GetFormattedTime();
         Season.text = timeManager.GetCurrentSeason();
-        Money.text = gameEconomy.Money.ToString();
+        Money.text = gameEconomy.money.ToString();
 
         float hour = timeManager.hour + (timeManager.minutes / 60f);
 

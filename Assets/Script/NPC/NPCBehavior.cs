@@ -377,7 +377,7 @@ public class NPCBehavior : MonoBehaviour
                         quest.finish.mainSpeaker = npcName;
                         dialogueSystem.theDialogues = quest.finish;
                         dialogueSystem.StartDialogue();
-                        gameEconomy.Money += quest.reward;
+                        gameEconomy.money += quest.reward;
 
                         if (quest.rewards.Length > 0)
                         {

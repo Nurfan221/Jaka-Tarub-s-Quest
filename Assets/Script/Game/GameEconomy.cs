@@ -7,7 +7,7 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
 {
     public static GameEconomy Instance;
 
-    public int Money;
+    public int money;
 
     private void Awake()
     {
@@ -16,26 +16,26 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
 
     public bool SpendMoney(int price)
     {
-        if (price > Money)
+        if (price > money)
         {
             return false;
         }
         else
         {
-            Money -= price;
+            money -= price;
             return true;
         }
     }
 
     public void GainMoney(int riches)
     {
-        Money += riches;
+        money += riches;
     }
 
     public void LostMoney(int lost)
     {
-        Money -= lost;
-        if (Money < 0)
-            Money = 0;
+        money -= lost;
+        if (money < 0)
+            money = 0;
     }
 }
