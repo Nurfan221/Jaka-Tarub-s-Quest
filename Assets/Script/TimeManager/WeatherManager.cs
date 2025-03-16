@@ -23,16 +23,13 @@ public class WeatherManager : MonoBehaviour
         // Akses currentSeason melalui timeManager
         switch (timeManager.currentSeason)
         {
-            case TimeManager.Season.Summer:
-                rainChance = 0.10f;
-                break;
 
             case TimeManager.Season.Rain:
-                rainChance = 0.70f;
+                rainChance = 0.80f;
                 break;
 
             case TimeManager.Season.Dry:
-                rainChance = 0.0f; // Dry season doesn't have rain chance
+                rainChance = 0.1f; // Dry season doesn't have rain chance
                 break;
 
             default:

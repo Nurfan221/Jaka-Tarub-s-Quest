@@ -13,6 +13,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private NPCManager npcManager;
     [SerializeField] private QuestManager questManager;
     [SerializeField] private DialogueSystem dialogueSystem;
+    [SerializeField] private ShopUI shopUI;
 
     [Header("Date & Time settings")]
     public int totalHari = 1;
@@ -22,7 +23,7 @@ public class TimeManager : MonoBehaviour
     public int bulan = 1;
     public int tahun = 1;
     public Days currentDay = Days.Mon;
-    public Season currentSeason = Season.Summer;
+    public Season currentSeason = Season.Rain;
 
     [Header("Logika Waktu")]
     public int secondsIncrease = 10;
@@ -37,6 +38,11 @@ public class TimeManager : MonoBehaviour
     private List<TreeBehavior> registeredTrees = new List<TreeBehavior>(); // Menyimpan pohon-pohon yang terdaftar
     private List<PerangkapBehavior> registeredTrap = new List<PerangkapBehavior>();// Menyimpan perangkap-perangkap yang terdaftar
     public static event Action<int> OnHourChanged; // Event untuk perubahan jam
+
+    private void Start()
+    {
+        shopUI.UpdateShopBySeason(currentSeason);
+    }
     private void Awake()
     {
         // Pastikan hanya ada satu instance dari TimeManager
@@ -109,6 +115,7 @@ public class TimeManager : MonoBehaviour
         farmTile.ResetWateredTiles();
 
         questManager.CheckQuest();
+        shopUI.RestockDaily(currentSeason);
 
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
@@ -131,6 +138,9 @@ public class TimeManager : MonoBehaviour
         // Mengganti musim secara berurutan setiap kali fungsi ini dipanggil
         currentSeason = (Season)(((int)currentSeason + 1) % Enum.GetValues(typeof(Season)).Length);
         Debug.Log("Season updated to: " + currentSeason);
+
+        shopUI.UpdateShopBySeason(currentSeason);
+
     }
 
     public void HitungWaktu(int totalHari)
@@ -237,9 +247,9 @@ public class TimeManager : MonoBehaviour
     [Serializable]
     public enum Season
     {
-        Summer = 0,
-        Rain = 1,
-        Dry = 2
+        
+        Rain = 0,
+        Dry = 1
     }
 
     //[Header("logika reset sesuatu setiap hari")]
