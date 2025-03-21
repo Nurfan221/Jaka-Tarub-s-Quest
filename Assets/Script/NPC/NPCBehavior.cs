@@ -402,12 +402,12 @@ public class NPCBehavior : MonoBehaviour
                         }
 
 
-                        Debug.Log("Quest selesai: " + quest.questName);
+                        Debug.Log("selesai: " + quest.questName);
                         quest.questComplete = true;
                         if (idChapter == chapter.idChapter)
                         {
                             chapter.currentSideQuest++;
-                            questManager.CheckMainQuest(idChapter);
+                            questManager.InputAntrianMainQuest();
 
                         }
                         quest.questActive = false;

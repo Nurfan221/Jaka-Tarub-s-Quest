@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static QuestManager;
 
 public class DialogueSystem : MonoBehaviour
 {   
@@ -132,7 +133,7 @@ public class DialogueSystem : MonoBehaviour
         {
             Debug.Log($"Menghapus NPC {npcToDestroy.name}");
             Destroy(npcToDestroy);
-            questManager.UpdateDisplayQuest();
+
             npcToDestroy = null;
         }
         dialogueUI.SetActive(false);
@@ -172,5 +173,24 @@ public class DialogueSystem : MonoBehaviour
       public void PlayClickSound()
     {
         SoundManager.Instance.PlaySound("Click");
+    }
+
+    public IEnumerator WaitForDialogueToEnd()
+    {
+        Debug.Log("Menunggu dialog selesai...");
+
+        // Tunggu sampai UI dialog tidak aktif
+        while (dialogueUI.activeSelf)
+        {
+            yield return null; // Tunggu satu frame
+        }
+
+        Debug.Log("Dialog main quest selesai!");
+
+        //Lanjutkan logika setelah dialog selesai
+        if (questManager.currentMainQuest != null)
+        {
+            questManager.questUI.gameObject.SetActive(false);
+        }
     }
 }

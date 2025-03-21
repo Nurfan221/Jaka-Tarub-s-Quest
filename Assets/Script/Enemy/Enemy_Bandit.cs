@@ -27,6 +27,7 @@ public class Enemy_Bandit : MonoBehaviour
 
     // ===================== [ STATE VARIABLES ] ===================== //
     [Header("State Variables")]
+    public bool isStory;
     public bool isAttacking;
     public bool isDead;
     public Vector2 lastDirection = Vector2.down; // Default menghadap bawah

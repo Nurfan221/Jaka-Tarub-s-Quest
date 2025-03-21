@@ -132,20 +132,18 @@ public class Player_Inventory : MonoBehaviour
         if (inventoryOpened)
         {
             GameController.Instance.PauseGame();
-            Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Kayu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("IronIngot"));
-            Instance.AddItem(ItemPool.Instance.GetItem("IronIngot"));
-            Instance.AddItem(ItemPool.Instance.GetItem("IronIngot"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Batu"));
+
             Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
             Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Sword"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Kapak"));
-            Instance.AddItem(ItemPool.Instance.GetItem("CabbageSeed"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+
 
 
             inventoryUI.UpdateInventoryUI(); // Update UI when inventory is opened
@@ -299,7 +297,11 @@ public class Player_Inventory : MonoBehaviour
         else if(other.CompareTag("Animal"))
         {
             Debug.Log("animal terdeteksi");
-            miniGameHewanUI.Open(other.gameObject);
+            AnimalBehavior animalBehavior = other.GetComponent<AnimalBehavior>();
+            if (animalBehavior != null && animalBehavior.isAnimalEvent)
+            {
+                miniGameHewanUI.Open(other.gameObject);
+            }
 
             //AnimalBehavior animalBehavior = other.GetComponent<AnimalBehavior>();
             //animalBehavior.DropItem();

@@ -19,6 +19,7 @@ public class MiniGameHewanUI : MonoBehaviour
     public GameObject[] dropitems;
     [SerializeField] MiniGameHewanUI miniGameHewanUI;
     [SerializeField] Player_Inventory playerInventory;
+    [SerializeField] QuestManager questManager;
     public Rigidbody2D playerRb; // Tambahkan Rigidbody2D
     public RectTransform playerTransform;
 
@@ -60,6 +61,7 @@ public class MiniGameHewanUI : MonoBehaviour
     private Vector2 positionPlayer;
     private float cooldownProgress = 0f;
     private bool isCooldownActive = false;
+    public bool isEvent;
 
 
     [Header("Button")]
@@ -143,6 +145,7 @@ public class MiniGameHewanUI : MonoBehaviour
 
 
         AnimalBehavior animalBehavior = animalObjek.GetComponent<AnimalBehavior>();
+        isEvent = animalBehavior.isAnimalEvent;
         if (animalBehavior != null)
         {
             dropitems = new GameObject[animalBehavior.dropitems.Length];
@@ -280,38 +283,47 @@ public class MiniGameHewanUI : MonoBehaviour
             {
                 Win(); // Panggil fungsi kemenangan
 
-                // Pastikan 'animal' sudah diatur dari MiniGameHewanUI.Open()
-                if (animal != null && dropitems != null && dropitems.Length > 0)
+                if (isEvent)
                 {
-                    // Bersihkan quest sebelumnya hanya sekali sebelum menampilkan item
-                    foreach (Transform child in ContentGO)
-                    {
-                        if (child == SlotTemplate) continue;
-                        Destroy(child.gameObject);
-                    }
-
-                    // Tampilkan semua item drop dari dropitems
-                    foreach (var item in dropitems)
-                    {
-                        SpriteRenderer spriteRenderer = item.GetComponent<SpriteRenderer>();
-                        if (spriteRenderer != null)
-                        {
-                            Sprite itemImage = spriteRenderer.sprite;
-                            string itemName = item.name;
-                            CreateItemPrefab(itemImage, itemName);
-                        }
-                    }
-
-                    // Panggil DropItem() dari AnimalBehavior untuk menjatuhkan item
-                    AnimalBehavior animalBehavior = animal.GetComponent<AnimalBehavior>();
-                    if (animalBehavior != null)
-                    {
-                        animalBehavior.DropItem();
-                    }
+                    questManager.currentMainQuest.currentQuestState = MainQuest1State.BunuhRusa;
+                    questManager.NextQuestState();
+                    
                 }
                 else
                 {
-                    Debug.LogWarning("Animal atau dropitems tidak valid di MiniGameHewanUI.");
+                    // Pastikan 'animal' sudah diatur dari MiniGameHewanUI.Open()
+                    if (animal != null && dropitems != null && dropitems.Length > 0)
+                    {
+                        // Bersihkan quest sebelumnya hanya sekali sebelum menampilkan item
+                        foreach (Transform child in ContentGO)
+                        {
+                            if (child == SlotTemplate) continue;
+                            Destroy(child.gameObject);
+                        }
+
+                        // Tampilkan semua item drop dari dropitems
+                        foreach (var item in dropitems)
+                        {
+                            SpriteRenderer spriteRenderer = item.GetComponent<SpriteRenderer>();
+                            if (spriteRenderer != null)
+                            {
+                                Sprite itemImage = spriteRenderer.sprite;
+                                string itemName = item.name;
+                                CreateItemPrefab(itemImage, itemName);
+                            }
+                        }
+
+                        // Panggil DropItem() dari AnimalBehavior untuk menjatuhkan item
+                        AnimalBehavior animalBehavior = animal.GetComponent<AnimalBehavior>();
+                        if (animalBehavior != null)
+                        {
+                            animalBehavior.DropItem();
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Animal atau dropitems tidak valid di MiniGameHewanUI.");
+                    }
                 }
             }
         }
@@ -406,7 +418,7 @@ public class MiniGameHewanUI : MonoBehaviour
     }
 
 
-    // 🔹 Menambahkan event listener untuk menahan tombol
+    //Menambahkan event listener untuk menahan tombol
     private void AddHoldListener(Button button, Vector2 direction, Sprite[] animationSprites)
     {
         EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();

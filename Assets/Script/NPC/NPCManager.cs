@@ -140,6 +140,9 @@ public class NPCManager : MonoBehaviour
                 if (npcPrefab != null)
                 {
                     GameObject newNpc = Instantiate(npcPrefab, locationQuest, Quaternion.identity);
+
+                    //Mengubah scale menjadi (1,1,1)
+                    newNpc.transform.localScale = Vector3.one;
                     QuestInteractable questScript = newNpc.GetComponent<QuestInteractable>();
                     NPCBehavior behaviorScript = newNpc.GetComponent<NPCBehavior>();
 
@@ -155,7 +158,7 @@ public class NPCManager : MonoBehaviour
                     }
 
                     newNpc.name = objekNPC.npcName + "_Clone";
-                    //questManager.UpdateDisplayQuest();
+                    
                 }
                 else
                 {
@@ -164,7 +167,7 @@ public class NPCManager : MonoBehaviour
                 return;
             }
         }
-    Debug.LogWarning($"NPC {npc.name} tidak ditemukan dalam npcDataArray");
+        Debug.LogWarning($"NPC {npc.name} tidak ditemukan dalam npcDataArray");
     }
 
 

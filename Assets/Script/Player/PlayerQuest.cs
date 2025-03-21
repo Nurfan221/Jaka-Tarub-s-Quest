@@ -5,8 +5,10 @@ public class PlayerQuest : MonoBehaviour
 {
 
     [SerializeField] QuestManager questManager;
-    public GameObject objekMainQuest;
-    public int indexLocation;
+    [SerializeField] DialogueSystem dialogueSystem;
+    public GameObject locationMainQuest;
+    public Dialogues dialogueInLocation;
+    public GameObject environmentObject;
     public bool inLocation = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,15 +28,21 @@ public class PlayerQuest : MonoBehaviour
         if (!inLocation)
         {
             // Cek apakah objek yang masuk adalah
-            if (other.gameObject == objekMainQuest)
+            if (other.gameObject == locationMainQuest && !inLocation)
             {
                 // Panggil fungsi playMainLocationQuest dengan index yang sesuai
-                questManager.playMainLocationQuest(indexLocation);
+                int indexLocation = questManager.currentMainQuest.indexLocation;
+                dialogueSystem.theDialogues = dialogueInLocation;
+                dialogueSystem.StartDialogue();
 
-                // Tampilkan log untuk debugging
-                Debug.Log($"Objek {objekMainQuest.name} telah memasuki lokasi! Memanggil quest index {indexLocation}");
+                StartCoroutine(dialogueSystem.WaitForDialogueToEnd());
 
-                // Set agar fungsi tidak bisa dipanggil lagi
+                questManager.currentMainQuest.currentQuestState = MainQuest1State.CariRusa;
+
+                questManager.NextQuestState();
+
+               
+                //// Set agar fungsi tidak bisa dipanggil lagi
                 inLocation = true;
             }
             
@@ -44,6 +52,19 @@ public class PlayerQuest : MonoBehaviour
         
 
     }
- 
+
+    public void CariRusa()
+    {
+        Transform childTransform = locationMainQuest.transform.Find("Domba");
+        if (childTransform != null)
+        {
+            environmentObject = childTransform.gameObject;
+            environmentObject.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Child tidak ditemukan!");
+        }
+    }
 
 }

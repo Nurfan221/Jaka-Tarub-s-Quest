@@ -41,7 +41,7 @@ public class Player_Health : MonoBehaviour
 
     public void TakeDamage(int damage, Vector2 attackerPosition)
     {
-        //health -= damage;
+        health -= damage;
 
         if (player_Anim != null)
         {

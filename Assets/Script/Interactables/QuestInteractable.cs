@@ -34,6 +34,14 @@ public class QuestInteractable : Interactable
 
             dialogueSystem.StartDialogue();
 
+            if (npcObject != null)
+            {
+
+                //mulai dialogue untuk mimpi jaka tarub
+                questManager.currentMainQuest.currentQuestState = MainQuest1State.PergiKeLokasiQuest;
+                questManager.NextQuestState();
+            }
+
         }
         else
         {

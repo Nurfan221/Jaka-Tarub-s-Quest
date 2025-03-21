@@ -22,6 +22,7 @@ public class AnimalBehavior : MonoBehaviour
     public float moveSpeed;
     private Vector2 lastCollisionPoint; // Menyimpan posisi objek yang disentuh
     private bool isAvoiding = false;    // Menandakan apakah hewan sedang menghindar
+    public bool isAnimalEvent;
 
 
 

@@ -497,6 +497,8 @@ public class StorageUI : MonoBehaviour
 
     private void DeleteItemFromStorage()
     {
+        
+
         for (int i = theStorage.Items.Count - 1; i >= 0; i--)
         {
             Item item = theStorage.Items[i];
@@ -507,6 +509,7 @@ public class StorageUI : MonoBehaviour
 
                 if (item.stackCount <= 0)
                 {
+                    Debug.Log("delete item from storage");
                     theStorage.Items.RemoveAt(i);
                 }
                 return;

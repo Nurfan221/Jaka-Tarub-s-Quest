@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BanditHitbox : MonoBehaviour
 {
+    [SerializeField] QuestManager questManager;
     public Enemy_Bandit bandit; // Referensi ke skrip utama Bandit
     public int damageHit = 10; // Default damage
     public Player_Health playerHealth;
@@ -54,6 +55,16 @@ public class BanditHitbox : MonoBehaviour
                 bandit.isAttacking = false;
                 yield break; // Hentikan coroutine
             }
+
+            int sekaratThreshold = (int)(playerHealth.maxHealth * 0.3f); // 20% dari max health
+
+            if (playerHealth.health <= sekaratThreshold)
+            {
+                Debug.Log("Player sekarat! Memulai event kekalahan...");
+                
+            }
+
+
         }
     }
 

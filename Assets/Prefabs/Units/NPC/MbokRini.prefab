@@ -333,7 +333,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3333334, y: 1.3333334}
+    oldSize: {x: 1.6, y: 1.6}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useEvents: 0
-  promptMessage: Pak Wirya
+  promptMessage: Mbok Rini
   questManager: {fileID: 0}
   dialogueSystem: {fileID: 0}
   currentDialogue: {fileID: 0}
@@ -375,8 +375,9 @@ MonoBehaviour:
   dialogueSystem: {fileID: 0}
   npcManager: {fileID: 0}
   gameEconomy: {fileID: 0}
+  questInfoUI: {fileID: 0}
   npcAnimation: {fileID: 2517617769778707667}
-  npcName: PakWirya
+  npcName: MpokRini
   startPosition: {x: 0, y: 0, z: 0}
   movementSpeed: 2
   isMoving: 0
