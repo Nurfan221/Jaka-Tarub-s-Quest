@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Healing
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: "Tenang sekali di sini\u2026"
+  - name: Jaka Tarub
+    sentence: Seolah-olah dunia lupa caranya berisik.
+  - name: Jaka Tarub
+    sentence: "Aku sudah berjalan jauh\u2026"
+  - name: Jaka Tarub
+    sentence: "Melawan bandit, bertaruh nyawa\u2026 "
+  - name: Jaka Tarub
+    sentence: "tapi di tempat ini\u2026 semuanya terasa jauh."
+  - name: Jaka Tarub
+    sentence: "Aku jadi bertanya-tanya\u2026"
+  - name: Jaka Tarub
+    sentence: "Apakah takdirku memang penuh pertarungan\u2026"
+  - name: Jaka Tarub
+    sentence: "Atau\u2026 aku hanya lelaki yang terlalu penasaran sampai tersesat
+      sejauh ini?"
+  - name: Jaka Tarub
+    sentence: "Entahlah\u2026 Tapi kalau hidup selalu seruwet tadi, mungkin aku butuh
+      lebih banyak tempat seperti ini."
+  - name: Jaka Tarub
+    sentence: "Selama masih ada tempat untuk diam sejenak\u2026"
+  - name: Jaka Tarub
+    sentence: Aku rasa aku masih sanggup melangkah lagi.
+  mainSpeaker: 
+  promptAfterDialogue: 

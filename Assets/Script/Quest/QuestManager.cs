@@ -18,7 +18,6 @@ public enum MainQuest1State
     BunuhRusa,
     MunculBandit,
     Sekarat,
-    LariKeDanau,
     SceneDanauIndah,
     Pulang,
     SceneIbuMeninggal,
@@ -122,6 +121,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] LoadingScreenUI loadingScreenUI;
     [SerializeField] PlayerQuest playerQuest;
     [SerializeField] QuestInfoUI questInfoUI;
+    [SerializeField] LocationConfiguration locationConfiguration;
     public Transform questUI;
     public Transform displayMainQuest;
 
@@ -137,6 +137,8 @@ public class QuestManager : MonoBehaviour
     public int jedaMainQuest;
     public string mainQuestInfo;
     public Dialogues mainQuestDialogue;
+    public bool playerSekaratSudahDiproses = false;
+
 
 
     public Dialogues notFinished;
@@ -276,7 +278,7 @@ public class QuestManager : MonoBehaviour
     {
         Debug.Log("Play main Quest 1 di jalankan");
         //set cerita untuk mimpi jaka tarub 
-        questUI.gameObject.SetActive(true);
+
         //mulai dialogue untuk mimpi jaka tarub
         currentMainQuest.currentQuestState = MainQuest1State.Play;
         NextQuestState();
@@ -292,52 +294,62 @@ public class QuestManager : MonoBehaviour
 
     
 
-    public void NextQuestState()
-    {
-        switch (currentMainQuest.currentQuestState)
+        public void NextQuestState()
         {
-            case MainQuest1State.None:
+            switch (currentMainQuest.currentQuestState)
+            {
+                case MainQuest1State.None:
                  
 
-                currentMainQuest.currentQuestState = MainQuest1State.Play;
+                    currentMainQuest.currentQuestState = MainQuest1State.Play;
+                    break;
+                case MainQuest1State.Play:
+                    currentMainQuest.currentQuestState = MainQuest1State.MenemukanDanau;
+                    ShowDialogueAndSprite(0,0, true);
+                    break;
+                case MainQuest1State.PergiKeLokasiQuest:
+                    mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
+                    currentMainQuest.currentQuestState = MainQuest1State.PergiKeLokasiQuest;
+                    UpdateLocationMainQuest();
+                    break;
+                case MainQuest1State.CariRusa:
+                    playerQuest.CariRusa();
+                    break;
+                case MainQuest1State.BunuhRusa:
+                    MunculkanSpawnerBandit();
+                    break;
+                case MainQuest1State.Sekarat:
+                    currentMainQuest.indexLocation += 1;
+                    UpdateLocationMainQuest();
+                    break;
+                case MainQuest1State.SceneDanauIndah:
+                     ShowDialogueAndSprite(5, 1, true);
+                     locationConfiguration.mainQuestDanau = true;
                 break;
-            case MainQuest1State.Play:
-                currentMainQuest.currentQuestState = MainQuest1State.MenemukanDanau;
-                ShowDialogueAndSprite(0,true);
-                break;
-            case MainQuest1State.PergiKeLokasiQuest:
-                mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
-                currentMainQuest.currentQuestState = MainQuest1State.PergiKeLokasiQuest;
+                case MainQuest1State.Pulang:
                 UpdateLocationMainQuest();
                 break;
-            case MainQuest1State.CariRusa:
-                playerQuest.CariRusa();
-                break;
-            case MainQuest1State.BunuhRusa:
-                MunculkanSpawnerBandit();
-                break;
-            case MainQuest1State.Sekarat:
-                UpdateLocationMainQuest();
-                break;
-
+            }
         }
-    }
 
-    public void ShowDialogueAndSprite(int index, bool pakaiImage)
+    public void ShowDialogueAndSprite(int indexDialogue, int indexImage, bool pakaiImage)
     {
+        Debug.Log("Mulai Scene Cerita");
         if (pakaiImage)
         {
+            questUI.gameObject.SetActive(true);
+            //tentukan image yang ingin di tampilkan
             Image questImageUI = questUI.GetChild(0).GetComponent<Image>();
-            questImageUI.sprite = currentMainQuest.spriteQuest[index];
+            questImageUI.sprite = currentMainQuest.spriteQuest[indexImage];
 
             // Pastikan index tidak melebihi batas array
-            dialogueSystem.theDialogues = currentMainQuest.dialogueQuest[index];
+            dialogueSystem.theDialogues = currentMainQuest.dialogueQuest[indexDialogue];
             dialogueSystem.StartDialogue();
             StartCoroutine(dialogueSystem.WaitForDialogueToEnd());
         }else
         {
             // Pastikan index tidak melebihi batas array
-            dialogueSystem.theDialogues = currentMainQuest.dialogueQuest[index];
+            dialogueSystem.theDialogues = currentMainQuest.dialogueQuest[indexDialogue];
             dialogueSystem.StartDialogue();
             StartCoroutine(dialogueSystem.WaitForDialogueToEnd());
         }
@@ -357,8 +369,9 @@ public class QuestManager : MonoBehaviour
                 playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[2];
                 break;
             case 1:
+                Debug.Log("memanggil fungsi sekarat");  
                 childContentGo = ContentGO.transform.Find(mainQuestInfo);
-                currentMainQuest.indexLocation += 1;
+                
                 mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
                 childTemplateContentGo = childContentGo.GetComponentInChildren<TextMeshProUGUI>();
                 childContentGo.name = mainQuestInfo;
@@ -369,7 +382,23 @@ public class QuestManager : MonoBehaviour
 
                 playerQuest.locationMainQuest = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].locationQuest;
                 playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[4];
-                playerQuest.inLocation = false;
+                playerQuest.mainQuestInLocation = false;
+                break;
+            case 2:
+                Debug.Log("memanggil fungsi pulang");
+                childContentGo = ContentGO.transform.Find(mainQuestInfo);
+
+                mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
+                childTemplateContentGo = childContentGo.GetComponentInChildren<TextMeshProUGUI>();
+                childContentGo.name = mainQuestInfo;
+                childTemplateContentGo.text = mainQuestInfo;
+
+                dialogueSystem.theDialogues = currentMainQuest.dialogueQuest[3];
+                dialogueSystem.StartDialogue();
+
+                playerQuest.locationMainQuest = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].locationQuest;
+                playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[4];
+                playerQuest.mainQuestInLocation = false;
                 break;
         }
     }

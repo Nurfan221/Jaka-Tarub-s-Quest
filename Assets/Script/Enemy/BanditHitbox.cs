@@ -43,6 +43,24 @@ public class BanditHitbox : MonoBehaviour
             {
                 playerHealth.TakeDamage(damageHit, transform.position); // Kirim posisi musuh sebagai parameter
                 Debug.Log("Menyerang Player! Damage: " + damageHit);
+
+                int sekaratThreshold = (int)(playerHealth.maxHealth * 0.3f); // 20% dari max health
+
+                if (playerHealth.health <= sekaratThreshold)
+                {
+                    if (!questManager.playerSekaratSudahDiproses) // Cek apakah sudah diproses
+                    {
+                        Debug.Log("Player sekarat! Memulai event kekalahan...");
+
+                        questManager.playerSekaratSudahDiproses = true; // Set flag jadi true biar bandit lain nggak ikut-ikutan
+
+                        questManager.currentMainQuest.currentQuestState = MainQuest1State.Sekarat;
+                        questManager.NextQuestState(); // Trigger perubahan quest state
+
+
+                    }
+
+                }
             }
 
 
@@ -56,13 +74,7 @@ public class BanditHitbox : MonoBehaviour
                 yield break; // Hentikan coroutine
             }
 
-            int sekaratThreshold = (int)(playerHealth.maxHealth * 0.3f); // 20% dari max health
-
-            if (playerHealth.health <= sekaratThreshold)
-            {
-                Debug.Log("Player sekarat! Memulai event kekalahan...");
-                
-            }
+            
 
 
         }

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Quest2
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: Ini... danau itu..
+  - name: Jaka Tarub
+    sentence: Ini... danau itu..
+  - name: Jaka Tarub
+    sentence: Aku pernah melihat tempat ini...
+  - name: Jaka Tarub
+    sentence: Tapi kapan ?
+  - name: Jaka Tarub
+    sentence: Di mana ?
+  - name: Jaka Tarub
+    sentence: Apakah ini semua kebetulan? Atau... isyarat dari sesuatu yang lebih
+      besar?
+  - name: Jaka Tarub
+    sentence: Entah apa yang menungguku... tapi aku tak akan berhenti di sini.
+  mainSpeaker: Jaka Tarub
+  promptAfterDialogue: Menemukan danau yang indah
