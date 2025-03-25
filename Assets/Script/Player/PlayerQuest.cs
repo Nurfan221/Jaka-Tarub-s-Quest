@@ -1,4 +1,5 @@
 using UnityEngine;
+using static LocationManager;
 
 
 public class PlayerQuest : MonoBehaviour
@@ -24,72 +25,58 @@ public class PlayerQuest : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other)
-{
-    if (!mainQuestInLocation)
     {
-        if (other.gameObject == locationMainQuest)
+        // Pastikan hanya memicu sekali
+        if (!mainQuestInLocation)
         {
-            // Cek apakah objek yang masuk adalah quest location
-            switch (questManager.currentMainQuest.indexLocation)
+            // Cek lokasi quest utama seperti biasa
+            if (other.gameObject == locationMainQuest)
             {
-                case 0:
-                    ProsesLocationMainQuest(other, MainQuest1State.CariRusa);
-                    break;
-                case 1:
-                    ProsesLocationMainQuest(other, MainQuest1State.SceneDanauIndah);
-                    break;
-                
-            }
-        }
-    }
-
-    // Bagian ini untuk child atau lokasi spesifik lain, gak bergantung ke flag quest utama
-    LocationConfiguration locationConfiguration = other.GetComponent<LocationConfiguration>();
-    if (locationConfiguration != null)
-    {
-        if (locationConfiguration.lokasiSaatIni == Lokasi.Danau)
-        {
-                dialogueSystem.theDialogues = questManager.currentMainQuest.dialogueQuest[6];
-                dialogueSystem.StartDialogue();
-                locationConfiguration.inDanau = true;
-        }else if(locationConfiguration.lokasiSaatIni == Lokasi.RumahJaka)
-            {
-                locationConfiguration.inRumahJaka = true;
-            }
-    }
-}
-
-
-    public void OnTriggerExit(Collider other)
-    {
-        LocationConfiguration locationConfiguration = other.GetComponent<LocationConfiguration>();
-        if (locationConfiguration != null)
-        {
-            if (locationConfiguration.lokasiSaatIni == Lokasi.Danau)
-            {
-                if (locationConfiguration.mainQuestDanau)
+                switch (questManager.currentMainQuest.indexLocation)
                 {
-                    locationConfiguration.inDanau = false;
-                    locationConfiguration.mainQuestDanau = false;
-
-                    dialogueSystem.theDialogues = questManager.currentMainQuest.dialogueQuest[7];
-                    dialogueSystem.StartDialogue();
-                    questManager.currentMainQuest.indexLocation += 1;
-
-                    questManager.currentMainQuest.currentQuestState = MainQuest1State.Pulang;
-                    questManager.NextQuestState();
-
-
-                }
-                else
-                {
-                    locationConfiguration.inDanau = false;
+                    case 0:
+                        ProsesLocationMainQuest(other, MainQuest1State.CariRusa);
+                        break;
+                    case 1:
+                        ProsesLocationMainQuest(other, MainQuest1State.SceneDanauIndah);
+                        break;
                 }
             }
         }
 
+        // Loop untuk memeriksa semua lokasi dalam LocationArray
+        foreach (GameObjectLocation gol in locationManager.LocationArray)
+        {
+            if (other.gameObject == gol.Location)
+            {
+                //Debug.Log("Sedang di lokasi : " + locationMainQuest.name);
+                // Panggil logika tambahan jika lokasi terdeteksi
+
+                if (locationMainQuest != null && locationMainQuest.name == "SekitarDanau" && !locationManager.mainQuestDanau)
+                {
+                    locationManager.mainQuestDanau = true;
+                   
+                }
+                locationManager.HandleLocationEnter(gol);
+            }
+        }
     }
 
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        foreach (GameObjectLocation gol in locationManager.LocationArray)
+        {
+            if (collision.gameObject == gol.Location)
+            {
+
+                // Panggil logika tambahan jika lokasi terdeteksi
+                locationManager.HandleLocationExit(gol);
+            }
+        }
+    }
+
+  
     public void ProsesLocationMainQuest(Collider2D other, MainQuest1State mainQuest1State)
     {
         if (other.gameObject == locationMainQuest && !mainQuestInLocation)

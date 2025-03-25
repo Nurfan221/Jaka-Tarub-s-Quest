@@ -324,9 +324,9 @@ public class QuestManager : MonoBehaviour
                     break;
                 case MainQuest1State.SceneDanauIndah:
                      ShowDialogueAndSprite(5, 1, true);
-                     locationConfiguration.mainQuestDanau = true;
                 break;
                 case MainQuest1State.Pulang:
+                currentMainQuest.indexLocation += 1;
                 UpdateLocationMainQuest();
                 break;
             }
@@ -393,7 +393,7 @@ public class QuestManager : MonoBehaviour
                 childContentGo.name = mainQuestInfo;
                 childTemplateContentGo.text = mainQuestInfo;
 
-                dialogueSystem.theDialogues = currentMainQuest.dialogueQuest[3];
+                dialogueSystem.theDialogues = currentMainQuest.dialogueQuest[7];
                 dialogueSystem.StartDialogue();
 
                 playerQuest.locationMainQuest = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].locationQuest;
