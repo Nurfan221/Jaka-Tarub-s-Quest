@@ -324,33 +324,31 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
              
 
                 npc.itemQuest = item.itemName;
-            
+
 
                 // Kurangi stack item setelah memberi
                 if (npc.CheckItemGive(ref stackItem))
                 {
-                    
-                    item.stackCount = stackItem; // Perbarui jumlah stack dalam item
-                }
-                
-               
-                
-                if (stackItem <= 0)
-                {
-                    // Jika stack count habis, hapus item dari inventory
-                    Player_Inventory.Instance.RemoveItem(item);
-                    Debug.Log("Item habis dan dihapus dari inventory.");
-                }
-                else
-                {
-                    Debug.Log("Jumlah item tersisa: " + stackItem);
+                    item.stackCount = stackItem;
+                    Debug.Log("jumlah item quest yang di kurangi" + stackItem);
+
+                    if (stackItem <= 0)
+                    {
+                        Player_Inventory.Instance.RemoveItem(item);
+                        Debug.Log("Item habis dan dihapus dari inventory.");
+                    }
+                    else
+                    {
+                        Debug.Log("Jumlah item tersisa: " + stackItem);
+                    }
                 }
 
+
                 rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
-                
+
                 // Refresh UI setelah perubahan
-                //inventoryUI.RefreshInventoryItems();
-                //inventoryUI.UpdateSixItemDisplay();
+                inventoryUI.RefreshInventoryItems();
+                inventoryUI.UpdateSixItemDisplay();
                 break; // Keluar dari loop setelah menemukan item
             }
         }

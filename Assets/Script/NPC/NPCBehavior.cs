@@ -342,7 +342,7 @@ public class NPCBehavior : MonoBehaviour
 
             if (!isItemGiven)
             {
-                //Debug.Log("Tidak ada quest aktif atau item/NPC tidak sesuai.");
+                Debug.Log("Tidak ada quest aktif atau item/NPC tidak sesuai.");
             }
         }
 

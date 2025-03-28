@@ -33,7 +33,8 @@ public class LocationManager : MonoBehaviour
     [Header("Daftar nilai bool")]
     public bool inLokasi;
     public bool mainQuestDanau;
-    public bool hasDisplayedDanauDialogue = false; 
+    public bool hasDisplayedDanauDialogue = false;
+    public bool exitDanauScene = false;
     public bool inDanau;
     public bool inRumahJaka;
 
@@ -107,9 +108,15 @@ public class LocationManager : MonoBehaviour
                 // Misalnya, tampilkan dialog atau trigger event di sini
                 //dialogueSystem.theDialogues = questManager.currentMainQuest.dialogueQuest[6];
                 //dialogueSystem.StartDialogue();
+                if (mainQuestDanau)
+                {
+                    inDanau = false;
+                    questManager.currentMainQuest.currentQuestState = MainQuest1State.Pulang;
+                    questManager.NextQuestState();
+                    mainQuestDanau = false ;
+                    exitDanauScene = true;
+                }
                 inDanau = false;
-                questManager.currentMainQuest.currentQuestState = MainQuest1State.Pulang;
-                questManager.NextQuestState();
                 break;
 
             case Lokasi.RumahJaka:

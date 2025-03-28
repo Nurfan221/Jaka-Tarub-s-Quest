@@ -20,7 +20,7 @@ public enum MainQuest1State
     Sekarat,
     SceneDanauIndah,
     Pulang,
-    SceneIbuMeninggal,
+    KabarKesedihan,
     Selesai
 }
 
@@ -324,10 +324,17 @@ public class QuestManager : MonoBehaviour
                     break;
                 case MainQuest1State.SceneDanauIndah:
                      ShowDialogueAndSprite(5, 1, true);
-                break;
+                     HapusSparnerBandit();
+                     break;
                 case MainQuest1State.Pulang:
-                currentMainQuest.indexLocation += 1;
-                UpdateLocationMainQuest();
+                     currentMainQuest.indexLocation += 1;
+                     UpdateLocationMainQuest();
+                     break;
+                case MainQuest1State.KabarKesedihan:
+                     ShowDialogueAndSprite(8, 2 , true);
+                    break;
+                case MainQuest1State.Selesai:
+
                 break;
             }
         }
@@ -397,7 +404,7 @@ public class QuestManager : MonoBehaviour
                 dialogueSystem.StartDialogue();
 
                 playerQuest.locationMainQuest = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].locationQuest;
-                playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[4];
+                playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[8];
                 playerQuest.mainQuestInLocation = false;
                 break;
         }
@@ -410,8 +417,11 @@ public class QuestManager : MonoBehaviour
         if (currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].isSpawner)
         {
             currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].spawner.gameObject.SetActive(true);
-        } 
+        }
     }
 
-
+    public void HapusSparnerBandit()
+    {
+        currentMainQuest.locationMainQuest[currentMainQuest.indexLocation -1 ].spawner.gameObject.SetActive(false);
+    }
 }

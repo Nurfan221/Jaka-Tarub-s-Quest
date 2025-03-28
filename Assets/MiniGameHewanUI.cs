@@ -191,8 +191,9 @@ public class MiniGameHewanUI : MonoBehaviour
 
 
         StartCoroutine(ChangeLight());
+        GameController.Instance.ShowPersistentUI(false);
+        GameController.Instance.PauseGame();
 
-        
 
     }
 
@@ -201,6 +202,8 @@ public class MiniGameHewanUI : MonoBehaviour
     public void Close()
     {
         miniGameHewanUI.gameObject.SetActive(false);
+        GameController.Instance.ShowPersistentUI(true);
+        GameController.Instance.ResumeGame();
         playerTransform.position = positionPlayer;
 
         // Jika ingin cooldown langsung selesai saat ditutup

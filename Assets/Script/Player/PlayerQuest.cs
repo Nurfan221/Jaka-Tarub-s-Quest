@@ -8,6 +8,7 @@ public class PlayerQuest : MonoBehaviour
     [SerializeField] QuestManager questManager;
     [SerializeField] DialogueSystem dialogueSystem;
     [SerializeField] LocationManager locationManager;
+    [SerializeField] Player_Health player_Health;
     public GameObject locationMainQuest;
     public Dialogues dialogueInLocation;
     public GameObject environmentObject;
@@ -39,6 +40,11 @@ public class PlayerQuest : MonoBehaviour
                         break;
                     case 1:
                         ProsesLocationMainQuest(other, MainQuest1State.SceneDanauIndah);
+                        break;
+                    case 2:
+                        ProsesLocationMainQuest(other, MainQuest1State.KabarKesedihan);
+                        player_Health.isInGrief = true;
+                        player_Health.emotionalHealthCap = 50;
                         break;
                 }
             }

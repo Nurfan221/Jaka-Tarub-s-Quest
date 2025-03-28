@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: KabarKesedihan
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: Apa yang terjadi di sini? Kenapa rumahku... ramai seperti ini?
+  - name: Fahri Pranajaya
+    sentence: "Jaka\u2026 bersabarlah, Nak. Kami semua berkumpul\u2026 karena ibumu."
+  - name: Jaka Tarub
+    sentence: Ibu?
+  - name: Jaka Tarub
+    sentence: Apa yang... maksud Bapak?
+  - name: Ratri Wulandari
+    sentence: "Ibumu\u2026"
+  - name: Ratri Wulandari
+    sentence: "Ibumu\u2026 ditemukan terbaring di kamarnya, Jaka."
+  - name: Ratri Wulandari
+    sentence: "Ia pergi dalam tidur. Kami\u2026 menduganya kelelahan."
+  - name: 'Jaka Tarub '
+    sentence: "Tidak\u2026"
+  - name: Jaka Tarub
+    sentence: "tidak mungkin\u2026"
+  - name: Jaka Tarub
+    sentence: Pagi tadi beliau masih mengucapkan doa untukku..
+  - name: Jaka Tarub
+    sentence: Aku bahkan tak sempat mengucapkan terima kasih... tak sempat pamit...
+  - name: Amru Kusnadi
+    sentence: "Kami masuk setelah tak ada suara dari dalam. Ibumu\u2026 terlihat
+      damai, seolah hanya tidur siang biasa."
+  - name: Fahri Pranajaya
+    sentence: "Beliau pergi tanpa beban, Jaka. Tapi ia meninggalkan doa\u2014doa
+      untuk anak yang selalu ia banggakan."
+  - name: Fahri Pranajaya
+    sentence: "Jika aku tahu hari ini adalah pertemuan terakhir\u2026 aku tak akan
+      pergi dari sisinya."
+  mainSpeaker: Jaka Tarub
+  promptAfterDialogue: Kabar Kesedihan

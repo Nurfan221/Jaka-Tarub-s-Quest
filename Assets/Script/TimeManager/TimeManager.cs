@@ -10,9 +10,10 @@ public class TimeManager : MonoBehaviour
 
     [SerializeField] private WeatherManager weatherManager;
     [SerializeField] private FarmTile farmTile;
-    [SerializeField] private NPCManager npcManager;
+    //[SerializeField] private NPCManager npcManager;
     [SerializeField] private QuestManager questManager;
-    [SerializeField] private DialogueSystem dialogueSystem;
+    //[SerializeField] private DialogueSystem dialogueSystem;
+    [SerializeField] public Player_Health player_Health;
     [SerializeField] private ShopUI shopUI;
 
     [Header("Date & Time settings")]
@@ -116,6 +117,8 @@ public class TimeManager : MonoBehaviour
 
         questManager.CheckQuest();
         shopUI.RestockDaily(currentSeason);
+
+        player_Health.ReverseHealthandStamina();
 
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
