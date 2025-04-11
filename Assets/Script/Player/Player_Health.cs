@@ -13,7 +13,7 @@ public class Player_Health : MonoBehaviour
     public int health = 100;
 
     [Header("STAMINA VALUE")]
-    public float maxStamina = 100;
+    public int maxStamina = 100;
     public float stamina = 100;
     public float staminaRegenRate = 15;
 
@@ -30,13 +30,13 @@ public class Player_Health : MonoBehaviour
         health = maxHealth;
         stamina = maxStamina;
         emotionalHealthCap = maxHealth;
-        emotionalStaminaCap = (int)maxStamina;
+        emotionalStaminaCap = maxStamina;
     }
 
     void Update()
     {
         int currentHealthCap = isInGrief ? emotionalHealthCap : maxHealth;
-        float currentStaminaCap = isInGrief ? emotionalStaminaCap : maxStamina;
+        int currentStaminaCap = isInGrief ? emotionalStaminaCap : maxStamina;
 
         // Clamp untuk pastikan current tidak melebihi cap
         health = Mathf.Clamp(health, 0, currentHealthCap);
@@ -44,7 +44,7 @@ public class Player_Health : MonoBehaviour
 
         // Update UI
         PlayerUI.Instance.healthUI.fillAmount = (float)health / maxHealth;
-        PlayerUI.Instance.staminaUI.fillAmount = stamina / maxStamina;
+        PlayerUI.Instance.staminaUI.fillAmount = (float)stamina / maxStamina;
 
         // Regen stamina
         float regenRate = isInGrief ? staminaRegenRate * 0.3f : staminaRegenRate;
@@ -128,8 +128,12 @@ public class Player_Health : MonoBehaviour
         int currentHealthCap = isInGrief ? emotionalHealthCap : maxHealth;
         float currentStaminaCap = isInGrief ? emotionalStaminaCap : maxStamina;
 
+        Debug.Log("health awal " + health);
         health = currentHealthCap;
+        Debug.Log("health sekarang" + health);
+        Debug.Log("Stamina awal " + stamina);
         stamina = currentStaminaCap;
+        Debug.Log("Stamina saat ini " + stamina);
     }
 
     /// <summary>

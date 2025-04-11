@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 using Unity.VisualScripting;
+using static QuestManager;
+using static UnityEditor.Progress;
 
 
 public class NPCBehavior : MonoBehaviour
@@ -274,11 +276,11 @@ public class NPCBehavior : MonoBehaviour
         // Debug.Log("NPC muncul kembali setelah fade-in");
     }
 
-     public void ReceiveItem(Item item)
-    {
-        Debug.Log("NPC menerima item: " + item.name);
-        // Tambahkan logika untuk menerima item
-    }
+    //public void ReceiveItem(Item item)
+    //{
+    //    Debug.Log("NPC menerima item: " + item.name);
+    //    // Tambahkan logika untuk menerima item
+    //}
 
     public bool CheckItemGive( ref int stackItem)
     {
@@ -322,6 +324,8 @@ public class NPCBehavior : MonoBehaviour
 
         }
 
+
+
         // checked jika item tidak ada di dalam quest
         // maka akan menambahkan point frendships sesuai array frendships
         // CheckItemForfrendship(); // Loop tambahan: Cek itemQuest pada array friendship NPC
@@ -347,6 +351,25 @@ public class NPCBehavior : MonoBehaviour
         }
 
         return isItemGiven;
+    }
+
+    public void CheckGiveMainQuest(int stackItem)
+    {
+        if (questManager.currentMainQuest != null)
+        {
+            if (questManager.currentMainQuest.NPC.name == npcName)
+            {
+                foreach (var item in questManager.currentMainQuest.itemQuests)
+                {
+                    if (itemQuest == item.item.name && item.jumlah > 0)
+                    {
+                        int jumlahDiBerikan = Mathf.Min(stackItem, item.jumlah);
+                        item.jumlah -= jumlahDiBerikan;
+                        stackItem = jumlahDiBerikan;
+                    }
+                }
+            }
+        }
     }
 
 
@@ -428,6 +451,69 @@ public class NPCBehavior : MonoBehaviour
         }
     }
 
+    public void CheckFinishMainQuest()
+    {
+        bool allItemMainQuest = true;
+       foreach(var item in questManager.currentMainQuest.itemQuests)
+        {
+            if (item.jumlah >0)
+            {
+                allItemMainQuest = false;
+                break;
+            }
+
+           
+        }
+
+        if (allItemMainQuest)
+        {
+            // Tandai quest selesai dan jalankan dialog selesai
+            questManager.currentMainQuest.finish.TheDialogues[0].name = npcName;
+            questManager.currentMainQuest.finish.mainSpeaker = npcName;
+            dialogueSystem.theDialogues = questManager.currentMainQuest.finish;
+            dialogueSystem.StartDialogue();
+            gameEconomy.money += questManager.currentMainQuest.reward;
+
+            if (questManager.currentMainQuest.rewards.Length > 0)
+            {
+                dialogueSystem.theDialogues = questManager.currentMainQuest.rewardItemQuest;
+                dialogueSystem.StartDialogue();
+                for (int i = 0; i < questManager.currentMainQuest.rewards.Length; i++)
+                {
+                    // Pastikan itemReward tidak null untuk menghindari NullReferenceException
+                    if (questManager.currentMainQuest.rewards[i].itemReward != null)
+                    {
+                        // Mengambil nama item dari itemReward
+                        string itemRewardName = questManager.currentMainQuest.rewards[i].itemReward.name;
+                        GameObject itemReward = questManager.currentMainQuest.rewards[i].itemReward;
+
+                        // Debug untuk memastikan nama itemReward terambil dengan benar
+                        Debug.Log($"Item Reward Name: {itemRewardName}");
+
+                        // Men-drop item menggunakan ItemPool
+                        ItemPool.Instance.DropItem(itemRewardName, transform.position + new Vector3(0, 0.5f, 0), itemReward);
+                    }
+                }
+            }
+
+
+            Debug.Log("selesai: " + questManager.currentMainQuest.questName);
+            questManager.currentMainQuest.questComplete = true;
+            
+            questManager.currentMainQuest.questActive = false;
+            questManager.MainQuestSelesai();
+            questInfoUI.SetQuestInActive(questManager.currentMainQuest.questName);
+
+        }
+        else
+        {
+            // Dialog "belum selesai"
+            questManager.notFinished.TheDialogues[0].name = npcName;
+            questManager.notFinished.mainSpeaker = npcName;
+            dialogueSystem.theDialogues = questManager.notFinished;
+            dialogueSystem.StartDialogue();
+        }
+    }
 
     private int CheckFriendshipItem(NPCManager.Frendship friendship, string itemName, ref int stackItem)
     {

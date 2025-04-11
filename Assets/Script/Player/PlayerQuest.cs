@@ -44,7 +44,12 @@ public class PlayerQuest : MonoBehaviour
                     case 2:
                         ProsesLocationMainQuest(other, MainQuest1State.KabarKesedihan);
                         player_Health.isInGrief = true;
-                        player_Health.emotionalHealthCap = 50;
+                        player_Health.emotionalHealthCap = player_Health.maxHealth /2;
+                        player_Health.emotionalStaminaCap = player_Health.maxStamina /2;
+
+                        break;
+                    case 3:
+                        ProsesLocationMainQuest(other, MainQuest1State.PermintaanMamat);
                         break;
                 }
             }

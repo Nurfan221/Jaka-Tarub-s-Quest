@@ -15,6 +15,7 @@ public class TimeManager : MonoBehaviour
     //[SerializeField] private DialogueSystem dialogueSystem;
     [SerializeField] public Player_Health player_Health;
     [SerializeField] private ShopUI shopUI;
+    [SerializeField] private SpawnerManager spawnerManager;
 
     [Header("Date & Time settings")]
     public int totalHari = 1;
@@ -25,6 +26,7 @@ public class TimeManager : MonoBehaviour
     public int tahun = 1;
     public Days currentDay = Days.Mon;
     public Season currentSeason = Season.Rain;
+    public float dailyLuck;
 
     [Header("Logika Waktu")]
     public int secondsIncrease = 10;
@@ -119,6 +121,8 @@ public class TimeManager : MonoBehaviour
         shopUI.RestockDaily(currentSeason);
 
         player_Health.ReverseHealthandStamina();
+        GetLuck();
+        spawnerManager.CheckChapter1IsDone(dailyLuck);
 
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
@@ -133,8 +137,26 @@ public class TimeManager : MonoBehaviour
 
         // Debug jumlah listener yang terdaftar
         Debug.Log($"Jumlah pohon yang menerima event: {registeredTrees.Count}");
-    }
+   }
 
+    public void GetLuck()
+    {
+        float randomValue = UnityEngine.Random.Range(0f, 1f);
+        // Pembobotan lebih besar pada angka 1
+        if (randomValue < 0.5f)  // 50% peluang untuk mendapatkan angka lebih dekat ke 1
+        {
+            dailyLuck = 0f;
+        }
+        else if (randomValue < 0.8f)  // 30% peluang untuk mendapatkan angka antara 1 dan 3
+        {
+            dailyLuck = UnityEngine.Random.Range(1f, 2f);  // Nilai acak antara 1 dan 2
+        }
+        else  // 20% peluang untuk mendapatkan 3
+        {
+            dailyLuck = 3f;
+        }
+
+    }
 
     private void UpdateSeason()
     {

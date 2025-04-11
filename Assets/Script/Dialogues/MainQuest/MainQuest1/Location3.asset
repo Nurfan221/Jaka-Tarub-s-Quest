@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Location3
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: Hmmm... ada yang terasa janggal... sepertinya aku melupakan sesuatu
+      yang penting.
+  - name: Jaka Tarub
+    sentence: Ah... sekarang aku ingat... Mamat. Dia meminta daging rusa.
+  - name: Jaka Tarub
+    sentence: Kenapa aku bisa lupa...?
+  - name: Jaka Tarub
+    sentence: Ibu... aku terlalu tenggelam dalam kesedihan... Rasanya seperti semua
+      kenangan bersama ibu masih menghantui.
+  - name: Jaka Tarub
+    sentence: Baiklah, aku harus pergi berburu ke hutan. Untuk Mamat... dan juga
+      untuk ibu.
+  - name: Jaka Tarub
+    sentence: Aku harus mengingatnya, meski perasaan ini... sulit sekali untuk dilepaskan.
+  mainSpeaker: Jaka Tarub
+  promptAfterDialogue: Permintaan Mamat

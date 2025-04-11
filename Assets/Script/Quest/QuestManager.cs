@@ -21,7 +21,9 @@ public enum MainQuest1State
     SceneDanauIndah,
     Pulang,
     KabarKesedihan,
-    Selesai
+    MisiYangBelumSelesai,
+    PermintaanMamat,
+    Selesai,
 }
 
 public class QuestManager : MonoBehaviour
@@ -122,6 +124,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] PlayerQuest playerQuest;
     [SerializeField] QuestInfoUI questInfoUI;
     [SerializeField] LocationConfiguration locationConfiguration;
+    [SerializeField] SpawnerManager spawnerManager;
     public Transform questUI;
     public Transform displayMainQuest;
 
@@ -181,7 +184,7 @@ public class QuestManager : MonoBehaviour
         Debug.Log("tanggal sekarang : " + timeManager.date + 1);
         if (currentMainQuest != null && (timeManager.date + 1) == currentMainQuest.date)
         {
-            PlayMainQuest1();
+            PlayMainQuest();
         }
     }
 
@@ -274,9 +277,32 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public void PlayMainQuest1()
+    public void MainQuestSelesai()
     {
-        Debug.Log("Play main Quest 1 di jalankan");
+        if (currentMainQuest != null)
+        {
+            currentMainQuest.questActive = false; // Tandai quest sebagai selesai
+            Debug.Log($"Main Quest {currentMainQuest.questName} selesai!");
+
+            // Setelah quest selesai, ambil quest berikutnya jika ada
+            if (mainQuestQueue.Count > 0)
+            {
+                currentMainQuest = mainQuestQueue.Dequeue(); // Ambil quest berikutnya dari queue
+                currentMainQuest.questActive = true; // Tandai quest berikutnya sebagai aktif
+                currentMainQuest.date = timeManager.date + 2;
+                Debug.Log($"Main Quest Dimulai: {currentMainQuest.questName}");
+            }
+            else
+            {
+                currentMainQuest = null; // Jika tidak ada quest lagi
+                Debug.Log("Tidak ada Main Quest yang tersisa!");
+            }
+        }
+    }
+
+    public void PlayMainQuest()
+    {
+        Debug.Log("Play main Quest di jalankan");
         //set cerita untuk mimpi jaka tarub 
 
         //mulai dialogue untuk mimpi jaka tarub
@@ -319,7 +345,7 @@ public class QuestManager : MonoBehaviour
                     MunculkanSpawnerBandit();
                     break;
                 case MainQuest1State.Sekarat:
-                    currentMainQuest.indexLocation += 1;
+                    currentMainQuest.indexLocation++;
                     UpdateLocationMainQuest();
                     break;
                 case MainQuest1State.SceneDanauIndah:
@@ -327,15 +353,30 @@ public class QuestManager : MonoBehaviour
                      HapusSparnerBandit();
                      break;
                 case MainQuest1State.Pulang:
-                     currentMainQuest.indexLocation += 1;
+                     currentMainQuest.indexLocation++;
                      UpdateLocationMainQuest();
                      break;
                 case MainQuest1State.KabarKesedihan:
                      ShowDialogueAndSprite(8, 2 , true);
+                     currentMainQuest.currentQuestState = MainQuest1State.MisiYangBelumSelesai;
+                     NextQuestState();
+                     
                     break;
-                case MainQuest1State.Selesai:
+                case MainQuest1State.MisiYangBelumSelesai:
+               
+                    currentMainQuest.indexLocation++;
+                    UpdateLocationMainQuest();
+                    break;
+                case MainQuest1State.PermintaanMamat:
+                mainQuestInfo = "Permintaan Mamat yang Terlupakan";
+                mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
+                childTemplateContentGo = childContentGo.GetComponentInChildren<TextMeshProUGUI>();
+                childContentGo.name = mainQuestInfo;
+                childTemplateContentGo.text = mainQuestInfo;
 
+                spawnerManager.chapter1IsDone = true;
                 break;
+
             }
         }
 
@@ -407,6 +448,19 @@ public class QuestManager : MonoBehaviour
                 playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[8];
                 playerQuest.mainQuestInLocation = false;
                 break;
+            case 3:
+                Debug.Log("memanggil fungsi lupa sesuatu");
+                childContentGo = ContentGO.transform.Find(mainQuestInfo);
+                mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
+                childTemplateContentGo = childContentGo.GetComponentInChildren<TextMeshProUGUI>();
+                childContentGo.name = mainQuestInfo;
+                childTemplateContentGo.text = mainQuestInfo;
+
+                playerQuest.locationMainQuest = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].locationQuest;
+                playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[9];
+                playerQuest.mainQuestInLocation = false;
+                break;
+
         }
     }
 
@@ -424,4 +478,7 @@ public class QuestManager : MonoBehaviour
     {
         currentMainQuest.locationMainQuest[currentMainQuest.indexLocation -1 ].spawner.gameObject.SetActive(false);
     }
+
+    
+    
 }

@@ -16,6 +16,7 @@ public class AnimalSpawner : MonoBehaviour
     {
         public SpawnCategory category; // Kategori spawn
         public GameObject[] animals;   // Array prefab hewan untuk kategori ini
+        public GameObject animalsSpesial;
     }
 
     public List<AnimalPool> animalPools = new List<AnimalPool>();
@@ -24,8 +25,9 @@ public class AnimalSpawner : MonoBehaviour
     [SerializeField] private Collider2D spawnArea; // Area spawn menggunakan Collider2D
     [SerializeField] private float spawnCD = 2f;   // Cooldown spawn
     private float spawnTimer;
-    public int spawnCount = 2;                     // Jumlah hewan yang akan spawn
+    public int maxSpawnCount = 2;                     // Jumlah hewan yang akan spawn
     private SpawnCategory currentCategory = SpawnCategory.None; // Kategori spawn yang aktif
+    public GameObject currentAnimalSpesial;
 
     private List<GameObject> enemies = new List<GameObject>(); // Daftar musuh/hewan yang sudah di-spawn
 
@@ -41,8 +43,9 @@ public class AnimalSpawner : MonoBehaviour
         // Daftar ke event OnHourChanged di TimeManager
         TimeManager.OnHourChanged += UpdateSpawnCategory;
 
+        int spawnAnimal =  Random.Range(0, maxSpawnCount);
         // Spawn awal hewan
-        for (int i = 0; i < spawnCount; i++)
+        for (int i = 0; i < spawnAnimal; i++)
         {
             if (CanSpawn)
                 SpawnAnimal();
@@ -57,7 +60,7 @@ public class AnimalSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (enemies.Count < spawnCount && CanSpawn)
+        if (enemies.Count < maxSpawnCount && CanSpawn)
         {
             spawnTimer += Time.deltaTime;
             if (spawnTimer > spawnCD)
@@ -89,6 +92,17 @@ public class AnimalSpawner : MonoBehaviour
         newEnemy.transform.localScale = Vector3.one;
 
         enemies.Add(newEnemy);
+        int spawnAnimalSpesial = Random.Range(0, 1);
+        GameObject animalSpesial = GetRandomAnimalFromCategory(currentCategory);
+        if (spawnAnimalSpesial < 0.8f)
+        {
+            // Spawn hewan di posisi yang valid
+            GameObject newAnimalSpesial = Instantiate(currentAnimalSpesial);
+            newAnimalSpesial.transform.position = GetSpawnPosition();
+            newAnimalSpesial.transform.localScale = Vector3.one;  // Pastikan skala 1,1,1
+            newAnimalSpesial.transform.parent = transform;        // Atur parent setelahnya
+        }
+
     }
 
     private GameObject GetRandomAnimalFromCategory(SpawnCategory category)
@@ -102,6 +116,7 @@ public class AnimalSpawner : MonoBehaviour
                     int index = Random.Range(0, pool.animals.Length);
                     return pool.animals[index];
                 }
+                currentAnimalSpesial = pool.animalsSpesial;
             }
         }
         return null;

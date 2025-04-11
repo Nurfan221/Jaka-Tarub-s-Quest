@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BanditHitbox : MonoBehaviour
@@ -8,7 +9,7 @@ public class BanditHitbox : MonoBehaviour
     public int damageHit = 10; // Default damage
     public Player_Health playerHealth;
     public float jedaSerangan = 1.5f; // Jeda antar serangan
-
+    public bool isBanditQuest = false;
     private bool playerDiHitbox = false; // Untuk memastikan serangan tidak dobel
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -44,27 +45,22 @@ public class BanditHitbox : MonoBehaviour
                 playerHealth.TakeDamage(damageHit, transform.position); // Kirim posisi musuh sebagai parameter
                 Debug.Log("Menyerang Player! Damage: " + damageHit);
 
-                int sekaratThreshold = (int)(playerHealth.maxHealth * 0.3f); // 20% dari max health
-
-                if (playerHealth.health <= sekaratThreshold)
+                if (isBanditQuest)
                 {
-                    if (!questManager.playerSekaratSudahDiproses) // Cek apakah sudah diproses
+                    int sekaratThreshold = (int)(playerHealth.maxHealth * 0.3f);
+                    if (playerHealth.health <= sekaratThreshold && !questManager.playerSekaratSudahDiproses)
                     {
                         Debug.Log("Player sekarat! Memulai event kekalahan...");
-
-                        questManager.playerSekaratSudahDiproses = true; // Set flag jadi true biar bandit lain nggak ikut-ikutan
-
+                        questManager.playerSekaratSudahDiproses = true;
                         questManager.currentMainQuest.currentQuestState = MainQuest1State.Sekarat;
-                        questManager.NextQuestState(); // Trigger perubahan quest state
-
-
+                        questManager.NextQuestState();
                     }
-
                 }
             }
 
 
             yield return new WaitForSeconds(jedaSerangan);
+            
 
             // Jika player keluar dari hitbox, hentikan serangan
             if (!playerDiHitbox)
@@ -74,7 +70,7 @@ public class BanditHitbox : MonoBehaviour
                 yield break; // Hentikan coroutine
             }
 
-            
+            playerDiHitbox = false;
 
 
         }

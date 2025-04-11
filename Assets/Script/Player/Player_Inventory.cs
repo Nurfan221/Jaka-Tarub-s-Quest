@@ -143,7 +143,8 @@ public class Player_Inventory : MonoBehaviour
             Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
             Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
             Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-
+            Instance.AddItem(ItemPool.Instance.GetItem("DagingSapiSpesial"));
+            Instance.AddItem(ItemPool.Instance.GetItem("DagingSapiSpesial"));
 
 
             inventoryUI.UpdateInventoryUI(); // Update UI when inventory is opened

@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 {
     public static GameObject persistent;
     public static GameController Instance;
+    [SerializeField] Player_Movement player_Movement;
 
     public static bool NewGame = true;
     public static int LatestMap = 1;
@@ -153,6 +154,7 @@ public class GameController : MonoBehaviour
     {
         gamePaused = true;
         Time.timeScale = 0;
+       player_Movement.movement = Vector2.zero;
     }
 
     public void ResumeGame()
