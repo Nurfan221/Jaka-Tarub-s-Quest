@@ -125,6 +125,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] QuestInfoUI questInfoUI;
     [SerializeField] LocationConfiguration locationConfiguration;
     [SerializeField] SpawnerManager spawnerManager;
+    [SerializeField] LocationManager locationManager;
     public Transform questUI;
     public Transform displayMainQuest;
 
@@ -330,7 +331,6 @@ public class QuestManager : MonoBehaviour
                     currentMainQuest.currentQuestState = MainQuest1State.Play;
                     break;
                 case MainQuest1State.Play:
-                    currentMainQuest.currentQuestState = MainQuest1State.MenemukanDanau;
                     ShowDialogueAndSprite(0,0, true);
                     break;
                 case MainQuest1State.PergiKeLokasiQuest:
@@ -357,23 +357,20 @@ public class QuestManager : MonoBehaviour
                      UpdateLocationMainQuest();
                      break;
                 case MainQuest1State.KabarKesedihan:
-                     ShowDialogueAndSprite(8, 2 , true);
-                     currentMainQuest.currentQuestState = MainQuest1State.MisiYangBelumSelesai;
-                     NextQuestState();
-                     
-                    break;
+                    ShowDialogueAndSprite(8, 2 , true);
+                locationManager.mainQuestMisiYangTerlupakan = true;
+                break;
                 case MainQuest1State.MisiYangBelumSelesai:
-               
                     currentMainQuest.indexLocation++;
                     UpdateLocationMainQuest();
                     break;
                 case MainQuest1State.PermintaanMamat:
-                mainQuestInfo = "Permintaan Mamat yang Terlupakan";
+                mainQuestInfo = "Cari daging rusa untuk Mamat";
                 mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
                 childTemplateContentGo = childContentGo.GetComponentInChildren<TextMeshProUGUI>();
                 childContentGo.name = mainQuestInfo;
                 childTemplateContentGo.text = mainQuestInfo;
-
+                
                 spawnerManager.chapter1IsDone = true;
                 break;
 
@@ -459,6 +456,9 @@ public class QuestManager : MonoBehaviour
                 playerQuest.locationMainQuest = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].locationQuest;
                 playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[9];
                 playerQuest.mainQuestInLocation = false;
+                Debug.Log("main quest in location di set ke false");
+                Debug.Log("index location : " + currentMainQuest.indexLocation);
+                Debug.Log(playerQuest.mainQuestInLocation);
                 break;
 
         }

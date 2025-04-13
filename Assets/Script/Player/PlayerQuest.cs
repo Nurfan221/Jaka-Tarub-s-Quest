@@ -90,6 +90,7 @@ public class PlayerQuest : MonoBehaviour
   
     public void ProsesLocationMainQuest(Collider2D other, MainQuest1State mainQuest1State)
     {
+        Debug.Log("proses location main quest di panggil");
         if (other.gameObject == locationMainQuest && !mainQuestInLocation)
         {
             // Panggil fungsi playMainLocationQuest dengan index yang sesuai

@@ -20,6 +20,7 @@ public class MiniGameHewanUI : MonoBehaviour
     [SerializeField] MiniGameHewanUI miniGameHewanUI;
     [SerializeField] Player_Inventory playerInventory;
     [SerializeField] QuestManager questManager;
+    [SerializeField] Player_Movement playerMovement;
     public Rigidbody2D playerRb; // Tambahkan Rigidbody2D
     public RectTransform playerTransform;
 
@@ -47,7 +48,7 @@ public class MiniGameHewanUI : MonoBehaviour
     public Sprite[] walkDownSprites;
     public Sprite[] walkLeftSprites;
     public Sprite[] walkRightSprites;
-    public Sprite[] takeDamage; 
+    public Sprite[] takeDamage;
     public Sprite idleSprites;
 
     public float moveSpeed = 100f; // Kecepatan gerak
@@ -97,17 +98,18 @@ public class MiniGameHewanUI : MonoBehaviour
         AddHoldListener(btnRight, Vector2.right, walkRightSprites);
 
         btnSprint.onClick.AddListener(ToggleSprint);
-       
+
 
         currentSpeed = moveSpeed; // Set default speed
         positionPlayer = playerTransform.position;
 
 
         //StartCoroutine(ChangeLight());
+
     }
 
 
-    
+
     void Update()
     {
         if (isMoving)
@@ -156,7 +158,7 @@ public class MiniGameHewanUI : MonoBehaviour
             }
 
             animalIdle = new Sprite[animalBehavior.animalIdle.Length];
-            for(int i = 0;i < animalIdle.Length; i++)
+            for (int i = 0; i < animalIdle.Length; i++)
             {
                 animalIdle[i] = animalBehavior.animalIdle[i];
             }
@@ -193,7 +195,9 @@ public class MiniGameHewanUI : MonoBehaviour
         StartCoroutine(ChangeLight());
         GameController.Instance.ShowPersistentUI(false);
         //GameController.Instance.PauseGame();
-
+        
+        playerMovement.movement = Vector2.zero;
+        playerMovement.isMoving = false;
 
     }
 
@@ -253,7 +257,7 @@ public class MiniGameHewanUI : MonoBehaviour
 
         }
     }
-     
+
 
 
     private bool IsColliding(Vector2 targetPosition)
@@ -290,7 +294,7 @@ public class MiniGameHewanUI : MonoBehaviour
                 {
                     questManager.currentMainQuest.currentQuestState = MainQuest1State.BunuhRusa;
                     questManager.NextQuestState();
-                    
+
                 }
                 else
                 {
@@ -330,7 +334,7 @@ public class MiniGameHewanUI : MonoBehaviour
                 }
             }
         }
-            
+
 
         return false; // Tidak ada tabrakan
     }
@@ -441,14 +445,14 @@ public class MiniGameHewanUI : MonoBehaviour
         trigger.triggers.Add(pointerUp);
     }
 
-    
+
 
     private void StartMoving(Vector2 direction, Sprite[] animationSprites)
     {
         moveDirection = direction;
         isMoving = true;
 
-        if(currentAnimation != null)
+        if (currentAnimation != null)
         {
             StopCoroutine(currentAnimation);
         }
@@ -462,7 +466,7 @@ public class MiniGameHewanUI : MonoBehaviour
         if (playerImage != null)
         {
             playerImage.sprite = idleSprites;
-            
+
         }
     }
 
@@ -525,7 +529,7 @@ public class MiniGameHewanUI : MonoBehaviour
 
     private void TakeDamage(Sprite[] animationSprites)
     {
-        
+
 
         if (healthIndex < health.Length) // Pastikan tidak melebihi batas array
         {
@@ -611,6 +615,6 @@ public class MiniGameHewanUI : MonoBehaviour
         }
 
     }
-    
+
 
 }

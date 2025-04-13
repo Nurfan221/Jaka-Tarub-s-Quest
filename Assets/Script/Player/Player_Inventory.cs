@@ -302,6 +302,7 @@ public class Player_Inventory : MonoBehaviour
             if (animalBehavior != null && animalBehavior.isAnimalEvent)
             {
                 miniGameHewanUI.Open(other.gameObject);
+                
             }
 
             //AnimalBehavior animalBehavior = other.GetComponent<AnimalBehavior>();

@@ -33,10 +33,12 @@ public class LocationManager : MonoBehaviour
     [Header("Daftar nilai bool")]
     public bool inLokasi;
     public bool mainQuestDanau;
+    public bool mainQuestMisiYangTerlupakan;
     public bool hasDisplayedDanauDialogue = false;
     public bool exitDanauScene = false;
     public bool inDanau;
     public bool inRumahJaka;
+
 
 
     void Start()
@@ -85,6 +87,7 @@ public class LocationManager : MonoBehaviour
 
             case Lokasi.RumahJaka:
                 // Lakukan sesuatu di Rumah Jaka
+
                 break;
 
             case Lokasi.HutanAjaib:
@@ -121,6 +124,13 @@ public class LocationManager : MonoBehaviour
 
             case Lokasi.RumahJaka:
                 // Lakukan sesuatu di Rumah Jaka
+                if (mainQuestMisiYangTerlupakan)
+                {
+                    questManager.currentMainQuest.currentQuestState = MainQuest1State.MisiYangBelumSelesai;
+                    questManager.NextQuestState();
+                    mainQuestMisiYangTerlupakan = false;
+                }
+
                 break;
 
             case Lokasi.HutanAjaib:
