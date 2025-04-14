@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimalSpawner : MonoBehaviour
 {
+    [SerializeField] SpawnerManager spawnerManager;
+    [SerializeField] TimeManager timeManager;
     public enum SpawnCategory
     {
         None,
@@ -24,15 +27,18 @@ public class AnimalSpawner : MonoBehaviour
     public bool CanSpawn = true;
     [SerializeField] private Collider2D spawnArea; // Area spawn menggunakan Collider2D
     [SerializeField] private float spawnCD = 2f;   // Cooldown spawn
+
     private float spawnTimer;
     public int maxSpawnCount = 2;                     // Jumlah hewan yang akan spawn
     private SpawnCategory currentCategory = SpawnCategory.None; // Kategori spawn yang aktif
     public GameObject currentAnimalSpesial;
 
-    private List<GameObject> enemies = new List<GameObject>(); // Daftar musuh/hewan yang sudah di-spawn
+    public List<GameObject> enemies = new List<GameObject>(); // Daftar musuh/hewan yang sudah di-spawn
 
     private void Start()
     {
+        DeleteEnemiesFromArray();
+
         // Validasi jika animalPools kosong
         if (animalPools.Count == 0)
         {
@@ -41,15 +47,9 @@ public class AnimalSpawner : MonoBehaviour
         }
 
         // Daftar ke event OnHourChanged di TimeManager
-        TimeManager.OnHourChanged += UpdateSpawnCategory;
+       
 
-        int spawnAnimal =  Random.Range(0, maxSpawnCount);
-        // Spawn awal hewan
-        for (int i = 0; i < spawnAnimal; i++)
-        {
-            if (CanSpawn)
-                SpawnAnimal();
-        }
+
     }
 
     private void OnDestroy()
@@ -71,38 +71,60 @@ public class AnimalSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnAnimal()
+    public void SpawnAnimal()
     {
-        // Dapatkan prefab berdasarkan kategori aktif
-        GameObject prefabToSpawn = GetRandomAnimalFromCategory(currentCategory);
-        if (prefabToSpawn == null)
+        if (enemies.Count >= maxSpawnCount) return;  // Pastikan jumlah hewan tidak melebihi maxSpawnCount
+
+        TimeManager.OnHourChanged += UpdateSpawnCategory;
+
+        int spawnAnimal = Random.Range(0, maxSpawnCount - enemies.Count); // Membatasi spawn hanya untuk sisa slot yang kurang
+        for (int i = 0; i < spawnAnimal; i++)
         {
-            //Debug.LogWarning("Tidak ada hewan yang tersedia untuk kategori ini.");
-            return;
+            if (CanSpawn)
+            {
+                // Dapatkan prefab berdasarkan kategori aktif
+                GameObject prefabToSpawn = GetRandomAnimalFromCategory(currentCategory);
+                if (prefabToSpawn == null)
+                {
+                    // Debug.LogWarning("Tidak ada hewan yang tersedia untuk kategori ini.");
+                    return;
+                }
+
+                // Spawn hewan di posisi yang valid
+                GameObject newEnemy = Instantiate(prefabToSpawn);
+                newEnemy.transform.position = GetSpawnPosition();
+                newEnemy.transform.localScale = Vector3.one;  // Pastikan skala 1,1,1
+                newEnemy.transform.parent = transform;        // Atur parent setelahnya
+
+                // Atur skala prefab ke 1 untuk memastikan ukurannya sesuai dengan prefab aslinya
+                newEnemy.transform.localScale = Vector3.one;
+
+                enemies.Add(newEnemy);
+            }
         }
-
-        // Spawn hewan di posisi yang valid
-        GameObject newEnemy = Instantiate(prefabToSpawn);
-        newEnemy.transform.position = GetSpawnPosition();
-        newEnemy.transform.localScale = Vector3.one;  // Pastikan skala 1,1,1
-        newEnemy.transform.parent = transform;        // Atur parent setelahnya
+    }
 
 
-        // Atur skala prefab ke 1 untuk memastikan ukurannya sesuai dengan prefab aslinya
-        newEnemy.transform.localScale = Vector3.one;
+    public void SpawnAnimalSpesial()
+    {
+        float spawnAnimalSpesial = Random.Range(0f, 1f);
+        float spawnChance = Mathf.Clamp(1f - (timeManager.dailyLuck * 0.2f), 0f, 1f);
 
-        enemies.Add(newEnemy);
-        int spawnAnimalSpesial = Random.Range(0, 1);
-        GameObject animalSpesial = GetRandomAnimalFromCategory(currentCategory);
-        if (spawnAnimalSpesial < 0.8f)
+
+        // Cek apakah spawnAnimalSpesial lebih kecil dari peluang yang disesuaikan dengan luck
+        if (spawnAnimalSpesial < spawnChance)
         {
+            Debug.Log("Munculkan hewan spesial sebanyak ");
             // Spawn hewan di posisi yang valid
             GameObject newAnimalSpesial = Instantiate(currentAnimalSpesial);
             newAnimalSpesial.transform.position = GetSpawnPosition();
             newAnimalSpesial.transform.localScale = Vector3.one;  // Pastikan skala 1,1,1
             newAnimalSpesial.transform.parent = transform;        // Atur parent setelahnya
-        }
 
+            // Atur skala prefab ke 1 untuk memastikan ukurannya sesuai dengan prefab aslinya
+            newAnimalSpesial.transform.localScale = Vector3.one;
+            enemies.Add(newAnimalSpesial);
+        }
     }
 
     private GameObject GetRandomAnimalFromCategory(SpawnCategory category)
@@ -165,5 +187,14 @@ public class AnimalSpawner : MonoBehaviour
         }
 
         return randomPosition;
+    }
+
+    public void DeleteEnemiesFromArray()
+    {
+        foreach (var animals in enemies)
+        {
+            Destroy(animals);
+        }
+        enemies.Clear();
     }
 }

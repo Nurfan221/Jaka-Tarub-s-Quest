@@ -281,8 +281,8 @@ public class NPCBehavior : MonoBehaviour
     //    Debug.Log("NPC menerima item: " + item.name);
     //    // Tambahkan logika untuk menerima item
     //}
-
-    public bool CheckItemGive( ref int stackItem)
+    
+public bool CheckItemGive( ref int stackItem)
     {
         Debug.Log("check item give di jalankan ");
         bool isItemGiven = false;
@@ -350,27 +350,31 @@ public class NPCBehavior : MonoBehaviour
             }
         }
 
-        return isItemGiven;
-    }
-
-    public void CheckGiveMainQuest(int stackItem)
-    {
-        if (questManager.currentMainQuest != null)
+        if(questManager.chapter1IsDone)
         {
-            if (questManager.currentMainQuest.NPC.name == npcName)
+            if (questManager.currentMainQuest != null)
             {
-                foreach (var item in questManager.currentMainQuest.itemQuests)
+                if (questManager.currentMainQuest.NPC.name == npcName)
                 {
-                    if (itemQuest == item.item.name && item.jumlah > 0)
+                    foreach (var item in questManager.currentMainQuest.itemQuests)
                     {
-                        int jumlahDiBerikan = Mathf.Min(stackItem, item.jumlah);
-                        item.jumlah -= jumlahDiBerikan;
-                        stackItem = jumlahDiBerikan;
+                        if (itemQuest == item.item.name && item.jumlah > 0)
+                        {
+                            int jumlahDiBerikan = Mathf.Min(stackItem, item.jumlah);
+                            item.jumlah -= jumlahDiBerikan;
+                            stackItem = jumlahDiBerikan;
+                            Debug.Log("main Quest Selesai");
+                            CheckFinishMainQuest();
+                        }
                     }
                 }
             }
         }
+
+        return isItemGiven;
     }
+
+
 
 
     public void CheckFinishQuest(string nameQuest, int idChapter)
@@ -502,7 +506,7 @@ public class NPCBehavior : MonoBehaviour
             
             questManager.currentMainQuest.questActive = false;
             questManager.MainQuestSelesai();
-            questInfoUI.SetQuestInActive(questManager.currentMainQuest.questName);
+            //questInfoUI.SetQuestInActive(questManager.currentMainQuest.questName);
 
         }
         else

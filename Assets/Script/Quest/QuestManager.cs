@@ -47,6 +47,7 @@ public class QuestManager : MonoBehaviour
 
         //inputkan dialogue sesuai jalan cerita dari awal hingga akhir
         public Dialogues[] dialogueQuest;
+        public Dialogues dialoguePengingat; 
         public GameObject NPC;
         public int date;
         public string questDetail;
@@ -126,6 +127,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] LocationConfiguration locationConfiguration;
     [SerializeField] SpawnerManager spawnerManager;
     [SerializeField] LocationManager locationManager;
+    public bool chapter1IsDone;
     public Transform questUI;
     public Transform displayMainQuest;
 
@@ -292,11 +294,13 @@ public class QuestManager : MonoBehaviour
                 currentMainQuest.questActive = true; // Tandai quest berikutnya sebagai aktif
                 currentMainQuest.date = timeManager.date + 2;
                 Debug.Log($"Main Quest Dimulai: {currentMainQuest.questName}");
+                CheckQuest();
             }
             else
             {
                 currentMainQuest = null; // Jika tidak ada quest lagi
                 Debug.Log("Tidak ada Main Quest yang tersisa!");
+                CheckQuest();
             }
         }
     }
@@ -371,7 +375,7 @@ public class QuestManager : MonoBehaviour
                 childContentGo.name = mainQuestInfo;
                 childTemplateContentGo.text = mainQuestInfo;
                 
-                spawnerManager.chapter1IsDone = true;
+                chapter1IsDone = true;
                 break;
 
             }

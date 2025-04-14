@@ -122,7 +122,7 @@ public class TimeManager : MonoBehaviour
 
         player_Health.ReverseHealthandStamina();
         GetLuck();
-        spawnerManager.CheckChapter1IsDone(dailyLuck);
+        spawnerManager.SetSpawnerActive(dailyLuck);
 
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
@@ -143,15 +143,15 @@ public class TimeManager : MonoBehaviour
     {
         float randomValue = UnityEngine.Random.Range(0f, 1f);
         // Pembobotan lebih besar pada angka 1
-        if (randomValue < 0.5f)  // 50% peluang untuk mendapatkan angka lebih dekat ke 1
+        if (randomValue < 0.4f)  // 60% peluang untuk mendapatkan angka lebih dekat ke 1
         {
             dailyLuck = 0f;
         }
-        else if (randomValue < 0.8f)  // 30% peluang untuk mendapatkan angka antara 1 dan 3
+        else if (randomValue < 0.7f)  // 40% peluang untuk mendapatkan angka antara 1 dan 3
         {
             dailyLuck = UnityEngine.Random.Range(1f, 2f);  // Nilai acak antara 1 dan 2
         }
-        else  // 20% peluang untuk mendapatkan 3
+        else  // 30% peluang untuk mendapatkan 3
         {
             dailyLuck = 3f;
         }

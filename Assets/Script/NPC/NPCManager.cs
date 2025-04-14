@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static QuestManager;
 
 public class NPCManager : MonoBehaviour
 {
@@ -126,6 +127,27 @@ public class NPCManager : MonoBehaviour
                 }
             }
         }
+
+        if (questManager.currentMainQuest != null && questManager.currentMainQuest.questActive )
+        {
+            string nameNpc = questManager.currentMainQuest.NPC.name;
+            foreach (var npc in npcDataArray)
+            {
+                if (npc.prefab != null && npc.prefab.name == nameNpc)
+                {
+                    QuestInteractable interactable = npc.prefab.GetComponent<QuestInteractable>();
+                    if (interactable != null)
+                    {
+                        interactable.currentDialogue = questManager.currentMainQuest.dialoguePengingat;
+                        interactable.promptMessage = "Quest " + questManager.currentMainQuest.questName;
+                    }
+                }
+            }
+        }
+
+
+
+
     }
 
     public void CheckNPCMainQuest(GameObject npc, Vector3 locationQuest, Dialogues dialoguesMainQuest)
