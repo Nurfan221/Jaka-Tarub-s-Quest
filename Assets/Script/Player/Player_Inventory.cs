@@ -17,6 +17,7 @@ public class Player_Inventory : MonoBehaviour
     [SerializeField] private Button switchWeaponImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     [SerializeField] private Button switchUseItemImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     [SerializeField] public ContohFlipCard contohFlipCard;
+    [SerializeField] PintuManager pintuManager;
 
     public bool meleeOrRanged = true;
     public bool itemUse1 = true;
@@ -308,6 +309,21 @@ public class Player_Inventory : MonoBehaviour
             //AnimalBehavior animalBehavior = other.GetComponent<AnimalBehavior>();
             //animalBehavior.DropItem();
         }
+        //else if(other.CompareTag("Pintu"))
+        //{
+        //    foreach (var pintuLokasi in pintuManager.pintuArray)
+        //    {
+        //        if(pintuLokasi.pintuIn.name == other.name)
+        //        {
+        //            GameObject pintu = pintuLokasi.pintuIn;
+        //            pintuManager.EnterArea(pintu);
+        //        }else if (pintuLokasi.pintuOut.name == other.name)
+        //        {
+        //            GameObject pintu = pintuLokasi.pintuOut;
+        //            pintuManager.EnterArea(pintu);
+        //        }
+        //    }
+        //}    
     }
 
 
