@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -19,6 +21,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public Transform plantsContainer; // Referensi ke GameObject kosong yang menampung tanaman
     public Transform prefabContainer; // referansi ke gameobject kosont yang menampung prefab game objek 
 
+
      private string itemInDrag;// Ambil nama objek yang di-drag
 
     [SerializeField] GiveCountContainer giveCountContainer;
@@ -26,6 +29,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
      
      [SerializeField] InventoryUI inventoryUI;
     [SerializeField] FenceBehavior fenceBehavior;
+    public static class TileManager
+    {
+        // Menyimpan status setiap tile di seluruh permainan
+        public static Dictionary<Vector3Int, bool> tilePlantStatus = new Dictionary<Vector3Int, bool>();
+    }
+
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -42,52 +52,56 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void CekSeed(Vector3Int cellPosition)
     {
-        bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
+        // Cek apakah tile sudah tertanami
+        if (TileManager.tilePlantStatus.ContainsKey(cellPosition) && TileManager.tilePlantStatus[cellPosition])
+        {
+            Debug.Log("Tile sudah ditanami, tidak bisa menanam lagi.");
+            return;
+        }
+
+        // Proses penanaman benih
+        bool itemFound = false;
 
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
-            // Cek apakah nama item sama dengan itemInDrag dan kategori item adalah Seed
             if (item.itemName == itemInDrag && item.IsInCategory(ItemCategory.PlantSeed))
             {
-                itemFound = true; // Tandai bahwa item ditemukan
-                int stackItem = item.stackCount; // Ambil jumlah item yang ada
-                plantPrefab = item.prefabItem; // Set plantPrefab sesuai item
+                itemFound = true;
+                plantPrefab = item.prefabItem;
 
-                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
+                Debug.Log("Item ditemukan: " + item.itemName);
 
-                // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
+                // Menanam benih
                 PlantSeed(cellPosition, item.itemName, item.dropItem, item.growthImages, item.growthTime);
-                
-                // Kurangi stack item setelah menanam
-                stackItem--;
-                item.stackCount = stackItem; // Perbarui jumlah stack dalam item
-                
-                if (stackItem <= 0)
+
+
+                // Update status tile setelah penanaman
+                TileManager.tilePlantStatus[cellPosition] = true; // Tandai tile sudah tertanami
+
+                // Panggil fungsi untuk menyimpan status tile
+                SaveTileStatus(cellPosition, true);
+
+                item.stackCount -= 1;
+
+                if (item.stackCount <= 0)
                 {
-                    // Jika stack count habis, hapus item dari inventory
                     Player_Inventory.Instance.RemoveItem(item);
-                    Debug.Log("Item habis dan dihapus dari inventory.");
-                }
-                else
-                {
-                    Debug.Log("Jumlah item tersisa: " + stackItem);
+                    Debug.Log("Item habis dan dihapus.");
                 }
 
-                rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
-                
-                // Refresh UI setelah perubahan
+                // Refresh UI
                 inventoryUI.RefreshInventoryItems();
                 inventoryUI.UpdateSixItemDisplay();
-                break; // Keluar dari loop setelah menemukan item
+                break;
             }
         }
-
-        if (!itemFound)
-        {
-            Debug.Log("Item tidak ditemukan atau kategori item bukan Seed");
-            rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
-        }
     }
+
+
+
+
+
+
 
     //logika menanam pohon
     public void CheckPrefabItem(Vector3Int cellPosition)
@@ -152,6 +166,20 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
 
+    public void SaveTileStatus(Vector3Int cellPosition, bool isPlanted)
+    {
+        // Menyimpan status tile secara lokal menggunakan PlayerPrefs
+        string key = cellPosition.ToString();
+        PlayerPrefs.SetInt(key, isPlanted ? 1 : 0); // 1 untuk tertanam, 0 untuk belum
+        PlayerPrefs.Save(); // Simpan perubahan
+    }
+
+    public bool LoadTileStatus(Vector3Int cellPosition)
+    {
+        // Memuat status tile dari PlayerPrefs
+        string key = cellPosition.ToString();
+        return PlayerPrefs.GetInt(key, 0) == 1; // 0 berarti belum tertanami
+    }
 
 
 
@@ -173,26 +201,94 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor; // Menggerakkan item mengikuti pointer
+        // Menggerakkan item mengikuti pointer
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+
+        // Mengecek posisi item selama drag
+        CheckItemPositionDuringDrag();
     }
+
+    // Fungsi untuk memeriksa posisi item selama drag
+    private void CheckItemPositionDuringDrag()
+    {
+        // Ambil posisi mouse di Screen Space
+        Vector3 screenPosition = Input.mousePosition;
+
+        // Konversi posisi dari Screen Space ke World Space
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, Mathf.Abs(Camera.main.transform.position.z)));
+
+        // Mengubah posisi world ke posisi tilemap
+        Vector3Int cellPosition = farmTilemap.WorldToCell(worldPosition);
+        // Mengecek tile pada posisi ini
+        TileBase currentTile = farmTilemap.GetTile(cellPosition);
+
+        if ((currentTile == farmTile.hoeedTile || currentTile == farmTile.wateredTile))
+        {
+            // Cek apakah tile sudah pernah ditanami
+            if (TileManager.tilePlantStatus.ContainsKey(cellPosition) && TileManager.tilePlantStatus[cellPosition])
+            {
+                Debug.Log("Tile sudah ditanami, tidak bisa menanam lagi.");
+                return; // Jangan lakukan apa-apa jika tile sudah ditanami
+            }
+
+            Debug.Log("Item sedang di atas tile yang dicangkul dan belum ada tanaman.");
+            // Tanam benih pada tile yang valid
+            CekSeed(cellPosition); // Menjalankan logika menanam benih
+        }
+        else if (currentTile == farmTile.grassTile)
+        {
+            Debug.Log("Item sedang di atas tile tanah.");
+            Debug.Log("item yang di drag adalah : " + itemInDrag);
+            CheckPrefabItem(cellPosition); // Menjalankan logika sesuai tile tanah
+        }
+        else
+        {
+            Debug.Log("Item tidak berada di posisi yang valid.");
+        }
+    }
+
+
+
 
     public void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = true; // Mengembalikan interaksi raycast
 
-        // Jika item tidak dijatuhkan di tempat yang valid, kembalikan ke posisi awal
-        if (!DroppedOnValidTile())
+        // Ambil posisi mouse di Screen Space
+        Vector3 screenPosition = Input.mousePosition;
+
+        // Konversi posisi dari Screen Space ke World Space
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, Mathf.Abs(Camera.main.transform.position.z)));
+
+        // Mengubah posisi world ke posisi tilemap
+        Vector3Int cellPosition = farmTilemap.WorldToCell(worldPosition);
+
+        // Mengecek tile pada posisi ini
+        TileBase currentTile = farmTilemap.GetTile(cellPosition);
+
+        if ((currentTile == farmTile.hoeedTile || currentTile == farmTile.wateredTile))
         {
-            // Kembalikan item ke parent aslinya setelah drag selesai
-            rectTransform.SetParent(originalParent);
+            // Cek apakah tile sudah pernah ditanami
+            if (TileManager.tilePlantStatus.ContainsKey(cellPosition) && TileManager.tilePlantStatus[cellPosition])
+            {
+                Debug.Log("Tile sudah ditanami, tidak bisa menanam lagi.");
+                rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
+                return; // Jangan lanjutkan jika tile sudah ditanami
+            }
+
+            Debug.Log("Item dijatuhkan di tile yang dicangkul dan belum ada tanaman.");
+            // Tanam benih pada tile yang valid
+            CekSeed(cellPosition); // Menjalankan logika menanam benih
+            TileManager.tilePlantStatus[cellPosition] = true; // Tandai tile ini sudah terisi dengan tanaman
         }
         else
         {
-            
-            Debug.Log("nama item yang di drag adalah : " + itemInDrag);
-            // PlantSeed(); // Menjalankan logika menanam jika dijatuhkan di tempat yang valid
+            Debug.Log("Item tidak berada di posisi yang valid.");
+            rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal jika tidak valid
         }
     }
+
+
 
     // Fungsi untuk mengecek apakah item dijatuhkan pada tile hasil cangkul (hoeedTile)
     private bool DroppedOnValidTile()
@@ -209,23 +305,23 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Debug.Log("Posisi World dari item: " + worldPosition);
         Debug.Log("Posisi Tile Cell: " + cellPosition);
 
-        // Mengecek tile pada posisi ini
-        TileBase currentTile = farmTilemap.GetTile(cellPosition);
+        //// Mengecek tile pada posisi ini
+        //TileBase currentTile = farmTilemap.GetTile(cellPosition);
 
-        if (currentTile == farmTile.hoeedTile || currentTile == farmTile.wateredTile)
-        {
-            Debug.Log("Item dijatuhkan di tile yang dicangkul.");
-            // Tanam benih pada tile yang valid
-            CekSeed(cellPosition);
-            return true;
-        }
-        else if (currentTile == farmTile.grassTile)
-        {
-            Debug.Log("item di jatuhkan pada tile tanah");
-            Debug.Log("item yang di drag adalah : " + itemInDrag);
-            CheckPrefabItem(cellPosition);
-            return true;
-        }
+        //if (currentTile == farmTile.hoeedTile || currentTile == farmTile.wateredTile)
+        //{
+        //    Debug.Log("Item dijatuhkan di tile yang dicangkul.");
+        //    // Tanam benih pada tile yang valid
+        //    CekSeed(cellPosition);
+        //    return true;
+        //}
+        //else if (currentTile == farmTile.grassTile)
+        //{
+        //    Debug.Log("item di jatuhkan pada tile tanah");
+        //    Debug.Log("item yang di drag adalah : " + itemInDrag);
+        //    CheckPrefabItem(cellPosition);
+        //    return true;
+        //}
 
         // Mengecek objek di posisi world
         Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition);

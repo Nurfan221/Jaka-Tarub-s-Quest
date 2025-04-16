@@ -61,7 +61,55 @@ public class SpawnerManager : MonoBehaviour
                 }
             }
         }
+
+        SetSpawnerBanditActive(random);
     }
+
+    public void SetSpawnerBanditActive(float random)
+    {
+        // Loop untuk menonaktifkan semua spawner
+        for (int i = 0; i < spawner[1].spawner.Length; i++)
+        {
+            // Nonaktifkan spawner
+            spawner[1].spawner[i].gameObject.SetActive(false);
+        }
+
+        if (spawner[1] != null && spawner[1].spawner.Length > 0)
+        {
+            // Menggunakan dailyLuck untuk menentukan peluang
+            float adjustedRandom = Mathf.Lerp(0.5f, 3f, 1 - random); // Nilai antara 0.5 dan 3 berdasarkan dailyLuck (lebih kecil dailyLuck, lebih besar chance-nya)
+
+            // Kondisi untuk menentukan berapa banyak loop berdasarkan adjustedRandom
+            if (adjustedRandom >= 0 && adjustedRandom < 1f)
+            {
+                // Loop sebanyak "adjustedRandom" untuk memilih spawner yang aktif
+                for (int i = 0; i < 7; i++)  // Jika adjustedRandom berada antara 0 dan 1, aktifkan 7 spawner
+                {
+                    int randomIntSpawner = UnityEngine.Random.Range(0, spawner[1].spawner.Length);
+                    spawner[1].spawner[randomIntSpawner].gameObject.SetActive(true);
+                }
+            }
+            else if (adjustedRandom >= 1 && adjustedRandom < 2)
+            {
+                // Loop sebanyak "adjustedRandom" untuk memilih spawner yang aktif
+                for (int i = 0; i < 4; i++)  // Jika adjustedRandom berada antara 1 dan 2, aktifkan 4 spawner
+                {
+                    int randomIntSpawner = UnityEngine.Random.Range(0, spawner[1].spawner.Length);
+                    spawner[1].spawner[randomIntSpawner].gameObject.SetActive(true);
+                }
+            }
+            else if (adjustedRandom >= 2)
+            {
+                // Loop sebanyak "adjustedRandom" untuk memilih spawner yang aktif
+                for (int i = 0; i < 2; i++)  // Jika adjustedRandom lebih besar dari 2, aktifkan 2 spawner
+                {
+                    int randomIntSpawner = UnityEngine.Random.Range(0, spawner[1].spawner.Length);
+                    spawner[1].spawner[randomIntSpawner].gameObject.SetActive(true);
+                }
+            }
+        }
+    }
+
 
 
 

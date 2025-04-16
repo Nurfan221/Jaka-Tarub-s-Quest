@@ -18,7 +18,7 @@ public class StorageUI : MonoBehaviour
     private Transform lastClickedItem = null; // Menyimpan item yang terakhir kali diklik
 
     public StorageInteractable theStorage;
-    List<Item> Items = new();
+    public List<Item> Items = new();
 
 
 
@@ -34,9 +34,9 @@ public class StorageUI : MonoBehaviour
     public Image itemImage;
     public TextMeshProUGUI itemCount;
     // Variabel untuk menyimpan item yang sedang dipilih
-    private Item selectedItem;
-    private int selectedItemCount;
-    private bool isTakingFromStorage = false; // False = store ke storage, True = take dari storage
+    public Item selectedItem;
+    public int selectedItemCount;
+    public bool isTakingFromStorage = false; // False = store ke storage, True = take dari storage
 
 
     [Header("Button Action")]
@@ -130,6 +130,11 @@ public class StorageUI : MonoBehaviour
 
         takeAllButton.onClick.RemoveAllListeners();
         takeAllButton.onClick.AddListener(TakeAllItems);
+
+        if (Items.Count > 0)
+        {
+            takeAllButton.gameObject.SetActive(true);
+        }
     }
 
     private void CloseStorage()
@@ -151,7 +156,8 @@ public class StorageUI : MonoBehaviour
 
     private void RefreshInventoryItems()
     {
-        inventoryUI.UpdateSixItemDisplay();
+        Debug.Log("Refresh item in inventory");
+
         foreach (Transform child in StorageContainer)
         {
             if (child == itemSlotTemplate) continue;
@@ -272,7 +278,9 @@ public class StorageUI : MonoBehaviour
             
         }
 
-        
+        //inventoryUI.RefreshInventoryItems();
+        inventoryUI.UpdateSixItemDisplay();
+
     }
 
     public void OnStorageItemClick(Item item)
@@ -420,6 +428,7 @@ public class StorageUI : MonoBehaviour
         // Hapus item dari inventory setelah dipindahkan
         DeleteItemFromInventory();
         RefreshInventoryItems();
+        
     }
 
 
@@ -497,7 +506,8 @@ public class StorageUI : MonoBehaviour
 
     private void DeleteItemFromStorage()
     {
-        
+        int remainingToRemove = selectedItemCount; // Jumlah yang ingin dihapus
+        List<Item> itemsToRemove = new List<Item>(); // Menyimpan item yang perlu dihapus
 
         for (int i = theStorage.Items.Count - 1; i >= 0; i--)
         {
@@ -505,17 +515,34 @@ public class StorageUI : MonoBehaviour
 
             if (selectedItem.itemName == item.itemName)
             {
-                item.stackCount -= selectedItemCount;
-
-                if (item.stackCount <= 0)
+                if (item.stackCount > remainingToRemove)
                 {
-                    Debug.Log("delete item from storage");
-                    theStorage.Items.RemoveAt(i);
+                    Debug.Log("stack count lebih besar dari jumlah yang ingin di hapus");
+                    item.stackCount -= remainingToRemove;
+                    item.isStackable = item.stackCount < item.maxStackCount;
+                    return; // Menghentikan setelah mengurangi stackCount
                 }
-                return;
+                else
+                {
+                    Debug.Log("hapus semua item");
+                    remainingToRemove -= item.stackCount;
+                    itemsToRemove.Add(item); // Tandai item untuk dihapus
+
+                    if (remainingToRemove <= 0)
+                        break; // Semua item sudah dihapus, keluar dari loop
+                }
             }
         }
+
+        // Hapus item setelah loop selesai
+        foreach (Item item in itemsToRemove)
+        {
+            theStorage.Items.Remove(item); // Menghapus item yang ditandai
+            Items.Remove(item);
+            Debug.Log("Item dihapus dari storage: " + item.itemName);
+        }
     }
+
 
 
     private void StoreAllItems()

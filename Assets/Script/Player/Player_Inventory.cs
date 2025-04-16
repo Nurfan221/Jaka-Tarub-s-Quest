@@ -134,18 +134,18 @@ public class Player_Inventory : MonoBehaviour
         {
             GameController.Instance.PauseGame();
 
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("DagingSapiSpesial"));
-            Instance.AddItem(ItemPool.Instance.GetItem("DagingSapiSpesial"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("DagingSapiSpesial"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("DagingSapiSpesial"));
 
 
             inventoryUI.UpdateInventoryUI(); // Update UI when inventory is opened
