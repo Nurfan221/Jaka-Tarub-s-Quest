@@ -18,6 +18,8 @@ public class QuestInfoUI : MonoBehaviour
     [Header("image UI")]
     public Sprite sliderActive;
     public Sprite sliderInactive;
+    public Transform deskripsi;
+    public bool isDeskripsi;
 
     void Start()
     {
@@ -93,6 +95,46 @@ public class QuestInfoUI : MonoBehaviour
             {
                 itemDragAndDrop.itemID = i;
             }
+            Button btnDeskripsi = questDetail.GetComponent<Button>();
+            btnDeskripsi.onClick.AddListener(() =>
+            {
+            if (!isDeskripsi)
+            {
+                // Menampilkan deskripsi
+                deskripsi.gameObject.SetActive(true);
+
+
+                // Mengambil teks quest name
+                TMP_Text questName = deskripsi.GetChild(1).GetComponent<TMP_Text>();
+                TMP_Text questDeskripsi = deskripsi.GetChild(2).GetComponent<TMP_Text>();
+
+                // Mengatur nama quest
+                questName.text = quest.questName;
+
+                // Menyusun deskripsi quest
+                string fullDescription = quest.deskripsiAwal;
+
+                // Menambahkan jumlah item yang ada di itemQuest ke dalam deskripsi
+                foreach (ItemQuest itemQuest in quest.itemQuests)
+                {
+                    fullDescription += $" {itemQuest.jumlah} buah {itemQuest.item.itemName} kepada {quest.NPC.name} "; // Menggunakan itemName atau field lainnya dari Item
+                }
+
+                // Menambahkan deskripsi akhir
+                fullDescription += quest.deskripsiAkhir;
+
+                // Memasukkan ke dalam questDeskripsi
+                questDeskripsi.text = fullDescription;
+
+                isDeskripsi = true;
+            } else
+            {
+                deskripsi.gameObject.SetActive(false);
+                    isDeskripsi = false;
+
+            }
+            });
+
         }
     }
 

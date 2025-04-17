@@ -91,35 +91,7 @@ public class NPCBehavior : MonoBehaviour
         StartCoroutine(playAnimationClothes());
     }
 
-    private void CheckNextWaypointDirection(Vector3 targetPosition, Vector3 startPosition)
-    {
-        // Hitung arah berdasarkan posisi saat ini dan posisi target
-        Vector3 direction = targetPosition - startPosition;
-
-        // Tentukan animasi berdasarkan arah dominan (x atau y)
-        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-        {
-            if (direction.x > 0.1f)
-            {
-                npcAnimation.SetWalkAnimation(false, false, true, false); // WalkRight
-            }
-            else
-            {
-                npcAnimation.SetWalkAnimation(false, false, false, true); // WalkLeft
-            }
-        }
-        else
-        {
-            if (direction.y > 0.1f)
-            {
-                npcAnimation.SetWalkAnimation(true, false, false, false); // WalkUp
-            }
-            else
-            {
-                npcAnimation.SetWalkAnimation(false, true, false, false); // WalkDown
-            }
-        }
-    }
+    
 
 
 
@@ -141,8 +113,7 @@ public class NPCBehavior : MonoBehaviour
             }
 
 
-            // Tentukan arah animasi sebelum NPC mulai bergerak
-            CheckNextWaypointDirection(targetPosition, startPosition);
+
 
             // Gerakkan NPC ke target
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
@@ -160,7 +131,7 @@ public class NPCBehavior : MonoBehaviour
             currentActivity.isOngoing = false; // Tandai aktivitas selesai
 
             // Set animasi idle saat semua waypoint selesai
-            npcAnimation.SetWalkAnimation(false, false, false, false);
+            //npcAnimation.SetWalkAnimation(false, false, false, false);
         }
     }
 

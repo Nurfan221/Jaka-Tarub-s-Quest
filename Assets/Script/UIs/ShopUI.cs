@@ -446,5 +446,11 @@ public class ShopUI : MonoBehaviour
         gagalUI.gameObject.SetActive(true); // Tampilkan UI
         yield return new WaitForSeconds(1f); // Tunggu 1 detik
         gagalUI.gameObject.SetActive(false); // Sembunyikan UI
+        Button gagalbtn = gagalUI.GetComponent<Button>();
+
+        gagalbtn.onClick.AddListener(() =>
+        {
+            gagalUI.gameObject.SetActive(false);
+        });
     }
 }

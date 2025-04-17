@@ -12,10 +12,13 @@ public class Player_Health : MonoBehaviour
     public int maxHealth = 100;
     public int health = 100;
 
+
+
     [Header("STAMINA VALUE")]
     public int maxStamina = 100;
     public float stamina = 100;
     public float staminaRegenRate = 15;
+    public float currentMaxStamina;
 
     [Header("Emotional Cap System")]
     public int emotionalHealthCap = 100;   // Batas max health saat berduka
@@ -24,11 +27,17 @@ public class Player_Health : MonoBehaviour
 
     public SpriteRenderer sr;
 
+
+    private void Start()
+    {
+        currentMaxStamina = maxStamina;
+        
+    }
     private void Awake()
     {
         Instance = this;
         health = maxHealth;
-        stamina = maxStamina;
+        stamina = currentMaxStamina;
         emotionalHealthCap = maxHealth;
         emotionalStaminaCap = maxStamina;
     }
@@ -51,7 +60,7 @@ public class Player_Health : MonoBehaviour
 
         if (stamina < maxStamina)
         {
-            stamina = Mathf.MoveTowards(stamina, maxStamina, regenRate * Time.deltaTime);
+            stamina = Mathf.MoveTowards(stamina, currentMaxStamina, regenRate * Time.deltaTime);
         }
     }
 
@@ -112,6 +121,17 @@ public class Player_Health : MonoBehaviour
         stamina -= exhaust;
         return true;
     }
+
+    public bool SpendMaxCurrentStamina(float inUse)
+    {
+        if (inUse > currentMaxStamina) return false;
+
+        currentMaxStamina -= inUse;
+        stamina = currentMaxStamina;
+        return true;
+    }
+
+    
 
     [ContextMenu("KILL")]
     void Die()

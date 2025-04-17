@@ -56,6 +56,7 @@ public class Item : ScriptableObject
     public int SpecialAttackCD;
     public int SpecialAttackStamina;
     public int UpgradeCost;
+    public int UseStamina;
     public GameObject RangedWeapon_ProjectilePrefab;
 
     // Regular Item

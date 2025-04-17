@@ -409,8 +409,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a5a424588e01349bd734d04fa84c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPC: {fileID: 2689120968235261372}
+  animator: {fileID: 2689120968235261372}
   bajuAnimation: {fileID: 4964718618423487852}
+  lastDirection: {x: 0, y: -1}
   baju: {fileID: 937240686707969317}
   sr: {fileID: 6032118409941731965}
 --- !u!1 &5441966651324925632
@@ -598,7 +599,7 @@ Animator:
   m_GameObject: {fileID: 6193806435466622518}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5ea2ef75c88e77441975137a8cd7399c, type: 2}
+  m_Controller: {fileID: 9100000, guid: b5a5dc57f67ea5241961740ab585289c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

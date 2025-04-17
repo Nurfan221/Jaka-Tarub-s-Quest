@@ -36,6 +36,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
 
+
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -73,6 +75,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 // Menanam benih
                 PlantSeed(cellPosition, item.itemName, item.dropItem, item.growthImages, item.growthTime);
+
+
 
 
                 // Update status tile setelah penanaman
@@ -366,9 +370,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             seedComponent.dropItem = dropItem;
             seedComponent.growthImages = growthImages; // Simpan growthImages ke komponen Seed
             seedComponent.growthTime = growthTime; // Simpan growthTime ke komponen Seed
+            seedComponent.plantLocation = spawnPosition;
         }
 
         Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
+        farmTile.plantStatus.Add(plant);
+
+
     }
 
 

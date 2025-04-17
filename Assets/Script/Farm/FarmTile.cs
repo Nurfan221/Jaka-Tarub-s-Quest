@@ -15,8 +15,9 @@
 
         private List<Vector3Int> wateredTiles = new List<Vector3Int>(); // Menyimpan posisi tile yang disiram
         public List<HoedTileData> hoedTilesList = new List<HoedTileData>();
+        public List<GameObject> plantStatus;
 
-        [SerializeField] private TimeManager timeManager;  // Referensi ke timeManager.dateManager
+    [SerializeField] private TimeManager timeManager;  // Referensi ke timeManager.dateManager
 
       
 
@@ -147,7 +148,7 @@
                     Debug.Log("Found an object with SeedManager at this tile position.");
 
                     // Memanggil metode untuk menyiram tanaman
-                    PlantSeed.Siram();
+                    PlantSeed.siram = true;
 
                     // Ubah tile ke wateredTile dan tandai tile sebagai sudah disiram
                     tilemap.SetTile(tilesiram, wateredTile);
@@ -192,7 +193,11 @@
 
                 // Reset tile ke hoeedTile di tilemap
                 tilemap.SetTile(tileData.tilePosition, hoeedTile);
-                Debug.Log($"Tile at {tileData.tilePosition} has been reset to hoeedTile.");
+                foreach (var plant in plantStatus)
+                {
+                    PlantSeed plantSeed = plant.gameObject.GetComponent<PlantSeed>();
+                    plantSeed.siram = false;
+                }
             }
         }
 
@@ -223,6 +228,8 @@
 
         // Hapus dari daftar hoedTilesList
         hoedTilesList.RemoveAll(item => item.tilePosition == tilePosition);
+
+
     }
 
 
@@ -242,4 +249,34 @@
         }
 
     }
+
+    public void Siram()
+    {
+        foreach (var plant in plantStatus)
+        {
+            PlantSeed plantSeed = plant.GetComponent<PlantSeed>();
+            if (plantSeed.siram)
+            {
+                plantSeed.growthTimer++; // Tambahkan satu hari ke growthTimer
+                Debug.Log("Fungsi AddOnDan di update");
+                Debug.Log("nilai dari growthtime saat fungsi AddOneDay di jalankan" + plantSeed.growthTime);
+                Debug.Log("nilai dari growtimer " + plantSeed.growthTimer);
+
+                // Cek apakah growthTimer telah mencapai growthSpeed
+                if (plantSeed.growthTimer % plantSeed.growthSpeed == 0)
+                {
+                    Debug.Log("fungsi AdvanceGrowthStage di jalankan");
+                    plantSeed.AdvanceGrowthStage(); // Maju ke tahap berikutnya
+                }
+
+                // Cek apakah growthTimer telah mencapai growthTime
+                if (plantSeed.growthTimer >= plantSeed.growthTime)
+                {
+                    plantSeed.currentStage = GrowthStage.ReadyToHarvest; // Set tahap akhir
+                    Debug.Log("Tanaman siap dipanen!");
+                    plantSeed.isReadyToHarvest = true;
+                }
+            }
+        }
     }
+}

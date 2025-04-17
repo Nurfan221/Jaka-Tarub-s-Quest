@@ -16,6 +16,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] public Player_Health player_Health;
     [SerializeField] private ShopUI shopUI;
     [SerializeField] private SpawnerManager spawnerManager;
+    [SerializeField] private TrashManager trashManager;
 
     [Header("Date & Time settings")]
     public int totalHari = 1;
@@ -123,6 +124,9 @@ public class TimeManager : MonoBehaviour
         player_Health.ReverseHealthandStamina();
         GetLuck();
         spawnerManager.SetSpawnerActive(dailyLuck);
+
+        farmTile.Siram();
+        trashManager.CheckTrash();
 
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah

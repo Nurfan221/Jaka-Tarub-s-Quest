@@ -25,6 +25,7 @@ public class PlantSeed : MonoBehaviour
     public float timeSaatIni;
      private TimeManager timeManager;
      private FarmTile farmTile;
+    public Vector3 plantLocation;
 
 
 
@@ -61,37 +62,10 @@ public class PlantSeed : MonoBehaviour
 
     }
 
-    public void CekFungsi()
-    {
-         growthTimer++; // Tambahkan satu hari ke growthTimer
-        Debug.Log("Fungsi AddOnDan di update");
-        Debug.Log("nilai dari growthtime saat fungsi AddOneDay di jalankan" + growthTime);
-        Debug.Log("nilai dari growtimer " + growthTimer);
-    }
-    public void Siram()
-    {
-        growthTimer++; // Tambahkan satu hari ke growthTimer
-        Debug.Log("Fungsi AddOnDan di update");
-        Debug.Log("nilai dari growthtime saat fungsi AddOneDay di jalankan" + growthTime);
-        Debug.Log("nilai dari growtimer " + growthTimer);
 
-        // Cek apakah growthTimer telah mencapai growthSpeed
-        if (growthTimer % growthSpeed == 0)
-        {
-            Debug.Log("fungsi AdvanceGrowthStage di jalankan");
-            AdvanceGrowthStage(); // Maju ke tahap berikutnya
-        }
+    
 
-        // Cek apakah growthTimer telah mencapai growthTime
-        if (growthTimer >= growthTime)
-        {
-            currentStage = GrowthStage.ReadyToHarvest; // Set tahap akhir
-            Debug.Log("Tanaman siap dipanen!");
-            isReadyToHarvest = true;
-        }
-    }
-
-    private void AdvanceGrowthStage()
+    public void AdvanceGrowthStage()
     {
         // Tingkatkan tahap pertumbuhan ke tahap berikutnya
         if (currentStage < GrowthStage.ReadyToHarvest) // Pastikan tidak melewati tahap terakhir

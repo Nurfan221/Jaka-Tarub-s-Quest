@@ -11,6 +11,7 @@ public class Player_Action : MonoBehaviour
     public static Player_Action Instance;
      private Player_Inventory player_Inventory;
     [SerializeField] PlayerUI playerUI;
+    [SerializeField] Player_Health playerHealth;
     public Animator animator; // Deklarasikan Animator
     [SerializeField] private Animator toolsAnimator;
     public SpriteRenderer hitBoxRenderer;
@@ -470,10 +471,12 @@ public class Player_Action : MonoBehaviour
 
     public void SpecialAttack()
     {
+       
         Item itemToAttack = Player_Inventory.Instance.equippedWeapon;
         if (itemToAttack.itemName == "Empty")
             return;
-
+        playerHealth.SpendStamina(itemToAttack.UseStamina);
+        playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
         if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
         {
             StartCoroutine(HandleSpecialAttackCD(itemToAttack.SpecialAttackCD));

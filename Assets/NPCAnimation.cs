@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static NPCBehavior;
 
 public class NPCAnimation : MonoBehaviour
 {
-    [SerializeField] Animator NPC; // Referensi ke NPC
+    [SerializeField] Animator animator; // Referensi ke NPC
     [SerializeField] Animator bajuAnimation; //Referensi ke baju animator
+    public Vector2 lastDirection = Vector2.down; // Default menghadap bawah
+    private Vector2 previousPosition;
     public SpriteRenderer baju;
     public SpriteRenderer sr;
 
@@ -15,44 +18,49 @@ public class NPCAnimation : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();  // Ambil SpriteRenderer untuk flip sprite
     }
 
-
-
-    public void SetWalkAnimation(bool top, bool down, bool right, bool left)
+    private void Update()
     {
-        if (NPC == null)
+        Vector2 movement = ((Vector2)transform.position - previousPosition).normalized;
+
+        // Update animasi berdasarkan gerakan
+        UpdateAnimation(movement);
+        // Simpan posisi sekarang sebagai referensi untuk frame berikutnya
+        previousPosition = transform.position;
+    }
+
+
+
+    public void UpdateAnimation(Vector2 movement)
+    {
+        if (animator == null)
         {
-            Debug.LogError("Animator NPC belum di-assign!");
+            Debug.LogError("Animator belum di-assign!");
             return;
         }
 
-        NPC.SetBool("JalanAtas", top);
-        NPC.SetBool("JalanBawah", down);
-        NPC.SetBool("JalanKanan", right);
-        NPC.SetBool("JalanKiri", left);
+        movement = movement.normalized;
+        bool isMoving = movement != Vector2.zero;
 
-        //if (top)
-        //{
-        //    bajuAnimation.SetTrigger("TriggerWalkUp");
-        //}else if(down)
-        //{
-        //    bajuAnimation.SetTrigger("TriggerWalkDown");
-        //}
-        //else if (left)
-        //{
-        //    bajuAnimation.SetTrigger("TriggerWalkLeft");
-        //}
-        //else if (right)
-        //{
-        //    bajuAnimation.SetTrigger("TriggerWalkRight");
-        //}
-        //else
-        //{
-        //    bajuAnimation.SetTrigger("TriggerIdle");
-        //}
+        if (isMoving)
+        {
+            // Simpan arah terakhir saat bergerak, agar animasi idle mengikuti arah ini
+            lastDirection = movement;
 
-        // Set PlayerIdle ketika tidak ada pergerakan
-        NPC.SetBool("Idle", !(top || down || right || left));
+            // Set parameter untuk Blend Tree berjalan
+            animator.SetFloat("MoveX", Mathf.Round(movement.x)); // -1, 0, 1
+            animator.SetFloat("MoveY", Mathf.Round(movement.y));
+        }
+        else
+        {
+            // Gunakan arah terakhir saat idle
+            animator.SetFloat("IdleX", Mathf.Round(lastDirection.x));
+            animator.SetFloat("IdleY", Mathf.Round(lastDirection.y));
+        }
+
+        // Atur Speed untuk blend tree berjalan
+        animator.SetFloat("Speed", isMoving ? 1f : 0f);
     }
+
 
 
 }

@@ -89,11 +89,14 @@ public class QuestManager : MonoBehaviour
         public Reward[] rewards;
         public string questInfo;
         public string questDetail;
+        public string deskripsiAwal;
+        public string deskripsiAkhir;
         public Dialogues finish;
         public Dialogues rewardItemQuest;
         public bool questActive = false;
         public bool questComplete = false;
         public Vector3 locateNpcQuest;
+
     }
 
     [System.Serializable]

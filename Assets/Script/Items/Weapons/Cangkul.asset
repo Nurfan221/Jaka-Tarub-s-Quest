@@ -22,11 +22,12 @@ MonoBehaviour:
   health: 0
   Level: 1
   MaxLevel: 1
-  Damage: 10
+  Damage: 3
   AreaOfEffect: 5
   SpecialAttackCD: 0
   SpecialAttackStamina: 10
   UpgradeCost: 500
+  UseStamina: 10
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 0
   stackCount: 1
