@@ -126,8 +126,7 @@ public class TimeManager : MonoBehaviour
         spawnerManager.SetSpawnerActive(dailyLuck);
 
         farmTile.Siram();
-        trashManager.CheckTrash();
-
+        trashManager.UpdateTrash(); 
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
         Debug.Log($"Hari telah berganti: {totalHari}");

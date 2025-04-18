@@ -5,86 +5,56 @@ using UnityEngine;
 [Serializable]
 public class Trash
 {
-    public GameObject trashObject;
-    public string trashName;
-    public Vector2 trashLocation;
-    public int trashCount;
+    public GameObject prefabItem;   // Prefab sampah
+    public string trashName;        // Nama sampah (bisa digunakan untuk logging atau label)
+    public int trashCount;          // Jumlah sampah yang ingin spawn
 }
 
 public class TrashManager : MonoBehaviour
 {
-    // Enum untuk menggantikan ID kasta atau level sampah
-    public enum TrashRank
-    {
-        Low = 1,
-        Normal = 2,
-        High = 3
-    }
-
-    [Serializable]
-    public class TierTrash
-    {
-        public TrashRank rank; // Menentukan kasta atau level sampah
-        public List<Trash> trashItems = new List<Trash>(); // List sampah berdasarkan rank
-
-        // Constructor untuk memudahkan pembuatan objek TierTrash
-        public TierTrash(TrashRank rank)
-        {
-            this.rank = rank;
-        }
-
-        // Fungsi untuk menambahkan sampah ke dalam rank
-        public void AddTrash(Trash trash)
-        {
-            trashItems.Add(trash);
-        }
-    }
-
-    // Daftar untuk menyimpan semua rank sampah
-    public List<TierTrash> TierTrashList = new List<TierTrash>();
-    public Transform trashTransform;
+    public List<Trash> trashItems;        // Daftar item sampah yang ada
+    public List<Vector2> trashLocations;  // Lokasi tempat sampah akan di-spawn
+    public Transform trashTransform;      // Transform untuk parent objek sampah yang di-spawn
+    public int randomCount;
+    public int minimalRandomCount;
 
     void Start()
     {
+
     }
 
-    // Fungsi untuk memeriksa dan memunculkan sampah sesuai tier
-    public void CheckTrash()
+    // Fungsi untuk memeriksa dan memunculkan sampah sesuai lokasi
+    public void UpdateTrash()
     {
-        Debug.Log("CheckTrash berjalan");
+        randomCount = UnityEngine.Random.Range(minimalRandomCount, trashLocations.Count);
 
-        // Periksa setiap tier untuk sampah yang ada
-        foreach (var tierTrash in TierTrashList)
+        for (int i = 0; i < randomCount; i++)
         {
-            // Periksa setiap sampah dalam tier ini
-            foreach (var trash in tierTrash.trashItems)
+            // Pilih sampah secara acak
+            int randomTrash = UnityEngine.Random.Range(0, trashItems.Count);
+
+            // Pilih lokasi sampah secara acak
+            int randomLocationTrash = UnityEngine.Random.Range(0, trashLocations.Count);
+
+            // Memastikan prefab sampah ada sebelum di-instantiate
+            if (trashItems[randomTrash].prefabItem != null)
             {
-                Debug.Log("objek trash di tambahkan ");
+                // Instantiate objek trash pada lokasi yang sesuai
+                GameObject newTrashObject = Instantiate(trashItems[randomTrash].prefabItem);
 
-                // Cek apakah prefab trashObject sudah ada
-                if (trash.trashObject != null)
-                {
-                    // Jika objek belum ada, buat objek dari prefab
-                    GameObject newTrashObject = Instantiate(trash.trashObject);
+                // Menambahkan objek ke dalam hierarki tertentu (misalnya trashTransform)
+                newTrashObject.transform.SetParent(trashTransform);
 
-                    // Menambahkan objek ke dalam hierarki tertentu (misalnya trashTransform)
-                    newTrashObject.transform.SetParent(trashTransform);
+                // Menampilkan objek trash jika belum aktif
+                newTrashObject.SetActive(true);
 
-                    // Menampilkan objek trash jika belum aktif
-                    newTrashObject.SetActive(true);
+                // Menempatkan objek trash di lokasi yang acak
+                Vector2 spawnLocation = trashLocations[randomLocationTrash];
+                newTrashObject.transform.position = new Vector3(spawnLocation.x, spawnLocation.y, 0);
 
-                    // Memindahkan objek trash ke lokasi yang sesuai
-                    newTrashObject.transform.position = new Vector3(trash.trashLocation.x, trash.trashLocation.y, 0);
-
-                    // Bisa ditambahkan logika untuk mengatur jumlah atau interaksi lebih lanjut
-                    Debug.Log($"Menampilkan {trash.trashName} di lokasi {trash.trashLocation}.");
-                }
-                else
-                {
-                    Debug.LogWarning("Prefab trashObject tidak ditemukan untuk " + trash.trashName);
-                }
+                // Log untuk memastikan objek muncul
+                Debug.Log($"Menampilkan {trashItems[randomTrash].trashName} di lokasi {spawnLocation}");
             }
         }
     }
-
 }
