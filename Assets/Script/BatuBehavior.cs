@@ -5,6 +5,7 @@ using UnityEngine;
 public class StoneBehavior : MonoBehaviour
 {
     //Animation idle 
+    public string nameStone;
     public Sprite[] stoneAnimation;
     public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
 

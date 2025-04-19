@@ -17,6 +17,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private ShopUI shopUI;
     [SerializeField] private SpawnerManager spawnerManager;
     [SerializeField] private TrashManager trashManager;
+    [SerializeField] private BatuManager batuManager;
 
     [Header("Date & Time settings")]
     public int totalHari = 1;
@@ -46,6 +47,7 @@ public class TimeManager : MonoBehaviour
     private void Start()
     {
         shopUI.UpdateShopBySeason(currentSeason);
+        batuManager.CheckLocationResource();
     }
     private void Awake()
     {
@@ -126,7 +128,10 @@ public class TimeManager : MonoBehaviour
         spawnerManager.SetSpawnerActive(dailyLuck);
 
         farmTile.Siram();
-        trashManager.UpdateTrash(); 
+        trashManager.UpdateTrash();
+
+        batuManager.UpdatePositionMiner(dailyLuck);
+
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
         Debug.Log($"Hari telah berganti: {totalHari}");
