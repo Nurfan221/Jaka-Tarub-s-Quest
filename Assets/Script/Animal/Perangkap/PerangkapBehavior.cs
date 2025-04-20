@@ -10,6 +10,7 @@ public class PerangkapBehavior : MonoBehaviour
     public GameObject animalInTrap;  // Hewan yang tertangkap
     public GameObject imageAnimalInTrap; // GameObject di atas perangkap untuk menampilkan sprite hewan
     [SerializeField] private PrefabItemBehavior prefabItemBehavior;
+    [SerializeField] private Player_Inventory player_Inventory;
 
 
     void Start()
@@ -114,8 +115,34 @@ public class PerangkapBehavior : MonoBehaviour
         }
     }
 
-    
 
-     
+    public void TakePerangkap()
+    {
+        ItemDropInteractable itemDropInteractable = gameObject.GetComponent<ItemDropInteractable>();
+        Item itemPerangkap = itemDropInteractable.item;
+        itemPerangkap.health = prefabItemBehavior.health;
+
+        bool itemFound = false; // Menyimpan status apakah item sudah ditemukan
+
+        for (int i = 0; i < player_Inventory.itemList.Count; i++)
+        {
+            if (player_Inventory.itemList[i].itemName == itemPerangkap.itemName)
+            {
+                player_Inventory.itemList[i].stackCount += 1; // Menambahkan jumlah stack
+                itemFound = true;
+                break; // Keluar dari loop setelah item ditemukan
+            }
+        }
+
+        // Jika item tidak ditemukan, tambahkan item baru ke dalam inventory
+        if (!itemFound)
+        {
+            player_Inventory.itemList.Add(itemPerangkap);
+        }
+
+        Destroy(gameObject);
+    }
+
+
 
 }

@@ -1,9 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+
 
 public class StoneBehavior : MonoBehaviour
 {
+    [SerializeField] TimeManager timeManager;
+    [Serializable]
+    public class ItemDropMine
+    {
+        public string namaStone;
+        public GameObject[] hasilTambang;
+        public int minHasil;
+        public int maxHasil;
+        
+    }
+
+    public ItemDropMine itemDropMines;
     //Animation idle 
     public string nameStone;
     public Sprite[] stoneAnimation;
@@ -13,24 +28,16 @@ public class StoneBehavior : MonoBehaviour
     private int currentFrame = 0; // Indeks frame saat ini
 
     public float health; // Kesehatan batu
+    public float dayLuck;
+    public bool isLucky;
 
-    // Deklarasi resource hasil menghancurkan batu
-    public GameObject stoneObject;
-    public GameObject ironObject;
-    public GameObject goldObject;
-    public GameObject copperObject;
-    public GameObject coalObject;
-
-    // Logika menentukan jumlah minimal dan maksimal dari item yang akan dijatuhkan
-    public int minStone = 1;  // Jumlah minimum batu
-    public int maxStone = 5;  // Jumlah maksimum batu
-    public int minSpecialItem = 2; // Jumlah item spesial seperti copper, iron, atau gold
-    public int maxSpecialItem = 4;
+   
 
     public void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>(); // Ambil komponen SpriteRenderer
         StartCoroutine(PlayStoneAnimation()); // Mulai animasi
+        
     }
     private IEnumerator PlayStoneAnimation()
     {
@@ -60,104 +67,89 @@ public class StoneBehavior : MonoBehaviour
     {
         Debug.Log("Batu dihancurkan!");
 
-        // Hitung jumlah acak untuk batu
-        int stoneCount = Random.Range(minStone, maxStone + 1);
-        Debug.Log($"Jumlah batu yang akan dijatuhkan: {stoneCount}");
-
-        // Jatuhkan batu sebagai stack item tunggal
-        if (stoneObject != null)
+        if (itemDropMines.hasilTambang.Length > 0)  // Pastikan array hasil tambang tidak kosong
         {
-            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-            ItemPool.Instance.DropItem(stoneObject.name, transform.position + offset, stoneObject, stoneCount);
-        }
+            int countHasilTambang = itemDropMines.hasilTambang.Length;
 
-        // Hitung jumlah acak untuk special item
-        int specialItemCount = Random.Range(minSpecialItem, maxSpecialItem + 1);
-        Debug.Log($"Jumlah total item spesial yang akan dijatuhkan: {specialItemCount}");
+            // Menentukan persentase berdasarkan dayLuck
+            float percentage = 0.3f; // default 30%
+            if (dayLuck == 2) percentage = 0.5f;
+            else if (dayLuck == 3) percentage = 0.7f;
 
-        if (specialItemCount > 0)
-        {
-            // Buat kamus untuk melacak jumlah masing-masing item spesial yang akan dijatuhkan
-            Dictionary<GameObject, int> specialItemsToDrop = new Dictionary<GameObject, int>();
+            // Tentukan jumlah hasil tambang yang akan dimunculkan (min dan max)
+            int randomCount = UnityEngine.Random.Range(itemDropMines.minHasil, itemDropMines.maxHasil + 1);
 
-            for (int i = 0; i < specialItemCount; i++)
+            // Pilih hasil tambang berdasarkan dayLuck
+            List<GameObject> results = new List<GameObject>();  // Menyimpan hasil tambang yang dipilih
+            if (dayLuck == 3)
             {
-                // Pilih item spesial secara acak berdasarkan nama prefab
-                GameObject specialItem = GetSpecialItemBasedOnPrefab();
-                if (specialItem != null)
+                 isLucky = true; // Variabel untuk memastikan variasi antara pilih awal dan akhir
+            }else
+            {
+                isLucky = false;
+            }
+
+            for (int i = 0; i < randomCount; i++)
+            {
+                int index = 0;
+
+                if (dayLuck == 3) // Jika lucky tinggi, pilih item dari belakang
                 {
-                    if (specialItemsToDrop.ContainsKey(specialItem))
+                    // Buat probabilitas untuk memilih item dari belakang
+                    if (isLucky)
                     {
-                        // Tambahkan jumlah item jika sudah ada
-                        specialItemsToDrop[specialItem]++;
+                        index = UnityEngine.Random.Range(countHasilTambang - 3, countHasilTambang);  // Pilih indeks dari belakang
+                        isLucky = false;
                     }
                     else
                     {
-                        // Tambahkan item baru ke kamus
-                        specialItemsToDrop[specialItem] = 1;
+                        index = UnityEngine.Random.Range(0, countHasilTambang - 2);  // Pilih indeks dari depan atau tengah
                     }
                 }
+                else if (dayLuck == 2) // Lucky sedang, pilih item secara acak
+                {
+                    // Pilih item secara acak dari seluruh array dengan sedikit lebih banyak kesempatan di awal
+                    if (isLucky)
+                    {
+                        index = UnityEngine.Random.Range(0, countHasilTambang);  // Pilih acak dari seluruh array
+                        isLucky = false;
+                    }
+                    else
+                    {
+                        index = UnityEngine.Random.Range(0, countHasilTambang);  // Pilih item acak dari seluruh array
+                    }
+                }
+                else // Jika lucky rendah, pilih item dari depan
+                {
+                    index = UnityEngine.Random.Range(0, countHasilTambang / 2);  // Pilih item dari awal array
+                }
+
+                // Tambahkan hasil tambang yang dipilih ke list hasil
+                results.Add(itemDropMines.hasilTambang[index]);
             }
 
-            // Drop setiap jenis item spesial sesuai jumlah yang terhitung
-            foreach (var kvp in specialItemsToDrop)
+            // Menampilkan hasil yang dipilih (untuk debug)
+            foreach (var result in results)
             {
-                GameObject item = kvp.Key;
-                int count = kvp.Value;
+                Debug.Log("Item yang didapat: " + result.name);
+            }
 
-                Vector3 offset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
-                ItemPool.Instance.DropItem(item.name, transform.position + offset, item, count);
-                Debug.Log($"Item spesial dijatuhkan: {item.name} dengan jumlah {count}");
+            // Jatuhkan batu sebagai stack item tunggal
+            if (results != null)
+            {
+                Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
+                for (int j = 0; j < results.Count; j++)
+                {
+                    ItemPool.Instance.DropItem(results[j].name, transform.position + offset, results[j], 1);
+                }
             }
         }
 
         // Hancurkan Batu setelah menjatuhkan item
-        Destroy(gameObject);
+        gameObject.SetActive(false);  // Atau Destroy(gameObject);
     }
 
-    private GameObject GetSpecialItemBasedOnPrefab()
-    {
-        // Nama prefab menentukan peluang ore
-        string prefabName = gameObject.name.ToLower(); // Pastikan nama dalam huruf kecil
-        int randomChance = Random.Range(0, 100);
 
-        switch (prefabName)
-        {
-            case "batuprefab":
-                if (randomChance < 10) return ironObject;  // 10% peluang iron
-                if (randomChance < 20) return goldObject;  // 10% peluang gold
-                if (randomChance < 30) return copperObject; // 10% peluang copper
-                if (randomChance < 40) return coalObject;   // 10% peluang coal
-                break;
 
-            case "copper":
-                if (randomChance < 80) return copperObject; // 60% peluang copper
-                if (randomChance < 30) return ironObject;   // 30% peluang iron
-                if (randomChance < 40) return coalObject;   // 10% peluang coal
-                break;
 
-            case "iron":
-                if (randomChance < 80) return ironObject;   // 60% peluang iron
-                if (randomChance < 30) return copperObject; // 20% peluang copper
-                if (randomChance < 40) return coalObject;   // 10% peluang coal
-                break;
-
-            case "gold":
-                if (randomChance < 80) return goldObject;   // 60% peluang gold
-                if (randomChance < 40) return ironObject;   // 20% peluang iron
-                break;
-
-            case "coal":
-                if (randomChance < 80) return coalObject;   // 60% peluang coal
-                if (randomChance < 40) return copperObject; // 40% peluang copper
-                if (randomChance < 30) return stoneObject; // 30% peluang stone
-                break;
-
-            default:
-                Debug.LogWarning($"Prefab {prefabName} tidak dikenal. Menggunakan default logic.");
-                break;
-        }
-
-        return null; // Tidak ada item spesial yang dijatuhkan
-    }
 }

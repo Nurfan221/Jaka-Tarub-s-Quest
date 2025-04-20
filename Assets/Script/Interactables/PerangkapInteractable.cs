@@ -28,7 +28,7 @@ public class PeraangkapInteractable : Interactable
             perangkapBehavior.TakeAnimal();
         }else
         {
-
+            perangkapBehavior.TakePerangkap();
         }
     }
 }

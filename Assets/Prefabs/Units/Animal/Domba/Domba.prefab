@@ -246,10 +246,12 @@ MonoBehaviour:
   jedaAnimasi: 3
   isMoving: 0
   moveSpeed: 1
+  isAnimalEvent: 0
   animalAnimator: {fileID: 779017872243086411}
   animalRenderer: {fileID: -4335485848235824116}
   namaHewan: Domba
   health: 10
+  maxHealth: 20
   dropitems:
   - {fileID: 4459120725376062254, guid: 4abfe66eb1ac9d545b2f66f6c928611a, type: 3}
   minNormalItem: 1

@@ -42,6 +42,7 @@ public class BatuManager : MonoBehaviour
                 if (itemObject.resourceObject != null)
                 {
                     itemObject.location = (Vector2)itemObject.resourceObject.transform.position;
+
                 }
             }
         }
@@ -68,12 +69,16 @@ public class BatuManager : MonoBehaviour
             List<Resource> shuffledList = new List<Resource>(itemObject.resources);
             ShuffleList(shuffledList); // Kita acak urutannya
 
+
             // Tampilkan hanya sejumlah itemToShow
             for (int i = 0; i < shuffledList.Count; i++)
             {
                 var item = shuffledList[i];
                 bool show = i < itemsToShow;
                 item.resourceObject.SetActive(show);
+
+                StoneBehavior stoneBehavior = item.resourceObject.GetComponent<StoneBehavior>();
+                stoneBehavior.dayLuck = luckValue;
             }
         }
     }

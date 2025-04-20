@@ -18,16 +18,16 @@ public class ItemDropInteractable : Interactable
         //GetComponent<SpriteRenderer>().sprite = item.sprite;
     }
 
-    protected override void Interact()
-    {
-        if (SoundManager.Instance != null)
-            SoundManager.Instance.PlaySound("Pick");
-        Debug.Log(item.itemName + " di ambil.");
-        Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(item.itemName));
-        //if (item.type == ItemType.Quest) { GetComponent<QuestQuanta>().Take(); }
+    //protected override void Interact()
+    //{
+    //    if (SoundManager.Instance != null)
+    //        SoundManager.Instance.PlaySound("Pick");
+    //    Debug.Log(item.itemName + " di ambil.");
+    //    Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(item.itemName));
+    //    //if (item.type == ItemType.Quest) { GetComponent<QuestQuanta>().Take(); }
 
-        Destroy(gameObject);
-    }
+    //    Destroy(gameObject);
+    //}
 
     public IEnumerator StopGravity(Rigidbody2D rb, float delay)
     {

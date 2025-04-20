@@ -34,6 +34,7 @@ public class AnimalBehavior : MonoBehaviour
 
     public string namaHewan;
     public float health;
+    public int maxHealth;
   
 
 
@@ -54,6 +55,8 @@ public class AnimalBehavior : MonoBehaviour
     {
         // Mulai Coroutine untuk memilih dan menjalankan animasi secara otomatis
         StartCoroutine(PlayRandomAnimationPeriodically());
+
+        health = maxHealth;
     }
 
     private IEnumerator PlayRandomAnimationPeriodically()
@@ -291,6 +294,26 @@ public class AnimalBehavior : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void TakeDamage(float damage)
+    {
+        Debug.Log("take Damage" + damage);
+        health -= damage;
+        health = Mathf.Clamp(health, 0, maxHealth); // Pastikan tidak kurang dari 0 atau lebih dari maxHealth
+
+        if (health <= 0)
+        {
+            Die();
+        }
+
+
+    }
+
+    void Die()
+    {
+        DropItem();
+        Debug.Log(gameObject.name + " has died.");
+        gameObject.SetActive(false);
+    }
 
 
 }

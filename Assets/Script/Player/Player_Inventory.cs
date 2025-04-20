@@ -134,7 +134,7 @@ public class Player_Inventory : MonoBehaviour
         {
             GameController.Instance.PauseGame();
 
-            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Perangkap"));
             //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
             //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
             //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
@@ -254,46 +254,49 @@ public class Player_Inventory : MonoBehaviour
             // Ambil data dari PrefabItemBehavior jika ada
             PrefabItemBehavior prefabItem = other.GetComponent<PrefabItemBehavior>();
 
-            if (prefabItem != null)
+            if (itemList.Count < maxItem)
             {
-                string itemName = prefabItem.namePrefab;
-                float itemHealth = prefabItem.health;
-
-                // Cari item di ItemPool berdasarkan namePrefab dari PrefabItemBehavior
-                Item itemToAdd = ItemPool.Instance.GetItem(itemName);
-
-                if (itemToAdd != null)
+                if (prefabItem != null)
                 {
-                    int prevCount = itemList.Count; // Hitung jumlah item sebelum AddItem
+                    string itemName = prefabItem.namePrefab;
+                    float itemHealth = prefabItem.health;
 
-                    // Buat clone item agar tidak merusak data asli di ItemPool
-                    itemToAdd = Instantiate(itemToAdd);
-                    itemToAdd.health = itemHealth; // Atur nilai health dari item menggunakan health dari PrefabItemBehavior
+                    // Cari item di ItemPool berdasarkan namePrefab dari PrefabItemBehavior
+                    Item itemToAdd = ItemPool.Instance.GetItem(itemName);
 
-                    Debug.Log("nyawa item itu adalah : " + itemHealth);
-                    // Tambahkan item ke inventory
-                    AddItem(itemToAdd);
-
-                    // Jika jumlah item di inventory bertambah, berarti item berhasil dimasukkan
-                    if (itemList.Count > prevCount ||
-                        (itemToAdd.isStackable && itemList.Exists(x => x.itemName == itemToAdd.itemName)))
+                    if (itemToAdd != null)
                     {
-                        Debug.Log($"{itemName} berhasil ditambahkan ke inventory. Menghancurkan item drop.");
-                        Destroy(other.gameObject); // Hancurkan item drop dari world
+                        int prevCount = itemList.Count; // Hitung jumlah item sebelum AddItem
+
+                        // Buat clone item agar tidak merusak data asli di ItemPool
+                        itemToAdd = Instantiate(itemToAdd);
+                        itemToAdd.health = itemHealth; // Atur nilai health dari item menggunakan health dari PrefabItemBehavior
+
+                        Debug.Log("nyawa item itu adalah : " + itemHealth);
+                        // Tambahkan item ke inventory
+                        AddItem(itemToAdd);
+
+                        // Jika jumlah item di inventory bertambah, berarti item berhasil dimasukkan
+                        if (itemList.Count > prevCount ||
+                            (itemToAdd.isStackable && itemList.Exists(x => x.itemName == itemToAdd.itemName)))
+                        {
+                            Debug.Log($"{itemName} berhasil ditambahkan ke inventory. Menghancurkan item drop.");
+                            Destroy(other.gameObject); // Hancurkan item drop dari world
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"{itemName} tidak ditambahkan ke inventory karena penuh.");
+                        }
                     }
                     else
                     {
-                        Debug.LogWarning($"{itemName} tidak ditambahkan ke inventory karena penuh.");
+                        Debug.LogWarning($"Item dengan nama {itemName} tidak ditemukan di ItemPool.");
                     }
                 }
                 else
                 {
-                    Debug.LogWarning($"Item dengan nama {itemName} tidak ditemukan di ItemPool.");
+                    Debug.LogWarning("Komponen PrefabItemBehavior tidak ditemukan di objek dengan tag 'ItemDrop'.");
                 }
-            }
-            else
-            {
-                Debug.LogWarning("Komponen PrefabItemBehavior tidak ditemukan di objek dengan tag 'ItemDrop'.");
             }
         }
         else if(other.CompareTag("Animal"))

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
+  m_Name: BuluHewan
+  m_EditorClassIdentifier: 
+  itemID: 39
+  itemName: BuluHewan
+  type: 8
+  categories: 4608
+  sprite: {fileID: -5267971887633679240, guid: 7218b79162bf4b346a9583b8bd8deb13, type: 3}
+  itemDescription: Bulu halus yang bisa digunakan untuk membuat peralatan ringan
+    atau di jual dengan harga yang lumayan
+  QuantityFuel: 0
+  health: 0
+  Level: 1
+  MaxLevel: 0
+  Damage: 0
+  AreaOfEffect: 0
+  SpecialAttackCD: 0
+  SpecialAttackStamina: 0
+  UpgradeCost: 0
+  UseStamina: 0
+  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  isStackable: 1
+  stackCount: 1
+  maxStackCount: 32
+  BuyValue: 0
+  SellValue: 0
+  BurningTime: 0
+  CookTime: 0
+  prefabItem: {fileID: 4459120725376062254, guid: d314e55a290abd34a83d81dabd074443, type: 3}
+  growthTime: 0
+  growthImages: []
+  dropItem: {fileID: 0}

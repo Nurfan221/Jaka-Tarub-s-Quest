@@ -201,7 +201,7 @@ public class Player_Action : MonoBehaviour
                 // Gunakan quick slot 1
                 Player_Inventory.Instance.UseQuickSlot(1);
                 StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
-                Debug.Log("Menggunakan item dari quick slot 1");
+                //Debug.Log("Menggunakan item dari quick slot 1");
             }
             // Jika quickSlot[0] kosong atau itemUse1 false, cek quickSlot[1]
             else if (player_inventory.quickSlots[1] != null)
@@ -209,7 +209,7 @@ public class Player_Action : MonoBehaviour
                 // Gunakan quick slot 2
                 Player_Inventory.Instance.UseQuickSlot(2);
                 StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
-                Debug.Log("Menggunakan item dari quick slot 2");
+                //Debug.Log("Menggunakan item dari quick slot 2");
             }
             else
             {
@@ -241,7 +241,7 @@ public class Player_Action : MonoBehaviour
         activeHitbox.name = damage.ToString();
 
         activeHitbox.SetActive(true);
-        StartCoroutine(DeactivateHitboxAfterAnimation(activeHitbox, howLong));
+        //StartCoroutine(DeactivateHitboxAfterAnimation(activeHitbox, howLong));
 
         DetectAndDamageObjects(actionType, damage);
     }
@@ -254,29 +254,62 @@ public class Player_Action : MonoBehaviour
         yield return new WaitForSeconds(duration);
         hitbox.SetActive(false);
     }
+
+
     private void DetectAndDamageObjects(string actionType, int damage)
     {
-        Dictionary<string, System.Action<GameObject>> damageActions = new Dictionary<string, System.Action<GameObject>>()
-        {
-            { "Kapak", obj => obj.GetComponent<TreeBehavior>()?.TakeDamage(damage) },
-            { "PickAxe", obj => obj.GetComponent<StoneBehavior>()?.TakeDamage(damage) },
-            { "Sabit", obj => obj.GetComponent<PlantSeed>()?.Harvest() },
-            {"Sword", obj => obj.GetComponent<Enemy_Health>()?.TakeDamage(damage) }
-        };
+        // Define the damage actions for each attack type
+        Dictionary<string, List<System.Action<GameObject>>> damageActions = new Dictionary<string, List<System.Action<GameObject>>>()
+    {
+        { "Kapak", new List<System.Action<GameObject>> { obj => obj.GetComponent<TreeBehavior>()?.TakeDamage(damage) } },
+        { "PickAxe", new List<System.Action<GameObject>> { obj => obj.GetComponent<StoneBehavior>()?.TakeDamage(damage) } },
+        { "Sabit", new List<System.Action<GameObject>> { obj => obj.GetComponent<PlantSeed>()?.Harvest() } },
+        { "Sword", new List<System.Action<GameObject>>
+            {
+                obj => obj.GetComponent<Enemy_Health>()?.TakeDamage(damage),
+                obj => obj.GetComponent<AnimalBehavior>()?.TakeDamage(damage)
+            }
+        }
+    };
 
+        // Find objects within the hitbox radius
         Collider2D[] hitObjects = Physics2D.OverlapCircleAll(face.position, 0.5f);
         foreach (Collider2D obj in hitObjects)
         {
-            if (damageActions.ContainsKey(actionType) && obj.CompareTag(actionType == "Kapak" ? "Tree" :
-                                                                       actionType == "PickAxe" ? "Stone" :
-                                                                       actionType == "Sabit" ? "Plant" : 
-                                                                       actionType == "Sword"? "Bandit": ""))
+            // Get the tags associated with the current actionType
+            List<string> targetTags = GetTargetTags(actionType);
+
+            // Check if the object's tag matches any of the actionType's tags
+            foreach (string targetTag in targetTags)
             {
-                Debug.Log($"{obj.name} terkena {actionType} dengan damage: {damage}");
-                damageActions[actionType]?.Invoke(obj.gameObject);
+                if (obj.CompareTag(targetTag))
+                {
+                    Debug.Log($"{obj.name} terkena {actionType} dengan damage: {damage}");
+
+                    // Perform all actions associated with the current actionType
+                    if (damageActions.ContainsKey(actionType))
+                    {
+                        foreach (var action in damageActions[actionType])
+                        {
+                            action.Invoke(obj.gameObject);
+                        }
+                    }
+                }
             }
         }
     }
+
+    private List<string> GetTargetTags(string actionType)
+    {
+        // Return the appropriate tags based on actionType
+        if (actionType == "Kapak") return new List<string> { "Tree" };
+        if (actionType == "PickAxe") return new List<string> { "Stone" };
+        if (actionType == "Sabit") return new List<string> { "Plant" };
+        if (actionType == "Sword") return new List<string> { "Bandit", "Animal" }; // Multiple tags for Sword
+
+        return new List<string>(); // Return empty list if no match
+    }
+
 
 
 
@@ -328,7 +361,7 @@ public class Player_Action : MonoBehaviour
             //    SoundManager.Instance.PlaySound("Sword");
 
             print("melee normal attacking");
-            Debug.Log("nama item yang sedang di pakai" + itemToAttack.itemName);
+            //Debug.Log("nama item yang sedang di pakai" + itemToAttack.itemName);
             switch (itemToAttack.itemName)
             {
                 //case "Tombak Berburu":
@@ -342,7 +375,7 @@ public class Player_Action : MonoBehaviour
                 case "Kapak":
                     if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
                     {
-                        Debug.Log($"Damage: {itemToAttack.Damage}");
+                        //Debug.Log($"Damage: {itemToAttack.Damage}");
                         //print("Mengapak tanah");
                         playerPosition = transform.position; // Posisi pemain
 
@@ -352,7 +385,7 @@ public class Player_Action : MonoBehaviour
                         ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
                         //PlayActionAnimation(itemToAttack.itemName);
 
-                        Debug.Log("Kapak dijalankan dengan hitbox.");
+                        //Debug.Log("Kapak dijalankan dengan hitbox.");
                     }
                     else
                     {
@@ -369,11 +402,11 @@ public class Player_Action : MonoBehaviour
                         // Ambil arah dari posisi face
                         faceDirection = face.localPosition.normalized;
 
-                        Debug.Log($"Damage: {itemToAttack.Damage}");
+                        //Debug.Log($"Damage: {itemToAttack.Damage}");
                         // Memanggil ActivateHitbox tanpa parameter area
                         ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
 
-                        Debug.Log("PickAxe dijalankan dengan hitbox.");
+                        //Debug.Log("PickAxe dijalankan dengan hitbox.");
                     }
                     else
                     {
@@ -389,7 +422,7 @@ public class Player_Action : MonoBehaviour
 
                         // Ambil arah dari posisi face
                         faceDirection = face.localPosition.normalized;
-                        Debug.Log($"Damage: {itemToAttack.Damage}");
+                        //Debug.Log($"Damage: {itemToAttack.Damage}");
 
                         //Memanggil ActiveHitbox tanpa parameter area
                         ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
@@ -410,11 +443,11 @@ public class Player_Action : MonoBehaviour
                         // Ambil arah dari posisi face
                         faceDirection = face.localPosition.normalized;
 
-                        Debug.Log($"Damage: {itemToAttack.Damage}");
+                        //Debug.Log($"Damage: {itemToAttack.Damage}");
                         // Memanggil ActivateHitbox tanpa parameter area
                         ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
 
-                        Debug.Log("PickAxe dijalankan dengan hitbox.");
+                        //Debug.Log("PickAxe dijalankan dengan hitbox.");
                     }
                     else
                     {
