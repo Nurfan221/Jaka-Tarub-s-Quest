@@ -117,6 +117,7 @@ public class TimeManager : MonoBehaviour
         weatherManager.SetRainChance();
         weatherManager.CheckForRain();
 
+        farmTile.Siram();
         farmTile.CheckTile();
         farmTile.ResetWateredTiles();
 
@@ -127,7 +128,7 @@ public class TimeManager : MonoBehaviour
         GetLuck();
         spawnerManager.SetSpawnerActive(dailyLuck);
 
-        farmTile.Siram();
+
         trashManager.UpdateTrash();
 
         batuManager.UpdatePositionMiner(dailyLuck);

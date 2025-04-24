@@ -11,9 +11,14 @@ public enum GrowthStage
 }
 public class PlantSeed : MonoBehaviour
 {
+    [Header("Daftar Hubungan")]
+    public ParticleSystem water;
+    public ParticleSystem grow;
+
     public GrowthStage currentStage = GrowthStage.Seed; // Tahap awal
     public bool siram = false;
     public bool isReadyToHarvest = false;
+    public bool isInsect = false;
 
     public Sprite[] growthImages; // Gambar untuk tiap tahap pertumbuhan
     public float growthTime; // Waktu sedd tumbuh maksimal
@@ -43,7 +48,10 @@ public class PlantSeed : MonoBehaviour
         }
         // Hitung growthSpeed berdasarkan panjang growthImages
         growthSpeed = growthTime / growthImages.Length; // Menghitung waktu jeda pertumbuhan
+
         Debug.Log("nilai growthTime saat Start : " + growthTime);
+
+        ParticleEffect();
     }
 
     private void Update()
@@ -57,7 +65,11 @@ public class PlantSeed : MonoBehaviour
         //     AddOneDay(); // Tambah satu hari dan perbarui pertumbuhan
         // }
 
+
+
         TanamanLayu();
+
+
 
 
     }
@@ -126,4 +138,28 @@ public class PlantSeed : MonoBehaviour
         }
     }
 
+    public void ParticleEffect()
+    {
+        grow.gameObject.SetActive(true);
+        water.gameObject.SetActive(true);
+
+        if (water != null && grow != null)
+        {
+            if (siram)
+            {
+                Debug.Log("menjalankan animasi pertumbuhan");
+                grow.Play();
+                water.Stop();
+            }
+            else
+            {
+                water.Play();
+                grow.Stop();
+            }
+        }else
+        {
+            Debug.Log("partikel system kosong");
+        }
+
+    }
 }

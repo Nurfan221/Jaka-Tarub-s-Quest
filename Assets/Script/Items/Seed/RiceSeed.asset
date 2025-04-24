@@ -27,6 +27,7 @@ MonoBehaviour:
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 0
+  UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 10
@@ -36,7 +37,7 @@ MonoBehaviour:
   BurningTime: 0
   CookTime: 0
   prefabItem: {fileID: 2120680195082938319, guid: b821ff32b858b26489763e1c6375d4ec, type: 3}
-  growthTime: 14
+  growthTime: 12
   growthImages:
   - {fileID: -5774877164156790999, guid: 1287d52edf00f2e47a677efb4c369e04, type: 3}
   - {fileID: 1640555460866966840, guid: 1287d52edf00f2e47a677efb4c369e04, type: 3}

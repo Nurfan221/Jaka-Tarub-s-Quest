@@ -88,7 +88,7 @@ public class Craft : MonoBehaviour
     {
         GameController.Instance.ShowPersistentUI(true);
         gameObject.SetActive(false);
-        checkingredients.gameObject.SetActive(false);
+        //checkingredients.gameObject.SetActive(false);
         craftUI.gameObject.SetActive(false);
         Debug.Log("Crafting ditutup");
         ResetImageItem();

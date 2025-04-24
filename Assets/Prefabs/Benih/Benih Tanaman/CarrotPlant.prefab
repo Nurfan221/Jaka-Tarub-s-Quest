@@ -150,9 +150,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d0cc03c1d4abb647a53ba144d4dbb6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  water: {fileID: 6376930177193966924}
+  grow: {fileID: 3535190924927436543}
   currentStage: 0
   siram: 0
   isReadyToHarvest: 0
+  isHama: 0
   growthImages: []
   growthTime: 0
   growthSpeed: 0
@@ -160,6 +163,7 @@ MonoBehaviour:
   namaSeed: 
   dropItem: {fileID: 0}
   timeSaatIni: 0
+  plantLocation: {x: 0, y: 0, z: 0}
 --- !u!114 &2262402367362025452
 MonoBehaviour:
   m_ObjectHideFlags: 0

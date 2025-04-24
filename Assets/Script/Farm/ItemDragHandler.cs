@@ -290,6 +290,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Debug.Log("Item tidak berada di posisi yang valid.");
             rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal jika tidak valid
         }
+
+        DroppedOnValidTile();
     }
 
 

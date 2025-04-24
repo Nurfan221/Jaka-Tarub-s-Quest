@@ -142,13 +142,14 @@
                 Debug.Log("Collider found on object: " + collider.gameObject.name);
 
                 // Cek apakah objek yang ditemukan memiliki komponen SeedManager
-                PlantSeed PlantSeed = collider.GetComponent<PlantSeed>();
-                if (PlantSeed != null)
+                PlantSeed plantSeed = collider.GetComponent<PlantSeed>();
+                if (plantSeed != null)
                 {
                     Debug.Log("Found an object with SeedManager at this tile position.");
 
                     // Memanggil metode untuk menyiram tanaman
-                    PlantSeed.siram = true;
+                    plantSeed.siram = true;
+                    plantSeed.ParticleEffect();
 
                     // Ubah tile ke wateredTile dan tandai tile sebagai sudah disiram
                     tilemap.SetTile(tilesiram, wateredTile);
@@ -197,6 +198,7 @@
                 {
                     PlantSeed plantSeed = plant.gameObject.GetComponent<PlantSeed>();
                     plantSeed.siram = false;
+                    plantSeed.ParticleEffect();
                 }
             }
         }
@@ -252,13 +254,15 @@
 
     public void Siram()
     {
+        Debug.Log("memanggil fungsi siram");
         foreach (var plant in plantStatus)
         {
             PlantSeed plantSeed = plant.GetComponent<PlantSeed>();
             if (plantSeed.siram)
             {
                 plantSeed.growthTimer++; // Tambahkan satu hari ke growthTimer
-                Debug.Log("Fungsi AddOnDan di update");
+
+                Debug.Log("tambahkan growt timer");
                 Debug.Log("nilai dari growthtime saat fungsi AddOneDay di jalankan" + plantSeed.growthTime);
                 Debug.Log("nilai dari growtimer " + plantSeed.growthTimer);
 
