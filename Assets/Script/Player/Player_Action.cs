@@ -58,6 +58,7 @@ public class Player_Action : MonoBehaviour
     // [SerializeField] private plantSeed plantSeed;
 
     public Button buttonAttack;
+
     public Button specialAttack;
 
     public Button buttonUse;
@@ -354,7 +355,7 @@ public class Player_Action : MonoBehaviour
         if (itemToAttack.itemName == "Empty")
             return;
 
-        if (itemToAttack.type == ItemType.Melee_Combat)
+        if (itemToAttack.types == ItemType.Melee_Combat)
         {
             // Memanggil suara pedang ketika serangan normal dengan pedang
             //if (SoundManager.Instance != null)
@@ -480,7 +481,7 @@ public class Player_Action : MonoBehaviour
 
             StartCoroutine(ActivateAttack(.5f));
         }
-        else if (itemToAttack.type == ItemType.Ranged_Combat)
+        else if (itemToAttack.types == ItemType.Ranged_Combat)
         {
             // Check for arrow first
             if (Player_Inventory.Instance.itemList.Exists(x => x.itemName == "Anak Panah"))
@@ -510,7 +511,9 @@ public class Player_Action : MonoBehaviour
             return;
         playerHealth.SpendStamina(itemToAttack.UseStamina);
         playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
-        if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
+
+        playerUI.TakeCapacityBar(itemToAttack);
+        if (itemToAttack.health != 0 && playerHealth.stamina >= 0)
         {
             StartCoroutine(HandleSpecialAttackCD(itemToAttack.SpecialAttackCD));
             if (itemToAttack.itemName == "PenyiramTanaman")
@@ -568,7 +571,7 @@ public class Player_Action : MonoBehaviour
                 StartCoroutine(ActivateAttack(1));
 
             }
-            else if (itemToAttack.type == ItemType.Melee_Combat)
+            else if (itemToAttack.types == ItemType.Melee_Combat)
             {
                 print("No Special Attack");
             }
@@ -576,7 +579,7 @@ public class Player_Action : MonoBehaviour
             {
                 print("rock no special attack");
             }
-            else if (itemToAttack.type == ItemType.Ranged_Combat)
+            else if (itemToAttack.types == ItemType.Ranged_Combat)
             {
                 print("bow special attack");
                 for (int i = 0; i < 5; i++)
@@ -597,6 +600,9 @@ public class Player_Action : MonoBehaviour
                 }
                 StartCoroutine(ActivateAttack(1));
             }
+        }else
+        {
+            Debug.Log("Stamina Habis bang");
         }
     }
 

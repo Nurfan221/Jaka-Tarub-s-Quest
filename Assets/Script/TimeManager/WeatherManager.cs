@@ -4,6 +4,8 @@ public class WeatherManager : MonoBehaviour
 {
     [SerializeField] private TimeManager timeManager;  // Referensi ke TimeManager
     [SerializeField] private ClockManager clockManager;
+    public ParticleSystem rainParticle;
+    public bool isRain;
 
     public float rainChance = 0f;
 
@@ -44,10 +46,13 @@ public class WeatherManager : MonoBehaviour
 
         if (randomValue <= rainChance)
         {
-            Debug.Log("Turun hujan yeeeayyyy");
+            isRain = true;
+            rainParticle.Play();
         }
         else
         {
+            isRain = false;
+            rainParticle.Stop();
             Debug.Log("Tidak turun hujan");
         }
     }

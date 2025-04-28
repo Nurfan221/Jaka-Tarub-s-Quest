@@ -143,7 +143,7 @@
 
                 // Cek apakah objek yang ditemukan memiliki komponen SeedManager
                 PlantSeed plantSeed = collider.GetComponent<PlantSeed>();
-                if (plantSeed != null)
+                if (plantSeed != null && !plantSeed.isInsect)
                 {
                     Debug.Log("Found an object with SeedManager at this tile position.");
 
@@ -162,7 +162,10 @@
                 else
                 {
                     Debug.Log("No SeedManager component found on this object.");
+                    Debug.Log("lokasi tile yang di aksi" + worldPosition);
                 }
+
+                
             }
             else
             {
@@ -205,6 +208,7 @@
 
         // Bersihkan daftar tile yang sudah di-reset
         wateredTiles.Clear();
+        RandomHama();
     }
 
 
@@ -230,6 +234,20 @@
 
         // Hapus dari daftar hoedTilesList
         hoedTilesList.RemoveAll(item => item.tilePosition == tilePosition);
+
+        Vector3 targetWorldPos = tilemap.GetCellCenterWorld(tilePosition);
+
+        foreach (var plant in plantStatus)
+        {
+            if (plant != null)
+            {
+                // Bandingkan posisi world plant dengan posisi cell yang dikonversi ke world
+                if (Vector3.Distance(plant.transform.position, targetWorldPos) < 0.1f) // Ada toleransi kecil
+                {
+                    Destroy(plant);
+                }
+            }
+        }
 
 
     }
@@ -283,4 +301,25 @@
             }
         }
     }
+
+    public void RandomHama()
+    {
+
+        foreach (var plant in plantStatus)
+        {
+            int randomValue = Random.Range(0, 1);
+            PlantSeed plantSeed = plant.GetComponent<PlantSeed>();
+            if (Random.value < 0.2f)
+            {
+                plantSeed.isInsect = true;
+                plantSeed.siram = false;
+                plantSeed.ParticleEffect();
+            }
+
+        }
+    }
+
+
+    
+
 }

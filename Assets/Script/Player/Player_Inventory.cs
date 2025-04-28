@@ -134,19 +134,19 @@ public class Player_Inventory : MonoBehaviour
         {
             GameController.Instance.PauseGame();
 
-            Instance.AddItem(ItemPool.Instance.GetItem("Perangkap"));
-            Instance.AddItem(ItemPool.Instance.GetItem("CoalOre"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Insectisida"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("CoalOre"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
             //Instance.AddItem(ItemPool.Instance.GetItem("DagingSapiSpesial"));
             //Instance.AddItem(ItemPool.Instance.GetItem("DagingSapiSpesial"));
 
@@ -365,6 +365,10 @@ public class Player_Inventory : MonoBehaviour
 
         equippedCombat[index] = item;
         PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().SetActiveItem(index, item);
+        if (item.itemName != "Empty")
+        {
+            PlayerUI.Instance.UpdateCapacityBar(item);
+        }
         print(item.itemName + " equipped");
     }
 
@@ -374,7 +378,7 @@ public class Player_Inventory : MonoBehaviour
         if (!itemList.Exists(x => x.itemName == item.itemName) && item.itemName != "Empty")
             return;
 
-        switch (item.type)
+        switch (item.types)
         {
             case ItemType.Heal:
             case ItemType.Buff:
@@ -411,7 +415,7 @@ public class Player_Inventory : MonoBehaviour
         }
 
         // Have its effect
-        switch (item.type)
+        switch (item.types)
         {
             case ItemType.Heal:
                 // Heal Player

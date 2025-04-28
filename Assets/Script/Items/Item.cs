@@ -11,7 +11,8 @@ public enum ItemType
     Item = 8,
     Quest = 16,
     ItemPrefab = 32,
-    Animal = 64
+    Animal = 64,
+    Pestisida = 128,
 }
 
 [System.Flags]
@@ -30,7 +31,8 @@ public enum ItemCategory
     Crafting_Material = 512,
     PlantSeed = 1024,
     TreeSeed = 2048,
-    ItemPrefab = 4096
+    ItemPrefab = 4096,
+    Insectisida = 8192,
 }
 
 [CreateAssetMenu(menuName = "Make an Item")]
@@ -39,12 +41,13 @@ public class Item : ScriptableObject
     [Header("STATS")]
     public int itemID;
     public string itemName;
-    public ItemType type;
+    public ItemType types;
     public ItemCategory categories;
     public Sprite sprite;
     [TextArea]
     public string itemDescription;
     public int QuantityFuel;
+    public float maxhealth;
     public float health; //deklarasikan health untuk menentukan berapa kali item di gunakan
 
     // Combat Item
@@ -81,6 +84,11 @@ public class Item : ScriptableObject
     public bool IsInCategory(ItemCategory category)
     {
         return (categories & category) == category;
+    }
+
+    public bool IsInType(ItemType type)
+    {
+        return (types & type) == type;
     }
 
 

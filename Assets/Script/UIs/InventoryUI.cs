@@ -131,6 +131,7 @@ public class InventoryUI : MonoBehaviour
         }
 
         pickedSlot.gameObject.GetComponentInChildren<Image>().sprite = item.sprite;
+        
         pickedSlot.gameObject.SetActive(true);
         //pickedSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
 
@@ -289,7 +290,7 @@ public class InventoryUI : MonoBehaviour
             }
         });
 
-        switch (item.type)
+        switch (item.types)
         {
             case ItemType.Melee_Combat:
                 itemAction.onClick.AddListener(() =>
@@ -326,7 +327,7 @@ public class InventoryUI : MonoBehaviour
 
         // Set the "Equip" button according to item's type
         string itemUses;
-        if (item.type == ItemType.Item)
+        if (item.types == ItemType.Item)
         {
             itemUses = "CAN'T EQUIP";
             itemAction.interactable = false;

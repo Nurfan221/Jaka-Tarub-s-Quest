@@ -118,7 +118,14 @@ public class Player_Health : MonoBehaviour
     {
         if (exhaust > stamina) return false;
 
-        stamina -= exhaust;
+
+        if (exhaust > stamina)
+        {
+            stamina -= stamina;
+        }else
+        {
+            stamina -= exhaust;
+        }
         return true;
     }
 

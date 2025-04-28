@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum GrowthStage
@@ -14,6 +15,7 @@ public class PlantSeed : MonoBehaviour
     [Header("Daftar Hubungan")]
     public ParticleSystem water;
     public ParticleSystem grow;
+    public ParticleSystem insect;
 
     public GrowthStage currentStage = GrowthStage.Seed; // Tahap awal
     public bool siram = false;
@@ -67,7 +69,7 @@ public class PlantSeed : MonoBehaviour
 
 
 
-        TanamanLayu();
+  
 
 
 
@@ -126,40 +128,39 @@ public class PlantSeed : MonoBehaviour
         }
     }
 
-    public void TanamanLayu()
-    {
-        if (farmTile.siram == false && timeManager.date > timeSaatIni + 3)
-        {
-            Destroy(gameObject, 0.5f);
-            Debug.Log("tanaman layu ");
-        }else 
-        {
-            timeSaatIni = timeManager.date;
-        }
-    }
 
     public void ParticleEffect()
     {
-        grow.gameObject.SetActive(true);
-        water.gameObject.SetActive(true);
-
-        if (water != null && grow != null)
+        if (grow == null || water == null || insect == null)
         {
-            if (siram)
-            {
-                Debug.Log("menjalankan animasi pertumbuhan");
-                grow.Play();
-                water.Stop();
-            }
-            else
-            {
-                water.Play();
-                grow.Stop();
-            }
-        }else
-        {
-            Debug.Log("partikel system kosong");
+            Debug.LogWarning("Salah satu Particle System belum di-assign!");
+            return;
         }
 
+        // Aktifkan semua GameObject partikel
+        grow.gameObject.SetActive(true);
+        water.gameObject.SetActive(true);
+        insect.gameObject.SetActive(true);
+
+        if (isInsect)
+        {
+            grow.Stop();
+            water.Stop();
+            insect.Play();
+        }
+        else if (siram)
+        {
+            grow.Play();
+            water.Stop();
+            insect.Stop();
+            Debug.Log("Menjalankan animasi pertumbuhan");
+        }
+        else
+        {
+            grow.Stop();
+            water.Play();
+            insect.Stop();
+        }
     }
+
 }
