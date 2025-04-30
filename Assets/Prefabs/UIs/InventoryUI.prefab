@@ -2307,8 +2307,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 828, y: 449.96802}
-  m_SizeDelta: {x: 112.3057, y: 115.7463}
+  m_AnchoredPosition: {x: 769, y: 418}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1286604674495144930
 CanvasRenderer:
@@ -7259,8 +7259,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4136248177102503047}
-  - {fileID: 5316628019056709098}
   - {fileID: 3833880252484992406}
+  - {fileID: 5316628019056709098}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -13030,6 +13030,7 @@ MonoBehaviour:
   sliderActive: {fileID: 9208044968218441874, guid: b8c4fe2377f0e0d41a489fd677eb97d6, type: 3}
   sliderInactive: {fileID: 7182660371469165703, guid: b8c4fe2377f0e0d41a489fd677eb97d6, type: 3}
   deskripsi: {fileID: 6119999710753379152}
+  isDeskripsi: 0
 --- !u!1 &7442929946448438101
 GameObject:
   m_ObjectHideFlags: 0
