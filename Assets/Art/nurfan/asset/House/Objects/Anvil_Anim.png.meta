@@ -72,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -147,10 +147,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 63dd9ff337d309470800000000000000
-      internalID: 8399280870249848118
+      spriteID: 64b0af4de9f247d49bb7f0a592524268
+      internalID: -592234244
       vertices: []
       indices: 
       edges: []
@@ -169,10 +169,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fdf1270201a4a59a0800000000000000
-      internalID: -6243596500271489057
+      spriteID: 4f5415d7fd4155f449fa009393343492
+      internalID: 1479628758
       vertices: []
       indices: 
       edges: []
@@ -191,10 +191,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fb022fd5de2b02720800000000000000
-      internalID: 2819450099287072959
+      spriteID: cd1435f552b161e46b0c6cc3ee996cbe
+      internalID: 638052361
       vertices: []
       indices: 
       edges: []
@@ -213,10 +213,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 33dab2de4630c50b0800000000000000
-      internalID: -5738708093166179021
+      spriteID: 758c95e5a1f105d40a7e0bb0bd2fdb96
+      internalID: 630673186
       vertices: []
       indices: 
       edges: []
@@ -235,10 +235,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b0b429775e5fe5980800000000000000
-      internalID: -8548124676800230645
+      spriteID: b8ebbd8156dab1e46a148c0a41ea70d0
+      internalID: 599901792
       vertices: []
       indices: 
       edges: []
@@ -257,10 +257,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 85e8f49e25291c8f0800000000000000
-      internalID: -521975196998988200
+      spriteID: f691ddbb77249bd4ebb5cd67f1c6a688
+      internalID: 1887187373
       vertices: []
       indices: 
       edges: []
@@ -279,10 +279,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4db2bc9f087ad0ee0800000000000000
-      internalID: -1293193345596970028
+      spriteID: 19cf6561197f133489e862eb821b74d1
+      internalID: -1208743332
       vertices: []
       indices: 
       edges: []
@@ -301,10 +301,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: bf499365f5796dde0800000000000000
-      internalID: -1308692205980248837
+      spriteID: cf744ebf651aa2f449ec7afa63569bdd
+      internalID: 570780088
       vertices: []
       indices: 
       edges: []
@@ -313,7 +313,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: efce44ea91c647a4fb563bd674d48157
     internalID: 0
     vertices: []
     indices: 
@@ -322,7 +322,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Anvil_Anim_0: -592234244
+      Anvil_Anim_1: 1479628758
+      Anvil_Anim_2: 638052361
+      Anvil_Anim_3: 630673186
+      Anvil_Anim_4: 599901792
+      Anvil_Anim_5: 1887187373
+      Anvil_Anim_6: -1208743332
+      Anvil_Anim_7: 570780088
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

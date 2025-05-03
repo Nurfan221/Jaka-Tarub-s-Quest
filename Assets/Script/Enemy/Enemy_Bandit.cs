@@ -74,7 +74,7 @@ public class Enemy_Bandit : MonoBehaviour
     {
         if (hitboxTransform == null)
         {
-            Debug.LogWarning("Hitbox kosong wak");
+            //Debug.LogWarning("Hitbox kosong wak");
         }
 
         if (spawner != null)
@@ -82,7 +82,7 @@ public class Enemy_Bandit : MonoBehaviour
             spawnerCollider = spawner.GetComponent<Collider2D>();
             if (spawnerCollider == null)
             {
-                Debug.LogError("Spawner tidak memiliki Collider2D! Pastikan menambahkan BoxCollider2D dan aktifkan 'isTrigger'.");
+                //Debug.LogError("Spawner tidak memiliki Collider2D! Pastikan menambahkan BoxCollider2D dan aktifkan 'isTrigger'.");
             }
         }
         else
@@ -136,7 +136,7 @@ public class Enemy_Bandit : MonoBehaviour
 
         chosenDirection = chosenDirection.normalized;
 
-        Debug.Log("Arah gerakan bandit: " + chosenDirection); // Debugging
+        //Debug.Log("Arah gerakan bandit: " + chosenDirection); // Debugging
         return chosenDirection;
     }
 
@@ -190,7 +190,7 @@ public class Enemy_Bandit : MonoBehaviour
     {
         if (animator == null)
         {
-            Debug.LogError("Animator belum di-assign!");
+            //Debug.LogError("Animator belum di-assign!");
             return;
         }
 
@@ -224,7 +224,7 @@ public class Enemy_Bandit : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Environment") || collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Stone"))
         {
-            Debug.Log("Nabrak Objek: " + collision.gameObject.name);
+            //Debug.Log("Nabrak Objek: " + collision.gameObject.name);
 
             // Jika bandit sedang mengejar player, hentikan pengejaran
             if (isChasing)
@@ -240,7 +240,7 @@ public class Enemy_Bandit : MonoBehaviour
                 isAvoiding = true;
                 StopAllCoroutines(); // Hentikan semua coroutine agar bandit tidak terus mengejar
 
-                Debug.Log("Nabrak masee berenti dulu ");
+                //Debug.Log("Nabrak masee berenti dulu ");
 
                 // Jalankan fungsi menghindar
                 StartCoroutine(DelayBeforeAvoiding(collision));
@@ -253,7 +253,7 @@ public class Enemy_Bandit : MonoBehaviour
     {
         yield return new WaitForSeconds(2f); // Bandit berhenti selama 2 detik
 
-        Debug.Log("Mulai menghindar...");
+        //Debug.Log("Mulai menghindar...");
 
         // Ambil arah menghindar
         Vector2 avoidanceDirection = GetAvoidanceDirection(collision.transform.position);
@@ -284,7 +284,7 @@ public class Enemy_Bandit : MonoBehaviour
             avoidanceDirection = GetRandomDirection();
         }
 
-        Debug.Log("Arah menghindar: " + avoidanceDirection);
+        //Debug.Log("Arah menghindar: " + avoidanceDirection);
         return avoidanceDirection;
     }
 
@@ -310,7 +310,7 @@ public class Enemy_Bandit : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Collider2D tidak ditemukan pada bandit!");
+                //Debug.LogWarning("Collider2D tidak ditemukan pada bandit!");
             }
 
             // Simpan arah terakhir hitbox
@@ -322,11 +322,11 @@ public class Enemy_Bandit : MonoBehaviour
     {
         if (newTarget == null)
         {
-            Debug.LogError("SetTarget() dipanggil tapi newTarget NULL!");
+            //Debug.LogError("SetTarget() dipanggil tapi newTarget NULL!");
             return;
         }
 
-        Debug.Log("Bandit mulai mengejar target: " + newTarget.name);
+        //Debug.Log("Bandit mulai mengejar target: " + newTarget.name);
 
         target = newTarget;
         isChasing = true;
@@ -352,7 +352,7 @@ public class Enemy_Bandit : MonoBehaviour
         {
             StopCoroutine(chaseCoroutine);
             chaseCoroutine = null;
-            Debug.Log("Pengejaran dihentikan karena menabrak objek!");
+            //Debug.Log("Pengejaran dihentikan karena menabrak objek!");
         }
     }
 
@@ -360,26 +360,26 @@ public class Enemy_Bandit : MonoBehaviour
 
     public IEnumerator ChaseTarget()
     {
-        Debug.Log("ChaseTarget() dijalankan!");
+        //Debug.Log("ChaseTarget() dijalankan!");
 
         while (isChasing)
         {
             if (target != null && !isAttacking) // Cegah pergerakan saat menyerang
             {
-                Debug.Log("Mengejar " + target.name + " ke " + target.position);
+                //Debug.Log("Mengejar " + target.name + " ke " + target.position);
                 Vector2 direction = (target.position - transform.position).normalized;
                 transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
             }
             else if (isAttacking)
             {
-                Debug.Log("Bandit sedang menyerang, hentikan pengejaran.");
+                //Debug.Log("Bandit sedang menyerang, hentikan pengejaran.");
                 yield break; // Hentikan coroutine pengejaran
             }
 
             yield return null;
         }
 
-        Debug.Log("Berhenti mengejar");
+        //Debug.Log("Berhenti mengejar");
     }
 
 
@@ -388,13 +388,13 @@ public class Enemy_Bandit : MonoBehaviour
     {
         if (!gameObject.activeInHierarchy) // Cek apakah bandit masih aktif
         {
-            Debug.LogWarning("Bandit dinonaktifkan, tidak bisa menjalankan coroutine!");
+            //Debug.LogWarning("Bandit dinonaktifkan, tidak bisa menjalankan coroutine!");
             return;
         }
 
         if (collision.gameObject == spawner && !isReturning)
         {
-            Debug.Log("Bandit keluar dari area! Kembali ke dalam.");
+            //Debug.Log("Bandit keluar dari area! Kembali ke dalam.");
             isReturning = true;
             isChasing = false; // Hentikan pengejaran
 
@@ -415,7 +415,7 @@ public class Enemy_Bandit : MonoBehaviour
             if (Vector2.Distance(transform.position, spawner.transform.position) < 0.1f)
             {
                 isReturning = false;
-                Debug.Log("Bandit kembali ke spawner!");
+                //Debug.Log("Bandit kembali ke spawner!");
                 yield break; // Keluar dari coroutine
             }
 
@@ -438,7 +438,7 @@ public class Enemy_Bandit : MonoBehaviour
     {
         if (animator == null)
         {
-            Debug.LogError("Animator belum di-assign!");
+            //Debug.LogError("Animator belum di-assign!");
             return;
         }
 
@@ -486,13 +486,13 @@ public class Enemy_Bandit : MonoBehaviour
     {
         if (dropitems == null || dropitems.Length == 0)
         {
-            Debug.LogWarning("Drop items array is empty or null.");
+            //Debug.LogWarning("Drop items array is empty or null.");
             return;
         }
 
         if (startIndex < 0 || endIndex > dropitems.Length || startIndex >= endIndex)
         {
-            Debug.LogError($"Invalid index range: startIndex={startIndex}, endIndex={endIndex}, arrayLength={dropitems.Length}");
+            //Debug.LogError($"Invalid index range: startIndex={startIndex}, endIndex={endIndex}, arrayLength={dropitems.Length}");
             return;
         }
 
@@ -506,7 +506,7 @@ public class Enemy_Bandit : MonoBehaviour
             {
                 if (itemToDrop != null)
                 {
-                    Debug.Log("Item yang dijatuhkan: " + itemToDrop.name);
+                    //Debug.Log("Item yang dijatuhkan: " + itemToDrop.name);
                     Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
                     ItemPool.Instance.DropItem(itemToDrop.name, transform.position + offset, itemToDrop);
                 }

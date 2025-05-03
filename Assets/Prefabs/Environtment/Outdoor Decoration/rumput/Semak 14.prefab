@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1864868281198516365}
   - component: {fileID: -5962580266723657597}
   - component: {fileID: 6733256111749787584}
-  - component: {fileID: 5978653979133763289}
+  - component: {fileID: 998122512976461868}
   m_Layer: 0
   m_Name: Semak 14
   m_TagString: Untagged
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &5978653979133763289
+--- !u!61 &998122512976461868
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,7 +199,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0036964417, y: -0.25137138}
+  m_Offset: {x: 0, y: -0.24105644}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -209,5 +209,77 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.91371536, y: 1.0336838}
+  m_Size: {x: 1, y: 1.03059}
   m_EdgeRadius: 0
+--- !u!1001 &2348391992987538970
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6467848702856471926}
+      propertyPath: m_LocalPosition.x
+      value: -29.358002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467848702856471926}
+      propertyPath: m_LocalPosition.y
+      value: -55.64953
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467848702856471926}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467848702856471926}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467848702856471926}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467848702856471926}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467848702856471926}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467848702856471926}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467848702856471926}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467848702856471926}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8486291666243436108}
+      propertyPath: m_Name
+      value: Semak 14
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 0}
+      insertIndex: -1
+      addedObject: {fileID: 1875809329078935253}
+    - targetCorrespondingSourceObject: {fileID: 0}
+      insertIndex: -1
+      addedObject: {fileID: 1864868281198516365}
+    - targetCorrespondingSourceObject: {fileID: 0}
+      insertIndex: -1
+      addedObject: {fileID: -5962580266723657597}
+    - targetCorrespondingSourceObject: {fileID: 0}
+      insertIndex: -1
+      addedObject: {fileID: 6733256111749787584}
+    - targetCorrespondingSourceObject: {fileID: 0}
+      insertIndex: -1
+      addedObject: {fileID: 998122512976461868}
+  m_SourcePrefab: {fileID: 0}

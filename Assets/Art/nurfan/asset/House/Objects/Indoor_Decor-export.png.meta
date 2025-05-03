@@ -1,85 +1,85 @@
 fileFormatVersion: 2
-guid: 7fcd565625f677944bc579d648205b09
+guid: 2c80239a9d7684040b970c153fe17af6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6760471406004971263
-    second: Ores_0
+      213: 78103283165299179
+    second: Indoor_Decor-export_0
   - first:
-      213: -1555048745898646385
-    second: Ores_1
+      213: -7536609121476066190
+    second: Indoor_Decor-export_1
   - first:
-      213: 8769119812877717279
-    second: Ores_2
+      213: 2476505451769696684
+    second: Indoor_Decor-export_2
   - first:
-      213: -4622283339285158890
-    second: Ores_3
+      213: -1686859248991507358
+    second: Indoor_Decor-export_3
   - first:
-      213: 5344178261569492891
-    second: Ores_4
+      213: 336054988131225226
+    second: Indoor_Decor-export_4
   - first:
-      213: -4589752301385710135
-    second: Ores_5
+      213: -3475171602380596132
+    second: Indoor_Decor-export_5
   - first:
-      213: -920277764410375714
-    second: Ores_6
+      213: 7670146489967388698
+    second: Indoor_Decor-export_6
   - first:
-      213: 3008853960674594948
-    second: Ores_7
+      213: 5215773008060462185
+    second: Indoor_Decor-export_7
   - first:
-      213: 5050492222661095950
-    second: Ores_8
+      213: -416902995761895769
+    second: Indoor_Decor-export_8
   - first:
-      213: 272733314368310961
-    second: Ores_9
+      213: 3520964810952437213
+    second: Indoor_Decor-export_9
   - first:
-      213: -7010895441811636435
-    second: Ores_10
+      213: 1204151828699301608
+    second: Indoor_Decor-export_10
   - first:
-      213: -5094265515718355966
-    second: Ores_11
+      213: -5980620394518279611
+    second: Indoor_Decor-export_11
   - first:
-      213: -2177221028749730195
-    second: Ores_12
+      213: -4099175209630258136
+    second: Indoor_Decor-export_12
   - first:
-      213: -4365763915754762665
-    second: Ores_13
+      213: -1896635799004710752
+    second: Indoor_Decor-export_13
   - first:
-      213: 2547314015235608150
-    second: Ores_14
+      213: -7800402774173280567
+    second: Indoor_Decor-export_14
   - first:
-      213: 437004221507629549
-    second: Ores_15
+      213: -2923844416187088375
+    second: Indoor_Decor-export_15
   - first:
-      213: -3476202021705219157
-    second: Ores_16
+      213: -5459521279532144383
+    second: Indoor_Decor-export_16
   - first:
-      213: -2543021530392309705
-    second: Ores_17
+      213: 6750564706309174588
+    second: Indoor_Decor-export_17
   - first:
-      213: -1349444567941034398
-    second: Ores_18
+      213: 1790363006040063687
+    second: Indoor_Decor-export_18
   - first:
-      213: 6473354811654424704
-    second: Ores_19
+      213: 3397451398706036288
+    second: Indoor_Decor-export_19
   - first:
-      213: -8945614803039363433
-    second: Ores_20
+      213: -1126079844581663126
+    second: Indoor_Decor-export_20
   - first:
-      213: -9066429286257605411
-    second: Ores_21
+      213: 3535311286122731066
+    second: Indoor_Decor-export_21
   - first:
-      213: -5032718680284062416
-    second: Ores_22
+      213: 943302143896537006
+    second: Indoor_Decor-export_22
   - first:
-      213: 7382401974310820035
-    second: Ores_23
+      213: 4371050757599231801
+    second: Indoor_Decor-export_23
   - first:
-      213: -4797693821990039991
-    second: Ores_24
+      213: -3635438581545999744
+    second: Indoor_Decor-export_24
   - first:
-      213: -2215917271491460458
-    second: Ores_25
+      213: -1735600590043955947
+    second: Indoor_Decor-export_25
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -188,13 +188,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ores_0
+      name: Indoor_Decor-export_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 112
-        width: 17
-        height: 16
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,20 +203,262 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 10953e2231bfd22a0800000000000000
-      internalID: -6760471406004971263
+      spriteID: be10cd0b58a751100800000000000000
+      internalID: 78103283165299179
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_1
+      name: Indoor_Decor-export_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27443774fe5986790800000000000000
+      internalID: -7536609121476066190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca11d0956905e5220800000000000000
+      internalID: 2476505451769696684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26c67cd43721798e0800000000000000
+      internalID: -1686859248991507358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8e4f803b38e9a400800000000000000
+      internalID: 336054988131225226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5c549207d5b5cfc0800000000000000
+      internalID: -3475171602380596132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1827bd2895d17a60800000000000000
+      internalID: 7670146489967388698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_7
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 964b38e9ae5226840800000000000000
+      internalID: 5215773008060462185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_8
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a6e0d72fecd63af0800000000000000
+      internalID: -416902995761895769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_9
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddd687737dafcd030800000000000000
+      internalID: 3520964810952437213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e6424555b106b010800000000000000
+      internalID: 1204151828699301608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_11
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54a08481071900da0800000000000000
+      internalID: -5980620394518279611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_12
       rect:
         serializedVersion: 2
         x: 0
         y: 96
-        width: 17
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,20 +467,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f846b44976b5b6ae0800000000000000
-      internalID: -1555048745898646385
+      spriteID: 82ca6ed7dddcc17c0800000000000000
+      internalID: -4099175209630258136
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_2
+      name: Indoor_Decor-export_13
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
-        width: 17
-        height: 128
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,64 +489,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f1f8a6f420c22b970800000000000000
-      internalID: 8769119812877717279
+      spriteID: 0a8f8042acbcda5e0800000000000000
+      internalID: -1896635799004710752
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_3
-      rect:
-        serializedVersion: 2
-        x: 34
-        y: 0
-        width: 14
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 614a3b6fac95adfb0800000000000000
-      internalID: -4622283339285158890
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_4
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 111
-        width: 14
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b97d63170d55a2a40800000000000000
-      internalID: 5344178261569492891
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_5
+      name: Indoor_Decor-export_14
       rect:
         serializedVersion: 2
         x: 64
-        y: 111
-        width: 16
-        height: 16
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +511,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9c58fd4799ced40c0800000000000000
-      internalID: -4589752301385710135
+      spriteID: 9c61e6451076fb390800000000000000
+      internalID: -7800402774173280567
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_6
+      name: Indoor_Decor-export_15
       rect:
         serializedVersion: 2
-        x: 0
-        y: 80
-        width: 17
-        height: 16
+        x: 96
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -335,20 +533,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ed101a5cf348a33f0800000000000000
-      internalID: -920277764410375714
+      spriteID: 902c8a2aefa6c67d0800000000000000
+      internalID: -2923844416187088375
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_7
+      name: Indoor_Decor-export_16
       rect:
         serializedVersion: 2
-        x: 49
-        y: 95
-        width: 14
-        height: 16
+        x: 128
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -357,20 +555,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 48059035cb891c920800000000000000
-      internalID: 3008853960674594948
+      spriteID: 109ecc17252eb34b0800000000000000
+      internalID: -5459521279532144383
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_8
+      name: Indoor_Decor-export_17
       rect:
         serializedVersion: 2
-        x: 49
-        y: 79
-        width: 14
-        height: 16
+        x: 160
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -379,64 +577,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e027698fae3f61640800000000000000
-      internalID: 5050492222661095950
+      spriteID: c35f8d895d2dead50800000000000000
+      internalID: 6750564706309174588
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_9
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 95
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1be86512181f8c300800000000000000
-      internalID: 272733314368310961
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_10
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 79
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d2f7961bdbb44be90800000000000000
-      internalID: -7010895441811636435
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_11
+      name: Indoor_Decor-export_18
       rect:
         serializedVersion: 2
         x: 0
         y: 64
-        width: 17
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -445,20 +599,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 204d51801888d49b0800000000000000
-      internalID: -5094265515718355966
+      spriteID: 7ceb4021ba5a8d810800000000000000
+      internalID: 1790363006040063687
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_12
+      name: Indoor_Decor-export_19
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
-        width: 17
-        height: 16
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -467,42 +621,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d6e9cdf7205f8c1e0800000000000000
-      internalID: -2177221028749730195
+      spriteID: 04ef681fb0c262f20800000000000000
+      internalID: 3397451398706036288
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_13
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 63
-        width: 14
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 75e083479d0b963c0800000000000000
-      internalID: -4365763915754762665
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_14
+      name: Indoor_Decor-export_20
       rect:
         serializedVersion: 2
         x: 64
-        y: 63
-        width: 16
-        height: 16
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -511,20 +643,86 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 65e0e71c990e95320800000000000000
-      internalID: 2547314015235608150
+      spriteID: a6e9bfaf85c5f50f0800000000000000
+      internalID: -1126079844581663126
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_15
+      name: Indoor_Decor-export_21
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3656c342e2ff0130800000000000000
+      internalID: 3535311286122731066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_22
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea741d25d48471d00800000000000000
+      internalID: 943302143896537006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_23
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93f77e5518719ac30800000000000000
+      internalID: 4371050757599231801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Indoor_Decor-export_24
       rect:
         serializedVersion: 2
         x: 0
         y: 32
-        width: 17
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -533,20 +731,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: de1fe4c260d801600800000000000000
-      internalID: 437004221507629549
+      spriteID: 08263381fd35c8dc0800000000000000
+      internalID: -3635438581545999744
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_16
+      name: Indoor_Decor-export_25
       rect:
         serializedVersion: 2
-        x: 49
-        y: 47
-        width: 14
-        height: 16
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -555,206 +753,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ba304c0ddac02cfc0800000000000000
-      internalID: -3476202021705219157
+      spriteID: 51db87e7578e9e7e0800000000000000
+      internalID: -1735600590043955947
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ores_17
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 31
-        width: 14
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 730dbc0446f55bcd0800000000000000
-      internalID: -2543021530392309705
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_18
+      name: Indoor_Decor-export_26
       rect:
         serializedVersion: 2
         x: 64
-        y: 47
-        width: 16
-        height: 16
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 26e4bcba05fc54de0800000000000000
-      internalID: -1349444567941034398
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_19
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 31
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0884ab567e9f5d950800000000000000
-      internalID: 6473354811654424704
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_20
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 16
-        width: 17
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 79edc578bbacad380800000000000000
-      internalID: -8945614803039363433
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_21
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 17
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dd4ca63a9929d2280800000000000000
-      internalID: -9066429286257605411
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_22
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 15
-        width: 14
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 03d12375601382ab0800000000000000
-      internalID: -5032718680284062416
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_23
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 15
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3c850f36b7f837660800000000000000
-      internalID: 7382401974310820035
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_24
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 0
-        width: 14
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 94e823f53ea2b6db0800000000000000
-      internalID: -4797693821990039991
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ores_25
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 16
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 69249156bfa7f31e0800000000000000
-      internalID: -2215917271491460458
+      spriteID: c371e399a98feb54aa0f83fb5e0b8b08
+      internalID: -219305919
       vertices: []
       indices: 
       edges: []
@@ -763,7 +785,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 3fc2efef946b79144b435e27a7a06e21
     internalID: 0
     vertices: []
     indices: 
@@ -772,7 +794,34 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Indoor_Decor-export_0: 78103283165299179
+      Indoor_Decor-export_1: -7536609121476066190
+      Indoor_Decor-export_10: 1204151828699301608
+      Indoor_Decor-export_11: -5980620394518279611
+      Indoor_Decor-export_12: -4099175209630258136
+      Indoor_Decor-export_13: -1896635799004710752
+      Indoor_Decor-export_14: -7800402774173280567
+      Indoor_Decor-export_15: -2923844416187088375
+      Indoor_Decor-export_16: -5459521279532144383
+      Indoor_Decor-export_17: 6750564706309174588
+      Indoor_Decor-export_18: 1790363006040063687
+      Indoor_Decor-export_19: 3397451398706036288
+      Indoor_Decor-export_2: 2476505451769696684
+      Indoor_Decor-export_20: -1126079844581663126
+      Indoor_Decor-export_21: 3535311286122731066
+      Indoor_Decor-export_22: 943302143896537006
+      Indoor_Decor-export_23: 4371050757599231801
+      Indoor_Decor-export_24: -3635438581545999744
+      Indoor_Decor-export_25: -1735600590043955947
+      Indoor_Decor-export_26: -219305919
+      Indoor_Decor-export_3: -1686859248991507358
+      Indoor_Decor-export_4: 336054988131225226
+      Indoor_Decor-export_5: -3475171602380596132
+      Indoor_Decor-export_6: 7670146489967388698
+      Indoor_Decor-export_7: 5215773008060462185
+      Indoor_Decor-export_8: -416902995761895769
+      Indoor_Decor-export_9: 3520964810952437213
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -125,9 +125,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
                 plantPrefab = item.prefabItem; // Set plantPrefab sesuai item
 
-                //Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
+                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
 
-                
+
 
                 // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
                 if (item.IsInCategory(ItemCategory.TreeSeed))
@@ -326,7 +326,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Debug.Log("Posisi Tile Cell: " + cellPosition);
 
         //// Mengecek tile pada posisi ini
-        //TileBase currentTile = farmTilemap.GetTile(cellPosition);
+        TileBase currentTile = farmTilemap.GetTile(cellPosition);
 
         //if (currentTile == farmTile.hoeedTile || currentTile == farmTile.wateredTile)
         //{
@@ -335,13 +335,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         //    CekSeed(cellPosition);
         //    return true;
         //}
-        //else if (currentTile == farmTile.grassTile)
-        //{
-        //    Debug.Log("item di jatuhkan pada tile tanah");
-        //    Debug.Log("item yang di drag adalah : " + itemInDrag);
-        //    CheckPrefabItem(cellPosition);
-        //    return true;
-        //}
+        if (currentTile != farmTile.hoeedTile || currentTile != farmTile.wateredTile)
+        {
+            Debug.Log("item di jatuhkan pada tile tanah");
+            Debug.Log("item yang di drag adalah : " + itemInDrag);
+            CheckPrefabItem(cellPosition);
+            return true;
+        }
 
         // Mengecek objek di posisi world
         Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition);
@@ -475,6 +475,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if (!itemFound)
         {
+
             Debug.Log("Item tidak ditemukan atau kategori item bukan Seed");
             rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
         }

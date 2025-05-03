@@ -134,7 +134,20 @@ public class Player_Inventory : MonoBehaviour
         {
             GameController.Instance.PauseGame();
 
-            Instance.AddItem(ItemPool.Instance.GetItem("Insectisida"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
+            Instance.AddItem(ItemPool.Instance.GetItem("Pagar"));
             //Instance.AddItem(ItemPool.Instance.GetItem("CoalOre"));
             //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
             //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));

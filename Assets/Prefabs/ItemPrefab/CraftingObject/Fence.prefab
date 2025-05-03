@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1242679233, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
+  m_Sprite: {fileID: 1038920795, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -150,22 +150,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: -1037705350642132295}
   fenceSprites:
-  - {fileID: 1242679233, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: 1159864494577512369, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: 4288597548307622778, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: 3953150516908535398, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: -7614176681532881009, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: -1898767435, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: 198470564, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: -1548484024, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: 511242133, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: 577596870, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: 579013307, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: 1274237216, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: -2011111956, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: -995581563, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: 1747944889, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
-  - {fileID: 566581789, guid: 11f67ee24b90a9340998cd3485f9d51f, type: 3}
+  - {fileID: 1038920795, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: 366447977117114826, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: -4571291782390862128, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: -4559597385943218060, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: 2884021143128320774, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: -909569106, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: 35785446, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: 1617127672, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: 1390193877, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: -1730736855, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: 868771898, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: -2688470, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: -1824057792, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: 534684145, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: 389618683, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
+  - {fileID: -177147832, guid: 85dc25099d2d9fb4b952d3e92988acce, type: 3}
   fenceLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -187,4 +187,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 4
   namePrefab: Pagar
-  itemDrop: {fileID: 0}
+  itemDrop: {fileID: 5388214106243207399}
