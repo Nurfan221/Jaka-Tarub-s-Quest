@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 4
   itemName: CopperIngot
-  type: 4
+  types: 0
   categories: 512
-  sprite: {fileID: 437004221507629549, guid: cbc3bf089279e414d9244393b3ba7847, type: 3}
+  sprite: {fileID: -4980295634984467156, guid: 35a83fac362f6b345843b0099c51c735, type: 3}
   itemDescription: Batangan tembaga murni hasil dari peleburan tembaga ore. Digunakan
     dalam pembuatan peralatan, atau senjata,
   QuantityFuel: 0
+  maxhealth: 0
   health: 0
   Level: 1
   MaxLevel: 0
@@ -28,6 +29,7 @@ MonoBehaviour:
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 0
+  UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1

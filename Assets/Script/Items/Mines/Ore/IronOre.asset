@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: IronOre
   m_EditorClassIdentifier: 
-  itemID: 35
+  itemID: 37
   itemName: IronOre
-  type: 4
+  types: 0
   categories: 512
-  sprite: {fileID: -920277764410375714, guid: cbc3bf089279e414d9244393b3ba7847, type: 3}
+  sprite: {fileID: -2939801824191070668, guid: 35a83fac362f6b345843b0099c51c735, type: 3}
   itemDescription: Batuan yang menganduk besi. Dapat di lelehkan untuk membuat ingot
     besi yang berharga
   QuantityFuel: 0
+  maxhealth: 0
   health: 0
   Level: 0
   MaxLevel: 0
@@ -28,6 +29,7 @@ MonoBehaviour:
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 0
+  UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1

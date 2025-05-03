@@ -77,13 +77,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 3648004932252348710, guid: b70aa20f9f76fa840b5e310bf550e35e, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 4397522063878743560, guid: a80e6156052716042ad3d7cfeab020e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 10, y: 10}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -105,22 +105,23 @@ MonoBehaviour:
   itemDropMines:
     namaStone: Batu Kecil
     hasilTambang:
-    - {fileID: 7562009284141931606, guid: d05580c193bb5f54a94e2da48c5904b7, type: 3}
+    - {fileID: 7562009284141931606, guid: a442f0971df64334e91b8d8921c86ce4, type: 3}
     minHasil: 0
     maxHasil: 1
   nameStone: Batu Kecil
   stoneAnimation:
-  - {fileID: 3648004932252348710, guid: b70aa20f9f76fa840b5e310bf550e35e, type: 3}
-  - {fileID: 4655206907162664773, guid: b70aa20f9f76fa840b5e310bf550e35e, type: 3}
-  - {fileID: -5984290882836783849, guid: b70aa20f9f76fa840b5e310bf550e35e, type: 3}
-  - {fileID: -2034525286125745144, guid: b70aa20f9f76fa840b5e310bf550e35e, type: 3}
-  - {fileID: -2507559155816360853, guid: b70aa20f9f76fa840b5e310bf550e35e, type: 3}
-  - {fileID: -647274073250601206, guid: b70aa20f9f76fa840b5e310bf550e35e, type: 3}
-  - {fileID: -8197190060051571063, guid: b70aa20f9f76fa840b5e310bf550e35e, type: 3}
-  - {fileID: 1579493189898559337, guid: b70aa20f9f76fa840b5e310bf550e35e, type: 3}
+  - {fileID: 4397522063878743560, guid: a80e6156052716042ad3d7cfeab020e0, type: 3}
+  - {fileID: 5102179334313486580, guid: a80e6156052716042ad3d7cfeab020e0, type: 3}
+  - {fileID: 1328792391115632023, guid: a80e6156052716042ad3d7cfeab020e0, type: 3}
+  - {fileID: 5769982554064058973, guid: a80e6156052716042ad3d7cfeab020e0, type: 3}
+  - {fileID: 7976917818116160893, guid: a80e6156052716042ad3d7cfeab020e0, type: 3}
+  - {fileID: 847422262, guid: a80e6156052716042ad3d7cfeab020e0, type: 3}
+  - {fileID: 1178751222, guid: a80e6156052716042ad3d7cfeab020e0, type: 3}
+  - {fileID: 592017502, guid: a80e6156052716042ad3d7cfeab020e0, type: 3}
   frameRate: 0.1
   health: 50
   dayLuck: 0
+  isLucky: 0
 --- !u!61 &648529286410309539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -159,8 +160,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6666667, y: 0.6666667}
-    newSize: {x: 10, y: 10}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

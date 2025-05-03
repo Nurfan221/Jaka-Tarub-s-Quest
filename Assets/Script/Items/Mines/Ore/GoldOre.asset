@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: GoldOre
   m_EditorClassIdentifier: 
-  itemID: 36
+  itemID: 38
   itemName: GoldOre
-  type: 4
+  types: 0
   categories: 512
-  sprite: {fileID: 3008853960674594948, guid: cbc3bf089279e414d9244393b3ba7847, type: 3}
+  sprite: {fileID: -5403917745769237638, guid: 35a83fac362f6b345843b0099c51c735, type: 3}
   itemDescription: Batuan yang mengandung kilauan emas. Dapat dilelehkan untuk membuat
     ingot emas yang berharga.
   QuantityFuel: 0
+  maxhealth: 0
   health: 0
   Level: 0
   MaxLevel: 0
@@ -28,6 +29,7 @@ MonoBehaviour:
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 0
+  UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1

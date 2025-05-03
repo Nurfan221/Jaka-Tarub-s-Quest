@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,13 +77,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 6397603884568182252, guid: a9b2df0d13debc44b8b860005269488b, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 8634735989486108777, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 10, y: 10}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -105,23 +105,24 @@ MonoBehaviour:
   itemDropMines:
     namaStone: Batu Sedang
     hasilTambang:
-    - {fileID: 7562009284141931606, guid: d05580c193bb5f54a94e2da48c5904b7, type: 3}
+    - {fileID: 7562009284141931606, guid: a442f0971df64334e91b8d8921c86ce4, type: 3}
     - {fileID: 4459120725376062254, guid: 00a13d42590718e4c9987564ffd1b612, type: 3}
     minHasil: 2
     maxHasil: 3
   nameStone: Batu Sedang
   stoneAnimation:
-  - {fileID: 6397603884568182252, guid: a9b2df0d13debc44b8b860005269488b, type: 3}
-  - {fileID: 8220029766733017486, guid: a9b2df0d13debc44b8b860005269488b, type: 3}
-  - {fileID: -5308432940573299648, guid: a9b2df0d13debc44b8b860005269488b, type: 3}
-  - {fileID: 4018598954033773524, guid: a9b2df0d13debc44b8b860005269488b, type: 3}
-  - {fileID: -6147105983793324397, guid: a9b2df0d13debc44b8b860005269488b, type: 3}
-  - {fileID: -2043919388, guid: a9b2df0d13debc44b8b860005269488b, type: 3}
-  - {fileID: 2090818227, guid: a9b2df0d13debc44b8b860005269488b, type: 3}
-  - {fileID: -660427109, guid: a9b2df0d13debc44b8b860005269488b, type: 3}
+  - {fileID: 8634735989486108777, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: -1285751726934154449, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: 8394446161846293014, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: -7548031542147728232, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: 6161726829266164557, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: -1566700280, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: 788949051, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: -86480837, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
   frameRate: 0.1
   health: 100
   dayLuck: 0
+  isLucky: 0
 --- !u!61 &648529286410309539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -160,8 +161,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6666667, y: 0.6666667}
-    newSize: {x: 10, y: 10}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

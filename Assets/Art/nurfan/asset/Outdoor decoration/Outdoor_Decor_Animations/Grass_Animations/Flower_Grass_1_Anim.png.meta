@@ -72,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -137,10 +137,10 @@ TextureImporter:
       name: Flower_Grass_1_Anim_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 3
-        width: 11
-        height: 10
+        x: 0
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,10 +159,10 @@ TextureImporter:
       name: Flower_Grass_1_Anim_1
       rect:
         serializedVersion: 2
-        x: 19
-        y: 3
-        width: 11
-        height: 10
+        x: 16
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: Flower_Grass_1_Anim_2
       rect:
         serializedVersion: 2
-        x: 34
-        y: 3
-        width: 12
-        height: 10
+        x: 32
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,10 +203,10 @@ TextureImporter:
       name: Flower_Grass_1_Anim_3
       rect:
         serializedVersion: 2
-        x: 50
-        y: 3
-        width: 11
-        height: 10
+        x: 48
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: Flower_Grass_1_Anim_4
       rect:
         serializedVersion: 2
-        x: 66
-        y: 3
-        width: 11
-        height: 10
+        x: 64
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,10 +247,10 @@ TextureImporter:
       name: Flower_Grass_1_Anim_5
       rect:
         serializedVersion: 2
-        x: 82
-        y: 3
-        width: 11
-        height: 10
+        x: 80
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,10 +269,10 @@ TextureImporter:
       name: Flower_Grass_1_Anim_6
       rect:
         serializedVersion: 2
-        x: 98
-        y: 3
-        width: 12
-        height: 10
+        x: 96
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,10 +291,10 @@ TextureImporter:
       name: Flower_Grass_1_Anim_7
       rect:
         serializedVersion: 2
-        x: 115
-        y: 3
-        width: 11
-        height: 10
+        x: 112
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,7 +313,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f151c35ca7ce0044d8eba660e8cc48e2
     internalID: 0
     vertices: []
     indices: 
@@ -322,7 +322,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Flower_Grass_1_Anim_0: -6312532217496980844
+      Flower_Grass_1_Anim_1: 8237782219975054306
+      Flower_Grass_1_Anim_2: -9096264336574522977
+      Flower_Grass_1_Anim_3: 1527150991608368904
+      Flower_Grass_1_Anim_4: -1330483432757552279
+      Flower_Grass_1_Anim_5: 4240018403996130694
+      Flower_Grass_1_Anim_6: 1585516535715709623
+      Flower_Grass_1_Anim_7: -3011578915954060159
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

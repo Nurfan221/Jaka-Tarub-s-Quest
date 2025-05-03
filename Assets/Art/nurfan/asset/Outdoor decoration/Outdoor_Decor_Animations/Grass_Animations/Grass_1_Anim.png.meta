@@ -72,7 +72,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -137,10 +137,10 @@ TextureImporter:
       name: Grass_1_Anim_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 5
-        width: 11
-        height: 6
+        x: 0
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,10 +159,10 @@ TextureImporter:
       name: Grass_1_Anim_1
       rect:
         serializedVersion: 2
-        x: 17
-        y: 5
-        width: 12
-        height: 6
+        x: 16
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: Grass_1_Anim_2
       rect:
         serializedVersion: 2
-        x: 33
-        y: 5
-        width: 12
-        height: 7
+        x: 32
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,9 +204,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 48
-        y: 5
-        width: 12
-        height: 7
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,9 +226,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 5
-        width: 12
-        height: 7
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -248,9 +248,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 80
-        y: 5
-        width: 12
-        height: 7
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,10 +269,10 @@ TextureImporter:
       name: Grass_1_Anim_6
       rect:
         serializedVersion: 2
-        x: 97
-        y: 5
-        width: 12
-        height: 7
+        x: 96
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,10 +291,10 @@ TextureImporter:
       name: Grass_1_Anim_7
       rect:
         serializedVersion: 2
-        x: 114
-        y: 5
-        width: 11
-        height: 6
+        x: 112
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,7 +313,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 47df552daa83f6f469db91ca007e3c13
     internalID: 0
     vertices: []
     indices: 
@@ -322,7 +322,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Grass_1_Anim_0: 7600899803865594896
+      Grass_1_Anim_1: -8313015192126985206
+      Grass_1_Anim_2: -706291252008792002
+      Grass_1_Anim_3: 510739368915495217
+      Grass_1_Anim_4: 1145202934317799704
+      Grass_1_Anim_5: 4039971379984468988
+      Grass_1_Anim_6: -5965837611772873411
+      Grass_1_Anim_7: 4566842813617042314
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
