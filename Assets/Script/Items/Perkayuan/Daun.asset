@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 27
   itemName: Daun
-  type: 4
+  types: 0
   categories: 516
-  sprite: {fileID: 6174314220155288703, guid: b5b684a64d18ff24090e299301cb916c, type: 3}
+  sprite: {fileID: -7281323076442242249, guid: a09498c9372c07c4f8c727335dee0161, type: 3}
   itemDescription: 
   QuantityFuel: 0
+  maxhealth: 0
   health: 0
   Level: 1
   MaxLevel: 0
@@ -27,6 +28,7 @@ MonoBehaviour:
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 0
+  UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1

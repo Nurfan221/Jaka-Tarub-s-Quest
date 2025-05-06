@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 23
   itemName: PenyiramTanaman
-  type: 0
+  types: 0
   categories: 256
-  sprite: {fileID: 4136355292219290567, guid: 93d1d84024bbe074187d759027a50f86, type: 3}
+  sprite: {fileID: -6307849244470767558, guid: d566de0f6bdec3f48bd0b58bab4a43c1, type: 3}
   itemDescription: 'Ayolah, masa kalian tidak tahu item ini?
 
     Special skill:
@@ -40,7 +40,7 @@ MonoBehaviour:
   SellValue: 500
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 0}
+  prefabItem: {fileID: 4459120725376062254, guid: e12c802aae5afb541bee73b844c2be4f, type: 3}
   growthTime: 0
   growthImages: []
-  dropItem: {fileID: 0}
+  dropItem: {fileID: 4459120725376062254, guid: e12c802aae5afb541bee73b844c2be4f, type: 3}

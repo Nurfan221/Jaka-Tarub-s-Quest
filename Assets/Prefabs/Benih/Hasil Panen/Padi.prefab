@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7362425380904658845}
   m_Layer: 0
   m_Name: Padi
-  m_TagString: Untagged
+  m_TagString: ItemDrop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2244004397112234398, guid: 1287d52edf00f2e47a677efb4c369e04, type: 3}
+  m_Sprite: {fileID: 6208842792875286600, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -209,4 +209,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   namePrefab: Padi
-  itemDrop: {fileID: 0}
+  itemDrop: {fileID: 2792997999344615050}

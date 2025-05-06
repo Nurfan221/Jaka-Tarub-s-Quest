@@ -48,15 +48,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Buka Storage
-  Items: []
+  Items:
+  - {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+  - {fileID: 11400000, guid: 3af936a8fceaf694db4686a262caf9f4, type: 2}
+  - {fileID: 11400000, guid: 589ea5886ae3f3145993ad8d7af74bfb, type: 2}
+  - {fileID: 11400000, guid: fdbf063211273e240843e31a4465d4b2, type: 2}
+  - {fileID: 11400000, guid: 89e00e0c54b34164cb03b392d7714a78, type: 2}
+  - {fileID: 11400000, guid: 17879e46153e76142bc6005180323b56, type: 2}
+  - {fileID: 11400000, guid: 692483cde051eb24a98a89d414f63270, type: 2}
   maxItem: 11
   Chest:
-  - {fileID: -7070875390197807606, guid: 8e7b4390899847849b6566d40c314f82, type: 3}
-  - {fileID: -915087516, guid: 8e7b4390899847849b6566d40c314f82, type: 3}
-  - {fileID: -1771838748, guid: 8e7b4390899847849b6566d40c314f82, type: 3}
-  - {fileID: 673517650, guid: 8e7b4390899847849b6566d40c314f82, type: 3}
-  - {fileID: 1953926084, guid: 8e7b4390899847849b6566d40c314f82, type: 3}
-  - {fileID: 1410280247, guid: 8e7b4390899847849b6566d40c314f82, type: 3}
+  - {fileID: 7581501900090389138, guid: 9ba25c85609e7444bbf3c70f8e783ccd, type: 3}
+  - {fileID: -1614505121, guid: 9ba25c85609e7444bbf3c70f8e783ccd, type: 3}
+  - {fileID: -2013055334, guid: 9ba25c85609e7444bbf3c70f8e783ccd, type: 3}
+  - {fileID: -1668135968, guid: 9ba25c85609e7444bbf3c70f8e783ccd, type: 3}
+  - {fileID: -335273561, guid: 9ba25c85609e7444bbf3c70f8e783ccd, type: 3}
+  - {fileID: -548109304, guid: 9ba25c85609e7444bbf3c70f8e783ccd, type: 3}
   frameRate: 0.1
   spriteRenderer: {fileID: 7918664341146998191}
 --- !u!212 &7918664341146998191
@@ -103,7 +110,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5980620394518279611, guid: 2c80239a9d7684040b970c153fe17af6, type: 3}
+  m_Sprite: {fileID: 7581501900090389138, guid: 9ba25c85609e7444bbf3c70f8e783ccd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

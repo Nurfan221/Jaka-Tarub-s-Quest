@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 0
   itemName: JamurPelindungBumi
-  type: 3
+  types: 0
   categories: 528
-  sprite: {fileID: 1410928795782028258, guid: 154c831a50b524b4e9f168338f9ffecf, type: 3}
+  sprite: {fileID: 6617450515365276744, guid: b873905d00cfcfb418014699d5445926, type: 3}
   itemDescription: Jamur ini memiliki kemampuan luar biasa untuk menyembuhkan dan
     melindungi. warnanya sama dengan tanah membuatnya sedikit sulit ditemukan
   QuantityFuel: 0
+  maxhealth: 0
   health: 0
   Level: 0
   MaxLevel: 0
@@ -28,9 +29,11 @@ MonoBehaviour:
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 0
+  UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1
+  maxStackCount: 0
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
@@ -38,5 +41,4 @@ MonoBehaviour:
   prefabItem: {fileID: 8486291666243436108, guid: 5e34f9bb7e97b574da31528795875510, type: 3}
   growthTime: 0
   growthImages: []
-  plantPrefab: {fileID: 0}
   dropItem: {fileID: 8486291666243436108, guid: 5e34f9bb7e97b574da31528795875510, type: 3}

@@ -77,13 +77,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -332447475560824598, guid: 1df107ca13815824880c39371a6a59e0, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: -737816267, guid: ce573d993399ca64ba37932dc1e094de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.75, y: 0.625}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -102,12 +102,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rumputAnimation:
-  - {fileID: -332447475560824598, guid: 1df107ca13815824880c39371a6a59e0, type: 3}
-  - {fileID: 744872933728300812, guid: 1df107ca13815824880c39371a6a59e0, type: 3}
-  - {fileID: 1328997853898085451, guid: 1df107ca13815824880c39371a6a59e0, type: 3}
-  - {fileID: -3321584424636719245, guid: 1df107ca13815824880c39371a6a59e0, type: 3}
-  - {fileID: -7165762300143293416, guid: 1df107ca13815824880c39371a6a59e0, type: 3}
-  - {fileID: 1151999848097086074, guid: 1df107ca13815824880c39371a6a59e0, type: 3}
+  - {fileID: -737816267, guid: ce573d993399ca64ba37932dc1e094de, type: 3}
+  - {fileID: 871144417, guid: ce573d993399ca64ba37932dc1e094de, type: 3}
+  - {fileID: -1427377038, guid: ce573d993399ca64ba37932dc1e094de, type: 3}
+  - {fileID: 1261423760, guid: ce573d993399ca64ba37932dc1e094de, type: 3}
+  - {fileID: -1959843690, guid: ce573d993399ca64ba37932dc1e094de, type: 3}
+  - {fileID: 176402420, guid: ce573d993399ca64ba37932dc1e094de, type: 3}
   frameRate: 0.1
   itemDrop: {fileID: 0}
 --- !u!61 &6600157264629412239
@@ -144,15 +144,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.025001526, y: -0.21869802}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6666667, y: 0.6666667}
-    newSize: {x: 0.75, y: 0.625}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.6666667, y: 0.6666667}
+  m_Size: {x: 0.4833374, y: 0.59294796}
   m_EdgeRadius: 0

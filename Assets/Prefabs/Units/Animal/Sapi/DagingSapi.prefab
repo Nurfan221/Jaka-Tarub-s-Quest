@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5689379069804323596}
   - component: {fileID: 1245937808901146366}
   - component: {fileID: -1687654317166898783}
-  - component: {fileID: 5113856197641433097}
+  - component: {fileID: -6890651857643849877}
   m_Layer: 8
   m_Name: DagingSapi
   m_TagString: ItemDrop
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a14745de345ea3145b8917068801ece2, type: 3}
+  m_Sprite: {fileID: -6555871079831587737, guid: 22ca46a4b54c021448c2f2ff9de9c5aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +99,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4459120725376062254}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: DagingSapi
-  item: {fileID: 11400000, guid: b6f7491557836d04b979c05e535782e2, type: 2}
+  item: {fileID: 11400000, guid: be4a13e273645364c9af7545ac02f048, type: 2}
   itemName: DagingSapi
   gravityDuration: 1
 --- !u!61 &-1687654317166898783
@@ -173,7 +173,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 0.3, y: 0.3}
     newSize: {x: 20, y: 20}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -181,7 +181,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
---- !u!114 &5113856197641433097
+--- !u!114 &-6890651857643849877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

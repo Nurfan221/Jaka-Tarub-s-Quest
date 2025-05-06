@@ -10,7 +10,7 @@ public class TimeManager : MonoBehaviour
 
     [SerializeField] private WeatherManager weatherManager;
     [SerializeField] private FarmTile farmTile;
-    //[SerializeField] private NPCManager npcManager;
+    [SerializeField] private NPCManager npcManager;
     [SerializeField] private QuestManager questManager;
     //[SerializeField] private DialogueSystem dialogueSystem;
     [SerializeField] public Player_Health player_Health;
@@ -48,6 +48,7 @@ public class TimeManager : MonoBehaviour
     {
         shopUI.UpdateShopBySeason(currentSeason);
         batuManager.CheckLocationResource();
+        AdvanceTime();
     }
     private void Awake()
     {
@@ -70,13 +71,14 @@ public class TimeManager : MonoBehaviour
 
         if (tickTimer >= tickInterval)
         {
+            Debug.Log("tickTimer" + tickTimer );
             tickTimer = 0f;
             AdvanceTime();
         }
 
         if (hour >= 6 && hour <= 24)
         {
-            // npcManager.StartSchedule();
+             //npcManager.StartSchedule();
         }
     }
 

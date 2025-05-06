@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
+  m_Name: BenihLobak
+  m_EditorClassIdentifier: 
+  itemID: 13
+  itemName: BenihLobak
+  types: 8
+  categories: 1024
+  sprite: {fileID: 3279241373581556107, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
+  itemDescription: 'tanam benih di musim hujan, dan panen dalam 14 hari '
+  QuantityFuel: 0
+  maxhealth: 0
+  health: 0
+  Level: 1
+  MaxLevel: 0
+  Damage: 0
+  AreaOfEffect: 0
+  SpecialAttackCD: 0
+  SpecialAttackStamina: 0
+  UpgradeCost: 0
+  UseStamina: 0
+  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  isStackable: 1
+  stackCount: 1
+  maxStackCount: 2
+  BuyValue: 50
+  SellValue: 20
+  BurningTime: 0
+  CookTime: 0
+  prefabItem: {fileID: 2120680195082938319, guid: 72d1e7d3d3530b642833b286c3101731, type: 3}
+  growthTime: 4
+  growthImages:
+  - {fileID: 3009418962734956380, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
+  - {fileID: 1451808890709140125, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
+  - {fileID: -4898284958070484869, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
+  - {fileID: -3460137552963467502, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
+  dropItem: {fileID: 2792997999344615050, guid: bb8c70527cc361c42b4f61875439a2fd, type: 3}

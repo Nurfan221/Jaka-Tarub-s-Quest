@@ -76,13 +76,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -3269117082908897118, guid: 154c831a50b524b4e9f168338f9ffecf, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 6617450515365276744, guid: b873905d00cfcfb418014699d5445926, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.75, y: 0.625}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -101,12 +101,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rumputAnimation:
-  - {fileID: -3269117082908897118, guid: 154c831a50b524b4e9f168338f9ffecf, type: 3}
-  - {fileID: 1296767082775583278, guid: 154c831a50b524b4e9f168338f9ffecf, type: 3}
-  - {fileID: 1410928795782028258, guid: 154c831a50b524b4e9f168338f9ffecf, type: 3}
-  - {fileID: -7038531349595298710, guid: 154c831a50b524b4e9f168338f9ffecf, type: 3}
-  - {fileID: 6677439305595735475, guid: 154c831a50b524b4e9f168338f9ffecf, type: 3}
-  - {fileID: 3334516253272319877, guid: 154c831a50b524b4e9f168338f9ffecf, type: 3}
-  - {fileID: 7330668907893818655, guid: 154c831a50b524b4e9f168338f9ffecf, type: 3}
-  - {fileID: -1998669817539753946, guid: 154c831a50b524b4e9f168338f9ffecf, type: 3}
+  - {fileID: 6617450515365276744, guid: b873905d00cfcfb418014699d5445926, type: 3}
+  - {fileID: 1352697169429651771, guid: b873905d00cfcfb418014699d5445926, type: 3}
+  - {fileID: 2616831367660510277, guid: b873905d00cfcfb418014699d5445926, type: 3}
+  - {fileID: -7782888285050071328, guid: b873905d00cfcfb418014699d5445926, type: 3}
+  - {fileID: 6384308771286789636, guid: b873905d00cfcfb418014699d5445926, type: 3}
+  - {fileID: -3656019684294441352, guid: b873905d00cfcfb418014699d5445926, type: 3}
+  - {fileID: 4640965921352753654, guid: b873905d00cfcfb418014699d5445926, type: 3}
+  - {fileID: 1590465997962524636, guid: b873905d00cfcfb418014699d5445926, type: 3}
   frameRate: 0.1
+  itemDrop: {fileID: 11400000, guid: 97ccb08f4b11fac46976671993611afe, type: 2}

@@ -120,7 +120,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -185,10 +185,10 @@ TextureImporter:
       name: Sprite-0008_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 225
+        x: 0
+        y: 224
         width: 32
-        height: 30
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,10 +207,10 @@ TextureImporter:
       name: Sprite-0008_1
       rect:
         serializedVersion: 2
-        x: 35
-        y: 225
-        width: 26
-        height: 31
+        x: 32
+        y: 224
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,9 +229,9 @@ TextureImporter:
       name: Sprite-0008_2
       rect:
         serializedVersion: 2
-        x: 35
-        y: 193
-        width: 26
+        x: 64
+        y: 224
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -251,9 +251,9 @@ TextureImporter:
       name: Sprite-0008_3
       rect:
         serializedVersion: 2
-        x: 63
-        y: 223
-        width: 34
+        x: 0
+        y: 192
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -273,10 +273,10 @@ TextureImporter:
       name: Sprite-0008_4
       rect:
         serializedVersion: 2
-        x: 1
-        y: 193
+        x: 32
+        y: 192
         width: 32
-        height: 30
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -295,9 +295,9 @@ TextureImporter:
       name: Sprite-0008_5
       rect:
         serializedVersion: 2
-        x: 35
-        y: 161
-        width: 26
+        x: 64
+        y: 192
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -317,9 +317,9 @@ TextureImporter:
       name: Sprite-0008_6
       rect:
         serializedVersion: 2
-        x: 63
-        y: 191
-        width: 34
+        x: 0
+        y: 160
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -339,10 +339,10 @@ TextureImporter:
       name: Sprite-0008_7
       rect:
         serializedVersion: 2
-        x: 1
-        y: 161
+        x: 32
+        y: 160
         width: 32
-        height: 30
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -361,9 +361,9 @@ TextureImporter:
       name: Sprite-0008_8
       rect:
         serializedVersion: 2
-        x: 35
-        y: 129
-        width: 26
+        x: 64
+        y: 160
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -383,9 +383,9 @@ TextureImporter:
       name: Sprite-0008_9
       rect:
         serializedVersion: 2
-        x: 63
-        y: 159
-        width: 34
+        x: 0
+        y: 128
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -405,10 +405,10 @@ TextureImporter:
       name: Sprite-0008_10
       rect:
         serializedVersion: 2
-        x: 1
-        y: 129
+        x: 32
+        y: 128
         width: 32
-        height: 30
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -427,9 +427,9 @@ TextureImporter:
       name: Sprite-0008_11
       rect:
         serializedVersion: 2
-        x: 35
-        y: 97
-        width: 26
+        x: 64
+        y: 128
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -449,9 +449,9 @@ TextureImporter:
       name: Sprite-0008_12
       rect:
         serializedVersion: 2
-        x: 63
-        y: 127
-        width: 34
+        x: 0
+        y: 96
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -471,10 +471,10 @@ TextureImporter:
       name: Sprite-0008_13
       rect:
         serializedVersion: 2
-        x: 1
-        y: 97
+        x: 32
+        y: 96
         width: 32
-        height: 30
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -493,9 +493,9 @@ TextureImporter:
       name: Sprite-0008_14
       rect:
         serializedVersion: 2
-        x: 35
-        y: 65
-        width: 26
+        x: 64
+        y: 96
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -515,9 +515,9 @@ TextureImporter:
       name: Sprite-0008_15
       rect:
         serializedVersion: 2
-        x: 63
-        y: 95
-        width: 34
+        x: 0
+        y: 64
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -537,10 +537,10 @@ TextureImporter:
       name: Sprite-0008_16
       rect:
         serializedVersion: 2
-        x: 1
-        y: 65
+        x: 32
+        y: 64
         width: 32
-        height: 30
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -559,9 +559,9 @@ TextureImporter:
       name: Sprite-0008_17
       rect:
         serializedVersion: 2
-        x: 35
-        y: 33
-        width: 26
+        x: 64
+        y: 64
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -581,9 +581,9 @@ TextureImporter:
       name: Sprite-0008_18
       rect:
         serializedVersion: 2
-        x: 63
-        y: 63
-        width: 34
+        x: 0
+        y: 32
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -603,10 +603,10 @@ TextureImporter:
       name: Sprite-0008_19
       rect:
         serializedVersion: 2
-        x: 1
-        y: 33
+        x: 32
+        y: 32
         width: 32
-        height: 30
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -625,9 +625,9 @@ TextureImporter:
       name: Sprite-0008_20
       rect:
         serializedVersion: 2
-        x: 35
-        y: 1
-        width: 26
+        x: 64
+        y: 32
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -647,9 +647,9 @@ TextureImporter:
       name: Sprite-0008_21
       rect:
         serializedVersion: 2
-        x: 63
-        y: 31
-        width: 34
+        x: 0
+        y: 0
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -669,10 +669,10 @@ TextureImporter:
       name: Sprite-0008_22
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
+        x: 32
+        y: 0
         width: 32
-        height: 30
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -691,10 +691,10 @@ TextureImporter:
       name: Sprite-0008_23
       rect:
         serializedVersion: 2
-        x: 63
+        x: 64
         y: 0
-        width: 34
-        height: 31
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -713,7 +713,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 483223e8f89dfdd428f724400bc31905
     internalID: 0
     vertices: []
     indices: 
@@ -722,7 +722,31 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Sprite-0008_0: 641515894465698295
+      Sprite-0008_1: -2939801824191070668
+      Sprite-0008_10: -2827988951304207363
+      Sprite-0008_11: 1423615415337032557
+      Sprite-0008_12: 4670647353985871314
+      Sprite-0008_13: 106134801540683738
+      Sprite-0008_14: -8854379742309560046
+      Sprite-0008_15: -2972096663633545671
+      Sprite-0008_16: -6440653908834531886
+      Sprite-0008_17: -3267578286498063631
+      Sprite-0008_18: 1064577221664577468
+      Sprite-0008_19: -2219827665139283972
+      Sprite-0008_2: -6540123201979456734
+      Sprite-0008_20: -2222134433696023130
+      Sprite-0008_21: 6290938016758610477
+      Sprite-0008_22: 2348301873828039288
+      Sprite-0008_23: 8257821236834786648
+      Sprite-0008_3: 1071377053553539095
+      Sprite-0008_4: -520590931183156557
+      Sprite-0008_5: -5403917745769237638
+      Sprite-0008_6: -4980295634984467156
+      Sprite-0008_7: -8656567730949352908
+      Sprite-0008_8: 2559111868862132359
+      Sprite-0008_9: -738103391432083122
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
