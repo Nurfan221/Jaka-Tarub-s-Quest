@@ -262,7 +262,11 @@ public class Player_Action : MonoBehaviour
         // Define the damage actions for each attack type
         Dictionary<string, List<System.Action<GameObject>>> damageActions = new Dictionary<string, List<System.Action<GameObject>>>()
     {
-        { "Kapak", new List<System.Action<GameObject>> { obj => obj.GetComponent<TreeBehavior>()?.TakeDamage(damage) } },
+        { "Kapak", new List<System.Action<GameObject>>
+            {
+                obj => obj.GetComponent<TreeBehavior>()?.TakeDamage(damage),
+                obj => obj.GetComponent<AkarPohon>()?.TakeDamage(damage)
+            } },
         { "PickAxe", new List<System.Action<GameObject>> { obj => obj.GetComponent<StoneBehavior>()?.TakeDamage(damage) } },
         { "Sabit", new List<System.Action<GameObject>> { obj => obj.GetComponent<PlantSeed>()?.Harvest() } },
         { "Sword", new List<System.Action<GameObject>>
@@ -303,7 +307,7 @@ public class Player_Action : MonoBehaviour
     private List<string> GetTargetTags(string actionType)
     {
         // Return the appropriate tags based on actionType
-        if (actionType == "Kapak") return new List<string> { "Tree" };
+        if (actionType == "Kapak") return new List<string> { "Tree", "AkarPohon" };
         if (actionType == "PickAxe") return new List<string> { "Stone" };
         if (actionType == "Sabit") return new List<string> { "Plant" };
         if (actionType == "Sword") return new List<string> { "Bandit", "Animal" }; // Multiple tags for Sword

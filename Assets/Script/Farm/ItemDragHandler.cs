@@ -132,7 +132,10 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
                 if (item.IsInCategory(ItemCategory.TreeSeed))
                 {
-                    PlantTree(cellPosition, item.itemName, item.growthImages, item.growthTime);
+
+                    plantPrefab = item.growthObject[0]; // Set plantPrefab sesuai item
+
+                    PlantTree(cellPosition, item.itemName, item.growthObject, item.growthTime);
                 }else
                 {
                     PlacePrefab(cellPosition, item.itemName, item.prefabItem, item.health);
@@ -397,30 +400,35 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 
     // Fungsi untuk menanam benih
-    private void PlantTree(Vector3Int cellPosition, string namaSeed, Sprite[] growthImages, float growthTime)
+    private void PlantTree(Vector3Int cellPosition, string namaSeed, GameObject[] gameObjects, float growthTime)
     {
         Debug.Log("Menanam pohon...");
+
         // Konversi posisi tile ke World Space
         Vector3 spawnPosition = farmTilemap.GetCellCenterWorld(cellPosition);
 
         // Inisiasi prefab tanaman di posisi world yang sesuai dengan tile
         GameObject plant = Instantiate(plantPrefab, spawnPosition, Quaternion.identity);
 
+        
+
         // Set parent prefab tanaman ke plantsContainer
         plant.transform.SetParent(plantsContainer);
 
-        // Mendapatkan komponen Seed dari prefab tanaman
+        // Mendapatkan komponen TreeBehavior dari prefab tanaman
         TreeBehavior treeComponent = plant.GetComponent<TreeBehavior>();
         if (treeComponent != null)
         {
-            // Mengatur nilai namaSeed, dropItem, dan growthImages
             treeComponent.namaSeed = namaSeed;
-            treeComponent.growthImages = growthImages; // Simpan growthImages ke komponen Seed
-            treeComponent.growthTime = growthTime; // Simpan growthTime ke komponen Seed
+            treeComponent.growthObject = gameObjects;
+            treeComponent.growthTime = growthTime;
+
+
         }
 
         Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
     }
+
 
 
 

@@ -56,7 +56,7 @@ public class PlayerInteractable : MonoBehaviour
         if (closestInteractable != currentInteractable)
         {
             currentInteractable = closestInteractable;
-            PlayerUI.Instance.SetPromptText("Tekan untuk " + currentInteractable.promptMessage);
+            PlayerUI.Instance.SetPromptText(currentInteractable.promptMessage);
         }
     }
 

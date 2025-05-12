@@ -120,7 +120,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -185,10 +185,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 65
-        width: 30
-        height: 30
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,10 +207,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_1
       rect:
         serializedVersion: 2
-        x: 33
-        y: 65
-        width: 30
-        height: 30
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,10 +229,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_2
       rect:
         serializedVersion: 2
-        x: 65
-        y: 65
-        width: 30
-        height: 30
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,10 +251,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_3
       rect:
         serializedVersion: 2
-        x: 97
-        y: 65
-        width: 30
-        height: 30
+        x: 96
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -273,10 +273,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_4
       rect:
         serializedVersion: 2
-        x: 131
-        y: 65
-        width: 28
-        height: 30
+        x: 128
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -295,10 +295,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_5
       rect:
         serializedVersion: 2
-        x: 161
-        y: 65
-        width: 30
-        height: 30
+        x: 160
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -317,10 +317,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_6
       rect:
         serializedVersion: 2
-        x: 193
-        y: 65
-        width: 30
-        height: 30
+        x: 192
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -339,10 +339,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_7
       rect:
         serializedVersion: 2
-        x: 225
-        y: 65
-        width: 30
-        height: 30
+        x: 224
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -361,10 +361,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_8
       rect:
         serializedVersion: 2
-        x: 1
-        y: 33
-        width: 30
-        height: 30
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -383,10 +383,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_9
       rect:
         serializedVersion: 2
-        x: 33
-        y: 33
-        width: 30
-        height: 30
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -405,10 +405,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_10
       rect:
         serializedVersion: 2
-        x: 67
-        y: 33
-        width: 24
-        height: 30
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -427,10 +427,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_11
       rect:
         serializedVersion: 2
-        x: 99
-        y: 33
-        width: 24
-        height: 30
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -449,10 +449,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_12
       rect:
         serializedVersion: 2
-        x: 129
-        y: 33
-        width: 30
-        height: 30
+        x: 128
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -471,10 +471,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_13
       rect:
         serializedVersion: 2
-        x: 161
-        y: 33
-        width: 30
-        height: 30
+        x: 160
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -493,10 +493,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_14
       rect:
         serializedVersion: 2
-        x: 193
-        y: 33
-        width: 30
-        height: 30
+        x: 192
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -515,10 +515,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_15
       rect:
         serializedVersion: 2
-        x: 225
-        y: 33
-        width: 30
-        height: 30
+        x: 224
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -537,10 +537,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_16
       rect:
         serializedVersion: 2
-        x: 3
-        y: 1
-        width: 28
-        height: 30
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -559,10 +559,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_17
       rect:
         serializedVersion: 2
-        x: 35
-        y: 1
-        width: 28
-        height: 30
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -581,10 +581,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_18
       rect:
         serializedVersion: 2
-        x: 67
-        y: 1
-        width: 28
-        height: 30
+        x: 64
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -603,10 +603,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_19
       rect:
         serializedVersion: 2
-        x: 99
-        y: 1
-        width: 28
-        height: 30
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -625,10 +625,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_20
       rect:
         serializedVersion: 2
-        x: 131
-        y: 1
-        width: 28
-        height: 30
+        x: 128
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -647,10 +647,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_21
       rect:
         serializedVersion: 2
-        x: 163
-        y: 1
-        width: 28
-        height: 30
+        x: 160
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -669,10 +669,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_22
       rect:
         serializedVersion: 2
-        x: 195
-        y: 1
-        width: 28
-        height: 30
+        x: 192
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -691,10 +691,10 @@ TextureImporter:
       name: Food_Icons_NO_Outline-export_23
       rect:
         serializedVersion: 2
-        x: 227
-        y: 1
-        width: 28
-        height: 30
+        x: 224
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -713,7 +713,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e8977e2073ee6d5438dedc0fbf233836
     internalID: 0
     vertices: []
     indices: 
@@ -722,7 +722,31 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Food_Icons_NO_Outline-export_0: -493298249393069735
+      Food_Icons_NO_Outline-export_1: 7801308808990622549
+      Food_Icons_NO_Outline-export_10: -2295620911684443549
+      Food_Icons_NO_Outline-export_11: 5538895082972951617
+      Food_Icons_NO_Outline-export_12: -5911621814089231045
+      Food_Icons_NO_Outline-export_13: -4651874067578211276
+      Food_Icons_NO_Outline-export_14: 1445473993486712596
+      Food_Icons_NO_Outline-export_15: -356839262015679692
+      Food_Icons_NO_Outline-export_16: 7531110852666295599
+      Food_Icons_NO_Outline-export_17: 2504479020007873387
+      Food_Icons_NO_Outline-export_18: -3779607278910064773
+      Food_Icons_NO_Outline-export_19: -2845205297909405615
+      Food_Icons_NO_Outline-export_2: 6085073277765740532
+      Food_Icons_NO_Outline-export_20: -9143469240032080619
+      Food_Icons_NO_Outline-export_21: -6752837421744344365
+      Food_Icons_NO_Outline-export_22: 4374616369856964404
+      Food_Icons_NO_Outline-export_23: 2097121805514024786
+      Food_Icons_NO_Outline-export_3: 3681929908521616980
+      Food_Icons_NO_Outline-export_4: -2932678879735761234
+      Food_Icons_NO_Outline-export_5: -1295776216038072400
+      Food_Icons_NO_Outline-export_6: -6953872761602461374
+      Food_Icons_NO_Outline-export_7: 5951822247727395223
+      Food_Icons_NO_Outline-export_8: -6555871079831587737
+      Food_Icons_NO_Outline-export_9: -1758145566270953921
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

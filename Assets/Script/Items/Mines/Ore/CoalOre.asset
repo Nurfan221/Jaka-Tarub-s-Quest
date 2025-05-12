@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 38
   itemName: CoalOre
-  type: 4
+  types: 0
   categories: 516
-  sprite: {fileID: 21300000, guid: 457c7625b1aabb444a8166d51d509392, type: 3}
+  sprite: {fileID: 4677606340258578813, guid: 31b0c90595bfd4f4cb21fbdc818fe1ec, type: 3}
   itemDescription: Sumber bahan bakar alami yang dapat digunakan untuk menyalakan
     api, melelehkan ore, dan memasak makanan.
   QuantityFuel: 0
+  maxhealth: 0
   health: 0
   Level: 0
   MaxLevel: 0
@@ -28,6 +29,7 @@ MonoBehaviour:
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 0
+  UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1

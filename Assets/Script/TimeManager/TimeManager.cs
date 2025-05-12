@@ -71,7 +71,6 @@ public class TimeManager : MonoBehaviour
 
         if (tickTimer >= tickInterval)
         {
-            Debug.Log("tickTimer" + tickTimer );
             tickTimer = 0f;
             AdvanceTime();
         }

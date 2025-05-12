@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
+  m_Name: Sign
+  m_EditorClassIdentifier: 
+  itemID: 8
+  itemName: Sign
+  types: 32
+  categories: 4096
+  sprite: {fileID: -459423023, guid: cbd8ee1a8aaaeb440be7ba1038bf6683, type: 3}
+  itemDescription: Gunakan ini untuk menandai sebuah area
+  QuantityFuel: 0
+  maxhealth: 0
+  health: 9
+  Level: 1
+  MaxLevel: 0
+  Damage: 0
+  AreaOfEffect: 0
+  SpecialAttackCD: 0
+  SpecialAttackStamina: 0
+  UpgradeCost: 0
+  UseStamina: 0
+  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  isStackable: 1
+  stackCount: 1
+  maxStackCount: 32
+  BuyValue: 0
+  SellValue: 0
+  BurningTime: 0
+  CookTime: 0
+  prefabItem: {fileID: 5776742059324081699, guid: 0c3d0eebc85b7ba4789592768488fe7c, type: 3}
+  growthTime: 0
+  growthImages: []
+  dropItem: {fileID: 0}
