@@ -213,12 +213,13 @@ MonoBehaviour:
   daun: {fileID: 4459120725376062254, guid: 0f22ba3700f36034cac4e5ce9183c9dc, type: 3}
   getah: {fileID: 4459120725376062254, guid: bdb3f5ac6519083489f3b7cc3ba86397, type: 3}
   benih: {fileID: 4459120725376062254, guid: 0faa01f2659285449bc947d6c2a46321, type: 3}
-  currentStage: 1
+  currentStage: 2
   growthObject: []
   growthTime: 0
   namaSeed: JatiTreeSmall
   tumbangSprite: {fileID: 5090815853600988913, guid: d85bb78978d86aa40b8a2bfee8fd58f0, type: 3}
   akarPohonPrefab: {fileID: 1599877733878797977, guid: b99b2100648002e44971f645b48477bf, type: 3}
+  isRubuh: 0
   growthSpeed: 0
   daysSincePlanting: 1
   minWood: 2
@@ -227,3 +228,4 @@ MonoBehaviour:
   maxSap: 2
   minLeaf: 1
   maxLeaf: 2
+  plantsContainer: {fileID: 0}

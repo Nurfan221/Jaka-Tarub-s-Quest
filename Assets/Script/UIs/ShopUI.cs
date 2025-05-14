@@ -154,7 +154,7 @@ public class ShopUI : MonoBehaviour
             itemSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
             itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.itemName;
             itemSlot.GetChild(2).GetComponent<TMP_Text>().text = item.stackCount.ToString();
-            itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + item.SellValue;
+            itemSlot.GetChild(4).GetComponent<TMP_Text>().text = "Rp." + item.SellValue;
 
             //Inisialisasi jumlah item yang akan dijual
             if (!itemSellCounts.ContainsKey(item.itemName))

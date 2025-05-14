@@ -5081,8 +5081,8 @@ Transform:
   m_GameObject: {fileID: 2033105564713796990}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.74, y: 0.05, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: -0.008, y: 0.089, z: 0}
+  m_LocalScale: {x: 8.840498, y: 8.124659, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1849453207322278355}
@@ -5094,7 +5094,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033105564713796990}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -5176,7 +5176,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.13937211, y: -0.035449773}
+  m_Offset: {x: 0.000031169504, y: 0.0018155277}
   m_SpriteTilingProperty:
     border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
     pivot: {x: 0.5, y: 0.5}
@@ -5186,7 +5186,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8928354, y: 0.89523464}
+  m_Size: {x: 0.15292639, y: 0.17079154}
   m_EdgeRadius: 0
 --- !u!1 &3358481639717380379
 GameObject:
@@ -10218,7 +10218,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 1090217281897295437, guid: 16aeb89c5eef8ba4c9fe2b8a37a3381c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -10279,7 +10279,7 @@ Transform:
   m_GameObject: {fileID: 5839842930357979171}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: -0.2675, z: 0}
+  m_LocalPosition: {x: -0.01, y: -0.473, z: 0}
   m_LocalScale: {x: 1.4966732, y: 1.510197, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10370,7 +10370,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -15267,7 +15267,7 @@ Transform:
   m_GameObject: {fileID: 7633395438398887075}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.602, y: 0, z: 0}
+  m_LocalPosition: {x: 0.592, y: -0.426, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -15420,7 +15420,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 1090217281897295437, guid: 16aeb89c5eef8ba4c9fe2b8a37a3381c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -15533,6 +15533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerUI: {fileID: 0}
+  playerHealth: {fileID: 8403737879081081286}
   animator: {fileID: 5182133446376496793}
   toolsAnimator: {fileID: 0}
   hitBoxRenderer: {fileID: 8032780791927186798}
@@ -15561,11 +15562,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dc05bc95878abe46bb80585ed59fe4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList: []
+  itemList:
+  - {fileID: 11400000, guid: 6f34cae93e4590e42b8acaf469896f96, type: 2}
+  maxItem: 18
   normalAttackHitArea: {fileID: 2033105564713796990}
   switchWeaponImage: {fileID: 0}
   switchUseItemImage: {fileID: 0}
   contohFlipCard: {fileID: 0}
+  pintuManager: {fileID: 0}
   meleeOrRanged: 1
   itemUse1: 1
   emptyItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
@@ -15627,10 +15631,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_Anim: {fileID: 2042781221665071364}
   maxHealth: 100
-  health: 100
+  health: 30
   maxStamina: 100
   stamina: 100
   staminaRegenRate: 15
+  currentMaxStamina: 0
+  emotionalHealthCap: 100
+  emotionalStaminaCap: 100
+  isInGrief: 0
   sr: {fileID: 590918729192924437}
 --- !u!114 &3153821618895573808
 MonoBehaviour:
@@ -15664,9 +15672,13 @@ MonoBehaviour:
   player_Anim: {fileID: 0}
   maxHealth: 100
   health: 100
-  maxStamina: 100
-  stamina: 100
+  maxStamina: 250
+  stamina: 250
   staminaRegenRate: 15
+  currentMaxStamina: 0
+  emotionalHealthCap: 100
+  emotionalStaminaCap: 100
+  isInGrief: 0
   sr: {fileID: 590918729192924437}
 --- !u!114 &8171202124435529208
 MonoBehaviour:
@@ -15681,9 +15693,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questManager: {fileID: 0}
-  objekMainQuest: {fileID: 0}
-  indexLocation: 0
-  inLocation: 0
+  dialogueSystem: {fileID: 0}
+  locationManager: {fileID: 0}
+  player_Health: {fileID: 8403737879081081286}
+  locationMainQuest: {fileID: 0}
+  dialogueInLocation: {fileID: 0}
+  environmentObject: {fileID: 0}
+  mainQuestInLocation: 0
 --- !u!1 &8149360684410479211
 GameObject:
   m_ObjectHideFlags: 0
@@ -15699,7 +15715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2225370186519257910
 Transform:
   m_ObjectHideFlags: 0

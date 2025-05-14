@@ -219,6 +219,7 @@ MonoBehaviour:
   namaSeed: JatiTreeSmall
   tumbangSprite: {fileID: 5090815853600988913, guid: 14a86df2ed3bda34f838c5d3eacb953b, type: 3}
   akarPohonPrefab: {fileID: 1599877733878797977, guid: b99b2100648002e44971f645b48477bf, type: 3}
+  isRubuh: 0
   growthSpeed: 0
   daysSincePlanting: 1
   minWood: 1
@@ -227,3 +228,4 @@ MonoBehaviour:
   maxSap: 1
   minLeaf: 0
   maxLeaf: 1
+  plantsContainer: {fileID: 0}

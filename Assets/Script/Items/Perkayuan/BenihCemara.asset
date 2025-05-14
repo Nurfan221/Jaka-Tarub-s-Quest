@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
+  m_Name: BenihCemara
+  m_EditorClassIdentifier: 
+  itemID: 29
+  itemName: BenihCemara
+  types: 32
+  categories: 2048
+  sprite: {fileID: 1352490464343919810, guid: 31b0c90595bfd4f4cb21fbdc818fe1ec, type: 3}
+  itemDescription: 
+  QuantityFuel: 0
+  maxhealth: 0
+  health: 0
+  Level: 1
+  MaxLevel: 0
+  Damage: 0
+  AreaOfEffect: 0
+  SpecialAttackCD: 0
+  SpecialAttackStamina: 0
+  UpgradeCost: 0
+  UseStamina: 0
+  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  isStackable: 1
+  stackCount: 1
+  maxStackCount: 32
+  BuyValue: 0
+  SellValue: 0
+  BurningTime: 0
+  CookTime: 0
+  prefabItem: {fileID: 4459120725376062254, guid: 7ab20b52098ecab4da88474c130259f8, type: 3}
+  growthTime: 4
+  growthImages: []
+  growthObject:
+  - {fileID: 5090815853600988913, guid: c4e1486909f30254c977e0b67e0faf9e, type: 3}
+  - {fileID: 5090815853600988913, guid: 8f440ccbfa916ee4a9ca8c6a34da722e, type: 3}
+  - {fileID: 5090815853600988913, guid: 024da220ab3fc124dac92970640c8a99, type: 3}
+  - {fileID: 5090815853600988913, guid: 1b3af91a00af8bd4b92bb9db3786cc79, type: 3}
+  dropItem: {fileID: 0}

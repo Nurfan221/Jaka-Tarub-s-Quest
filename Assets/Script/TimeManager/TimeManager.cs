@@ -18,6 +18,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private SpawnerManager spawnerManager;
     [SerializeField] private TrashManager trashManager;
     [SerializeField] private BatuManager batuManager;
+    [SerializeField] PlantContainer plantContainer;
 
     [Header("Date & Time settings")]
     public int totalHari = 1;
@@ -38,6 +39,8 @@ public class TimeManager : MonoBehaviour
     public int hour = 0;
 
     public static event UnityAction OnTimeChanged;
+
+    //logika mengirim waktu 
     public static event Action<int> OnDayChanged;
 
     private List<TreeBehavior> registeredTrees = new List<TreeBehavior>(); // Menyimpan pohon-pohon yang terdaftar
@@ -123,7 +126,7 @@ public class TimeManager : MonoBehaviour
         farmTile.ResetWateredTiles();
 
         questManager.CheckQuest();
-        shopUI.RestockDaily(currentSeason);
+        //shopUI.RestockDaily(currentSeason);
 
         player_Health.ReverseHealthandStamina();
         GetLuck();
@@ -133,6 +136,7 @@ public class TimeManager : MonoBehaviour
         trashManager.UpdateTrash();
 
         batuManager.UpdatePositionMiner(dailyLuck);
+        plantContainer.HitungPertumbuhanPohon();
 
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah

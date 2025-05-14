@@ -133,28 +133,28 @@ public class Player_Inventory : MonoBehaviour
         if (inventoryOpened)
         {
             GameController.Instance.PauseGame();
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihAnggur"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihBawangMerah"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihBawangPutih"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihBungaMatahari"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihCabai"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihDaunBawang"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihJagung"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihKentang"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihKubis"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihLabu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihLabuHijau"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihLobak"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihPadi"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihPaprikaHijau"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihPaprikaKuning"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihPaprikaMerah"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihStrawberry"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihTimun"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihTomat"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihUbiMerah"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihUbiUngu"));
-            Instance.AddItem(ItemPool.Instance.GetItem("BenihWortel"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihAnggur"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihBawangMerah"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihBawangPutih"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihBungaMatahari"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihCabai"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihDaunBawang"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihJagung"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihKentang"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihKubis"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihLabu"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihLabuHijau"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihLobak"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihPadi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihPaprikaHijau"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihPaprikaKuning"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihPaprikaMerah"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihStrawberry"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihTimun"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihTomat"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihUbiMerah"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihUbiUngu"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("BenihWortel"));
 
 
 

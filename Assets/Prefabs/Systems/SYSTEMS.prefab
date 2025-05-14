@@ -1308,8 +1308,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3991139773073558043}
   m_HandleRect: {fileID: 6265374312807617816}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.88147426
+  m_Value: 1.0000018
+  m_Size: 0.8818084
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9839,7 +9839,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -290.32}
+  m_AnchoredPosition: {x: 0, y: -290.3201}
   m_SizeDelta: {x: 0, y: 290.32}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &6416992174074510068
@@ -15911,6 +15911,7 @@ MonoBehaviour:
   itemCount: 0
   inventoryUI: {fileID: 6113501098119261323}
   fenceBehavior: {fileID: 8970657724561724173, guid: 8ea471405156bf94a8424930efe5f4b4, type: 3}
+  plantContainer: {fileID: 0}
 --- !u!61 &812575742579715461
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21740,7 +21741,7 @@ PrefabInstance:
       objectReference: {fileID: 4459120725376062254, guid: c31340b66beefb34c856f129319c3407, type: 3}
     - target: {fileID: 5449077394803582238, guid: 35b00ed99c80f0842b81abc43d62c859, type: 3}
       propertyPath: items.Array.size
-      value: 23
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 5449077394803582238, guid: 35b00ed99c80f0842b81abc43d62c859, type: 3}
       propertyPath: 'items.Array.data[0]'
@@ -21837,15 +21838,15 @@ PrefabInstance:
     - target: {fileID: 5449077394803582238, guid: 35b00ed99c80f0842b81abc43d62c859, type: 3}
       propertyPath: 'items.Array.data[23]'
       value: 
-      objectReference: {fileID: 11400000, guid: 89e00e0c54b34164cb03b392d7714a78, type: 2}
+      objectReference: {fileID: 11400000, guid: 7c19e781c4904e9439ab3aace0c5857d, type: 2}
     - target: {fileID: 5449077394803582238, guid: 35b00ed99c80f0842b81abc43d62c859, type: 3}
       propertyPath: 'items.Array.data[24]'
       value: 
-      objectReference: {fileID: 11400000, guid: fdbf063211273e240843e31a4465d4b2, type: 2}
+      objectReference: {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
     - target: {fileID: 5449077394803582238, guid: 35b00ed99c80f0842b81abc43d62c859, type: 3}
       propertyPath: 'items.Array.data[25]'
       value: 
-      objectReference: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+      objectReference: {fileID: 11400000, guid: c9290670a9d9a44429086ade2743ef8b, type: 2}
     - target: {fileID: 5449077394803582238, guid: 35b00ed99c80f0842b81abc43d62c859, type: 3}
       propertyPath: 'items.Array.data[26]'
       value: 
@@ -21853,11 +21854,11 @@ PrefabInstance:
     - target: {fileID: 5449077394803582238, guid: 35b00ed99c80f0842b81abc43d62c859, type: 3}
       propertyPath: 'items.Array.data[27]'
       value: 
-      objectReference: {fileID: 11400000, guid: c9290670a9d9a44429086ade2743ef8b, type: 2}
+      objectReference: {fileID: 11400000, guid: a35098307cd2e97479c7bc682d66c508, type: 2}
     - target: {fileID: 5449077394803582238, guid: 35b00ed99c80f0842b81abc43d62c859, type: 3}
       propertyPath: 'items.Array.data[28]'
       value: 
-      objectReference: {fileID: 11400000, guid: 124bb59f573d69c498c9e644c327ab91, type: 2}
+      objectReference: {fileID: 11400000, guid: 61ad2419316cf194f956dc498b1b5332, type: 2}
     - target: {fileID: 5449077394803582238, guid: 35b00ed99c80f0842b81abc43d62c859, type: 3}
       propertyPath: 'items.Array.data[29]'
       value: 
@@ -21972,10 +21973,30 @@ MonoBehaviour:
     ingredientsCount: 0100000001000000
     result: {fileID: 11400000, guid: bdc924c3e834a9243afc118f762a9d4d, type: 2}
   cookRecipes:
-  - recipeName: DagingPanggang
-    ingredient: {fileID: 11400000, guid: b6f7491557836d04b979c05e535782e2, type: 2}
+  - recipeName: DagingSapiPanggang
+    ingredient: {fileID: 11400000, guid: be4a13e273645364c9af7545ac02f048, type: 2}
     ingredientCount: 1
-    result: {fileID: 11400000, guid: 742d46c8813b91b4d876b849ec4d2da3, type: 2}
+    result: {fileID: 11400000, guid: 8750ba94bab26ec48baa37d182da9441, type: 2}
+  - recipeName: DagingDombaPanggang
+    ingredient: {fileID: 11400000, guid: 16c336a800e62b64494af8c2012d5956, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 8750ba94bab26ec48baa37d182da9441, type: 2}
+  - recipeName: DagingSapiPanggang
+    ingredient: {fileID: 11400000, guid: be4a13e273645364c9af7545ac02f048, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 36d2ddb112a350d4da05b5a3bb31952f, type: 2}
+  - recipeName: DagingBabiPanggang
+    ingredient: {fileID: 11400000, guid: f81f0f4680ff90d40bbf5ff8a6d21c02, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: d176e391de84df34f8fc7fa8a3d5365a, type: 2}
+  - recipeName: DagingAyamPanggang
+    ingredient: {fileID: 11400000, guid: fbdf2c85b189a2e42aefa92b3fa09046, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 38edefcf53dbc7646a3f9f223a40b894, type: 2}
+  - recipeName: TelurGoreng
+    ingredient: {fileID: 11400000, guid: b2afd192f68f7c0409b076e15c62c405, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 758610d83385a9f4d8aeb8d7d13c965a, type: 2}
   specialRecipes: []
 --- !u!114 &8440775617240271655 stripped
 MonoBehaviour:

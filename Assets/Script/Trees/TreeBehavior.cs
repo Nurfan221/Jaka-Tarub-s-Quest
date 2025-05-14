@@ -26,6 +26,7 @@ public class TreeBehavior : MonoBehaviour
     public string namaSeed;
     public GameObject tumbangSprite;
     public GameObject akarPohonPrefab;
+    public bool isRubuh;
 
     public float growthSpeed; // Waktu jeda antar tahap pertumbuhan
     public int daysSincePlanting = 1; // Hari sejak pohon ditanam
@@ -39,34 +40,29 @@ public class TreeBehavior : MonoBehaviour
     public int minLeaf = 2;  // Jumlah minimum daun
     public int maxLeaf = 7;  // Jumlah maksimum daun
 
+    
+
+    [Header("Keperluan")]
+    public Transform plantsContainer;
+
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        // Berlangganan ke event OnDayChanged di TimeManager
-        TimeManager.OnDayChanged += OnDayChanged;
 
-        growthSpeed = growthTime / growthObject.Length; // Hitung waktu jeda antar tahap
+
     }
 
-    private void OnDestroy()
-    {
-        // Unsubscribe dari event OnDayChanged untuk mencegah error saat pohon dihancurkan
-        TimeManager.OnDayChanged -= OnDayChanged;
-    }
 
-    private void OnDayChanged(int currentDay)
-    {
-        //Debug.Log($"Pohon menerima perubahan hari, Hari ke-{currentDay}");
-        PertumbuhanPohon();
-        //Debug.Log("pohon tumbuh");
-    }
+
+
 
 
     public void PertumbuhanPohon()
     {
         daysSincePlanting++;  // Meningkatkan hari
-        //Debug.Log($"Pertumbuhan pohon dipanggil. Hari ke-{daysSincePlanting} sejak penanaman.");
+        Debug.Log($"Pertumbuhan pohon dipanggil. Hari ke-{daysSincePlanting} sejak penanaman.");
 
 
 
@@ -100,13 +96,35 @@ public class TreeBehavior : MonoBehaviour
 
     private void UpdateSprite()
     {
+        PlantContainer plantContainerScript = plantsContainer.GetComponent<PlantContainer>();
         int stageIndex = (int)currentStage;
         if (stageIndex >= 0 && stageIndex < growthObject.Length)
         {
             Vector2 posisiPohon = transform.position;
-            Destroy(gameObject);
+
             GameObject objectPohon = growthObject[stageIndex];
             GameObject pohonBaru = Instantiate(objectPohon, posisiPohon, Quaternion.identity);
+            TreeBehavior treeBehavior = pohonBaru.GetComponent<TreeBehavior>();
+
+            //masukan nilai yang di butukan ke pohon baru 
+            treeBehavior.plantsContainer = plantsContainer;
+            treeBehavior.growthSpeed = growthSpeed;
+            treeBehavior.growthObject = growthObject;
+            pohonBaru.transform.SetParent(plantsContainer);
+
+            // Cari dan ganti objek ini di dalam list plantObject
+            
+            for (int i = 0; i < plantContainerScript.plantObject.Count; i++)
+            {
+                if (plantContainerScript.plantObject[i] == this.gameObject)
+                {
+                    plantContainerScript.plantObject[i] = pohonBaru;
+                    break;
+                }
+            }
+
+            Destroy(gameObject);
+
             Debug.Log("Sprite diperbarui ke tahap: " + currentStage);
         }
         else
@@ -115,14 +133,18 @@ public class TreeBehavior : MonoBehaviour
         }
     }
 
+
     public void TakeDamage(int damage)
     {
-        health -= Mathf.Min(damage, health);
-        Debug.Log($"Pohon terkena damage. Sisa HP: {health}");
-
-        if (health <= 0)
+        if (!isRubuh)
         {
-            StartCoroutine(FellTree());
+            health -= Mathf.Min(damage, health);
+            Debug.Log($"Pohon terkena damage. Sisa HP: {health}");
+
+            if (health <= 0)
+            {
+                StartCoroutine(FellTree());
+            }
         }
     }
 
@@ -180,6 +202,7 @@ public class TreeBehavior : MonoBehaviour
 
     private IEnumerator FellTree()
     {
+        isRubuh = true;
         Vector3 posisiPohon = transform.position;
 
         //Spawn akar di posisi pohon
@@ -200,10 +223,10 @@ public class TreeBehavior : MonoBehaviour
         }
 
 
-        // 4. Hancurkan pohon asli
+        //Hancurkan pohon asli
         Destroy(gameObject);
 
-        // 5. (Opsional) Drop item kayu, getah, dll.
+        //(Opsional) Drop item kayu, getah, dll.
         DropResources(posisiPohon);
     }
 
@@ -274,6 +297,8 @@ public class TreeBehavior : MonoBehaviour
                 ItemPool.Instance.DropItem(benih.name, posisi + offset, benih);
             }
         }
+
+        isRubuh = false;
     }
 
 

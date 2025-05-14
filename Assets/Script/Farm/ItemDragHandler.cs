@@ -29,6 +29,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
      
      [SerializeField] InventoryUI inventoryUI;
     [SerializeField] FenceBehavior fenceBehavior;
+    [SerializeField] PlantContainer plantContainer;
     public static class TileManager
     {
         // Menyimpan status setiap tile di seluruh permainan
@@ -414,6 +415,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         // Set parent prefab tanaman ke plantsContainer
         plant.transform.SetParent(plantsContainer);
+        plantContainer.plantObject.Add(plant);
 
         // Mendapatkan komponen TreeBehavior dari prefab tanaman
         TreeBehavior treeComponent = plant.GetComponent<TreeBehavior>();
@@ -422,6 +424,10 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             treeComponent.namaSeed = namaSeed;
             treeComponent.growthObject = gameObjects;
             treeComponent.growthTime = growthTime;
+            treeComponent.plantsContainer = plantsContainer;
+            treeComponent.growthSpeed = growthTime / gameObjects.Length;
+
+
 
 
         }
