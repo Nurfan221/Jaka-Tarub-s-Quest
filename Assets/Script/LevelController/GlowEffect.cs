@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GlowParticleEffect : MonoBehaviour
+public class GlowEffect : MonoBehaviour
 {
     private ParticleSystem glowingParticles; // Menyimpan referensi Particle System
 
@@ -9,16 +9,8 @@ public class GlowParticleEffect : MonoBehaviour
         // Mendapatkan komponen Particle System dari objek ini
         glowingParticles = GetComponentInChildren<ParticleSystem>();
 
-        // Memastikan Particle System sudah diatur dengan benar
-        if (glowingParticles != null)
-        {
-            // Memulai animasi Particle System (jika belum berjalan)
-            glowingParticles.Play();
-        }
-        else
-        {
-            Debug.LogWarning("Particle System tidak ditemukan pada objek!");
-        }
+       
+        
     }
 
     // Fungsi untuk memulai efek particle jika diperlukan (misalnya ketika objek diambil)
@@ -28,6 +20,10 @@ public class GlowParticleEffect : MonoBehaviour
         {
             glowingParticles.Play(); // Memulai particle effect
         }
+        else
+        {
+            Debug.LogWarning("Particle System tidak ditemukan pada objek!");
+        }
     }
 
     // Fungsi untuk menghentikan efek particle jika diperlukan (misalnya ketika objek hilang)
@@ -36,6 +32,10 @@ public class GlowParticleEffect : MonoBehaviour
         if (glowingParticles != null)
         {
             glowingParticles.Stop(); // Menghentikan particle effect
+        }
+        else
+        {
+            Debug.LogWarning("Particle System tidak ditemukan pada objek!");
         }
     }
 }

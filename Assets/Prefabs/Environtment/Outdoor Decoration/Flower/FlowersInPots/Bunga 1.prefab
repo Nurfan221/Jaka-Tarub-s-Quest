@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3bfa95106347c5d47b329713037e7c4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,15 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rumputAnimation:
-  - {fileID: -8014785246721745392, guid: 40887744e63ae23428ea6e610bdd5a71, type: 3}
-  - {fileID: -4634116459570649908, guid: 40887744e63ae23428ea6e610bdd5a71, type: 3}
-  - {fileID: -615856300689170348, guid: 40887744e63ae23428ea6e610bdd5a71, type: 3}
-  - {fileID: 3739031540627398816, guid: 40887744e63ae23428ea6e610bdd5a71, type: 3}
-  - {fileID: 7727028044280443656, guid: 40887744e63ae23428ea6e610bdd5a71, type: 3}
-  - {fileID: -4381618489646365636, guid: 40887744e63ae23428ea6e610bdd5a71, type: 3}
+  rumputAnimation: []
   frameRate: 0.1
+  nameEnvironment: 
   itemDrop: {fileID: 0}
+  plantsContainer: {fileID: 0}
 --- !u!61 &-4651051123956837860
 BoxCollider2D:
   m_ObjectHideFlags: 0

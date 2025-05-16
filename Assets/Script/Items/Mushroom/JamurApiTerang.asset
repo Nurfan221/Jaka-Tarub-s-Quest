@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: JamurApiTerang
   m_EditorClassIdentifier: 
-  itemID: 0
+  itemID: 59
   itemName: JamurApiTerang
-  types: 0
+  types: 32
   categories: 528
   sprite: {fileID: -4296686907146779548, guid: 9445d83ef8c9d0a409a7decd81469d64, type: 3}
   itemDescription: 'Jamur ini memancarkan Warna merah yang kuat seperti api yang
@@ -22,7 +22,7 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
-  Level: 0
+  Level: 1
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -41,4 +41,5 @@ MonoBehaviour:
   prefabItem: {fileID: 8486291666243436108, guid: 57bd6f2bfe24d8844b9d75260f3fa575, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 8486291666243436108, guid: 57bd6f2bfe24d8844b9d75260f3fa575, type: 3}

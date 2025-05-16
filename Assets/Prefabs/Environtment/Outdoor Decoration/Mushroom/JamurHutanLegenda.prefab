@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6467848702856471926}
   - component: {fileID: 1875809329078935253}
   - component: {fileID: 1864868281198516365}
+  - component: {fileID: 552677607930193202}
+  - component: {fileID: 3420383174962102870}
   m_Layer: 0
   m_Name: JamurHutanLegenda
   m_TagString: Untagged
@@ -107,5 +109,67 @@ MonoBehaviour:
   - {fileID: -4292852095813093452, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
   - {fileID: -2250069472613918916, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
   - {fileID: 4684772192963936397, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
-  frameRate: 0.1
+  frameRate: 0.2
+  nameEnvironment: JamurHutanLegenda
   itemDrop: {fileID: 11400000, guid: eff3e0063443bce4eaa37f9d07e80ad2, type: 2}
+  plantsContainer: {fileID: 0}
+--- !u!114 &552677607930193202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486291666243436108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cc73adf28e52d4f8990ecf127eb232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 0
+  promptMessage: Jamur Hutan Legenda
+--- !u!61 &3420383174962102870
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486291666243436108}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.005980015, y: -0.021926403}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.6611357, y: 0.83654785}
+  m_EdgeRadius: 0

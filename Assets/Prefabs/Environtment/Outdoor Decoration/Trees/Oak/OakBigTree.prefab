@@ -70,17 +70,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0038394928, y: 0.004635811}
+  m_Offset: {x: -0.00042819977, y: -0.03989625}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.3693503}
-    oldSize: {x: 2, y: 3}
+    pivot: {x: 0.5, y: 0.3432204}
+    oldSize: {x: 4, y: 5}
     newSize: {x: 4, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.26466942, y: 0.64522934}
+  m_Size: {x: 0.6544628, y: 1.3127179}
   m_EdgeRadius: 0
 --- !u!212 &1888632240794282398
 SpriteRenderer:
@@ -126,7 +126,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 1343397094658679742, guid: d7e5e7ce63dadd149aac4eea942da0fb, type: 3}
+  m_Sprite: {fileID: 3078885367451066587, guid: fbeb426b26f359b4b82cb39a48446d65, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -208,17 +208,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29471c14139b64e4d97ac92590082502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
+  health: 20
   kayu: {fileID: 4459120725376062254, guid: 02a41b6e3057e434dbdda20dc4f9d697, type: 3}
   daun: {fileID: 4459120725376062254, guid: 0f22ba3700f36034cac4e5ce9183c9dc, type: 3}
   getah: {fileID: 4459120725376062254, guid: bdb3f5ac6519083489f3b7cc3ba86397, type: 3}
-  benih: {fileID: 0}
-  currentStage: 2
+  benih: {fileID: 4459120725376062254, guid: fff5f9dbd6203284ab4ee362239d7278, type: 3}
+  currentStage: 3
   growthObject: []
   growthTime: 0
-  namaSeed: BeringinTreeBig
-  tumbangSprite: {fileID: 5090815853600988913, guid: 3b1652ea73776b84a8dc1a7189cba891, type: 3}
-  akarPohonPrefab: {fileID: 1599877733878797977, guid: bab1e45e45a49c7498f7645b04241138, type: 3}
+  nameEnvironment: OakBigTree
+  tumbangSprite: {fileID: 5090815853600988913, guid: f28722949a0698940acb6a4cd0fc936b, type: 3}
+  akarPohonPrefab: {fileID: 1599877733878797977, guid: df5dd69d0d0b541429988a9cf7b86ef3, type: 3}
   isRubuh: 0
   growthSpeed: 0
   daysSincePlanting: 1

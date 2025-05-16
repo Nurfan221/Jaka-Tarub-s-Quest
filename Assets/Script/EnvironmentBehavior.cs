@@ -11,8 +11,9 @@ public class EnvironmentBehavior : MonoBehaviour
 
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
     private int currentFrame = 0; // Indeks frame saat ini
-
+    public string nameEnvironment;
     public Item itemDrop;
+    public Transform plantsContainer;
 
     public void Start()
     {

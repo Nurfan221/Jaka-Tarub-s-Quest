@@ -12,16 +12,7 @@ public class TorchLight : MonoBehaviour
         // Mencari TimeManager di scene saat runtime
         timeManager = FindObjectOfType<TimeManager>();
 
-        // Jika TimeManager tidak ditemukan, tampilkan error
-        if (timeManager == null)
-        {
-            Debug.LogError("TimeManager tidak ditemukan di scene!");
-        }
-        else
-        {
-            Debug.Log("time manager di temukan ");
-            Debug.Log("sekarang jam  " + timeManager.hour) ;
-        }
+       
     }
 
 

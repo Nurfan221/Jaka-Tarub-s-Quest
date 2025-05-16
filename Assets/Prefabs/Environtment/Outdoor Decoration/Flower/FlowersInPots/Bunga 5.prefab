@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3bfa95106347c5d47b329713037e7c4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1771461276064984142, guid: edbffbc5635f38d4eb4399637ca11555, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -101,15 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rumputAnimation:
-  - {fileID: 3111980910835012091, guid: 5748f80745b653e478215c39d9bfcbbb, type: 3}
-  - {fileID: -7003515716721542172, guid: 5748f80745b653e478215c39d9bfcbbb, type: 3}
-  - {fileID: -1575476753174530233, guid: 5748f80745b653e478215c39d9bfcbbb, type: 3}
-  - {fileID: -7918129800761257376, guid: 5748f80745b653e478215c39d9bfcbbb, type: 3}
-  - {fileID: 4203115461141566089, guid: 5748f80745b653e478215c39d9bfcbbb, type: 3}
-  - {fileID: -8821793150712984357, guid: 5748f80745b653e478215c39d9bfcbbb, type: 3}
+  rumputAnimation: []
   frameRate: 0.1
+  nameEnvironment: 
   itemDrop: {fileID: 0}
+  plantsContainer: {fileID: 0}
 --- !u!61 &-1200077929118136104
 BoxCollider2D:
   m_ObjectHideFlags: 0

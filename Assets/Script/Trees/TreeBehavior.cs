@@ -23,7 +23,7 @@ public class TreeBehavior : MonoBehaviour
     public GrowthTree currentStage = GrowthTree.Seed;
     public GameObject[] growthObject; // Gambar untuk tiap tahap pertumbuhan
     public float growthTime; // Waktu total untuk mencapai tahap akhir
-    public string namaSeed;
+    public string nameEnvironment;
     public GameObject tumbangSprite;
     public GameObject akarPohonPrefab;
     public bool isRubuh;
@@ -44,6 +44,7 @@ public class TreeBehavior : MonoBehaviour
 
     [Header("Keperluan")]
     public Transform plantsContainer;
+    
 
 
     private void Start()
@@ -208,7 +209,7 @@ public class TreeBehavior : MonoBehaviour
         //Spawn akar di posisi pohon
         if (akarPohonPrefab != null)
         {
-            GameObject akar = Instantiate(akarPohonPrefab, posisiPohon, Quaternion.identity);
+            GameObject akar = Instantiate(akarPohonPrefab, posisiPohon, Quaternion.identity, plantsContainer);
             //GameObject akar = Instantiate(batangPohon, posisiPohon, Quaternion.identity);
             SpriteRenderer akarSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             akarSpriteRenderer.sprite = null;
@@ -222,7 +223,18 @@ public class TreeBehavior : MonoBehaviour
             yield return StartCoroutine(RotateFalling(batang.transform));
         }
 
+        EnvironmentManager environmentManager = plantsContainer.gameObject.GetComponent<EnvironmentManager>();
 
+        if (environmentManager != null)
+        {
+            foreach (var cekLokasiObjek in environmentManager.environmentList)
+            {
+                if (gameObject.transform.position == cekLokasiObjek.objectPosition && nameEnvironment == cekLokasiObjek.prefabName)
+                {
+                    cekLokasiObjek.isGrowing = false;
+                }
+            }
+        }
         //Hancurkan pohon asli
         Destroy(gameObject);
 

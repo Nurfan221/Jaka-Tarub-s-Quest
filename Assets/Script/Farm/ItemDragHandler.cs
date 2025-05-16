@@ -421,7 +421,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         TreeBehavior treeComponent = plant.GetComponent<TreeBehavior>();
         if (treeComponent != null)
         {
-            treeComponent.namaSeed = namaSeed;
+            treeComponent.nameEnvironment= namaSeed;
             treeComponent.growthObject = gameObjects;
             treeComponent.growthTime = growthTime;
             treeComponent.plantsContainer = plantsContainer;

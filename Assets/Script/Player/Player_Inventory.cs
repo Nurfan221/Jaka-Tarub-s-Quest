@@ -133,7 +133,7 @@ public class Player_Inventory : MonoBehaviour
         if (inventoryOpened)
         {
             GameController.Instance.PauseGame();
-            //Instance.AddItem(ItemPool.Instance.GetItem("BenihAnggur"));
+            Instance.AddItem(ItemPool.Instance.GetItem("BenihAnggur"));
             //Instance.AddItem(ItemPool.Instance.GetItem("BenihBawangMerah"));
             //Instance.AddItem(ItemPool.Instance.GetItem("BenihBawangPutih"));
             //Instance.AddItem(ItemPool.Instance.GetItem("BenihBungaMatahari"));

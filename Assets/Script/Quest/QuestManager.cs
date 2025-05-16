@@ -171,7 +171,7 @@ public class QuestManager : MonoBehaviour
         {
             foreach (var quest in chapter.sideQuest)
             {
-                Debug.Log("Tanggal quest active: " + quest.date);
+                //Debug.Log("Tanggal quest active: " + quest.date);
 
                 if ((timeManager.date + 1) == quest.date && !quest.questActive)
                 {

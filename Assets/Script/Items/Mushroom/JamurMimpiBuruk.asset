@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: JamurMimpiBuruk
   m_EditorClassIdentifier: 
-  itemID: 0
+  itemID: 55
   itemName: JamurMimpiBuruk
-  types: 0
+  types: 32
   categories: 528
   sprite: {fileID: 2028944655150960835, guid: 8aa13b11700bacf4da1c726f7d98f4d7, type: 3}
   itemDescription: warna ungu dari jamur ini seperti menandakan efek ilusi dan mimpi
@@ -23,7 +23,7 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
-  Level: 0
+  Level: 1
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -42,4 +42,5 @@ MonoBehaviour:
   prefabItem: {fileID: 8486291666243436108, guid: 00e62afdde4320a438b450feb98ab99f, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 8486291666243436108, guid: 00e62afdde4320a438b450feb98ab99f, type: 3}

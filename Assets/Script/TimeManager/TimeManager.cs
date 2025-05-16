@@ -19,6 +19,9 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private TrashManager trashManager;
     [SerializeField] private BatuManager batuManager;
     [SerializeField] PlantContainer plantContainer;
+    [SerializeField] EnvironmentManager environmentManagerTrees;
+    [SerializeField] EnvironmentManager environmentManagerJamur;
+    [SerializeField] EnvironmentManager environmentManagerBunga;
 
     [Header("Date & Time settings")]
     public int totalHari = 1;
@@ -137,6 +140,9 @@ public class TimeManager : MonoBehaviour
 
         batuManager.UpdatePositionMiner(dailyLuck);
         plantContainer.HitungPertumbuhanPohon();
+        environmentManagerTrees.SpawnFromEnvironmentList(dailyLuck);
+        environmentManagerJamur.SpawnFromEnvironmentList(dailyLuck);
+        environmentManagerBunga.SpawnFromEnvironmentList(dailyLuck);
 
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
