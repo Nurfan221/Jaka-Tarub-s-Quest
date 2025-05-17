@@ -17,7 +17,8 @@ MonoBehaviour:
   types: 8
   categories: 1024
   sprite: {fileID: -1305390926, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: 'tanam benih di musim hujan, dan panen dalam 14 hari '
+  itemDescription: Benih ubi ungu ini menghasilkan umbi yang kaya warna dan rasa
+    manis. Tumbuh dalam waktu 9 hari dengan sedikit perhatian dan tanah yang subur.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +33,7 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1
-  maxStackCount: 2
+  maxStackCount: 32
   BuyValue: 50
   SellValue: 20
   BurningTime: 0
@@ -44,4 +45,5 @@ MonoBehaviour:
   - {fileID: -1598592063, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: 528495339, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: 1993821380, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
+  growthObject: []
   dropItem: {fileID: 2792997999344615050, guid: 30dd3a8957bdc4e468f8f1c7c953751a, type: 3}

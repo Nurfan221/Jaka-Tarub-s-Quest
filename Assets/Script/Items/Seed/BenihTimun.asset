@@ -17,7 +17,9 @@ MonoBehaviour:
   types: 8
   categories: 1024
   sprite: {fileID: -20208297663288649, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: 'tanam benih di musim hujan, dan panen dalam 14 hari '
+  itemDescription: Benih timun ini menghasilkan buah yang segar dan renyah setelah
+    6 hari. Tanam di tanah yang subur dan beri sedikit perhatian agar tumbuh dengan
+    baik.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -44,4 +46,5 @@ MonoBehaviour:
   - {fileID: -2117537998, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: -400376432, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: 359534520, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
+  growthObject: []
   dropItem: {fileID: 2792997999344615050, guid: 0dc69fcd91a9eff4b82c2be9ab06c777, type: 3}

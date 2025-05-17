@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: BawangMerah
   m_EditorClassIdentifier: 
-  itemID: 21
+  itemID: 61
   itemName: BawangMerah
   types: 6
   categories: 520
   sprite: {fileID: 2008023125, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
-  itemDescription: makan tu tomat
+  itemDescription: Bawang merah kecil dengan rasa yang lebih ringan daripada bawang
+    biasa, sering digunakan dalam masakan untuk memberikan rasa tajam yang khas.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,12 +33,13 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1
-  maxStackCount: 0
+  maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 2792997999344615050, guid: 7c95f681b8b21a4458b7909d6ad05c70, type: 3}
+  prefabItem: {fileID: 2792997999344615050, guid: 9e67d809421516d4e91e5d05ce9d685b, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 0}

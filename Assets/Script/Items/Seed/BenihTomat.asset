@@ -17,7 +17,9 @@ MonoBehaviour:
   types: 8
   categories: 1024
   sprite: {fileID: 1788843446981061777, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: 'tanam benih di musim hujan, dan panen dalam 14 hari '
+  itemDescription: Benih tomat ini akan menghasilkan buah yang manis dan sedikit
+    asam setelah 8 hari. Tanam di kebun yang mendapat banyak sinar matahari dan beri
+    perhatian penuh.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +34,7 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1
-  maxStackCount: 2
+  maxStackCount: 32
   BuyValue: 50
   SellValue: 20
   BurningTime: 0
@@ -44,4 +46,5 @@ MonoBehaviour:
   - {fileID: 3979734094236445814, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: 6146132421909557075, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: 1084098971225987194, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
+  growthObject: []
   dropItem: {fileID: 2792997999344615050, guid: ab9997e3c5b3a5941a52372aed467371, type: 3}

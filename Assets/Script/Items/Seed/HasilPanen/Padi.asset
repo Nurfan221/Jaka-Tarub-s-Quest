@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Padi
   m_EditorClassIdentifier: 
-  itemID: 13
+  itemID: 72
   itemName: Padi
   types: 6
   categories: 512
   sprite: {fileID: 6208842792875286600, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: makan tu padi
+  itemDescription: Padi yang matang, siap dipanen dan menjadi bahan dasar makanan
+    pokok. Dengan perawatan yang baik, padi ini akan memberi hasil yang melimpah.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -40,4 +41,5 @@ MonoBehaviour:
   prefabItem: {fileID: 2792997999344615050, guid: 7c95f681b8b21a4458b7909d6ad05c70, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 0}

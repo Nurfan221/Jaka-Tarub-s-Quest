@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Wortel
   m_EditorClassIdentifier: 
-  itemID: 15
+  itemID: 81
   itemName: Wortel
   types: 6
   categories: 512
   sprite: {fileID: 3098974290216159244, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: makan tu Wortel
+  itemDescription: Wortel segar dengan warna oranye cerah. Kaya akan vitamin A dan
+    sering digunakan dalam berbagai hidangan bergizi.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +33,7 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1
-  maxStackCount: 0
+  maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
@@ -40,4 +41,5 @@ MonoBehaviour:
   prefabItem: {fileID: 2792997999344615050, guid: 430a2f84db18f7e438ca4b0ccb0b47ac, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 0}

@@ -17,7 +17,9 @@ MonoBehaviour:
   types: 8
   categories: 1024
   sprite: {fileID: -448702438, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: 'tanam benih di musim hujan, dan panen dalam 14 hari '
+  itemDescription: 'Benih anggur kecil ini menyimpan potensi untuk tumbuh menjadi
+    tanaman anggur yang berbuah manis. Tanam di tanah subur dan pastikan mendapat
+    sinar matahari penuh untuk hasil terbaik. Waktu tumbuh: 12 hari.'
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -30,9 +32,9 @@ MonoBehaviour:
   UpgradeCost: 0
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
-  isStackable: 1
-  stackCount: 1
-  maxStackCount: 2
+  isStackable: 0
+  stackCount: 999
+  maxStackCount: 32
   BuyValue: 50
   SellValue: 20
   BurningTime: 0
@@ -44,4 +46,5 @@ MonoBehaviour:
   - {fileID: 1953383081, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: -1220373368, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: 1165859878, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
+  growthObject: []
   dropItem: {fileID: 2792997999344615050, guid: ead78283e60f44b43b9ebaa62bdfa9c3, type: 3}

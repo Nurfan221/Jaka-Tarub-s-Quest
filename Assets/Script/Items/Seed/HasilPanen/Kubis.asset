@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Kubis
   m_EditorClassIdentifier: 
-  itemID: 15
+  itemID: 68
   itemName: Kubis
   types: 6
   categories: 520
   sprite: {fileID: 8769908909763869150, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: makan tu kubis
+  itemDescription: Kubis segar dengan daun hijau yang rapat. Dikenal sebagai bahan
+    utama dalam berbagai hidangan bergizi dan sering digunakan dalam festival musim
+    panas.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +34,7 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1
-  maxStackCount: 0
+  maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
@@ -40,4 +42,5 @@ MonoBehaviour:
   prefabItem: {fileID: 2792997999344615050, guid: 48d6285a72648d74b8753ec003a7ec2a, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 0}

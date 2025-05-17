@@ -17,7 +17,8 @@ MonoBehaviour:
   types: 8
   categories: 1024
   sprite: {fileID: 7382632509033152633, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: beih untuk buah termanis
+  itemDescription: Benih cabai yang tajam ini membutuhkan tanah yang hangat dan banyak
+    sinar matahari. Dalam waktu 8 hari, cabai pedas akan siap dipanen.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -31,8 +32,8 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
-  maxStackCount: 0
+  stackCount: 999
+  maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
@@ -44,4 +45,5 @@ MonoBehaviour:
   - {fileID: 173242361, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: 1827391116, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: -1600057134, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
+  growthObject: []
   dropItem: {fileID: 2792997999344615050, guid: 54e0845c786008e4b9751fc62ae84691, type: 3}

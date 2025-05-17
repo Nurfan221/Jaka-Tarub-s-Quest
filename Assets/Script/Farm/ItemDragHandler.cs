@@ -215,6 +215,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         // Mengecek posisi item selama drag
         CheckItemPositionDuringDrag();
+
+
     }
 
     // Fungsi untuk memeriksa posisi item selama drag
@@ -243,6 +245,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Debug.Log("Item sedang di atas tile yang dicangkul dan belum ada tanaman.");
             // Tanam benih pada tile yang valid
             CekSeed(cellPosition); // Menjalankan logika menanam benih
+
+            inventoryUI.UpdateSixItemDisplay();
+            inventoryUI.RefreshInventoryItems();
         }
         //else if (currentTile == farmTile.grassTile)
         //{
@@ -310,6 +315,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
 
         DroppedOnValidTile();
+        inventoryUI.RefreshInventoryItems();
+        inventoryUI.UpdateSixItemDisplay();
     }
 
 

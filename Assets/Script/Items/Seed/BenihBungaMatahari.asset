@@ -17,7 +17,9 @@ MonoBehaviour:
   types: 8
   categories: 1024
   sprite: {fileID: -4297782829924726102, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: 'tanam benih di musim hujan, dan panen dalam 14 hari '
+  itemDescription: Benih bunga matahari yang cerah ini akan segera mekar setelah
+    7 hari, membawa keceriaan ke kebunmu. Dapat ditanam di tanah yang subur dan terkena
+    sinar matahari langsung.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -31,8 +33,8 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
-  maxStackCount: 2
+  stackCount: 999
+  maxStackCount: 32
   BuyValue: 50
   SellValue: 20
   BurningTime: 0
@@ -44,4 +46,5 @@ MonoBehaviour:
   - {fileID: 69040912, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: -1799133715, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: 958390632, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
+  growthObject: []
   dropItem: {fileID: 2792997999344615050, guid: e7be904e80d0d2644bcf4bf69afa2a2d, type: 3}

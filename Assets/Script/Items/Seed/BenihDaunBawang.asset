@@ -17,7 +17,9 @@ MonoBehaviour:
   types: 8
   categories: 1024
   sprite: {fileID: -1220697262, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: 'tanam benih di musim hujan, dan panen dalam 14 hari '
+  itemDescription: Benih daun bawang kecil ini tumbuh cepat dan akan siap dipanen
+    dalam waktu 5 hari. Tanam di tanah yang subur dan beri sedikit perhatian untuk
+    hasil yang optimal.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -31,8 +33,8 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
-  maxStackCount: 2
+  stackCount: 999
+  maxStackCount: 32
   BuyValue: 50
   SellValue: 20
   BurningTime: 0
@@ -44,4 +46,5 @@ MonoBehaviour:
   - {fileID: -1999476474, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -435925853, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: 1189514579, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
+  growthObject: []
   dropItem: {fileID: 2792997999344615050, guid: 83e1d544892dfea4b8b1c47f4546a4f4, type: 3}

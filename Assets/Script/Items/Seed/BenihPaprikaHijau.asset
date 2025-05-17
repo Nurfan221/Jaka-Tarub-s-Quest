@@ -17,7 +17,9 @@ MonoBehaviour:
   types: 8
   categories: 1024
   sprite: {fileID: -7256977040705374224, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: 'tanam benih di musim hujan, dan panen dalam 14 hari '
+  itemDescription: Benih paprika hijau ini akan tumbuh menjadi tanaman yang menghasilkan
+    buah dengan rasa segar dan sedikit pahit setelah 7 hari. Tanam di tempat yang
+    mendapat banyak sinar matahari.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +34,7 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1
-  maxStackCount: 2
+  maxStackCount: 32
   BuyValue: 50
   SellValue: 20
   BurningTime: 0
@@ -44,4 +46,5 @@ MonoBehaviour:
   - {fileID: 2116445464, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: -273824395, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: -672269147, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
+  growthObject: []
   dropItem: {fileID: 2792997999344615050, guid: c2d227984fd1fca44962810266345f91, type: 3}

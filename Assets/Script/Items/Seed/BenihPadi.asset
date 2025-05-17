@@ -17,7 +17,9 @@ MonoBehaviour:
   types: 8
   categories: 1024
   sprite: {fileID: -458469776787959015, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: 'tanam benih di musim hujan, dan panen dalam 14 hari '
+  itemDescription: Benih padi ini membutuhkan tanah yang basah dan waktu 12 hari
+    untuk tumbuh. Setelah panen, hasilnya bisa digunakan untuk membuat nasi atau
+    bahan baku lainnya.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -31,7 +33,7 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
+  stackCount: 15
   maxStackCount: 32
   BuyValue: 50
   SellValue: 20
@@ -44,4 +46,5 @@ MonoBehaviour:
   - {fileID: -3742153740579380112, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -1618823775530955709, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -8435834150135234020, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
+  growthObject: []
   dropItem: {fileID: 2792997999344615050, guid: 7c95f681b8b21a4458b7909d6ad05c70, type: 3}

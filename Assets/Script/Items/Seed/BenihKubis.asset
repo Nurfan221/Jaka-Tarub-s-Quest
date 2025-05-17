@@ -17,7 +17,8 @@ MonoBehaviour:
   types: 8
   categories: 1024
   sprite: {fileID: -5283941708482554790, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: 'tanam benih di musim hujan, dan panen dalam 14 hari '
+  itemDescription: Benih kubis ini memerlukan tanah yang kaya nutrisi dan waktu 8
+    hari untuk tumbuh dengan baik. Tanaman ini menghasilkan daun yang segar dan bergizi.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -30,8 +31,8 @@ MonoBehaviour:
   UpgradeCost: 0
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
-  isStackable: 1
-  stackCount: 100
+  isStackable: 0
+  stackCount: 999
   maxStackCount: 32
   BuyValue: 50
   SellValue: 20
@@ -44,4 +45,5 @@ MonoBehaviour:
   - {fileID: 1512752907097029221, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -7966696586894485077, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: 4752719608934460236, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
+  growthObject: []
   dropItem: {fileID: 2792997999344615050, guid: 48d6285a72648d74b8753ec003a7ec2a, type: 3}

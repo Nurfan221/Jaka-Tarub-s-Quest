@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: LabuHijau
   m_EditorClassIdentifier: 
-  itemID: 21
+  itemID: 70
   itemName: LabuHijau
   types: 6
   categories: 520
   sprite: {fileID: 1875126838541630082, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: makan tu tomat
+  itemDescription: Labu hijau yang masih muda, memiliki rasa yang lebih segar dan
+    sedikit lebih ringan dibandingkan labu oranye. Cocok untuk hidangan segar atau
+    direbus.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,12 +34,13 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1
-  maxStackCount: 0
+  maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 2792997999344615050, guid: 7c95f681b8b21a4458b7909d6ad05c70, type: 3}
+  prefabItem: {fileID: 2792997999344615050, guid: 333355865f2bd8e49b208ec049e86a6c, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 0}

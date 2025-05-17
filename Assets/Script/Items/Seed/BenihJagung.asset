@@ -17,7 +17,9 @@ MonoBehaviour:
   types: 8
   categories: 1024
   sprite: {fileID: -7273705403088202829, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: 'tanam benih di musim hujan, dan panen dalam 14 hari '
+  itemDescription: Benih jagung yang subur ini membutuhkan waktu 10 hari untuk tumbuh
+    menjadi tanaman jagung yang tinggi dan berbuah. Pastikan tanaman mendapatkan
+    banyak sinar matahari.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -30,8 +32,8 @@ MonoBehaviour:
   UpgradeCost: 0
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
-  isStackable: 1
-  stackCount: 100
+  isStackable: 0
+  stackCount: 999
   maxStackCount: 32
   BuyValue: 50
   SellValue: 20
@@ -44,4 +46,5 @@ MonoBehaviour:
   - {fileID: 93977581, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: 798639187, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: -612476115, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
+  growthObject: []
   dropItem: {fileID: 2792997999344615050, guid: ea02985c7b23dbe4ba55ead9796cc57e, type: 3}
