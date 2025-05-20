@@ -50,7 +50,7 @@ public class ClockManager : MonoBehaviour
         // CEK DULU: Kalau hujan, pakai nightColor terus!
         if (weatherManager.isRain)
         {
-            Debug.Log("hujan");
+            //Debug.Log("hujan");
             currentColor = rainColor;
         }
         else

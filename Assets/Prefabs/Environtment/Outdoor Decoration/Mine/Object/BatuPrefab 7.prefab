@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 8634735989486108777, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  m_Sprite: {fileID: 512297811747715794, guid: cb6377782c176e24f991546b2d7442cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,20 +105,20 @@ MonoBehaviour:
   itemDropMines:
     namaStone: Batu Sedang
     hasilTambang:
-    - {fileID: 7562009284141931606, guid: a442f0971df64334e91b8d8921c86ce4, type: 3}
+    - {fileID: 7562009284141931606, guid: d4cee6a55e1fb82438aa6521e6a8e45c, type: 3}
     - {fileID: 4459120725376062254, guid: 00a13d42590718e4c9987564ffd1b612, type: 3}
     minHasil: 2
     maxHasil: 3
   nameStone: Batu Sedang
   stoneAnimation:
-  - {fileID: 8634735989486108777, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: -1285751726934154449, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: 8394446161846293014, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: -7548031542147728232, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: 6161726829266164557, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: -1566700280, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: 788949051, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: -86480837, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: 512297811747715794, guid: cb6377782c176e24f991546b2d7442cb, type: 3}
+  - {fileID: -1997595357533027852, guid: cb6377782c176e24f991546b2d7442cb, type: 3}
+  - {fileID: 3693311685140536085, guid: cb6377782c176e24f991546b2d7442cb, type: 3}
+  - {fileID: -8430934419577916468, guid: cb6377782c176e24f991546b2d7442cb, type: 3}
+  - {fileID: -2443109524365031764, guid: cb6377782c176e24f991546b2d7442cb, type: 3}
+  - {fileID: 3265975058442809741, guid: cb6377782c176e24f991546b2d7442cb, type: 3}
+  - {fileID: -7319870583948722917, guid: cb6377782c176e24f991546b2d7442cb, type: 3}
+  - {fileID: 5496029674614843197, guid: cb6377782c176e24f991546b2d7442cb, type: 3}
   frameRate: 0.1
   health: 100
   dayLuck: 0
@@ -157,15 +157,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0070610046, y: -0.013422966}
+  m_Offset: {x: 0.2051593, y: -0.47852248}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.659111, y: 0.675333}
+  m_Size: {x: 1.3653736, y: 0.7614628}
   m_EdgeRadius: 0

@@ -125,7 +125,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1343397094658679742, guid: d7e5e7ce63dadd149aac4eea942da0fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -216,7 +216,7 @@ MonoBehaviour:
   currentStage: 2
   growthObject: []
   growthTime: 0
-  namaSeed: BeringinTreeBig
+  nameEnvironment: 
   tumbangSprite: {fileID: 5090815853600988913, guid: 3b1652ea73776b84a8dc1a7189cba891, type: 3}
   akarPohonPrefab: {fileID: 1599877733878797977, guid: bab1e45e45a49c7498f7645b04241138, type: 3}
   isRubuh: 0

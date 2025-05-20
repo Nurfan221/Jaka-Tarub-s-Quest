@@ -253,7 +253,7 @@ public class NPCBehavior : MonoBehaviour
     //    // Tambahkan logika untuk menerima item
     //}
     
-public bool CheckItemGive( ref int stackItem)
+    public bool CheckItemGive( ref int stackItem)
     {
         Debug.Log("check item give di jalankan ");
         bool isItemGiven = false;
@@ -262,35 +262,45 @@ public bool CheckItemGive( ref int stackItem)
         {
             foreach (var quest in chapter.sideQuest)
             {
-                foreach (var item in quest.itemQuests)
+                if ( npcName == quest.NPC.name)
                 {
-                    if (itemQuest == item.item.name && npcName == quest.NPC.name)
+                    foreach (var item in quest.itemQuests)
                     {
-                        if (item.jumlah > 0) // Pastikan masih ada item yang diperlukan
+                        if (itemQuest == item.item.name && quest.questActive)
                         {
-                            int jumlahDiBerikan = Mathf.Min(stackItem, item.jumlah); // tentukan jumlah item yang di berikan
-                            item.jumlah -= jumlahDiBerikan; // Kurangi jumlah item
-                            stackItem -= jumlahDiBerikan;
+                            if (item.jumlah > 0) // Pastikan masih ada item yang diperlukan
+                            {
+                                int jumlahDiBerikan = Mathf.Min(stackItem, item.jumlah); // tentukan jumlah item yang di berikan
+                                item.jumlah -= jumlahDiBerikan; // Kurangi jumlah item
+                                stackItem -= jumlahDiBerikan;
 
-                            // Ambil idChapter dari chapter saat ini
-                            int idChapter = chapter.idChapter;
+                                // Ambil idChapter dari chapter saat ini
+                                int idChapter = chapter.idChapter;
 
-                            CheckFinishQuest(quest.questName, idChapter);
+                                CheckFinishQuest(quest.questName, idChapter);
 
 
-                            Debug.Log($"Quest aktif: {quest.questName}, NPC: {quest.NPC.name}, Item: {itemQuest}");
-                            Debug.Log($"Sisa jumlah item quest: {item.jumlah}");
-                            isItemGiven = true;
-                            break; // Berhenti setelah menemukan quest yang sesuai
+                                Debug.Log($"Quest aktif: {quest.questName}, NPC: {quest.NPC.name}, Item: {itemQuest}");
+                                Debug.Log($"Sisa jumlah item quest: {item.jumlah}");
+                                isItemGiven = true;
+                                return true;
+                                break; // Berhenti setelah menemukan quest yang sesuai
+                            }
+                            else
+                            {
+                                Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
+
+                            }
+
                         }
                         else
                         {
-                            Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
-
+                            Debug.Log($"item atau npc tidak sama : itemquest {itemQuest} item {item.item.name} npcName {npcName} npc {quest.NPC.name}");
+                            return false;
                         }
-
                     }
                 }
+                
             }
 
         }

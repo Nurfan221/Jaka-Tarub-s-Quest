@@ -127,7 +127,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] LoadingScreenUI loadingScreenUI;
     [SerializeField] PlayerQuest playerQuest;
     [SerializeField] QuestInfoUI questInfoUI;
-    [SerializeField] LocationConfiguration locationConfiguration;
+    //[SerializeField] LocationConfiguration locationConfiguration;
     [SerializeField] SpawnerManager spawnerManager;
     [SerializeField] LocationManager locationManager;
     public bool chapter1IsDone;

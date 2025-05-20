@@ -160,6 +160,7 @@ public class Player_Health : MonoBehaviour
         Debug.Log("health sekarang" + health);
         Debug.Log("Stamina awal " + stamina);
         stamina = currentStaminaCap;
+        currentMaxStamina = currentStaminaCap;
         Debug.Log("Stamina saat ini " + stamina);
     }
 

@@ -133,16 +133,16 @@ public class Player_Inventory : MonoBehaviour
         if (inventoryOpened)
         {
             GameController.Instance.PauseGame();
-            Instance.AddItem(ItemPool.Instance.GetItem("Strawberry"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Strawberry"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Strawberry"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Strawberry"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Strawberry"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Strawberry"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Strawberry"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Strawberry"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Strawberry"));
-            Instance.AddItem(ItemPool.Instance.GetItem("Strawberry"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
 
 
 

@@ -324,6 +324,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Fungsi untuk mengecek apakah item dijatuhkan pada tile hasil cangkul (hoeedTile)
     private bool DroppedOnValidTile()
     {
+        Debug.Log("item di jatuhkan");
+
         // Ambil posisi mouse di Screen Space
         Vector3 screenPosition = Input.mousePosition;
 
@@ -333,8 +335,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // Mengubah posisi world ke posisi tilemap
         Vector3Int cellPosition = farmTilemap.WorldToCell(worldPosition);
 
-        Debug.Log("Posisi World dari item: " + worldPosition);
-        Debug.Log("Posisi Tile Cell: " + cellPosition);
+
 
         //// Mengecek tile pada posisi ini
         TileBase currentTile = farmTilemap.GetTile(cellPosition);
@@ -346,18 +347,12 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         //    CekSeed(cellPosition);
         //    return true;
         //}
-        if (currentTile != farmTile.hoeedTile || currentTile != farmTile.wateredTile)
-        {
-            Debug.Log("item di jatuhkan pada tile tanah");
-            Debug.Log("item yang di drag adalah : " + itemInDrag);
-            CheckPrefabItem(cellPosition);
-            return true;
-        }
 
         // Mengecek objek di posisi world
         Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition);
         if (hitCollider != null)
         {
+            Debug.Log("Item dijatuhkan di objek NPC: ");
             // Cek apakah objek tersebut memiliki script NpcBehavior
             NPCBehavior npc = hitCollider.GetComponent<NPCBehavior>();
             if (npc != null)
@@ -368,6 +363,20 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 return true;
             }
         }
+        else
+        {
+            Debug.Log("hitcollider = null  ");
+        }
+
+        if (currentTile != farmTile.hoeedTile || currentTile != farmTile.wateredTile)
+        {
+            Debug.Log("item di jatuhkan pada tile tanah");
+            Debug.Log("item yang di drag adalah : " + itemInDrag);
+            CheckPrefabItem(cellPosition);
+            return true;
+        }
+
+        
 
         Debug.Log("Tidak ada tile atau NPC di posisi ini.");
         return false;
@@ -453,7 +462,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
-            // Cek apakah nama item sama dengan itemInDrag dan kategori item adalah Seed
+            // Cek apakah nama item sama dengan itemInDrag dan kategori item bukan Seed
             if (item.itemName == itemInDrag && item.categories != ItemCategory.PlantSeed)
             {
                 itemFound = true; // Tandai bahwa item ditemukan

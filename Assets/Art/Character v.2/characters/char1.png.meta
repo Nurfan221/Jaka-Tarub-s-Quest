@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 16aeb89c5eef8ba4c9fe2b8a37a3381c
+guid: 105b963982322d040b763a908fc6d2ce
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -711,7 +711,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -735,7 +735,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -776,10 +776,10 @@ TextureImporter:
       name: char1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1536
-        width: 32
-        height: 32
+        x: 8
+        y: 1538
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -798,10 +798,10 @@ TextureImporter:
       name: char1_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1536
-        width: 32
-        height: 32
+        x: 41
+        y: 1539
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -820,10 +820,10 @@ TextureImporter:
       name: char1_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1536
-        width: 32
-        height: 32
+        x: 73
+        y: 1541
+        width: 15
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -842,10 +842,10 @@ TextureImporter:
       name: char1_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1536
-        width: 32
-        height: 32
+        x: 105
+        y: 1538
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -864,10 +864,10 @@ TextureImporter:
       name: char1_4
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1536
-        width: 32
-        height: 32
+        x: 136
+        y: 1538
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -886,10 +886,10 @@ TextureImporter:
       name: char1_5
       rect:
         serializedVersion: 2
-        x: 160
-        y: 1536
-        width: 32
-        height: 32
+        x: 168
+        y: 1539
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -908,10 +908,10 @@ TextureImporter:
       name: char1_6
       rect:
         serializedVersion: 2
-        x: 192
-        y: 1536
-        width: 32
-        height: 32
+        x: 200
+        y: 1541
+        width: 15
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -930,10 +930,10 @@ TextureImporter:
       name: char1_7
       rect:
         serializedVersion: 2
-        x: 224
-        y: 1536
-        width: 32
-        height: 32
+        x: 233
+        y: 1538
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -952,10 +952,10 @@ TextureImporter:
       name: char1_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1504
-        width: 32
-        height: 32
+        x: 9
+        y: 1506
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -974,10 +974,10 @@ TextureImporter:
       name: char1_9
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1504
-        width: 32
-        height: 32
+        x: 40
+        y: 1507
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -996,10 +996,10 @@ TextureImporter:
       name: char1_10
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1504
-        width: 32
-        height: 32
+        x: 72
+        y: 1509
+        width: 15
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1018,10 +1018,10 @@ TextureImporter:
       name: char1_11
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1504
-        width: 32
-        height: 32
+        x: 105
+        y: 1506
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1040,10 +1040,10 @@ TextureImporter:
       name: char1_12
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1504
-        width: 32
-        height: 32
+        x: 137
+        y: 1506
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1062,10 +1062,10 @@ TextureImporter:
       name: char1_13
       rect:
         serializedVersion: 2
-        x: 160
-        y: 1504
-        width: 32
-        height: 32
+        x: 169
+        y: 1507
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1084,10 +1084,10 @@ TextureImporter:
       name: char1_14
       rect:
         serializedVersion: 2
-        x: 192
-        y: 1504
-        width: 32
-        height: 32
+        x: 201
+        y: 1509
+        width: 15
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1106,10 +1106,10 @@ TextureImporter:
       name: char1_15
       rect:
         serializedVersion: 2
-        x: 224
-        y: 1504
-        width: 32
-        height: 32
+        x: 233
+        y: 1506
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1128,10 +1128,10 @@ TextureImporter:
       name: char1_16
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1472
-        width: 32
-        height: 32
+        x: 9
+        y: 1474
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1150,10 +1150,10 @@ TextureImporter:
       name: char1_17
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1472
-        width: 32
-        height: 32
+        x: 41
+        y: 1475
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1172,10 +1172,10 @@ TextureImporter:
       name: char1_18
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1472
-        width: 32
-        height: 32
+        x: 72
+        y: 1477
+        width: 17
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1194,10 +1194,10 @@ TextureImporter:
       name: char1_19
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1472
-        width: 32
-        height: 32
+        x: 105
+        y: 1475
+        width: 15
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1216,10 +1216,10 @@ TextureImporter:
       name: char1_20
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1472
-        width: 32
-        height: 32
+        x: 137
+        y: 1474
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1238,10 +1238,10 @@ TextureImporter:
       name: char1_21
       rect:
         serializedVersion: 2
-        x: 160
-        y: 1472
-        width: 32
-        height: 32
+        x: 169
+        y: 1475
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1260,10 +1260,10 @@ TextureImporter:
       name: char1_22
       rect:
         serializedVersion: 2
-        x: 192
-        y: 1472
-        width: 32
-        height: 32
+        x: 201
+        y: 1477
+        width: 14
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1282,10 +1282,10 @@ TextureImporter:
       name: char1_23
       rect:
         serializedVersion: 2
-        x: 224
-        y: 1472
-        width: 32
-        height: 32
+        x: 233
+        y: 1474
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1304,10 +1304,10 @@ TextureImporter:
       name: char1_24
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1440
-        width: 32
-        height: 32
+        x: 9
+        y: 1442
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1326,10 +1326,10 @@ TextureImporter:
       name: char1_25
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1440
-        width: 32
-        height: 32
+        x: 41
+        y: 1443
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1348,10 +1348,10 @@ TextureImporter:
       name: char1_26
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1440
-        width: 32
-        height: 32
+        x: 73
+        y: 1445
+        width: 14
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1370,10 +1370,10 @@ TextureImporter:
       name: char1_27
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1440
-        width: 32
-        height: 32
+        x: 105
+        y: 1442
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1392,10 +1392,10 @@ TextureImporter:
       name: char1_28
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1440
-        width: 32
-        height: 32
+        x: 137
+        y: 1442
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1414,10 +1414,10 @@ TextureImporter:
       name: char1_29
       rect:
         serializedVersion: 2
-        x: 160
-        y: 1440
-        width: 32
-        height: 32
+        x: 168
+        y: 1443
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1436,10 +1436,10 @@ TextureImporter:
       name: char1_30
       rect:
         serializedVersion: 2
-        x: 192
-        y: 1440
-        width: 32
-        height: 32
+        x: 199
+        y: 1445
+        width: 17
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1458,10 +1458,10 @@ TextureImporter:
       name: char1_31
       rect:
         serializedVersion: 2
-        x: 224
-        y: 1440
-        width: 32
-        height: 32
+        x: 232
+        y: 1443
+        width: 15
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1480,10 +1480,10 @@ TextureImporter:
       name: char1_32
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1408
-        width: 32
-        height: 32
+        x: 8
+        y: 1410
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1502,10 +1502,10 @@ TextureImporter:
       name: char1_33
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1408
-        width: 32
-        height: 32
+        x: 40
+        y: 1410
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1524,10 +1524,10 @@ TextureImporter:
       name: char1_34
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1408
-        width: 32
-        height: 32
+        x: 73
+        y: 1412
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1546,10 +1546,10 @@ TextureImporter:
       name: char1_35
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1408
-        width: 32
-        height: 32
+        x: 105
+        y: 1415
+        width: 15
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1568,10 +1568,10 @@ TextureImporter:
       name: char1_36
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1408
-        width: 32
-        height: 32
+        x: 137
+        y: 1410
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1590,10 +1590,10 @@ TextureImporter:
       name: char1_37
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1376
-        width: 32
-        height: 32
+        x: 9
+        y: 1378
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1612,10 +1612,10 @@ TextureImporter:
       name: char1_38
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1376
-        width: 32
-        height: 32
+        x: 41
+        y: 1378
+        width: 14
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1634,10 +1634,10 @@ TextureImporter:
       name: char1_39
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1376
-        width: 32
-        height: 32
+        x: 72
+        y: 1380
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1656,10 +1656,10 @@ TextureImporter:
       name: char1_40
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1376
-        width: 32
-        height: 32
+        x: 104
+        y: 1383
+        width: 15
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1678,10 +1678,10 @@ TextureImporter:
       name: char1_41
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1376
-        width: 32
-        height: 32
+        x: 137
+        y: 1378
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1700,10 +1700,10 @@ TextureImporter:
       name: char1_42
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1344
-        width: 32
-        height: 32
+        x: 9
+        y: 1346
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1722,10 +1722,10 @@ TextureImporter:
       name: char1_43
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1344
-        width: 32
-        height: 32
+        x: 41
+        y: 1346
+        width: 14
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1744,10 +1744,10 @@ TextureImporter:
       name: char1_44
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1344
-        width: 32
-        height: 32
+        x: 73
+        y: 1348
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1766,10 +1766,10 @@ TextureImporter:
       name: char1_45
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1344
-        width: 32
-        height: 32
+        x: 104
+        y: 1351
+        width: 17
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1788,10 +1788,10 @@ TextureImporter:
       name: char1_46
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1344
-        width: 32
-        height: 32
+        x: 137
+        y: 1347
+        width: 15
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1810,10 +1810,10 @@ TextureImporter:
       name: char1_47
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1312
-        width: 32
-        height: 32
+        x: 9
+        y: 1314
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1832,10 +1832,10 @@ TextureImporter:
       name: char1_48
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1312
-        width: 32
-        height: 32
+        x: 41
+        y: 1314
+        width: 14
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1854,10 +1854,10 @@ TextureImporter:
       name: char1_49
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1312
-        width: 32
-        height: 32
+        x: 73
+        y: 1316
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1876,10 +1876,10 @@ TextureImporter:
       name: char1_50
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1312
-        width: 32
-        height: 32
+        x: 105
+        y: 1319
+        width: 14
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1898,10 +1898,10 @@ TextureImporter:
       name: char1_51
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1312
-        width: 32
-        height: 32
+        x: 137
+        y: 1314
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1920,10 +1920,10 @@ TextureImporter:
       name: char1_52
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1280
-        width: 32
-        height: 32
+        x: 8
+        y: 1283
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1942,10 +1942,10 @@ TextureImporter:
       name: char1_53
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1280
-        width: 32
-        height: 32
+        x: 41
+        y: 1282
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1964,10 +1964,10 @@ TextureImporter:
       name: char1_54
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1280
-        width: 32
-        height: 32
+        x: 73
+        y: 1283
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1986,10 +1986,10 @@ TextureImporter:
       name: char1_55
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1280
-        width: 32
-        height: 32
+        x: 105
+        y: 1283
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2008,10 +2008,10 @@ TextureImporter:
       name: char1_56
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1280
-        width: 32
-        height: 32
+        x: 136
+        y: 1283
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2030,10 +2030,10 @@ TextureImporter:
       name: char1_57
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1248
-        width: 32
-        height: 32
+        x: 9
+        y: 1251
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2052,10 +2052,10 @@ TextureImporter:
       name: char1_58
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1248
-        width: 32
-        height: 32
+        x: 41
+        y: 1251
+        width: 14
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2074,10 +2074,10 @@ TextureImporter:
       name: char1_59
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1248
-        width: 32
-        height: 32
+        x: 73
+        y: 1251
+        width: 14
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2096,10 +2096,10 @@ TextureImporter:
       name: char1_60
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1248
-        width: 32
-        height: 32
+        x: 104
+        y: 1251
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2118,10 +2118,10 @@ TextureImporter:
       name: char1_61
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1248
-        width: 32
-        height: 32
+        x: 135
+        y: 1251
+        width: 18
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2140,10 +2140,10 @@ TextureImporter:
       name: char1_62
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1216
-        width: 32
-        height: 32
+        x: 9
+        y: 1219
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2162,10 +2162,10 @@ TextureImporter:
       name: char1_63
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1216
-        width: 32
-        height: 32
+        x: 41
+        y: 1219
+        width: 14
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2184,10 +2184,10 @@ TextureImporter:
       name: char1_64
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1216
-        width: 32
-        height: 32
+        x: 73
+        y: 1219
+        width: 14
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2206,10 +2206,10 @@ TextureImporter:
       name: char1_65
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1216
-        width: 32
-        height: 32
+        x: 105
+        y: 1219
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2228,10 +2228,10 @@ TextureImporter:
       name: char1_66
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1216
-        width: 32
-        height: 32
+        x: 137
+        y: 1219
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2250,10 +2250,10 @@ TextureImporter:
       name: char1_67
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1184
-        width: 32
-        height: 32
+        x: 9
+        y: 1187
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2272,10 +2272,10 @@ TextureImporter:
       name: char1_68
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1184
-        width: 32
-        height: 32
+        x: 41
+        y: 1187
+        width: 14
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2294,10 +2294,10 @@ TextureImporter:
       name: char1_69
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1184
-        width: 32
-        height: 32
+        x: 73
+        y: 1187
+        width: 14
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2316,10 +2316,10 @@ TextureImporter:
       name: char1_70
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1184
-        width: 32
-        height: 32
+        x: 104
+        y: 1187
+        width: 15
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2338,10 +2338,10 @@ TextureImporter:
       name: char1_71
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1184
-        width: 32
-        height: 32
+        x: 135
+        y: 1187
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2360,10 +2360,10 @@ TextureImporter:
       name: char1_72
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1152
-        width: 32
-        height: 32
+        x: 8
+        y: 1154
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2382,10 +2382,10 @@ TextureImporter:
       name: char1_73
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1152
-        width: 32
-        height: 32
+        x: 40
+        y: 1155
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2404,10 +2404,10 @@ TextureImporter:
       name: char1_74
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1152
-        width: 32
-        height: 32
+        x: 72
+        y: 1157
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2426,10 +2426,10 @@ TextureImporter:
       name: char1_75
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1152
-        width: 32
-        height: 32
+        x: 104
+        y: 1154
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2448,10 +2448,10 @@ TextureImporter:
       name: char1_76
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1152
-        width: 32
-        height: 32
+        x: 136
+        y: 1154
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2470,10 +2470,10 @@ TextureImporter:
       name: char1_77
       rect:
         serializedVersion: 2
-        x: 160
-        y: 1152
-        width: 32
-        height: 32
+        x: 168
+        y: 1155
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2492,10 +2492,10 @@ TextureImporter:
       name: char1_78
       rect:
         serializedVersion: 2
-        x: 192
-        y: 1152
-        width: 32
-        height: 32
+        x: 200
+        y: 1157
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2514,10 +2514,10 @@ TextureImporter:
       name: char1_79
       rect:
         serializedVersion: 2
-        x: 224
-        y: 1152
-        width: 32
-        height: 32
+        x: 232
+        y: 1154
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2536,10 +2536,10 @@ TextureImporter:
       name: char1_80
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1120
-        width: 32
-        height: 32
+        x: 7
+        y: 1122
+        width: 18
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2558,10 +2558,10 @@ TextureImporter:
       name: char1_81
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1120
-        width: 32
-        height: 32
+        x: 39
+        y: 1123
+        width: 18
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2580,10 +2580,10 @@ TextureImporter:
       name: char1_82
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1120
-        width: 32
-        height: 32
+        x: 71
+        y: 1125
+        width: 18
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2602,10 +2602,10 @@ TextureImporter:
       name: char1_83
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1120
-        width: 32
-        height: 32
+        x: 103
+        y: 1122
+        width: 18
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2624,10 +2624,10 @@ TextureImporter:
       name: char1_84
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1120
-        width: 32
-        height: 32
+        x: 135
+        y: 1122
+        width: 18
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2646,10 +2646,10 @@ TextureImporter:
       name: char1_85
       rect:
         serializedVersion: 2
-        x: 160
-        y: 1120
-        width: 32
-        height: 32
+        x: 167
+        y: 1123
+        width: 18
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2668,10 +2668,10 @@ TextureImporter:
       name: char1_86
       rect:
         serializedVersion: 2
-        x: 192
-        y: 1120
-        width: 32
-        height: 32
+        x: 199
+        y: 1125
+        width: 18
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2690,10 +2690,10 @@ TextureImporter:
       name: char1_87
       rect:
         serializedVersion: 2
-        x: 224
-        y: 1120
-        width: 32
-        height: 32
+        x: 231
+        y: 1122
+        width: 18
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2712,10 +2712,10 @@ TextureImporter:
       name: char1_88
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1088
-        width: 32
-        height: 32
+        x: 9
+        y: 1090
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2734,10 +2734,10 @@ TextureImporter:
       name: char1_89
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1088
-        width: 32
-        height: 32
+        x: 41
+        y: 1091
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2756,10 +2756,10 @@ TextureImporter:
       name: char1_90
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1088
-        width: 32
-        height: 32
+        x: 73
+        y: 1093
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2778,10 +2778,10 @@ TextureImporter:
       name: char1_91
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1088
-        width: 32
-        height: 32
+        x: 105
+        y: 1091
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2800,10 +2800,10 @@ TextureImporter:
       name: char1_92
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1088
-        width: 32
-        height: 32
+        x: 137
+        y: 1090
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2822,10 +2822,10 @@ TextureImporter:
       name: char1_93
       rect:
         serializedVersion: 2
-        x: 160
-        y: 1088
-        width: 32
-        height: 32
+        x: 169
+        y: 1091
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2844,10 +2844,10 @@ TextureImporter:
       name: char1_94
       rect:
         serializedVersion: 2
-        x: 192
-        y: 1088
-        width: 32
-        height: 32
+        x: 201
+        y: 1093
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2866,10 +2866,10 @@ TextureImporter:
       name: char1_95
       rect:
         serializedVersion: 2
-        x: 224
-        y: 1088
-        width: 32
-        height: 32
+        x: 233
+        y: 1090
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2888,10 +2888,10 @@ TextureImporter:
       name: char1_96
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1056
-        width: 32
-        height: 32
+        x: 7
+        y: 1058
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2910,10 +2910,10 @@ TextureImporter:
       name: char1_97
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1056
-        width: 32
-        height: 32
+        x: 39
+        y: 1059
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2932,10 +2932,10 @@ TextureImporter:
       name: char1_98
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1056
-        width: 32
-        height: 32
+        x: 71
+        y: 1061
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2954,10 +2954,10 @@ TextureImporter:
       name: char1_99
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1056
-        width: 32
-        height: 32
+        x: 103
+        y: 1058
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2976,10 +2976,10 @@ TextureImporter:
       name: char1_100
       rect:
         serializedVersion: 2
-        x: 128
-        y: 1056
-        width: 32
-        height: 32
+        x: 135
+        y: 1058
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2998,10 +2998,10 @@ TextureImporter:
       name: char1_101
       rect:
         serializedVersion: 2
-        x: 160
-        y: 1056
-        width: 32
-        height: 32
+        x: 167
+        y: 1059
+        width: 16
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3020,10 +3020,10 @@ TextureImporter:
       name: char1_102
       rect:
         serializedVersion: 2
-        x: 192
-        y: 1056
-        width: 32
-        height: 32
+        x: 199
+        y: 1061
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3042,10 +3042,10 @@ TextureImporter:
       name: char1_103
       rect:
         serializedVersion: 2
-        x: 224
-        y: 1056
-        width: 32
-        height: 32
+        x: 231
+        y: 1059
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3064,10 +3064,10 @@ TextureImporter:
       name: char1_104
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1024
-        width: 32
-        height: 32
+        x: 8
+        y: 1026
+        width: 20
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3086,10 +3086,10 @@ TextureImporter:
       name: char1_105
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1024
-        width: 32
-        height: 32
+        x: 37
+        y: 1026
+        width: 18
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3108,10 +3108,10 @@ TextureImporter:
       name: char1_106
       rect:
         serializedVersion: 2
-        x: 64
-        y: 1024
-        width: 32
-        height: 32
+        x: 69
+        y: 1026
+        width: 23
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3130,10 +3130,10 @@ TextureImporter:
       name: char1_107
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1024
-        width: 32
-        height: 32
+        x: 105
+        y: 1026
+        width: 23
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3152,10 +3152,10 @@ TextureImporter:
       name: char1_108
       rect:
         serializedVersion: 2
-        x: 0
-        y: 992
-        width: 32
-        height: 32
+        x: 4
+        y: 994
+        width: 19
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3174,10 +3174,10 @@ TextureImporter:
       name: char1_109
       rect:
         serializedVersion: 2
-        x: 32
-        y: 992
-        width: 32
-        height: 32
+        x: 41
+        y: 994
+        width: 17
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3196,10 +3196,10 @@ TextureImporter:
       name: char1_110
       rect:
         serializedVersion: 2
-        x: 64
-        y: 992
-        width: 32
-        height: 32
+        x: 67
+        y: 1007
+        width: 24
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3218,10 +3218,10 @@ TextureImporter:
       name: char1_111
       rect:
         serializedVersion: 2
-        x: 96
-        y: 992
-        width: 32
-        height: 32
+        x: 72
+        y: 994
+        width: 15
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3240,10 +3240,10 @@ TextureImporter:
       name: char1_112
       rect:
         serializedVersion: 2
-        x: 0
-        y: 960
-        width: 32
-        height: 32
+        x: 95
+        y: 994
+        width: 24
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3262,10 +3262,10 @@ TextureImporter:
       name: char1_113
       rect:
         serializedVersion: 2
-        x: 32
-        y: 960
-        width: 32
-        height: 32
+        x: 9
+        y: 962
+        width: 23
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3284,10 +3284,10 @@ TextureImporter:
       name: char1_114
       rect:
         serializedVersion: 2
-        x: 64
-        y: 960
-        width: 32
-        height: 32
+        x: 39
+        y: 962
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3306,10 +3306,10 @@ TextureImporter:
       name: char1_115
       rect:
         serializedVersion: 2
-        x: 96
-        y: 960
-        width: 32
-        height: 32
+        x: 72
+        y: 962
+        width: 22
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3328,10 +3328,10 @@ TextureImporter:
       name: char1_116
       rect:
         serializedVersion: 2
-        x: 0
-        y: 928
-        width: 32
-        height: 32
+        x: 85
+        y: 963
+        width: 12
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3350,10 +3350,10 @@ TextureImporter:
       name: char1_117
       rect:
         serializedVersion: 2
-        x: 32
-        y: 928
-        width: 32
-        height: 32
+        x: 105
+        y: 962
+        width: 21
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3372,10 +3372,10 @@ TextureImporter:
       name: char1_118
       rect:
         serializedVersion: 2
-        x: 64
-        y: 928
-        width: 32
-        height: 32
+        x: 0
+        y: 930
+        width: 23
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3394,10 +3394,10 @@ TextureImporter:
       name: char1_119
       rect:
         serializedVersion: 2
-        x: 96
-        y: 928
-        width: 32
-        height: 32
+        x: 41
+        y: 930
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3416,10 +3416,10 @@ TextureImporter:
       name: char1_120
       rect:
         serializedVersion: 2
-        x: 0
-        y: 896
-        width: 32
-        height: 32
+        x: 63
+        y: 931
+        width: 12
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3438,10 +3438,10 @@ TextureImporter:
       name: char1_121
       rect:
         serializedVersion: 2
-        x: 0
-        y: 864
-        width: 32
-        height: 32
+        x: 66
+        y: 930
+        width: 22
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3460,10 +3460,10 @@ TextureImporter:
       name: char1_122
       rect:
         serializedVersion: 2
-        x: 0
-        y: 832
-        width: 32
-        height: 32
+        x: 98
+        y: 930
+        width: 21
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3482,10 +3482,10 @@ TextureImporter:
       name: char1_123
       rect:
         serializedVersion: 2
-        x: 0
-        y: 800
-        width: 32
-        height: 32
+        x: 5
+        y: 898
+        width: 18
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3504,10 +3504,10 @@ TextureImporter:
       name: char1_124
       rect:
         serializedVersion: 2
-        x: 0
-        y: 768
-        width: 32
-        height: 32
+        x: 9
+        y: 866
+        width: 17
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3526,10 +3526,10 @@ TextureImporter:
       name: char1_125
       rect:
         serializedVersion: 2
-        x: 0
-        y: 736
-        width: 32
-        height: 32
+        x: 7
+        y: 834
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3548,10 +3548,10 @@ TextureImporter:
       name: char1_126
       rect:
         serializedVersion: 2
-        x: 0
-        y: 704
-        width: 32
-        height: 32
+        x: 9
+        y: 799
+        width: 16
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3570,10 +3570,10 @@ TextureImporter:
       name: char1_127
       rect:
         serializedVersion: 2
-        x: 0
-        y: 672
-        width: 32
-        height: 32
+        x: 8
+        y: 774
+        width: 16
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3592,10 +3592,10 @@ TextureImporter:
       name: char1_128
       rect:
         serializedVersion: 2
-        x: 0
-        y: 640
-        width: 32
-        height: 32
+        x: 9
+        y: 742
+        width: 14
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3614,10 +3614,10 @@ TextureImporter:
       name: char1_129
       rect:
         serializedVersion: 2
-        x: 32
-        y: 640
-        width: 32
-        height: 32
+        x: 9
+        y: 709
+        width: 14
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3636,10 +3636,10 @@ TextureImporter:
       name: char1_130
       rect:
         serializedVersion: 2
-        x: 0
-        y: 608
-        width: 32
-        height: 32
+        x: 9
+        y: 678
+        width: 14
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3658,10 +3658,10 @@ TextureImporter:
       name: char1_131
       rect:
         serializedVersion: 2
-        x: 32
-        y: 608
-        width: 32
-        height: 32
+        x: 5
+        y: 642
+        width: 24
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3680,10 +3680,10 @@ TextureImporter:
       name: char1_132
       rect:
         serializedVersion: 2
-        x: 64
-        y: 608
-        width: 32
-        height: 32
+        x: 37
+        y: 642
+        width: 24
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3702,10 +3702,10 @@ TextureImporter:
       name: char1_133
       rect:
         serializedVersion: 2
-        x: 96
-        y: 608
-        width: 32
-        height: 32
+        x: 9
+        y: 610
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3724,10 +3724,10 @@ TextureImporter:
       name: char1_134
       rect:
         serializedVersion: 2
-        x: 128
-        y: 608
-        width: 32
-        height: 32
+        x: 41
+        y: 610
+        width: 14
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3746,10 +3746,10 @@ TextureImporter:
       name: char1_135
       rect:
         serializedVersion: 2
-        x: 0
-        y: 576
-        width: 32
-        height: 32
+        x: 73
+        y: 610
+        width: 14
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3768,10 +3768,10 @@ TextureImporter:
       name: char1_136
       rect:
         serializedVersion: 2
-        x: 32
-        y: 576
-        width: 32
-        height: 32
+        x: 105
+        y: 610
+        width: 14
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3790,10 +3790,10 @@ TextureImporter:
       name: char1_137
       rect:
         serializedVersion: 2
-        x: 64
-        y: 576
-        width: 32
-        height: 32
+        x: 137
+        y: 610
+        width: 14
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3812,10 +3812,10 @@ TextureImporter:
       name: char1_138
       rect:
         serializedVersion: 2
-        x: 96
-        y: 576
-        width: 32
-        height: 32
+        x: 9
+        y: 577
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3834,10 +3834,10 @@ TextureImporter:
       name: char1_139
       rect:
         serializedVersion: 2
-        x: 128
-        y: 576
-        width: 32
-        height: 32
+        x: 41
+        y: 577
+        width: 14
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3856,10 +3856,10 @@ TextureImporter:
       name: char1_140
       rect:
         serializedVersion: 2
-        x: 0
-        y: 544
-        width: 32
-        height: 32
+        x: 73
+        y: 577
+        width: 14
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3878,10 +3878,10 @@ TextureImporter:
       name: char1_141
       rect:
         serializedVersion: 2
-        x: 32
-        y: 544
-        width: 32
-        height: 32
+        x: 105
+        y: 577
+        width: 14
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3900,10 +3900,10 @@ TextureImporter:
       name: char1_142
       rect:
         serializedVersion: 2
-        x: 64
-        y: 544
-        width: 32
-        height: 32
+        x: 137
+        y: 578
+        width: 14
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3922,10 +3922,10 @@ TextureImporter:
       name: char1_143
       rect:
         serializedVersion: 2
-        x: 96
-        y: 544
-        width: 32
-        height: 32
+        x: 9
+        y: 546
+        width: 20
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3944,10 +3944,10 @@ TextureImporter:
       name: char1_144
       rect:
         serializedVersion: 2
-        x: 128
-        y: 544
-        width: 32
-        height: 32
+        x: 41
+        y: 546
+        width: 18
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3966,10 +3966,10 @@ TextureImporter:
       name: char1_145
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 32
-        height: 32
+        x: 70
+        y: 546
+        width: 17
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3988,10 +3988,10 @@ TextureImporter:
       name: char1_146
       rect:
         serializedVersion: 2
-        x: 32
-        y: 512
-        width: 32
-        height: 32
+        x: 100
+        y: 546
+        width: 27
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4010,10 +4010,10 @@ TextureImporter:
       name: char1_147
       rect:
         serializedVersion: 2
-        x: 64
-        y: 512
-        width: 32
-        height: 32
+        x: 137
+        y: 546
+        width: 22
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4032,10 +4032,10 @@ TextureImporter:
       name: char1_148
       rect:
         serializedVersion: 2
-        x: 96
-        y: 512
-        width: 32
-        height: 32
+        x: 3
+        y: 514
+        width: 20
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4054,10 +4054,10 @@ TextureImporter:
       name: char1_149
       rect:
         serializedVersion: 2
-        x: 128
-        y: 512
-        width: 32
-        height: 32
+        x: 37
+        y: 514
+        width: 18
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4076,10 +4076,10 @@ TextureImporter:
       name: char1_150
       rect:
         serializedVersion: 2
-        x: 0
-        y: 480
-        width: 32
-        height: 32
+        x: 73
+        y: 514
+        width: 17
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4098,10 +4098,10 @@ TextureImporter:
       name: char1_151
       rect:
         serializedVersion: 2
-        x: 32
-        y: 480
-        width: 32
-        height: 32
+        x: 97
+        y: 514
+        width: 27
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4120,10 +4120,10 @@ TextureImporter:
       name: char1_152
       rect:
         serializedVersion: 2
-        x: 64
-        y: 480
-        width: 32
-        height: 32
+        x: 129
+        y: 514
+        width: 22
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4142,10 +4142,10 @@ TextureImporter:
       name: char1_153
       rect:
         serializedVersion: 2
-        x: 96
-        y: 480
-        width: 32
-        height: 32
+        x: 9
+        y: 482
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4164,10 +4164,10 @@ TextureImporter:
       name: char1_154
       rect:
         serializedVersion: 2
-        x: 128
-        y: 480
-        width: 32
-        height: 32
+        x: 41
+        y: 482
+        width: 14
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4186,10 +4186,10 @@ TextureImporter:
       name: char1_155
       rect:
         serializedVersion: 2
-        x: 0
-        y: 448
-        width: 32
-        height: 32
+        x: 73
+        y: 482
+        width: 14
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4208,10 +4208,10 @@ TextureImporter:
       name: char1_156
       rect:
         serializedVersion: 2
-        x: 32
-        y: 448
-        width: 32
-        height: 32
+        x: 105
+        y: 482
+        width: 14
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4230,10 +4230,10 @@ TextureImporter:
       name: char1_157
       rect:
         serializedVersion: 2
-        x: 64
-        y: 448
-        width: 32
-        height: 32
+        x: 137
+        y: 482
+        width: 14
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4252,10 +4252,10 @@ TextureImporter:
       name: char1_158
       rect:
         serializedVersion: 2
-        x: 96
-        y: 448
-        width: 32
-        height: 32
+        x: 9
+        y: 450
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4274,10 +4274,10 @@ TextureImporter:
       name: char1_159
       rect:
         serializedVersion: 2
-        x: 128
-        y: 448
-        width: 32
-        height: 32
+        x: 41
+        y: 450
+        width: 14
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4296,10 +4296,10 @@ TextureImporter:
       name: char1_160
       rect:
         serializedVersion: 2
-        x: 0
-        y: 416
-        width: 32
-        height: 32
+        x: 73
+        y: 450
+        width: 14
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4318,10 +4318,10 @@ TextureImporter:
       name: char1_161
       rect:
         serializedVersion: 2
-        x: 32
-        y: 416
-        width: 32
-        height: 32
+        x: 105
+        y: 450
+        width: 14
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4340,10 +4340,10 @@ TextureImporter:
       name: char1_162
       rect:
         serializedVersion: 2
-        x: 64
-        y: 416
-        width: 32
-        height: 32
+        x: 137
+        y: 450
+        width: 14
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4362,10 +4362,10 @@ TextureImporter:
       name: char1_163
       rect:
         serializedVersion: 2
-        x: 96
-        y: 416
-        width: 32
-        height: 32
+        x: 9
+        y: 418
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4384,10 +4384,10 @@ TextureImporter:
       name: char1_164
       rect:
         serializedVersion: 2
-        x: 128
-        y: 416
-        width: 32
-        height: 32
+        x: 41
+        y: 418
+        width: 17
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4406,10 +4406,10 @@ TextureImporter:
       name: char1_165
       rect:
         serializedVersion: 2
-        x: 0
-        y: 384
-        width: 32
-        height: 32
+        x: 71
+        y: 418
+        width: 16
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4428,10 +4428,10 @@ TextureImporter:
       name: char1_166
       rect:
         serializedVersion: 2
-        x: 32
-        y: 384
-        width: 32
-        height: 32
+        x: 100
+        y: 418
+        width: 27
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4450,10 +4450,10 @@ TextureImporter:
       name: char1_167
       rect:
         serializedVersion: 2
-        x: 64
-        y: 384
-        width: 32
-        height: 32
+        x: 137
+        y: 418
+        width: 22
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4472,10 +4472,10 @@ TextureImporter:
       name: char1_168
       rect:
         serializedVersion: 2
-        x: 96
-        y: 384
-        width: 32
-        height: 32
+        x: 1
+        y: 386
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4494,10 +4494,10 @@ TextureImporter:
       name: char1_169
       rect:
         serializedVersion: 2
-        x: 128
-        y: 384
-        width: 32
-        height: 32
+        x: 38
+        y: 386
+        width: 17
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4516,10 +4516,10 @@ TextureImporter:
       name: char1_170
       rect:
         serializedVersion: 2
-        x: 0
-        y: 352
-        width: 32
-        height: 32
+        x: 73
+        y: 386
+        width: 16
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4538,10 +4538,10 @@ TextureImporter:
       name: char1_171
       rect:
         serializedVersion: 2
-        x: 32
-        y: 352
-        width: 32
-        height: 32
+        x: 97
+        y: 386
+        width: 27
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4560,10 +4560,10 @@ TextureImporter:
       name: char1_172
       rect:
         serializedVersion: 2
-        x: 0
-        y: 320
-        width: 32
-        height: 32
+        x: 129
+        y: 386
+        width: 22
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4582,10 +4582,10 @@ TextureImporter:
       name: char1_173
       rect:
         serializedVersion: 2
-        x: 32
-        y: 320
-        width: 32
-        height: 32
+        x: 9
+        y: 354
+        width: 14
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4604,10 +4604,10 @@ TextureImporter:
       name: char1_174
       rect:
         serializedVersion: 2
-        x: 0
-        y: 288
-        width: 32
-        height: 32
+        x: 41
+        y: 355
+        width: 14
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4626,10 +4626,10 @@ TextureImporter:
       name: char1_175
       rect:
         serializedVersion: 2
-        x: 32
-        y: 288
-        width: 32
-        height: 32
+        x: 9
+        y: 324
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4648,10 +4648,10 @@ TextureImporter:
       name: char1_176
       rect:
         serializedVersion: 2
-        x: 0
-        y: 256
-        width: 32
-        height: 32
+        x: 41
+        y: 324
+        width: 14
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4670,10 +4670,10 @@ TextureImporter:
       name: char1_177
       rect:
         serializedVersion: 2
-        x: 32
-        y: 256
-        width: 32
-        height: 32
+        x: 9
+        y: 295
+        width: 20
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4692,10 +4692,10 @@ TextureImporter:
       name: char1_178
       rect:
         serializedVersion: 2
-        x: 0
-        y: 224
-        width: 32
-        height: 32
+        x: 41
+        y: 295
+        width: 21
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4714,10 +4714,10 @@ TextureImporter:
       name: char1_179
       rect:
         serializedVersion: 2
-        x: 32
-        y: 224
-        width: 32
-        height: 32
+        x: 3
+        y: 263
+        width: 20
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4736,10 +4736,10 @@ TextureImporter:
       name: char1_180
       rect:
         serializedVersion: 2
-        x: 64
-        y: 224
-        width: 32
-        height: 32
+        x: 34
+        y: 263
+        width: 21
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4758,10 +4758,10 @@ TextureImporter:
       name: char1_181
       rect:
         serializedVersion: 2
-        x: 96
-        y: 224
-        width: 32
-        height: 32
+        x: 9
+        y: 234
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4780,10 +4780,10 @@ TextureImporter:
       name: char1_182
       rect:
         serializedVersion: 2
-        x: 128
-        y: 224
-        width: 32
-        height: 32
+        x: 41
+        y: 229
+        width: 14
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4802,10 +4802,10 @@ TextureImporter:
       name: char1_183
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
-        width: 32
-        height: 32
+        x: 73
+        y: 226
+        width: 14
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4824,10 +4824,10 @@ TextureImporter:
       name: char1_184
       rect:
         serializedVersion: 2
-        x: 32
-        y: 192
-        width: 32
-        height: 32
+        x: 105
+        y: 229
+        width: 14
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4846,10 +4846,10 @@ TextureImporter:
       name: char1_185
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
-        width: 32
-        height: 32
+        x: 137
+        y: 226
+        width: 14
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4868,10 +4868,10 @@ TextureImporter:
       name: char1_186
       rect:
         serializedVersion: 2
-        x: 96
-        y: 192
-        width: 32
-        height: 32
+        x: 9
+        y: 194
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4890,10 +4890,10 @@ TextureImporter:
       name: char1_187
       rect:
         serializedVersion: 2
-        x: 128
-        y: 192
-        width: 32
-        height: 32
+        x: 41
+        y: 194
+        width: 14
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4912,10 +4912,10 @@ TextureImporter:
       name: char1_188
       rect:
         serializedVersion: 2
-        x: 0
-        y: 160
-        width: 32
-        height: 32
+        x: 73
+        y: 194
+        width: 14
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4934,10 +4934,10 @@ TextureImporter:
       name: char1_189
       rect:
         serializedVersion: 2
-        x: 32
-        y: 160
-        width: 32
-        height: 32
+        x: 105
+        y: 194
+        width: 14
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4956,10 +4956,10 @@ TextureImporter:
       name: char1_190
       rect:
         serializedVersion: 2
-        x: 64
-        y: 160
-        width: 32
-        height: 32
+        x: 137
+        y: 194
+        width: 14
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4978,10 +4978,10 @@ TextureImporter:
       name: char1_191
       rect:
         serializedVersion: 2
-        x: 96
-        y: 160
-        width: 32
-        height: 32
+        x: 9
+        y: 163
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5000,10 +5000,10 @@ TextureImporter:
       name: char1_192
       rect:
         serializedVersion: 2
-        x: 128
-        y: 160
-        width: 32
-        height: 32
+        x: 42
+        y: 162
+        width: 20
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5022,10 +5022,10 @@ TextureImporter:
       name: char1_193
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
-        width: 32
-        height: 32
+        x: 75
+        y: 162
+        width: 21
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5044,10 +5044,10 @@ TextureImporter:
       name: char1_194
       rect:
         serializedVersion: 2
-        x: 32
-        y: 128
-        width: 32
-        height: 32
+        x: 106
+        y: 162
+        width: 20
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5066,10 +5066,10 @@ TextureImporter:
       name: char1_195
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
-        width: 32
-        height: 32
+        x: 139
+        y: 162
+        width: 21
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5088,10 +5088,10 @@ TextureImporter:
       name: char1_196
       rect:
         serializedVersion: 2
-        x: 96
-        y: 128
-        width: 32
-        height: 32
+        x: 1
+        y: 131
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5110,10 +5110,10 @@ TextureImporter:
       name: char1_197
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
-        width: 32
-        height: 32
+        x: 34
+        y: 130
+        width: 20
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5132,10 +5132,10 @@ TextureImporter:
       name: char1_198
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
-        width: 32
-        height: 32
+        x: 64
+        y: 130
+        width: 21
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5154,10 +5154,10 @@ TextureImporter:
       name: char1_199
       rect:
         serializedVersion: 2
-        x: 32
-        y: 96
-        width: 32
-        height: 32
+        x: 98
+        y: 130
+        width: 20
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5176,10 +5176,10 @@ TextureImporter:
       name: char1_200
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
-        width: 32
-        height: 32
+        x: 128
+        y: 130
+        width: 21
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5198,10 +5198,10 @@ TextureImporter:
       name: char1_201
       rect:
         serializedVersion: 2
-        x: 96
-        y: 96
-        width: 32
-        height: 32
+        x: 9
+        y: 98
+        width: 14
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5220,10 +5220,10 @@ TextureImporter:
       name: char1_202
       rect:
         serializedVersion: 2
-        x: 128
-        y: 96
-        width: 32
-        height: 32
+        x: 41
+        y: 102
+        width: 14
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5242,10 +5242,10 @@ TextureImporter:
       name: char1_203
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
-        width: 32
-        height: 32
+        x: 73
+        y: 102
+        width: 14
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5264,10 +5264,10 @@ TextureImporter:
       name: char1_204
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
+        x: 105
+        y: 98
+        width: 14
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5286,10 +5286,10 @@ TextureImporter:
       name: char1_205
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
-        width: 32
-        height: 32
+        x: 137
+        y: 98
+        width: 14
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5308,10 +5308,10 @@ TextureImporter:
       name: char1_206
       rect:
         serializedVersion: 2
-        x: 96
-        y: 64
-        width: 32
-        height: 32
+        x: 9
+        y: 70
+        width: 14
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5330,10 +5330,10 @@ TextureImporter:
       name: char1_207
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
-        width: 32
-        height: 32
+        x: 41
+        y: 70
+        width: 14
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5352,10 +5352,10 @@ TextureImporter:
       name: char1_208
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
+        x: 73
+        y: 70
+        width: 14
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5374,10 +5374,10 @@ TextureImporter:
       name: char1_209
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
+        x: 105
+        y: 69
+        width: 14
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5396,10 +5396,10 @@ TextureImporter:
       name: char1_210
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
+        x: 137
+        y: 70
+        width: 14
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5418,10 +5418,10 @@ TextureImporter:
       name: char1_211
       rect:
         serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
+        x: 9
+        y: 38
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5440,10 +5440,10 @@ TextureImporter:
       name: char1_212
       rect:
         serializedVersion: 2
-        x: 128
-        y: 32
-        width: 32
-        height: 32
+        x: 41
+        y: 38
+        width: 16
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5462,10 +5462,10 @@ TextureImporter:
       name: char1_213
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
+        x: 65
+        y: 38
+        width: 22
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5484,10 +5484,10 @@ TextureImporter:
       name: char1_214
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
+        x: 104
+        y: 41
+        width: 16
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5506,10 +5506,10 @@ TextureImporter:
       name: char1_215
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
+        x: 137
+        y: 38
+        width: 22
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5528,10 +5528,10 @@ TextureImporter:
       name: char1_216
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
+        x: 1
+        y: 6
+        width: 22
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5550,10 +5550,10 @@ TextureImporter:
       name: char1_217
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 32
-        height: 32
+        x: 39
+        y: 6
+        width: 16
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5568,11 +5568,77 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: char1_218
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 6
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e385cb9a7aeee60a0800000000000000
+      internalID: -6886304376328267714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: char1_219
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 9
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3066684bfecb48f0800000000000000
+      internalID: -555122550403342276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: char1_220
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 6
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a4b0eafa01768420800000000000000
+      internalID: 2631915324217275552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1212a0322c839d5448395c6768807f72
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -5715,7 +5781,10 @@ TextureImporter:
       char1_215: 4156953709532725484
       char1_216: -562114537278373494
       char1_217: -4542785802910847822
+      char1_218: -6886304376328267714
+      char1_219: -555122550403342276
       char1_22: 4508014606623569465
+      char1_220: 2631915324217275552
       char1_23: 4628113505867172278
       char1_24: 3394543460954610927
       char1_25: -8864295559914638751

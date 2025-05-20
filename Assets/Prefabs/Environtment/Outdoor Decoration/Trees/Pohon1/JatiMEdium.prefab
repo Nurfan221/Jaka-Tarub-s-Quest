@@ -125,7 +125,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: -3881609959491771235, guid: 2260b405923da4a418ebde7b9da22b8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -216,7 +216,7 @@ MonoBehaviour:
   currentStage: 2
   growthObject: []
   growthTime: 0
-  namaSeed: JatiTreeSmall
+  nameEnvironment: 
   tumbangSprite: {fileID: 5090815853600988913, guid: d85bb78978d86aa40b8a2bfee8fd58f0, type: 3}
   akarPohonPrefab: {fileID: 1599877733878797977, guid: b99b2100648002e44971f645b48477bf, type: 3}
   isRubuh: 0
