@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static QuestManager;
 using static UnityEditor.Progress;
 
 public class StorageUI : MonoBehaviour
@@ -19,6 +20,7 @@ public class StorageUI : MonoBehaviour
 
     public StorageInteractable theStorage;
     public List<Item> Items = new();
+    
 
 
 
@@ -136,6 +138,8 @@ public class StorageUI : MonoBehaviour
             takeAllButton.gameObject.SetActive(true);
         }
     }
+
+    
 
     private void CloseStorage()
     {

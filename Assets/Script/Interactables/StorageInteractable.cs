@@ -8,6 +8,7 @@ public class StorageInteractable : Interactable
     [SerializeField]
     public List<Item> Items = new();
     public int maxItem = 12;
+    public int[] countItems;
 
 
     //[SerializeField] StorageUI storageUI;
@@ -33,6 +34,45 @@ public class StorageInteractable : Interactable
             Debug.Log("StorageUI.Instance berhasil ditemukan.");
         }
 
+        AddItemToList();
+
+    }
+
+    public void AddItemToList()
+    {
+        // Membuat salinan dari item yang ada di quest.itemQuests sebelum menghapus item lama
+        List<Item> newItemList = new List<Item>();
+
+        // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
+        for (int i = 0; i < Items.Count; i++)
+        {
+            // Membuat salinan baru dari item yang ada untuk menghindari modifikasi referensi langsung
+            Item itemCopy = new Item
+            {
+                itemName = Items[i].itemName, // Salin nama item
+                stackCount = countItems[i]          // Set stackCount dari countItem
+            };
+
+            // Menambahkan item baru ke dalam newItemList
+            newItemList.Add(itemCopy);
+        }
+
+        // Menghapus semua item lama setelah menambahkan item baru
+        Items.Clear();
+
+        // Menambahkan item baru dari newItemList ke quest.itemQuests
+        foreach (var item in newItemList)
+        {
+            // Mendapatkan salinan item dari ItemPool (menggunakan Instantiate)
+            Item itemFromPool = ItemPool.Instance.GetItem(item.itemName, item.stackCount);
+
+            // Menambahkan item yang diinstansiasi ke dalam quest.itemQuests
+            if (itemFromPool != null)
+            {
+                Items.Add(itemFromPool);
+                Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
+            }
+        }
     }
     protected override void Interact()
     {

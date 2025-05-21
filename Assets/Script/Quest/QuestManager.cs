@@ -61,7 +61,7 @@ public class QuestManager : MonoBehaviour
         public Sprite[] spriteQuest;
         public int reward;
         public Reward[] rewards;
-        public ItemQuest[] itemQuests;
+        public List<Item> itemQuests;
         public int indexLocation;
         public locationMainQuest[] locationMainQuest;
 
@@ -83,7 +83,8 @@ public class QuestManager : MonoBehaviour
         public string questName;
         public Dialogues dialogueQuest;
         public GameObject NPC;
-        public ItemQuest[] itemQuests;
+        public List<Item> itemQuests;
+        public int[] countItem;
         public int date;
         public int reward;
         public Reward[] rewards;
@@ -99,17 +100,12 @@ public class QuestManager : MonoBehaviour
 
     }
 
-    [System.Serializable]
-    public class ItemQuest
-    {
-        public Item item;
-        public int jumlah;
-    }
+   
 
     [System.Serializable]
     public class Reward
     {
-        public GameObject itemReward;
+        public Item itemReward;
         public int jumlahItemReward;
     }
 
@@ -177,10 +173,13 @@ public class QuestManager : MonoBehaviour
                 {
                     quest.questActive = true;
                     questInfoUI.DisplayActiveQuest(quest);
+                    AddItemToList(quest);
 
                 }
             }
         }
+
+
 
 
 
@@ -194,8 +193,48 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    public void AddItemToList(Quest questActive)
+    {
+        // Membuat salinan dari item yang ada di quest.itemQuests sebelum menghapus item lama
+        List<Item> newItemList = new List<Item>();
 
-    
+        // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
+        for (int i = 0; i < questActive.itemQuests.Count; i++)
+        {
+            // Membuat salinan baru dari item yang ada untuk menghindari modifikasi referensi langsung
+            Item itemCopy = new Item
+            {
+                itemName = questActive.itemQuests[i].itemName, // Salin nama item
+                stackCount = questActive.countItem[i]          // Set stackCount dari countItem
+            };
+
+            // Menambahkan item baru ke dalam newItemList
+            newItemList.Add(itemCopy);
+        }
+
+        // Menghapus semua item lama setelah menambahkan item baru
+        questActive.itemQuests.Clear();
+
+        // Menambahkan item baru dari newItemList ke quest.itemQuests
+        foreach (var item in newItemList)
+        {
+            // Mendapatkan salinan item dari ItemPool (menggunakan Instantiate)
+            Item itemFromPool = ItemPool.Instance.GetItem(item.itemName, item.stackCount);
+
+            // Menambahkan item yang diinstansiasi ke dalam quest.itemQuests
+            if (itemFromPool != null)
+            {
+                questActive.itemQuests.Add(itemFromPool);
+                Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
+            }
+        }
+    }
+
+
+
+
+
+
 
     private void DisplayActiveQuests()
     {

@@ -21310,8 +21310,8 @@ MonoBehaviour:
       dialogueQuest: {fileID: 11400000, guid: 91485e6417e32c24f8c5b0c9d41a0835, type: 2}
       NPC: {fileID: 0}
       itemQuests:
-      - item: {fileID: 11400000, guid: 87f2ecda738ce1149bbc867585eaaa1d, type: 2}
-        jumlah: 10
+      - {fileID: 0}
+      countItem: 
       date: 1
       reward: 200
       rewards: []
@@ -21330,8 +21330,8 @@ MonoBehaviour:
       dialogueQuest: {fileID: 11400000, guid: 7d2ed832501bd5b46981f34aae7c0eec, type: 2}
       NPC: {fileID: 0}
       itemQuests:
-      - item: {fileID: 11400000, guid: 87f2ecda738ce1149bbc867585eaaa1d, type: 2}
-        jumlah: 15
+      - {fileID: 0}
+      countItem: 
       date: 5
       reward: 1350
       rewards: []
@@ -21350,12 +21350,10 @@ MonoBehaviour:
       dialogueQuest: {fileID: 11400000, guid: da3b004ae94ffa84a9b1c04584a42813, type: 2}
       NPC: {fileID: 0}
       itemQuests:
-      - item: {fileID: 11400000, guid: 2bf35211b6f7a6c43af4fae3c94bc609, type: 2}
-        jumlah: 10
-      - item: {fileID: 11400000, guid: 87f2ecda738ce1149bbc867585eaaa1d, type: 2}
-        jumlah: 5
-      - item: {fileID: 11400000, guid: 406efed334de6764cbf04e9be6ad995a, type: 2}
-        jumlah: 10
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      countItem: 
       date: 10
       reward: 950
       rewards: []
@@ -21375,12 +21373,10 @@ MonoBehaviour:
       dialogueQuest: {fileID: 11400000, guid: c510249ecc290c94a9af14d0ee2c5e5d, type: 2}
       NPC: {fileID: 0}
       itemQuests:
-      - item: {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-        jumlah: 10
-      - item: {fileID: 11400000, guid: 3bd66d80fb23e764f9744b7e7fcfaa76, type: 2}
-        jumlah: 5
-      - item: {fileID: 11400000, guid: 406efed334de6764cbf04e9be6ad995a, type: 2}
-        jumlah: 10
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      countItem: 
       date: 14
       reward: 500
       rewards:
@@ -21402,12 +21398,10 @@ MonoBehaviour:
       dialogueQuest: {fileID: 11400000, guid: 17242be63b94ab748997b6850fdd669d, type: 2}
       NPC: {fileID: 0}
       itemQuests:
-      - item: {fileID: 11400000, guid: b6f7491557836d04b979c05e535782e2, type: 2}
-        jumlah: 7
-      - item: {fileID: 11400000, guid: 742d46c8813b91b4d876b849ec4d2da3, type: 2}
-        jumlah: 5
-      - item: {fileID: 11400000, guid: eff3e0063443bce4eaa37f9d07e80ad2, type: 2}
-        jumlah: 3
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      countItem: 
       date: 20
       reward: 500
       rewards:
@@ -21431,6 +21425,7 @@ MonoBehaviour:
       dialogueQuest: {fileID: 11400000, guid: cc9f422faa6995a46ab5db5ae39085a6, type: 2}
       NPC: {fileID: 0}
       itemQuests: []
+      countItem: 
       date: 26
       reward: 500
       rewards:
@@ -21482,8 +21477,7 @@ MonoBehaviour:
       reward: 1500
       rewards: []
       itemQuests:
-      - item: {fileID: 11400000, guid: 466e8e2c5bdfece43b948114fda5be88, type: 2}
-        jumlah: 2
+      - {fileID: 0}
       indexLocation: 0
       locationMainQuest:
       - infoQuest: 'Pergi Ke Hutan '
@@ -21509,8 +21503,8 @@ MonoBehaviour:
       dialogueQuest: {fileID: 11400000, guid: 91485e6417e32c24f8c5b0c9d41a0835, type: 2}
       NPC: {fileID: 0}
       itemQuests:
-      - item: {fileID: 11400000, guid: 87f2ecda738ce1149bbc867585eaaa1d, type: 2}
-        jumlah: 10
+      - {fileID: 0}
+      countItem: 
       date: 17
       reward: 200
       rewards: []
@@ -21540,8 +21534,7 @@ MonoBehaviour:
       reward: 0
       rewards: []
       itemQuests:
-      - item: {fileID: 11400000, guid: b6f7491557836d04b979c05e535782e2, type: 2}
-        jumlah: 2
+      - {fileID: 0}
       indexLocation: 0
       locationMainQuest: []
     - questName: PenemuanDanau
@@ -21560,8 +21553,7 @@ MonoBehaviour:
       reward: 0
       rewards: []
       itemQuests:
-      - item: {fileID: 11400000, guid: b6f7491557836d04b979c05e535782e2, type: 2}
-        jumlah: 2
+      - {fileID: 0}
       indexLocation: 0
       locationMainQuest: []
     currentSideQuest: 5
@@ -21591,7 +21583,6 @@ MonoBehaviour:
   loadingScreenUI: {fileID: 4786718669202397386}
   playerQuest: {fileID: 0}
   questInfoUI: {fileID: 8935285331246783380}
-  locationConfiguration: {fileID: 0}
   spawnerManager: {fileID: 0}
   locationManager: {fileID: 0}
   chapter1IsDone: 1

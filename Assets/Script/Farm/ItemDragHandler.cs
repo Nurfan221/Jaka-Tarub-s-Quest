@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
+using static QuestManager;
 
 
 public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -457,8 +458,6 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void CheckItem(NPCBehavior npc)
     {
         bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
-      
-
 
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
@@ -467,23 +466,22 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
                 itemFound = true; // Tandai bahwa item ditemukan
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
-                
 
                 Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
-                
-             
 
                 npc.itemQuest = item.itemName;
-
 
                 // Kurangi stack item setelah memberi
                 if (npc.CheckItemGive(ref stackItem))
                 {
+                    // Update item.stackCount dengan nilai stackItem yang telah dikurangi
                     item.stackCount = stackItem;
-                    Debug.Log("jumlah item quest yang di kurangi" + stackItem);
+                    Debug.Log("jumlah item quest yang di kurangi " + stackItem);
+                    
 
                     if (stackItem <= 0)
                     {
+                        // Hapus item jika jumlahnya sudah habis
                         Player_Inventory.Instance.RemoveItem(item);
                         Debug.Log("Item habis dan dihapus dari inventory.");
                     }
@@ -492,7 +490,6 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                         Debug.Log("Jumlah item tersisa: " + stackItem);
                     }
                 }
-
 
                 rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
 
@@ -505,11 +502,11 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if (!itemFound)
         {
-
             Debug.Log("Item tidak ditemukan atau kategori item bukan Seed");
             rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
         }
     }
+
 
     private void PlacePrefab(Vector3Int cellPosition, string namaItem, GameObject prefabItem, float health)
     {

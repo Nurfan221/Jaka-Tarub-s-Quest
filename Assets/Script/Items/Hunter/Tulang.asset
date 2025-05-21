@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Tulang
   m_EditorClassIdentifier: 
-  itemID: 35
+  itemID: 87
   itemName: Tulang
   types: 0
   categories: 4608
-  sprite: {fileID: -1539906615989109433, guid: f816300cfecf70a41a9c5d0e2a58cf45, type: 3}
+  sprite: {fileID: 4702856765689916623, guid: 31b0c90595bfd4f4cb21fbdc818fe1ec, type: 3}
   itemDescription: Bahan dasar yang kuat, sering digunakan untuk membuat alat dan
     sdigunakan sebagai bahan crafting.
   QuantityFuel: 0
@@ -41,4 +41,5 @@ MonoBehaviour:
   prefabItem: {fileID: 4459120725376062254, guid: 3e5d53a94294c734ab5cc9bb92c77dd3, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 0}

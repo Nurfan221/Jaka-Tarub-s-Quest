@@ -19,7 +19,10 @@ public class QuestInfoUI : MonoBehaviour
     public Sprite sliderActive;
     public Sprite sliderInactive;
     public Transform deskripsi;
+    public Transform deskripsiContent;
     public bool isDeskripsi;
+    public Transform itemDeskripsi;
+    public Transform templateItemDeskripsi;
 
     void Start()
     {
@@ -102,11 +105,12 @@ public class QuestInfoUI : MonoBehaviour
             {
                 // Menampilkan deskripsi
                 deskripsi.gameObject.SetActive(true);
+                deskripsiContent.gameObject.SetActive(true);
 
 
                 // Mengambil teks quest name
-                TMP_Text questName = deskripsi.GetChild(1).GetComponent<TMP_Text>();
-                TMP_Text questDeskripsi = deskripsi.GetChild(2).GetComponent<TMP_Text>();
+                TMP_Text questName = deskripsiContent.GetChild(1).GetComponent<TMP_Text>();
+                TMP_Text questDeskripsi = deskripsiContent.GetChild(2).GetComponent<TMP_Text>();
 
                 // Mengatur nama quest
                 questName.text = quest.questName;
@@ -114,14 +118,31 @@ public class QuestInfoUI : MonoBehaviour
                 // Menyusun deskripsi quest
                 string fullDescription = quest.deskripsiAwal;
 
-                // Menambahkan jumlah item yang ada di itemQuest ke dalam deskripsi
-                foreach (ItemQuest itemQuest in quest.itemQuests)
-                {
-                    fullDescription += $" {itemQuest.jumlah} buah {itemQuest.item.itemName} kepada {quest.NPC.name} "; // Menggunakan itemName atau field lainnya dari Item
-                }
+                    //Hapus elemen lama sebelum menampilkan yang baru
+                    ClearChildrenExceptTemplate(itemDeskripsi, templateItemDeskripsi);
 
-                // Menambahkan deskripsi akhir
-                fullDescription += quest.deskripsiAkhir;
+                    // Menambahkan jumlah item yang ada di itemQuest ke dalam deskripsi
+                    foreach (Item itemQuest in quest.itemQuests)
+                    {
+                        fullDescription += $" {itemQuest.stackCount} buah {itemQuest.itemName} kepada {quest.NPC.name} "; // Menggunakan itemName atau field lainnya dari Item
+                                                                                                                           //Instansiasi UI untuk Quest
+                        Transform itemQuestDetail = Instantiate(templateItemDeskripsi, itemDeskripsi);
+                        itemQuestDetail.gameObject.SetActive(true);
+
+                        // Mengakses objek Image pertama yang ada pada objek instansiasi
+                        Image itemImage = itemQuestDetail.GetChild(0).GetComponent<Image>();
+                        TMP_Text itemName = itemQuestDetail.GetChild(1).GetComponent <TMP_Text>();
+                        TMP_Text jumlah = itemQuestDetail.GetChild(2).GetComponent<TMP_Text>();
+
+                        itemImage.sprite = itemQuest.sprite;
+                        itemName.text = itemQuest.itemName;
+                        jumlah.text = itemQuest.stackCount.ToString();
+
+
+                    }
+
+                    // Menambahkan deskripsi akhir
+                    fullDescription += quest.deskripsiAkhir;
 
                 // Memasukkan ke dalam questDeskripsi
                 questDeskripsi.text = fullDescription;

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: IronIngot
   m_EditorClassIdentifier: 
-  itemID: 1
+  itemID: 51
   itemName: IronIngot
   types: 0
   categories: 512
-  sprite: {fileID: 1071377053553539095, guid: 35a83fac362f6b345843b0099c51c735, type: 3}
+  sprite: {fileID: -6540123201979456734, guid: 35a83fac362f6b345843b0099c51c735, type: 3}
   itemDescription: Batangan besi yang kuat dan tahan lama. Digunakan dalam pembuatan
     senjata, baju besi, dan berbagai peralatan lainya.
   QuantityFuel: 0
@@ -41,4 +41,5 @@ MonoBehaviour:
   prefabItem: {fileID: 7562009284141931606, guid: 9b59ca22d74e07244b1071acea95c153, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 0}
