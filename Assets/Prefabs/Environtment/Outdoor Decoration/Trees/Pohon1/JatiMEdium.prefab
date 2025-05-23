@@ -70,17 +70,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0040359497, y: -0.88545215}
+  m_Offset: {x: 0.0040359497, y: 0.014229178}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 3}
-    newSize: {x: 0.56, y: 0.94}
+    pivot: {x: 0.5, y: 0.2578702}
+    oldSize: {x: 2, y: 4}
+    newSize: {x: 2, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.2490921, y: 0.62040687}
+  m_Size: {x: 0.2490921, y: 0.6349151}
   m_EdgeRadius: 0
 --- !u!212 &1888632240794282398
 SpriteRenderer:
@@ -126,12 +126,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -3881609959491771235, guid: 2260b405923da4a418ebde7b9da22b8f, type: 3}
+  m_Sprite: {fileID: 1753737927757713948, guid: 1b70810a7d670044bb09015273d52762, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.56, y: 0.94}
+  m_Size: {x: 2, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -218,7 +218,7 @@ MonoBehaviour:
   growthTime: 0
   nameEnvironment: 
   tumbangSprite: {fileID: 5090815853600988913, guid: d85bb78978d86aa40b8a2bfee8fd58f0, type: 3}
-  akarPohonPrefab: {fileID: 1599877733878797977, guid: b99b2100648002e44971f645b48477bf, type: 3}
+  akarPohonPrefab: {fileID: 1599877733878797977, guid: 0db8cb69d51b0fa4e9bca67e8d882e64, type: 3}
   isRubuh: 0
   growthSpeed: 0
   daysSincePlanting: 1

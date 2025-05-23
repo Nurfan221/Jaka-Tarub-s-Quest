@@ -111,9 +111,7 @@ public class PlantSeed : MonoBehaviour
             
             // Men-drop item menggunakan ItemPool
             ItemPool.Instance.DropItem(dropItem.name, transform.position + new Vector3(0, 0.5f, 0), dropItem);
-
-            // Mainkan efek partikel sebelum menghapus objek
-            transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+            isReadyToHarvest = false;
 
             // Hapus objek setelah efek partikel
             Destroy(gameObject, 0.5f); // Menghapus objek setelah 0.5 detik untuk memberi waktu partikel bermain

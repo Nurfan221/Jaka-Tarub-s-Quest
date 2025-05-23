@@ -12,7 +12,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] NPCListUI npcListUI;
     [SerializeField] Player_Inventory player_Inventory;
 
-    List<Item> Items;
+
 
     [Header("Active Slot")]
     [SerializeField] Transform equippedItem1;
@@ -139,7 +139,7 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateInventoryUI()
     {
-        SetInventory(Player_Inventory.Instance.itemList);
+        SetInventory();
         if (Player_Inventory.Instance.itemList.Count > 0)
         {
             SetDescription(Player_Inventory.Instance.itemList[0]);
@@ -169,12 +169,11 @@ public class InventoryUI : MonoBehaviour
         //slot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
     }
 
-    public void SetInventory(List<Item> items)
+    public void SetInventory()
     {
-        this.Items = items;
-
+       
         // Jika item kosong, tidak perlu lanjutkan refresh
-        if (items == null || items.Count == 0)
+        if (player_Inventory.itemList == null || player_Inventory.itemList.Count == 0)
         {
             Debug.Log("No items to display in the inventory");
             UpdateSixItemDisplay();  // Tetap update untuk bersihkan display jika kosong
@@ -194,9 +193,9 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        for (int i = 0; i < Items.Count; i++)
+        for (int i = 0; i < player_Inventory.itemList.Count; i++)
         {
-            Item item = Items[i];
+            Item item = player_Inventory.itemList[i];
             Transform itemInInventory = Instantiate(SlotTemplate, ContentGO);
             itemInInventory.gameObject.SetActive(true);
             itemInInventory.gameObject.name = item.itemName;
@@ -230,22 +229,22 @@ public class InventoryUI : MonoBehaviour
         }
 
         // Cek apakah item kosong atau tidak
-        if (Items == null || Items.Count == 0)
+        if (player_Inventory.itemList == null || player_Inventory.itemList.Count == 0)
         {
             // Debug.Log("No items to display");
             return;
         }
 
-        if(Items.Count == 0)
+        if(player_Inventory.itemList.Count == 0)
         {
             return;
         }
         else
         {
-            int itemCount = Mathf.Min(6, Items.Count);
+            int itemCount = Mathf.Min(6, player_Inventory.itemList.Count);
             for (int i = 0; i < itemCount; i++)
             {
-                Item item = Items[i];
+                Item item = player_Inventory.itemList[i];
                 if (item == null) continue; // Jika item null, skip
 
                 Transform itemInDisplay = Instantiate(SlotTemplate6, ContentGO6);

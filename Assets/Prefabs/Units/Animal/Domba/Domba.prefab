@@ -80,15 +80,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -6294243155114217349, guid: 67994d6ba15916f4387cc44beb934f3c, type: 3}
+  m_Sprite: {fileID: 5772058855367518744, guid: 80d09ff0f00ad85498db1aa5559d3043, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.26, y: 0.23}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &-8046939556576641371
@@ -129,8 +129,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3333334, y: 1.3333334}
-    newSize: {x: 0.26, y: 0.23}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -211,12 +211,12 @@ MonoBehaviour:
   - stateName: JalanKanan
     availableStates:
     - Idle
-    - Mengunyah
     - Duduk
+    - Makan
   - stateName: JalanKiri
     availableStates:
     - Idle
-    - Mengunyah
+    - Makan
     - Duduk
   - stateName: Duduk
     availableStates:
@@ -224,17 +224,13 @@ MonoBehaviour:
     - Berdiri
   - stateName: Rebahan
     availableStates:
-    - Tidur
-    - Berdiri
-  - stateName: Tidur
+    - TidurNyenyak
+  - stateName: TidurNyenyak
     availableStates:
-    - Rebahan
+    - Berdiri
   - stateName: Berdiri
     availableStates:
-    - JalanKiri
-    - JalanKanan
     - Idle
-    - Makan
   - stateName: Makan
     availableStates:
     - Idle
@@ -242,6 +238,7 @@ MonoBehaviour:
   - stateName: Mengunyah
     availableStates:
     - Makan
+    - Idle
   currentState: Idle
   jedaAnimasi: 3
   isMoving: 0
@@ -253,7 +250,7 @@ MonoBehaviour:
   health: 10
   maxHealth: 20
   dropitems:
-  - {fileID: 4459120725376062254, guid: 4abfe66eb1ac9d545b2f66f6c928611a, type: 3}
+  - {fileID: 4459120725376062254, guid: ed5cad5dac6105e41836b4772e81d04d, type: 3}
   - {fileID: 4459120725376062254, guid: 603e2ee1c4c31c849a12d854d986843f, type: 3}
   - {fileID: 4459120725376062254, guid: 3e5d53a94294c734ab5cc9bb92c77dd3, type: 3}
   - {fileID: 4459120725376062254, guid: 6698b5aef210925498de544f97a87bbb, type: 3}

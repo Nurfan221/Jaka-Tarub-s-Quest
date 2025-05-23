@@ -201,7 +201,10 @@
                 {
                     PlantSeed plantSeed = plant.gameObject.GetComponent<PlantSeed>();
                     plantSeed.siram = false;
-                    plantSeed.ParticleEffect();
+                    if (plantSeed.currentStage != GrowthStage.ReadyToHarvest)
+                    {
+                        plantSeed.ParticleEffect();
+                    }
                 }
             }
         }

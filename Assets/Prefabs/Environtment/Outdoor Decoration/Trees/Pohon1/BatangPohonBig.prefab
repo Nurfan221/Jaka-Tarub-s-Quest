@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9102546473150981427}
   - component: {fileID: -285715893815699087}
   m_Layer: 0
-  m_Name: BatangPohon
+  m_Name: BatangPohonBig
   m_TagString: AkarPohon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,9 +71,9 @@ BoxCollider2D:
   m_Offset: {x: -0.067108154, y: -0.5005883}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 1}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 0.56, y: 0.94}
+    pivot: {x: 0.5, y: 0.2578702}
+    oldSize: {x: 2, y: 4}
+    newSize: {x: 2, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -124,12 +124,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -2305093660108597880, guid: 1d2963b14f53d7a47a68a0de04962b70, type: 3}
+  m_Sprite: {fileID: 4371103560459375879, guid: ada8ae8494bea354ba156824d8d6a2cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.56, y: 0.94}
+  m_Size: {x: 2, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 2260b405923da4a418ebde7b9da22b8f
+guid: 19056e470d573e74598955829121ef23
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3881609959491771235
-    second: MediumFruit_0
+      213: -5384297822349913765
+    second: Small_Fruit_Tree-export 1_0
+  - first:
+      213: 7600010515273817757
+    second: Small_Fruit_Tree-export 1_1
+  - first:
+      213: 452171821717538004
+    second: Small_Fruit_Tree-export 1_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,23 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MediumFruit_0
+      name: Small_Fruit_Tree-export 1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 64
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2578702}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d94efd7be40c12ac0800000000000000
-      internalID: -3881609959491771235
+      spriteID: b519ce568a12745b0800000000000000
+      internalID: -5384297822349913765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Small_Fruit_Tree-export 1_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2578702}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9e112c0c49a87960800000000000000
+      internalID: 7600010515273817757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Small_Fruit_Tree-export 1_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2578702}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d44aea40ef664600800000000000000
+      internalID: 452171821717538004
       vertices: []
       indices: 
       edges: []
@@ -138,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c33f8c090b41ae24f82a36815f9e6854
+    spriteID: 95c6a652013231e49abbb28ed549435b
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MediumFruit_0: -3881609959491771235
+      Small_Fruit_Tree-export 1_0: -5384297822349913765
+      Small_Fruit_Tree-export 1_1: 7600010515273817757
+      Small_Fruit_Tree-export 1_2: 452171821717538004
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

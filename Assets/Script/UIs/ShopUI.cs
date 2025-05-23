@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Interfaces;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static TimeManager;
@@ -13,6 +15,7 @@ public class ShopUI : MonoBehaviour
     [Header("Daftar Hubungan")]
     public Player_Inventory player_Inventory;
     public GameEconomy gameEconomy;
+    public InventoryUI inventoryUI;
 
     [Header("Daftar item list")]
     public List<Item> rainSeasonShop = new();
@@ -105,24 +108,39 @@ public class ShopUI : MonoBehaviour
 
         
     }
-    
+    public void AddItemToList(List<Item> Items)
+    {
+        // Membuat salinan dari item yang ada di quest.itemQuests sebelum menghapus item lama
+        List<Item> newItemList = new List<Item>();
+
+        // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
+        for (int i = 0; i < Items.Count; i++)
+        {
+            // Memanggil AddNewItem untuk membuat item baru dan menambahkannya ke dalam newItemList
+            Item newItem = ItemPool.Instance.AddNewItem(Items[i], itemCountInShop);
+
+            // Menambahkan item salinan baru ke dalam newItemList
+            newItemList.Add(newItem);
+        }
+
+        // Menambahkan item baru dari newItemList ke currentSeasonItems
+        foreach (var item in newItemList)
+        {
+            currentSeasonItems.Add(item);
+            Debug.Log($"Item: {item.itemName}, Jumlah: {item.stackCount}");
+        }
+    }
+
+
+
     public void UpdateItemInShop(Season season)
     {
         if (season == Season.Rain)
         {
-            foreach (var item in rainSeasonShop)
-            {
-                item.stackCount = itemCountInShop;
-            }
-
-            currentSeasonItems = new List<Item>(rainSeasonShop);
+            AddItemToList(rainSeasonShop);
         }else if (season == Season.Dry)
         {
-            foreach (var item in drySeasonShop)
-            {
-                item.stackCount = itemCountInShop;
-            }
-            currentSeasonItems = new List<Item>(drySeasonShop);
+            AddItemToList(drySeasonShop);
         }
     }
 
@@ -215,7 +233,7 @@ public class ShopUI : MonoBehaviour
             //Inisialisasi jumlah item yang akan dibeli
             if (!itemBuyCounts.ContainsKey(itemShop.itemName))
                 itemBuyCounts[itemShop.itemName] = 1;
-
+            
             TMP_Text countText = itemSlot.GetChild(2).GetComponent<TMP_Text>();
             UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
 
@@ -396,6 +414,9 @@ public class ShopUI : MonoBehaviour
             UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
             StartCoroutine(StartUIGagal());
         }
+
+        inventoryUI.RefreshInventoryItems();
+        inventoryUI.UpdateSixItemDisplay();
     }
 
 

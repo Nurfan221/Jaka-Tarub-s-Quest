@@ -155,6 +155,8 @@ public class StorageUI : MonoBehaviour
         }
 
         theStorage.Items = Items;  // Simpan item kembali ke storage
+        inventoryUI.RefreshInventoryItems();
+        inventoryUI.UpdateSixItemDisplay();
     }
 
 

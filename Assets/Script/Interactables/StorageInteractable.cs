@@ -46,15 +46,10 @@ public class StorageInteractable : Interactable
         // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
         for (int i = 0; i < Items.Count; i++)
         {
-            // Membuat salinan baru dari item yang ada untuk menghindari modifikasi referensi langsung
-            Item itemCopy = new Item
-            {
-                itemName = Items[i].itemName, // Salin nama item
-                stackCount = countItems[i]          // Set stackCount dari countItem
-            };
+            Item newItem = ItemPool.Instance.AddNewItem(Items[i], countItems[i]);
 
             // Menambahkan item baru ke dalam newItemList
-            newItemList.Add(itemCopy);
+            newItemList.Add(newItem);
         }
 
         // Menghapus semua item lama setelah menambahkan item baru
@@ -63,15 +58,7 @@ public class StorageInteractable : Interactable
         // Menambahkan item baru dari newItemList ke quest.itemQuests
         foreach (var item in newItemList)
         {
-            // Mendapatkan salinan item dari ItemPool (menggunakan Instantiate)
-            Item itemFromPool = ItemPool.Instance.GetItem(item.itemName, item.stackCount);
-
-            // Menambahkan item yang diinstansiasi ke dalam quest.itemQuests
-            if (itemFromPool != null)
-            {
-                Items.Add(itemFromPool);
-                Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
-            }
+            Items.Add(item);
         }
     }
     protected override void Interact()

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Insectisida
   m_EditorClassIdentifier: 
-  itemID: 41
+  itemID: 95
   itemName: Insectisida
-  types: 128
+  types: 136
   categories: 8192
   sprite: {fileID: -6007857137893288414, guid: 3dd69cf2659d80741b62ad4154f15769, type: 3}
   itemDescription: Obat penghilang hama berupa serangga
@@ -31,13 +31,14 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 10
+  stackCount: 999
   maxStackCount: 32
-  BuyValue: 100
-  SellValue: 90
+  BuyValue: 5
+  SellValue: 2
   BurningTime: 0
   CookTime: 0
   prefabItem: {fileID: 4459120725376062254, guid: b0e54383916e27a42aaefa66714f4a28, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 4459120725376062254, guid: b0e54383916e27a42aaefa66714f4a28, type: 3}

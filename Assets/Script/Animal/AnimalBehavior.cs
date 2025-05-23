@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AnimalBehavior : MonoBehaviour
 {
+
     [System.Serializable]
     public class AnimationState
     {
@@ -14,7 +15,7 @@ public class AnimalBehavior : MonoBehaviour
 
     public Sprite[] animalIdle;
 
-    
+
     public AnimationState[] animationStates; // Array semua animasi dan transisinya
     public string currentState = "Idle";  // Set awal ke Idle
     public float jedaAnimasi = 3f;
@@ -35,7 +36,7 @@ public class AnimalBehavior : MonoBehaviour
     public string namaHewan;
     public float health;
     public int maxHealth;
-  
+
 
 
     //element 0 harus selalu di isi dengan prefab daging
@@ -61,7 +62,9 @@ public class AnimalBehavior : MonoBehaviour
 
     private IEnumerator PlayRandomAnimationPeriodically()
     {
-        while (true)  // Loop terus-menerus
+
+        // Jika bukan jam tidur, jalankan animasi acak
+        while (true)  // Loop terus-menerus untuk animasi acak
         {
             // Pilih animasi acak berdasarkan currentState
             string nextState = GetRandomAnimationForCurrentState();
@@ -73,6 +76,8 @@ public class AnimalBehavior : MonoBehaviour
             yield return new WaitForSeconds(5f);
         }
     }
+    
+
 
     private string GetRandomAnimationForCurrentState()
     {
@@ -87,7 +92,7 @@ public class AnimalBehavior : MonoBehaviour
             return state.availableStates[randomIndex];
         }
 
-     
+
         // Jika tidak ada animasi yang tersedia, kembalikan animasi default
         return "Idle";
     }
@@ -120,27 +125,49 @@ public class AnimalBehavior : MonoBehaviour
         // Setelah animasi sementara selesai, jalankan animasi target
         if (nextState == "Duduk")
         {
+            yield return new WaitUntil(() =>
+            {
+                AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0);
+                return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0);
+            });
             animalAnimator.Play("Rebahan");
             currentState = "Rebahan";
+            yield return new WaitUntil(() =>
+            {
+                AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0);
+                return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0);
+            });
+            animalAnimator.Play("TidurNyenyak");
+            currentState = "TidurNyenyak";
+        }
+        else if(nextState == "Rebahan")
+        {
+            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
+            animalAnimator.Play("TidurNyenyak");
+            currentState = ("TidurNyenyak");
         }
         else if (nextState == "Berdiri")
         {
+            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
             animalAnimator.Play("Idle");
             currentState = "Idle";
         }
         else if (nextState == "Makan")
         {
+            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
             animalAnimator.Play("Mengunyah");
             currentState = "Mengunyah";
         }
         else if (nextState == "JalanKanan" || nextState == "JalanKiri")
         {
+            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
             animalAnimator.Play(nextState);
             currentState = nextState;
             StartCoroutine(AnimalMovement(nextState));
         }
         else
         {
+            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
             animalAnimator.Play(nextState);
             currentState = nextState;
         }
@@ -167,7 +194,7 @@ public class AnimalBehavior : MonoBehaviour
             //Debug.Log("Moving Right");
             animalRenderer.flipX = false;
         }
-       
+
 
         // Tentukan posisi target berdasarkan arah pergerakan yang sudah dipilih
         Vector2 targetPosition = (Vector2)transform.position + randomDirection * 3f; // Target posisi gerakan
@@ -206,9 +233,6 @@ public class AnimalBehavior : MonoBehaviour
         // Misalnya, jika hewan menyentuh objek dengan tag "Environment"
         if (collision.gameObject.CompareTag("Environment") || collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Stone"))
         {
-            //Debug.Log("Nabrak OYYY");
-
-            // Menyimpan posisi objek yang disentuh
             // Menyimpan posisi objek yang disentuh
             lastCollisionPoint = collision.transform.position;
 
@@ -244,12 +268,6 @@ public class AnimalBehavior : MonoBehaviour
 
     public void DropItem()
     {
-
-        //if (dropitems == null || dropitems.Length < 3)
-        //{
-        //    Debug.LogWarning("Drop items array is not properly configured. Ensure at least 3 items exist.");
-        //    return;
-        //}
         int normalItemCount = Random.Range(minNormalItem, maxNormalItem + 1);
         DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
         if (dropitems.Length > 3) // Jika ada special items
@@ -294,7 +312,7 @@ public class AnimalBehavior : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage )
     {
         Debug.Log("take Damage" + damage);
         health -= damage;
@@ -303,9 +321,66 @@ public class AnimalBehavior : MonoBehaviour
         if (health <= 0)
         {
             Die();
+        }else
+        {
+            Run();
         }
 
 
+    }
+
+    public void Run()
+    {
+        // Mengubah kecepatan untuk lari
+        float runSpeed = 10f;  // Kecepatan lari lebih cepat dari kecepatan normal
+        Vector2 currentPosition = transform.position; // Posisi awal
+
+        // Pilih tiga titik acak untuk lari
+        Vector2 point1 = GetRandomPoint(currentPosition);
+        Vector2 point2 = GetRandomPoint(point1);  // Titik kedua tergantung pada titik pertama
+        Vector2 point3 = GetRandomPoint(point2);  // Titik ketiga tergantung pada titik kedua
+
+        // Menjalankan animasi lari
+        currentState = "Lari";
+        animalAnimator.Play("Lari");  // Misalnya animasi lari bernama "Lari"
+
+        // Mulai pergerakan menuju titik-titik acak secara bertahap
+        StartCoroutine(AnimalRunMovement(point1, runSpeed, point2, point3));
+    }
+
+    private IEnumerator AnimalRunMovement(Vector2 point1, float speed, Vector2 point2, Vector2 point3)
+    {
+        // Gerak menuju titik pertama
+        yield return MoveToTarget(point1, speed);
+
+        // Gerak menuju titik kedua setelah mencapai titik pertama
+        yield return MoveToTarget(point2, speed);
+
+        // Gerak menuju titik ketiga setelah mencapai titik kedua
+        yield return MoveToTarget(point3, speed);
+
+        // Setelah mencapai titik ketiga, kembali ke animasi normal
+        yield return new WaitForSeconds(3f); // Misalnya berhenti berlari selama 3 detik
+        currentState = "Idle";
+        animalAnimator.Play("Idle");  // Kembalikan ke animasi idle
+    }
+
+    private IEnumerator MoveToTarget(Vector2 targetPosition, float speed)
+    {
+        // Gerakkan hewan menuju posisi target
+        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            yield return null;  // Tunggu frame berikutnya
+        }
+    }
+
+    private Vector2 GetRandomPoint(Vector2 lastPosition)
+    {
+        // Pilih titik acak dalam jarak tertentu dari posisi terakhir
+        float randomX = Random.Range(-5f, 5f);  // Jarak acak dalam sumbu X
+        float randomY = Random.Range(-5f, 5f);  // Jarak acak dalam sumbu Y
+        return lastPosition + new Vector2(randomX, randomY);  // Titik acak berdasarkan posisi terakhir
     }
 
     void Die()
