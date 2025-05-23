@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6282538871750894974
 Transform:
   m_ObjectHideFlags: 0
@@ -80,15 +80,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -7413471138981615691, guid: 8f7b04f27f28d0f45844f69e5029dd27, type: 3}
+  m_Sprite: {fileID: 4387578939402182403, guid: 49459b4312fba9641ac37f10b0ca3fa3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.26, y: 0.23}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &-8046939556576641371
@@ -129,8 +129,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3333334, y: 1.3333334}
-    newSize: {x: 0.26, y: 0.23}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -174,7 +174,7 @@ Animator:
   m_GameObject: {fileID: 8466065145438896573}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d4996e2bcac851142a49e4a964395f76, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7cf4be8b7aa9c784a994bf4c80c0b3bd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -209,12 +209,12 @@ MonoBehaviour:
   - stateName: JalanKanan
     availableStates:
     - Idle
-    - Mengunyah
+    - Makan
     - Duduk
   - stateName: JalanKiri
     availableStates:
     - Idle
-    - Mengunyah
+    - Makan
     - Duduk
   - stateName: Duduk
     availableStates:
@@ -222,17 +222,13 @@ MonoBehaviour:
     - Berdiri
   - stateName: Rebahan
     availableStates:
-    - Tidur
-    - Berdiri
-  - stateName: Tidur
+    - TidurNyenyak
+  - stateName: TidurNyenyak
     availableStates:
-    - Rebahan
+    - Berdiri
   - stateName: Berdiri
     availableStates:
-    - JalanKiri
-    - JalanKanan
     - Idle
-    - Makan
   - stateName: Makan
     availableStates:
     - Idle
@@ -240,6 +236,7 @@ MonoBehaviour:
   - stateName: Mengunyah
     availableStates:
     - Makan
+    - Idle
   currentState: Idle
   jedaAnimasi: 3
   isMoving: 0

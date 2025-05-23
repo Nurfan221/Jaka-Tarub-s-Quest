@@ -24,6 +24,7 @@ public class AnimalBehavior : MonoBehaviour
     private Vector2 lastCollisionPoint; // Menyimpan posisi objek yang disentuh
     private bool isAvoiding = false;    // Menandakan apakah hewan sedang menghindar
     public bool isAnimalEvent;
+    private Coroutine currentMovementCoroutine;
 
 
 
@@ -230,24 +231,25 @@ public class AnimalBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Misalnya, jika hewan menyentuh objek dengan tag "Environment"
-        if (collision.gameObject.CompareTag("Environment") || collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Stone"))
+        if (collision.gameObject.CompareTag("Environment") || collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Stone")|| collision.gameObject.CompareTag("Animal")|| collision.gameObject.CompareTag("Tebing"))
         {
-            // Menyimpan posisi objek yang disentuh
             lastCollisionPoint = collision.transform.position;
 
-            // Jika hewan sedang bergerak, langsung jalankan pergerakan menjauhi objek
             if (isMoving && !isAvoiding)
             {
                 isAvoiding = true;
-                StopCoroutine("AnimalMovement");  // Hentikan pergerakan yang sedang berlangsung
-                StartCoroutine(MoveAwayFromObstacle(collision));  // Mulai pergerakan menjauhi objek
+                if (currentMovementCoroutine != null)
+                {
+                    StopCoroutine(currentMovementCoroutine);
+                }
+                currentMovementCoroutine = StartCoroutine(MoveAwayFromObstacle(collision));
             }
         }
     }
 
     private IEnumerator MoveAwayFromObstacle(Collision2D collision)
     {
+        Debug.Log("nabrak bang");
         // Menghitung arah untuk menjauh dari objek yang memiliki tag "Environment"
         Vector2 directionAwayFromObstacle = ((Vector2)transform.position - (Vector2)collision.transform.position).normalized;
 
@@ -270,7 +272,7 @@ public class AnimalBehavior : MonoBehaviour
     {
         int normalItemCount = Random.Range(minNormalItem, maxNormalItem + 1);
         DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
-        if (dropitems.Length > 3) // Jika ada special items
+        if (dropitems.Length >2) // Jika ada special items
         {
             int specialItemCount = Random.Range(minSpecialItem, maxSpecialItem + 1);
             DropItemsByType(3, dropitems.Length, specialItemCount);
@@ -331,30 +333,38 @@ public class AnimalBehavior : MonoBehaviour
 
     public void Run()
     {
-        // Mengubah kecepatan untuk lari
-        float runSpeed = 10f;  // Kecepatan lari lebih cepat dari kecepatan normal
+        float runSpeed = 5f;  // Kecepatan lari lebih cepat dari kecepatan normal
         Vector2 currentPosition = transform.position; // Posisi awal
 
         // Pilih tiga titik acak untuk lari
         Vector2 point1 = GetRandomPoint(currentPosition);
-        Vector2 point2 = GetRandomPoint(point1);  // Titik kedua tergantung pada titik pertama
-        Vector2 point3 = GetRandomPoint(point2);  // Titik ketiga tergantung pada titik kedua
+        Vector2 point2 = GetRandomPoint(point1);
+        Vector2 point3 = GetRandomPoint(point2);
 
         // Menjalankan animasi lari
         currentState = "Lari";
-        animalAnimator.Play("Lari");  // Misalnya animasi lari bernama "Lari"
+        animalAnimator.Play("Lari");
 
         // Mulai pergerakan menuju titik-titik acak secara bertahap
-        StartCoroutine(AnimalRunMovement(point1, runSpeed, point2, point3));
+        currentMovementCoroutine = StartCoroutine(AnimalRunMovement(point1, runSpeed, point2, point3));
     }
 
     private IEnumerator AnimalRunMovement(Vector2 point1, float speed, Vector2 point2, Vector2 point3)
     {
+        // Tentukan arah animasi berdasarkan perbandingan posisi point1 dengan posisi saat ini
+        SetRunningAnimation(point1);
+
         // Gerak menuju titik pertama
         yield return MoveToTarget(point1, speed);
 
+        // Tentukan arah animasi untuk point2
+        SetRunningAnimation(point2);
+
         // Gerak menuju titik kedua setelah mencapai titik pertama
         yield return MoveToTarget(point2, speed);
+
+        // Tentukan arah animasi untuk point3
+        SetRunningAnimation(point3);
 
         // Gerak menuju titik ketiga setelah mencapai titik kedua
         yield return MoveToTarget(point3, speed);
@@ -362,8 +372,41 @@ public class AnimalBehavior : MonoBehaviour
         // Setelah mencapai titik ketiga, kembali ke animasi normal
         yield return new WaitForSeconds(3f); // Misalnya berhenti berlari selama 3 detik
         currentState = "Idle";
-        animalAnimator.Play("Idle");  // Kembalikan ke animasi idle
+        animalAnimator.Play("Idle");
+
+        // Mulai Coroutine untuk memilih dan menjalankan animasi secara otomatis
+        StartCoroutine(PlayRandomAnimationPeriodically());
     }
+
+
+    private void SetRunningAnimation(Vector2 targetPosition)
+    {
+        // Hentikan animasi sebelumnya dengan memulai animasi baru (lari)
+        StopPreviousAnimation();
+
+        // Tentukan arah berdasarkan posisi target dibandingkan dengan posisi hewan
+        if (targetPosition.x > transform.position.x) // Target di kanan
+        {
+            animalRenderer.flipX = true;  // Menunjukkan animasi lari ke kanan
+            currentState = "JalanKanan";  // Ganti state ke JalanKanan
+            animalAnimator.Play("JalanKanan");  // Mainkan animasi JalanKanan
+        }
+        else if (targetPosition.x < transform.position.x) // Target di kiri
+        {
+            animalRenderer.flipX = false;   // Menunjukkan animasi lari ke kiri
+            currentState = "JalanKiri";   // Ganti state ke JalanKiri
+            animalAnimator.Play("JalanKiri");  // Mainkan animasi JalanKiri
+        }
+    }
+
+    private void StopPreviousAnimation()
+    {
+        // Menghentikan animasi sebelumnya
+        // Anda bisa menggunakan SetTrigger atau SetBool untuk memastikan animasi sebelumnya dihentikan dengan transisi yang halus
+        animalAnimator.Play("Idle");  // Sebagai contoh, hentikan animasi sebelumnya dan setel ke "Idle" sebelum berlari
+    }
+
+
 
     private IEnumerator MoveToTarget(Vector2 targetPosition, float speed)
     {
