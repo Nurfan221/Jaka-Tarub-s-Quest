@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6282538871750894974
 Transform:
   m_ObjectHideFlags: 0
@@ -80,15 +80,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 2161211097934087789, guid: a6554d795096f6842a3fd9ab38a735ad, type: 3}
+  m_Sprite: {fileID: -306951390160616067, guid: 4f987246463cab541a8e7d8cd505c03d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.26, y: 0.23}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &-8046939556576641371
@@ -125,17 +125,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.012835503, y: -0.02762121}
+  m_Offset: {x: 0.0361166, y: -0.062542915}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 0.26, y: 0.23}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.44058037, y: 0.4625181}
+  m_Size: {x: 0.8596325, y: 0.920372}
   m_EdgeRadius: 0
 --- !u!50 &6107261338196856245
 Rigidbody2D:
@@ -174,7 +174,7 @@ Animator:
   m_GameObject: {fileID: 8466065145438896573}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 60ded6a21cf071d4f98d6f5d92df1d72, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1c059414a7ef237489cc8c18d6fce121, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -243,9 +243,9 @@ MonoBehaviour:
   health: 10
   maxHealth: 0
   dropitems:
-  - {fileID: 4459120725376062254, guid: 4abfe66eb1ac9d545b2f66f6c928611a, type: 3}
-  - {fileID: 4459120725376062254, guid: 3e5d53a94294c734ab5cc9bb92c77dd3, type: 3}
+  - {fileID: 4459120725376062254, guid: 83e3ab7933d6dc54a9ae2a639294281a, type: 3}
   - {fileID: 4459120725376062254, guid: 641620bc321129b408dcf8e8b76a69a3, type: 3}
+  - {fileID: 4459120725376062254, guid: fe35534c5969c5b4c902575039a582b2, type: 3}
   minNormalItem: 1
   maxNormalItem: 2
   minSpecialItem: 0

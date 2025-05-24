@@ -270,6 +270,12 @@ public class Enemy_Bandit : MonoBehaviour
 
         // Mulai kembali coroutine pergerakan
         StartCoroutine(FollowPath());
+
+        // Tentukan ulang jalur pergerakan NPC
+        PushtoArrayPergerakanNPC();
+        // Mulai proses pergerakan NPC
+        StartCoroutine(FollowPath());
+
     }
 
 
@@ -400,6 +406,8 @@ public class Enemy_Bandit : MonoBehaviour
 
             StopAllCoroutines(); // Hentikan semua gerakan sebelum kembali ke Spawner
             StartCoroutine(BackToSpawner()); // Jalankan coroutine dengan aman
+
+            
         }
     }
 
@@ -407,6 +415,7 @@ public class Enemy_Bandit : MonoBehaviour
 
     private IEnumerator BackToSpawner()
     {
+        // Mulai bergerak kembali ke spawner
         while (isReturning) // Loop hanya berjalan jika sedang kembali
         {
             transform.position = Vector2.MoveTowards(transform.position, spawner.transform.position, moveSpeed * Time.deltaTime);
@@ -415,13 +424,17 @@ public class Enemy_Bandit : MonoBehaviour
             if (Vector2.Distance(transform.position, spawner.transform.position) < 0.1f)
             {
                 isReturning = false;
-                //Debug.Log("Bandit kembali ke spawner!");
+                // Debug.Log("Bandit kembali ke spawner!");
                 yield break; // Keluar dari coroutine
             }
 
             yield return null;
         }
+
+        isMoving = false;
+       
     }
+
 
 
     private void StopCurrentCoroutine()

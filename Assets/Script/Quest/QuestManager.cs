@@ -198,18 +198,21 @@ public class QuestManager : MonoBehaviour
         // Membuat salinan dari item yang ada di quest.itemQuests sebelum menghapus item lama
         List<Item> newItemList = new List<Item>();
 
-        // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
-        for (int i = 0; i < questActive.itemQuests.Count; i++)
+        if(questActive != null && questActive.itemQuests.Count > 0)
         {
-            // Membuat salinan baru dari item yang ada untuk menghindari modifikasi referensi langsung
-            Item itemCopy = new Item
+            // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
+            for (int i = 0; i < questActive.itemQuests.Count; i++)
             {
-                itemName = questActive.itemQuests[i].itemName, // Salin nama item
-                stackCount = questActive.countItem[i]          // Set stackCount dari countItem
-            };
+                // Membuat salinan baru dari item yang ada untuk menghindari modifikasi referensi langsung
+                Item itemCopy = new Item
+                {
+                    itemName = questActive.itemQuests[i].itemName, // Salin nama item
+                    stackCount = questActive.countItem[i]          // Set stackCount dari countItem
+                };
 
-            // Menambahkan item baru ke dalam newItemList
-            newItemList.Add(itemCopy);
+                // Menambahkan item baru ke dalam newItemList
+                newItemList.Add(itemCopy);
+            }
         }
 
         // Menghapus semua item lama setelah menambahkan item baru

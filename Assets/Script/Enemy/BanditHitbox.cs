@@ -26,7 +26,7 @@ public class BanditHitbox : MonoBehaviour
             {
                 bandit.isAttacking = true;
                 playerDiHitbox = true;
-                //StartCoroutine(Serang()); // Mulai serangan
+                StartCoroutine(Serang()); // Mulai serangan
             }
         }
     }
