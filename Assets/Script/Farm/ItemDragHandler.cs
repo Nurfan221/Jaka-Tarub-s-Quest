@@ -50,7 +50,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
      public void UpdateItemCount(int count)
     {
         itemCount = count; // Update itemCount dengan nilai yang diterima
-        Debug.Log("Item Count Updated: " + itemCount);
+        //Debug.Log("Item Count Updated: " + itemCount);
     }
 
 
@@ -59,7 +59,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // Cek apakah tile sudah tertanami
         if (TileManager.tilePlantStatus.ContainsKey(cellPosition) && TileManager.tilePlantStatus[cellPosition])
         {
-            Debug.Log("Tile sudah ditanami, tidak bisa menanam lagi.");
+            //  Debug.Log("Tile sudah ditanami, tidak bisa menanam lagi.");
             return;
         }
 
@@ -73,7 +73,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 itemFound = true;
                 plantPrefab = item.prefabItem;
 
-                Debug.Log("Item ditemukan: " + item.itemName);
+                // Debug.Log("Item ditemukan: " + item.itemName);
 
                 // Menanam benih
                 PlantSeed(cellPosition, item.itemName, item.dropItem, item.growthImages, item.growthTime);
@@ -92,7 +92,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (item.stackCount <= 0)
                 {
                     Player_Inventory.Instance.RemoveItem(item);
-                    Debug.Log("Item habis dan dihapus.");
+                    //   Debug.Log("Item habis dan dihapus.");
                 }
 
                 // Refresh UI
@@ -117,17 +117,17 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         foreach (Item item in Player_Inventory.Instance.itemList)
         {
-            
-            Debug.Log("nama itemInDrag  " + itemInDrag);
+
+            // Debug.Log("nama itemInDrag  " + itemInDrag);
             // Cek apakah nama item sama dengan itemInDrag dan kategori item adalah Seed
             if (item.itemName == itemInDrag && !item.IsInCategory(ItemCategory.PlantSeed) && item.types == ItemType.ItemPrefab)
             {
-                Debug.Log("nama item.itemname " + item.itemName);
+                // Debug.Log("nama item.itemname " + item.itemName);
                 itemFound = true; // Tandai bahwa item ditemukan
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
                 plantPrefab = item.prefabItem; // Set plantPrefab sesuai item
 
-                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
+                // Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
 
 
 
@@ -151,11 +151,11 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 {
                     // Jika stack count habis, hapus item dari inventory
                     Player_Inventory.Instance.RemoveItem(item);
-                    Debug.Log("Item habis dan dihapus dari inventory.");
+                    //    Debug.Log("Item habis dan dihapus dari inventory.");
                 }
                 else
                 {
-                    Debug.Log("Jumlah item tersisa: " + stackItem);
+                    // Debug.Log("Jumlah item tersisa: " + stackItem);
                 }
 
                 rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
@@ -170,7 +170,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if (!itemFound)
         {
-            Debug.Log("Item tidak ditemukan atau kategori item bukan Seed");
+            // Debug.Log("Item tidak ditemukan atau kategori item bukan Seed");
             rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
         }
     }
@@ -200,7 +200,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // Simpan parent asli untuk dikembalikan nanti
         originalParent = rectTransform.parent;
         itemInDrag = gameObject.name; // Ambil nama objek yang di-drag
-        Debug.Log("nama itemInDrag  " + itemInDrag);
+       // Debug.Log("nama itemInDrag  " + itemInDrag);
 
         // Pindahkan item ke DragLayer (harus berada di bawah canvas)
         rectTransform.SetParent(dragLayer);
@@ -243,7 +243,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 return; // Jangan lakukan apa-apa jika tile sudah ditanami
             }
 
-            Debug.Log("Item sedang di atas tile yang dicangkul dan belum ada tanaman.");
+            // Debug.Log("Item sedang di atas tile yang dicangkul dan belum ada tanaman.");
             // Tanam benih pada tile yang valid
             CekSeed(cellPosition); // Menjalankan logika menanam benih
 
@@ -258,7 +258,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         //}
         else
         {
-            Debug.Log("Item tidak berada di posisi yang valid.");
+            //Debug.Log("Item tidak berada di posisi yang valid.");
         }
 
         
@@ -296,7 +296,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 }
                 else
                 {
-                    Debug.Log("Gagal membasmi serangga, item dikembalikan.");
+                    // Debug.Log("Gagal membasmi serangga, item dikembalikan.");
                     rectTransform.SetParent(originalParent); // Baru kembalikan kalau gagal
                 }
                 rectTransform.SetParent(originalParent); // Baru kembalikan kalau gagal
@@ -304,14 +304,14 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
 
 
-            Debug.Log("Item dijatuhkan di tile yang dicangkul dan belum ada tanaman.");
+            // Debug.Log("Item dijatuhkan di tile yang dicangkul dan belum ada tanaman.");
             // Tanam benih pada tile yang valid
             CekSeed(cellPosition); // Menjalankan logika menanam benih
             TileManager.tilePlantStatus[cellPosition] = true; // Tandai tile ini sudah terisi dengan tanaman
         }
         else
         {
-            Debug.Log("Item tidak berada di posisi yang valid.");
+            // Debug.Log("Item tidak berada di posisi yang valid.");
             rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal jika tidak valid
         }
 
@@ -325,7 +325,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Fungsi untuk mengecek apakah item dijatuhkan pada tile hasil cangkul (hoeedTile)
     private bool DroppedOnValidTile()
     {
-        Debug.Log("item di jatuhkan");
+        // Debug.Log("item di jatuhkan");
 
         // Ambil posisi mouse di Screen Space
         Vector3 screenPosition = Input.mousePosition;
@@ -353,12 +353,12 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition);
         if (hitCollider != null)
         {
-            Debug.Log("Item dijatuhkan di objek NPC: ");
+            // Debug.Log("Item dijatuhkan di objek NPC: ");
             // Cek apakah objek tersebut memiliki script NpcBehavior
             NPCBehavior npc = hitCollider.GetComponent<NPCBehavior>();
             if (npc != null)
             {
-                Debug.Log("Item dijatuhkan di objek NPC: " + hitCollider.name);
+                // Debug.Log("Item dijatuhkan di objek NPC: " + hitCollider.name);
                 CheckItem(npc);
                 // npc.ReceiveItem(this); // Contoh fungsi untuk menerima item, pastikan Anda menambahkan fungsi ini pada `NpcBehavior`
                 return true;
@@ -366,20 +366,20 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         else
         {
-            Debug.Log("hitcollider = null  ");
+            //Debug.Log("hitcollider = null  ");
         }
 
         if (currentTile != farmTile.hoeedTile || currentTile != farmTile.wateredTile)
         {
-            Debug.Log("item di jatuhkan pada tile tanah");
-            Debug.Log("item yang di drag adalah : " + itemInDrag);
+            // Debug.Log("item di jatuhkan pada tile tanah");
+            // Debug.Log("item yang di drag adalah : " + itemInDrag);
             CheckPrefabItem(cellPosition);
             return true;
         }
 
-        
 
-        Debug.Log("Tidak ada tile atau NPC di posisi ini.");
+
+        // Debug.Log("Tidak ada tile atau NPC di posisi ini.");
         return false;
     }
 
@@ -388,7 +388,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Fungsi untuk menanam benih
     private void PlantSeed(Vector3Int cellPosition, string namaSeed, GameObject dropItem, Sprite[] growthImages, float growthTime)
     {
-        Debug.Log("Menanam benih...");
+        // Debug.Log("Menanam benih...");
         // Konversi posisi tile ke World Space
         Vector3 spawnPosition = farmTilemap.GetCellCenterWorld(cellPosition);
 
@@ -410,7 +410,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             seedComponent.plantLocation = spawnPosition;
         }
 
-        Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
+        // Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
         farmTile.plantStatus.Add(plant);
 
 
@@ -420,7 +420,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Fungsi untuk menanam benih
     private void PlantTree(Vector3Int cellPosition, string namaSeed, GameObject[] gameObjects, float growthTime)
     {
-        Debug.Log("Menanam pohon...");
+        // Debug.Log("Menanam pohon...");
 
         // Konversi posisi tile ke World Space
         Vector3 spawnPosition = farmTilemap.GetCellCenterWorld(cellPosition);
@@ -449,7 +449,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         }
 
-        Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
+        //Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
     }
 
 
@@ -467,7 +467,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 itemFound = true; // Tandai bahwa item ditemukan
                 int stackItem = item.stackCount; // Ambil jumlah item yang ada
 
-                Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
+                //Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
 
                 npc.itemQuest = item.itemName;
 
@@ -476,14 +476,14 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 {
                     // Update item.stackCount dengan nilai stackItem yang telah dikurangi
                     item.stackCount = stackItem;
-                    Debug.Log("jumlah item quest yang di kurangi " + stackItem);
-                    
+                    //Debug.Log("jumlah item quest yang di kurangi " + stackItem);
+
 
                     if (stackItem <= 0)
                     {
                         // Hapus item jika jumlahnya sudah habis
                         Player_Inventory.Instance.RemoveItem(item);
-                        Debug.Log("Item habis dan dihapus dari inventory.");
+                        //Debug.Log("Item habis dan dihapus dari inventory.");
                     }
                     else
                     {
@@ -502,7 +502,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if (!itemFound)
         {
-            Debug.Log("Item tidak ditemukan atau kategori item bukan Seed");
+            //Debug.Log("Item tidak ditemukan atau kategori item bukan Seed");
             rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
         }
     }
@@ -511,7 +511,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private void PlacePrefab(Vector3Int cellPosition, string namaItem, GameObject prefabItem, float health)
     {
 
-        Debug.Log("Menambahkan Game Object...");
+        // Debug.Log("Menambahkan Game Object...");
         // Konversi posisi tile ke World Space
         Vector3 spawnPosition = farmTilemap.GetCellCenterWorld(cellPosition);
 
@@ -529,7 +529,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // Set health dari prefab berdasarkan nilai health dari item di inventory
             prefabBehavior.health = health;
             fenceBehavior.UpdateFenceSprite();
-            Debug.Log("Prefab memiliki PrefabItemBehavior. Health diset ke: " + health);
+            //Debug.Log("Prefab memiliki PrefabItemBehavior. Health diset ke: " + health);
         }
         else
         {
@@ -538,7 +538,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 
 
-        Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
+        //Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
     }
 
 
@@ -553,7 +553,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 // Bandingkan posisi world plant dengan posisi cell yang dikonversi ke world
                 if (Vector3.Distance(plant.transform.position, targetWorldPos) < 0.1f) // Ada toleransi kecil
                 {
-                    Debug.Log("Ada tanaman yang terdeteksi");
+                    //Debug.Log("Ada tanaman yang terdeteksi");
                     return plant; // Dapatkan tanaman di posisi ini
                 }
             }
@@ -591,7 +591,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                         plantSeed.ParticleEffect();
 
-                        Debug.Log("Serangga berhasil dibasmi di tanaman: " + tanaman.name);
+                        // Debug.Log("Serangga berhasil dibasmi di tanaman: " + tanaman.name);
 
                         inventoryUI.RefreshInventoryItems();
                         inventoryUI.UpdateSixItemDisplay();
@@ -599,8 +599,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     }
                     else
                     {
-                        Debug.Log("Categori atau apapun salah");
-                        Debug.Log("nama item : " + item.itemName + " " + "nama item drag : " + itemInDrag);
+                        // Debug.Log("Categori atau apapun salah");
+                       // Debug.Log("nama item : " + item.itemName + " " + "nama item drag : " + itemInDrag);
                     }
                 }
             }

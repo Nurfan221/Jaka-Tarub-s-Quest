@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: DagingDombaPanggang
   m_EditorClassIdentifier: 
-  itemID: 0
+  itemID: 99
   itemName: DagingDombaPanggang
   types: 2
   categories: 514
@@ -30,9 +30,9 @@ MonoBehaviour:
   UpgradeCost: 0
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
-  isStackable: 0
-  stackCount: 0
-  maxStackCount: 0
+  isStackable: 1
+  stackCount: 1
+  maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
@@ -40,4 +40,5 @@ MonoBehaviour:
   prefabItem: {fileID: 4459120725376062254, guid: b9ed3ef094cb8654688a66aed5fd73f6, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 4459120725376062254, guid: b9ed3ef094cb8654688a66aed5fd73f6, type: 3}

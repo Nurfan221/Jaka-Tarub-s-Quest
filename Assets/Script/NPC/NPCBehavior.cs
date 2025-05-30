@@ -296,6 +296,9 @@ public class NPCBehavior : MonoBehaviour
                         Debug.Log($"Item dengan nama {itemQuest} tidak ditemukan di quest {quest.questName}.");
                         return false;
                     }
+                }else
+                {
+                    Debug.Log("Npc name tidak sama ");
                 }
             }
         }
@@ -369,6 +372,8 @@ public class NPCBehavior : MonoBehaviour
                             {
                                 chapter.currentSideQuest++;
                                 questManager.InputAntrianMainQuest();
+                                questManager.countCurrentMainQuest++;
+                                questManager.UpdateDateSideQuest();
                             }
                             quest.questActive = false;
                             questManager.CheckQuest();

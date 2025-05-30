@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5755219114831489250}
   - component: {fileID: -4096817820511623046}
   - component: {fileID: 648529286410309539}
+  - component: {fileID: 8764837124786654988}
   m_Layer: 0
   m_Name: BibitPaprikaHijau
   m_TagString: ItemDrop
@@ -152,3 +153,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.38955688, y: 0.47595215}
   m_EdgeRadius: 0
+--- !u!114 &8764837124786654988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562009284141931606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f35b7bfeabcee4ba85145e38dd752e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  namePrefab: BibitPaprikaHijau
+  itemDrop: {fileID: 7562009284141931606}

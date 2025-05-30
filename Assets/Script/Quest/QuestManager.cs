@@ -332,6 +332,27 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    public void UpdateDateSideQuest()
+    {
+        foreach (var chapter in chapters)
+        {
+            if (chapter.idChapter == countCurrentMainQuest)
+            {
+                int tanggalSekarang = timeManager.date;
+
+                foreach (var quest in chapter.sideQuest)
+                {
+                    // Set tanggal quest saat ini
+                    quest.date = tanggalSekarang;
+
+                    // Tambahkan 5 hari untuk quest berikutnya
+                    tanggalSekarang += 5; // Menambahkan 5 hari ke tanggal sebelumnya
+                }
+            }
+        }
+    }
+
+
     public void MainQuestSelesai()
     {
         if (currentMainQuest != null)
