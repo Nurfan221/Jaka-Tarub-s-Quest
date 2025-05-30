@@ -4846,7 +4846,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09464d60de48a0849a8af438ef7c8419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glowingParticles: {fileID: 7516260134663813860}
 --- !u!1 &5454017072709228803
 GameObject:
   m_ObjectHideFlags: 0
@@ -4861,7 +4860,7 @@ GameObject:
   - component: {fileID: 8322885891473917973}
   m_Layer: 8
   m_Name: TongSampah
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4925,7 +4924,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 6951114633567200485, guid: cf83dd2644dc21a4187dbd5e63159d2d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5001,4 +5000,5 @@ MonoBehaviour:
   spriteKosong: {fileID: 6951114633567200485, guid: cf83dd2644dc21a4187dbd5e63159d2d, type: 3}
   isFull: 0
   sampahItem: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   glowEffect: {fileID: 4703779917972532033}

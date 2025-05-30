@@ -96,6 +96,8 @@ public class QuestManager : MonoBehaviour
         public Dialogues rewardItemQuest;
         public bool questActive = false;
         public bool questComplete = false;
+        public bool isSpawner;
+        public GameObject spawner;
         public Vector3 locateNpcQuest;
 
     }
@@ -174,6 +176,11 @@ public class QuestManager : MonoBehaviour
                     quest.questActive = true;
                     questInfoUI.DisplayActiveQuest(quest);
                     AddItemToList(quest);
+
+                    if(quest.isSpawner && quest.spawner != null)
+                    {
+                        quest.spawner.gameObject.SetActive(true);
+                    }
 
                 }
             }

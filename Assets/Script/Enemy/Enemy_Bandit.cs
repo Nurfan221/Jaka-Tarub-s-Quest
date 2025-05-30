@@ -425,6 +425,12 @@ public class Enemy_Bandit : MonoBehaviour
             {
                 isReturning = false;
                 // Debug.Log("Bandit kembali ke spawner!");
+
+                yield return new WaitForSeconds(1);
+                PushtoArrayPergerakanNPC();
+
+                // Mulai proses pergerakan NPC
+                StartCoroutine(FollowPath());
                 yield break; // Keluar dari coroutine
             }
 
@@ -432,7 +438,10 @@ public class Enemy_Bandit : MonoBehaviour
         }
 
         isMoving = false;
-       
+        // Tentukan jalur pertama kali
+      
+
+
     }
 
 
