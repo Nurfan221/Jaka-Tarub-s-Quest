@@ -127,6 +127,10 @@ public class TimeManager : MonoBehaviour
         farmTile.Siram();
         farmTile.CheckTile();
         farmTile.ResetWateredTiles();
+        if (weatherManager.isRain)
+        {
+            farmTile.DiSiramHujan();
+        }
 
         questManager.CheckQuest();
         //shopUI.RestockDaily(currentSeason);

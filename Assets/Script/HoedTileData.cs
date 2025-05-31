@@ -7,6 +7,7 @@ public class HoedTileData
 {
     public Vector3Int tilePosition;
     public int hoedTime;
+    public GameObject plantStatus;
     public bool watered;
 
     // Konstruktor untuk menyimpan posisi tile dan waktu cangkul

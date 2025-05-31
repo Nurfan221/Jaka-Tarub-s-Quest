@@ -77,7 +77,7 @@ public class EnvironmentManager : MonoBehaviour
                 return prefab;
         }
 
-        Debug.LogWarning("Prefab tidak ditemukan untuk nama: " + name);
+        //Debug.LogWarning("Prefab tidak ditemukan untuk nama: " + name);
         return null;
     }
 
@@ -164,7 +164,7 @@ public class EnvironmentManager : MonoBehaviour
 
             child.gameObject.SetActive(willShow);
 
-            Debug.Log($"Objek: {child.name} | Luck: {luck} | Roll: {roll} | Aktif: {willShow}");
+            //Debug.Log($"Objek: {child.name} | Luck: {luck} | Roll: {roll} | Aktif: {willShow}");
         }
     }
 

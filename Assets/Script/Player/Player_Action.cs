@@ -509,6 +509,7 @@ public class Player_Action : MonoBehaviour
 
     public void SpecialAttack()
     {
+        Debug.Log("spesial skill on click");
        
         Item itemToAttack = Player_Inventory.Instance.equippedWeapon;
         if (itemToAttack.itemName == "Empty")

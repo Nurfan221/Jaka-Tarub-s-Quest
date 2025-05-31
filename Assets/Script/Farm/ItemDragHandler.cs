@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -31,11 +32,11 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
      [SerializeField] InventoryUI inventoryUI;
     [SerializeField] FenceBehavior fenceBehavior;
     [SerializeField] PlantContainer plantContainer;
-    public static class TileManager
-    {
-        // Menyimpan status setiap tile di seluruh permainan
-        public static Dictionary<Vector3Int, bool> tilePlantStatus = new Dictionary<Vector3Int, bool>();
-    }
+    //public static class TileManager
+    //{
+    //    // Menyimpan status setiap tile di seluruh permainan
+    //    public static Dictionary<Vector3Int, bool> tilePlantStatus = new Dictionary<Vector3Int, bool>();
+    //}
 
 
 
@@ -57,10 +58,12 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void CekSeed(Vector3Int cellPosition)
     {
         // Cek apakah tile sudah tertanami
-        if (TileManager.tilePlantStatus.ContainsKey(cellPosition) && TileManager.tilePlantStatus[cellPosition])
+        foreach (var lokasihoedTile in farmTile.hoedTilesList)
         {
-            //  Debug.Log("Tile sudah ditanami, tidak bisa menanam lagi.");
-            return;
+            if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.plantStatus != null)  // Membandingkan dengan Vector3Int
+            {
+                return;
+            }
         }
 
         // Proses penanaman benih
@@ -77,12 +80,6 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 // Menanam benih
                 PlantSeed(cellPosition, item.itemName, item.dropItem, item.growthImages, item.growthTime);
-
-
-
-
-                // Update status tile setelah penanaman
-                TileManager.tilePlantStatus[cellPosition] = true; // Tandai tile sudah tertanami
 
                 // Panggil fungsi untuk menyimpan status tile
                 SaveTileStatus(cellPosition, true);
@@ -236,11 +233,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if ((currentTile == farmTile.hoeedTile || currentTile == farmTile.wateredTile))
         {
-            // Cek apakah tile sudah pernah ditanami
-            if (TileManager.tilePlantStatus.ContainsKey(cellPosition) && TileManager.tilePlantStatus[cellPosition])
+            // Cek apakah tile sudah tertanami
+            foreach (var lokasihoedTile in farmTile.hoedTilesList)
             {
-                Debug.Log("Tile sudah ditanami, tidak bisa menanam lagi.");
-                return; // Jangan lakukan apa-apa jika tile sudah ditanami
+                if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.plantStatus != null)  // Membandingkan dengan Vector3Int
+                {
+                    return;
+                }
             }
 
             // Debug.Log("Item sedang di atas tile yang dicangkul dan belum ada tanaman.");
@@ -285,32 +284,41 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if ((currentTile == farmTile.hoeedTile || currentTile == farmTile.wateredTile))
         {
-            // Cek apakah tile sudah pernah ditanami
-            if (TileManager.tilePlantStatus.ContainsKey(cellPosition) && TileManager.tilePlantStatus[cellPosition])
+            // Cek apakah tile sudah tertanami
+            foreach (var lokasihoedTile in farmTile.hoedTilesList)
             {
-                bool berhasil = PlacePestisida(cellPosition);
+                if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.plantStatus != null)  // Membandingkan dengan Vector3Int
+                {
+                    bool berhasil = PlacePestisida(cellPosition);
 
-                if (berhasil)
-                {
-                    Debug.Log("Berhasil membasmi serangga!");
-                }
-                else
-                {
-                    // Debug.Log("Gagal membasmi serangga, item dikembalikan.");
+                    if (berhasil)
+                    {
+                        Debug.Log("Berhasil membasmi serangga!");
+                    }
+                    else
+                    {
+                        inventoryUI.RefreshInventoryItems();
+                        inventoryUI.UpdateSixItemDisplay();
+                        // Debug.Log("Gagal membasmi serangga, item dikembalikan.");
+                        rectTransform.SetParent(originalParent); // Baru kembalikan kalau gagal
+                    }
+                    inventoryUI.RefreshInventoryItems();
+                    inventoryUI.UpdateSixItemDisplay();
                     rectTransform.SetParent(originalParent); // Baru kembalikan kalau gagal
+                    return;
                 }
-                rectTransform.SetParent(originalParent); // Baru kembalikan kalau gagal
-                return;
             }
-
+           
 
             // Debug.Log("Item dijatuhkan di tile yang dicangkul dan belum ada tanaman.");
             // Tanam benih pada tile yang valid
             CekSeed(cellPosition); // Menjalankan logika menanam benih
-            TileManager.tilePlantStatus[cellPosition] = true; // Tandai tile ini sudah terisi dengan tanaman
+           
         }
         else
         {
+            inventoryUI.RefreshInventoryItems();
+            inventoryUI.UpdateSixItemDisplay();
             // Debug.Log("Item tidak berada di posisi yang valid.");
             rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal jika tidak valid
         }
@@ -383,14 +391,16 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         return false;
     }
 
-   
+
 
     // Fungsi untuk menanam benih
     private void PlantSeed(Vector3Int cellPosition, string namaSeed, GameObject dropItem, Sprite[] growthImages, float growthTime)
     {
-        // Debug.Log("Menanam benih...");
         // Konversi posisi tile ke World Space
         Vector3 spawnPosition = farmTilemap.GetCellCenterWorld(cellPosition);
+
+        // Konversi spawnPosition menjadi Vector3Int untuk perbandingan yang tepat
+        Vector3Int spawnPositionInt = new Vector3Int(Mathf.FloorToInt(spawnPosition.x), Mathf.FloorToInt(spawnPosition.y), Mathf.FloorToInt(spawnPosition.z));
 
         // Inisiasi prefab tanaman di posisi world yang sesuai dengan tile
         GameObject plant = Instantiate(plantPrefab, spawnPosition, Quaternion.identity);
@@ -410,11 +420,16 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             seedComponent.plantLocation = spawnPosition;
         }
 
-        // Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
-        farmTile.plantStatus.Add(plant);
-
-
+        // Memeriksa apakah ada tile yang dicangkul dan menambahkan plantStatus
+        foreach (var lokasihoedTile in farmTile.hoedTilesList)
+        {
+            if (lokasihoedTile.tilePosition == spawnPositionInt)  // Membandingkan dengan Vector3Int
+            {
+                lokasihoedTile.plantStatus = plant;
+            }
+        }
     }
+
 
 
     // Fungsi untuk menanam benih
@@ -546,15 +561,15 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         Vector3 targetWorldPos = farmTilemap.GetCellCenterWorld(cellPosition);
 
-        foreach (var plant in farmTile.plantStatus)
+          foreach (var lokasihoedTile in farmTile.hoedTilesList)
         {
-            if (plant != null)
+            if (lokasihoedTile.plantStatus != null)
             {
                 // Bandingkan posisi world plant dengan posisi cell yang dikonversi ke world
-                if (Vector3.Distance(plant.transform.position, targetWorldPos) < 0.1f) // Ada toleransi kecil
+                if (Vector3.Distance(lokasihoedTile.plantStatus.transform.position, targetWorldPos) < 0.1f) // Ada toleransi kecil
                 {
-                    //Debug.Log("Ada tanaman yang terdeteksi");
-                    return plant; // Dapatkan tanaman di posisi ini
+                    Debug.Log("Ada tanaman yang terdeteksi");
+                    return lokasihoedTile.plantStatus; // Dapatkan tanaman di posisi ini
                 }
             }
         }
@@ -564,6 +579,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public bool PlacePestisida(Vector3Int cellPosition)
     {
+        Debug.Log("Memanggil fungsi place pestisida");
+
         GameObject tanaman = GetPlantAtCell(cellPosition);
 
         if (tanaman != null)
@@ -572,13 +589,18 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
             if (plantSeed != null && plantSeed.isInsect)
             {
-
                 foreach (Item item in Player_Inventory.Instance.itemList)
                 {
-                    if (item.itemName == itemInDrag &&
+                    Debug.Log("Memeriksa item: " + item.itemName + " dengan itemInDrag: " + itemInDrag);
+
+                    // Cek apakah item yang dipilih sesuai
+                    if (string.Equals(item.itemName, itemInDrag, StringComparison.OrdinalIgnoreCase) &&
                         item.IsInCategory(ItemCategory.Insectisida) &&
-                        item.types == ItemType.Pestisida)
+                        item.IsInType(ItemType.Pestisida))
                     {
+                        Debug.Log("Item cocok ditemukan: " + item.itemName);
+
+                        // Kurangi jumlah item dalam inventory
                         item.stackCount--;
 
                         if (item.stackCount <= 0)
@@ -588,29 +610,37 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                         plantSeed.isInsect = false;
                         plantSeed.siram = false;
-
                         plantSeed.ParticleEffect();
-
-                        // Debug.Log("Serangga berhasil dibasmi di tanaman: " + tanaman.name);
 
                         inventoryUI.RefreshInventoryItems();
                         inventoryUI.UpdateSixItemDisplay();
-                        return true; // Berhasil membasmi serangga
+
+                        Debug.Log("Serangga berhasil dibasmi di tanaman: " + tanaman.name);
+                        return true;
                     }
                     else
                     {
-                        // Debug.Log("Categori atau apapun salah");
-                       // Debug.Log("nama item : " + item.itemName + " " + "nama item drag : " + itemInDrag);
+                        Debug.LogWarning("Item yang digunakan tidak cocok: " +
+                            "Nama item: " + item.itemName + ", Item drag: " + itemInDrag);
                     }
                 }
+
+                Debug.Log("Tidak ada item yang sesuai di inventory.");
             }
-        }else
+            else
+            {
+                Debug.Log("Tanaman tidak memiliki serangga atau tidak ada komponen PlantSeed.");
+            }
+        }
+        else
         {
-            Debug.Log("Tanaman kosong");
+            Debug.Log("Tanaman tidak ditemukan di posisi: " + cellPosition);
         }
 
-        return false; // Gagal membasmi serangga
+        return false;
     }
+
+
 
 
 }

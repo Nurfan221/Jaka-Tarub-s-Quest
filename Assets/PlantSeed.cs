@@ -25,6 +25,7 @@ public class PlantSeed : MonoBehaviour
     public Sprite[] growthImages; // Gambar untuk tiap tahap pertumbuhan
     public float growthTime; // Waktu sedd tumbuh maksimal
     public float growthSpeed = 0f; // waktu jeda pertumbuhan
+    public int insectTime = 0;
     public float growthTimer; // Timer untuk menghitung waktu pertumbuhan
     public string namaSeed;
     public GameObject dropItem;
@@ -153,6 +154,12 @@ public class PlantSeed : MonoBehaviour
             insect.Stop();
             Debug.Log("Menjalankan animasi pertumbuhan");
         }
+        else if(isReadyToHarvest)
+        {
+            grow.Stop();
+            water.Play();
+            insect.Stop();
+        }    
         else
         {
             grow.Stop();
@@ -161,4 +168,20 @@ public class PlantSeed : MonoBehaviour
         }
     }
 
+    public void PlantsTerinfeksi()
+    {
+        if (isInsect &&insectTime > 2)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            insectTime++;
+        }
+    }
+
+    public void DestroyPlant()
+    {
+        Destroy(gameObject);
+    }
 }
