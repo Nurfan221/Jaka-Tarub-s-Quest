@@ -188,6 +188,11 @@ public class Player_Action : MonoBehaviour
             StartCoroutine(HandleUICD(PlayerUI.Instance.specialAttackUI, Player_Inventory.Instance.equippedWeapon.SpecialAttackCD));
         }
     }
+    IEnumerator HandleSpecialAttackCD(float dur)
+    {
+        yield return new WaitForSeconds(dur);
+        canSpecialAttack = true;
+    }
 
     private void OnUseButtonClick()
     {
@@ -224,11 +229,7 @@ public class Player_Action : MonoBehaviour
     }
 
 
-    IEnumerator HandleSpecialAttackCD(float dur)
-    {
-        yield return new WaitForSeconds(dur);
-        canSpecialAttack = true;
-    }
+   
 
 
 
@@ -477,7 +478,7 @@ public class Player_Action : MonoBehaviour
             // check if rock depleted after use then remove as equipped then remove from inventory
             if (Player_Inventory.Instance.equippedWeapon.stackCount == 1)
             {
-                Player_Inventory.Instance.EquipItem(ItemPool.Instance.GetItem("Empty"), 1);
+                Player_Inventory.Instance.EquipItem(ItemPool.Instance.GetItem("Empty"));
             }
 
             // minus rock count
@@ -559,14 +560,14 @@ public class Player_Action : MonoBehaviour
                 PlayActionAnimation(itemToAttack.itemName);
                 // Panggil HoeTile menggunakan playerPosition dan arah face
             }
-            else if (itemToAttack.itemName == "Pedang Ren")
+            else if (itemToAttack.itemName == "Sword")
             {
 
-                print("buffing");
-                // Buff
-                buffParticle.Play();
-                StartCoroutine(StartBuff_PedangRen(30));
-                StartCoroutine(ActivateAttack(1));
+                //print("buffing");
+                //// Buff
+                //buffParticle.Play();
+                //StartCoroutine(StartBuff_PedangRen(30));
+                //StartCoroutine(ActivateAttack(1));
 
             }
             else if (itemToAttack.itemName == "Ranting Pohon")
@@ -575,10 +576,6 @@ public class Player_Action : MonoBehaviour
                 //ActivateHitbox(itemToAttack.Damage * 4, itemToAttack.AreaOfEffect, 1, true);
                 StartCoroutine(ActivateAttack(1));
 
-            }
-            else if (itemToAttack.types == ItemType.Melee_Combat)
-            {
-                print("No Special Attack");
             }
             else if (itemToAttack.itemName == "Batu")
             {
@@ -632,12 +629,12 @@ public class Player_Action : MonoBehaviour
     }
 
     #region WEAPON_SPECIFIC
-    IEnumerator StartBuff_PedangRen(float dur)
-    {
-        damageMult *= 2;
-        yield return new WaitForSeconds(dur);
-        damageMult /= 2;
-    }
+    //IEnumerator StartBuff_PedangRen(float dur)
+    //{
+    //    damageMult *= 2;
+    //    yield return new WaitForSeconds(dur);
+    //    damageMult /= 2;
+    //}
 
     IEnumerator ShootProjectile(GameObject prefab, int damage, float delay = 0)
     {

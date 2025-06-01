@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,6 +41,7 @@ public class Player_Inventory : MonoBehaviour
     public Button inventoryButton;  // Drag and drop the button in the inspector
     public Button closeInventoryButton;  // Drag and drop the close button in the inspector
 
+    
    
 
     private void Awake()
@@ -102,6 +105,9 @@ public class Player_Inventory : MonoBehaviour
         {
             Debug.LogError("switchUseItemImage is not assigned.");
         }
+
+        equippedCombat[0] = emptyItem;
+        equippedCombat[1] = emptyItem;
     }
 
    private void Update()
@@ -239,13 +245,6 @@ public class Player_Inventory : MonoBehaviour
         PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().UpdateInventoryUI();
     }
 
-
-
-
-
-
-
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Cek apakah objek yang disentuh memiliki tag "ItemDrop"
@@ -356,17 +355,34 @@ public class Player_Inventory : MonoBehaviour
         return ItemPool.Instance.GetItem("Empty");
     }
 
-    public void EquipItem(Item item, int index)
+    public void EquipItem(Item item)
     {
         if (!itemList.Exists(x => x.itemName == item.itemName) && item.itemName != "Empty")
+            
             return;
 
-        equippedCombat[index] = item;
-        PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().SetActiveItem(index, item);
-        if (item.itemName != "Empty")
+        if (equippedCombat[0] == emptyItem)
         {
-            PlayerUI.Instance.UpdateCapacityBar(item);
+            equippedCombat[0] = item;
+            PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().SetActiveItem(0, item);
+            if (item.itemName != "Empty")
+            {
+                PlayerUI.Instance.UpdateCapacityBar(item);
+            }
+        }else
+        {
+            equippedCombat[1] = item;
+            PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().SetActiveItem(1, item);
+            if (item.itemName != "Empty")
+            {
+                PlayerUI.Instance.UpdateCapacityBar(item);
+            }
         }
+
+        // Hapus item yang sudah dipasang dari itemList
+        itemList.Remove(item);
+        inventoryUI.RefreshInventoryItems();
+        inventoryUI.UpdateSixItemDisplay();
         print(item.itemName + " equipped");
     }
 
@@ -437,6 +453,7 @@ public class Player_Inventory : MonoBehaviour
         meleeOrRanged = !meleeOrRanged;
         UpdateEquippedWeaponUI();
         Debug.Log("Weapon Toggle");
+        
     }
     // Fungsi untuk mengganti item yang dapat digunakan
     public void ToggleUseItem()
@@ -476,7 +493,7 @@ public class Player_Inventory : MonoBehaviour
          // Jika slot 0 (melee/ranged) kosong, set default sprite
        if (equippedCombat[0] == null)
         {
-            Debug.Log("Item is not equipped in slot 0");
+            //Debug.Log("Item is not equipped in slot 0");
             if (PlayerUI.Instance != null && PlayerUI.Instance.equippedUI != null)
             {
                 if (playerAction != null)
@@ -491,7 +508,7 @@ public class Player_Inventory : MonoBehaviour
         // Jika slot 1 kosong, set default sprite
         else if (equippedCombat[1] == null)
         {
-            Debug.Log("Item is not equipped in slot 1");
+            //Debug.Log("Item is not equipped in slot 1");
             if (PlayerUI.Instance != null && PlayerUI.Instance.equippedUI != null)
             {
                  if (playerAction != null)
@@ -501,7 +518,8 @@ public class Player_Inventory : MonoBehaviour
                     }
             }
         }
-         
+        PlayerUI.Instance.UpdateCapacityBar(equippedWeapon); ;
+
     }
 
     private void UpdateItemUseUI()

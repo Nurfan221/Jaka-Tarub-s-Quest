@@ -19,8 +19,8 @@ public class PlayerUI : MonoBehaviour
     public Image itemUseUI;
     public Button actionInputButton;
     public GameObject inventoryUI;
-
-
+    public Button weaponSlider;  // Slider untuk memilih senjata
+    public Button itemSlider; // slider untuk mengganti item 
     private void Awake()
     {
         if (Instance == null)
@@ -47,34 +47,31 @@ public class PlayerUI : MonoBehaviour
 
         public void UpdateCapacityBar(Item item)
         {
-        capacityUseItem.gameObject.SetActive(true);
-        Image capacityBarImage = capacityUseItem.Find("KapacityBar").GetComponent<Image>();
-        if (capacityBarImage != null)
+            capacityUseItem.gameObject.SetActive(true);
+            Image capacityBarImage = capacityUseItem.Find("KapacityBar").GetComponent<Image>();
+            if (capacityBarImage != null)
             {
-            Debug.Log("Target Image: " + capacityBarImage.name);
-            foreach (var itemToFilmount in playerInventory.itemList)
+                Debug.Log("Target Image: " + capacityBarImage.name);
+                if (item.itemName == playerInventory.equippedWeapon.itemName)
                 {
-                    if (item.itemName == itemToFilmount.itemName)
-                    {
-                        capacityBarImage.fillAmount = itemToFilmount.health / itemToFilmount.maxhealth;
-                        Debug.Log("sisa health sekarang : " + itemToFilmount.health);
-                    }
+                    capacityBarImage.fillAmount = playerInventory.equippedWeapon.health / playerInventory.equippedWeapon.maxhealth;
+                    Debug.Log("sisa health sekarang : " + playerInventory.equippedWeapon.health);
                 }
-            }else
-            {
-            Debug.Log("capacity bar image tidak di temukan ");
             }
         }
 
         public void TakeCapacityBar( Item item)
         {
-            foreach (var itemInInventory in playerInventory.itemList)
-            {
-                if(item.itemName == itemInInventory.itemName)
-                {
-                    itemInInventory.health -= 1;
-                    UpdateCapacityBar(itemInInventory);
-                }
-            }
+        Debug.Log("health item di kurangi");
+        if (item.itemName == playerInventory.equippedWeapon.itemName)
+        {
+            playerInventory.equippedWeapon.health -= 1;
+            UpdateCapacityBar(playerInventory.equippedWeapon);
         }
+        else
+        {
+
+            Debug.Log("item tidak di temukan " + "item di kirim  : " + item.itemName + "item di equippedWeapon : " + playerInventory.equippedWeapon.itemName);
+        }
+    }
 }

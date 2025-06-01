@@ -291,20 +291,14 @@ public class InventoryUI : MonoBehaviour
 
         switch (item.types)
         {
-            case ItemType.Melee_Combat:
+            case ItemType.Melee_Combat :
                 itemAction.onClick.AddListener(() =>
                 {
-                    Player_Inventory.Instance.EquipItem(item, 0);
+                    Player_Inventory.Instance.EquipItem(item);
                     // SoundManager.Instance.PlaySound("PickUp");
                 });
                 break;
-            case ItemType.Ranged_Combat:
-                itemAction.onClick.AddListener(() =>
-                {
-                    Player_Inventory.Instance.EquipItem(item, 1);
-                    // SoundManager.Instance.PlaySound("PickUp");
-                });
-                break;
+            
             case ItemType.Heal:
                 itemAction.onClick.AddListener(() =>
                 {
@@ -372,6 +366,7 @@ public class InventoryUI : MonoBehaviour
     public void RisetEquippedUse(int index)
     {
         Debug.Log("Equipped item di-reset: " + index);
+        player_Inventory.itemList.Add(player_Inventory.equippedCombat[index]);
         player_Inventory.equippedCombat[index] = player_Inventory.emptyItem;
 
         Image itemImage = (index == 0) ?
@@ -380,6 +375,8 @@ public class InventoryUI : MonoBehaviour
 
         itemImage.sprite = null; // Hapus sprite
         itemImage.gameObject.SetActive(false);
+        RefreshInventoryItems();
+        UpdateSixItemDisplay();
     }
 
     // **7️⃣ Fungsi untuk Mereset Quick Slot**
