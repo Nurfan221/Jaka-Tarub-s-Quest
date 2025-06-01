@@ -117,6 +117,9 @@ public class ItemPool : MonoBehaviour
         newItem.prefabItem = item.prefabItem;
         newItem.growthTime = item.growthTime;
         newItem.dropItem = item.dropItem;
+        newItem.buffSprint = item.buffSprint;
+        newItem.buffDamage = item.buffDamage;
+        newItem.buffProtection = item.buffProtection;
 
         // Membuat salinan array (Jika ada array atau objek lainnya)
         newItem.growthImages = item.growthImages.ToArray();  // Membuat salinan dari array

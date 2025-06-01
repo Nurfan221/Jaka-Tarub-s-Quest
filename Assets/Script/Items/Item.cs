@@ -49,6 +49,12 @@ public class Item : ScriptableObject
     public int QuantityFuel;
     public float maxhealth;
     public float health; //deklarasikan health untuk menentukan berapa kali item di gunakan
+    public int buffDamage;
+    public int countHeal;
+    public int buffSprint;
+    public int buffProtection;
+    public int timeBuff;
+
 
     // Combat Item
     [Header("COMBAT")]

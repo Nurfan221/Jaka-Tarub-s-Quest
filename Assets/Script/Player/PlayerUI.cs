@@ -51,11 +51,11 @@ public class PlayerUI : MonoBehaviour
             Image capacityBarImage = capacityUseItem.Find("KapacityBar").GetComponent<Image>();
             if (capacityBarImage != null)
             {
-                Debug.Log("Target Image: " + capacityBarImage.name);
+                //Debug.Log("Target Image: " + capacityBarImage.name);
                 if (item.itemName == playerInventory.equippedWeapon.itemName)
                 {
                     capacityBarImage.fillAmount = playerInventory.equippedWeapon.health / playerInventory.equippedWeapon.maxhealth;
-                    Debug.Log("sisa health sekarang : " + playerInventory.equippedWeapon.health);
+                    //Debug.Log("sisa health sekarang : " + playerInventory.equippedWeapon.health);
                 }
             }
         }

@@ -20,6 +20,7 @@ public class Player_Inventory : MonoBehaviour
     [SerializeField] private Button switchUseItemImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     [SerializeField] public ContohFlipCard contohFlipCard;
     [SerializeField] PintuManager pintuManager;
+    [SerializeField] private BuffScrollController buffScrollController;
 
     public bool meleeOrRanged = true;
     public bool itemUse1 = true;
@@ -420,13 +421,7 @@ public class Player_Inventory : MonoBehaviour
         print("using quick slot " + (which - 1));
         item = itemList.Find(x => x.itemName == item.itemName);
         item.stackCount--;
-        if (item.stackCount <= 0)
-        {
-            // SoundManager.Instance.PlaySound("Eat");
-
-            itemList.Remove(item);
-            AddQuickSlot(emptyItem, which - 1);
-        }
+        
 
         // Have its effect
         switch (item.types)
@@ -435,16 +430,44 @@ public class Player_Inventory : MonoBehaviour
                 // Heal Player
                 print("HEALED");
                 healParticle.Play();
-                Player_Health.Instance.Heal(10);
+                
                 break;
 
             case ItemType.Buff:
                 // Buff player
-                print("BUFFED");
+                Debug.Log("Buff Damage : " + item.buffDamage);
+                Debug.Log("Buff Protection : " + item.buffProtection);
+                Debug.Log("Buff Sprint : " + item.buffSprint);
+                if (item.buffDamage > 0)
+                {
+                    buffScrollController.GetBuff(0);
+
+                }
+                else if (item.buffProtection > 0)
+                {
+                    buffScrollController.GetBuff(1);
+                }
+                else if (item.buffSprint < 0)
+                {
+                    buffScrollController.GetBuff(2);
+                }
                 break;
 
             default: break;
         }
+
+        if (item.stackCount <= 0)
+        {
+            // SoundManager.Instance.PlaySound("Eat");
+
+            itemList.Remove(item);
+            AddQuickSlot(emptyItem, which - 1);
+        }
+    }
+
+    public void GetHealandBuff(Item item)
+    {
+        Player_Health.Instance.Heal(item.countHeal);
     }
 
       // Fungsi untuk mengganti senjata
