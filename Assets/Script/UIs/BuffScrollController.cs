@@ -14,11 +14,30 @@ public class BuffScrollController : MonoBehaviour
     public int maxBuffsInView = 3; // Jumlah maksimal buff yang bisa dilihat (misalnya 5)
     private bool isScrolling = false;
     [Header("logika buff")]
-    public bool isBuffDamage;
-    public bool isBuffProtection;
-    public bool buffSprint;
     public Image[] imageBuff;
-    
+    [Header("buff damage")]
+    public int jumlahBuffDamage;
+    public float waktuActiveBuffDamage;
+    public float sisaWaktuActiveBuffDamage;
+    public bool isBuffDamage;
+   
+
+    [Header("buff protection")]
+    public int jumlahBuffProtection;
+    public float waktuActiveBuffProtection;
+    public float sisaWaktuActiveBuffProtection;
+    public bool isBuffProtection;
+
+    [Header("buff sprint")]
+    public int jumlahBuffSprint;
+    public float waktuActiveBuffSprint;
+    public float sisaWaktuActiveBuffSprint;
+    public bool isBuffSprint;
+
+
+    [Header("Daftar Hubungan")]
+    [SerializeField] Player_Health player_Health;
+
 
     void Start()
     {
@@ -61,21 +80,103 @@ public class BuffScrollController : MonoBehaviour
         }
     }
 
-    public void GetBuff(int valueBuff)
+    public void GetBuff(Item item)
     {
-        switch(valueBuff)
+        // Mengecek Buff Damage
+        if (item.buffDamage > 0)
         {
-            case 0:
-                Debug.Log("Buff Damage");
-                break;
-            case 1:
-                Debug.Log("Buff Protection");
-                break;
-            case 2:
-                Debug.Log("Buff Sprint");
-                break;
-            default:
-                break;
+            isBuffDamage = true;
+            jumlahBuffDamage = item.buffDamage;
+            waktuActiveBuffDamage = item.waktuBuffDamage;
+            imageBuff[0].gameObject.SetActive(true);
+        }
+
+        // Mengecek Buff Protection
+        if (item.buffProtection > 0)
+        {
+            isBuffProtection = true;
+            jumlahBuffProtection = item.buffProtection;
+            waktuActiveBuffProtection = item.waktuBuffProtection;
+            imageBuff[1].gameObject.SetActive(true);
+        }
+
+        // Mengecek Buff Sprint
+        if (item.buffSprint > 0)
+        {
+            isBuffSprint = true;
+            jumlahBuffSprint = item.buffSprint;
+            waktuActiveBuffSprint = item.waktuBuffSprint;
+            imageBuff[2].gameObject.SetActive(true);
+        }
+
+        // Mengecek Heal
+        if (item.countHeal > 0)
+        {
+            Debug.Log("Heal effect triggered");
+            player_Health.Heal(item.countHeal, item.countStamina); // Menyembuhkan player
+        }
+
+        
+
+        // Jika ada efek Buff yang aktif, proses yang sesuai
+        if (isBuffDamage)
+        {
+            Debug.Log("Buff Damage applied");
+        }
+
+        if (isBuffProtection)
+        {
+            Debug.Log("Buff Protection applied");
+        }
+
+        if (isBuffSprint)
+        {
+            Debug.Log("Buff Sprint applied");
         }
     }
+
+    // Fungsi untuk mengurangi waktu sisa aktif buff
+    public void UpdateBuffTime()
+    {
+        // Pengecekan untuk Buff Damage
+        if (isBuffDamage)
+        {
+            sisaWaktuActiveBuffDamage++;
+            if (sisaWaktuActiveBuffDamage >= waktuActiveBuffDamage)
+            {
+                isBuffDamage = false;
+                sisaWaktuActiveBuffDamage = 0;
+                waktuActiveBuffDamage = 0;
+                imageBuff[0].gameObject.SetActive(false); // Menyembunyikan gambar Buff Damage
+            }
+        }
+
+        // Pengecekan untuk Buff Protection
+        if (isBuffProtection)
+        {
+            sisaWaktuActiveBuffProtection++;
+            if (sisaWaktuActiveBuffProtection >= waktuActiveBuffProtection)
+            {
+                isBuffProtection = false;
+                sisaWaktuActiveBuffProtection = 0;
+                waktuActiveBuffProtection = 0;
+                imageBuff[2].gameObject.SetActive(false); // Menyembunyikan gambar Buff Protection
+            }
+        }
+
+        // Pengecekan untuk Buff Sprint
+        if (isBuffSprint)
+        {
+            sisaWaktuActiveBuffSprint++;
+            if (sisaWaktuActiveBuffSprint >= waktuActiveBuffSprint)
+            {
+                isBuffSprint = false;
+                sisaWaktuActiveBuffSprint = 0;
+                waktuActiveBuffSprint = 0;
+                imageBuff[3].gameObject.SetActive(false); // Menyembunyikan gambar Buff Sprint
+            }
+        }
+    }
+
+
 }

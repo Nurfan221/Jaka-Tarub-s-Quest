@@ -108,11 +108,21 @@ public class Player_Health : MonoBehaviour
         }
     }
 
-    public void Heal(int amount)
+    public void Heal(int amount, int countStamina)
     {
         int currentHealthCap = isInGrief ? emotionalHealthCap : maxHealth;
+        int currentStaminaCap = isInGrief ? emotionalStaminaCap : maxStamina;
+
+        // Log untuk melihat nilai stamina sebelum dan sesudah
+        Debug.Log($"Stamina sebelum heal: {stamina}");
+        Debug.Log($"Tambah stamina: {countStamina}");
+
         health = Mathf.Clamp(health + amount, 0, currentHealthCap);
+        currentMaxStamina = Mathf.Clamp(currentMaxStamina + countStamina, 0, currentStaminaCap);
+
+        Debug.Log($"Stamina setelah heal: {stamina}");
     }
+
 
     public bool SpendStamina(float exhaust)
     {

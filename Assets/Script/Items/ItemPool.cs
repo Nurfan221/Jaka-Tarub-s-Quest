@@ -120,6 +120,11 @@ public class ItemPool : MonoBehaviour
         newItem.buffSprint = item.buffSprint;
         newItem.buffDamage = item.buffDamage;
         newItem.buffProtection = item.buffProtection;
+        newItem.countHeal = item.countHeal;
+        newItem.countStamina = item.countStamina;
+        newItem.waktuBuffDamage = item.waktuBuffDamage;
+        newItem.waktuBuffProtection = item.waktuBuffProtection;
+        newItem.waktuBuffSprint = item.waktuBuffSprint;
 
         // Membuat salinan array (Jika ada array atau objek lainnya)
         newItem.growthImages = item.growthImages.ToArray();  // Membuat salinan dari array

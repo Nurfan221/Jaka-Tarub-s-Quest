@@ -22,7 +22,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] EnvironmentManager environmentManagerTrees;
     [SerializeField] EnvironmentManager environmentManagerJamur;
     [SerializeField] EnvironmentManager environmentManagerBunga;
-
+    [SerializeField] BuffScrollController buffScrollController;
     [Header("Date & Time settings")]
     public int totalHari = 1;
     public int hari = 1;
@@ -83,7 +83,8 @@ public class TimeManager : MonoBehaviour
 
         if (hour >= 6 && hour <= 24)
         {
-             //npcManager.StartSchedule();
+            //npcManager.StartSchedule();
+            
         }
     }
 
@@ -96,6 +97,12 @@ public class TimeManager : MonoBehaviour
             minutes -= 60;
             hour++;
             OnHourChanged?.Invoke(hour); // Memanggil event saat jam berubah
+            if (buffScrollController.isBuffDamage || buffScrollController.isBuffSprint || buffScrollController.isBuffProtection)
+            {
+                buffScrollController.UpdateBuffTime();
+            }
+
+           
         }
 
         if (hour >= 24)

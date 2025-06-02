@@ -33,19 +33,19 @@ public class ForestController : MonoBehaviour
     {
         GameController.Instance.ResumeGame();
 
-        if (!GameController.NewGame)
-            GameController.Instance.LoadGame();
+        //if (!GameController.NewGame)
+        //    //GameController.Instance.LoadGame();
 
-        // player = GameObject.FindGameObjectWithTag("Player").transform;
-        // if (!GameEventSystem.Instance.DoneFirstNarration)
-        // {
-        //     DialogueSystem.Instance.StartFirstDialogue();
-        // }
-        else
-        {
-            if (GameController.Instance.fromPortal)
-                player.position = playerSpawnSpot.position;
-        }
+        //// player = GameObject.FindGameObjectWithTag("Player").transform;
+        //// if (!GameEventSystem.Instance.DoneFirstNarration)
+        //// {
+        ////     DialogueSystem.Instance.StartFirstDialogue();
+        //// }
+        //else
+        //{
+        //    if (GameController.Instance.fromPortal)
+        //        player.position = playerSpawnSpot.position;
+        //}
     }
 
     // Update is called once per frame

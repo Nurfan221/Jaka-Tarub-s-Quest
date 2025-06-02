@@ -48,11 +48,11 @@ public class GameController : MonoBehaviour
         {
             GameData newGameData = new(true);
             newGameData.ResetGameData();
-            LoadGame(newGameData);
+            //LoadGame(newGameData);
         }
         else
         {
-            LoadGame();
+            //LoadGame();
         }
         InitializePlayer();
 
@@ -175,76 +175,76 @@ public class GameController : MonoBehaviour
     }
 
     [ContextMenu("Load Game")]
-    public void LoadGame(GameData theData = null)
-    {
-        Debug.Log("Loading Game");
-        GameData data = theData ?? SaveSystem.LoadData();
-        Player_Inventory inventory = Player_Inventory.Instance;
+    //public void LoadGame(GameData theData = null)
+    //{
+    //    Debug.Log("Loading Game");
+    //    GameData data = theData ?? SaveSystem.LoadData();
+    //    Player_Inventory inventory = Player_Inventory.Instance;
 
-        playerName = data.playerName;
+    //    playerName = data.playerName;
 
-        LatestMap = data.LatestMap;
-        latestPlayerPos = new(data.playerPos[0], data.playerPos[1]);
+    //    LatestMap = data.LatestMap;
+    //    latestPlayerPos = new(data.playerPos[0], data.playerPos[1]);
 
-        inventory.itemList = new();
-        foreach (GameData.SimpleItem item in data.PlayerInventory_ItemNameAndCount)
-        {
-            inventory.AddItem(ItemPool.Instance.GetItem(item.itemName, item.stackCount, item.level));
-        }
+    //    inventory.itemList = new();
+    //    foreach (GameData.SimpleItem item in data.PlayerInventory_ItemNameAndCount)
+    //    {
+    //        inventory.AddItem(ItemPool.Instance.GetItem(item.itemName, item.stackCount, item.level));
+    //    }
 
-        //inventory.EquipItem(inventory.FindItemInInventory(data.PlayerInventory_ActiveItemAndCount[0].itemName), 0);
-        //inventory.EquipItem(inventory.FindItemInInventory(data.PlayerInventory_ActiveItemAndCount[1].itemName), 1);
-        inventory.AddQuickSlot(inventory.FindItemInInventory(data.PlayerInventory_ActiveItemAndCount[2].itemName), 0);
-        inventory.AddQuickSlot(inventory.FindItemInInventory(data.PlayerInventory_ActiveItemAndCount[3].itemName), 1);
+    //    inventory.EquipItem(inventory.FindItemInInventory(data.PlayerInventory_ActiveItemAndCount[0].itemName));
+    //    inventory.EquipItem(inventory.FindItemInInventory(data.PlayerInventory_ActiveItemAndCount[1].itemName));
+    //    inventory.AddQuickSlot(inventory.FindItemInInventory(data.PlayerInventory_ActiveItemAndCount[2].itemName), 0);
+    //    inventory.AddQuickSlot(inventory.FindItemInInventory(data.PlayerInventory_ActiveItemAndCount[3].itemName), 1);
 
-        // Load storage items to each storage container
-        if (StorageSystem.Instance != null)
-        {
-            foreach (KeyValuePair<int, List<GameData.SimpleItem>> ele in data.Storages_ItemNameAndCount)
-            {
-                StorageSystem.Instance.storages[ele.Key].Items = new();
-                List<Item> storage = StorageSystem.Instance.storages[ele.Key].Items;
-                foreach (GameData.SimpleItem item in ele.Value)
-                {
-                    storage.Add(ItemPool.Instance.GetItem(item.itemName, item.stackCount, item.level));
-                }
-            }
-        }
+    //    // Load storage items to each storage container
+    //    if (StorageSystem.Instance != null)
+    //    {
+    //        foreach (KeyValuePair<int, List<GameData.SimpleItem>> ele in data.Storages_ItemNameAndCount)
+    //        {
+    //            StorageSystem.Instance.storages[ele.Key].Items = new();
+    //            List<Item> storage = StorageSystem.Instance.storages[ele.Key].Items;
+    //            foreach (GameData.SimpleItem item in ele.Value)
+    //            {
+    //                storage.Add(ItemPool.Instance.GetItem(item.itemName, item.stackCount, item.level));
+    //            }
+    //        }
+    //    }
 
-        if (data.currentQuest != string.Empty)
+    //    if (data.currentQuest != string.Empty)
 
 
-        // GameEventSystem.Instance.DoneFirstNarration = data.gameEvent_DoneFirstNarration;
-        // GameEventSystem.Instance.DoneDialogue_TamashiiGiveName = data.gameEvent_DoneDialogue_1;
-        // GameEventSystem.Instance.DoneDialogue_DanauPertamaKeDesa = data.gameEvent_DoneDialogue_2;
-        // GameEventSystem.Instance.DoneDialogue_FirstDesaWarga = data.gameEvent_DoneDialogue_3;
-        // GameEventSystem.Instance.DoneDialogue_FirstKakRen = data.gameEvent_DoneDialogue_4;
-        // GameEventSystem.Instance.DoneDialogue_FirstBandit = data.gameEvent_DoneDialogue_5;
-        // GameEventSystem.Instance.DoneDialogue_FirstBanditDone = data.gameEvent_DoneDialogue_6;
-        // GameEventSystem.Instance.DoneDialogue_FinshDialogue = data.gameEvent_DoneDialogue_7;
+    //    // GameEventSystem.Instance.DoneFirstNarration = data.gameEvent_DoneFirstNarration;
+    //    // GameEventSystem.Instance.DoneDialogue_TamashiiGiveName = data.gameEvent_DoneDialogue_1;
+    //    // GameEventSystem.Instance.DoneDialogue_DanauPertamaKeDesa = data.gameEvent_DoneDialogue_2;
+    //    // GameEventSystem.Instance.DoneDialogue_FirstDesaWarga = data.gameEvent_DoneDialogue_3;
+    //    // GameEventSystem.Instance.DoneDialogue_FirstKakRen = data.gameEvent_DoneDialogue_4;
+    //    // GameEventSystem.Instance.DoneDialogue_FirstBandit = data.gameEvent_DoneDialogue_5;
+    //    // GameEventSystem.Instance.DoneDialogue_FirstBanditDone = data.gameEvent_DoneDialogue_6;
+    //    // GameEventSystem.Instance.DoneDialogue_FinshDialogue = data.gameEvent_DoneDialogue_7;
 
-        if (VillageController.Instance != null)
-        {
-            if (data.pedangKakRen)
-                Destroy(VillageController.Instance.PedangKakRen);
-        }
+    //    if (VillageController.Instance != null)
+    //    {
+    //        if (data.pedangKakRen)
+    //            Destroy(VillageController.Instance.PedangKakRen);
+    //    }
 
-        if (ForestController.Instance != null)
-        {
-            var theForest = ForestController.Instance;
+    //    if (ForestController.Instance != null)
+    //    {
+    //        var theForest = ForestController.Instance;
 
-            if (data.quanta_pedang)
-                Destroy(theForest.QUEST_GagangPedang);
-            if (data.quanta_tongkat)
-                Destroy(theForest.QUEST_Tongkat);
-            if (data.quanta_perisai)
-                Destroy(theForest.QUEST_Perisai);
-            if (data.quanta_armor)
-                Destroy(theForest.QUEST_Armor);
-            if (data.quanta_buku)
-                Destroy(theForest.QUEST_Buku);
-        }
-    }
+    //        if (data.quanta_pedang)
+    //            Destroy(theForest.QUEST_GagangPedang);
+    //        if (data.quanta_tongkat)
+    //            Destroy(theForest.QUEST_Tongkat);
+    //        if (data.quanta_perisai)
+    //            Destroy(theForest.QUEST_Perisai);
+    //        if (data.quanta_armor)
+    //            Destroy(theForest.QUEST_Armor);
+    //        if (data.quanta_buku)
+    //            Destroy(theForest.QUEST_Buku);
+    //    }
+    //}
 
     public void GoToMainMenu()
     {

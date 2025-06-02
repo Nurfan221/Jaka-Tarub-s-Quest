@@ -33,8 +33,8 @@ public class VillageController : MonoBehaviour
         if (GameController.Instance.fromPortal)
             player.position = playerSpawnSpot.position;
 
-        if (!GameController.NewGame)
-            GameController.Instance.LoadGame();
+        //if (!GameController.NewGame)
+        //    GameController.Instance.LoadGame();
 
 
 

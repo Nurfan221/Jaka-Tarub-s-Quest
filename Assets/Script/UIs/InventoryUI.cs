@@ -15,14 +15,16 @@ public class InventoryUI : MonoBehaviour
 
 
     [Header("Active Slot")]
-    [SerializeField] Transform equippedItem1;
-    [SerializeField] Transform equippedItem2;
-    [SerializeField] Transform quickSlot1;
-    [SerializeField] Transform quickSlot2;
+    public Transform equippedItem1;
+    public Transform equippedItem2;
+    public Transform quickSlot1;
+    public TMP_Text jumlahQuickItem1;
+    public Transform quickSlot2;
+    public TMP_Text jumlahQuickItem2;
 
     [Header("UI STUFF")]
-    [SerializeField] Transform ContentGO;
-    [SerializeField] Transform SlotTemplate;
+    public Transform ContentGO;
+    public Transform SlotTemplate;
 
     [Header("Button")]
     public Button openCraft;
@@ -30,14 +32,14 @@ public class InventoryUI : MonoBehaviour
     public Button btnHapus;
 
     [Header("Item Description")]
-    [SerializeField] Image itemSprite;
-    [SerializeField] TMP_Text itemName;
-    [SerializeField] TMP_Text itemDesc;
-    [SerializeField] Button itemAction;
+    public Image itemSprite;
+    public TMP_Text itemName;
+    public TMP_Text itemDesc;
+    public Button itemAction;
 
     [Header("Six Item Display")]
-    [SerializeField] Transform ContentGO6; // New UI Content for 6 items
-    [SerializeField] Transform SlotTemplate6; // New UI Slot Template for 6 items
+    public Transform ContentGO6; // New UI Content for 6 items
+    public Transform SlotTemplate6; // New UI Slot Template for 6 items
 
     [SerializeField] public ContohFlipCard contohFlipCard;
 
@@ -99,7 +101,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
- 
+
 
 
     // private void update()
@@ -125,13 +127,20 @@ public class InventoryUI : MonoBehaviour
         {
             case 0: pickedSlot = equippedItem1; break;
             case 1: pickedSlot = equippedItem2; break;
-            case 2: pickedSlot = quickSlot1; break;
-            case 3: pickedSlot = quickSlot2; break;
+            case 2: pickedSlot = quickSlot1;
+                jumlahQuickItem1.text = item.stackCount.ToString(); 
+                jumlahQuickItem1.gameObject.SetActive(true);
+                break;
+            case 3: pickedSlot = quickSlot2;
+                jumlahQuickItem2.text = item.stackCount.ToString();
+                jumlahQuickItem2 .gameObject.SetActive(true);
+                break;
             default: pickedSlot = equippedItem1; break;
         }
 
         pickedSlot.gameObject.GetComponentInChildren<Image>().sprite = item.sprite;
-        
+
+
         pickedSlot.gameObject.SetActive(true);
         //pickedSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
 
@@ -164,14 +173,17 @@ public class InventoryUI : MonoBehaviour
 
     void RefreshItemSlot(Transform slot, Item item)
     {
-        slot.gameObject.GetComponentInChildren<Image>().sprite = item.sprite;
+        if (item.sprite != null)
+        {
+            slot.gameObject.GetComponentInChildren<Image>().sprite = item.sprite;
+        }
 
         //slot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
     }
 
     public void SetInventory()
     {
-       
+
         // Jika item kosong, tidak perlu lanjutkan refresh
         if (player_Inventory.itemList == null || player_Inventory.itemList.Count == 0)
         {
@@ -186,6 +198,7 @@ public class InventoryUI : MonoBehaviour
 
     public void RefreshInventoryItems()
     {
+        //error
         RefreshActiveItems();
         foreach (Transform child in ContentGO)
         {
@@ -235,7 +248,7 @@ public class InventoryUI : MonoBehaviour
             return;
         }
 
-        if(player_Inventory.itemList.Count == 0)
+        if (player_Inventory.itemList.Count == 0)
         {
             return;
         }
@@ -291,14 +304,14 @@ public class InventoryUI : MonoBehaviour
 
         switch (item.types)
         {
-            case ItemType.Melee_Combat :
+            case ItemType.Melee_Combat:
                 itemAction.onClick.AddListener(() =>
                 {
                     Player_Inventory.Instance.EquipItem(item);
                     // SoundManager.Instance.PlaySound("PickUp");
                 });
                 break;
-            
+
             case ItemType.Heal:
                 itemAction.onClick.AddListener(() =>
                 {
@@ -379,10 +392,11 @@ public class InventoryUI : MonoBehaviour
         UpdateSixItemDisplay();
     }
 
-    // **7️⃣ Fungsi untuk Mereset Quick Slot**
+    //Fungsi untuk Mereset Quick Slot
     public void RisetQuickSlot(int index)
     {
         Debug.Log("Quick Slot di-reset: " + index);
+        player_Inventory.itemList.Add(player_Inventory.quickSlots[index]);
         player_Inventory.quickSlots[index] = player_Inventory.emptyItem;
 
         Image itemImage = (index == 0) ?
@@ -390,7 +404,16 @@ public class InventoryUI : MonoBehaviour
             quickSlot2.GetComponentInChildren<Image>();
 
         itemImage.sprite = null; // Hapus sprite
+        if (index == 0 )
+        {
+            jumlahQuickItem1.gameObject.SetActive(false);
+        }else
+        {
+            jumlahQuickItem2.gameObject.SetActive(false);
+        }
         itemImage.gameObject.SetActive(false);
+        RefreshInventoryItems();
+        UpdateSixItemDisplay();
     }
 
 }

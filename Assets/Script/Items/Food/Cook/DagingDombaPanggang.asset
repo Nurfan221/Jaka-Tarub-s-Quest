@@ -22,11 +22,13 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
   buffDamage: 0
-  countHeal: 0
+  waktuBuffSprint: 0
   buffSprint: 0
+  waktuBuffProtection: 4
   buffProtection: 4
-  timeBuff: 0
+  countHeal: 20
   Level: 0
   MaxLevel: 0
   Damage: 0

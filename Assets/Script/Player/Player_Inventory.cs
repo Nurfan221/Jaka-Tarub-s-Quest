@@ -21,6 +21,9 @@ public class Player_Inventory : MonoBehaviour
     [SerializeField] public ContohFlipCard contohFlipCard;
     [SerializeField] PintuManager pintuManager;
     [SerializeField] private BuffScrollController buffScrollController;
+    [SerializeField] private Player_Action playerAction;
+    [SerializeField] private InventoryUI inventoryUI;
+
 
     public bool meleeOrRanged = true;
     public bool itemUse1 = true;
@@ -32,8 +35,6 @@ public class Player_Inventory : MonoBehaviour
     public Item equippedItem;
     public List<Item> quickSlots = new List<Item>(2);
 
-    InventoryUI inventoryUI;
-    Player_Action playerAction;
      public bool inventoryOpened;
      public bool inventoryClosed;
     [SerializeField] MiniGameHewanUI miniGameHewanUI;
@@ -64,8 +65,7 @@ public class Player_Inventory : MonoBehaviour
 
     private void Start()
     {
-        inventoryUI = PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>();
-        Player_Action playerAction = FindObjectOfType<Player_Action>();
+     
         inventoryButton.onClick.AddListener(ToggleInventory); // Add listener to button
         closeInventoryButton.onClick.AddListener(CloseInventory); // Add listener to close button
 
@@ -109,6 +109,8 @@ public class Player_Inventory : MonoBehaviour
 
         equippedCombat[0] = emptyItem;
         equippedCombat[1] = emptyItem;
+        quickSlots[0] = emptyItem;
+        quickSlots[1] = emptyItem;
     }
 
    private void Update()
@@ -358,59 +360,97 @@ public class Player_Inventory : MonoBehaviour
 
     public void EquipItem(Item item)
     {
+        // Memastikan item ada dalam itemList dan bukan "Empty"
         if (!itemList.Exists(x => x.itemName == item.itemName) && item.itemName != "Empty")
-            
             return;
 
         if (equippedCombat[0] == emptyItem)
         {
+            // Jika slot pertama kosong, tambahkan item ke slot pertama
             equippedCombat[0] = item;
-            PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().SetActiveItem(0, item);
-            if (item.itemName != "Empty")
-            {
-                PlayerUI.Instance.UpdateCapacityBar(item);
-            }
-        }else
-        {
-            equippedCombat[1] = item;
-            PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().SetActiveItem(1, item);
+            inventoryUI.SetActiveItem(0, item);
             if (item.itemName != "Empty")
             {
                 PlayerUI.Instance.UpdateCapacityBar(item);
             }
         }
+        else
+        {
+            // Jika slot kedua tidak kosong
+            if (equippedCombat[1] != emptyItem)
+            {
+                // Tambahkan item sebelumnya yang ada di equippedCombat[1] kembali ke itemList
+                itemList.Add(equippedCombat[1]);
 
-        // Hapus item yang sudah dipasang dari itemList
+                // Ganti item di equippedCombat[1] dengan item baru
+                equippedCombat[1] = item;
+
+                // Update UI untuk slot kedua
+                inventoryUI.SetActiveItem(1, item);
+
+                if (item.itemName != "Empty")
+                {
+                    PlayerUI.Instance.UpdateCapacityBar(item);
+                }
+            }
+            else
+            {
+                // Jika slot kedua kosong, langsung tambahkan item baru ke slot kedua
+                equippedCombat[1] = item;
+                PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().SetActiveItem(1, item);
+
+                if (item.itemName != "Empty")
+                {
+                    PlayerUI.Instance.UpdateCapacityBar(item);
+                }
+            }
+        }
+
+        // Hapus item yang baru dipasang dari itemList
         itemList.Remove(item);
+
+        // Refresh UI inventory
         inventoryUI.RefreshInventoryItems();
         inventoryUI.UpdateSixItemDisplay();
+
         print(item.itemName + " equipped");
     }
+
 
     // Add item to quick slot according index (0,1)
     public void AddQuickSlot(Item item, int index)
     {
+        // Memastikan item ada dalam itemList dan bukan "Empty"
         if (!itemList.Exists(x => x.itemName == item.itemName) && item.itemName != "Empty")
             return;
 
-        switch (item.types)
+        // Jika slot yang dipilih sudah terisi, kembalikan item sebelumnya ke itemList
+        if (quickSlots[index] != null && quickSlots[index] != emptyItem)
         {
-            case ItemType.Heal:
-            case ItemType.Buff:
-                break;
-            default: break;
+            itemList.Add(quickSlots[index]); // Menambahkan item sebelumnya kembali ke itemList
         }
 
+        // Menambahkan item baru ke quickSlots pada index yang sesuai
         quickSlots[index] = item;
-        PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().SetActiveItem(index + 2, item);
-        print(item.itemName + "equipped");
+
+        // Menghapus item yang baru ditambahkan dari itemList
+        itemList.Remove(item);
+
+        // Refresh UI inventory dan memperbarui tampilan item
+        inventoryUI.RefreshInventoryItems();
+        inventoryUI.UpdateSixItemDisplay();
+
+        // Memperbarui UI dengan item baru di slot yang sesuai
+        inventoryUI.SetActiveItem(index + 2, item); // Menyesuaikan indeks untuk tampilan UI
+        print(item.itemName + " equipped");
     }
+
 
     // Use which quick slot (1,2)
     public void UseQuickSlot(int which)
     {
         // Making sure there is an item in the quick slot
-        Item item = quickSlots[which - 1];
+        Item item = quickSlots[which];
         if (item == null || item.itemName == "Empty")
         {
             print("No item bish");
@@ -418,9 +458,9 @@ public class Player_Inventory : MonoBehaviour
         }
 
         // Using them from inventory
-        print("using quick slot " + (which - 1));
-        item = itemList.Find(x => x.itemName == item.itemName);
+        print("using quick slot " + (which));
         item.stackCount--;
+        
         
 
         // Have its effect
@@ -430,27 +470,17 @@ public class Player_Inventory : MonoBehaviour
                 // Heal Player
                 print("HEALED");
                 healParticle.Play();
-                
+                inventoryUI.jumlahQuickItem1.text = item.stackCount.ToString();
+                buffScrollController.GetBuff(item);
                 break;
 
             case ItemType.Buff:
                 // Buff player
+                inventoryUI.jumlahQuickItem2.text = item.stackCount.ToString();
                 Debug.Log("Buff Damage : " + item.buffDamage);
                 Debug.Log("Buff Protection : " + item.buffProtection);
                 Debug.Log("Buff Sprint : " + item.buffSprint);
-                if (item.buffDamage > 0)
-                {
-                    buffScrollController.GetBuff(0);
-
-                }
-                else if (item.buffProtection > 0)
-                {
-                    buffScrollController.GetBuff(1);
-                }
-                else if (item.buffSprint < 0)
-                {
-                    buffScrollController.GetBuff(2);
-                }
+                buffScrollController.GetBuff(item);
                 break;
 
             default: break;
@@ -458,17 +488,12 @@ public class Player_Inventory : MonoBehaviour
 
         if (item.stackCount <= 0)
         {
-            // SoundManager.Instance.PlaySound("Eat");
-
-            itemList.Remove(item);
-            AddQuickSlot(emptyItem, which - 1);
+            
+            AddQuickSlot(emptyItem, which);
         }
     }
 
-    public void GetHealandBuff(Item item)
-    {
-        Player_Health.Instance.Heal(item.countHeal);
-    }
+    
 
       // Fungsi untuk mengganti senjata
     public void ToggleWeapon()

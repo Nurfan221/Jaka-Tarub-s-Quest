@@ -12,9 +12,11 @@ public class Player_Action : MonoBehaviour
      private Player_Inventory player_Inventory;
     [SerializeField] PlayerUI playerUI;
     [SerializeField] Player_Health playerHealth;
+    [SerializeField] BuffScrollController buffScrollController;
     public Animator animator; // Deklarasikan Animator
     [SerializeField] private Animator toolsAnimator;
     public SpriteRenderer hitBoxRenderer;
+
 
     private Coroutine stopAnimCoroutine;
 
@@ -205,7 +207,7 @@ public class Player_Action : MonoBehaviour
             if (player_inventory.quickSlots[0] != null && player_inventory.itemUse1)
             {
                 // Gunakan quick slot 1
-                Player_Inventory.Instance.UseQuickSlot(1);
+                player_inventory.UseQuickSlot(0);
                 StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
                 //Debug.Log("Menggunakan item dari quick slot 1");
             }
@@ -213,7 +215,7 @@ public class Player_Action : MonoBehaviour
             else if (player_inventory.quickSlots[1] != null)
             {
                 // Gunakan quick slot 2
-                Player_Inventory.Instance.UseQuickSlot(2);
+                player_inventory.UseQuickSlot(1);
                 StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
                 //Debug.Log("Menggunakan item dari quick slot 2");
             }
@@ -244,6 +246,14 @@ public class Player_Action : MonoBehaviour
 
         activeHitbox.SetActive(true);
         //StartCoroutine(DeactivateHitboxAfterAnimation(activeHitbox, howLong));
+
+        //logika menambahkan damage buff ke dalaam damage senjata
+        if (buffScrollController.isBuffDamage)
+        {
+            damage += buffScrollController.jumlahBuffDamage;
+        }
+
+        Debug.Log("Damage berjumlah : " + damage);
 
         DetectAndDamageObjects(actionType, damage);
     }
