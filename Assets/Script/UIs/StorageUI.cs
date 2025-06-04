@@ -553,6 +553,7 @@ public class StorageUI : MonoBehaviour
 
     private void StoreAllItems()
     {
+        popUp.gameObject.SetActive(false);
         Debug.Log("Memindahkan semua item dari inventory ke storage...");
 
         List<Item> itemsToRemove = new List<Item>(); // Menyimpan item yang akan dihapus dari inventory
@@ -612,6 +613,7 @@ public class StorageUI : MonoBehaviour
 
     private void TakeAllItems()
     {
+        popUp.gameObject.SetActive(false);
         Debug.Log("Mengambil semua item dari storage ke inventory...");
 
         List<Item> itemsToRemove = new List<Item>(); // Menyimpan item yang akan dihapus dari storage

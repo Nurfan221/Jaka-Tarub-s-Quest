@@ -5,6 +5,7 @@ using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Player_Inventory : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class Player_Inventory : MonoBehaviour
     [SerializeField] private BuffScrollController buffScrollController;
     [SerializeField] private Player_Action playerAction;
     [SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private PlayerUI playerUI;
+    [SerializeField] private SpesialSkillWeapon spesialSkillWeapon;
 
 
     public bool meleeOrRanged = true;
@@ -118,7 +121,7 @@ public class Player_Inventory : MonoBehaviour
         
 
             UpdateEquippedWeaponUI();
-            UpdateItemUseUI();
+        UpdateItemUseUI();
             // inventoryUI.UpdateSixItemDisplay();
 
              
@@ -134,7 +137,7 @@ public class Player_Inventory : MonoBehaviour
 
         inventoryOpened = !inventoryOpened;
         inventoryClosed = !inventoryOpened; // Update inventoryClosed
-        PlayerUI.Instance.inventoryUI.SetActive(inventoryOpened);
+        playerUI.inventoryUI.SetActive(inventoryOpened);
         contohFlipCard.IfClose();
 
         GameController.Instance.ShowPersistentUI(false);
@@ -190,7 +193,7 @@ public class Player_Inventory : MonoBehaviour
 
         inventoryOpened = false;
         inventoryClosed = true;
-        PlayerUI.Instance.inventoryUI.SetActive(false);
+        playerUI.inventoryUI.SetActive(false);
         GameController.Instance.ShowPersistentUI(true);
         GameController.Instance.ResumeGame();
     }
@@ -245,7 +248,7 @@ public class Player_Inventory : MonoBehaviour
         }
 
         // Update UI
-        PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().UpdateInventoryUI();
+        inventoryUI.UpdateInventoryUI();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -371,8 +374,10 @@ public class Player_Inventory : MonoBehaviour
             inventoryUI.SetActiveItem(0, item);
             if (item.itemName != "Empty")
             {
-                PlayerUI.Instance.UpdateCapacityBar(item);
+                playerUI.UpdateCapacityBar(item);
             }
+
+            //spesialSkillWeapon.UseWeaponSkill(item, false);
         }
         else
         {
@@ -390,19 +395,22 @@ public class Player_Inventory : MonoBehaviour
 
                 if (item.itemName != "Empty")
                 {
-                    PlayerUI.Instance.UpdateCapacityBar(item);
+                    playerUI.UpdateCapacityBar(item);
                 }
+
+                //spesialSkillWeapon.UseWeaponSkill(item, false);
             }
             else
             {
                 // Jika slot kedua kosong, langsung tambahkan item baru ke slot kedua
                 equippedCombat[1] = item;
-                PlayerUI.Instance.inventoryUI.GetComponent<InventoryUI>().SetActiveItem(1, item);
+                inventoryUI.SetActiveItem(1, item);
 
                 if (item.itemName != "Empty")
                 {
-                    PlayerUI.Instance.UpdateCapacityBar(item);
+                    playerUI.UpdateCapacityBar(item);
                 }
+                //spesialSkillWeapon.UseWeaponSkill(item, false);
             }
         }
 
@@ -425,10 +433,12 @@ public class Player_Inventory : MonoBehaviour
             return;
 
         // Jika slot yang dipilih sudah terisi, kembalikan item sebelumnya ke itemList
-        if (quickSlots[index] != null && quickSlots[index] != emptyItem)
+        if (quickSlots[index] != null && quickSlots[index] != emptyItem && quickSlots[index].itemName != "Empty" && quickSlots[index].stackCount > 0)
         {
-            itemList.Add(quickSlots[index]); // Menambahkan item sebelumnya kembali ke itemList
+            itemList.Add(quickSlots[index]);
+            Debug.Log("menambahkan item ke inventory");
         }
+
 
         // Menambahkan item baru ke quickSlots pada index yang sesuai
         quickSlots[index] = item;
@@ -477,9 +487,6 @@ public class Player_Inventory : MonoBehaviour
             case ItemType.Buff:
                 // Buff player
                 inventoryUI.jumlahQuickItem2.text = item.stackCount.ToString();
-                Debug.Log("Buff Damage : " + item.buffDamage);
-                Debug.Log("Buff Protection : " + item.buffProtection);
-                Debug.Log("Buff Sprint : " + item.buffSprint);
                 buffScrollController.GetBuff(item);
                 break;
 
@@ -500,6 +507,7 @@ public class Player_Inventory : MonoBehaviour
     {
         meleeOrRanged = !meleeOrRanged;
         UpdateEquippedWeaponUI();
+        spesialSkillWeapon.UseWeaponSkill(equippedWeapon, false);
         Debug.Log("Weapon Toggle");
         
     }
@@ -517,9 +525,10 @@ public class Player_Inventory : MonoBehaviour
         if (meleeOrRanged && equippedCombat[0] != null)
         {
             equippedWeapon = equippedCombat[0];
-            if (PlayerUI.Instance != null && PlayerUI.Instance.equippedUI != null)
+            
+            if (playerUI != null && playerUI.equippedUI != null)
             {
-                PlayerUI.Instance.equippedUI.sprite = equippedWeapon.sprite;
+                playerUI.equippedUI.sprite = equippedWeapon.sprite;
 
                 
 
@@ -529,9 +538,9 @@ public class Player_Inventory : MonoBehaviour
         else if (equippedCombat[1] != null)
         {
             equippedWeapon = equippedCombat[1];
-            if (PlayerUI.Instance != null && PlayerUI.Instance.equippedUI != null)
+            if (playerUI != null && playerUI.equippedUI != null)
             {
-                PlayerUI.Instance.equippedUI.sprite = equippedWeapon.sprite;
+                playerUI.equippedUI.sprite = equippedWeapon.sprite;
 
 
                
@@ -542,7 +551,7 @@ public class Player_Inventory : MonoBehaviour
        if (equippedCombat[0] == null)
         {
             //Debug.Log("Item is not equipped in slot 0");
-            if (PlayerUI.Instance != null && PlayerUI.Instance.equippedUI != null)
+            if (playerUI != null && playerUI.equippedUI != null)
             {
                 if (playerAction != null)
                     {
@@ -557,7 +566,7 @@ public class Player_Inventory : MonoBehaviour
         else if (equippedCombat[1] == null)
         {
             //Debug.Log("Item is not equipped in slot 1");
-            if (PlayerUI.Instance != null && PlayerUI.Instance.equippedUI != null)
+            if (playerUI != null && playerUI.equippedUI != null)
             {
                  if (playerAction != null)
                     {
@@ -566,7 +575,7 @@ public class Player_Inventory : MonoBehaviour
                     }
             }
         }
-        PlayerUI.Instance.UpdateCapacityBar(equippedWeapon); ;
+        playerUI.UpdateCapacityBar(equippedWeapon); ;
 
     }
 
@@ -575,17 +584,17 @@ public class Player_Inventory : MonoBehaviour
         if (itemUse1 && quickSlots[0] != null)
         {
             equippedItem = quickSlots[0];
-            if (PlayerUI.Instance != null && PlayerUI.Instance.itemUseUI != null)
+            if (playerUI != null && playerUI.itemUseUI != null)
             {
-                PlayerUI.Instance.itemUseUI.sprite = equippedItem.sprite;
+                playerUI.itemUseUI.sprite = equippedItem.sprite;
             }
         }
         else if (quickSlots[1] != null)
         {
             equippedItem = quickSlots[1];
-            if (PlayerUI.Instance != null && PlayerUI.Instance.itemUseUI != null)
+            if (playerUI != null && playerUI.itemUseUI != null)
             {
-                PlayerUI.Instance.itemUseUI.sprite = equippedItem.sprite;
+                playerUI.itemUseUI.sprite = equippedItem.sprite;
             }
         }
     }

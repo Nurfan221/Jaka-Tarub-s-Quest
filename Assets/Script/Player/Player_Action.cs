@@ -13,6 +13,7 @@ public class Player_Action : MonoBehaviour
     [SerializeField] PlayerUI playerUI;
     [SerializeField] Player_Health playerHealth;
     [SerializeField] BuffScrollController buffScrollController;
+    [SerializeField] SpesialSkillWeapon spesialSkillWeapon;
     public Animator animator; // Deklarasikan Animator
     [SerializeField] private Animator toolsAnimator;
     public SpriteRenderer hitBoxRenderer;
@@ -33,7 +34,7 @@ public class Player_Action : MonoBehaviour
     public Vector3 playerPosition;
 
     float specialAttackTimer;
-    bool canSpecialAttack = true;
+    public bool canSpecialAttack = true;
 
     //[SerializeField] GameObject swordFX;
     //[SerializeField] GameObject swordAOEFX;
@@ -144,16 +145,7 @@ public class Player_Action : MonoBehaviour
     }
 
     // Handling the spiral animation for UIs
-    IEnumerator HandleUICD(Image image, float cd)
-    {
-        float startTime = Time.time;
-        while (Time.time < startTime + cd)
-        {
-            image.fillAmount = (Time.time - startTime) / cd;
-            yield return null;
-        }
-        image.fillAmount = 1;
-    }
+    
     #endregion
 
     // Helper function for checking interactables nearby
@@ -187,14 +179,11 @@ public class Player_Action : MonoBehaviour
         {
             canSpecialAttack = false;
             SpecialAttack();
-            StartCoroutine(HandleUICD(PlayerUI.Instance.specialAttackUI, Player_Inventory.Instance.equippedWeapon.SpecialAttackCD));
+            //menggunakan spesial skill
+            //StartCoroutine(HandleUICD(PlayerUI.Instance.specialAttackUI, Player_Inventory.Instance.equippedWeapon.SpecialAttackCD));
         }
     }
-    IEnumerator HandleSpecialAttackCD(float dur)
-    {
-        yield return new WaitForSeconds(dur);
-        canSpecialAttack = true;
-    }
+   
 
     private void OnUseButtonClick()
     {
@@ -208,7 +197,9 @@ public class Player_Action : MonoBehaviour
             {
                 // Gunakan quick slot 1
                 player_inventory.UseQuickSlot(0);
-                StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
+                //menggunakan item use
+
+                //StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
                 //Debug.Log("Menggunakan item dari quick slot 1");
             }
             // Jika quickSlot[0] kosong atau itemUse1 false, cek quickSlot[1]
@@ -216,7 +207,8 @@ public class Player_Action : MonoBehaviour
             {
                 // Gunakan quick slot 2
                 player_inventory.UseQuickSlot(1);
-                StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
+                //menggunakan item use 
+                //StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
                 //Debug.Log("Menggunakan item dari quick slot 2");
             }
             else
@@ -471,6 +463,15 @@ public class Player_Action : MonoBehaviour
                     }
 
                     break;
+                case "Cangkul":
+                    //print("Mengapak tanah");
+                    playerPosition = transform.position; // Posisi pemain
+
+                    // Ambil arah dari posisi face
+                    faceDirection = face.localPosition.normalized;
+                    PlayActionAnimation(itemToAttack.itemName);
+                    farmTile.HoeTile(playerPosition, faceDirection);
+                    break;
 
 
 
@@ -529,9 +530,12 @@ public class Player_Action : MonoBehaviour
         playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
 
         playerUI.TakeCapacityBar(itemToAttack);
+
+        //menjalankan cooldown spesial skill
+        spesialSkillWeapon.UseWeaponSkill(itemToAttack, true);
         if (itemToAttack.health != 0 && playerHealth.stamina >= 0)
         {
-            StartCoroutine(HandleSpecialAttackCD(itemToAttack.SpecialAttackCD));
+           
             if (itemToAttack.itemName == "PenyiramTanaman")
             {
 
@@ -562,7 +566,7 @@ public class Player_Action : MonoBehaviour
             }
             else if(itemToAttack.itemName == "Kapak")
             {
-                print("Mengapak tanah");
+                print("Mengapak pohon");
                 playerPosition = transform.position; // Posisi pemain
 
                 // Ambil arah dari posisi face

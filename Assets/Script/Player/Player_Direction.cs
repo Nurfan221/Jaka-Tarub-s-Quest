@@ -25,7 +25,7 @@ public class Player_Direction : MonoBehaviour
     {
         if (Target != null)
         {
-            arrow.gameObject.SetActive(true);
+            //arrow.gameObject.SetActive(true);
             Vector2 rotation = Target.position - transform.position;
             float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
             arrow.eulerAngles = new(0, 0, rot);

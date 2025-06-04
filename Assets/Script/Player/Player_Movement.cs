@@ -13,7 +13,7 @@ public class Player_Movement : MonoBehaviour
     //[SerializeField] Transform sprite;
     [SerializeField] Transform face;
     [SerializeField] Transform circleBoundary; // Lingkaran di sekitar player
-
+    [SerializeField] BuffScrollController buffScrollController;
 
     public bool isMoving;
 
@@ -84,7 +84,13 @@ public class Player_Movement : MonoBehaviour
 
         UpdateFacePosition(); // Perbarui posisi face berdasarkan lingkaran
         //UpdateSpriteDirection(); // Update arah sprite (kanan atau kiri)
-        moveSpd = walkSpd;
+        if (buffScrollController.isBuffSprint)
+        {
+            moveSpd = walkSpd + buffScrollController.jumlahBuffSprint;
+        }else
+        {
+            moveSpd = walkSpd;
+        }
         moveDir = movement;
     }
 

@@ -82,58 +82,68 @@ public class BuffScrollController : MonoBehaviour
 
     public void GetBuff(Item item)
     {
-        // Mengecek Buff Damage
+        // Mengecek dan menerapkan Buff Damage
         if (item.buffDamage > 0)
         {
-            isBuffDamage = true;
-            jumlahBuffDamage = item.buffDamage;
-            waktuActiveBuffDamage = item.waktuBuffDamage;
-            imageBuff[0].gameObject.SetActive(true);
-        }
+            if (isBuffDamage)
+            {
+                waktuActiveBuffDamage += item.waktuBuffDamage;
+            }
+            else
+            {
+                isBuffDamage = true;
+                jumlahBuffDamage = item.buffDamage;
+                waktuActiveBuffDamage = item.waktuBuffDamage;
+                imageBuff[0].gameObject.SetActive(true);
+            }
 
-        // Mengecek Buff Protection
-        if (item.buffProtection > 0)
-        {
-            isBuffProtection = true;
-            jumlahBuffProtection = item.buffProtection;
-            waktuActiveBuffProtection = item.waktuBuffProtection;
-            imageBuff[1].gameObject.SetActive(true);
-        }
-
-        // Mengecek Buff Sprint
-        if (item.buffSprint > 0)
-        {
-            isBuffSprint = true;
-            jumlahBuffSprint = item.buffSprint;
-            waktuActiveBuffSprint = item.waktuBuffSprint;
-            imageBuff[2].gameObject.SetActive(true);
-        }
-
-        // Mengecek Heal
-        if (item.countHeal > 0)
-        {
-            Debug.Log("Heal effect triggered");
-            player_Health.Heal(item.countHeal, item.countStamina); // Menyembuhkan player
-        }
-
-        
-
-        // Jika ada efek Buff yang aktif, proses yang sesuai
-        if (isBuffDamage)
-        {
             Debug.Log("Buff Damage applied");
         }
 
-        if (isBuffProtection)
+        // Mengecek dan menerapkan Buff Protection
+        if (item.buffProtection > 0)
         {
+            if (isBuffProtection)
+            {
+                waktuActiveBuffProtection += item.waktuBuffProtection;
+            }
+            else
+            {
+                isBuffProtection = true;
+                jumlahBuffProtection = item.buffProtection;
+                waktuActiveBuffProtection = item.waktuBuffProtection;
+                imageBuff[1].gameObject.SetActive(true);
+            }
+
             Debug.Log("Buff Protection applied");
         }
 
-        if (isBuffSprint)
+        // Mengecek dan menerapkan Buff Sprint
+        if (item.buffSprint > 0)
         {
+            if (isBuffSprint)
+            {
+                waktuActiveBuffSprint += item.waktuBuffSprint;
+            }
+            else
+            {
+                isBuffSprint = true;
+                jumlahBuffSprint = item.buffSprint;
+                waktuActiveBuffSprint = item.waktuBuffSprint;
+                imageBuff[2].gameObject.SetActive(true);
+            }
+
             Debug.Log("Buff Sprint applied");
         }
+
+        // Mengecek dan menerapkan efek Heal
+        if (item.countHeal > 0 || item.countStamina > 0)
+        {
+            Debug.Log("Heal effect triggered");
+            player_Health.Heal(item.countHeal, item.countStamina);
+        }
     }
+
 
     // Fungsi untuk mengurangi waktu sisa aktif buff
     public void UpdateBuffTime()

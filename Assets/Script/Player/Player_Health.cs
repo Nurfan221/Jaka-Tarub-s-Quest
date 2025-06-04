@@ -7,6 +7,7 @@ public class Player_Health : MonoBehaviour
     public static Player_Health Instance;
 
     [SerializeField] Player_Anim player_Anim;
+    [SerializeField] BuffScrollController buffScrollController;
 
     [Header("HEALTH VALUE")]
     public int maxHealth = 100;
@@ -66,13 +67,18 @@ public class Player_Health : MonoBehaviour
 
     public void TakeDamage(int damage, Vector2 attackerPosition)
     {
-        health -= damage;
+        if (buffScrollController.isBuffProtection)
+        {
+            damage -= buffScrollController.jumlahBuffProtection;
+            health -= damage;
+        }
 
         if (player_Anim != null)
             player_Anim.PlayTakeDamageAnimation();
 
         Vector2 knockbackDirection = ((Vector2)transform.position - attackerPosition).normalized;
         StartCoroutine(ApplyKnockback(knockbackDirection));
+        StartCoroutine(TakeDamageVisual());
 
         if (health <= 0)
         {

@@ -49,7 +49,7 @@ public class PlayerUI : MonoBehaviour
         {
             capacityUseItem.gameObject.SetActive(true);
             Image capacityBarImage = capacityUseItem.Find("KapacityBar").GetComponent<Image>();
-            if (capacityBarImage != null)
+            if (capacityBarImage != null && playerInventory.equippedCombat != null)
             {
                 //Debug.Log("Target Image: " + capacityBarImage.name);
                 if (item.itemName == playerInventory.equippedWeapon.itemName)
