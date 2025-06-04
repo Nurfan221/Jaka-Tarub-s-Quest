@@ -29,8 +29,11 @@ public class CookUI : MonoBehaviour
     public GameObject FuelCook;  // Objek tempat item akan dipindahkan (misal, slot masak)
     public GameObject cookingResult;  // Objek tempat item akan dipindahkan (misal, slot masak)
     public GameObject fire;
-    public Sprite newFireSprite; // Sprite baru yang akan digunakan saat kondisi terpenuhi
+    public Sprite[] newFireSprite; // Sprite baru yang akan digunakan saat kondisi terpenuhi
+    public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
 
+    private Image fireImage; // Komponen UI Image
+    private int currentFrame = 0; // Indeks frame saat ini
 
     public bool itemCookValue = false;
     public bool fuelCookValue = false;
@@ -39,8 +42,10 @@ public class CookUI : MonoBehaviour
     private bool isCooking = false; // Menandakan apakah sedang memasak
 
     private float timeToCook = 0; // Waktu memasak yang tersisa 
+    public int totalItemCooked = 0;
+
     // Fungsi untuk memulai proses memasak
-    private Queue<Item> cookingQueue = new Queue<Item>();
+    public Queue<Item> cookingQueue = new Queue<Item>();
 
     //deklarasikan perbandikan bahan masakan 
     public ItemCategory[] validCategories = {
@@ -67,6 +72,7 @@ public class CookUI : MonoBehaviour
         {
             Debug.Log("tombol close belum terhubung");
         }
+        fireImage = fire.GetComponent<Image>();
 
 
 
@@ -85,6 +91,19 @@ public class CookUI : MonoBehaviour
 
 
 
+    }
+
+    private IEnumerator PlayFireAnimation()
+    {
+        while (true) // Loop tanpa batas (animasi berulang)
+        {
+            if (newFireSprite.Length > 0) // Pastikan array sprite tidak kosong
+            {
+                fireImage.sprite = newFireSprite[currentFrame]; // Setel sprite saat ini
+                currentFrame = (currentFrame + 1) % newFireSprite.Length; // Pindah ke frame berikutnya (loop)
+            }
+            yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
+        }
     }
 
     public void OpenCook()
@@ -164,13 +183,12 @@ public class CookUI : MonoBehaviour
         if (existingItem != null && itemCookValue == true)
         {
             // Jika item sudah ada dan itemCookValue adalah true, tambahkan ke stack
-            existingItem.stackCount += 1; // Tambahkan jumlah item
+            existingItem.stackCount += item.stackCount; // Tambahkan jumlah item
             Debug.Log("item ada lebih dari 1");
         }
         else if (existingItem == null && itemCookValue == false)
         {
             // Jika item belum ada atau itemCookValue adalah false, tambahkan item baru
-            item.stackCount = 1; // Atur stackCount untuk item baru
             itemsInCook.Add(item); // Tambahkan item baru ke list
         }
 
@@ -209,7 +227,6 @@ public class CookUI : MonoBehaviour
         else if (existingItem == null && fuelCookValue == false)
         {
             // Jika item belum ada atau fuelCookValue adalah true, tambahkan item baru
-            item.stackCount = 1; // Atur stackCount untuk item baru
             fuelInCook.Add(item); // Tambahkan item baru ke list
         }
 
@@ -249,11 +266,12 @@ public class CookUI : MonoBehaviour
             itemSlot.GetComponent<Button>().onClick.AddListener(() => ReturnItemToInventory(item));
         }
 
-        if (itemCookValue && fuelCookValue == true)
+        if (itemCookValue && fuelCookValue == true && !isCooking)
         {
             StartCook();
             Debug.Log("memulai memasak");
         }
+
     }
 
     public void UpdateFuelCookUI()
@@ -285,11 +303,12 @@ public class CookUI : MonoBehaviour
         // fuelInCook.gameObject.SetActive(false);
         ChangeFireImage();
 
-        if (itemCookValue && fuelCookValue == true)
+        if (itemCookValue && fuelCookValue == true && !isCooking)
         {
             StartCook();
             Debug.Log("memulai memasak");
         }
+
 
     }
 
@@ -313,7 +332,7 @@ public class CookUI : MonoBehaviour
             // Jika fuelInCook berisi item, ubah fireImage menjadi newFireSprite
             else if (fuelInCook.Count > 0)
             {
-                fireImage.sprite = newFireSprite; // Mengatur sprite menjadi newFireSprite
+                StartCoroutine(PlayFireAnimation()); // Mulai animasi fire
                 Debug.Log("Fuel present, fire image set to newFireSprite.");
             }
         }
@@ -399,7 +418,11 @@ public class CookUI : MonoBehaviour
     // Fungsi untuk memulai proses memasak
     public void StartCook()
     {
-
+        if (isCooking)
+        {
+            Debug.Log("Masih memasak. Tidak bisa mulai lagi.");
+            return;
+        }
         itemCookValue = false;
         fuelCookValue = false;
         if (isCooking)
@@ -434,6 +457,7 @@ public class CookUI : MonoBehaviour
                     for (int i = 0; i < stackCountItem; i++)
                     {
                         cookingQueue.Enqueue(cookedItem); // Masukkan ke antrian
+                        Debug.Log("Jumlah hasil yang akan di masak " +  i);
                     }
 
                     if (!resultCookValue) // Jika tidak ada hasil masakan, mulai proses masak
@@ -469,36 +493,37 @@ public class CookUI : MonoBehaviour
     private IEnumerator ProcessCookingQueue(int cookTime)
     {
         isCooking = true;
+        int cookCounter = 1; // Mulai dari 1
 
         while (cookingQueue.Count > 0 && timeToCook > 0)
         {
             Item cookedItem = cookingQueue.Dequeue(); // Ambil item dari antrian
 
-            // Kurangi waktu memasak dari total waktu yang tersedia
             timeToCook -= cookTime;
 
-
-
-            // Jeda untuk waktu memasak item ini
             yield return new WaitForSeconds(cookTime);
-            // Proses memasak item
+
             CookItem(cookedItem);
 
-            // Cek apakah fuel masih tersedia
+            Debug.Log("Memasak item ke-" + cookCounter);
+            cookCounter++; // Naikkan setelah log
+
             if (fuelInCook.Count == 0 || timeToCook <= 0)
             {
                 Debug.Log("Fuel finished or time to cook is zero.");
-                break; // Hentikan proses jika waktu atau fuel habis
+                break;
             }
         }
 
         isCooking = false;
     }
 
+
     // Fungsi untuk memproses satu item yang dimasak
     private void CookItem(Item cookedItem)
     {
-
+        totalItemCooked++;
+        Debug.Log("total masakan selesai : " +  totalItemCooked);
         // Cek apakah item sudah ada di dalam resultInCook
         Item existingItem = resultInCook.FirstOrDefault(item => item.itemName == cookedItem.itemName);
 
@@ -511,7 +536,6 @@ public class CookUI : MonoBehaviour
         else
         {
             // Jika item belum ada, tambahkan item baru
-            cookedItem.stackCount = 1;
             resultInCook.Add(cookedItem);
             Debug.Log("Item baru ditambahkan ke resultInCook: " + cookedItem.itemName);
         }
@@ -582,9 +606,9 @@ public class CookUI : MonoBehaviour
         }
 
         // Perbarui tampilan UI dan slot
-        UpdateItemCookUI();
+        //UpdateItemCookUI();
         UpdateFuelCookUI();
-        RefreshSlots();
+        //RefreshSlots();
     }
 
 

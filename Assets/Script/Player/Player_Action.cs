@@ -369,6 +369,9 @@ public class Player_Action : MonoBehaviour
             //    SoundManager.Instance.PlaySound("Sword");
 
             print("melee normal attacking");
+            playerUI.TakeCapacityBar(itemToAttack);
+            playerHealth.SpendStamina(itemToAttack.UseStamina);
+            playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
             //Debug.Log("nama item yang sedang di pakai" + itemToAttack.itemName);
             switch (itemToAttack.itemName)
             {
@@ -391,6 +394,7 @@ public class Player_Action : MonoBehaviour
                         faceDirection = face.localPosition.normalized;
                         // Memanggil ActivateHitbox tanpa parameter area
                         ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
+                       
                         //PlayActionAnimation(itemToAttack.itemName);
 
                         //Debug.Log("Kapak dijalankan dengan hitbox.");
@@ -402,7 +406,7 @@ public class Player_Action : MonoBehaviour
                     break;
 
                 case "PickAxe":
-                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
+                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina) && itemToAttack.health <= 0)
                     {
                         //print("Mengapak tanah");
                         playerPosition = transform.position; // Posisi pemain
@@ -413,7 +417,7 @@ public class Player_Action : MonoBehaviour
                         //Debug.Log($"Damage: {itemToAttack.Damage}");
                         // Memanggil ActivateHitbox tanpa parameter area
                         ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
-
+                       
                         //Debug.Log("PickAxe dijalankan dengan hitbox.");
                     }
                     else
@@ -423,7 +427,7 @@ public class Player_Action : MonoBehaviour
                     break;
 
                 case "Sabit":
-                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
+                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina) && itemToAttack.health <= 0)
                     {
                         //print("Mengapak tanah");
                         playerPosition = transform.position; // Posisi pemain
@@ -434,7 +438,7 @@ public class Player_Action : MonoBehaviour
 
                         //Memanggil ActiveHitbox tanpa parameter area
                         ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
-
+                       
                     }
                     else
                     {
@@ -443,7 +447,7 @@ public class Player_Action : MonoBehaviour
 
                     break;
                 case "Sword":
-                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
+                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina) && itemToAttack.health <= 0)
                     {
                         //print("Mengapak tanah");
                         playerPosition = transform.position; // Posisi pemain
@@ -464,13 +468,22 @@ public class Player_Action : MonoBehaviour
 
                     break;
                 case "Cangkul":
-                    //print("Mengapak tanah");
-                    playerPosition = transform.position; // Posisi pemain
+                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina)&& itemToAttack.health <= 0)
+                    {
+                        playerPosition = transform.position; // Posisi pemain
 
-                    // Ambil arah dari posisi face
-                    faceDirection = face.localPosition.normalized;
-                    PlayActionAnimation(itemToAttack.itemName);
-                    farmTile.HoeTile(playerPosition, faceDirection);
+                        // Ambil arah dari posisi face
+                        faceDirection = face.localPosition.normalized;
+                        PlayActionAnimation(itemToAttack.itemName);
+                       
+                        farmTile.HoeTile(playerPosition, faceDirection);
+                    }
+                    else
+                    {
+                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
+                    }
+                    //print("Mengapak tanah");
+
                     break;
 
 

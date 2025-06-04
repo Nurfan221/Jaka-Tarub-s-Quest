@@ -12,15 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
-  itemID: 20
+  itemID: 92
   itemName: PickAxe
   types: 0
   categories: 256
   sprite: {fileID: 647237584345857744, guid: d566de0f6bdec3f48bd0b58bab4a43c1, type: 3}
   itemDescription: benda penghancur batu
   QuantityFuel: 0
-  maxhealth: 0
-  health: 0
+  maxhealth: 30
+  health: 30
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 3
   Damage: 15
@@ -40,4 +48,5 @@ MonoBehaviour:
   prefabItem: {fileID: 4459120725376062254, guid: 9e47070f59b53454aad14029fa59b892, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 4459120725376062254, guid: 9e47070f59b53454aad14029fa59b892, type: 3}

@@ -30,6 +30,7 @@ MonoBehaviour:
   waktuBuffProtection: 0
   buffProtection: 0
   countHeal: 30
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -45,7 +46,7 @@ MonoBehaviour:
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
-  CookTime: 0
+  CookTime: 5
   prefabItem: {fileID: 4459120725376062254, guid: 837f07d8665f0a046a656969ae733a4c, type: 3}
   growthTime: 0
   growthImages: []

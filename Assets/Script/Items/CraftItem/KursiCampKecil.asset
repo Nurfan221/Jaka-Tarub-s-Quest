@@ -14,12 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 6
   itemName: KursiCampKecil
-  type: 6
+  types: 0
   categories: 4096
-  sprite: {fileID: 6530044190553100295, guid: feb47a9f2f209d845850187794c9d503, type: 3}
+  sprite: {fileID: 6530044190553100295, guid: 13e55a2275e9c6c4098af1384054586f, type: 3}
   itemDescription: kursi kecil untuk melihat bintang
   QuantityFuel: 0
+  maxhealth: 0
   health: 4
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -27,6 +36,7 @@ MonoBehaviour:
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 0
+  UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   stackCount: 1
@@ -38,4 +48,5 @@ MonoBehaviour:
   prefabItem: {fileID: 5388214106243207399, guid: 73becb872fea5344895b81af0716d8d1, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 0}

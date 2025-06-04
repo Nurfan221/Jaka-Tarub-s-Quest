@@ -22,11 +22,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
   buffDamage: 0
-  countHeal: 0
+  waktuBuffSprint: 0
   buffSprint: 0
+  waktuBuffProtection: 0
   buffProtection: 0
-  timeBuff: 0
+  countHeal: 0
+  countStamina: 0
   Level: 0
   MaxLevel: 0
   Damage: 0
@@ -42,7 +45,7 @@ MonoBehaviour:
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
-  CookTime: 0
+  CookTime: 5
   prefabItem: {fileID: 4459120725376062254, guid: 093650a11419fb247811625b42d5bec2, type: 3}
   growthTime: 0
   growthImages: []
