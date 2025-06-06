@@ -11,6 +11,7 @@ public class CookUI : MonoBehaviour
 
     [Header("Database Crafting")]
     [SerializeField] private RecipeDatabase recipeDatabaseInstance;
+    [SerializeField] private CookInteractable interactableInstance;
 
     // public GameObject inventorySlots;
     public bool isCookUIPanelOpen = false;
@@ -39,9 +40,8 @@ public class CookUI : MonoBehaviour
     public bool itemCookValue = false;
     public bool fuelCookValue = false;
     public bool resultCookValue = false;
-
     private bool isCooking = false; // Menandakan apakah sedang memasak
-
+    public int cookTime;
     public float timeToCook = 0; // Waktu memasak yang tersisa 
     public int totalItemCooked = 0;
     public int totalBurning = 0;
@@ -84,11 +84,7 @@ public class CookUI : MonoBehaviour
 
     private void Update()
     {
-        // Close CookUI
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            CloseCook();
-        }
+       
 
 
 
@@ -123,12 +119,17 @@ public class CookUI : MonoBehaviour
     private void CloseCookUI()
     {
         GameController.Instance.ShowPersistentUI(true);
-        gameObject.SetActive(false);
         isCookUIPanelOpen = false;
 
         RefreshSlots();
 
+        // Jangan stop dari sini. Langsung delegasikan ke pemilik coroutine
+        interactableInstance.StartCookingExternally(ProcessCookingQueue(cookTime));
+
+        gameObject.SetActive(false);
     }
+
+
 
     public void RefreshSlots()
     {
@@ -343,31 +344,36 @@ public class CookUI : MonoBehaviour
         // Cari objek Fire di scene
         GameObject fireObject = GameObject.Find("Fire");
 
-        // Dapatkan komponen Image dari objek Fire
-        Image fireImage = fireObject.GetComponent<Image>();
-
-        // Jika fireImage tidak null, lakukan pengecekan fuelInCook
-        if (fireImage != null)
+        if (fireObject != null)
         {
-            // Jika fuelInCook kosong, ubah fireImage menjadi none (tidak ada gambar)
-            if (fuelInCook.Count == 0)
+            // Dapatkan komponen Image dari objek Fire
+            Image fireImage = fireObject.GetComponent<Image>();
+
+            if (fireImage != null)
             {
-                StopCoroutine(PlayFireAnimation()); // Mulai animasi fire
-                Debug.Log("Fuel empty, fire image set to none.");
+                if (fuelInCook.Count == 0)
+                {
+                    StopCoroutine(PlayFireAnimation());
+                    Debug.Log("Fuel empty, fire image set to none.");
+                }
+                else
+                {
+                    imageFire.gameObject.SetActive(true);
+                    StartCoroutine(PlayFireAnimation());
+                    Debug.Log("Fuel present, fire image set to newFireSprite.");
+                }
             }
-            // Jika fuelInCook berisi item, ubah fireImage menjadi newFireSprite
-            else if (fuelInCook.Count > 0)
+            else
             {
-                imageFire.gameObject.SetActive(true);
-                StartCoroutine(PlayFireAnimation()); // Mulai animasi fire
-                Debug.Log("Fuel present, fire image set to newFireSprite.");
+                Debug.LogWarning("Fire object ditemukan, tapi tidak memiliki komponen Image.");
             }
         }
         else
         {
-            Debug.LogError("Image component not found on Fire object!");
+            Debug.LogWarning("Fire object tidak ditemukan di scene.");
         }
     }
+
 
 
 
@@ -410,13 +416,7 @@ public class CookUI : MonoBehaviour
 
 
 
-    public void CloseCook()
-    {
-        SoundManager.Instance.PlaySound("Click");
-        GameController.Instance.ShowPersistentUI(true);
-        gameObject.SetActive(false);
-        isCookUIPanelOpen = false;
-    }
+   
 
     //void LogRecipesToConsole()
     //{
@@ -473,7 +473,7 @@ public class CookUI : MonoBehaviour
 
 
                     Item cookedItem = ItemPool.Instance.GetItem(recipe.result.itemName);
-                    int cookTime = recipe.result.CookTime;
+                    cookTime = recipe.result.CookTime;
 
                     // Tambahkan item ke antrian sebanyak stackCount
                     for (int i = 0; i < stackCountItem; i++)
@@ -484,12 +484,13 @@ public class CookUI : MonoBehaviour
 
                     if (!resultCookValue) // Jika tidak ada hasil masakan, mulai proses masak
                     {
-                        StartCoroutine(ProcessCookingQueue(cookTime));
+                        interactableInstance.StartCookingExternally(ProcessCookingQueue(cookTime));
                     }
                     else if (resultCookValue && resultInCook.Count > 0 && resultInCook[0].itemName == cookedItem.itemName)
                     {
                         // Jika ada hasil masakan dan item yang di-cook sesuai dengan item yang sedang dimasak
-                        StartCoroutine(ProcessCookingQueue(cookTime));
+                        //cookingCoroutine = interactableInstance.StartCookingCoroutine(ProcessCookingQueue(cookTime));
+                          interactableInstance.StartCookingExternally(ProcessCookingQueue(cookTime));
                     }
                     else
                     {

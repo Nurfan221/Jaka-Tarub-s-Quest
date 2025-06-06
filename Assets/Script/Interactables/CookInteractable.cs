@@ -10,6 +10,8 @@ public class CookInteractable : Interactable
 
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
     private int currentFrame = 0; // Indeks frame saat ini
+    private Coroutine cookingCoroutine;
+
 
     private void Start()
     {
@@ -35,6 +37,16 @@ public class CookInteractable : Interactable
     protected override void Interact()
     {
         cookUI.OpenCook();
+    }
+    // fungsi memanggil corountine yang di inginkan
+    public void StartCookingExternally(IEnumerator coroutine)
+    {
+        if (cookingCoroutine != null)
+        {
+            StopCoroutine(cookingCoroutine);
+        }
+
+        cookingCoroutine = StartCoroutine(coroutine);
     }
 
 
