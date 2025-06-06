@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Quest-1
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Jhorgeo
+    sentence: Hei, Jaka... kau masih kelihatan sedih.
+  - name: Jhorgeo
+    sentence: Aku mengerti, kehilangan Mbok Milah pasti berat untukmu... tapi, kalau
+      dia masih ada, dia pasti tidak ingin melihatmu seperti ini.
+  - name: Jaka Tarub
+    sentence: Lalu... apa yang harus aku lakukan, Mas? Aku merasa hampa...
+  - name: jhorgeo
+    sentence: Aku mau pergi berburu hari ini. Mau ikut? Mungkin itu bisa sedikit
+      mengalihkan pikiranmu.
+  - name: Jaka Tarub
+    sentence: Berburu...? Apa gunanya kalau aku tetap pulang ke rumah yang kosong?
+      Biasanya, Mbok Milah selalu menyiapkan makanan untukku... sekarang, hanya ada
+      sepi.
+  - name: Jhorgeo
+    sentence: Jaka... dengar, kau tidak sendirian. Semua orang di desa adalah keluargamu.
+      Kalau kau mau, setelah berburu, datanglah ke rumahku. Istriku pasti senang
+      memasak sesuatu dari hasil buruan kita.
+  - name: Jaka Tarub
+    sentence: Apa aku tidak merepotkan, Mas?
+  - name: Jhorgeo
+    sentence: Tentu saja merepotkan! Hahaha!
+  - name: Jaka Tarub
+    sentence: Huh...? Mas...?
+  - name: Jhorgeo
+    sentence: Hahaha! Aku cuma bercanda, Jaka. Kau sering membantuku, mana mungkin
+      kau merepotkanku?
+  - name: Jhorgeo
+    sentence: Sudahlah, ayo berangkat. Kalau terlalu lama, kita bisa pulang dengan
+      tangan kosong.
+  - name: Jaka Tarub
+    sentence: ...Baiklah, aku akan bersiap sebentar.
+  - name: Jaka Tarub
+    sentence: Nah, begitu dong! Aku tunggu di hutan, jangan lama-lama!
+  mainSpeaker: Jaka Tarub
+  promptAfterDialogue: Berburu dan lupakan kesedihan atau kesendirianmu

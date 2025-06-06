@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Quest-4
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Nyi Sekar
+    sentence: Jaka, bagaimana kabar kebunmu?
+  - name: Jaka Tarub
+    sentence: Ya, seperti biasa, Nyi... Aku belum sempat banyak mengurusnya.
+  - name: Nyi Sekar
+    sentence: Hmm, padahal punya kebun sendiri itu anugerah, Jaka. Kalau dirawat
+      baik-baik, pasti bisa bermanfaat untukmu.
+  - name: Nyi Sekar
+    sentence: Hmm, padahal punya kebun sendiri itu anugerah, Jaka. Kalau dirawat
+      baik-baik, pasti bisa bermanfaat untukmu.
+  - name: Jaka Tarub
+    sentence: Iya sih, Nyi... Tapi belakangan ini aku masih agak kehilangan semangat.
+  - name: Nyi Sekar
+    sentence: Aku mengerti... Tapi justru dengan berkebun, kamu bisa mengalihkan
+      pikiranmu, Jaka. Melihat tanaman tumbuh dari benih kecil bisa memberi ketenangan."
+  - name: Jaka Tarub
+    sentence: Mungkin Nyi Sekar benar... Aku harus mulai lagi.
+  - name: Nyi Sekar
+    sentence: Nah, begitu! Kalau kau butuh benih, datang saja ke tokoku. Aku kasih
+      diskon khusus untukmu."
+  - name: Jaka Tarub
+    sentence: Benarkah, Nyi? Wah, terima kasih! Kalau begitu, aku akan mampir nanti.
+  - name: Nyi Sekar
+    sentence: Tentu! Untuk apa aku berbohong? Kau sering membantuku, jadi kini giliranku
+      untuk membantu.
+  mainSpeaker: Nyi Sekar
+  promptAfterDialogue: Menanam benih tanaman

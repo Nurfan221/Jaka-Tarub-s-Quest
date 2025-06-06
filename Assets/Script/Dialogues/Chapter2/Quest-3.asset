@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Quest-3
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Mamat
+    sentence: Jaka, kenapa kamu nggak pernah mampir ke makam Mbok Milah?"
+  - name: Jaka Tarub
+    sentence: Saya masih agak takut, Mat... Saya nggak mau Mbok Milah lihat saya
+      yang masih sedih begini."
+  - name: Mamat
+    sentence: Tadi saya lewat pemakaman, kayaknya semalam ada pohon tumbang. Soalnya,
+      banyak daun kering berserakan, makam-makam juga jadi kotor.
+  - name: Mamat
+    sentence: Tega banget kamu, Jaka... Makam Mbok Milah dibiarkan kotor gitu.
+  - name: Jaka Tarub
+    sentence: Bukan gitu, Mat! Saya cuma... belum siap ketemu Mbok Milah lagi...
+  - name: Mamat
+    sentence: Mbok Milah pasti kangen kamu. Udah lama nggak ada yang mampir ke makamnya."
+  - name: Mamat
+    sentence: Emangnya kamu nggak kangen sama Mbok Milah, Jaka?
+  - name: Jaka Tarub
+    sentence: Pake ditanya, Mat... Ya jelas kangen lah!"
+  - name: Mamat
+    sentence: Kalau kangen, ya datengin. Bersihin makamnya. Mbok Milah pasti seneng
+      kalau lihat kamu datang dan merawat makamnya.
+  - name: Jaka Tarub
+    sentence: Bener juga ya... Aku nggak boleh biarin makam Mbok Milah kotor.
+  - name: Mamat
+    sentence: Nah, gitu dong! Oh iya, nanti mampir ke toko dulu, ya.
+  - name: Jaka Tarub
+    sentence: Lho, katanya suruh bersihin makam, kok malah disuruh ke toko?
+  - name: Mamat
+    sentence: Lah, emangnya mau bersihin pakai tangan doang? Mau pungutin satu-satu
+      tuh daun? Keburu imsak, Jaka! Hahahaha!"
+  - name: Jaka Tarub
+    sentence: Eh... Iya juga, ya... Terus harus gimana, Mat?
+  - name: Mamat
+    sentence: Tenang, saya ada alat buat bersihin makam. Tapi kelupaan, masih di
+      toko. Hahaha.
+  - name: Jaka Tarub
+    sentence: Hadehh... Masih muda kok pikun, Mat.
+  - name: Mamat
+    sentence: Nah, mulai pedes nih omongan. Berarti udah mulai baikan. Yaudah, nanti
+      mampir ke toko aja!"
+  - name: Mamat
+    sentence: Hahaha, iya deh. Oke, nanti saya mampir."
+  mainSpeaker: Mamat
+  promptAfterDialogue: ' Membersihkan Makam Mbok Milah'

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Quest-2
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: Mas, ada yang bisa saya bantu? Sepertinya saya butuh kegiatan untuk
+      mengisi waktu luang.
+  - name: Mas Raihan
+    sentence: Ah, Jaka! Kamu mau membantu? Tapi, bagaimana kabarmu?
+  - name: Jaka Tarub
+    sentence: Sehat, seperti yang terlihat, Mas. Hehehe.
+  - name: Mas Raihan
+    sentence: Hmm... dari wajahmu sih, kelihatannya nggak se-sehat yang kamu bilang.
+      Hahaha!
+  - name: Jaka Tarub
+    sentence: Hahaha, Mas Raihan memang selalu peka.
+  - name: Jaka Tarub
+    sentence: Aku masih sering kepikiran Mbok Milah, Mas... Tapi aku tahu, aku nggak
+      boleh terus larut dalam kesedihan.
+  - name: Mas Raihan
+    sentence: Benar, Jaka. Jangan pernah berpikir kamu sendirian. Kami semua di desa
+      ini adalah keluargamu.
+  - name: Jaka Tarub
+    sentence: Iya, Mas. Eh, jadi kapan saya bisa mulai bantu?
+  - name: Mas Raihan
+    sentence: Oh iya! Hahaha. Aku butuh bantuan untuk membuat pagar sawah Mas Amru
+      yang rusak. Bisa buatkan 10 pagar?
+  - name: Jaka Tarub
+    sentence: Waduh... banyak banget nggak tuh?
+  - name: Mas Raihan
+    sentence: Lho, tadi katanya mau bantu?
+  - name: 'Jaka Tarub '
+    sentence: Hahaha, bercanda doang, Mas. Oke, saya buat dulu ya!"
+  - name: Mas Raihan
+    sentence: Nah, gitu dong! Saya tunggu hasilnya, ya!"
+  mainSpeaker: Jaka Tarub
+  promptAfterDialogue: Bantu Mas Raihan untuk membuat Pagar
