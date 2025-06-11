@@ -28,7 +28,7 @@ public class MainMenuManager : MonoBehaviour
     {
         Debug.Log("START GAME");
         GameController.NewGame = newGame;
-        LoadingScreenUI.Instance.LoadScene(newGame ? 1 : GameController.LatestMap);
+        //LoadingScreenUI.Instance.LoadScene(newGame ? 1 : GameController.LatestMap);
         //StopAllCoroutines();
         //StartCoroutine(DelayedLoadScene(GameController.LatestMap, 0.5f)); // delay 0.5 detik
     }
@@ -39,7 +39,7 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         Debug.Log("AFTER DELAY");
         Debug.Log(LoadingScreenUI.Instance);
-        LoadingScreenUI.Instance.LoadScene(sceneIndex);
+        //LoadingScreenUI.Instance.LoadScene(sceneIndex);
     }
 
     public void QuitGame()

@@ -249,7 +249,7 @@ public class GameController : MonoBehaviour
     public void GoToMainMenu()
     {
         SaveGame();
-        LoadingScreenUI.Instance.LoadScene(0);
+        //LoadingScreenUI.Instance.LoadScene(0);
         Destroy(transform.root.gameObject);
     }
 

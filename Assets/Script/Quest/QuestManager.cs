@@ -86,6 +86,7 @@ public class QuestManager : MonoBehaviour
         public List<Item> itemQuests;
         public int[] countItem;
         public int date;
+        //public int bulan;
         public int reward;
         public Reward[] rewards;
         public string questInfo;
@@ -96,6 +97,7 @@ public class QuestManager : MonoBehaviour
         public Dialogues rewardItemQuest;
         public bool questActive = false;
         public bool questComplete = false;
+        public bool isInGrief;
         public bool isSpawner;
         public GameObject spawner;
         public Vector3 locateNpcQuest;
@@ -171,7 +173,7 @@ public class QuestManager : MonoBehaviour
             {
                 //Debug.Log("Tanggal quest active: " + quest.date);
 
-                if ((timeManager.date + 1) == quest.date && !quest.questActive)
+                if ((timeManager.date + 1) == quest.date  && !quest.questActive)
                 {
                     quest.questActive = true;
                     questInfoUI.DisplayActiveQuest(quest);
@@ -342,15 +344,16 @@ public class QuestManager : MonoBehaviour
 
                 foreach (var quest in chapter.sideQuest)
                 {
+                    // Tambahkan 5 hari dan buat tanggal wrap ke 1–28
+                    tanggalSekarang = ((tanggalSekarang + 5 - 1) % 28) + 1;
+
                     // Set tanggal quest saat ini
                     quest.date = tanggalSekarang;
-
-                    // Tambahkan 5 hari untuk quest berikutnya
-                    tanggalSekarang += 5; // Menambahkan 5 hari ke tanggal sebelumnya
                 }
             }
         }
     }
+
 
 
     public void MainQuestSelesai()

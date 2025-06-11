@@ -201,28 +201,33 @@ public class TimeManager : MonoBehaviour
 
     public void HitungWaktu(int totalHari)
     {
-        int hariDalamBulan = 28;
-        int bulanDalamTahun = 12;
         int hariDalamMinggu = 7;
+        int hariDalamBulan = 28;
+        int hariDalamTahun = 336;
 
-        tahun = totalHari / (hariDalamBulan * bulanDalamTahun);
-        int sisaHari = totalHari % (hariDalamBulan * bulanDalamTahun);
+        // Tahun ke-berapa (mulai dari 1)
+        tahun = (totalHari / hariDalamTahun) + 1;
 
-        bulan = sisaHari / hariDalamBulan;
+        // Sisa hari setelah dihitung tahun
+        int sisaHari = totalHari % hariDalamTahun;
+
+        // Bulan ke-berapa (mulai dari 1)
+        bulan = (sisaHari / hariDalamBulan) + 1;
+
         sisaHari %= hariDalamBulan;
 
-        minggu = sisaHari / hariDalamMinggu;
+        // Minggu ke-berapa (mulai dari 1)
+        minggu = (sisaHari / hariDalamMinggu) + 1;
 
-        hari = sisaHari % hariDalamMinggu;
-        hari = (hari == 0 && totalHari % hariDalamMinggu == 0) ? 7 : hari;
+        sisaHari %= hariDalamMinggu;
 
-        date++;
-        if (date == 29)
-        {
-            date = 1;
-        }
+        // Hari ke-berapa dalam minggu (1–7)
+        hari = (sisaHari == 0 && totalHari > 0) ? 7 : (sisaHari == 0 ? 1 : sisaHari);
 
-        Debug.Log($"Total bermain: {tahun} tahun, {bulan} bulan, {minggu} minggu, {hari} hari, {date} tanggal");
+        // Tanggal (1–28)
+        date = ((totalHari - 1) % 28) + 1;
+
+        Debug.Log($"Tanggal: {date}, Hari: {hari}, Minggu: {minggu}, Bulan: {bulan}, Tahun: {tahun}, TotalHari: {totalHari}");
     }
 
     public override string ToString()

@@ -11,7 +11,7 @@ public class ChangeMapInteractable : Interactable
         string direction = goToVillage ? "Village" : "Forest";
         Debug.Log("Going to " + direction);
         GameController.Instance.SaveGame();
-        LoadingScreenUI.Instance.LoadScene(goToVillage ? 2 : 1);
+        //LoadingScreenUI.Instance.LoadScene(goToVillage ? 2 : 1);
 
 
         if (!goToVillage)
