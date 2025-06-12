@@ -8,6 +8,15 @@ using static UnityEditor.Progress;
 using System.Collections.Generic;
 using NUnit.Framework.Interfaces;
 
+public enum JobType
+{
+    Petani,
+    PenjagaKuburan,
+    Pedagang,
+    Nelayan,
+    Pemburu,
+    Penjahit
+}
 
 public class NPCBehavior : MonoBehaviour
 {
@@ -24,6 +33,7 @@ public class NPCBehavior : MonoBehaviour
 
 
     public string npcName;
+    public JobType pekerjaanNPC;
     public Vector3 startPosition;
     public float movementSpeed = 2.0f;
 

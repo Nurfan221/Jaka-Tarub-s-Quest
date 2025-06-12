@@ -193,4 +193,21 @@ public class NPCManager : MonoBehaviour
     }
 
 
+    public void CekPekerjaanNpc(GameObject npc)
+    {
+        foreach (var objekNPC in npcDataArray)
+        {
+            //string nameNPC = npc.gameObject.name;
+            if (objekNPC.prefab == npc)
+            {
+                NPCBehavior npcBehavior = npc.GetComponent<NPCBehavior>();
+
+                if (true)
+                {
+                    
+                }
+            }
+        }
+    }
+
 }
