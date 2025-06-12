@@ -21,6 +21,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] PlantContainer plantContainer;
     [SerializeField] EnvironmentManager environmentManagerTrees;
     [SerializeField] EnvironmentManager environmentManagerJamur;
+    [SerializeField] EnvironmentManager environmentManagerKuburan;
     [SerializeField] EnvironmentManager environmentManagerBunga;
     [SerializeField] BuffScrollController buffScrollController;
     [Header("Date & Time settings")]
@@ -154,6 +155,7 @@ public class TimeManager : MonoBehaviour
         environmentManagerTrees.SpawnFromEnvironmentList(dailyLuck);
         environmentManagerJamur.SpawnFromEnvironmentList(dailyLuck);
         environmentManagerBunga.SpawnFromEnvironmentList(dailyLuck);
+        environmentManagerKuburan.UpdateKondisiKuburan();
 
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah

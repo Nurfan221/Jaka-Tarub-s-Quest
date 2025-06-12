@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
+using System;
 
 public class KuburanInteractable : Interactable
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public bool isKotor;
+    [SerializeField] EnvironmentManager environmentKuburanManager;
+
     public Sprite[] spritesKuburan;
     public Sprite[] notifikasiSprites;
     public int jedaKuburanKotor;
@@ -15,9 +18,14 @@ public class KuburanInteractable : Interactable
     public GameObject notifikasi;
     public float frameRate = 0.3f; // Waktu per frame (kecepatan animasi)
     private int currentFrame = 0; // Indeks frame saat ini
+
+    //Logika kuburan kotor
+    public bool isKotor;
+    public int currentDayKotor;
+    public int countDayKotor;
     void Start()
     {
-        StartCoroutine(PlayNotifikationAnimation()); // Mulai animasi
+        RandomCurrentDayKotor();
     }
 
     // Update is called once per frame
@@ -36,11 +44,26 @@ public class KuburanInteractable : Interactable
         StartCoroutine(MembersihkanMakam());
     }
 
-    public void kuburanKotor()
+
+    public void kondisiKuburanKotor()
     {
-        isKotor = true;
-        spriteRenderer.sprite = spritesKuburan[1];
-        notifikasi.SetActive(true);
+        if (!isKotor)
+        {
+            countDayKotor++;
+            
+        }
+
+        if (currentDayKotor == countDayKotor)
+        {
+            isKotor = true;
+            notifikasi.SetActive(true);
+            spriteRenderer.sprite = spritesKuburan[1];
+            StartCoroutine(PlayNotifikationAnimation()); // Mulai animasi
+            
+            countDayKotor = 0;
+        }
+
+
     }
 
     private IEnumerator PlayNotifikationAnimation()
@@ -66,6 +89,20 @@ public class KuburanInteractable : Interactable
         isKotor = false;
         spriteRenderer.sprite = spritesKuburan[0];
         notifikasi.SetActive(false);
-        
+        RandomCurrentDayKotor();
+
+        environmentKuburanManager.jumlahdiBersihkan++;
+
+
+
+
     }
+
+    public void RandomCurrentDayKotor()
+    {
+        float randomCurrentDayKotor = UnityEngine.Random.Range(4f, 8f);
+        int nilaiRandomdiBulatkan = (int)Math.Round(randomCurrentDayKotor);
+        currentDayKotor = nilaiRandomdiBulatkan;
+    }
+
 }
