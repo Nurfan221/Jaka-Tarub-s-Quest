@@ -33,6 +33,7 @@ public enum ItemCategory
     TreeSeed = 2048,
     ItemPrefab = 4096,
     Insectisida = 8192,
+    Hunt = 16384,
 }
 
 [CreateAssetMenu(menuName = "Make an Item")]
@@ -81,7 +82,7 @@ public class Item : ScriptableObject
     public int BurningTime;
     public int CookTime;
     public GameObject prefabItem;
-    
+
 
     // Seed Properties (khusus untuk benih)
     [Header("SEED PROPERTIES")]

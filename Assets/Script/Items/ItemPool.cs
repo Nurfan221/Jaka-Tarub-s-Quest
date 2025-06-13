@@ -1,13 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[Serializable]
+public class ItemCategoryGroup
+{
+    public string nameCategory;
+    public ItemCategory categories;
+    public List<Item> items = new List<Item>();
+}
 public class ItemPool : MonoBehaviour
 {
     public static ItemPool Instance;
 
-    [SerializeField]public List<Item> items;
+    [SerializeField] public List<Item> items;
+    public List<ItemCategoryGroup> itemCategoryGroups = new List<ItemCategoryGroup>();
 
     private void Awake()
     {
@@ -18,6 +27,8 @@ public class ItemPool : MonoBehaviour
         {
             items[i].itemID = i + 1; // Mengatur itemID sesuai urutan, dimulai dari 1
         }
+        AddItemCategories();
+
     }
 
     public Item GetItem(string name, int count = 1, int level = 1)
@@ -70,7 +81,7 @@ public class ItemPool : MonoBehaviour
             rb = droppedItem.AddComponent<Rigidbody2D>();
         }
         rb.gravityScale = 0.5f;
-        rb.AddForce(new Vector2(Random.Range(-0.5f, 0.5f), -1f), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(UnityEngine.Random.Range(-0.5f, 0.5f), -1f), ForceMode2D.Impulse);
 
         // Panggil StopGravity dari komponen ItemDropInteractable
         ItemDropInteractable interactable = droppedItem.GetComponent<ItemDropInteractable>();
@@ -134,6 +145,35 @@ public class ItemPool : MonoBehaviour
         return newItem;
     }
 
+    public void AddItemCategories()
+    {
+        itemCategoryGroups.Clear(); // Pastikan list kosong sebelum isi ulang
+
+        foreach (Item item in items)
+        {
+            foreach (ItemCategory kategori in Enum.GetValues(typeof(ItemCategory)))
+            {
+                if (kategori == ItemCategory.None) continue; // Lewati 'None' jika ada
+
+                // Cek apakah item termasuk dalam kategori ini
+                if (item.IsInCategory(kategori))
+                {
+                    // Cari grup yang sudah ada
+                    ItemCategoryGroup group = itemCategoryGroups.Find(g => g.categories == kategori);
+
+                    if (group == null)
+                    {
+                        group = new ItemCategoryGroup { categories = kategori, nameCategory = kategori.ToString() };
+                        itemCategoryGroups.Add(group);
+
+                    }
+
+                    // Tambahkan item ke grup yang sesuai
+                    group.items.Add(item);
+                }
+            }
+        }
+    }
 
 
 
