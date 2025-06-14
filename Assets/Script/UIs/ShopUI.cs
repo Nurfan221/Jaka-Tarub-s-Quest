@@ -87,6 +87,7 @@ public class ShopUI : MonoBehaviour
 
     private void CloseShop()
     {
+        
         GameController.Instance.ResumeGame();
         // Tutup UI Storage
         gameObject.SetActive(false);
@@ -150,6 +151,7 @@ public class ShopUI : MonoBehaviour
     {
         ClearChildUI(contentBuyUI, templateBuyUI);
         ClearChildUI(contentSellUI, templateSellUI);
+
 
         //Tampilkan item di inventory untuk dijual
         foreach (Item item in Player_Inventory.Instance.itemList)

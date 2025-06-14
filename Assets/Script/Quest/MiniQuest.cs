@@ -26,7 +26,8 @@ public class MiniQuest : MonoBehaviour
         public int rewardQuest;
         public Item rewardItemQuest;
         public GameObject npc;
-        public string deskripsi;
+        public string deskripsiAwal;
+        public string deskripsiAkhir;
 
     }
 
@@ -42,9 +43,10 @@ public class MiniQuest : MonoBehaviour
     public List<MiniQuestList> miniQuestLists = new List<MiniQuestList>();
     public List<RencanaMiniQuest> semuaRencanaMiniQuest = new List<RencanaMiniQuest>();
     public int currentDateMiniQuest;
-    private int maxItemCount = 3;
+    private int maxItemCount = 10;
     private int maxItem = 3;
     public int countquest;
+    private int currentIndexNpc;
 
     [Header("Daftar Hubungan")]
     [SerializeField] public NPCManager npcManager;
@@ -52,6 +54,7 @@ public class MiniQuest : MonoBehaviour
 
     void Start()
     {
+        RandomMiniQuest();
         RandomMiniQuest();
     }
 
@@ -63,6 +66,14 @@ public class MiniQuest : MonoBehaviour
 
     public void RandomMiniQuest()
     {
+        if (miniQuestLists.Count > 1)
+        {
+            for (int i = 0; i > miniQuestLists.Count; i--)
+            {
+                miniQuestLists.RemoveAt(i);
+            }
+        }
+
         // Cek apakah list rencana tersedia
         if (semuaRencanaMiniQuest.Count == 0)
         {
@@ -72,12 +83,22 @@ public class MiniQuest : MonoBehaviour
 
         // Pilih rencana quest secara acak
         int indexRencana = UnityEngine.Random.Range(0, semuaRencanaMiniQuest.Count);
+
         Debug.Log("nilai index rencana" + indexRencana);
         RencanaMiniQuest rencanaDipilih = semuaRencanaMiniQuest[indexRencana];
 
         // Pilih NPC acak dari manager
         int indexNPC = UnityEngine.Random.Range(0, npcManager.npcDataArray.Length);
+
+        // Pastikan NPC yang dipilih berbeda dari NPC yang sebelumnya
+        while (indexNPC == currentIndexNpc)
+        {
+            indexNPC = UnityEngine.Random.Range(0, npcManager.npcDataArray.Length);
+        }
+
+        currentIndexNpc = indexNPC;
         GameObject npcDipilih = npcManager.npcDataArray[indexNPC].prefab;
+
 
         // Buat objek MiniQuest baru
         MiniQuestList inputMiniQuest = new MiniQuestList
@@ -112,25 +133,25 @@ public class MiniQuest : MonoBehaviour
 
         // Bangun kalimat utuh
         string judulLengkap = $"{npcDipilih.name} {judulAcak}";
-        string deskripsiGabungan = $"{deskripsiAwal} {semuaNamaItem} Berikan item itu Sebelum tanggal {currentDateMiniQuest} , {deskripsiAkhir}";
+        string deskripsiGabunganAwal = $"{deskripsiAwal} Berikan item itu Sebelum tanggal {currentDateMiniQuest}";
+        string deskripsiGabunganAkhir = deskripsiAkhir;
 
         //input reward berdasarkan jumlah item
         int randomReward = 0;
-
-        switch (countquest)
+        foreach (Item item in itemQuest)
         {
-            case 1:
-                randomReward = UnityEngine.Random.Range(100, 300);
-                break;
-            case 2:
-                randomReward = UnityEngine.Random.Range(300, 500);
-                break;
-            case 3:
-                randomReward = UnityEngine.Random.Range(500, 700);
-                break;
-            default:
-                randomReward = 100; // fallback nilai default jika indexRencana tidak valid
-                break;
+            randomReward += item.stackCount;
+        }
+
+        if (randomReward > 0 && randomReward <= 10)
+        {
+            randomReward = UnityEngine.Random.Range(250, 500);
+        }else if (randomReward > 10 && randomReward <= 20)
+        {
+            randomReward = UnityEngine.Random.Range(500, 750);
+        }else if(randomReward > 20 && randomReward <= 30)
+        {
+            randomReward = UnityEngine.Random.Range(750, 1000);
         }
 
         //ambil item untuk hadiah quest 
@@ -152,101 +173,92 @@ public class MiniQuest : MonoBehaviour
         inputMiniQuest.judulQuest = judulLengkap;
         inputMiniQuest.DateMiniQuest = currentDateMiniQuest; // Jika kamu ingin menyimpan tanggal
         inputMiniQuest.countItemQuest = itemQuest.Select(i => i.stackCount).ToList(); // jika kamu pakai stackCount
-        inputMiniQuest.deskripsi = deskripsiGabungan;
+        inputMiniQuest.deskripsiAwal = deskripsiGabunganAwal;
+        inputMiniQuest.deskripsiAkhir = deskripsiAkhir;
         inputMiniQuest.rewardQuest = randomReward;
         inputMiniQuest.rewardItemQuest = randomItemReward;
 
-        //ubah nilai stackcount item menjadi 0
-        foreach (Item item in itemQuest)
-        {
-            item.stackCount = 0;
-        }
+        ////ubah nilai stackcount item menjadi 0
+        //foreach (Item item in itemQuest)
+        //{
+        //    item.stackCount = 0;
+        //}
         // Simpan ke list
         miniQuestLists.Add(inputMiniQuest);
 
         // Debug
-        Debug.Log($"Mini Quest Terpilih:\nJudul: {judulLengkap}\nDeskripsi: {deskripsiGabungan}\n");
+        
     }
 
 
     public List<Item> RandomItemforMiniQuest(int random)
     {
-        List<Item> itemtoMiniQuest = new List<Item>();
+        List<Item> itemToMiniQuest = new List<Item>();
+        List<Item> poolItems = new List<Item>();
 
         switch (random)
         {
             case 0: // Vegetable
+            case 1: // Fruit
+                ItemCategory targetCategory = (random == 0) ? ItemCategory.Vegetable : ItemCategory.Fruit;
+
                 foreach (var group in ItemPool.Instance.itemCategoryGroups)
                 {
-                    if (group.categories == ItemCategory.Vegetable)
+                    if (group.categories == targetCategory)
                     {
-                        int randomItemValue = UnityEngine.Random.Range(1, maxItem + 1); // Hindari 0
-                        countquest = randomItemValue;
-                        for (int i = 0; i < randomItemValue; i++)
-                        {
-                            int randomItemIndex = UnityEngine.Random.Range(0, group.items.Count);
-                            int randomItemCount = UnityEngine.Random.Range(1, maxItemCount + 1); // Hindari 0
-
-                            Item originalItem = group.items[randomItemIndex];
-                            Item newItem = ItemPool.Instance.AddNewItem(originalItem, randomItemCount);
-                            newItem.stackCount = randomItemCount;
-
-                            itemtoMiniQuest.Add(newItem);
-                        }
-
-                        return itemtoMiniQuest;
+                        poolItems.AddRange(group.items);
                     }
                 }
                 break;
-            case 1:
-                foreach (var group in ItemPool.Instance.itemCategoryGroups)
-                {
-                    if (group.categories == ItemCategory.Fruit)
-                    {
-                        int randomItemValue = UnityEngine.Random.Range(1, maxItem + 1); // Hindari 0
-                        countquest = randomItemValue;
-                        for (int i = 0; i < randomItemValue; i++)
-                        {
-                            int randomItemIndex = UnityEngine.Random.Range(0, group.items.Count);
-                            int randomItemCount = UnityEngine.Random.Range(1, maxItemCount + 1); // Hindari 0
 
-                            Item originalItem = group.items[randomItemIndex];
-                            Item newItem = ItemPool.Instance.AddNewItem(originalItem, randomItemCount);
-                            newItem.stackCount = randomItemCount;
-
-                            itemtoMiniQuest.Add(newItem);
-                        }
-
-                        return itemtoMiniQuest;
-                    }
-                }
-                break;
-            case 2:
+            case 2: // Hunt or Meat
                 foreach (var group in ItemPool.Instance.itemCategoryGroups)
                 {
                     if (group.categories == ItemCategory.Hunt || group.categories == ItemCategory.Meat)
                     {
-                        int randomItemValue = UnityEngine.Random.Range(1, maxItem + 1); // Hindari 0
-                        countquest = randomItemValue;
-                        for (int i = 0; i < randomItemValue; i++)
-                        {
-                            int randomItemIndex = UnityEngine.Random.Range(0, group.items.Count);
-                            int randomItemCount = UnityEngine.Random.Range(1, maxItemCount + 1); // Hindari 0
-
-                            Item originalItem = group.items[randomItemIndex];
-                            Item newItem = ItemPool.Instance.AddNewItem(originalItem, randomItemCount);
-                            newItem.stackCount = randomItemCount;
-
-                            itemtoMiniQuest.Add(newItem);
-                        }
-
-                        return itemtoMiniQuest;
+                        poolItems.AddRange(group.items);
                     }
                 }
                 break;
+
+            default:
+                return itemToMiniQuest;
         }
 
-        return null; // Jika tidak ada kategori yang cocok atau switch case lain
+        // Jika tidak ada item ditemukan
+        if (poolItems.Count == 0) return itemToMiniQuest;
+
+        int randomItemValue = UnityEngine.Random.Range(1, maxItem + 1);
+        countquest = randomItemValue;
+
+        HashSet<Item> usedItems = new HashSet<Item>();
+
+
+        for (int i = 0; i < randomItemValue; i++)
+        {
+            Item originalItem;
+            int tries = 0; // Untuk jaga-jaga supaya gak infinite loop
+
+            do
+            {
+                int randomItemIndex = UnityEngine.Random.Range(0, poolItems.Count);
+                originalItem = poolItems[randomItemIndex];
+                tries++;
+            } while (usedItems.Contains(originalItem) && tries < 100);
+
+            usedItems.Add(originalItem);
+
+
+            int randomItemCount = UnityEngine.Random.Range(1, maxItemCount + 1);
+            Item newItem = ItemPool.Instance.AddNewItem(originalItem, randomItemCount);
+            newItem.stackCount = randomItemCount;
+            itemToMiniQuest.Add(newItem);
+
+        }
+
+        return itemToMiniQuest;
     }
+
+
 
 }
