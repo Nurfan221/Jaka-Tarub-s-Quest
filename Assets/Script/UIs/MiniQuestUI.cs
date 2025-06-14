@@ -7,6 +7,7 @@ using static MiniQuest;
 public class MiniQuestUI : MonoBehaviour
 {
     [SerializeField] MiniQuest miniQuest;
+    [SerializeField] QuestManager questManager;
     public Transform miniQuest1;
     public Transform miniQuest2;
     public Transform tempalteItem1;
@@ -30,16 +31,17 @@ public class MiniQuestUI : MonoBehaviour
 
         btnClose.onClick.AddListener(() =>
         {
-            miniQuest.RandomMiniQuest();
-            miniQuest.RandomMiniQuest();
-            UpdateUI();
+            //miniQuest.RandomMiniQuest();
+            //miniQuest.RandomMiniQuest();
+            //UpdateUI();
+            Close();
             Debug.Log("button close di panggil");
         }
         );
 
     }
 
-    private void CloseShop()
+    private void Close()
     {
       
         GameController.Instance.ResumeGame();
@@ -48,6 +50,8 @@ public class MiniQuestUI : MonoBehaviour
         GameController.Instance.ShowPersistentUI(true);
         gameObject.SetActive(false);
     }
+
+
 
     public void UpdateUI()
     {
@@ -63,7 +67,13 @@ public class MiniQuestUI : MonoBehaviour
     {
         TextMeshProUGUI judul = parent.Find("JudulQuest").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI deskripsiAwal = parent.Find("DeskripsiAwalQuest").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI reward = parent.Find("Reward").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI deskripsiAkhir = parent.Find("DeskripsiAkhirQuest").GetComponent<TextMeshProUGUI>();
+        Transform contentRewardItem = parent.Find("ItemReward").GetComponent<Transform>();
+        Transform templateRewardItem = contentRewardItem.Find("itemTemplate").GetComponent<Transform>();
+        Image imageTemplateRewardItem = templateRewardItem.Find("Image").GetComponent<Image>();
+        Button buttonTake = parent.Find("Ambil").GetComponent<Button>();
+        buttonTake.onClick.RemoveAllListeners();
 
         ClearChildUI(contentContainer, itemTemplate);
 
@@ -81,6 +91,12 @@ public class MiniQuestUI : MonoBehaviour
         judul.text = questData.judulQuest;
         deskripsiAwal.text = questData.deskripsiAwal;
         deskripsiAkhir.text = questData.deskripsiAkhir;
+        imageTemplateRewardItem.sprite = questData.rewardItemQuest.sprite;
+        buttonTake.onClick.AddListener(() =>
+        {
+            questManager.CreateQuestDisplay(questData.judulQuest);
+        });
+        reward.text = $"Hadiah yang kamu dapatkan : {questData.rewardQuest.ToString()} Tod" ;
     }
 
 

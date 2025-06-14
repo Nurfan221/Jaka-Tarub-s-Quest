@@ -28,6 +28,8 @@ public class MiniQuest : MonoBehaviour
         public GameObject npc;
         public string deskripsiAwal;
         public string deskripsiAkhir;
+        public bool questActive = false;
+        public bool questComplete = false;
 
     }
 
@@ -68,10 +70,8 @@ public class MiniQuest : MonoBehaviour
     {
         if (miniQuestLists.Count > 1)
         {
-            for (int i = 0; i > miniQuestLists.Count; i--)
-            {
-                miniQuestLists.RemoveAt(i);
-            }
+            Debug.Log("hapus item dari mini qeust list");
+            miniQuestLists.Clear();
         }
 
         // Cek apakah list rencana tersedia

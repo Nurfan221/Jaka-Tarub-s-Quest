@@ -15,13 +15,21 @@ MonoBehaviour:
   itemID: 76
   itemName: Strawberry
   types: 6
-  categories: 520
+  categories: 513
   sprite: {fileID: -52090667, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   itemDescription: Strawberry segar dengan rasa manis yang menggoda. Sering dimakan
     langsung atau dijadikan bahan dasar untuk membuat kue dan minuman.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
