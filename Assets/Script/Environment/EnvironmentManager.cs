@@ -16,6 +16,10 @@ public class EnvironmentList
 
 public class EnvironmentManager : MonoBehaviour
 {
+    [Header("Daftar Hubungan")]
+    [SerializeField] NPCManager npcManager;
+    [SerializeField] public Player_Health player_Health;
+    public GameObject npcJob;
     public Transform parentEnvironment;
     public List<EnvironmentList> environmentList = new List<EnvironmentList>();
     public List<GameObject> gameObjectsList = new List<GameObject>();
@@ -202,9 +206,16 @@ public class EnvironmentManager : MonoBehaviour
                 countKuburanKotor++;
             }
         }
+
+
     }
 
-  
+    public void UpdateStatusJob()
+    {
+        Debug.Log("oiiii ada kerjaan");
+        QuestInteractable npcQuest = npcJob.GetComponent<QuestInteractable>();
+        npcQuest.isJob = true;
+    }
 
 
 }

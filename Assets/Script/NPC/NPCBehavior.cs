@@ -1,22 +1,15 @@
-using UnityEngine;
-
 using System.Collections;
-using System.Linq;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Linq; // Tambahkan ini
 using Unity.VisualScripting;
 using static QuestManager;
 using static UnityEditor.Progress;
-using System.Collections.Generic;
 using NUnit.Framework.Interfaces;
 
-public enum JobType
-{
-    Petani,
-    PenjagaKuburan,
-    Pedagang,
-    Nelayan,
-    Pemburu,
-    Penjahit
-}
+
 
 public class NPCBehavior : MonoBehaviour
 {
@@ -26,6 +19,7 @@ public class NPCBehavior : MonoBehaviour
     [SerializeField] NPCManager npcManager;
     [SerializeField] GameEconomy gameEconomy;
     [SerializeField] QuestInfoUI questInfoUI;
+    [SerializeField] EnvironmentManager kuburanInteractable;
     private NPCManager.Schedule currentActivity; // Gunakan NPCManager.Schedule untuk mendeklarasikan tipe
 
     [SerializeField] NPCAnimation npcAnimation;
@@ -331,6 +325,8 @@ public class NPCBehavior : MonoBehaviour
 
 
                         //CheckFinishQuest(quest.questName, idChapter); // Memastikan quest diperiksa
+                        CheckFinishMiniQuest(questManager.currentMiniQuest.judulQuest);
+                        //StartCoroutine(HandleQuestCompletion(questManager.currentMiniQuest.judulQuest));
 
                         Debug.Log($"Stack item yang diberikan: {jumlahDiBerikan}, stackItem: {stackItem}, item.stackCount: {item.stackCount}");
 
@@ -373,7 +369,7 @@ public class NPCBehavior : MonoBehaviour
         {
             if (chapter.idChapter == idChapter)
             {
-                foreach (var quest in chapter.sideQuest)
+                foreach (var quest in chapter.sideQuest )
                 {
                     if (quest.questName == nameQuest)
                     {
@@ -439,7 +435,7 @@ public class NPCBehavior : MonoBehaviour
                             questManager.notFinished.TheDialogues[0].name = npcName;
                             questManager.notFinished.mainSpeaker = npcName;
                             dialogueSystem.theDialogues = questManager.notFinished;
-                            dialogueSystem.StartDialogue();
+                                        dialogueSystem.StartDialogue();
                         }
                     }
                 }
@@ -541,6 +537,86 @@ public class NPCBehavior : MonoBehaviour
         return 0;
     }
 
+   
+
+    public void CheckFinishMiniQuest(string nameQuest)
+    {
+        var miniQuest = questManager.currentMiniQuest; // Menyimpan reference mini quest aktif
+
+        // Cek apakah miniQuest valid dan judulnya sesuai dengan quest yang dimaksud
+        if (miniQuest == null || miniQuest.judulQuest != nameQuest)
+            return;
+
+        bool allItemsComplete = true;
+
+        // Cek apakah semua item sudah selesai
+        foreach (var item in miniQuest.itemsQuest)
+        {
+            if (item.stackCount > 0) // Jika masih ada item yang belum selesai
+            {
+                Debug.Log("Jumlah item belum selesai: " + item.stackCount);
+                allItemsComplete = false;
+                break;
+            }
+        }
+
+        if (allItemsComplete)
+        {
+            // Semua item selesai, mulai dialog selesai quest
+            dialogueSystem.theDialogues = miniQuest.finishDialogue;
+                        dialogueSystem.StartDialogue();
+
+            // Menambah reward uang ke ekonomi
+            gameEconomy.money += miniQuest.rewardQuest;
+
+            // Cek apakah ada item reward
+            if (miniQuest.rewardItemQuest != null)
+            {
+                dialogueSystem.theDialogues = miniQuest.rewardDialogueQuest;
+                            dialogueSystem.StartDialogue();
+
+                // Membuat salinan item dan menambahkannya ke inventory
+                Item itemCopy = miniQuest.rewardItemQuest;
+                itemCopy.stackCount = miniQuest.rewardItemQuest.stackCount;
+
+                // Ambil item dari pool dan tambahkan ke inventory
+                Item itemFromPool = ItemPool.Instance.GetItem(itemCopy.itemName, itemCopy.stackCount);
+                if (itemFromPool != null)
+                {
+                    Player_Inventory.Instance.AddItem(itemFromPool);
+                    Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
+                }
+            }
+
+            Debug.Log("Quest selesai: " + miniQuest.judulQuest);
+
+            // Tandai quest sebagai selesai dan nonaktifkan
+            miniQuest.questComplete = true;
+            miniQuest.questActive = false;
+
+            // Update quest side jika perlu
+            questManager.UpdateDateSideQuest();
+            questManager.CheckQuest();
+
+            // Update UI quest yang sudah tidak aktif
+            questInfoUI.SetQuestInActive(miniQuest.judulQuest);
+
+            // Reset quest
+            questManager.currentMiniQuest = null;
+        }
+        else
+        {
+            // Jika masih ada item yang belum selesai, beri dialog pengingat
+            questManager.notFinished.TheDialogues[0].name = npcName;
+            questManager.notFinished.mainSpeaker = npcName;
+
+            dialogueSystem.theDialogues = questManager.notFinished;
+            dialogueSystem.StartDialogue();
+        }
+    }
+
+
+
 
     private bool IsItemInArray(Item[] items, string itemName)
     {
@@ -557,7 +633,10 @@ public class NPCBehavior : MonoBehaviour
         return false;
     }
 
+    public void JobNPC()
+    {
 
+    }
 
 
 }

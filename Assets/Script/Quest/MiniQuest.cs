@@ -30,6 +30,8 @@ public class MiniQuest : MonoBehaviour
         public string deskripsiAkhir;
         public bool questActive = false;
         public bool questComplete = false;
+        public Dialogues finishDialogue;
+        public Dialogues rewardDialogueQuest;
 
     }
 
@@ -49,6 +51,8 @@ public class MiniQuest : MonoBehaviour
     private int maxItem = 3;
     public int countquest;
     private int currentIndexNpc;
+    public Dialogues finishQuest;
+    public Dialogues rewardQuest;
 
     [Header("Daftar Hubungan")]
     [SerializeField] public NPCManager npcManager;
@@ -176,6 +180,8 @@ public class MiniQuest : MonoBehaviour
         inputMiniQuest.deskripsiAkhir = deskripsiAkhir;
         inputMiniQuest.rewardQuest = randomReward;
         inputMiniQuest.rewardItemQuest = randomItemReward;
+        inputMiniQuest.finishDialogue = finishQuest;
+        inputMiniQuest.rewardDialogueQuest = rewardQuest;
 
         ////ubah nilai stackcount item menjadi 0
         //foreach (Item item in itemQuest)

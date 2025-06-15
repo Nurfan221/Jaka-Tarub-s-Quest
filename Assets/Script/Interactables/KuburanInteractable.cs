@@ -9,6 +9,7 @@ public class KuburanInteractable : Interactable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] EnvironmentManager environmentKuburanManager;
 
+
     public Sprite[] spritesKuburan;
     public Sprite[] notifikasiSprites;
     public int jedaKuburanKotor;
@@ -18,6 +19,7 @@ public class KuburanInteractable : Interactable
     public GameObject notifikasi;
     public float frameRate = 0.3f; // Waktu per frame (kecepatan animasi)
     private int currentFrame = 0; // Indeks frame saat ini
+    private float useStamina = 10;
 
     //Logika kuburan kotor
     public bool isKotor;
@@ -41,7 +43,10 @@ public class KuburanInteractable : Interactable
         //// Mulai animasi
         //StartAnimationOpen();
         // Panggil OpenStorage setelah animasi selesai
-        StartCoroutine(MembersihkanMakam());
+        if (isKotor)
+        {
+            StartCoroutine(MembersihkanMakam());
+        }
     }
 
 
@@ -59,7 +64,7 @@ public class KuburanInteractable : Interactable
             notifikasi.SetActive(true);
             spriteRenderer.sprite = spritesKuburan[1];
             StartCoroutine(PlayNotifikationAnimation()); // Mulai animasi
-            
+            environmentKuburanManager.UpdateStatusJob();
             countDayKotor = 0;
         }
 
@@ -68,41 +73,64 @@ public class KuburanInteractable : Interactable
 
     private IEnumerator PlayNotifikationAnimation()
     {
-        while (true) // Loop tanpa batas (animasi berulang)
+        while (isKotor) // Hanya berjalan ketika kuburan kotor
         {
-            if (notifikasiSprites.Length > 0) // Pastikan array sprite tidak kosong
+            if (notifikasiSprites.Length > 0)
             {
-                notifikasiSpritesRenderer.sprite = notifikasiSprites[currentFrame]; // Setel sprite saat ini
-                currentFrame = (currentFrame + 1) % notifikasiSprites.Length; // Pindah ke frame berikutnya (loop)
+                notifikasiSpritesRenderer.sprite = notifikasiSprites[currentFrame];
+                currentFrame = (currentFrame + 1) % notifikasiSprites.Length;
             }
-            yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
+            yield return new WaitForSeconds(frameRate);
         }
     }
 
+
     public IEnumerator MembersihkanMakam()
     {
-        LoadingScreenUI.Instance.ShowLoading();
-        yield return new WaitForSeconds(jedaMembersihkanKuburan); // Tunggu sebelum beralih ke frame berikutnya
+        if (environmentKuburanManager.player_Health.stamina > 0)
+        {
+            // Tampilkan loading screen sementara proses pembersihan
+            LoadingScreenUI.Instance.ShowLoading();
+            yield return new WaitForSeconds(jedaMembersihkanKuburan);
 
-        // Tunggu animasi selesai sebelum menutup loading
-        LoadingScreenUI.Instance.HideLoading();
-        isKotor = false;
-        spriteRenderer.sprite = spritesKuburan[0];
-        notifikasi.SetActive(false);
-        RandomCurrentDayKotor();
+            // Sembunyikan loading screen setelah pembersihan selesai
+            LoadingScreenUI.Instance.HideLoading();
 
-        environmentKuburanManager.jumlahdiBersihkan++;
+            // Ubah status kuburan menjadi bersih
+            isKotor = false;
+            spriteRenderer.sprite = spritesKuburan[0];  // Set sprite menjadi kuburan bersih
+            notifikasi.SetActive(false);  // Matikan animasi notifikasi
 
+            // Reset nilai currentDayKotor setelah kuburan dibersihkan
+            RandomCurrentDayKotor();
 
+            // Update jumlah kuburan yang dibersihkan
+            environmentKuburanManager.jumlahdiBersihkan++;
+        }
+            
 
-
+        environmentKuburanManager.player_Health.SpendStamina(useStamina);
+        environmentKuburanManager.player_Health.SpendMaxCurrentStamina(useStamina);
     }
+
 
     public void RandomCurrentDayKotor()
     {
-        float randomCurrentDayKotor = UnityEngine.Random.Range(4f, 8f);
+        // Deklarasikan variabel hanya sekali di luar loop
+        float randomCurrentDayKotor = UnityEngine.Random.Range(4f, 10f);
+
+        // Menghasilkan nilai yang berbeda jika nilai random sama dengan currentDayKotor
+        do
+        {
+            randomCurrentDayKotor = UnityEngine.Random.Range(4f, 10f);
+        } while (randomCurrentDayKotor == currentDayKotor);
+
+        // Bulatkan nilai random
         int nilaiRandomdiBulatkan = (int)Math.Round(randomCurrentDayKotor);
+
+        // Set nilai random sebagai currentDayKotor
         currentDayKotor = nilaiRandomdiBulatkan;
     }
+
 
 }

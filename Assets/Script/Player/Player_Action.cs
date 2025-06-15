@@ -539,14 +539,13 @@ public class Player_Action : MonoBehaviour
         Item itemToAttack = Player_Inventory.Instance.equippedWeapon;
         if (itemToAttack.itemName == "Empty")
             return;
-        playerHealth.SpendStamina(itemToAttack.UseStamina);
-        playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
+       
 
         playerUI.TakeCapacityBar(itemToAttack);
 
         //menjalankan cooldown spesial skill
         spesialSkillWeapon.UseWeaponSkill(itemToAttack, true);
-        if (itemToAttack.health != 0 && playerHealth.stamina >= 0)
+        if (itemToAttack.health != 0 && playerHealth.stamina > 0)
         {
            
             if (itemToAttack.itemName == "PenyiramTanaman")
@@ -633,6 +632,9 @@ public class Player_Action : MonoBehaviour
         {
             Debug.Log("Stamina Habis bang");
         }
+
+        playerHealth.SpendStamina(itemToAttack.UseStamina);
+        playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
     }
 
     private void WaterNearbyPlants()

@@ -5,9 +5,13 @@ using UnityEngine;
 public class QuestInteractable : Interactable
 {
     [SerializeField] QuestManager questManager;
+    [SerializeField] NPCManager npcManager;
+    [SerializeField] NPCBehavior npcBehavior;
     [SerializeField] protected DialogueSystem dialogueSystem;
     public Dialogues currentDialogue; // Properti untuk menyimpan dialog
     public GameObject npcObject;
+    public bool isQuest;
+    public bool isJob;
 
 
 
@@ -20,32 +24,47 @@ public class QuestInteractable : Interactable
             Debug.LogWarning("QuestManager atau DialogueSystem belum dihubungkan di Inspector!");
         }
 
+        npcBehavior = gameObject.GetComponent<NPCBehavior>();
+
         
     }
 
    protected override void Interact()
-    {
-        if (currentDialogue != null)
+   {
+        if (isQuest)
         {
-            dialogueSystem.theDialogues = currentDialogue;
-
-            // Beri tahu DialogueSystem NPC mana yang harus dihapus setelah dialog selesai
-            dialogueSystem.npcToDestroy = npcObject;
-
-            dialogueSystem.StartDialogue();
-
-            if (npcObject != null)
+            if (currentDialogue != null)
             {
+                dialogueSystem.theDialogues = currentDialogue;
 
-                //mulai dialogue untuk mimpi jaka tarub
-                questManager.currentMainQuest.currentQuestState = MainQuest1State.PergiKeLokasiQuest;
-                questManager.NextQuestState();
+                // Beri tahu DialogueSystem NPC mana yang harus dihapus setelah dialog selesai
+                dialogueSystem.npcToDestroy = npcObject;
+
+                dialogueSystem.StartDialogue();
+
+                if (npcObject != null)
+                {
+
+                    //mulai dialogue untuk mimpi jaka tarub
+                    questManager.currentMainQuest.currentQuestState = MainQuest1State.PergiKeLokasiQuest;
+                    questManager.NextQuestState();
+                }
+
             }
-
-        }
-        else
+            else
+            {
+                Debug.LogWarning("No dialogue assigned to this NPC!");
+            }
+        }else if(isJob)
         {
-            Debug.LogWarning("No dialogue assigned to this NPC!");
+            if (npcManager.GiveReward(npcBehavior.pekerjaanNPC))
+            {
+                isJob = true;
+            }
+            else
+            {
+                isJob= false;
+            }
         }
     }
 

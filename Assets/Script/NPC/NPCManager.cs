@@ -3,8 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using static QuestManager;
 
+
+public enum JobType
+{
+    Petani,
+    PenjagaKuburan,
+    Pedagang,
+    Nelayan,
+    Pemburu,
+    Penjahit
+}
 public class NPCManager : MonoBehaviour
 {
+
     [System.Serializable]
     public class NPCData
     {
@@ -49,6 +60,10 @@ public class NPCManager : MonoBehaviour
     [SerializeField] private TimeManager timeManager;
     [SerializeField] private QuestManager questManager;
     [SerializeField] private DialogueSystem dialogueSystem;
+    [SerializeField] private EnvironmentManager kuburanEnvironment;
+    [SerializeField] GameEconomy gameEconomy;
+
+    public Dialogues dialogueTerimakasih;
 
     public GameObject wargaDesaParent; // Objek kosong untuk menampung NPC
 
@@ -193,21 +208,81 @@ public class NPCManager : MonoBehaviour
     }
 
 
-    public void CekPekerjaanNpc(GameObject npc)
-    {
-        foreach (var objekNPC in npcDataArray)
-        {
-            //string nameNPC = npc.gameObject.name;
-            if (objekNPC.prefab == npc)
-            {
-                NPCBehavior npcBehavior = npc.GetComponent<NPCBehavior>();
 
-                if (true)
+
+    public bool GiveReward(JobType jobType)
+    {
+        int randomReward = 0; // Default nilai reward
+
+        switch (jobType)
+        {
+            case JobType.PenjagaKuburan:
+                int jumlahKuburanKotor = kuburanEnvironment.countKuburanKotor;
+                int jumlahKuburanDibersihkan = kuburanEnvironment.jumlahdiBersihkan;
+
+                // Pastikan ada kuburan yang kotor dan sudah dibersihkan
+                if (jumlahKuburanKotor != 0 && jumlahKuburanDibersihkan != jumlahKuburanKotor)
                 {
-                    
+                    // Menentukan hadiah berdasarkan jumlah kuburan yang dibersihkan
+                    if (jumlahKuburanDibersihkan == 1)
+                    {
+                        // Hadiah untuk 1 kuburan dibersihkan
+                        Debug.Log("Hadiah Kategori 1: Pemberian kecil.");
+                        randomReward = 20;// Hadiah kecil
+                    }
+                    else if (jumlahKuburanDibersihkan >= 2 && jumlahKuburanDibersihkan < 5)
+                    {
+                        // Hadiah untuk lebih dari 1 hingga kurang dari 10 kuburan dibersihkan
+                        Debug.Log("Hadiah Kategori 2: Pemberian sedang.");
+                        randomReward = UnityEngine.Random.Range(30, 80); // Hadiah menengah
+                    }
+                    else if (jumlahKuburanDibersihkan >= 5 && jumlahKuburanDibersihkan < 10)
+                    {
+                        // Hadiah untuk lebih dari 10 hingga kurang dari 20 kuburan dibersihkan
+                        Debug.Log("Hadiah Kategori 3: Pemberian besar.");
+                        randomReward = UnityEngine.Random.Range(100, 200); // Hadiah besar
+                    }
+                    else if (jumlahKuburanDibersihkan >= 10 && jumlahKuburanDibersihkan <20)
+                    {
+                        // Hadiah untuk 20 atau lebih kuburan dibersihkan
+                        Debug.Log("Hadiah Kategori 4: Pemberian ekstra besar!");
+                        randomReward = UnityEngine.Random.Range(200, 400); // Hadiah ekstra besar
+                    }
+
+                    // Kondisi khusus untuk 100% kuburan yang dibersihkan
+                    if (jumlahKuburanDibersihkan == jumlahKuburanKotor)
+                    {
+                        Debug.Log("Semua kuburan dibersihkan! Pemberian hadiah penuh.");
+                        randomReward = UnityEngine.Random.Range(400, 600); // Hadiah penuh
+
+                        // Menambahkan uang ke ekonomi
+                        gameEconomy.money += randomReward;
+
+                        // Menampilkan dialog terima kasih
+                        dialogueSystem.theDialogues = dialogueTerimakasih;
+                        dialogueSystem.StartDialogue();
+
+                        return true; // Hadiah berhasil diberikan
+                    }
+
+                    // Menambahkan uang ke ekonomi jika belum 100%
+                    gameEconomy.money += randomReward;
+
+                    // Menampilkan dialog terima kasih
+                    dialogueSystem.theDialogues = dialogueTerimakasih;
+                    dialogueSystem.StartDialogue();
+
+                    return true; // Hadiah berhasil diberikan
                 }
-            }
+                break;
         }
+
+        return false; // Tidak ada hadiah jika tidak memenuhi kondisi
     }
+
+
+
+
+
 
 }
