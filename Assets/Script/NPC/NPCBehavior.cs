@@ -265,53 +265,98 @@ public class NPCBehavior : MonoBehaviour
     //    // Tambahkan logika untuk menerima item
     //}
 
-    public bool CheckItemGive(ref int stackItem)
+    public bool CheckItemGive(ref int stackItem, QuestType questType)
     {
         Debug.Log("check item give di jalankan ");
         bool isItemGiven = false;
 
-        foreach (var chapter in questManager.chapters)
+        if (questType == QuestType.Side)
         {
-            foreach (var quest in chapter.sideQuest)
+            foreach (var chapter in questManager.chapters)
             {
-                if (npcName == quest.NPC.name && quest.questActive) // Pastikan quest aktif
+                foreach (var quest in chapter.sideQuest)
                 {
-                    var item = quest.itemQuests.FirstOrDefault(i => i.itemName == itemQuest);
-
-                    if (item != null)
+                    if (npcName == quest.NPC.name && quest.questActive) // Pastikan quest aktif
                     {
-                        if (item.stackCount > 0) // Pastikan masih ada item yang diperlukan
+                        var item = quest.itemQuests.FirstOrDefault(i => i.itemName == itemQuest);
+
+                        if (item != null)
                         {
-                            int jumlahDiBerikan = Mathf.Min(stackItem, item.stackCount);
-                            item.stackCount -= jumlahDiBerikan;
-                            stackItem -= jumlahDiBerikan;
+                            if (item.stackCount > 0) // Pastikan masih ada item yang diperlukan
+                            {
+                                int jumlahDiBerikan = Mathf.Min(stackItem, item.stackCount);
+                                item.stackCount -= jumlahDiBerikan;
+                                stackItem -= jumlahDiBerikan;
 
-                            int idChapter = chapter.idChapter;
-                            Debug.Log("id chapter" + idChapter);
+                                int idChapter = chapter.idChapter;
+                                Debug.Log("id chapter" + idChapter);
 
-                            CheckFinishQuest(quest.questName, idChapter); // Memastikan quest diperiksa
+                                CheckFinishQuest(quest.questName, idChapter); // Memastikan quest diperiksa
 
-                            Debug.Log($"Stack item yang diberikan: {jumlahDiBerikan}, stackItem: {stackItem}, item.stackCount: {item.stackCount}");
+                                Debug.Log($"Stack item yang diberikan: {jumlahDiBerikan}, stackItem: {stackItem}, item.stackCount: {item.stackCount}");
 
-                            isItemGiven = true;
+                                isItemGiven = true;
+                            }
+                            else
+                            {
+                                Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
+                                return false;
+                            }
                         }
                         else
                         {
-                            Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
+                            Debug.Log($"Item dengan nama {itemQuest} tidak ditemukan di quest {quest.questName}.");
                             return false;
                         }
                     }
                     else
                     {
-                        Debug.Log($"Item dengan nama {itemQuest} tidak ditemukan di quest {quest.questName}.");
-                        return false;
+                        Debug.Log("Npc name tidak sama ");
                     }
-                }else
-                {
-                    Debug.Log("Npc name tidak sama ");
                 }
             }
+        }else if(questType == QuestType.Mini)
+        {
+            if (questManager.currentMiniQuest != null && npcName == questManager.currentMiniQuest.npc.name && questManager.currentMiniQuest.questActive) // Pastikan quest aktif
+            {
+                var item = questManager.currentMiniQuest.itemsQuest.FirstOrDefault(i => i.itemName == itemQuest);
+
+                if (item != null)
+                {
+                    if (item.stackCount > 0) // Pastikan masih ada item yang diperlukan
+                    {
+                        int jumlahDiBerikan = Mathf.Min(stackItem, item.stackCount);
+                        item.stackCount -= jumlahDiBerikan;
+                        stackItem -= jumlahDiBerikan;
+
+
+                        //CheckFinishQuest(quest.questName, idChapter); // Memastikan quest diperiksa
+
+                        Debug.Log($"Stack item yang diberikan: {jumlahDiBerikan}, stackItem: {stackItem}, item.stackCount: {item.stackCount}");
+
+                        isItemGiven = true;
+                    }
+                    else
+                    {
+                        Debug.Log($"Item untuk quest {questManager.currentMiniQuest.judulQuest} sudah habis!");
+                        return false;
+                    }
+                }
+                else
+                {
+                    Debug.Log($"Item dengan nama {itemQuest} tidak ditemukan di quest {questManager.currentMiniQuest.judulQuest}.");
+                    return false;
+                }
+            }
+            else
+            {
+                Debug.Log("Npc name tidak sama ");
+            }
+
         }
+
+
+
 
         return isItemGiven; // Pastikan return di bagian akhir
     }

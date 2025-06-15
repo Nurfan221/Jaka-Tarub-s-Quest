@@ -8,12 +8,15 @@ public class MiniQuestUI : MonoBehaviour
 {
     [SerializeField] MiniQuest miniQuest;
     [SerializeField] QuestManager questManager;
+    [SerializeField] QuestInfoUI questInfoUI;
     public Transform miniQuest1;
     public Transform miniQuest2;
     public Transform tempalteItem1;
     public Transform tempalteItem2;
     public Transform contentItem1;
     public Transform contentItem2;
+    public Transform bgActiveQuest1;
+    public Transform bgActiveQuest2;
     public Button btnClose;
 
     public void Start()
@@ -95,6 +98,9 @@ public class MiniQuestUI : MonoBehaviour
         buttonTake.onClick.AddListener(() =>
         {
             questManager.CreateQuestDisplay(questData.judulQuest);
+            TakeMiniQuest(questData.questID);
+            questInfoUI.AddMiniQuestActive(questData);
+            buttonTake.gameObject.SetActive(false);
         });
         reward.text = $"Hadiah yang kamu dapatkan : {questData.rewardQuest.ToString()} Tod" ;
     }
@@ -108,4 +114,35 @@ public class MiniQuestUI : MonoBehaviour
                 Destroy(child.gameObject);
         }
     }
+
+    public void TakeMiniQuest(int id)
+    {
+        foreach(var quest in miniQuest.miniQuestLists)
+        {
+            if (quest.questID == id)
+            {
+                quest.questActive = true;
+
+                
+            }
+        }
+
+        switch(id)
+        {
+            case 0:
+                bgActiveQuest2.gameObject.SetActive(true);
+                break;
+            case 1:
+                bgActiveQuest1.gameObject.SetActive(true);
+                break;
+            default:
+                bgActiveQuest1.gameObject.SetActive(false);
+                bgActiveQuest2.gameObject.SetActive(false);
+                break ;
+
+
+        }
+    }
+
+    
 }

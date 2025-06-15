@@ -19,9 +19,9 @@ public class MiniQuest : MonoBehaviour
     [Serializable]
     public class MiniQuestList
     {
+        public int questID; 
         public string judulQuest;
         public List<Item> itemsQuest = new List<Item>();
-        public List<int> countItemQuest = new List<int>();
         public int DateMiniQuest;
         public int rewardQuest;
         public Item rewardItemQuest;
@@ -172,7 +172,6 @@ public class MiniQuest : MonoBehaviour
         // Masukkan ke dalam quest
         inputMiniQuest.judulQuest = judulLengkap;
         inputMiniQuest.DateMiniQuest = currentDateMiniQuest; // Jika kamu ingin menyimpan tanggal
-        inputMiniQuest.countItemQuest = itemQuest.Select(i => i.stackCount).ToList(); // jika kamu pakai stackCount
         inputMiniQuest.deskripsiAwal = deskripsiGabunganAwal;
         inputMiniQuest.deskripsiAkhir = deskripsiAkhir;
         inputMiniQuest.rewardQuest = randomReward;
@@ -184,10 +183,15 @@ public class MiniQuest : MonoBehaviour
         //    item.stackCount = 0;
         //}
         // Simpan ke list
+
         miniQuestLists.Add(inputMiniQuest);
+        for(int i = 0; i < miniQuestLists.Count; i++)
+        {
+            miniQuestLists[i].questID = i;
+        }
 
         // Debug
-        
+
     }
 
 

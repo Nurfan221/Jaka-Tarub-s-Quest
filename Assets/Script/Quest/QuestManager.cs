@@ -7,6 +7,13 @@ using static QuestManager;
 //using Microsoft.Unity.VisualStudio.Editor;
 using static UnityEditor.Progress;
 using System.Net.NetworkInformation;
+using static MiniQuest;
+
+public enum QuestType
+{
+    Side,
+    Mini
+}
 
 public enum MainQuest1State
 {
@@ -147,6 +154,9 @@ public class QuestManager : MonoBehaviour
     public string mainQuestInfo;
     public Dialogues mainQuestDialogue;
     public bool playerSekaratSudahDiproses = false;
+
+    //deklarasi untuk menampung mini quest
+    public MiniQuestList currentMiniQuest;
 
 
 
