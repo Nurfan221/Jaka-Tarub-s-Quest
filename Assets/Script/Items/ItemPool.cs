@@ -11,11 +11,12 @@ public class ItemCategoryGroup
     public ItemCategory categories;
     public List<Item> items = new List<Item>();
 }
+
 public class ItemPool : MonoBehaviour
 {
     public static ItemPool Instance;
 
-    [SerializeField] public List<Item> items;
+    [SerializeField] public List<Item> items; // Ini adalah list TEMPLATE
     public List<ItemCategoryGroup> itemCategoryGroups = new List<ItemCategoryGroup>();
 
     private void Awake()
@@ -25,29 +26,36 @@ public class ItemPool : MonoBehaviour
         // Inisialisasi itemIDs berdasarkan urutan dalam list
         for (int i = 0; i < items.Count; i++)
         {
-            items[i].itemID = i + 1; // Mengatur itemID sesuai urutan, dimulai dari 1
+            items[i].itemID = i + 1;
         }
         AddItemCategories();
-
     }
 
-    public Item GetItem(string name, int count = 1, int level = 1)
+    // Fungsi utama untuk mendapatkan instance item baru dengan kualitas tertentu.
+    public Item GetItemWithQuality(string name, ItemQuality quality, int count = 1, int level = 1)
     {
-        Item itemToGet = items.Find(x => x.itemName == name);
-        AddNewItem(itemToGet, itemToGet.stackCount);
-        if (itemToGet != null)
+        Item itemTemplate = items.Find(x => x.itemName == name);
+        if (itemTemplate != null)
         {
-            itemToGet.stackCount = count; // Ini akan menentukan jumlah item yang ada di stack
-
-            itemToGet.Level = level;
-            return Instantiate(itemToGet);
+            // Panggil AddNewItem untuk membuat kloningan dengan kualitas yang spesifik
+            Item newItemInstance = AddNewItem(itemTemplate, count, quality);
+            newItemInstance.Level = level; // Atur level pada instance baru
+            return newItemInstance;
         }
         else
         {
-            Debug.LogWarning($"Item with name {name} not found in ItemPool!");
+            Debug.LogWarning($"Item with name '{name}' not found in ItemPool!");
             return null;
         }
     }
+
+    //Jalan pintas untuk mendapatkan item dengan kualitas Normal.
+    public Item GetItem(string name, int count = 1, int level = 1)
+    {
+        // Fungsi ini sekarang hanya menjadi wrapper/jalan pintas yang aman.
+        return GetItemWithQuality(name, ItemQuality.Normal, count, level);
+    }
+
 
     public void DropItem(string itemName, Vector2 pos, GameObject itemDrop, int count = 1, int level = 1)
     {
@@ -94,54 +102,58 @@ public class ItemPool : MonoBehaviour
         droppedItem.GetComponent<ItemDropInteractable>().item = GetItem(itemName, count, level);
     }
 
-    public Item AddNewItem(Item item, int stackCount)
+    // Membuat kloningan (deep copy) dari sebuah item template dengan jumlah dan kualitas tertentu.
+    private Item AddNewItem(Item itemTemplate, int stackCount, ItemQuality quality)
     {
-        // Membuat salinan mendalam dari item
-        Item newItem = ScriptableObject.CreateInstance<Item>(); // Membuat instance baru dari Item
+        // Membuat instance baru dari Item, ini adalah kloningan kosong
+        Item newItem = ScriptableObject.CreateInstance<Item>();
 
-        // Salin semua properti dari item lama
-        newItem.itemID = item.itemID;
-        newItem.itemName = item.itemName;
-        newItem.types = item.types;
-        newItem.categories = item.categories;
-        newItem.sprite = item.sprite;
-        newItem.itemDescription = item.itemDescription;
-        newItem.QuantityFuel = item.QuantityFuel;
-        newItem.maxhealth = item.maxhealth;
-        newItem.health = item.health;
-        newItem.Level = item.Level;
-        newItem.MaxLevel = item.MaxLevel;
-        newItem.Damage = item.Damage;
-        newItem.AreaOfEffect = item.AreaOfEffect;
-        newItem.SpecialAttackCD = item.SpecialAttackCD;
-        newItem.SpecialAttackStamina = item.SpecialAttackStamina;
-        newItem.UpgradeCost = item.UpgradeCost;
-        newItem.UseStamina = item.UseStamina;
-        newItem.RangedWeapon_ProjectilePrefab = item.RangedWeapon_ProjectilePrefab;
-        newItem.isStackable = item.isStackable;
+        // Salin SEMUA properti dari template ke instance baru
+        newItem.itemID = itemTemplate.itemID;
+        newItem.itemName = itemTemplate.itemName;
+        newItem.types = itemTemplate.types;
+        newItem.categories = itemTemplate.categories;
+        newItem.sprite = itemTemplate.sprite;
+        newItem.itemDescription = itemTemplate.itemDescription;
+        newItem.QuantityFuel = itemTemplate.QuantityFuel;
+        newItem.maxhealth = itemTemplate.maxhealth;
+        newItem.health = itemTemplate.health;
+        newItem.MaxLevel = itemTemplate.MaxLevel;
+        newItem.Damage = itemTemplate.Damage;
+        newItem.AreaOfEffect = itemTemplate.AreaOfEffect;
+        newItem.SpecialAttackCD = itemTemplate.SpecialAttackCD;
+        newItem.SpecialAttackStamina = itemTemplate.SpecialAttackStamina;
+        newItem.UpgradeCost = itemTemplate.UpgradeCost;
+        newItem.UseStamina = itemTemplate.UseStamina;
+        newItem.RangedWeapon_ProjectilePrefab = itemTemplate.RangedWeapon_ProjectilePrefab;
+        newItem.isStackable = itemTemplate.isStackable;
+        newItem.maxStackCount = itemTemplate.maxStackCount;
+        newItem.BuyValue = itemTemplate.BuyValue;
+        newItem.SellValue = itemTemplate.SellValue; // Ini adalah harga jual dasar
+        newItem.BurningTime = itemTemplate.BurningTime;
+        newItem.CookTime = itemTemplate.CookTime;
+        newItem.prefabItem = itemTemplate.prefabItem;
+        newItem.growthTime = itemTemplate.growthTime;
+        newItem.dropItem = itemTemplate.dropItem;
+        newItem.buffSprint = itemTemplate.buffSprint;
+        newItem.buffDamage = itemTemplate.buffDamage;
+        newItem.buffProtection = itemTemplate.buffProtection;
+        newItem.countHeal = itemTemplate.countHeal;
+        newItem.countStamina = itemTemplate.countStamina;
+        newItem.waktuBuffDamage = itemTemplate.waktuBuffDamage;
+        newItem.waktuBuffProtection = itemTemplate.waktuBuffProtection;
+        newItem.waktuBuffSprint = itemTemplate.waktuBuffSprint;
+
+        // Salinan untuk array agar tidak menggunakan referensi yang sama
+        newItem.growthImages = (Sprite[])itemTemplate.growthImages.Clone();
+        newItem.growthObject = (GameObject[])itemTemplate.growthObject.Clone();
+
+        //menetapkan data unik untuk setiap instance
         newItem.stackCount = stackCount;
-        newItem.maxStackCount = item.maxStackCount;
-        newItem.BuyValue = item.BuyValue;
-        newItem.SellValue = item.SellValue;
-        newItem.BurningTime = item.BurningTime;
-        newItem.CookTime = item.CookTime;
-        newItem.prefabItem = item.prefabItem;
-        newItem.growthTime = item.growthTime;
-        newItem.dropItem = item.dropItem;
-        newItem.buffSprint = item.buffSprint;
-        newItem.buffDamage = item.buffDamage;
-        newItem.buffProtection = item.buffProtection;
-        newItem.countHeal = item.countHeal;
-        newItem.countStamina = item.countStamina;
-        newItem.waktuBuffDamage = item.waktuBuffDamage;
-        newItem.waktuBuffProtection = item.waktuBuffProtection;
-        newItem.waktuBuffSprint = item.waktuBuffSprint;
+        newItem.quality = quality; // Menetapkan kualitas pada kloningan baru
 
-        // Membuat salinan array (Jika ada array atau objek lainnya)
-        newItem.growthImages = item.growthImages.ToArray();  // Membuat salinan dari array
-        newItem.growthObject = item.growthObject.ToArray();  // Membuat salinan dari array
-
-        newItem.name = newItem.itemName;
+        // Beri nama berbeda pada asset instance agar mudah di-debug di Unity Editor
+        newItem.name = $"{newItem.itemName} (Instance - {quality})";
         return newItem;
     }
 
@@ -169,12 +181,12 @@ public class ItemPool : MonoBehaviour
                     }
 
                     // Tambahkan item ke grup yang sesuai
-                    group.items.Add(item);
+                    if (!group.items.Contains(item))
+                    {
+                        group.items.Add(item);
+                    }
                 }
             }
         }
     }
-
-
-
 }

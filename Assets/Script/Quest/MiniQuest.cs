@@ -260,7 +260,7 @@ public class MiniQuest : MonoBehaviour
 
 
             int randomItemCount = UnityEngine.Random.Range(1, maxItemCount + 1);
-            Item newItem = ItemPool.Instance.AddNewItem(originalItem, randomItemCount);
+            Item newItem = ItemPool.Instance.GetItemWithQuality(originalItem.name, originalItem.quality);
             newItem.stackCount = randomItemCount;
             itemToMiniQuest.Add(newItem);
 

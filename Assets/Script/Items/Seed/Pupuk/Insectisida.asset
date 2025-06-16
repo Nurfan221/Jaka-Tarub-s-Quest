@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 95
   itemName: Insectisida
+  quality: 0
   types: 136
   categories: 8192
   sprite: {fileID: -6007857137893288414, guid: 3dd69cf2659d80741b62ad4154f15769, type: 3}
@@ -21,6 +22,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 10
   health: 10
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -31,7 +40,7 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
+  stackCount: 18
   maxStackCount: 32
   BuyValue: 5
   SellValue: 2

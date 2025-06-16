@@ -118,7 +118,7 @@ public class ShopUI : MonoBehaviour
         for (int i = 0; i < Items.Count; i++)
         {
             // Memanggil AddNewItem untuk membuat item baru dan menambahkannya ke dalam newItemList
-            Item newItem = ItemPool.Instance.AddNewItem(Items[i], itemCountInShop);
+            Item newItem = ItemPool.Instance.GetItemWithQuality(Items[i].name, Items[i].quality);
 
             // Menambahkan item salinan baru ke dalam newItemList
             newItemList.Add(newItem);

@@ -36,12 +36,20 @@ public enum ItemCategory
     Hunt = 16384,
 }
 
+public enum ItemQuality
+{
+    Normal = 0,   // Bintang 1
+    Baik = 1,     // Bintang 2
+    Sempurna = 2  // Bintang 3
+}
+
 [CreateAssetMenu(menuName = "Make an Item")]
 public class Item : ScriptableObject
 {
     [Header("STATS")]
     public int itemID;
     public string itemName;
+    public ItemQuality quality;
     public ItemType types;
     public ItemCategory categories;
     public Sprite sprite;

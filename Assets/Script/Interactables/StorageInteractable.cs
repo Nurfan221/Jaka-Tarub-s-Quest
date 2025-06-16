@@ -46,7 +46,7 @@ public class StorageInteractable : Interactable
         // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
         for (int i = 0; i < Items.Count; i++)
         {
-            Item newItem = ItemPool.Instance.AddNewItem(Items[i], countItems[i]);
+            Item newItem = ItemPool.Instance.GetItemWithQuality(Items[i].name, Items[i].quality, countItems[i]); 
 
             // Menambahkan item baru ke dalam newItemList
             newItemList.Add(newItem);
