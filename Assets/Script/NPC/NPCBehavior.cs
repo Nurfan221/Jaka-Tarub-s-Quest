@@ -418,6 +418,10 @@ public class NPCBehavior : MonoBehaviour
                             }
 
                             Debug.Log("selesai: " + quest.questName);
+                            if (quest.isInGrief)
+                            {
+                                Player_Health.Instance.HealGriefStep();
+                            }
                             quest.questComplete = true;
                             if (idChapter == chapter.idChapter)
                             {

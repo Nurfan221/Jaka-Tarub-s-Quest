@@ -132,6 +132,7 @@ public class NPCManager : MonoBehaviour
                             {
                                 interactable.currentDialogue = quest.dialogueQuest;
                                 interactable.promptMessage = "Quest " + quest.questName;
+                                interactable.isQuest = true;
                             }
                         }
                         else

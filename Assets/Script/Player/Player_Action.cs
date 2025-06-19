@@ -371,7 +371,7 @@ public class Player_Action : MonoBehaviour
             print("melee normal attacking");
             playerUI.TakeCapacityBar(itemToAttack);
             playerHealth.SpendStamina(itemToAttack.UseStamina);
-            playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
+            //playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
             //Debug.Log("nama item yang sedang di pakai" + itemToAttack.itemName);
             switch (itemToAttack.itemName)
             {
@@ -634,7 +634,8 @@ public class Player_Action : MonoBehaviour
         }
 
         playerHealth.SpendStamina(itemToAttack.UseStamina);
-        playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
+
+        playerHealth.ApplyFatigue(itemToAttack.UseStamina);
     }
 
     private void WaterNearbyPlants()

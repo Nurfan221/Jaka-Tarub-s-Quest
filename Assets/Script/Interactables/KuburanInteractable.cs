@@ -19,7 +19,7 @@ public class KuburanInteractable : Interactable
     public GameObject notifikasi;
     public float frameRate = 0.3f; // Waktu per frame (kecepatan animasi)
     private int currentFrame = 0; // Indeks frame saat ini
-    private float useStamina = 10;
+    private int useStamina = 10;
 
     //Logika kuburan kotor
     public bool isKotor;
@@ -110,7 +110,7 @@ public class KuburanInteractable : Interactable
             
 
         environmentKuburanManager.player_Health.SpendStamina(useStamina);
-        environmentKuburanManager.player_Health.SpendMaxCurrentStamina(useStamina);
+        environmentKuburanManager.player_Health.ApplyFatigue(useStamina);
     }
 
 
