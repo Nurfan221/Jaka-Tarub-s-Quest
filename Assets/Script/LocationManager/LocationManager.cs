@@ -76,7 +76,7 @@ public class LocationManager : MonoBehaviour
                 {
                     if (mainQuestDanau)
                     {
-                        dialogueSystem.theDialogues = questManager.currentMainQuest.dialogueQuest[6];
+                        //dialogueSystem.theDialogues = questManager.currentMainQuest.dialogueQuest[6];
                         dialogueSystem.StartDialogue();
                         StartCoroutine(dialogueSystem.WaitForDialogueToEnd());
                     }
@@ -114,8 +114,8 @@ public class LocationManager : MonoBehaviour
                 if (mainQuestDanau)
                 {
                     inDanau = false;
-                    questManager.currentMainQuest.currentQuestState = MainQuest1State.Pulang;
-                    questManager.NextQuestState();
+                    //questManager.currentMainQuest.currentQuestState = MainQuest1State.Pulang;
+                    //questManager.NextQuestState();
                     mainQuestDanau = false ;
                     exitDanauScene = true;
                 }
@@ -126,8 +126,8 @@ public class LocationManager : MonoBehaviour
                 // Lakukan sesuatu di Rumah Jaka
                 if (mainQuestMisiYangTerlupakan)
                 {
-                    questManager.currentMainQuest.currentQuestState = MainQuest1State.MisiYangBelumSelesai;
-                    questManager.NextQuestState();
+                    //questManager.currentMainQuest.currentQuestState = MainQuest1State.MisiYangBelumSelesai;
+                    //questManager.NextQuestState();
                     mainQuestMisiYangTerlupakan = false;
                 }
 

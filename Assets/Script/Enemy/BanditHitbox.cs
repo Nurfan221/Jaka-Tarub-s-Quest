@@ -52,8 +52,8 @@ public class BanditHitbox : MonoBehaviour
                     {
                         Debug.Log("Player sekarat! Memulai event kekalahan...");
                         questManager.playerSekaratSudahDiproses = true;
-                        questManager.currentMainQuest.currentQuestState = MainQuest1State.Sekarat;
-                        questManager.NextQuestState();
+                        //questManager.currentMainQuest.currentQuestState = MainQuest1State.Sekarat;
+                        //questManager.NextQuestState();
                     }
                 }
             }

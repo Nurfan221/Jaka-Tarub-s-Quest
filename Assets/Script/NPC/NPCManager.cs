@@ -144,21 +144,30 @@ public class NPCManager : MonoBehaviour
             }
         }
 
-        if (questManager.currentMainQuest != null && questManager.currentMainQuest.questActive )
+        if (questManager.CurrentActiveQuest != null && questManager.CurrentActiveQuest.questActive)
         {
-            string nameNpc = questManager.currentMainQuest.NPC.name;
-            foreach (var npc in npcDataArray)
+            // maka otomatis buatkan variabel baru bernama "mq1" dengan tipe tersebut.
+            if (questManager.CurrentActiveQuest is MainQuest1_Controller mq1)
             {
-                if (npc.prefab != null && npc.prefab.name == nameNpc)
+                // Tidak perlu casting manual, kita bisa langsung pakai mq1
+                GameObject npcQuest = mq1.NPC;
+                
+                string nameNpc = npcQuest.name;
+                foreach (var npc in npcDataArray)
                 {
-                    QuestInteractable interactable = npc.prefab.GetComponent<QuestInteractable>();
-                    if (interactable != null)
+                    if (npc.prefab != null && npc.prefab.name == nameNpc)
                     {
-                        interactable.currentDialogue = questManager.currentMainQuest.dialoguePengingat;
-                        interactable.promptMessage = "Quest " + questManager.currentMainQuest.questName;
+                        QuestInteractable interactable = npc.prefab.GetComponent<QuestInteractable>();
+                        if (interactable != null)
+                        {
+                            interactable.currentDialogue = mq1.dialoguePengingat;
+                            interactable.promptMessage = "Quest " + questManager.CurrentActiveQuest.questName;
+                        }
                     }
                 }
+                Debug.Log($"NPC untuk Main Quest 1 adalah: {npcQuest.name}");
             }
+            
         }
 
 
@@ -193,6 +202,7 @@ public class NPCManager : MonoBehaviour
                     {
                         questScript.currentDialogue = dialoguesMainQuest;
                         questScript.npcObject = newNpc;
+                        questScript.isQuest = true;
                     }
 
                     newNpc.name = objekNPC.npcName + "_Clone";

@@ -33,23 +33,23 @@ public class PlayerQuest : MonoBehaviour
             // Cek lokasi quest utama seperti biasa
             if (other.gameObject == locationMainQuest)
             {
-                switch (questManager.currentMainQuest.indexLocation)
-                {
-                    case 0:
-                        ProsesLocationMainQuest(other, MainQuest1State.CariRusa);
-                        break;
-                    case 1:
-                        ProsesLocationMainQuest(other, MainQuest1State.SceneDanauIndah);
-                        break;
-                    case 2:
-                        ProsesLocationMainQuest(other, MainQuest1State.KabarKesedihan);
-                        player_Health.isInGrief = true;
-                        player_Health.StartGrief();
-                        break;
-                    case 3:
-                        ProsesLocationMainQuest(other, MainQuest1State.PermintaanMamat);
-                        break;
-                }
+                //switch (questManager.currentMainQuest.indexLocation)
+                //{
+                //    case 0:
+                //        ProsesLocationMainQuest(other, MainQuest1State.CariRusa);
+                //        break;
+                //    case 1:
+                //        ProsesLocationMainQuest(other, MainQuest1State.SceneDanauIndah);
+                //        break;
+                //    case 2:
+                //        ProsesLocationMainQuest(other, MainQuest1State.KabarKesedihan);
+                //        player_Health.isInGrief = true;
+                //        player_Health.StartGrief();
+                //        break;
+                //    case 3:
+                //        ProsesLocationMainQuest(other, MainQuest1State.PermintaanMamat);
+                //        break;
+                //}
             }
         }
 
@@ -86,27 +86,27 @@ public class PlayerQuest : MonoBehaviour
     }
 
   
-    public void ProsesLocationMainQuest(Collider2D other, MainQuest1State mainQuest1State)
-    {
-        Debug.Log("proses location main quest di panggil");
-        if (other.gameObject == locationMainQuest && !mainQuestInLocation)
-        {
-            // Panggil fungsi playMainLocationQuest dengan index yang sesuai
-            int indexLocation = questManager.currentMainQuest.indexLocation;
-            dialogueSystem.theDialogues = dialogueInLocation;
-            dialogueSystem.StartDialogue();
+    //public void ProsesLocationMainQuest(Collider2D other, MainQuest1State mainQuest1State)
+    //{
+    //    Debug.Log("proses location main quest di panggil");
+    //    if (other.gameObject == locationMainQuest && !mainQuestInLocation)
+    //    {
+    //        // Panggil fungsi playMainLocationQuest dengan index yang sesuai
+    //        //int indexLocation = questManager.currentMainQuest.indexLocation;
+    //        dialogueSystem.theDialogues = dialogueInLocation;
+    //        dialogueSystem.StartDialogue();
 
-            StartCoroutine(dialogueSystem.WaitForDialogueToEnd());
+    //        StartCoroutine(dialogueSystem.WaitForDialogueToEnd());
 
-            questManager.currentMainQuest.currentQuestState = mainQuest1State;
+    //        //questManager.currentMainQuest.currentQuestState = mainQuest1State;
 
-            questManager.NextQuestState();
+    //        questManager.NextQuestState();
 
 
-            // Set agar fungsi tidak bisa dipanggil lagi
-            mainQuestInLocation = true;
-        }
-    }
+    //        // Set agar fungsi tidak bisa dipanggil lagi
+    //        mainQuestInLocation = true;
+    //    }
+    //}
 
     public void CariRusa()
     {

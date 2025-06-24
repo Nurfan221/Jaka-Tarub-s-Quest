@@ -41,14 +41,14 @@ public class QuestInteractable : Interactable
                 dialogueSystem.npcToDestroy = npcObject;
 
                 dialogueSystem.StartDialogue();
+                
 
-                if (npcObject != null)
-                {
+                //if (npcObject != null)
+                //{
 
-                    //mulai dialogue untuk mimpi jaka tarub
-                    questManager.currentMainQuest.currentQuestState = MainQuest1State.PergiKeLokasiQuest;
-                    questManager.NextQuestState();
-                }
+                //    //mulai dialogue untuk mimpi jaka tarub
+                //    questManager.CurrentActiveQuest.currentQuestState = 
+                //}
 
             }
             else

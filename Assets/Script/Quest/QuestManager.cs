@@ -15,23 +15,7 @@ public enum QuestType
     Mini
 }
 
-public enum MainQuest1State
-{
-    None,
-    Play,
-    MenemukanDanau,
-    PergiKeLokasiQuest,
-    CariRusa,
-    BunuhRusa,
-    MunculBandit,
-    Sekarat,
-    SceneDanauIndah,
-    Pulang,
-    KabarKesedihan,
-    MisiYangBelumSelesai,
-    PermintaanMamat,
-    Selesai,
-}
+
 
 public class QuestManager : MonoBehaviour
 {
@@ -40,40 +24,40 @@ public class QuestManager : MonoBehaviour
     {
         public int idChapter;
         public Quest[] sideQuest;
-        public MainQuest[] mainQuest;
+        //public MainQuest[] mainQuest;
         public int currentSideQuest;
 
         
     }
 
-    [System.Serializable]
-    public class MainQuest
-    {
-        public string questName;
-        public MainQuest1State currentQuestState = MainQuest1State.None;
+    //[System.Serializable]
+    //public class MainQuest
+    //{
+    //    public string questName;
+    //    //public MainQuest1State currentQuestState = MainQuest1State.None;
 
-        //inputkan dialogue sesuai jalan cerita dari awal hingga akhir
-        public Dialogues[] dialogueQuest;
-        public Dialogues dialoguePengingat; 
-        public GameObject NPC;
-        public int date;
-        public string questDetail;
-        public Dialogues finish;
-        public Dialogues rewardItemQuest;
-        public bool questActive = false;
-        public bool questComplete = false;
-        public Vector3 locateNpcQuest;
+    //    //inputkan dialogue sesuai jalan cerita dari awal hingga akhir
+    //    public Dialogues[] dialogueQuest;
+    //    public Dialogues dialoguePengingat;
+    //    public GameObject NPC;
+    //    public int date;
+    //    public string questDetail;
+    //    public Dialogues finish;
+    //    public Dialogues rewardItemQuest;
+    //    public bool questActive = false;
+    //    public bool questComplete = false;
+    //    public Vector3 locateNpcQuest;
 
-        //tentukan sprite sesuai dengan jalan cerita mulai dari awal sampai akhir
-        public Sprite[] spriteQuest;
-        public int reward;
-        public Reward[] rewards;
-        public List<Item> itemQuests;
-        public int indexLocation;
-        public locationMainQuest[] locationMainQuest;
+    //    //tentukan sprite sesuai dengan jalan cerita mulai dari awal sampai akhir
+    //    public Sprite[] spriteQuest;
+    //    public int reward;
+    //    public Reward[] rewards;
+    //    public List<Item> itemQuests;
+    //    public int indexLocation;
+    //    public locationMainQuest[] locationMainQuest;
 
 
-    }
+    //}
     [System.Serializable]
 
     public class locationMainQuest
@@ -104,9 +88,11 @@ public class QuestManager : MonoBehaviour
         public Dialogues rewardItemQuest;
         public bool questActive = false;
         public bool questComplete = false;
+        public bool isObjectHidden;
         public bool isInGrief;
         public bool isSpawner;
         public GameObject spawner;
+        public GameObject objectHidden;
         public Vector3 locateNpcQuest;
 
     }
@@ -123,20 +109,40 @@ public class QuestManager : MonoBehaviour
     public Chapter[] chapters;
 
     //antrian/queue main quest 
-    public Queue<MainQuest> mainQuestQueue = new Queue<MainQuest>();
-    public MainQuest currentMainQuest = null; // Menyimpan MainQuest yang sedang aktif
-    public int countCurrentMainQuest = 1;
+    //public Queue<MainQuest> mainQuestQueue = new Queue<MainQuest>();
+    //public MainQuest currentMainQuest = null; // Menyimpan MainQuest yang sedang aktif
+    [Header("Manajemen Main Quest")]
+    public GameObject[] mainQuestPrefabs; // array penampung prefab mainquest
+
+    //Variabel ini akan menampung skrip quest yang sedang aktif
+    // Ubah nama variabel private menjadi _currentActiveQuest (konvensi umum)
+    private MainQuestController _currentActiveQuest;
+
+    // Inilah "etalase kaca" publik kita
+    public MainQuestController CurrentActiveQuest
+    {
+        get { return _currentActiveQuest; } // 'get' berarti skrip lain boleh MEMBACA nilainya
+        private set { _currentActiveQuest = value; } // 'private set' berarti HANYA QuestManager yang boleh MENGUBAH nilainya
+    }
+
+    public int countCurrentMainQuest = 0;
+    // Variabel baru untuk mengelola penjadwalan Main Quest
+    private int scheduledMainQuestIndex = -1; // -1 berarti tidak ada yang dijadwalkan
+    private int scheduledMainQuestDate = -1;
 
     [Header("HUBUNGAN")]
     [SerializeField] TimeManager timeManager;
-    [SerializeField] DialogueSystem dialogueSystem;
-    [SerializeField] NPCManager npcManager;
+    [SerializeField] public DialogueSystem dialogueSystem;
+    [SerializeField] public  NPCManager npcManager;
     [SerializeField] LoadingScreenUI loadingScreenUI;
-    [SerializeField] PlayerQuest playerQuest;
+    [SerializeField] public PlayerQuest playerQuest;
     [SerializeField] QuestInfoUI questInfoUI;
     //[SerializeField] LocationConfiguration locationConfiguration;
     [SerializeField] SpawnerManager spawnerManager;
     [SerializeField] LocationManager locationManager;
+
+    //hubungan quest perchapter
+    [SerializeField] MainQuest2 mainQuest2;
     public bool chapter1IsDone;
     public Transform questUI;
     public Transform displayMainQuest;
@@ -146,8 +152,8 @@ public class QuestManager : MonoBehaviour
 
 
     [Header("Quest")]
-    [SerializeField] Transform ContentGO;
-    [SerializeField] Transform SlotTemplate;
+    public Transform ContentGO;
+    public Transform SlotTemplate;
     public Transform childContentGo;
     public TextMeshProUGUI childTemplateContentGo;
     public int jedaMainQuest;
@@ -206,10 +212,7 @@ public class QuestManager : MonoBehaviour
         npcManager.CheckNPCQuest();
 
         Debug.Log("tanggal sekarang : " + timeManager.date + 1);
-        if (currentMainQuest != null && (timeManager.date + 1) == currentMainQuest.date)
-        {
-            PlayMainQuest();
-        }
+        CheckForScheduledQuest();
     }
 
     public void AddItemToList(Quest questActive)
@@ -282,12 +285,7 @@ public class QuestManager : MonoBehaviour
         }
 
 
-        if (currentMainQuest != null && currentMainQuest.date == timeManager.date +1)
-        {
-            Debug.Log("currentMainQuest ada isinya");
-            mainQuestInfo = "ikuti kata hatimu";
-            CreateQuestDisplay(mainQuestInfo);
-        }
+       
 
     }
 
@@ -315,34 +313,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public void InputAntrianMainQuest()
-    {
-        foreach (var chapter in chapters)
-        {
-            if (chapter.idChapter == countCurrentMainQuest && chapter.currentSideQuest == chapter.sideQuest.Length)
-            {
-                foreach (var quest in chapter.mainQuest) // Loop setiap main quest dalam chapter
-                {
-                    mainQuestQueue.Enqueue(quest);  
-                }
-            }
-        }
-
-        if (mainQuestQueue.Count > 0) // Cek apakah ada quest dalam queue
-        {
-            currentMainQuest = mainQuestQueue.Dequeue(); // Ambil quest pertama dari queue
-            currentMainQuest.questActive = true; // Tandai sebagai aktif
-
-            currentMainQuest.date = timeManager.date + 2;
-
-            Debug.Log($"Main Quest Dimulai: {currentMainQuest.questName}");
-        }
-        else
-        {
-            currentMainQuest = null; // Jika queue kosong, reset current quest
-            Debug.Log("Tidak ada Main Quest yang tersisa!");
-        }
-    }
+    
 
     public void UpdateDateSideQuest()
     {
@@ -364,209 +335,139 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-
-
-    public void MainQuestSelesai()
+    // Fungsi baru untuk menjadwalkan Main Quest
+    public void ScheduleNextMainQuest(int completedChapterId)
     {
-        if (currentMainQuest != null)
-        {
-            currentMainQuest.questActive = false; // Tandai quest sebagai selesai
-            Debug.Log($"Main Quest {currentMainQuest.questName} selesai!");
+        // Tentukan main quest mana yang akan dijadwalkan (berdasarkan chapter yang selesai)
+        int nextQuestNumber = completedChapterId; // Asumsi Chapter 1 akan memicu Main Quest 1, dst.
 
-            // Setelah quest selesai, ambil quest berikutnya jika ada
-            if (mainQuestQueue.Count > 0)
+        // Tentukan tanggal mulainya, misalnya 2 hari dari sekarang
+        int startDate = timeManager.date + 2; // Anda bisa membuat jeda ini menjadi variabel
+
+        // Simpan informasi penjadwalan ini
+        scheduledMainQuestIndex = nextQuestNumber;
+        scheduledMainQuestDate = startDate;
+
+        Debug.Log($"Semua side quest untuk Chapter {completedChapterId} selesai. Menjadwalkan Main Quest {nextQuestNumber} pada tanggal {startDate}.");
+    }
+
+    // Fungsi ini harus dipanggil sekali setiap hari baru
+    public void CheckForScheduledQuest()
+    {
+        // Cek apakah ada quest yang dijadwalkan DAN apakah tanggalnya sudah tiba
+        if (scheduledMainQuestIndex != -1 && timeManager.date == scheduledMainQuestDate)
+        {
+            // Waktunya memulai quest!
+            // Kita gunakan countCurrentMainQuest dari variabel yang terjadwal
+            countCurrentMainQuest = scheduledMainQuestIndex;
+            MulaiMainQuest(); // Panggil fungsi yang sudah kita buat sebelumnya
+
+            // Reset penjadwalan agar tidak berjalan lagi
+            scheduledMainQuestIndex = -1;
+            scheduledMainQuestDate = -1;
+        }
+    }
+
+    public void MulaiMainQuest()
+    {
+        // Hentikan quest lama jika masih ada yang berjalan
+        if (_currentActiveQuest != null)
+        {
+            Destroy(_currentActiveQuest.gameObject);
+            _currentActiveQuest = null;
+        }
+
+        // Gunakan countCurrentMainQuest untuk menentukan prefab mana yang akan di-load
+        // Indeks array dimulai dari 0, jadi kita perlu - 1
+        int questIndex = countCurrentMainQuest - 1;
+
+        // Pastikan quest dengan nomor tersebut ada di dalam daftar prefab kita
+        if (questIndex >= 0 && questIndex < mainQuestPrefabs.Length)
+        {
+            // "Instantiate" adalah perintah untuk membuat salinan dari sebuah prefab ke dalam scene game
+            GameObject questObject = Instantiate(mainQuestPrefabs[questIndex]);
+
+            // Dapatkan komponen skrip controller dari objek yang baru kita buat
+            _currentActiveQuest = questObject.GetComponent<MainQuestController>();
+
+            // Jika skripnya ditemukan, mulai quest tersebut!
+            if (_currentActiveQuest != null)
             {
-                currentMainQuest = mainQuestQueue.Dequeue(); // Ambil quest berikutnya dari queue
-                currentMainQuest.questActive = true; // Tandai quest berikutnya sebagai aktif
-                currentMainQuest.date = timeManager.date + 2;
-                Debug.Log($"Main Quest Dimulai: {currentMainQuest.questName}");
-                CheckQuest();
+                //currentActiveQuest.StartQuest(this); // 'this' merujuk ke QuestManager ini sendiri
+                Debug.Log("currentMainQuest ada isinya");
+                //    mainQuestInfo = "ikuti kata hatimu";
+                CreateQuestDisplay(_currentActiveQuest.questName);
+                _currentActiveQuest.questActive = true;
             }
             else
             {
-                currentMainQuest = null; // Jika tidak ada quest lagi
-                Debug.Log("Tidak ada Main Quest yang tersisa!");
-                CheckQuest();
+                Debug.LogError("Prefab Main Quest tidak memiliki skrip MainQuestController!");
             }
+        }
+        else
+        {
+            Debug.LogWarning("Semua Main Quest telah selesai atau quest nomor " + countCurrentMainQuest + " tidak ditemukan.");
+        }
+
+        // Setelah objek quest dibuat, QuestManager "memperkenalkan dirinya"
+        _currentActiveQuest.StartQuest(this); // "this" di sini merujuk ke QuestManager itu sendiri
+    }
+
+    // Anda juga perlu fungsi untuk menandai quest selesai
+    public void MainQuestSelesai()
+    {
+        if (_currentActiveQuest != null)
+        {
+            Debug.Log($"Main Quest {_currentActiveQuest.questName} telah selesai!");
+            Destroy(_currentActiveQuest.gameObject);
+            _currentActiveQuest = null;
+
+            // Tambah hitungan untuk persiapan quest berikutnya
+            countCurrentMainQuest++;
+
+            // Anda bisa langsung memicu quest berikutnya di sini jika mau,
+            // atau menunggunya dipicu oleh event lain.
+            // Contoh: MulaiMainQuest(); 
         }
     }
 
-    public void PlayMainQuest()
-    {
-        Debug.Log("Play main Quest di jalankan");
-        //set cerita untuk mimpi jaka tarub 
+    //public void PlayMainQuest()
+    //{
+    //    Debug.Log("Play main Quest di jalankan");
+    //    //set cerita untuk mimpi jaka tarub 
 
-        //mulai dialogue untuk mimpi jaka tarub
-        currentMainQuest.currentQuestState = MainQuest1State.Play;
-        NextQuestState();
+    //    //mulai dialogue untuk mimpi jaka tarub
+    //    currentMainQuest.currentQuestState = MainQuest1State.Play;
+    //    NextQuestState();
 
-        GameObject npcMainQuest = currentMainQuest.NPC;
-        Vector3 locationNpcMainQuest = currentMainQuest.locateNpcQuest;
-        Dialogues dialoguesMainQuest = currentMainQuest.dialogueQuest[1];
+    //    GameObject npcMainQuest = currentMainQuest.NPC;
+    //    Vector3 locationNpcMainQuest = currentMainQuest.locateNpcQuest;
+    //    Dialogues dialoguesMainQuest = currentMainQuest.dialogueQuest[1];
 
-        npcManager.CheckNPCMainQuest(npcMainQuest, locationNpcMainQuest, dialoguesMainQuest);
+    //    npcManager.CheckNPCMainQuest(npcMainQuest, locationNpcMainQuest, dialoguesMainQuest);
 
 
-    }
+    //}
 
     
 
-        public void NextQuestState()
-        {
-            switch (currentMainQuest.currentQuestState)
-            {
-                case MainQuest1State.None:
-                 
+        
 
-                    currentMainQuest.currentQuestState = MainQuest1State.Play;
-                    break;
-                case MainQuest1State.Play:
-                    ShowDialogueAndSprite(0,0, true);
-                    break;
-                case MainQuest1State.PergiKeLokasiQuest:
-                    mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
-                    currentMainQuest.currentQuestState = MainQuest1State.PergiKeLokasiQuest;
-                    UpdateLocationMainQuest();
-                    break;
-                case MainQuest1State.CariRusa:
-                    playerQuest.CariRusa();
-                    break;
-                case MainQuest1State.BunuhRusa:
-                    MunculkanSpawnerBandit();
-                    break;
-                case MainQuest1State.Sekarat:
-                    currentMainQuest.indexLocation++;
-                    UpdateLocationMainQuest();
-                    break;
-                case MainQuest1State.SceneDanauIndah:
-                     ShowDialogueAndSprite(5, 1, true);
-                     HapusSparnerBandit();
-                     break;
-                case MainQuest1State.Pulang:
-                     currentMainQuest.indexLocation++;
-                     UpdateLocationMainQuest();
-                     break;
-                case MainQuest1State.KabarKesedihan:
-                    ShowDialogueAndSprite(8, 2 , true);
-                locationManager.mainQuestMisiYangTerlupakan = true;
-                break;
-                case MainQuest1State.MisiYangBelumSelesai:
-                    currentMainQuest.indexLocation++;
-                    UpdateLocationMainQuest();
-                    break;
-                case MainQuest1State.PermintaanMamat:
-                mainQuestInfo = "Cari daging rusa untuk Mamat";
-                mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
-                childTemplateContentGo = childContentGo.GetComponentInChildren<TextMeshProUGUI>();
-                childContentGo.name = mainQuestInfo;
-                childTemplateContentGo.text = mainQuestInfo;
-                
-                chapter1IsDone = true;
-                break;
-
-            }
-        }
-
-    public void ShowDialogueAndSprite(int indexDialogue, int indexImage, bool pakaiImage)
-    {
-        Debug.Log("Mulai Scene Cerita");
-        if (pakaiImage)
-        {
-            questUI.gameObject.SetActive(true);
-            //tentukan image yang ingin di tampilkan
-            Image questImageUI = questUI.GetChild(0).GetComponent<Image>();
-            questImageUI.sprite = currentMainQuest.spriteQuest[indexImage];
-
-            // Pastikan index tidak melebihi batas array
-            dialogueSystem.theDialogues = currentMainQuest.dialogueQuest[indexDialogue];
-            dialogueSystem.StartDialogue();
-            StartCoroutine(dialogueSystem.WaitForDialogueToEnd());
-        }else
-        {
-            // Pastikan index tidak melebihi batas array
-            dialogueSystem.theDialogues = currentMainQuest.dialogueQuest[indexDialogue];
-            dialogueSystem.StartDialogue();
-            StartCoroutine(dialogueSystem.WaitForDialogueToEnd());
-        }
-
-    }
-
-    public void UpdateLocationMainQuest()
-    {
-        switch(currentMainQuest.indexLocation)
-        {
-            case 0:
-                childContentGo = ContentGO.transform.Find("ikuti kata hatimu");
-                childTemplateContentGo = childContentGo.GetComponentInChildren<TextMeshProUGUI>();
-                childContentGo.name = mainQuestInfo;
-                childTemplateContentGo.text = mainQuestInfo;
-                playerQuest.locationMainQuest = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].locationQuest;
-                playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[2];
-                break;
-            case 1:
-                Debug.Log("memanggil fungsi sekarat");  
-                childContentGo = ContentGO.transform.Find(mainQuestInfo);
-                
-                mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
-                childTemplateContentGo = childContentGo.GetComponentInChildren<TextMeshProUGUI>();
-                childContentGo.name = mainQuestInfo;
-                childTemplateContentGo.text = mainQuestInfo;
-
-                dialogueSystem.theDialogues = currentMainQuest.dialogueQuest[3];
-                dialogueSystem.StartDialogue();
-
-                playerQuest.locationMainQuest = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].locationQuest;
-                playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[4];
-                playerQuest.mainQuestInLocation = false;
-                break;
-            case 2:
-                Debug.Log("memanggil fungsi pulang");
-                childContentGo = ContentGO.transform.Find(mainQuestInfo);
-
-                mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
-                childTemplateContentGo = childContentGo.GetComponentInChildren<TextMeshProUGUI>();
-                childContentGo.name = mainQuestInfo;
-                childTemplateContentGo.text = mainQuestInfo;
-
-                dialogueSystem.theDialogues = currentMainQuest.dialogueQuest[7];
-                dialogueSystem.StartDialogue();
-
-                playerQuest.locationMainQuest = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].locationQuest;
-                playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[8];
-                playerQuest.mainQuestInLocation = false;
-                break;
-            case 3:
-                Debug.Log("memanggil fungsi lupa sesuatu");
-                childContentGo = ContentGO.transform.Find(mainQuestInfo);
-                mainQuestInfo = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].infoQuest;
-                childTemplateContentGo = childContentGo.GetComponentInChildren<TextMeshProUGUI>();
-                childContentGo.name = mainQuestInfo;
-                childTemplateContentGo.text = mainQuestInfo;
-
-                playerQuest.locationMainQuest = currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].locationQuest;
-                playerQuest.dialogueInLocation = currentMainQuest.dialogueQuest[9];
-                playerQuest.mainQuestInLocation = false;
-                Debug.Log("main quest in location di set ke false");
-                Debug.Log("index location : " + currentMainQuest.indexLocation);
-                Debug.Log(playerQuest.mainQuestInLocation);
-                break;
-
-        }
-    }
+   
 
     public void MunculkanSpawnerBandit()
     {
-        playerQuest.environmentObject.gameObject.SetActive(false);
+        //playerQuest.environmentObject.gameObject.SetActive(false);
 
-        if (currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].isSpawner)
-        {
-            currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].spawner.gameObject.SetActive(true);
-        }
+        //if (currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].isSpawner)
+        //{
+        //    currentMainQuest.locationMainQuest[currentMainQuest.indexLocation].spawner.gameObject.SetActive(true);
+        //}
     }
 
     public void HapusSparnerBandit()
     {
-        currentMainQuest.locationMainQuest[currentMainQuest.indexLocation -1 ].spawner.gameObject.SetActive(false);
+        //currentMainQuest.locationMainQuest[currentMainQuest.indexLocation -1 ].spawner.gameObject.SetActive(false);
     }
 
     

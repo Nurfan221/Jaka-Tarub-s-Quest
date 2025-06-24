@@ -426,8 +426,11 @@ public class NPCBehavior : MonoBehaviour
                             if (idChapter == chapter.idChapter)
                             {
                                 chapter.currentSideQuest++;
-                                questManager.InputAntrianMainQuest();
-                                questManager.countCurrentMainQuest++;
+                                if (chapter.currentSideQuest == chapter.sideQuest.Length)
+                                {
+                                    questManager.ScheduleNextMainQuest(chapter.idChapter);
+
+                                }
                                 questManager.UpdateDateSideQuest();
                             }
                             quest.questActive = false;
@@ -451,54 +454,54 @@ public class NPCBehavior : MonoBehaviour
     public void CheckFinishMainQuest()
     {
         bool allItemMainQuest = true;
-       foreach(var item in questManager.currentMainQuest.itemQuests)
-        {
-            if (item.stackCount >0)
-            {
-                allItemMainQuest = false;
-                break;
-            }
+       //foreach(var item in questManager.currentMainQuest.itemQuests)
+       // {
+       //     if (item.stackCount >0)
+       //     {
+       //         allItemMainQuest = false;
+       //         break;
+       //     }
 
            
-        }
+       // }
 
         if (allItemMainQuest)
         {
             // Tandai quest selesai dan jalankan dialog selesai
-            questManager.currentMainQuest.finish.TheDialogues[0].name = npcName;
-            questManager.currentMainQuest.finish.mainSpeaker = npcName;
-            dialogueSystem.theDialogues = questManager.currentMainQuest.finish;
-            dialogueSystem.StartDialogue();
-            gameEconomy.money += questManager.currentMainQuest.reward;
+            //questManager.currentMainQuest.finish.TheDialogues[0].name = npcName;
+            //questManager.currentMainQuest.finish.mainSpeaker = npcName;
+            //dialogueSystem.theDialogues = questManager.currentMainQuest.finish;
+            //dialogueSystem.StartDialogue();
+            //gameEconomy.money += questManager.currentMainQuest.reward;
 
-            if (questManager.currentMainQuest.rewards.Length > 0)
-            {
-                dialogueSystem.theDialogues = questManager.currentMainQuest.rewardItemQuest;
-                dialogueSystem.StartDialogue();
-                for (int i = 0; i < questManager.currentMainQuest.rewards.Length; i++)
-                {
-                    // Pastikan itemReward tidak null untuk menghindari NullReferenceException
-                    if (questManager.currentMainQuest.rewards[i].itemReward != null)
-                    {
-                        // Mengambil nama item dari itemReward
-                        string itemRewardName = questManager.currentMainQuest.rewards[i].itemReward.name;
-                        Item itemReward = questManager.currentMainQuest.rewards[i].itemReward;
+            //if (questManager.currentMainQuest.rewards.Length > 0)
+            //{
+            //    dialogueSystem.theDialogues = questManager.currentMainQuest.rewardItemQuest;
+            //    dialogueSystem.StartDialogue();
+            //    for (int i = 0; i < questManager.currentMainQuest.rewards.Length; i++)
+            //    {
+            //        // Pastikan itemReward tidak null untuk menghindari NullReferenceException
+            //        if (questManager.currentMainQuest.rewards[i].itemReward != null)
+            //        {
+            //            // Mengambil nama item dari itemReward
+            //            string itemRewardName = questManager.currentMainQuest.rewards[i].itemReward.name;
+            //            Item itemReward = questManager.currentMainQuest.rewards[i].itemReward;
 
-                        // Debug untuk memastikan nama itemReward terambil dengan benar
-                        Debug.Log($"Item Reward Name: {itemRewardName}");
+            //            // Debug untuk memastikan nama itemReward terambil dengan benar
+            //            Debug.Log($"Item Reward Name: {itemRewardName}");
 
-                        // Men-drop item menggunakan ItemPool
-                        ItemPool.Instance.DropItem(itemRewardName, transform.position + new Vector3(0, 0.5f, 0), itemReward.prefabItem);
-                    }
-                }
-            }
+            //            // Men-drop item menggunakan ItemPool
+            //            ItemPool.Instance.DropItem(itemRewardName, transform.position + new Vector3(0, 0.5f, 0), itemReward.prefabItem);
+            //        }
+            //    }
+            //}
 
 
-            Debug.Log("selesai: " + questManager.currentMainQuest.questName);
-            questManager.currentMainQuest.questComplete = true;
+            //Debug.Log("selesai: " + questManager.currentMainQuest.questName);
+            //questManager.currentMainQuest.questComplete = true;
             
-            questManager.currentMainQuest.questActive = false;
-            questManager.MainQuestSelesai();
+            //questManager.currentMainQuest.questActive = false;
+            //questManager.MainQuestSelesai();
             //questInfoUI.SetQuestInActive(questManager.currentMainQuest.questName);
 
         }

@@ -292,8 +292,8 @@ public class MiniGameHewanUI : MonoBehaviour
 
                 if (isEvent)
                 {
-                    questManager.currentMainQuest.currentQuestState = MainQuest1State.BunuhRusa;
-                    questManager.NextQuestState();
+                    //questManager.currentMainQuest.currentQuestState = MainQuest1State.BunuhRusa;
+                    //questManager.NextQuestState();
 
                 }
                 else

@@ -188,9 +188,10 @@ public class DialogueSystem : MonoBehaviour
         Debug.Log("Dialog main quest selesai!");
 
         //Lanjutkan logika setelah dialog selesai
-        if (questManager.currentMainQuest != null)
+        if(questManager.CurrentActiveQuest != null)
         {
             questManager.questUI.gameObject.SetActive(false);
         }
+
     }
 }
