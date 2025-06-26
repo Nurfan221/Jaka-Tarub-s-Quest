@@ -29,6 +29,7 @@ public class NPCBehavior : MonoBehaviour
     public string npcName;
     public JobType pekerjaanNPC;
     public Vector3 startPosition;
+    public Vector2 currentPosition;
     public float movementSpeed = 2.0f;
 
 

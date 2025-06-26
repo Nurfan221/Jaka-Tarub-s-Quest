@@ -132,7 +132,7 @@ public class NPCManager : MonoBehaviour
                             {
                                 interactable.currentDialogue = quest.dialogueQuest;
                                 interactable.promptMessage = "Quest " + quest.questName;
-                                interactable.isQuest = true;
+                                interactable.isQuestNPC = true;
                             }
                         }
                         else
@@ -144,15 +144,16 @@ public class NPCManager : MonoBehaviour
             }
         }
 
-        if (questManager.CurrentActiveQuest != null && questManager.CurrentActiveQuest.questActive)
+        if (questManager.CurrentActiveQuest != null )
         {
             // maka otomatis buatkan variabel baru bernama "mq1" dengan tipe tersebut.
             if (questManager.CurrentActiveQuest is MainQuest1_Controller mq1)
             {
                 // Tidak perlu casting manual, kita bisa langsung pakai mq1
-                GameObject npcQuest = mq1.NPC;
+
+               
                 
-                string nameNpc = npcQuest.name;
+                string nameNpc = mq1.targetNpcName;
                 foreach (var npc in npcDataArray)
                 {
                     if (npc.prefab != null && npc.prefab.name == nameNpc)
@@ -165,7 +166,7 @@ public class NPCManager : MonoBehaviour
                         }
                     }
                 }
-                Debug.Log($"NPC untuk Main Quest 1 adalah: {npcQuest.name}");
+                Debug.Log($"NPC untuk Main Quest 1 adalah: {nameNpc}");
             }
             
         }
@@ -175,49 +176,88 @@ public class NPCManager : MonoBehaviour
 
     }
 
-    public void CheckNPCMainQuest(GameObject npc, Vector3 locationQuest, Dialogues dialoguesMainQuest)
+    // Mari kita sebut PindahkanNPCToQuestLocation untuk kejelasan.
+    public void PindahkanNPCToQuestLocation(string targetNpcName, Vector3 locationQuest)
     {
-        foreach (var objekNPC in npcDataArray)
+        Debug.Log("fungsik memindahkan npc di panggil");
+        // Cek apakah parent untuk warga desa sudah di-set
+        if (wargaDesaParent == null)
         {
-            //string nameNPC = npc.gameObject.name;
-            if (objekNPC.prefab == npc)
+            Debug.LogError("Variabel 'wargaDesaParent' belum di-set di Inspector NPCManager!");
+            return;
+        }
+
+        bool npcDitemukan = false;
+
+        // Loop melalui setiap anak dari objek wargaDesaParent
+        foreach (Transform npcTransform in wargaDesaParent.transform)
+        {
+            // Ambil skrip behavior dari setiap NPC
+            NPCBehavior npcBehavior = npcTransform.GetComponent<NPCBehavior>();
+
+            // Jika skrip ada dan namanya cocok
+            if (npcBehavior != null && npcBehavior.npcName == targetNpcName)
             {
-                GameObject npcPrefab = objekNPC.prefab;
+                npcDitemukan = true; // Tandai NPC ditemukan
 
-                if (npcPrefab != null)
+                //Aktifkan GameObject NPC jika sebelumnya tidak aktif
+                npcTransform.gameObject.SetActive(true);
+
+                //Nonaktifkan sementara jadwal normalnya agar ia tidak mencoba berjalan pergi
+                npcBehavior.isMoving = false; // Atau buat variabel baru: npcBehavior.isLockedForQuest = true;
+                npcBehavior.currentPosition = npcTransform.position;
+                //Pindahkan NPC ke lokasi quest yang ditentukan
+                npcTransform.position = locationQuest;
+
+                
+
+                // Ambil skrip interaksinya untuk disiapkan jika perlu
+                QuestInteractable questScript = npcTransform.GetComponent<QuestInteractable>();
+                if (questScript != null)
                 {
-                    GameObject newNpc = Instantiate(npcPrefab, locationQuest, Quaternion.identity);
-
-                    //Mengubah scale menjadi (1,1,1)
-                    newNpc.transform.localScale = Vector3.one;
-                    QuestInteractable questScript = newNpc.GetComponent<QuestInteractable>();
-                    NPCBehavior behaviorScript = newNpc.GetComponent<NPCBehavior>();
-
-                    if (behaviorScript != null)
-                    {
-                        behaviorScript.isMoving = false;
-                    }
-
-                    if (questScript != null)
-                    {
-                        questScript.currentDialogue = dialoguesMainQuest;
-                        questScript.npcObject = newNpc;
-                        questScript.isQuest = true;
-                    }
-
-                    newNpc.name = objekNPC.npcName + "_Clone";
-                    
+                    questScript.isQuestNPC = true;
+                    // Anda bisa set dialog spesifik di sini jika mau,
+                    // tapi lebih baik diatur oleh MainQuestController-nya langsung.
                 }
-                else
-                {
-                    Debug.Log($"NPC {npcPrefab.name} berhasil di duplikasi");
-                }
-                return;
+
+                Debug.Log($"SUKSES: NPC '{targetNpcName}' telah dipindahkan ke lokasi quest.");
+
+                // Hentikan loop karena NPC sudah ditemukan
+                break;
             }
         }
-        Debug.LogWarning($"NPC {npc.name} tidak ditemukan dalam npcDataArray");
+
+        // Jika setelah loop selesai dan NPC tidak ditemukan, beri peringatan
+        if (!npcDitemukan)
+        {
+            Debug.LogWarning($"PERINGATAN: Tidak ada anak dari 'wargaDesaParent' yang memiliki NPCBehavior dengan npcName '{targetNpcName}'!");
+        }
     }
 
+    public void KembalikanNPKeJadwalNormal(string targetNpcName)
+    {
+        // Loop melalui setiap anak dari objek wargaDesaParent
+        foreach (Transform npcTransform in wargaDesaParent.transform)
+        {
+            NPCBehavior npcBehavior = npcTransform.GetComponent<NPCBehavior>();
+
+            if (npcBehavior != null && npcBehavior.npcName == targetNpcName)
+            {
+                // Reset statusnya agar ia bisa kembali mengikuti jadwal harian
+                npcTransform.position = npcBehavior.currentPosition;
+                npcBehavior.isMoving = true; // Atau isLockedForQuest = false;
+                // Beritahu QuestInteractable bahwa ia bukan lagi NPC quest utama untuk saat ini
+                QuestInteractable questScript = npcTransform.GetComponent<QuestInteractable>();
+                if (questScript != null)
+                {
+                    questScript.isQuestNPC = false;
+                }
+
+                Debug.Log($"NPC {targetNpcName} telah dilepaskan dan akan kembali ke jadwalnya.");
+                break;
+            }
+        }
+    }
 
 
 

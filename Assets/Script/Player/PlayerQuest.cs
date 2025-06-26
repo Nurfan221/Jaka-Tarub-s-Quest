@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static LocationManager;
 
@@ -5,11 +6,16 @@ using static LocationManager;
 public class PlayerQuest : MonoBehaviour
 {
 
+    // Ini adalah "pengeras suara" yang bisa didengar oleh skrip lain.
+    // Ia akan menyiarkan sebuah string (nama lokasi) saat pemain masuk ke sebuah lokasi.
+    public static event Action<string> OnPlayerEnteredLocation;
+
+
     [SerializeField] QuestManager questManager;
     [SerializeField] DialogueSystem dialogueSystem;
     [SerializeField] LocationManager locationManager;
     [SerializeField] Player_Health player_Health;
-    public GameObject locationMainQuest;
+    //public GameObject locationMainQuest;
     public Dialogues dialogueInLocation;
     public GameObject environmentObject;
     public bool mainQuestInLocation = false;
@@ -27,50 +33,17 @@ public class PlayerQuest : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Pastikan hanya memicu sekali
-        if (!mainQuestInLocation)
-        {
-            // Cek lokasi quest utama seperti biasa
-            if (other.gameObject == locationMainQuest)
-            {
-                //switch (questManager.currentMainQuest.indexLocation)
-                //{
-                //    case 0:
-                //        ProsesLocationMainQuest(other, MainQuest1State.CariRusa);
-                //        break;
-                //    case 1:
-                //        ProsesLocationMainQuest(other, MainQuest1State.SceneDanauIndah);
-                //        break;
-                //    case 2:
-                //        ProsesLocationMainQuest(other, MainQuest1State.KabarKesedihan);
-                //        player_Health.isInGrief = true;
-                //        player_Health.StartGrief();
-                //        break;
-                //    case 3:
-                //        ProsesLocationMainQuest(other, MainQuest1State.PermintaanMamat);
-                //        break;
-                //}
-            }
-        }
+        // Cek apakah objek yang kita masuki punya skrip LocationTrigger
+        LocationConfiguration location = other.GetComponent<LocationConfiguration>();
 
-        // Loop untuk memeriksa semua lokasi dalam LocationArray
-        foreach (GameObjectLocation gol in locationManager.LocationArray)
+        // Jika ada...
+        if (location != null)
         {
-            if (other.gameObject == gol.Location)
-            {
-                //Debug.Log("Sedang di lokasi : " + locationMainQuest.name);
-                // Panggil logika tambahan jika lokasi terdeteksi
-
-                if (locationMainQuest != null && locationMainQuest.name == "SekitarDanau" && !locationManager.mainQuestDanau)
-                {
-                    locationManager.mainQuestDanau = true;
-                   
-                }
-                locationManager.HandleLocationEnter(gol);
-            }
+            // "Teriakkan" atau siarkan nama lokasi tersebut ke seluruh penjuru game.
+            Debug.Log($"Pemain masuk ke lokasi: {location.locationName}");
+            OnPlayerEnteredLocation?.Invoke(location.locationName);
         }
     }
-
 
     public void OnTriggerExit2D(Collider2D collision)
     {
@@ -108,18 +81,18 @@ public class PlayerQuest : MonoBehaviour
     //    }
     //}
 
-    public void CariRusa()
-    {
-        Transform childTransform = locationMainQuest.transform.Find("Domba");
-        if (childTransform != null)
-        {
-            environmentObject = childTransform.gameObject;
-            environmentObject.gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning("Child tidak ditemukan!");
-        }
-    }
+    //public void CariRusa()
+    //{
+    //    Transform childTransform = locationMainQuest.transform.Find("Domba");
+    //    if (childTransform != null)
+    //    {
+    //        environmentObject = childTransform.gameObject;
+    //        environmentObject.gameObject.SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("Child tidak ditemukan!");
+    //    }
+    //}
 
 }

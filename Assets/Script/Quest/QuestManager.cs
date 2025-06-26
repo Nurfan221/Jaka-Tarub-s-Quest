@@ -288,6 +288,14 @@ public class QuestManager : MonoBehaviour
        
 
     }
+    
+    public void UpdateDisplayQuest(string questInfo)
+    { 
+        childContentGo = ContentGO.transform.Find(questInfo);
+        childTemplateContentGo = childContentGo.GetComponentInChildren<TextMeshProUGUI>();
+        childContentGo.name = mainQuestInfo;
+        childTemplateContentGo.text = mainQuestInfo;
+    }
 
     public void CreateQuestDisplay(string questInfo)
     {
@@ -370,34 +378,29 @@ public class QuestManager : MonoBehaviour
 
     public void MulaiMainQuest()
     {
-        // Hentikan quest lama jika masih ada yang berjalan
-        if (_currentActiveQuest != null)
+        // Hancurkan quest lama jika ada
+        if (CurrentActiveQuest != null)
         {
-            Destroy(_currentActiveQuest.gameObject);
-            _currentActiveQuest = null;
+            Destroy(CurrentActiveQuest.gameObject);
         }
 
-        // Gunakan countCurrentMainQuest untuk menentukan prefab mana yang akan di-load
-        // Indeks array dimulai dari 0, jadi kita perlu - 1
         int questIndex = countCurrentMainQuest - 1;
 
-        // Pastikan quest dengan nomor tersebut ada di dalam daftar prefab kita
         if (questIndex >= 0 && questIndex < mainQuestPrefabs.Length)
         {
-            // "Instantiate" adalah perintah untuk membuat salinan dari sebuah prefab ke dalam scene game
+            // 1. Buat objek quest dari prefab. HANYA SATU KALI.
             GameObject questObject = Instantiate(mainQuestPrefabs[questIndex]);
 
-            // Dapatkan komponen skrip controller dari objek yang baru kita buat
-            _currentActiveQuest = questObject.GetComponent<MainQuestController>();
+            // 2. Dapatkan komponen controllernya.
+            CurrentActiveQuest = questObject.GetComponent<MainQuestController>();
 
-            // Jika skripnya ditemukan, mulai quest tersebut!
-            if (_currentActiveQuest != null)
+            // 3. Jika berhasil, mulai questnya.
+            if (CurrentActiveQuest != null)
             {
-                //currentActiveQuest.StartQuest(this); // 'this' merujuk ke QuestManager ini sendiri
-                Debug.Log("currentMainQuest ada isinya");
-                //    mainQuestInfo = "ikuti kata hatimu";
-                CreateQuestDisplay(_currentActiveQuest.questName);
-                _currentActiveQuest.questActive = true;
+                // Menampilkan nama quest di UI.
+                CreateQuestDisplay(CurrentActiveQuest.questName);
+                // Menjalankan fungsi StartQuest() yang ada di dalam MainQuest1_Controller.
+                CurrentActiveQuest.StartQuest(this);
             }
             else
             {
@@ -406,11 +409,8 @@ public class QuestManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Semua Main Quest telah selesai atau quest nomor " + countCurrentMainQuest + " tidak ditemukan.");
+            Debug.LogWarning("Quest nomor " + countCurrentMainQuest + " tidak ditemukan.");
         }
-
-        // Setelah objek quest dibuat, QuestManager "memperkenalkan dirinya"
-        _currentActiveQuest.StartQuest(this); // "this" di sini merujuk ke QuestManager itu sendiri
     }
 
     // Anda juga perlu fungsi untuk menandai quest selesai

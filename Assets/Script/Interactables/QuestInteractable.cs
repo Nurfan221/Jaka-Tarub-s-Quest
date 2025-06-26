@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MainQuest1_Controller;
 
 public class QuestInteractable : Interactable
 {
@@ -10,7 +11,8 @@ public class QuestInteractable : Interactable
     [SerializeField] protected DialogueSystem dialogueSystem;
     public Dialogues currentDialogue; // Properti untuk menyimpan dialog
     public GameObject npcObject;
-    public bool isQuest;
+    // Variabel ini menandakan apakah NPC ini penting untuk sebuah quest
+    public bool isQuestNPC = false;
     public bool isJob;
 
 
@@ -31,45 +33,51 @@ public class QuestInteractable : Interactable
 
    protected override void Interact()
    {
-        if (isQuest)
+
+        if (!isQuestNPC && isJob)
         {
-            if (currentDialogue != null)
-            {
-                dialogueSystem.theDialogues = currentDialogue;
-
-                // Beri tahu DialogueSystem NPC mana yang harus dihapus setelah dialog selesai
-                dialogueSystem.npcToDestroy = npcObject;
-
-                dialogueSystem.StartDialogue();
-                
-
-                //if (npcObject != null)
-                //{
-
-                //    //mulai dialogue untuk mimpi jaka tarub
-                //    questManager.CurrentActiveQuest.currentQuestState = 
-                //}
-
-            }
-            else
-            {
-                Debug.LogWarning("No dialogue assigned to this NPC!");
-            }
-        }else if(isJob)
-        {
+            dialogueSystem.theDialogues = currentDialogue;
+            dialogueSystem.StartDialogue();
             if (npcManager.GiveReward(npcBehavior.pekerjaanNPC))
             {
                 isJob = true;
             }
             else
             {
-                isJob= false;
+                isJob = false;
             }
+            return;
         }
+       
+
+        // Coba dapatkan MainQuest1_Controller dari quest yang aktif
+        MainQuest1_Controller mq1 = questManager.CurrentActiveQuest as MainQuest1_Controller;
+
+        // Jika quest yang aktif adalah MainQuest1...
+        if (mq1 != null)
+        {
+            Debug.Log("Dialogue npc di picu");
+            // Beritahu skrip quest tersebut bahwa NPC ini di-interact
+            NPCBehavior npcBehavior = gameObject.GetComponent<NPCBehavior>();
+            mq1.OnNPCInteracted(npcBehavior.npcName);
+           
+
+        }
+        else
+        {
+            // Jika main quest lain yang aktif atau tidak ada main quest,
+            // mainkan dialog basa-basi.
+            dialogueSystem.theDialogues = currentDialogue;
+            dialogueSystem.StartDialogue();
+        }
+
+        
+       
     }
 
     public void SetCurrentDialogue(Dialogues dialogue)
     {
         currentDialogue = dialogue;
     }
+
 }
