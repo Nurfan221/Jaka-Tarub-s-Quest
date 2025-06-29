@@ -45,7 +45,7 @@ public class Player_Health : MonoBehaviour
         health = maxHealth;
         stamina = maxStamina;
         UpdateCaps();
-        StartGrief();
+        //StartGrief();
     }
 
     void Update()

@@ -8,7 +8,7 @@ public class BanditHitbox : MonoBehaviour
     public Enemy_Bandit bandit; // Referensi ke skrip utama Bandit
     public int damageHit = 10; // Default damage
     public Player_Health playerHealth;
-    public float jedaSerangan = 1.5f; // Jeda antar serangan
+    public float jedaSerangan = 3f; // Jeda antar serangan
     public bool isBanditQuest = false;
     private bool playerDiHitbox = false; // Untuk memastikan serangan tidak dobel
 
@@ -26,7 +26,7 @@ public class BanditHitbox : MonoBehaviour
             {
                 bandit.isAttacking = true;
                 playerDiHitbox = true;
-                //StartCoroutine(Serang()); // Mulai serangan
+                StartCoroutine(Serang()); // Mulai serangan
             }
         }
     }

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 public class MainQuest1_Controller : MainQuestController
 {
@@ -12,6 +13,7 @@ public class MainQuest1_Controller : MainQuestController
         AdeganMimpi,
         PergiKeHutan,
         CariRusa,
+        MunculkanHarimau,
         // ... state lainnya
         Selesai
     }
@@ -34,18 +36,31 @@ public class MainQuest1_Controller : MainQuestController
     {
         public string infoQuest;
         public GameObject locationQuest;
+        public GameObject[] animalObject;
     }
 
+    // Daftar untuk melacak semua rusa yang aktif untuk quest ini
+    private List<GameObject> rusaQuestAktif = new List<GameObject>();
+
+    [Header("Data Harimau")]
+    public GameObject harimauPrefab; // Slot untuk prefab harimau
+    public Transform lokasiMunculHarimau; // Transform untuk posisi munculnya harimau
     // Manajemen Event
     private void OnEnable()
     {
         // Mulai mendengarkan event saat quest ini aktif.
         PlayerQuest.OnPlayerEnteredLocation += HandleLocationEnter;
+
+        // Mulai mendengarkan sinyal kematian dari AnimalBehavior
+        AnimalBehavior.OnAnimalDied += HandleRusaDikalahkan;
     }
     private void OnDisable()
     {
         // Berhenti mendengarkan saat quest ini selesai/hancur.
         PlayerQuest.OnPlayerEnteredLocation -= HandleLocationEnter;
+
+        // Berhenti mendengarkan agar tidak ada error saat scene berganti
+        AnimalBehavior.OnAnimalDied -= HandleRusaDikalahkan;
     }
 
     // Logika Inti Quest
@@ -84,7 +99,7 @@ public class MainQuest1_Controller : MainQuestController
                 questManager.UpdateDisplayQuest(questName);
                 questManager.npcManager.KembalikanNPKeJadwalNormal(targetNpcName);
                 // Set lokasi yang kita tunggu.
-                lokasiYangDitunggu = "HutanAjaib";
+                lokasiYangDitunggu = arrayLocationMainQuest[0].locationQuest.name;
                 break;
 
             case MainQuest1State.CariRusa:
@@ -92,6 +107,20 @@ public class MainQuest1_Controller : MainQuestController
                 questManager.UpdateDisplayQuest("Pergilah ke Hutan Ajaib");
                 ShowDialogueAndSprite(2, 0, false);
                 // Logika untuk spawn rusa atau jejaknya bisa dimulai di sini.
+                rusaQuestAktif.Clear();
+                for (int i = 0; i < arrayLocationMainQuest[0].animalObject.Length; i++)
+                {
+                    // Spawn hewan di posisi yang valid
+                    GameObject rusaBaru = Instantiate(arrayLocationMainQuest[0].animalObject[i]);
+                    Transform locationSpawn = arrayLocationMainQuest[0].locationQuest.GetComponent<Transform>();
+                    rusaBaru.transform.position = locationSpawn.position;
+                    rusaBaru.transform.localScale = Vector3.one;  // Pastikan skala 1,1,1
+                    rusaBaru.transform.parent = locationSpawn;        // Atur parent setelahnya
+
+                    // Atur skala prefab ke 1 untuk memastikan ukurannya sesuai dengan prefab aslinya
+                    rusaBaru.transform.localScale = Vector3.one;
+                    rusaQuestAktif.Add(rusaBaru);
+                }
                 break;
 
             case MainQuest1State.Selesai:
@@ -118,6 +147,9 @@ public class MainQuest1_Controller : MainQuestController
         if (currentState == MainQuest1State.PergiKeHutan && locationName == lokasiYangDitunggu)
         {
             Debug.Log("sudah sampai hutan ajaib");
+            
+           
+            
             // Lanjutkan quest!
             ChangeState(MainQuest1State.CariRusa);
             lokasiYangDitunggu = null; // Reset agar tidak terpicu lagi.
@@ -211,5 +243,47 @@ public class MainQuest1_Controller : MainQuestController
         LoadingScreenUI.Instance.HideLoading();
         // Set kembali status dialog
         isDialoguePlaying = false;
+    }
+
+    //logika mendeskripsikan kematian rusa dan memunculkan harimau 
+    // Di dalam MainQuest1_Controller.cs
+    private void HandleRusaDikalahkan(AnimalBehavior rusaYangMati)
+    {
+        // Cek apakah rusa yang mati itu ada di dalam daftar pelacakan kita
+        if (rusaQuestAktif.Contains(rusaYangMati.gameObject))
+        {
+            Debug.Log($"Seekor rusa quest ({rusaYangMati.name}) telah dikalahkan.");
+
+            // Hapus dari daftar
+            rusaQuestAktif.Remove(rusaYangMati.gameObject);
+
+            // Cek apakah daftar sudah kosong
+            if (rusaQuestAktif.Count == 0)
+            {
+                Debug.Log("Semua rusa telah dikalahkan! Saatnya harimau muncul!");
+                MunculkanHarimau();
+            }
+            else
+            {
+                Debug.Log($"Sisa rusa: {rusaQuestAktif.Count}");
+            }
+        }
+    }
+
+    // Fungsi yang akan dipanggil saat semua rusa sudah kalah
+    private void MunculkanHarimau()
+    {
+        // Ganti state quest jika perlu
+        ChangeState(MainQuest1State.MunculkanHarimau); // Anda bisa ganti namanya jadi MunculHarimau
+
+        if (harimauPrefab != null && lokasiMunculHarimau != null)
+        {
+            // Munculkan harimau di lokasi yang ditentukan
+            Instantiate(harimauPrefab, lokasiMunculHarimau.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("Prefab Harimau atau Lokasi Munculnya belum di-set di Inspector!");
+        }
     }
 }

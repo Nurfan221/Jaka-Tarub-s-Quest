@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic; // Diperlukan jika menggunakan List
 using Unity.VisualScripting;
 using UnityEngine;
+
+public enum AnimalType { Pasif, Agresif }
 
 public class AnimalBehavior : MonoBehaviour
 {
@@ -26,10 +29,20 @@ public class AnimalBehavior : MonoBehaviour
     public bool isAnimalEvent;
     private Coroutine currentMovementCoroutine;
 
+    [Header("Tipe Perilaku Hewan")]
+    public AnimalType tipeHewan = AnimalType.Pasif;
+    public Transform currentTarget;
 
+    [Header("Logika Serangan")]
+    public float attackRange = 1.5f;
+    public float attackCooldown = 2f;
+    private float lastAttackTime = 0f;
 
+    [Header("Komponen Serangan")]
+    public Transform zonaSerangTransform;
+    public float jarakOffsetSerang = 1.0f;
 
-    //[Header("Animasi")]
+    [Header("Animasi")]
     [SerializeField] private Animator animalAnimator;
     public SpriteRenderer animalRenderer;
 
@@ -52,15 +65,54 @@ public class AnimalBehavior : MonoBehaviour
     public int minSpecialItem = 0; // Jumlah item spesial seperti copper, iron, atau gold
     public int maxSpecialItem = 1;
 
-
+    //teriakan bahwa hewan telah mati 
+    public static event Action<AnimalBehavior> OnAnimalDied;
     private void Start()
     {
-        // Mulai Coroutine untuk memilih dan menjalankan animasi secara otomatis
-        StartCoroutine(PlayRandomAnimationPeriodically());
-
         health = maxHealth;
-    }
 
+        if (tipeHewan == AnimalType.Pasif)
+        {
+            StartCoroutine(PlayRandomAnimationPeriodically());
+        }
+        else
+        {
+            currentState = "Idle";
+            animalAnimator.Play("Idle");
+        }
+    }
+    private void Update()
+    {
+        // Logika Agresif hanya berjalan jika ada target
+        if (tipeHewan != AnimalType.Agresif || currentTarget == null) return;
+
+        float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
+
+        // Tentukan state berdasarkan jarak
+        if (distanceToTarget <= attackRange)
+        {
+            currentState = "Menyerang";
+        }
+        else
+        {
+            currentState = "Mengejar";
+        }
+
+        // Jalankan logika state
+        switch (currentState)
+        {
+            case "Mengejar":
+                ChaseTarget();
+                break;
+            case "Menyerang":
+                // Kita panggil fungsi yang sudah kita siapkan
+                JalankanLogikaSerangan();
+                // Kita juga bisa menghentikan gerakan di sini
+                isMoving = false;
+                animalAnimator.Play("Idle"); // Agar tidak berjalan di tempat
+                break;
+        }
+    }
     private IEnumerator PlayRandomAnimationPeriodically()
     {
 
@@ -77,7 +129,8 @@ public class AnimalBehavior : MonoBehaviour
             yield return new WaitForSeconds(5f);
         }
     }
-    
+   
+
 
 
     private string GetRandomAnimationForCurrentState()
@@ -89,7 +142,7 @@ public class AnimalBehavior : MonoBehaviour
         if (state != null && state.availableStates.Length > 0)
         {
             // Pilih animasi acak dari availableStates
-            int randomIndex = Random.Range(0, state.availableStates.Length);
+            int randomIndex = UnityEngine.Random.Range(0, state.availableStates.Length);
             return state.availableStates[randomIndex];
         }
 
@@ -185,13 +238,13 @@ public class AnimalBehavior : MonoBehaviour
         // Cek apakah animasi yang dipilih adalah JalanKanan atau JalanKiri
         if (currentAnimation == "JalanKanan")
         {
-            randomDirection = new Vector2(1, Random.Range(-1f, 1f)); // Kiri dengan variasi atas/bawah
+            randomDirection = new Vector2(1, UnityEngine.Random.Range(-1f, 1f)); // Kiri dengan variasi atas/bawah
             //Debug.Log("Moving Left");
             animalRenderer.flipX = true;
         }
         else if (currentAnimation == "JalanKiri")
         {
-            randomDirection = new Vector2(-1, Random.Range(-1f, 1f)); // Kanan dengan variasi atas/bawah
+            randomDirection = new Vector2(-1, UnityEngine.Random.Range(-1f, 1f)); // Kanan dengan variasi atas/bawah
             //Debug.Log("Moving Right");
             animalRenderer.flipX = false;
         }
@@ -270,11 +323,11 @@ public class AnimalBehavior : MonoBehaviour
 
     public void DropItem()
     {
-        int normalItemCount = Random.Range(minNormalItem, maxNormalItem + 1);
+        int normalItemCount = UnityEngine.Random.Range(minNormalItem, maxNormalItem + 1);
         DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
         if (dropitems.Length >2) // Jika ada special items
         {
-            int specialItemCount = Random.Range(minSpecialItem, maxSpecialItem + 1);
+            int specialItemCount = UnityEngine.Random.Range(minSpecialItem, maxSpecialItem + 1);
             DropItemsByType(3, dropitems.Length, specialItemCount);
         }
     }
@@ -297,13 +350,13 @@ public class AnimalBehavior : MonoBehaviour
         for (int i = 0; i < itemCount; i++)
         {
             //Debug.Log("for untuk perulangan drop item");
-            int randomIndex = Random.Range(startIndex, endIndex);
+            int randomIndex = UnityEngine.Random.Range(startIndex, endIndex);
             GameObject itemToDrop = dropitems[randomIndex];
             if (itemToDrop != null)
             {
                 Debug.Log("nama item yang di drop adalah : " + itemToDrop.name);
                 //Instantiate(itemToDrop, transform.position, Quaternion.identity);
-                Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+                Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
                 ItemPool.Instance.DropItem(itemToDrop.name, transform.position + offset, itemToDrop);
             }
             else
@@ -314,21 +367,24 @@ public class AnimalBehavior : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void TakeDamage(float damage )
+
+    public void TakeDamage(float damage)
     {
         Debug.Log("take Damage" + damage);
         health -= damage;
-        health = Mathf.Clamp(health, 0, maxHealth); // Pastikan tidak kurang dari 0 atau lebih dari maxHealth
+        health = Mathf.Clamp(health, 0, maxHealth);
 
         if (health <= 0)
         {
             Die();
-        }else
+        }
+        else if (tipeHewan == AnimalType.Pasif) // Hanya hewan pasif yang lari
         {
+            StopAllCoroutines(); // Hentikan perilaku acak sebelum lari
             Run();
         }
-
-
+        // Hewan agresif mungkin akan langsung menyerang balik saat diserang,
+        // logika itu bisa ditambahkan di sini jika perlu.
     }
 
     public void Run()
@@ -421,17 +477,147 @@ public class AnimalBehavior : MonoBehaviour
     private Vector2 GetRandomPoint(Vector2 lastPosition)
     {
         // Pilih titik acak dalam jarak tertentu dari posisi terakhir
-        float randomX = Random.Range(-5f, 5f);  // Jarak acak dalam sumbu X
-        float randomY = Random.Range(-5f, 5f);  // Jarak acak dalam sumbu Y
+        float randomX = UnityEngine.Random.Range(-5f, 5f);  // Jarak acak dalam sumbu X
+        float randomY = UnityEngine.Random.Range(-5f, 5f);  // Jarak acak dalam sumbu Y
         return lastPosition + new Vector2(randomX, randomY);  // Titik acak berdasarkan posisi terakhir
     }
 
     void Die()
     {
+        // Kirim sinyal bahwa hewan ini telah mati.
+        OnAnimalDied?.Invoke(this);
         DropItem();
         Debug.Log(gameObject.name + " has died.");
-        gameObject.SetActive(false);
+        Destroy(gameObject);
+    }
+
+    //logika hewan predator 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (tipeHewan != AnimalType.Agresif) return;
+
+        if (currentTarget != null) return;
+
+        if (other.CompareTag("Animal")|| other.CompareTag("Player"))
+        {
+            // Ambil skrip AnimalBehavior dari objek yang terdeteksi
+            AnimalBehavior otherAnimal = other.GetComponent<AnimalBehavior>();
+
+         
+            if (otherAnimal != null && otherAnimal != this && otherAnimal.tipeHewan == AnimalType.Pasif)
+            {
+                Debug.Log($"{namaHewan} melihat mangsa: {other.name}!");
+
+                // Set mangsa sebagai target
+                currentTarget = other.transform;
+                currentState = "Mengejar"; // Langsung ubah state
+
+                // Hentikan perilaku pasif agar tidak bentrok
+                StopAllCoroutines();
+            }else
+            {
+                currentTarget = other.transform;
+                currentState = "Mengejar";
+                StopAllCoroutines();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (tipeHewan != AnimalType.Agresif) return;
+
+        // Cek apakah yang keluar dari area adalah target kita saat ini
+        if (other.transform == currentTarget)
+        {
+            Debug.Log($"{namaHewan} kehilangan jejak mangsanya!");
+            currentTarget = null; // Hapus target
+            currentState = "Idle"; // Kembali ke state Idle
+
+            // Mulai lagi perilaku pasifnya (berpatroli mencari mangsa)
+            StartCoroutine(PlayRandomAnimationPeriodically());
+        }
+    }
+
+    // --- LOGIKA AGRESIF ---
+   private void ChaseTarget()
+    {
+        isMoving = true;
+        Vector2 direction = (currentTarget.position - transform.position).normalized;
+        transform.position = Vector2.MoveTowards(transform.position, currentTarget.position, moveSpeed * Time.deltaTime);
+
+        if (direction.x > 0) // Bergerak ke kanan
+        {
+            animalRenderer.flipX = true; // Sprite menghadap ke kanan
+            animalAnimator.Play("JalanKanan"); // Atau animasi lari jika ada
+        }
+        else if (direction.x < 0) // Bergerak ke kiri
+        {
+            animalRenderer.flipX = false; // Sprite menghadap ke kiri
+            animalAnimator.Play("JalanKiri"); // Atau animasi lari jika ada
+        }
+         // Pastikan referensi zonaSerangTransform dan currentTarget ada
+    if (zonaSerangTransform != null && currentTarget != null)
+    {
+        Vector2 directionToTarget = (currentTarget.position - transform.position).normalized;
+
+        //    Dikalikan dengan jarak offset agar posisinya pas di depan hewan.
+        zonaSerangTransform.localPosition = directionToTarget * jarakOffsetSerang;
+    }
+        //UpdateZonaSerangPosition();
+    }
+
+    public void JalankanLogikaSerangan()
+    {
+        // Cek apakah sudah waktunya untuk menyerang lagi (cooldown)
+        if (Time.time < lastAttackTime + attackCooldown)
+        {
+            // Jika belum waktunya, jangan lakukan apa-apa.
+            return;
+        }
+
+        // Jika sudah waktunya, catat waktu serangan ini untuk cooldown berikutnya.
+        lastAttackTime = Time.time;
+
+        // Pastikan masih ada target
+        if (currentTarget != null)
+        {
+            Debug.Log($"{namaHewan} sedang memberikan damage ke {currentTarget.name}");
+
+            // Ambil komponen health dari target dan berikan damage.
+            if (currentTarget.CompareTag("Animal"))
+            {
+                AnimalBehavior targetBehavior = currentTarget.GetComponent<AnimalBehavior>();
+                if (targetBehavior != null)
+                {
+                    targetBehavior.TakeDamage(10); // Contoh damage
+                }
+            }
+            else if (currentTarget.CompareTag("Player"))
+            {
+                Player_Health player_Health = currentTarget.GetComponent<Player_Health>();
+                if (player_Health != null)
+                {
+                    player_Health.TakeDamage(20,zonaSerangTransform.position);
+                }
+            }
+          
+        }
     }
 
 
+    private void UpdateZonaSerangPosition()
+    {
+        if (zonaSerangTransform == null) return;
+        if (animalRenderer.flipX) // Menghadap ke kiri
+        {
+            zonaSerangTransform.localPosition = new Vector3(jarakOffsetSerang, 0, 0);
+        }
+        else // Menghadap ke kanan
+        {
+            zonaSerangTransform.localPosition = new Vector3(-jarakOffsetSerang, 0, 0);
+        }
+    }
+
+  
 }

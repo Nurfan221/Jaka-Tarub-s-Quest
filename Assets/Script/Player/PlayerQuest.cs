@@ -36,7 +36,6 @@ public class PlayerQuest : MonoBehaviour
         // Cek apakah objek yang kita masuki punya skrip LocationTrigger
         LocationConfiguration location = other.GetComponent<LocationConfiguration>();
 
-        // Jika ada...
         if (location != null)
         {
             // "Teriakkan" atau siarkan nama lokasi tersebut ke seluruh penjuru game.
