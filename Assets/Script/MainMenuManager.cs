@@ -27,7 +27,7 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame(bool newGame)
     {
         Debug.Log("START GAME");
-        GameController.NewGame = newGame;
+        //GameController.isNewGame = newGame;
         //LoadingScreenUI.Instance.LoadScene(newGame ? 1 : GameController.LatestMap);
         //StopAllCoroutines();
         //StartCoroutine(DelayedLoadScene(GameController.LatestMap, 0.5f)); // delay 0.5 detik

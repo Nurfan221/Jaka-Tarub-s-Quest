@@ -9,7 +9,8 @@ using static UnityEditor.Progress;
 
 public class Player_Inventory : MonoBehaviour
 {
-    public static Player_Inventory Instance; // Access this class by its Instance
+public static Player_Inventory Instance { get; private set; } // Ubah sedikit menjadi property agar lebih aman
+
     Player_Action pA;
 
     public List<Item> itemList;
@@ -575,7 +576,7 @@ public class Player_Inventory : MonoBehaviour
                     }
             }
         }
-        playerUI.UpdateCapacityBar(equippedWeapon); ;
+        playerUI.UpdateCapacityBar(equippedWeapon); 
 
     }
 

@@ -6,7 +6,7 @@ using static UnityEditor.Progress;
 public class PlayerUI : MonoBehaviour
 {
     public static PlayerUI Instance;
-    [SerializeField] public Player_Inventory playerInventory;
+    public Player_Inventory playerInventory;
 
     public Image dashUI;
     public Image specialAttackUI;
@@ -73,5 +73,12 @@ public class PlayerUI : MonoBehaviour
 
             Debug.Log("item tidak di temukan " + "item di kirim  : " + item.itemName + "item di equippedWeapon : " + playerInventory.equippedWeapon.itemName);
         }
+    }
+    public void Reinitialize()
+    {
+        Debug.Log("PlayerUI: Melakukan inisialisasi ulang referensi...");
+
+        // 1. Dapatkan koneksi ke manajer lain melalui GameController
+        this.playerInventory = GameController.Instance.playerInventory;
     }
 }

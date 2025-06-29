@@ -46,6 +46,9 @@ public class AnimalBehavior : MonoBehaviour
     [SerializeField] private Animator animalAnimator;
     public SpriteRenderer animalRenderer;
 
+    [Header("Logika Deteksi")]
+    public float detectionRadius ; // Atur angka ini agar SAMA dengan radius CircleCollider2D di RadiusDeteksi
+
 
     public string namaHewan;
     public float health;
@@ -525,21 +528,36 @@ public class AnimalBehavior : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (tipeHewan != AnimalType.Agresif) return;
-
-        // Cek apakah yang keluar dari area adalah target kita saat ini
-        if (other.transform == currentTarget)
+        // Cek dasar: Apakah kita agresif? Apakah yang keluar adalah target kita?
+        if (tipeHewan != AnimalType.Agresif || other.transform != currentTarget)
         {
-            Debug.Log($"{namaHewan} kehilangan jejak mangsanya!");
-            currentTarget = null; // Hapus target
-            currentState = "Idle"; // Kembali ke state Idle
+            return; // Jika tidak, abaikan event ini.
+        }
 
-            // Mulai lagi perilaku pasifnya (berpatroli mencari mangsa)
+        // Hitung jarak saat ini antara kita dan target yang baru saja keluar dari sebuah trigger.
+        float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
+
+        // HANYA JIKA jaraknya lebih besar dari radius deteksi utama kita...
+        if (distanceToTarget > detectionRadius)
+        {
+            // ...BARULAH kita anggap target benar-benar hilang.
+            Debug.Log($"{namaHewan} kehilangan jejak mangsanya karena terlalu jauh.");
+
+            currentTarget = null; // Hapus target.
+            currentState = "Idle"; // Kembali ke state Idle.
+
+            // Mulai lagi perilaku pasifnya.
             StartCoroutine(PlayRandomAnimationPeriodically());
+        }
+        else
+        {
+            // Jika target masih di dalam radius deteksi (misalnya, baru saja keluar dari ZonaSerang),
+            // jangan lakukan apa-apa. Biarkan hewan terus mengejar.
+            Debug.Log($"Target keluar dari trigger kecil, tapi masih dalam jangkauan deteksi. Pengejaran dilanjutkan.");
         }
     }
 
-    // --- LOGIKA AGRESIF ---
+    // LOGIKA AGRESIF
    private void ChaseTarget()
     {
         isMoving = true;

@@ -12,7 +12,7 @@ public class LoadingScreenUI : MonoBehaviour
     [SerializeField] TMP_Text tipsText;
     public Sprite[] loadingImages;
     public Transform loadingImageTransform;
-    public float frameRate = 0.3f; // Waktu per frame (kecepatan animasi)
+    public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
     private int currentFrame = 0; // Indeks frame saat ini
 
     private Coroutine animationCoroutine;
@@ -30,17 +30,26 @@ public class LoadingScreenUI : MonoBehaviour
 
     public void ShowLoading()
     {
+        // Hentikan coroutine lama jika ada sebelum memulai yang baru
+        if (animationCoroutine != null)
+        {
+            StopCoroutine(animationCoroutine);
+        }
+
         tipsText.text = "Tips: \n" + tips[Random.Range(0, tips.Length)];
         transform.GetChild(0).gameObject.SetActive(true);
+        GameController.Instance.ShowPersistentUI(false);
+        GameController.Instance.PauseGame();
 
-        // Mulai animasi hanya sekali
-        if (animationCoroutine == null)
-            animationCoroutine = StartCoroutine(PlayLoadingAnimation());
+        // Mulai coroutine yang baru
+        animationCoroutine = StartCoroutine(PlayLoadingAnimation());
     }
 
 
     public void HideLoading()
     {
+        GameController.Instance.ShowPersistentUI(true);
+        GameController.Instance.ResumeGame();
         StartCoroutine(HideLoadingCoroutine());
     }
 
@@ -88,7 +97,7 @@ public class LoadingScreenUI : MonoBehaviour
                 imageloadingScreen.sprite = loadingImages[currentFrame]; // Setel sprite saat ini
                 currentFrame = (currentFrame + 1) % loadingImages.Length; // Pindah ke frame berikutnya (loop)
             }
-            yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
+            yield return new WaitForSecondsRealtime(frameRate); // Tunggu sebelum beralih ke frame berikutnya
         }
     }
 }

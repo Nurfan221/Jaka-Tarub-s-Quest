@@ -105,6 +105,7 @@ public class StorageUI : MonoBehaviour
 
     public void OpenStorage(StorageInteractable theStorage, List<Item> Items)
     {
+        GameController.Instance.PindahKeScene("Village");
 
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Click");

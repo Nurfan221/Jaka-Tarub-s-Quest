@@ -37,14 +37,18 @@ public class MainQuest1_Controller : MainQuestController
         public string infoQuest;
         public GameObject locationQuest;
         public GameObject[] animalObject;
+        public Vector2 playerLocation;
+        public Vector2 otherLocation;
     }
 
     // Daftar untuk melacak semua rusa yang aktif untuk quest ini
     private List<GameObject> rusaQuestAktif = new List<GameObject>();
 
-    [Header("Data Harimau")]
+    [Header("Data Object")]
     public GameObject harimauPrefab; // Slot untuk prefab harimau
     public Transform lokasiMunculHarimau; // Transform untuk posisi munculnya harimau
+    public GameObject playerObject;
+    
     // Manajemen Event
     private void OnEnable()
     {
@@ -121,6 +125,9 @@ public class MainQuest1_Controller : MainQuestController
                     rusaBaru.transform.localScale = Vector3.one;
                     rusaQuestAktif.Add(rusaBaru);
                 }
+                break;
+             case MainQuest1State.MunculkanHarimau:
+                MunculkanHarimau();
                 break;
 
             case MainQuest1State.Selesai:
@@ -236,11 +243,7 @@ public class MainQuest1_Controller : MainQuestController
         Debug.Log("Selesai menunggu dialog. Melanjutkan ke state berikutnya.");
         ChangeState(nextState);
 
-        LoadingScreenUI.Instance.ShowLoading();
-        yield return new WaitForSeconds(1);
-
-        // Sembunyikan loading screen setelah pembersihan selesai
-        LoadingScreenUI.Instance.HideLoading();
+        GameController.Instance.PindahKeScene("Village");
         // Set kembali status dialog
         isDialoguePlaying = false;
     }
@@ -261,7 +264,8 @@ public class MainQuest1_Controller : MainQuestController
             if (rusaQuestAktif.Count == 0)
             {
                 Debug.Log("Semua rusa telah dikalahkan! Saatnya harimau muncul!");
-                MunculkanHarimau();
+
+                ChangeState(MainQuest1State.MunculkanHarimau); // Anda bisa ganti namanya jadi MunculHarimau
             }
             else
             {
@@ -274,12 +278,14 @@ public class MainQuest1_Controller : MainQuestController
     private void MunculkanHarimau()
     {
         // Ganti state quest jika perlu
-        ChangeState(MainQuest1State.MunculkanHarimau); // Anda bisa ganti namanya jadi MunculHarimau
 
+        GameController.Instance.PindahKeScene("Village");
+        Transform playerObjectTransform = playerObject.GetComponent<Transform>();
+        playerObjectTransform.position = arrayLocationMainQuest[0].playerLocation;
         if (harimauPrefab != null && lokasiMunculHarimau != null)
         {
             // Munculkan harimau di lokasi yang ditentukan
-            Instantiate(harimauPrefab, lokasiMunculHarimau.position, Quaternion.identity);
+            Instantiate(harimauPrefab, arrayLocationMainQuest[0].otherLocation, Quaternion.identity);
         }
         else
         {

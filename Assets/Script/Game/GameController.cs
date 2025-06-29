@@ -8,8 +8,11 @@ public class GameController : MonoBehaviour
     public static GameObject persistent;
     public static GameController Instance;
     [SerializeField] Player_Movement player_Movement;
+    public Player_Inventory playerInventory;
+    public PlayerUI playerUI;
+    public QuestManager questManager;
 
-    public static bool NewGame = true;
+    public bool isNewGame = true; // Gunakan nama yang berbeda untuk menghindari kebingungan
     public static int LatestMap = 1;
     Vector2 latestPlayerPos;
     public static int QuestItemCount = 0;
@@ -44,7 +47,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        if (NewGame)
+        if (isNewGame)
         {
             GameData newGameData = new(true);
             newGameData.ResetGameData();
@@ -68,9 +71,23 @@ public class GameController : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
 
+        Debug.Log($"Scene '{scene.name}' telah dimuat. Memulai inisialisasi ulang.");
 
+        // Panggil fungsi-fungsi setup Anda yang sudah ada
         PlayCurrentSceneBGM();
-        InitializePlayer();
+        InitializePlayer(); // Fungsi ini akan menemukan GameObject Player yang baru
+
+        // --- INI BAGIAN BARUNYA: PANGGIL SEMUA FUNGSI REINITIALIZE ---
+        if (playerUI != null)
+        {
+            playerUI.Reinitialize();
+        }
+
+        if (questManager != null)
+        {
+            // questManager.Reinitialize(); // Jika QuestManager juga perlu di-reset
+        }
+
     }
 
     private void InitializePlayer()
@@ -171,7 +188,7 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetInt("HaveSaved", 99);
         LatestMap = SceneManager.GetActiveScene().buildIndex;
         SaveSystem.SaveData();
-        NewGame = false;
+        isNewGame = false;
     }
 
     [ContextMenu("Load Game")]
@@ -262,5 +279,45 @@ public class GameController : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void PindahKeScene(string namaScene)
+    {
+        StartCoroutine(ProsesLoadingDanPindahScene(namaScene));
+    }
+
+
+    // --- COROUTINE YANG MENANGANI SELURUH PROSES ---
+    private IEnumerator ProsesLoadingDanPindahScene(string namaScene)
+    {
+       
+        //    Ini akan menjeda game dan menampilkan UI loading.
+        LoadingScreenUI.Instance.ShowLoading();
+
+      
+        //    Beri waktu agar animasi fade-in atau tampilan loading screen terlihat mulus,
+        //    bukan muncul dan langsung hilang. 0.5 detik biasanya cukup.
+        yield return new WaitForSecondsRealtime(0.5f);
+
+    
+        //    Contoh: memuat scene baru secara asynchronous.
+        //    (Jangan lupa 'using UnityEngine.SceneManagement;')
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(namaScene);
+
+        // Tunggu sampai proses loading scene selesai
+        while (!asyncLoad.isDone)
+        {
+            // Selama loading, kita tunggu frame berikutnya.
+            // Slider loading bar bisa diupdate di sini.
+            yield return null;
+        }
+
+        //    Terkadang loading selesai sangat cepat. Memberi jeda minimal (misal 1.5 detik)
+        //    membuat pemain sempat membaca tips dan tidak merasa loading screen hanya "berkedip".
+        yield return new WaitForSecondsRealtime(1.5f);
+
+        //    Baris ini sekarang PASTI akan tercapai.
+        //    Ini akan melanjutkan game dan menampilkan UI game.
+        LoadingScreenUI.Instance.HideLoading();
     }
 }
