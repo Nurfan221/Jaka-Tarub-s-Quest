@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b06f5d42dba24a6498e9243dbd3a8dda, type: 3}
+  m_Name: JakaTarub
+  m_EditorClassIdentifier: 
+  walkSpd: 5
+  dashStamina: 40
+  dashDistance: 5
+  dashForce: 5
+  playerPosition: {x: 0, y: 0}
+  maxHealth: 100
+  health: 100
+  currentHealthCap: 0
+  maxStamina: 100
+  stamina: 100
+  staminaRegenRate: 15
+  currentStaminaCap: 0
+  initialGriefPenalty: 30
+  isInGrief: 0
+  currentGriefPenalty: 0
+  healingQuestsCompleted: 0
+  totalHealingQuests: 5
+  currentFatiguePenalty: 0
+  maxFatiguePenalty: 50

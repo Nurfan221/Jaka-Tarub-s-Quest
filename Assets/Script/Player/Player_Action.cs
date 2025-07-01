@@ -545,7 +545,7 @@ public class Player_Action : MonoBehaviour
 
         //menjalankan cooldown spesial skill
         spesialSkillWeapon.UseWeaponSkill(itemToAttack, true);
-        if (itemToAttack.health != 0 && playerHealth.stamina > 0)
+        if (itemToAttack.health != 0 && PlayerController.Instance.playerData.stamina > 0)
         {
            
             if (itemToAttack.itemName == "PenyiramTanaman")

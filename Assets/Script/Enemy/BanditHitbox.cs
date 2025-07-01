@@ -47,8 +47,8 @@ public class BanditHitbox : MonoBehaviour
 
                 if (isBanditQuest)
                 {
-                    int sekaratThreshold = (int)(playerHealth.maxHealth * 0.3f);
-                    if (playerHealth.health <= sekaratThreshold && !questManager.playerSekaratSudahDiproses)
+                    int sekaratThreshold = (int)(PlayerController.Instance.playerData.maxHealth * 0.3f);
+                    if (PlayerController.Instance.playerData.health <= sekaratThreshold && !questManager.playerSekaratSudahDiproses)
                     {
                         Debug.Log("Player sekarat! Memulai event kekalahan...");
                         questManager.playerSekaratSudahDiproses = true;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player_Movement : MonoBehaviour
@@ -16,6 +17,7 @@ public class Player_Movement : MonoBehaviour
     public Vector2 movementDirection;
     public Vector2 lastDirection;
     public bool isDashing = false;
+    private PlayerData_SO stats;
     public bool IsMoving { get; private set; } // Properti publik yang bisa dibaca skrip lain
 
     // Start berjalan sekali saat objek ini dibuat di scene baru.
@@ -31,6 +33,16 @@ public class Player_Movement : MonoBehaviour
     {
         controller = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody2D>();
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
     }
 
     private void FixedUpdate()
@@ -66,9 +78,13 @@ public class Player_Movement : MonoBehaviour
     {
         // Cek ke "Otak" apakah kita punya cukup stamina
         //&& Player_Health.Instance.SpendStamina(controller.dashStamina)
-        if (!isDashing )
+        if (!isDashing && stats.stamina >stats.dashStamina  )
         {
+            PlayerController.Instance.HandleSpendStamina(PlayerController.Instance.playerData.dashStamina);
             StartCoroutine(DashCoroutine());
+        }else
+        {
+            return;
         }
     }
 
@@ -77,7 +93,7 @@ public class Player_Movement : MonoBehaviour
     private void HandleMovement()
     {
         // Gunakan kecepatan dari "Otak" (PlayerController)
-        rb.linearVelocity = movementDirection * PlayerController.Instance.walkSpd;
+        rb.linearVelocity = movementDirection * stats.walkSpd;
 
 
     }
@@ -106,7 +122,7 @@ public class Player_Movement : MonoBehaviour
         dashParticle.Play();
 
         // Ambil data dash dari "Otak"
-        float force = PlayerController.Instance.dashForce;
+        float force =stats.dashForce;
         Vector2 dashDirection = lastDirection; // Dash ke arah hadap terakhir
 
         rb.linearVelocity = Vector2.zero; // Hentikan gerakan sebelumnya

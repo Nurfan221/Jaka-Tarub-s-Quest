@@ -13,13 +13,7 @@ public class PlayerController : MonoBehaviour
     public Animator ActivePlayerAnimator { get; private set; }
     public Vector2 MovementDirection { get; private set; }
 
-    [Header("Pengaturan Gerakan")]
-    public float walkSpd = 5f;
-    public float dashStamina = 40f;
-    public float dashDistance = 5;
-    public float dashForce = 100;
-    public Vector2 playerPosition;
-
+    public PlayerData_SO playerData;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -73,5 +67,10 @@ public class PlayerController : MonoBehaviour
             // "Manajer Hotel, tolong suruh departemen aksi untuk menyerang."
             //ActivePlayer.Action.PerformAttack();
         }
+    }
+
+    public void HandleSpendStamina(float useStamina)
+    {
+        ActivePlayer.Health.SpendStamina(useStamina);
     }
 }

@@ -87,7 +87,7 @@ public class KuburanInteractable : Interactable
 
     public IEnumerator MembersihkanMakam()
     {
-        if (environmentKuburanManager.player_Health.stamina > 0)
+        if (PlayerController.Instance.playerData.stamina > 0)
         {
             // Tampilkan loading screen sementara proses pembersihan
             LoadingScreenUI.Instance.ShowLoading();
