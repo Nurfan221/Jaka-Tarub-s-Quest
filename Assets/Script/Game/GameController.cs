@@ -171,7 +171,7 @@ public class GameController : MonoBehaviour
     {
         gamePaused = true;
         Time.timeScale = 0;
-       player_Movement.movement = Vector2.zero;
+       //player_Movement.movement = Vector2.zero;
     }
 
     public void ResumeGame()

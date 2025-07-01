@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -57,6 +58,16 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         handle.anchoredPosition = Vector2.zero;
     }
 
+    private void Update()
+    {
+        // Cek apakah "Otak" sudah ada
+        if (PlayerController.Instance != null)
+        {
+            // Setiap frame, langsung laporkan nilai 'Direction' ke Otak.
+            // 'Direction' adalah properti dari skrip Joystick Anda yang menghitung input.
+            PlayerController.Instance.HandleMovement(this.Direction);
+        }
+    }
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         OnDrag(eventData);
@@ -74,6 +85,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         FormatInput();
         HandleInput(input.magnitude, input.normalized, radius, cam);
         handle.anchoredPosition = input * radius * handleRange;
+
     }
 
     protected virtual void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
@@ -133,6 +145,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     {
         input = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
+
+
     }
 
     protected Vector2 ScreenPointToAnchoredPosition(Vector2 screenPosition)

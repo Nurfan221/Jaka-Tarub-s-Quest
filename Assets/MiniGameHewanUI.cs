@@ -196,8 +196,8 @@ public class MiniGameHewanUI : MonoBehaviour
         GameController.Instance.ShowPersistentUI(false);
         //GameController.Instance.PauseGame();
         
-        playerMovement.movement = Vector2.zero;
-        playerMovement.isMoving = false;
+        //playerMovement.movement = Vector2.zero;
+        //playerMovement.isMoving = false;
 
     }
 

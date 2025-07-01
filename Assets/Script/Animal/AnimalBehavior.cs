@@ -575,13 +575,13 @@ public class AnimalBehavior : MonoBehaviour
             animalAnimator.Play("JalanKiri"); // Atau animasi lari jika ada
         }
          // Pastikan referensi zonaSerangTransform dan currentTarget ada
-    if (zonaSerangTransform != null && currentTarget != null)
-    {
-        Vector2 directionToTarget = (currentTarget.position - transform.position).normalized;
+        if (zonaSerangTransform != null && currentTarget != null)
+        {
+            Vector2 directionToTarget = (currentTarget.position - transform.position).normalized;
 
-        //    Dikalikan dengan jarak offset agar posisinya pas di depan hewan.
-        zonaSerangTransform.localPosition = directionToTarget * jarakOffsetSerang;
-    }
+            //    Dikalikan dengan jarak offset agar posisinya pas di depan hewan.
+            zonaSerangTransform.localPosition = directionToTarget * jarakOffsetSerang;
+        }
         //UpdateZonaSerangPosition();
     }
 

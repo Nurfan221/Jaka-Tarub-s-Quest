@@ -8,7 +8,7 @@ public class PlayerUI : MonoBehaviour
     public static PlayerUI Instance;
     public Player_Inventory playerInventory;
 
-    public Image dashUI;
+    public Button dashUI;
     public Image specialAttackUI;
     public TMP_Text promptText;
     public Button promptButton; // Tambahkan ini, Button untuk membungkus promptText
@@ -21,6 +21,11 @@ public class PlayerUI : MonoBehaviour
     public GameObject inventoryUI;
     public Button weaponSlider;  // Slider untuk memilih senjata
     public Button itemSlider; // slider untuk mengganti item 
+
+    public void Start()
+    {
+        dashUI.onClick.AddListener(PlayerController.Instance.HandleDash);
+    }
     private void Awake()
     {
         if (Instance == null)
@@ -81,4 +86,6 @@ public class PlayerUI : MonoBehaviour
         // 1. Dapatkan koneksi ke manajer lain melalui GameController
         this.playerInventory = GameController.Instance.playerInventory;
     }
+
+
 }

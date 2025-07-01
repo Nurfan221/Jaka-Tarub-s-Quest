@@ -5408,7 +5408,6 @@ GameObject:
   - component: {fileID: 2085758875503529814}
   - component: {fileID: 2692033786522175890}
   - component: {fileID: 5596307639263873529}
-  - component: {fileID: 8721800897078674590}
   m_Layer: 5
   m_Name: Floating Joystick
   m_TagString: Untagged
@@ -5484,25 +5483,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handleRange: 1
-  deadZone: 0
-  axisOptions: 0
-  snapX: 0
-  snapY: 0
-  background: {fileID: 4509022693470723399}
-  handle: {fileID: 4674069916146521393}
---- !u!114 &8721800897078674590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2238913558068186345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9fca4100a7477741b3973b4ff2c405f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handleRange: 1

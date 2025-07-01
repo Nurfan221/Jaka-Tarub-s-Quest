@@ -32,7 +32,7 @@ public class Player_Anim : MonoBehaviour
 
         if (isTakingDamage) return; // Jangan ubah animasi saat terkena damage
 
-        Vector2 movement = pm.movement.normalized; // Normalisasi vektor
+        Vector2 movement = pm.movementDirection.normalized; // Normalisasi vektor
         bool isMoving = movement != Vector2.zero;
 
         if (isMoving)
