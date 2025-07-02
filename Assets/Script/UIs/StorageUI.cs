@@ -11,9 +11,6 @@ public class StorageUI : MonoBehaviour
 
     public static StorageUI Instance;
 
-    /// <summary>
-    /// Store, take, storage limit
-    /// </summary>
 
 
     private Transform lastClickedItem = null; // Menyimpan item yang terakhir kali diklik
@@ -60,7 +57,21 @@ public class StorageUI : MonoBehaviour
     public Button closeStorageButton;
 
 
+    private PlayerData_SO stats;
+    private void Awake()
+    {
 
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
+    }
     // Need to refresh both inventory and storage slots
     private void Start()
     {
@@ -89,17 +100,7 @@ public class StorageUI : MonoBehaviour
        
     }
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+  
 
 
 
@@ -177,7 +178,7 @@ public class StorageUI : MonoBehaviour
         }
 
      // Set Inventory Slots
-        foreach (Item item in Player_Inventory.Instance.itemList)
+        foreach (Item item in stats.itemList)
         {
 
             Transform itemInInventory = Instantiate(itemSlotTemplate, InventoryContainer);
@@ -445,7 +446,7 @@ public class StorageUI : MonoBehaviour
         popUp.gameObject.SetActive(false);
         int remainingToTake = selectedItemCount; // Jumlah item yang ingin diambil
 
-        foreach (Item item in Player_Inventory.Instance.itemList)
+        foreach (Item item in stats.itemList)
         {
             if (item.itemName == selectedItem.itemName) // Cek apakah item sudah ada di inventory
             {
@@ -464,7 +465,7 @@ public class StorageUI : MonoBehaviour
         }
 
         // Jika masih ada sisa item, buat slot baru di inventory
-        while (remainingToTake > 0 && Player_Inventory.Instance.itemList.Count < Player_Inventory.Instance.maxItem)
+        while (remainingToTake > 0 && stats.itemList.Count < stats.maxItem)
         {
             Item newItem = Instantiate(selectedItem);
             int amountToTake = Mathf.Min(remainingToTake, newItem.maxStackCount);
@@ -473,7 +474,7 @@ public class StorageUI : MonoBehaviour
 
             newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
 
-            Player_Inventory.Instance.itemList.Add(newItem);
+            stats.itemList.Add(newItem);
         }
 
         DeleteItemFromStorage();
@@ -485,9 +486,9 @@ public class StorageUI : MonoBehaviour
     {
         int remainingToRemove = selectedItemCount; // Jumlah yang ingin dihapus
 
-        for (int i = Player_Inventory.Instance.itemList.Count - 1; i >= 0; i--)
+        for (int i = stats.itemList.Count - 1; i >= 0; i--)
         {
-            Item item = Player_Inventory.Instance.itemList[i];
+            Item item = stats.itemList[i];
 
             if (selectedItem.itemName == item.itemName)
             {
@@ -500,7 +501,7 @@ public class StorageUI : MonoBehaviour
                 else
                 {
                     remainingToRemove -= item.stackCount;
-                    Player_Inventory.Instance.itemList.RemoveAt(i);
+                    stats.itemList.RemoveAt(i);
 
                     if (remainingToRemove <= 0)
                         return;
@@ -559,7 +560,7 @@ public class StorageUI : MonoBehaviour
 
         List<Item> itemsToRemove = new List<Item>(); // Menyimpan item yang akan dihapus dari inventory
 
-        foreach (Item itemInInventory in Player_Inventory.Instance.itemList)
+        foreach (Item itemInInventory in stats.itemList)
         {
             int remainingToStore = itemInInventory.stackCount;
 
@@ -601,7 +602,7 @@ public class StorageUI : MonoBehaviour
         // Hapus semua item yang telah dipindahkan dari inventory
         foreach (Item item in itemsToRemove)
         {
-            Player_Inventory.Instance.itemList.Remove(item);
+            stats.itemList.Remove(item);
         }
 
         // Simpan perubahan kembali ke storage
@@ -624,7 +625,7 @@ public class StorageUI : MonoBehaviour
             int remainingToTake = itemInStorage.stackCount;
 
             // Cek apakah item sudah ada di inventory
-            foreach (Item itemInInventory in Player_Inventory.Instance.itemList)
+            foreach (Item itemInInventory in stats.itemList)
             {
                 if (itemInInventory.itemName == itemInStorage.itemName)
                 {
@@ -641,7 +642,7 @@ public class StorageUI : MonoBehaviour
             }
 
             // Jika masih ada sisa item, buat slot baru di inventory
-            while (remainingToTake > 0 && Player_Inventory.Instance.itemList.Count < Player_Inventory.Instance.maxItem)
+            while (remainingToTake > 0 && stats.itemList.Count < stats.maxItem)
             {
                 Item newItem = Instantiate(itemInStorage);
                 int amountToTake = Mathf.Min(remainingToTake, newItem.maxStackCount);
@@ -650,7 +651,7 @@ public class StorageUI : MonoBehaviour
 
                 newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
 
-                Player_Inventory.Instance.itemList.Add(newItem);
+                stats.itemList.Add(newItem);
             }
 
             // Tandai item untuk dihapus dari storage

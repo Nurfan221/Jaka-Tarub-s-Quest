@@ -12,7 +12,21 @@ public class PerangkapBehavior : MonoBehaviour
     [SerializeField] private PrefabItemBehavior prefabItemBehavior;
     [SerializeField] private Player_Inventory player_Inventory;
 
+    private PlayerData_SO stats;
+    private void Awake()
+    {
 
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
+    }
     void Start()
     {
         imageAnimalInTrap.gameObject.SetActive(false);
@@ -91,7 +105,7 @@ public class PerangkapBehavior : MonoBehaviour
 
             if (hewanImage != null)
             {
-                Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(animalInTrap.gameObject.name));
+                //Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(animalInTrap.gameObject.name));
             }
             else
             {
@@ -124,11 +138,11 @@ public class PerangkapBehavior : MonoBehaviour
 
         bool itemFound = false; // Menyimpan status apakah item sudah ditemukan
 
-        for (int i = 0; i < player_Inventory.itemList.Count; i++)
+        for (int i = 0; i < stats.itemList.Count; i++)
         {
-            if (player_Inventory.itemList[i].itemName == itemPerangkap.itemName)
+            if (stats.itemList[i].itemName == itemPerangkap.itemName)
             {
-                player_Inventory.itemList[i].stackCount += 1; // Menambahkan jumlah stack
+                stats.itemList[i].stackCount += 1; // Menambahkan jumlah stack
                 itemFound = true;
                 break; // Keluar dari loop setelah item ditemukan
             }
@@ -137,7 +151,7 @@ public class PerangkapBehavior : MonoBehaviour
         // Jika item tidak ditemukan, tambahkan item baru ke dalam inventory
         if (!itemFound)
         {
-            player_Inventory.itemList.Add(itemPerangkap);
+            stats.itemList.Add(itemPerangkap);
         }
 
         Destroy(gameObject);

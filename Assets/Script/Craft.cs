@@ -44,7 +44,21 @@ public class Craft : MonoBehaviour
     public List<Item> ingredientItemList;
 
     private bool hasilCraftValue = false; // Variabel untuk status crafting
+    private PlayerData_SO stats;
+    private void Awake()
+    {
 
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
+    }
     void Start()
     {
         if (buttonClose != null)
@@ -155,7 +169,7 @@ public class Craft : MonoBehaviour
         GameObject itemSlot = slotTemplate;
         bool itemFound = false;
 
-        foreach (Item item in Player_Inventory.Instance.itemList)
+        foreach (Item item in stats.itemList)
         {
             if (item.itemName == itemName)
             {
@@ -203,7 +217,7 @@ public class Craft : MonoBehaviour
         // Cek apakah semua bahan tersedia sebelum crafting
         foreach (var item in ingredientItemList)
         {
-            Item inventoryItem = Player_Inventory.Instance.itemList.Find(x => x.itemName == item.itemName);
+            Item inventoryItem = stats.itemList.Find(x => x.itemName == item.itemName);
 
             if (inventoryItem == null || inventoryItem.stackCount < item.stackCount)
             {
@@ -217,9 +231,9 @@ public class Craft : MonoBehaviour
         {
             int remainingToRemove = item.stackCount;
 
-            for (int i = Player_Inventory.Instance.itemList.Count - 1; i >= 0; i--)
+            for (int i = stats.itemList.Count - 1; i >= 0; i--)
             {
-                Item inventoryItem = Player_Inventory.Instance.itemList[i];
+                Item inventoryItem = stats.itemList[i];
 
                 if (inventoryItem.itemName == item.itemName)
                 {
@@ -229,7 +243,7 @@ public class Craft : MonoBehaviour
 
                     if (inventoryItem.stackCount <= 0)
                     {
-                        Player_Inventory.Instance.itemList.RemoveAt(i); // Hapus item jika stackCount habis
+                        stats.itemList.RemoveAt(i); // Hapus item jika stackCount habis
                     }
 
                     if (remainingToRemove <= 0)
@@ -241,7 +255,7 @@ public class Craft : MonoBehaviour
         // **Tambahkan hasil crafting ke inventory**
         int remainingToAdd = hasilCraftItem.stackCount;
 
-        foreach (Item inventoryItem in Player_Inventory.Instance.itemList)
+        foreach (Item inventoryItem in stats.itemList)
         {
             if (inventoryItem.itemName == hasilCraftItem.itemName)
             {
@@ -259,7 +273,7 @@ public class Craft : MonoBehaviour
         }
 
         // Jika masih ada sisa item hasil crafting, buat item baru
-        while (remainingToAdd > 0 && Player_Inventory.Instance.itemList.Count < Player_Inventory.Instance.maxItem)
+        while (remainingToAdd > 0 && stats.itemList.Count < stats.maxItem)
         {
             Item newItem = Instantiate(hasilCraftItem);
             int amountToTake = Mathf.Min(remainingToAdd, newItem.maxStackCount);
@@ -268,7 +282,7 @@ public class Craft : MonoBehaviour
 
             newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
 
-            Player_Inventory.Instance.itemList.Add(newItem);
+            stats.itemList.Add(newItem);
         }
 
         Debug.Log($"Berhasil crafting {hasilCraftItem.itemName} x{hasilCraftItem.stackCount}");

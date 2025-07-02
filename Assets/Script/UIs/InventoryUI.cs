@@ -11,6 +11,7 @@ public class InventoryUI : MonoBehaviour
     [Header("Daftar hubungan Script")]
     [SerializeField] NPCListUI npcListUI;
     [SerializeField] Player_Inventory player_Inventory;
+    public bool isInventoryOpen;
 
 
 
@@ -61,10 +62,27 @@ public class InventoryUI : MonoBehaviour
 
 
 
+    private PlayerData_SO stats;
+
+    private void Awake()
+    {
+  
 
 
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
+    }
     private void Start()
     {
+        PlayerUI.Instance.RegisterInventoryUI(this);
+
         //Loop untuk Mengatur Tombol Menu Secara Dinamis
         for (int i = 0; i < btnMenu.Length; i++)
         {
@@ -99,10 +117,60 @@ public class InventoryUI : MonoBehaviour
             quickSlotButtons[i].onClick.RemoveAllListeners();
             quickSlotButtons[i].onClick.AddListener(() => ShowDeleteButton(() => RisetQuickSlot(index)));
         }
+
+        CloseInventory();
     }
 
+    public void OpenInventory()
+    {
+        Debug.Log("membuka inventory");
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlaySound("Click");
+
+        GameController.Instance.ShowPersistentUI(false);
+        gameObject.SetActive(true);
+        isInventoryOpen = true;
+        contohFlipCard.IfClose();
 
 
+        if (isInventoryOpen)
+        {
+            GameController.Instance.PauseGame();
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+
+
+
+
+
+
+            UpdateInventoryUI(); // Update UI when inventory is opened
+        }
+        else
+        {
+            GameController.Instance.ResumeGame();
+        }
+    }
+
+    public void CloseInventory()
+    {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlaySound("Click");
+
+        isInventoryOpen = false;
+
+        gameObject.SetActive(false);
+        GameController.Instance.ShowPersistentUI(true);
+        GameController.Instance.ResumeGame();
+    }
 
     // private void update()
     // {
@@ -149,13 +217,13 @@ public class InventoryUI : MonoBehaviour
     public void UpdateInventoryUI()
     {
         SetInventory();
-        if (Player_Inventory.Instance.itemList.Count > 0)
+        if (stats.itemList.Count > 0)
         {
-            SetDescription(Player_Inventory.Instance.itemList[0]);
+            SetDescription(stats.itemList[0]);
         }
         else
         {
-            SetDescription(Player_Inventory.Instance.emptyItem);
+            SetDescription(stats.emptyItem);
         }
         Debug.Log("Inventory has running");
     }
@@ -163,12 +231,12 @@ public class InventoryUI : MonoBehaviour
     void RefreshActiveItems()
     {
         // Refresh equipped items
-        RefreshItemSlot(equippedItem1, Player_Inventory.Instance.equippedCombat[0]);
-        RefreshItemSlot(equippedItem2, Player_Inventory.Instance.equippedCombat[1]);
+        RefreshItemSlot(equippedItem1, stats.equippedCombat[0]);
+        RefreshItemSlot(equippedItem2, stats.equippedCombat[1]);
 
         // Refresh quick slots
-        RefreshItemSlot(quickSlot1, Player_Inventory.Instance.quickSlots[0]);
-        RefreshItemSlot(quickSlot2, Player_Inventory.Instance.quickSlots[1]);
+        RefreshItemSlot(quickSlot1, stats.quickSlots[0]);
+        RefreshItemSlot(quickSlot2, stats.quickSlots[1]);
     }
 
     void RefreshItemSlot(Transform slot, Item item)
@@ -185,7 +253,7 @@ public class InventoryUI : MonoBehaviour
     {
 
         // Jika item kosong, tidak perlu lanjutkan refresh
-        if (player_Inventory.itemList == null || player_Inventory.itemList.Count == 0)
+        if (stats.itemList == null || stats.itemList.Count == 0)
         {
             Debug.Log("No items to display in the inventory");
             UpdateSixItemDisplay();  // Tetap update untuk bersihkan display jika kosong
@@ -206,9 +274,9 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        for (int i = 0; i < player_Inventory.itemList.Count; i++)
+        for (int i = 0; i < stats.itemList.Count; i++)
         {
-            Item item = player_Inventory.itemList[i];
+            Item item = stats.itemList[i];
             Transform itemInInventory = Instantiate(SlotTemplate, ContentGO);
             itemInInventory.gameObject.SetActive(true);
             itemInInventory.gameObject.name = item.itemName;
@@ -242,22 +310,22 @@ public class InventoryUI : MonoBehaviour
         }
 
         // Cek apakah item kosong atau tidak
-        if (player_Inventory.itemList == null || player_Inventory.itemList.Count == 0)
+        if (stats.itemList == null || stats.itemList.Count == 0)
         {
             // Debug.Log("No items to display");
             return;
         }
 
-        if (player_Inventory.itemList.Count == 0)
+        if (stats.itemList.Count == 0)
         {
             return;
         }
         else
         {
-            int itemCount = Mathf.Min(6, player_Inventory.itemList.Count);
+            int itemCount = Mathf.Min(6, stats.itemList.Count);
             for (int i = 0; i < itemCount; i++)
             {
-                Item item = player_Inventory.itemList[i];
+                Item item = stats.itemList[i];
                 if (item == null) continue; // Jika item null, skip
 
                 Transform itemInDisplay = Instantiate(SlotTemplate6, ContentGO6);
@@ -307,7 +375,7 @@ public class InventoryUI : MonoBehaviour
             case ItemType.Melee_Combat:
                 itemAction.onClick.AddListener(() =>
                 {
-                    Player_Inventory.Instance.EquipItem(item);
+                    //stats.EquipItem(item);
                     // SoundManager.Instance.PlaySound("PickUp");
                 });
                 break;
@@ -315,14 +383,14 @@ public class InventoryUI : MonoBehaviour
             case ItemType.Heal:
                 itemAction.onClick.AddListener(() =>
                 {
-                    Player_Inventory.Instance.AddQuickSlot(item, 0);
+                    //Player_Inventory.Instance.AddQuickSlot(item, 0);
                     // SoundManager.Instance.PlaySound("PickUp");
                 });
                 break;
             case ItemType.Buff:
                 itemAction.onClick.AddListener(() =>
                 {
-                    Player_Inventory.Instance.AddQuickSlot(item, 1);
+                    //Player_Inventory.Instance.AddQuickSlot(item, 1);
                     // SoundManager.Instance.PlaySound("PickUp");
                 });
                 break;
@@ -379,8 +447,8 @@ public class InventoryUI : MonoBehaviour
     public void RisetEquippedUse(int index)
     {
         Debug.Log("Equipped item di-reset: " + index);
-        player_Inventory.itemList.Add(player_Inventory.equippedCombat[index]);
-        player_Inventory.equippedCombat[index] = player_Inventory.emptyItem;
+        stats.itemList.Add(stats.equippedCombat[index]);
+        //player_Inventory.equippedCombat[index] = stats.emptyItem;
 
         Image itemImage = (index == 0) ?
             equippedItem1.GetComponentInChildren<Image>() :
@@ -396,8 +464,8 @@ public class InventoryUI : MonoBehaviour
     public void RisetQuickSlot(int index)
     {
         Debug.Log("Quick Slot di-reset: " + index);
-        player_Inventory.itemList.Add(player_Inventory.quickSlots[index]);
-        player_Inventory.quickSlots[index] = player_Inventory.emptyItem;
+        stats.itemList.Add(stats.quickSlots[index]);
+        stats.quickSlots[index] = stats.emptyItem;
 
         Image itemImage = (index == 0) ?
             quickSlot1.GetComponentInChildren<Image>() :

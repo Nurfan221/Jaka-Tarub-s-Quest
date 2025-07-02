@@ -49,8 +49,8 @@ public class GameController : MonoBehaviour
     {
         if (isNewGame)
         {
-            GameData newGameData = new(true);
-            newGameData.ResetGameData();
+            //GameData newGameData = new(true);
+            //newGameData.ResetGameData();
             //LoadGame(newGameData);
         }
         else
@@ -144,10 +144,10 @@ public class GameController : MonoBehaviour
         }
 
         // Update enablePlayerInput logic
-        if (Player_Action.Instance != null)
-        {
-            enablePlayerInput = Player_Action.Instance.canAttack && !gamePaused;
-        }
+        //if (Player_Action.Instance != null)
+        //{
+        //    enablePlayerInput = Player_Action.Instance.canAttack && !gamePaused;
+        //}
     }
 
     public void ShowPersistentUI(bool show)

@@ -5,7 +5,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player_Movement : MonoBehaviour
 {
-    // --- Referensi Komponen Inti ---
+    // Referensi Komponen Inti
     public Rigidbody2D rb;
     public PlayerController controller; // Referensi ke "Otak"
     public Transform facePlayer;
@@ -13,7 +13,7 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] public Transform face; // Untuk arah dash
     public float jarakOffsetSerang = 1.0f;
 
-    // --- Variabel Status Internal ---
+    // Variabel Status Internal
     public Vector2 movementDirection;
     public Vector2 lastDirection;
     public bool isDashing = false;

@@ -410,7 +410,7 @@ public class NPCBehavior : MonoBehaviour
                                     // Menambahkan item yang diinstansiasi ke dalam quest.itemQuests
                                     if (itemFromPool != null)
                                     {
-                                        Player_Inventory.Instance.AddItem(itemFromPool);
+                                        //Player_Inventory.Instance.AddItem(itemFromPool);
                                         Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
                                     }
                                 }
@@ -591,7 +591,7 @@ public class NPCBehavior : MonoBehaviour
                 Item itemFromPool = ItemPool.Instance.GetItem(itemCopy.itemName, itemCopy.stackCount);
                 if (itemFromPool != null)
                 {
-                    Player_Inventory.Instance.AddItem(itemFromPool);
+                    //Player_Inventory.Instance.AddItem(itemFromPool);
                     Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
                 }
             }

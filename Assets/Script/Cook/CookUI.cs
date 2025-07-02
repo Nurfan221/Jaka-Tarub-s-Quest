@@ -60,7 +60,21 @@ public class CookUI : MonoBehaviour
     [Header("button")]
     public Button closeButton;
 
+    private PlayerData_SO stats;
+    private void Awake()
+    {
 
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
+    }
     private void Start()
     {
         // SetRecipeDescription(recipes[0], CanCraft(recipes[0]));
@@ -140,7 +154,7 @@ public class CookUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (Item item in Player_Inventory.Instance.itemList)
+        foreach (Item item in stats.itemList)
         {
             Transform theItem = Instantiate(itemSlotTemplate, itemSlotContainer);
             theItem.name = item.itemName;
@@ -175,7 +189,7 @@ public class CookUI : MonoBehaviour
         item = ItemPool.Instance.GetItem(item.itemName);
 
         // Remove item dari inventory
-        Player_Inventory.Instance.RemoveItem(item);
+        //Player_Inventory.Instance.RemoveItem(item);
 
         // Cek apakah item sudah ada di dalam itemsInCook
         Item existingItem = itemsInCook.FirstOrDefault(i => i.itemName == item.itemName);
@@ -226,7 +240,7 @@ public class CookUI : MonoBehaviour
         item = ItemPool.Instance.GetItem(item.itemName);
 
         // Remove item dari inventory
-        Player_Inventory.Instance.RemoveItem(item);
+        //Player_Inventory.Instance.RemoveItem(item);
 
         // Cek apakah item sudah ada di dalam fuelInCook
         Item existingItem = fuelInCook.FirstOrDefault(i => i.itemName == item.itemName);
@@ -382,7 +396,7 @@ public class CookUI : MonoBehaviour
     public void ReturnItemToInventory(Item item)
     {
         // Menambahkan item kembali ke inventory
-        Player_Inventory.Instance.AddItem(item); // Asumsikan Anda memiliki metode AddItem di Player_Inventory
+        //Player_Inventory.Instance.AddItem(item); // Asumsikan Anda memiliki metode AddItem di Player_Inventory
 
         // Hapus item dari itemsInCook
         itemsInCook.Remove(item);
@@ -397,7 +411,7 @@ public class CookUI : MonoBehaviour
     public void ReturnFuelToInventory(Item item)
     {
         // Menambahkan item kembali ke inventory
-        Player_Inventory.Instance.AddItem(item); // Asumsikan Anda memiliki metode AddItem di Player_Inventory
+        //Player_Inventory.Instance.AddItem(item); // Asumsikan Anda memiliki metode AddItem di Player_Inventory
 
         // Hapus item dari itemsInCook
         fuelInCook.Remove(item);
@@ -680,7 +694,7 @@ public class CookUI : MonoBehaviour
 
         // Logika untuk mengembalikan item ke inventory
         Debug.Log($"Returning {item.itemName} to inventory");
-        Player_Inventory.Instance.AddItem(item); // Misalnya menambahkan kembali ke inventory
+        //Player_Inventory.Instance.AddItem(item); // Misalnya menambahkan kembali ke inventory
         ClearCookingResult();
         RefreshSlots();
 

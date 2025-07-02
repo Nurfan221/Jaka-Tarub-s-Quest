@@ -8,14 +8,8 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Player_Action : MonoBehaviour
 {
-    public static Player_Action Instance;
-     private Player_Inventory player_Inventory;
-    [SerializeField] PlayerUI playerUI;
-    [SerializeField] Player_Health playerHealth;
-    [SerializeField] BuffScrollController buffScrollController;
-    [SerializeField] SpesialSkillWeapon spesialSkillWeapon;
+  
     public Animator animator; // Deklarasikan Animator
-    [SerializeField] private Animator toolsAnimator;
     public SpriteRenderer hitBoxRenderer;
 
 
@@ -60,66 +54,72 @@ public class Player_Action : MonoBehaviour
     [SerializeField] private FarmTile farmTile;
     // [SerializeField] private plantSeed plantSeed;
 
-    public Button buttonAttack;
-
-    public Button specialAttack;
-
-    public Button buttonUse;
+  
 
 
     bool canInteract = false;
     Interactable interactable;
 
     [SerializeField] private Transform face; // Hubungkan di inspector
-    //[SerializeField] private TreeBehavior treeBehavior;
+                                             //[SerializeField] private TreeBehavior treeBehavior;
 
     #endregion
 
-
-    void Start()
+    private PlayerData_SO stats;
+    private void Awake()
     {
-        if (buttonAttack != null)
+
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
         {
-            buttonAttack.onClick.AddListener(OnAttackButtonClick);
-        }
-
-        if (specialAttack != null)
-        {
-            specialAttack.onClick.AddListener(OnSpecialAttackButtonClick);
-        }
-
-        if (buttonUse != null)
-        {
-            buttonUse.onClick.AddListener(OnUseButtonClick);
-        }
-
-
-
-        if (playerUI != null)
-        {
-            if (playerUI.actionInputButton != null)
-            {
-                playerUI.actionInputButton.onClick.AddListener(OnActionInputButtonClick);
-            }
-            else
-            {
-                Debug.LogError("actionInputButton is null in PlayerUI");
-            }
+            stats = PlayerController.Instance.playerData;
         }
         else
         {
-            Debug.LogError("PlayerUI not found");
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
         }
-
-
     }
 
-    private void Awake()
+    void Start()
     {
-        Instance = this;
+        //if (buttonAttack != null)
+        //{
+        //    buttonAttack.onClick.AddListener(OnAttackButtonClick);
+        //}
 
-        //toolsAnimator = GetComponent<Animator>();
+        //if (specialAttack != null)
+        //{
+        //    specialAttack.onClick.AddListener(OnSpecialAttackButtonClick);
+        //}
+
+        //if (buttonUse != null)
+        //{
+        //    buttonUse.onClick.AddListener(OnUseButtonClick);
+        //}
+
+
+
+        //if (playerUI != null)
+        //{
+        //    if (playerUI.actionInputButton != null)
+        //    {
+        //        playerUI.actionInputButton.onClick.AddListener(OnActionInputButtonClick);
+        //    }
+        //    else
+        //    {
+        //        Debug.LogError("actionInputButton is null in PlayerUI");
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.LogError("PlayerUI not found");
+        //}
+
+
     }
+
+   
 
 
 
@@ -185,42 +185,42 @@ public class Player_Action : MonoBehaviour
     }
    
 
-    private void OnUseButtonClick()
-    {
-        Player_Inventory player_inventory = FindObjectOfType<Player_Inventory>();
+    //private void OnUseButtonClick()
+    //{
+    //    Player_Inventory player_inventory = FindObjectOfType<Player_Inventory>();
 
-        // Pastikan player_inventory ada
-        if (player_inventory != null)
-        {
-            // Cek apakah quickSlot[0] berisi item dan itemUse1 adalah true
-            if (player_inventory.quickSlots[0] != null && player_inventory.itemUse1)
-            {
-                // Gunakan quick slot 1
-                player_inventory.UseQuickSlot(0);
-                //menggunakan item use
+    //    // Pastikan player_inventory ada
+    //    if (player_inventory != null)
+    //    {
+    //        // Cek apakah quickSlot[0] berisi item dan itemUse1 adalah true
+    //        if (player_inventory.quickSlots[0] != null && player_inventory.itemUse1)
+    //        {
+    //            // Gunakan quick slot 1
+    //            player_inventory.UseQuickSlot(0);
+    //            //menggunakan item use
 
-                //StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
-                //Debug.Log("Menggunakan item dari quick slot 1");
-            }
-            // Jika quickSlot[0] kosong atau itemUse1 false, cek quickSlot[1]
-            else if (player_inventory.quickSlots[1] != null)
-            {
-                // Gunakan quick slot 2
-                player_inventory.UseQuickSlot(1);
-                //menggunakan item use 
-                //StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
-                //Debug.Log("Menggunakan item dari quick slot 2");
-            }
-            else
-            {
-                Debug.Log("Tidak ada item yang bisa digunakan.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Player_Inventory tidak ditemukan.");
-        }
-    }
+    //            //StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
+    //            //Debug.Log("Menggunakan item dari quick slot 1");
+    //        }
+    //        // Jika quickSlot[0] kosong atau itemUse1 false, cek quickSlot[1]
+    //        else if (player_inventory.quickSlots[1] != null)
+    //        {
+    //            // Gunakan quick slot 2
+    //            player_inventory.UseQuickSlot(1);
+    //            //menggunakan item use 
+    //            //StartCoroutine(HandleUICD(PlayerUI.Instance.itemUseUI, quickSlotCD));
+    //            //Debug.Log("Menggunakan item dari quick slot 2");
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Tidak ada item yang bisa digunakan.");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Player_Inventory tidak ditemukan.");
+    //    }
+    //}
 
 
    
@@ -240,10 +240,10 @@ public class Player_Action : MonoBehaviour
         //StartCoroutine(DeactivateHitboxAfterAnimation(activeHitbox, howLong));
 
         //logika menambahkan damage buff ke dalaam damage senjata
-        if (buffScrollController.isBuffDamage)
-        {
-            damage += buffScrollController.jumlahBuffDamage;
-        }
+        //if (buffScrollController.isBuffDamage)
+        //{
+        //    damage += buffScrollController.jumlahBuffDamage;
+        //}
 
         Debug.Log("Damage berjumlah : " + damage);
 
@@ -358,7 +358,7 @@ public class Player_Action : MonoBehaviour
 
     public void Attack()
     {
-        Item itemToAttack = Player_Inventory.Instance.equippedWeapon;
+        Item itemToAttack = stats.equippedWeapon;
         if (itemToAttack.itemName == "Empty")
             return;
 
@@ -369,8 +369,8 @@ public class Player_Action : MonoBehaviour
             //    SoundManager.Instance.PlaySound("Sword");
 
             print("melee normal attacking");
-            playerUI.TakeCapacityBar(itemToAttack);
-            playerHealth.SpendStamina(itemToAttack.UseStamina);
+            //playerUI.TakeCapacityBar(itemToAttack);
+            //playerHealth.SpendStamina(itemToAttack.UseStamina);
             //playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
             //Debug.Log("nama item yang sedang di pakai" + itemToAttack.itemName);
             switch (itemToAttack.itemName)
@@ -500,26 +500,26 @@ public class Player_Action : MonoBehaviour
             // throw rock
             StartCoroutine(ShootProjectile(itemToAttack.RangedWeapon_ProjectilePrefab, itemToAttack.Damage));
             // check if rock depleted after use then remove as equipped then remove from inventory
-            if (Player_Inventory.Instance.equippedWeapon.stackCount == 1)
+            if (stats.equippedWeapon.stackCount == 1)
             {
-                Player_Inventory.Instance.EquipItem(ItemPool.Instance.GetItem("Empty"));
+                //stats.EquipItem(ItemPool.Instance.GetItem("Empty"));
             }
 
             // minus rock count
-            Player_Inventory.Instance.RemoveItem(ItemPool.Instance.GetItem("Batu"));
+            //stats.RemoveItem(ItemPool.Instance.GetItem("Batu"));
 
             StartCoroutine(ActivateAttack(.5f));
         }
         else if (itemToAttack.types == ItemType.Ranged_Combat)
         {
             // Check for arrow first
-            if (Player_Inventory.Instance.itemList.Exists(x => x.itemName == "Anak Panah"))
+            if (stats.itemList.Exists(x => x.itemName == "Anak Panah"))
             {
                 print("shooting arrow");
                 // Shoot arrow if possible
                 StartCoroutine(ShootProjectile(itemToAttack.RangedWeapon_ProjectilePrefab, itemToAttack.Damage));
                 // minus arrow count
-                Player_Inventory.Instance.RemoveItem(ItemPool.Instance.GetItem("Anak Panah"));
+                //stats.RemoveItem(ItemPool.Instance.GetItem("Anak Panah"));
             }
             else
             {
@@ -536,15 +536,15 @@ public class Player_Action : MonoBehaviour
     {
         Debug.Log("spesial skill on click");
        
-        Item itemToAttack = Player_Inventory.Instance.equippedWeapon;
+        Item itemToAttack = stats.equippedWeapon;
         if (itemToAttack.itemName == "Empty")
             return;
        
 
-        playerUI.TakeCapacityBar(itemToAttack);
+        //playerUI.TakeCapacityBar(itemToAttack);
 
-        //menjalankan cooldown spesial skill
-        spesialSkillWeapon.UseWeaponSkill(itemToAttack, true);
+        ////menjalankan cooldown spesial skill
+        //spesialSkillWeapon.UseWeaponSkill(itemToAttack, true);
         if (itemToAttack.health != 0 && PlayerController.Instance.playerData.stamina > 0)
         {
            
@@ -613,13 +613,13 @@ public class Player_Action : MonoBehaviour
                 for (int i = 0; i < 5; i++)
                 {
                     // Check for arrow first
-                    if (Player_Inventory.Instance.itemList.Exists(x => x.itemName == "Anak Panah"))
+                    if (stats.itemList.Exists(x => x.itemName == "Anak Panah"))
                     {
                         print("shooting arrow");
                         // Shoot arrow if possible
                         StartCoroutine(ShootProjectile(itemToAttack.RangedWeapon_ProjectilePrefab, itemToAttack.Damage, i * .1f));
                         // minus arrow count
-                        Player_Inventory.Instance.RemoveItem(ItemPool.Instance.GetItem("Anak Panah"));
+                        //Player_Inventory.Instance.RemoveItem(ItemPool.Instance.GetItem("Anak Panah"));
                     }
                     else
                     {
@@ -633,9 +633,9 @@ public class Player_Action : MonoBehaviour
             Debug.Log("Stamina Habis bang");
         }
 
-        playerHealth.SpendStamina(itemToAttack.UseStamina);
+        //playerHealth.SpendStamina(itemToAttack.UseStamina);
 
-        playerHealth.ApplyFatigue(itemToAttack.UseStamina);
+        //playerHealth.ApplyFatigue(itemToAttack.UseStamina);
     }
 
     private void WaterNearbyPlants()

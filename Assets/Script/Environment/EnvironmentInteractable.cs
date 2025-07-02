@@ -21,7 +21,7 @@ public class EnvironmentInteractable : Interactable
         EnvironmentBehavior environmentBehavior = gameObject.GetComponent<EnvironmentBehavior>();
         if (environmentBehavior != null && environmentBehavior.itemDrop != null)
         {
-            Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(environmentBehavior.itemDrop.itemName));
+            //Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(environmentBehavior.itemDrop.itemName));
 
 
             EnvironmentManager environmentManager = environmentBehavior.plantsContainer.gameObject.GetComponent<EnvironmentManager>();

@@ -6,7 +6,21 @@ public class SumurInteractable : Interactable
     [SerializeField] Player_Inventory playerInventory;
     [SerializeField] PlayerUI playerUI;
     public Item itemInteractable;
+    private PlayerData_SO stats;
+    private void Awake()
+    {
 
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,10 +36,10 @@ public class SumurInteractable : Interactable
     protected override void Interact()
     {
         Debug.Log("mengisi penyiram tanaman");
-       if(playerInventory != null && playerInventory.equippedCombat[0].itemName == itemInteractable.itemName)
+       if(playerInventory != null && stats.equippedCombat[0].itemName == itemInteractable.itemName)
        {
-            playerInventory.equippedCombat[0].health = playerInventory.equippedCombat[0].maxhealth;
-            playerUI.UpdateCapacityBar(playerInventory.equippedCombat[0]);
+            stats.equippedCombat[0].health = stats.equippedCombat[0].maxhealth;
+            playerUI.UpdateCapacityBar(stats.equippedCombat[0]);
        }
     }
 }

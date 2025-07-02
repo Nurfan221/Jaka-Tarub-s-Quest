@@ -23,7 +23,7 @@ public class ItemDropInteractable : Interactable
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Pick");
         Debug.Log(item.itemName + " di ambil.");
-        Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(item.itemName));
+        //Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(item.itemName));
         //if (item.type == ItemType.Quest) { GetComponent<QuestQuanta>().Take(); }
 
         Destroy(gameObject);

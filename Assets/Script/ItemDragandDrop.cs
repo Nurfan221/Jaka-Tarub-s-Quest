@@ -37,7 +37,7 @@ public class ItemDragandDrop : MonoBehaviour, IDragHandler, IEndDragHandler, IDr
         {
             // Tukar posisi di dalam inventory
             int tempID = itemID; // Simpan itemID sementara
-            Player_Inventory.Instance.SwapItems(droppedItem.itemID, itemID);
+            //Player_Inventory.Instance.SwapItems(droppedItem.itemID, itemID);
             
             // Update itemID untuk refleksi perubahan
             itemID = droppedItem.itemID; // Update itemID untuk item ini

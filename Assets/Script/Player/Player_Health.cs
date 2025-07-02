@@ -52,7 +52,7 @@ public class Player_Health : MonoBehaviour
         }
     }
 
-    // --- FUNGSI DIPERBAIKI ---
+
     void UpdateCaps()
     {
         // Penalti untuk health HANYA berasal dari 'grief'.
@@ -68,7 +68,7 @@ public class Player_Health : MonoBehaviour
         stats.currentStaminaCap = Mathf.Max( stats.currentStaminaCap, 10);
     }
 
-    // --- FUNGSI SISTEM BERTAHAP (GRIEF) ---
+
 
     [ContextMenu("Start Grief")]
     public void StartGrief()
@@ -150,10 +150,7 @@ public class Player_Health : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// BARU: Menerapkan efek kelelahan yang mengurangi batas maksimum stamina sementara.
-    /// </summary>
-    /// <param name="fatigueAmount">Jumlah persen kelelahan yang ditambahkan (misal: 5 untuk 5%).</param>
+   
     public void ApplyFatigue(float fatigueAmount)
     {
         stats.currentFatiguePenalty += fatigueAmount;
@@ -163,9 +160,7 @@ public class Player_Health : MonoBehaviour
         Debug.Log($"Player lelah! Penalti stamina sekarang: {stats.currentFatiguePenalty}%");
     }
 
-    /// <summary>
-    /// Mengembalikan HP/Stamina saat hari baru atau setelah tidur. Juga memulihkan kelelahan.
-    /// </summary>
+   
     public void ReverseHealthandStamina()
     {
         // Kelelahan pulih sepenuhnya setelah tidur

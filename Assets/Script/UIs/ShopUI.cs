@@ -44,6 +44,22 @@ public class ShopUI : MonoBehaviour
     private Dictionary<string, int> itemSellCounts = new(); // Menyimpan jumlah item yang akan dibeli
     private Dictionary<string , int> itemBuyCounts = new();
 
+    private PlayerData_SO stats;
+    private void Awake()
+    {
+
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
+    }
+
     private void Start()
     {
         sellUI.gameObject.SetActive(false);
@@ -154,7 +170,7 @@ public class ShopUI : MonoBehaviour
 
 
         //Tampilkan item di inventory untuk dijual
-        foreach (Item item in Player_Inventory.Instance.itemList)
+        foreach (Item item in stats.itemList)
         {
             Transform itemSlot = Instantiate(templateSellUI, contentSellUI);
             itemSlot.gameObject.SetActive(true);
@@ -371,7 +387,7 @@ public class ShopUI : MonoBehaviour
         if (gameEconomy.SpendMoney(remainingToBuy * selectedItem.BuyValue)&& remainingToBuy <= selectedItem.stackCount)
         {
             // Cek apakah item sudah ada di inventory
-            Item inventoryItem = Player_Inventory.Instance.itemList.Find(x => x.itemName == selectedItem.itemName);
+            Item inventoryItem = stats.itemList.Find(x => x.itemName == selectedItem.itemName);
 
             if (inventoryItem != null && inventoryItem.stackCount < inventoryItem.maxStackCount)
             {
@@ -383,7 +399,7 @@ public class ShopUI : MonoBehaviour
             }
 
             // Jika masih ada sisa item, buat stack baru di inventory
-            while (remainingToBuy > 0 && Player_Inventory.Instance.itemList.Count < Player_Inventory.Instance.maxItem)
+            while (remainingToBuy > 0 && stats.itemList.Count < stats.maxItem)
             {
                 Item newItem = Instantiate(selectedItem);
                 int amountToTake = Mathf.Min(remainingToBuy, newItem.maxStackCount);
@@ -392,7 +408,7 @@ public class ShopUI : MonoBehaviour
 
                 newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
 
-                Player_Inventory.Instance.itemList.Add(newItem);
+                stats.itemList.Add(newItem);
             }
 
             Debug.Log("Nama item: " + selectedItem.itemName + " | Jumlah: " + itemCounts[selectedItem.itemName]);
@@ -451,9 +467,9 @@ public class ShopUI : MonoBehaviour
     {
         int remainingToRemove = selectedItemCount; // Jumlah yang ingin dihapus
 
-        for (int i = Player_Inventory.Instance.itemList.Count - 1; i >= 0; i--)
+        for (int i = stats.itemList.Count - 1; i >= 0; i--)
         {
-            Item item = Player_Inventory.Instance.itemList[i];
+            Item item = stats.itemList[i];
 
             if (selectedItem.itemName == item.itemName)
             {
@@ -466,7 +482,7 @@ public class ShopUI : MonoBehaviour
                 else
                 {
                     remainingToRemove -= item.stackCount;
-                    Player_Inventory.Instance.itemList.RemoveAt(i);
+                    stats.itemList.RemoveAt(i);
 
                     if (remainingToRemove <= 0)
                         return;
@@ -536,9 +552,9 @@ public class ShopUI : MonoBehaviour
 
     private void SellItem(Item itemToSell)
     {
-        if (Player_Inventory.Instance.itemList.Contains(itemToSell))
+        if (stats.itemList.Contains(itemToSell))
         {
-            Player_Inventory.Instance.itemList.Remove(itemToSell);
+            stats.itemList.Remove(itemToSell);
             RefreshShopUI(currentSeasonItems);
         }
     }

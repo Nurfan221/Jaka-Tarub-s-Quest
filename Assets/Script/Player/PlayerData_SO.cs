@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 // [CreateAssetMenu] adalah perintah agar kita bisa membuat file ini dari menu Assets di Unity.
@@ -33,6 +34,15 @@ public class PlayerData_SO : ScriptableObject
     public int healingQuestsCompleted = 0;
     public int totalHealingQuests = 5;
 
+    [Header("Pengaturan Inventory")]
+    public List<Item> itemList;
+    public int maxItem = 18;
+
+    public Item emptyItem;
+    public List<Item> equippedCombat = new List<Item>(2);
+    public Item equippedWeapon;
+    public Item equippedItem;
+    public List<Item> quickSlots = new List<Item>(2);
 
     // BARU: Sistem Kelelahan (Fatigue)
     [Header("Fatigue System")]

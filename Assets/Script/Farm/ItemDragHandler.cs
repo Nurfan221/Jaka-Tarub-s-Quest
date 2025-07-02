@@ -39,14 +39,25 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     //}
 
 
-
-
+    private PlayerData_SO stats;
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>(); // Mendapatkan Canvas induk
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
     }
+
+
 
      public void UpdateItemCount(int count)
     {
@@ -69,7 +80,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // Proses penanaman benih
         bool itemFound = false;
 
-        foreach (Item item in Player_Inventory.Instance.itemList)
+        foreach (Item item in stats.itemList)
         {
             if (item.itemName == itemInDrag && item.IsInCategory(ItemCategory.PlantSeed))
             {
@@ -88,7 +99,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 if (item.stackCount <= 0)
                 {
-                    Player_Inventory.Instance.RemoveItem(item);
+                    //Player_Inventory.Instance.RemoveItem(item);
                     //   Debug.Log("Item habis dan dihapus.");
                 }
 
@@ -112,7 +123,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
         Debug.Log(" fungsi cek tree seed di jalankan");
 
-        foreach (Item item in Player_Inventory.Instance.itemList)
+        foreach (Item item in stats.itemList)
         {
 
             // Debug.Log("nama itemInDrag  " + itemInDrag);
@@ -147,7 +158,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (stackItem <= 0)
                 {
                     // Jika stack count habis, hapus item dari inventory
-                    Player_Inventory.Instance.RemoveItem(item);
+                    //Player_Inventory.Instance.RemoveItem(item);
                     //    Debug.Log("Item habis dan dihapus dari inventory.");
                 }
                 else
@@ -474,7 +485,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
 
-        foreach (Item item in Player_Inventory.Instance.itemList)
+        foreach (Item item in stats.itemList)
         {
             // Cek apakah nama item sama dengan itemInDrag dan kategori item bukan Seed
             if (item.itemName == itemInDrag && item.categories != ItemCategory.PlantSeed)
@@ -497,7 +508,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     if (stackItem <= 0)
                     {
                         // Hapus item jika jumlahnya sudah habis
-                        Player_Inventory.Instance.RemoveItem(item);
+                        //Player_Inventory.Instance.RemoveItem(item);
                         //Debug.Log("Item habis dan dihapus dari inventory.");
                     }
                     else
@@ -514,7 +525,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     if (stackItem <= 0)
                     {
                         // Hapus item jika jumlahnya sudah habis
-                        Player_Inventory.Instance.RemoveItem(item);
+                        //Player_Inventory.Instance.RemoveItem(item);
                         //Debug.Log("Item habis dan dihapus dari inventory.");
                     }
                     else
@@ -606,7 +617,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
             if (plantSeed != null && plantSeed.isInsect)
             {
-                foreach (Item item in Player_Inventory.Instance.itemList)
+                foreach (Item item in stats.itemList)
                 {
                     Debug.Log("Memeriksa item: " + item.itemName + " dengan itemInDrag: " + itemInDrag);
 
@@ -622,7 +633,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                         if (item.stackCount <= 0)
                         {
-                            Player_Inventory.Instance.RemoveItem(item);
+                            //Player_Inventory.Instance.RemoveItem(item);
                         }
 
                         plantSeed.isInsect = false;

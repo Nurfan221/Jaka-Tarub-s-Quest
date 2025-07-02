@@ -45,7 +45,7 @@ public class TongSampahInteractable : Interactable
        if (isFull)
         {
             
-            Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(sampahItem.itemName));
+            //Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(sampahItem.itemName));
             isFull = false;
             TongKosong();
         }

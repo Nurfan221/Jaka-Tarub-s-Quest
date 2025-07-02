@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // --- CONTOH FUNGSI PERINTAH ---
+    // CONTOH FUNGSI PERINTAH
 
     public void HandleMovement(Vector2 direction)
     {

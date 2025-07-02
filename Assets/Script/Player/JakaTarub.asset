@@ -13,21 +13,35 @@ MonoBehaviour:
   m_Name: JakaTarub
   m_EditorClassIdentifier: 
   walkSpd: 5
-  dashStamina: 40
-  dashDistance: 5
-  dashForce: 5
+  dashStamina: 30
+  dashDistance: 20
+  dashForce: 20
   playerPosition: {x: 0, y: 0}
   maxHealth: 100
   health: 100
-  currentHealthCap: 0
+  currentHealthCap: 100
   maxStamina: 100
   stamina: 100
-  staminaRegenRate: 15
-  currentStaminaCap: 0
+  staminaRegenRate: 5
+  currentStaminaCap: 100
   initialGriefPenalty: 30
   isInGrief: 0
   currentGriefPenalty: 0
   healingQuestsCompleted: 0
   totalHealingQuests: 5
+  itemList:
+  - {fileID: 11400000, guid: bc0f9b8dceee0e347bcb64f17dfb14d5, type: 2}
+  - {fileID: 11400000, guid: 41ae895a8b82d684da645b0532a73b89, type: 2}
+  - {fileID: 11400000, guid: c35c9229d440ac1479776887736c88e2, type: 2}
+  maxItem: 18
+  emptyItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
+  equippedCombat:
+  - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
+  - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
+  equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
+  equippedItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
+  quickSlots:
+  - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
+  - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   currentFatiguePenalty: 0
   maxFatiguePenalty: 50
