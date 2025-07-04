@@ -95,13 +95,13 @@ public class PlayerController : MonoBehaviour
             else
             {
                 if (playerData.inventory.Count < playerData.maxItem)
-                    playerData.inventory.Add(new ItemData(name, amount));
+                    playerData.inventory.Add(new ItemData(name, amount, quality));
             }
         }
         else
         {
             if (playerData.inventory.Count < playerData.maxItem)
-                playerData.inventory.Add(new ItemData(name, amount));
+                playerData.inventory.Add(new ItemData(name, amount, quality));
         }
 
         //OnInventoryChanged?.Invoke();

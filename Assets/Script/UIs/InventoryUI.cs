@@ -68,7 +68,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Awake()
     {
-  
+
 
 
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
@@ -84,6 +84,7 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         PlayerUI.Instance.RegisterInventoryUI(this);
+        MechanicController.Instance.RegisterInventory(this);
 
         //Loop untuk Mengatur Tombol Menu Secara Dinamis
         for (int i = 0; i < btnMenu.Length; i++)
@@ -121,6 +122,14 @@ public class InventoryUI : MonoBehaviour
         }
 
         CloseInventory();
+    }
+
+    private void OnDestroy()
+    {
+        if (MechanicController.Instance != null)
+        {
+            MechanicController.Instance.UnregisterInventory(this);
+        }
     }
 
     public void OpenInventory()
@@ -183,7 +192,7 @@ public class InventoryUI : MonoBehaviour
     {
         // Pastikan referensi ke ContohFlipCard diatur saat InventoryUI diaktifkan
 
-       
+
     }
 
     // Handle equipped items
@@ -194,13 +203,15 @@ public class InventoryUI : MonoBehaviour
         {
             case 0: pickedSlot = equippedItem1; break;
             case 1: pickedSlot = equippedItem2; break;
-            case 2: pickedSlot = quickSlot1;
+            case 2:
+                pickedSlot = quickSlot1;
                 //jumlahQuickItem1.text = item.stackCount.ToString(); 
                 jumlahQuickItem1.gameObject.SetActive(true);
                 break;
-            case 3: pickedSlot = quickSlot2;
+            case 3:
+                pickedSlot = quickSlot2;
                 //jumlahQuickItem2.text = item.stackCount.ToString();
-                jumlahQuickItem2 .gameObject.SetActive(true);
+                jumlahQuickItem2.gameObject.SetActive(true);
                 break;
             default: pickedSlot = equippedItem1; break;
         }
@@ -488,10 +499,11 @@ public class InventoryUI : MonoBehaviour
             quickSlot2.GetComponentInChildren<Image>();
 
         itemImage.sprite = null; // Hapus sprite
-        if (index == 0 )
+        if (index == 0)
         {
             jumlahQuickItem1.gameObject.SetActive(false);
-        }else
+        }
+        else
         {
             jumlahQuickItem2.gameObject.SetActive(false);
         }

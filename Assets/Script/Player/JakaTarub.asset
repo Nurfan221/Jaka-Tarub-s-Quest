@@ -29,11 +29,14 @@ MonoBehaviour:
   currentGriefPenalty: 0
   healingQuestsCompleted: 0
   totalHealingQuests: 5
-  itemList:
-  - {fileID: 11400000, guid: bc0f9b8dceee0e347bcb64f17dfb14d5, type: 2}
-  listItem:
-  - itemData: {fileID: 0}
-    stackCount: 0
+  itemList: []
+  inventory:
+  - itemName: Anggur
+    count: 17
+    quality: 0
+  - itemName: Padi
+    count: 20
+    quality: 0
   maxItem: 18
   emptyItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedCombat:

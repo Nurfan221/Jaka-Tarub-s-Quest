@@ -5,11 +5,10 @@ using UnityEngine;
 public class StorageInteractable : Interactable
 {
 
-    [SerializeField]
-    public List<Item> Items = new();
-    public int maxItem = 12;
-    public int[] countItems;
 
+    [Header("Deklarasi Variabel Item")]
+    public List<ItemData> storage = new List<ItemData>();
+    public int maxItem = 12;
 
     //[SerializeField] StorageUI storageUI;
 
@@ -27,33 +26,35 @@ public class StorageInteractable : Interactable
 
        
 
-        AddItemToList();
+        //AddItemToList();
 
     }
 
-    public void AddItemToList()
-    {
-        // Membuat salinan dari item yang ada di quest.itemQuests sebelum menghapus item lama
-        List<Item> newItemList = new List<Item>();
+    //public void AddItemToList()
+    //{
+    //    // Membuat salinan dari item yang ada di quest.itemQuests sebelum menghapus item lama
+    //    List<Item> newItemList = new List<Item>();
 
-        // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
-        for (int i = 0; i < Items.Count; i++)
-        {
-            Item newItem = ItemPool.Instance.GetItemWithQuality(Items[i].name, Items[i].quality, countItems[i]); 
+    //    // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
+    //    for (int i = 0; i < storage.Count; i++)
+    //    {
 
-            // Menambahkan item baru ke dalam newItemList
-            newItemList.Add(newItem);
-        }
+    //        Item newItem = ItemPool.Instance.GetItem(storage[i].itemName); 
+            
 
-        // Menghapus semua item lama setelah menambahkan item baru
-        Items.Clear();
+    //        // Menambahkan item baru ke dalam newItemList
+    //        newItemList.Add(newItem);
+    //    }
 
-        // Menambahkan item baru dari newItemList ke quest.itemQuests
-        foreach (var item in newItemList)
-        {
-            Items.Add(item);
-        }
-    }
+    //    // Menghapus semua item lama setelah menambahkan item baru
+    //    Items.Clear();
+
+    //    // Menambahkan item baru dari newItemList ke quest.itemQuests
+    //    foreach (var item in newItemList)
+    //    {
+    //        Items.Add(item);
+    //    }
+    //}
     protected override void Interact()
     {
 
@@ -68,7 +69,11 @@ public class StorageInteractable : Interactable
     {
         // Tunggu sampai animasi selesai
         yield return AnimationOpen(); // Tunggu sampai animasi selesai
-        StorageSystem.Instance.OpenStorage(this);
+                                      // Bertanya ke "Penjaga Gerbang" untuk mendapatkan akses ke StorageUI
+        if (MechanicController.Instance != null && MechanicController.Instance.StorageUI != null)
+        {
+            MechanicController.Instance.StorageUI.OpenStorage(this);
+        }
 
     }
 

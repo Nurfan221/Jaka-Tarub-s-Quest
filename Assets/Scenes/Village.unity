@@ -48250,6 +48250,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a12fb09ddf7bba441a1af89a3875ac3c, type: 3}
+--- !u!1 &1684918958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1684918959}
+  - component: {fileID: 1684918960}
+  m_Layer: 0
+  m_Name: MechanicController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1684918959
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684918958}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1856415617}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1684918960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684918958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0254749bc8e9ce549a7e9e380ccda005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1685637046
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66121,11 +66165,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7718138251827997901, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_Size
-      value: 0.88151526
+      value: 0.88181996
       objectReference: {fileID: 0}
     - target: {fileID: 7718138251827997901, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_Value
-      value: 0.00000088946524
+      value: -0.000006226257
       objectReference: {fileID: 0}
     - target: {fileID: 7915405124011612827, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_LocalPosition.x
@@ -66185,7 +66229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8555332484385303825, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -256.01
+      value: -256.01007
       objectReference: {fileID: 0}
     - target: {fileID: 8588972791980073415, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: farmTile
@@ -66234,6 +66278,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7915405124011612827, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       insertIndex: 1
       addedObject: {fileID: 1169796753}
+    - targetCorrespondingSourceObject: {fileID: 7915405124011612827, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1684918959}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
 --- !u!114 &153990557110953066 stripped
@@ -69436,6 +69483,10 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
       propertyPath: 'Items.Array.data[5]'
       value: 
       objectReference: {fileID: 11400000, guid: 692483cde051eb24a98a89d414f63270, type: 2}
@@ -69514,6 +69565,62 @@ PrefabInstance:
     - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
       propertyPath: 'countItems.Array.data[11]'
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[0].count
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[1].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[2].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[3].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[4].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[5].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[6].count
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[0].itemName
+      value: BenihPadi
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[1].itemName
+      value: Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[2].itemName
+      value: Cangkul
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[3].itemName
+      value: Sabit
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[4].itemName
+      value: Kapak
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[5].itemName
+      value: PenyiramTanaman
+      objectReference: {fileID: 0}
+    - target: {fileID: 549079658707127487, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+      propertyPath: storage.Array.data[6].itemName
+      value: Padi
       objectReference: {fileID: 0}
     - target: {fileID: 5454017072709228803, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
       propertyPath: m_Name

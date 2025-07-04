@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using NUnit.Framework.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +10,7 @@ using static UnityEditor.Progress;
 
 public class StorageUI : MonoBehaviour
 {
+
 
 
 
@@ -25,7 +28,7 @@ public class StorageUI : MonoBehaviour
     [SerializeField] Transform itemSlotTemplate;
     //[SerializeField] StorageInteractable currentStorage;
 
-    [SerializeField] InventoryUI inventoryUI;
+    //[SerializeField] InventoryUI inventoryUI;
     //popUP
     public Image popUp;
     public Image itemImage;
@@ -33,6 +36,7 @@ public class StorageUI : MonoBehaviour
     // Variabel untuk menyimpan item yang sedang dipilih
     public Item selectedItem;
     public int selectedItemCount;
+    public string qualityLevel;
     public bool isTakingFromStorage = false; // False = store ke storage, True = take dari storage
 
 
@@ -55,25 +59,20 @@ public class StorageUI : MonoBehaviour
     public Button closeStorageButton;
 
 
-    private PlayerData_SO stats;
-    private void Awake()
-    {
 
-
-        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
-        if (PlayerController.Instance != null)
-        {
-            stats = PlayerController.Instance.playerData;
-        }
-        else
-        {
-            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
-        }
-    }
     // Need to refresh both inventory and storage slots
     private void Start()
     {
-        StorageSystem.Instance.RegisterStorage(this);
+        //StorageSystem.Instance.RegisterStorage(this);
+        // Saat StorageUI muncul, ia langsung melapor ke "Penjaga Gerbang"
+        if (MechanicController.Instance != null)
+        {
+            MechanicController.Instance.RegisterStorage(this); // 'this' merujuk ke skrip StorageUI ini
+        }
+        else
+        {
+            Debug.LogError("MechanicController tidak ditemukan!");
+        }
         Debug.Log("StorageUI Start() dipanggil!"); // Debug awal
 
         if (closeStorageButton != null)
@@ -91,7 +90,14 @@ public class StorageUI : MonoBehaviour
 
     }
 
-
+    // Jangan lupa untuk "unregister" agar tidak ada referensi yang menggantung
+    private void OnDestroy()
+    {
+        if (MechanicController.Instance != null)
+        {
+            MechanicController.Instance.UnregisterStorage(this);
+        }
+    }
 
     private void Update()
     {
@@ -99,7 +105,21 @@ public class StorageUI : MonoBehaviour
        
     }
 
-  
+    private PlayerData_SO stats;
+    private void Awake()
+    {
+
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
+    }
 
 
 
@@ -125,12 +145,12 @@ public class StorageUI : MonoBehaviour
         takeAllButton.gameObject.SetActive(false);
 
         storeAllButton.onClick.RemoveAllListeners();
-        storeAllButton.onClick.AddListener(StoreAllItems);
+        //storeAllButton.onClick.AddListener(StoreAllItems);
 
         takeAllButton.onClick.RemoveAllListeners();
-        takeAllButton.onClick.AddListener(TakeAllItems);
+        //takeAllButton.onClick.AddListener(TakeAllItems);
 
-        if (theStorage.Items.Count > 0)
+        if (theStorage.storage.Count > 0)
         {
             takeAllButton.gameObject.SetActive(true);
         }
@@ -151,13 +171,12 @@ public class StorageUI : MonoBehaviour
             theStorage.StartAnimationClose();  // Jalankan animasi tutup
         }
 
-        //theStorage.Items = Items;  // Simpan item kembali ke storage
-        inventoryUI.RefreshInventoryItems();
-        inventoryUI.UpdateSixItemDisplay();
+        ////theStorage.Items = Items;  // Simpan item kembali ke storage
+        //MechanicController.Instance.HandleRefreshInventoryUI();
     }
 
 
-    private void RefreshInventoryItems()
+    public void RefreshInventoryItems()
     {
         Debug.Log("Refresh item in inventory");
 
@@ -172,144 +191,83 @@ public class StorageUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-     // Set Inventory Slots
-        foreach (Item item in stats.itemList)
+
+        // Set Inventory Slots
+        for (int i = 0; i < stats.inventory.Count; i++)
         {
+          // Buat salinan lokal dari data yang akan digunakan oleh listener.
+            ItemData currentItemData = stats.inventory[i];
+            Item currentItemSO = ItemPool.Instance.GetItemWithQuality(currentItemData.itemName, currentItemData.quality);
+
+            if (currentItemSO == null) continue;
 
             Transform itemInInventory = Instantiate(itemSlotTemplate, InventoryContainer);
-            itemInInventory.name = item.itemName;
+            itemInInventory.name = currentItemSO.itemName;
             itemInInventory.gameObject.SetActive(true);
-            itemInInventory.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            //itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+            itemInInventory.GetChild(0).GetComponent<Image>().sprite = currentItemSO.sprite;
+            itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = currentItemData.count.ToString();
 
-           
-            //storeAllItems.onClick.RemoveAllListeners();
-            ////storeAllItems.onClick.AddListener(()=> StoreAllItems());
-            //storeAllItems.onClick.AddListener(() => RefreshInventoryItems());
-
-
-            // Menambahkan logika toggle opacity
+            // Sekarang, listener akan menggunakan salinan lokal yang nilainya tidak akan berubah.
             itemInInventory.GetComponent<Button>().onClick.AddListener(() =>
             {
-                OnInventoryItemClick(item);
-                // Cek apakah item yang sama diklik
-                Image itemImage = itemInInventory.GetChild(0).GetComponent<Image>();
-                
-                if (lastClickedItem == itemInInventory)
-                {
-                    // Jika item yang sama diklik dan opacity 0.5, kembalikan ke 1
-                    if (itemImage.color.a == 0.5f)
-                    {
-                        ChangeItemOpacity(itemInInventory, 1f); // Kembalikan ke opaque
-                        lastClickedItem = null; // Reset lastClickedItem
-                        // isItemActive = false; // Reset status item
-
-                    }
-                    // storeButton.gameObject.SetActive(true);
-                }
-                else
-                {
-                    // Jika ada item lain yang sebelumnya diklik, ubah opacity-nya kembali ke normal
-                    if (lastClickedItem != null)
-                    {
-                        ChangeItemOpacity(lastClickedItem, 1f);  // Kembalikan opacity item yang sebelumnya
-                        // isItemActive = false; // Reset status item yang sebelumnya
-
-                    }
-
-                    // Ubah opacity item yang baru diklik
-                    ChangeItemOpacity(itemInInventory, 0.5f);  // Buat lebih transparan item yang diklik
-                    // Simpan referensi ke item yang terakhir kali diklik
-
-                    lastClickedItem = itemInInventory;
-
-                    
-                }
+                // Menggunakan 'currentItemData' yang nilainya "terkunci" untuk iterasi ini.
+                OnInventoryItemClick(currentItemData);
             });
         }
+
         // Set storage
-        foreach (Item item in theStorage.Items)
+        for (int i = 0; i < theStorage.storage.Count; i++)
         {
+
+            // Buat salinan lokal lagi untuk loop ini.
+            ItemData currentStorageData = theStorage.storage[i];
+            Item currentStorageSO = ItemPool.Instance.GetItemWithQuality(currentStorageData.itemName, currentStorageData.quality);
+
+            if (currentStorageSO == null) continue;
+
             Transform itemInInventory = Instantiate(itemSlotTemplate, StorageContainer);
-            itemInInventory.name = item.itemName;
+            itemInInventory.name = currentStorageSO.itemName;
             itemInInventory.gameObject.SetActive(true);
-            itemInInventory.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            //itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+            itemInInventory.GetChild(0).GetComponent<Image>().sprite = currentStorageSO.sprite;
+            itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = currentStorageData.count.ToString();
 
-         
-
-            // Menambahkan logika toggle opacity
+            // Listener sekarang menggunakan salinan lokal 'currentStorageData'.
             itemInInventory.GetComponent<Button>().onClick.AddListener(() =>
             {
-                OnStorageItemClick(item);
-                // Cek apakah item yang sama diklik
-                Image itemImage = itemInInventory.GetChild(0).GetComponent<Image>();
-                
-                if (lastClickedItem == itemInInventory)
-                {
-                    // Jika item yang sama diklik dan opacity 0.5, kembalikan ke 1
-                    if (itemImage.color.a == 0.5f)
-                    {
-                        ChangeItemOpacity(itemInInventory, 1f); // Kembalikan ke opaque
-                        lastClickedItem = null; // Reset lastClickedItem
-                        // isItemActive = false; // Reset status item
-
-                        takeAllButton.gameObject.SetActive(false);
-                    }
-                    // takeButton.gameObject.SetActive(true);
-                }
-                else
-                {
-                    // Jika ada item lain yang sebelumnya diklik, ubah opacity-nya kembali ke normal
-                    if (lastClickedItem != null)
-                    {
-                        ChangeItemOpacity(lastClickedItem, 1f);  // Kembalikan opacity item yang sebelumnya
-                        // isItemActive = false; // Reset status item yang sebelumnya
-
-                        takeAllButton.gameObject.SetActive(false);
-                    }
-
-                    // Ubah opacity item yang baru diklik
-                    ChangeItemOpacity(itemInInventory, 0.5f);  // Buat lebih transparan item yang diklik
-                    takeAllButton.gameObject.SetActive(true);
-                    // Simpan referensi ke item yang terakhir kali diklik
-                    lastClickedItem = itemInInventory;
-
-                    
-                }
+                OnStorageItemClick(currentStorageData);
             });
-            
         }
 
-        //inventoryUI.RefreshInventoryItems();
-        inventoryUI.UpdateSixItemDisplay();
-
+        //MechanicController.Instance.HandleRefreshInventoryUI();
     }
 
-    public void OnStorageItemClick(Item item)
+    public void OnStorageItemClick(ItemData data)
     {
-        PopUpStoreOrTakeItems(item, true); // Mode "Take Item"
+        // Sekarang Anda bekerja dengan ItemData yang benar
+        PopUpStoreOrTakeItems(data, true);
     }
 
-    public void OnInventoryItemClick(Item item)
+    public void OnInventoryItemClick(ItemData data)
     {
-        PopUpStoreOrTakeItems(item, false); // Mode "Store Item"
+        PopUpStoreOrTakeItems(data, false);
     }
 
-    private void PopUpStoreOrTakeItems(Item item, bool takingFromStorage)
+
+    private void PopUpStoreOrTakeItems(ItemData item, bool takingFromStorage)
     {
+        ItemData itemData = item as ItemData;
         popUp.gameObject.SetActive(true);
-        selectedItem = item;
+        selectedItem = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality); ;
         isTakingFromStorage = takingFromStorage;
 
         selectedItemCount = 1; // Default ke 1
         if (isTakingFromStorage) // Jika mengambil dari storage
         {
-            //selectedItemCount = Mathf.Min(selectedItem.stackCount, selectedItemCount);
+            selectedItemCount = Mathf.Min(itemData.count, selectedItemCount);
         }
 
         // Tampilkan gambar dan jumlah item
-        itemImage.sprite = item.sprite;
+        itemImage.sprite = selectedItem.sprite;
         itemCount.text = selectedItemCount.ToString();
 
         // Reset event listener
@@ -320,7 +278,8 @@ public class StorageUI : MonoBehaviour
         cancel.onClick.RemoveAllListeners();
 
         // Tambahkan fungsi ke tombol UI
-        plusItem.onClick.AddListener(IncreaseItemCount);
+        // BENAR: Ini memberikan "resep" atau "perintah" baru
+        plusItem.onClick.AddListener(() => IncreaseItemCount(item.count));
         minusItem.onClick.AddListener(DecreaseItemCount);
         maxItem.onClick.AddListener(MaximizeItemCount);
         minItem.onClick.AddListener(MinimizeItemCount);
@@ -332,24 +291,49 @@ public class StorageUI : MonoBehaviour
         // Pilih fungsi konfirmasi berdasarkan mode operasi
         if (isTakingFromStorage)
         {
-            confirm.onClick.AddListener(ConfirmTakeFromStorage);
+            confirm.onClick.AddListener(()=>
+            {
+                ConfirmTakeFromStorage(itemData);
+            });
+
         }
         else
         {
-            confirm.onClick.AddListener(ConfirmStoreToStorage);
+            confirm.onClick.AddListener(() =>
+            {
+                ConfirmStoreToStorage(itemData);
+            });
         }
     }
 
-
-
-
-    private void IncreaseItemCount()
+    public void ConfirmStoreToStorage(ItemData itemData)
     {
-        //if (selectedItemCount < selectedItem.stackCount) // Tidak boleh lebih dari jumlah item yang tersedia
-        //{
-        //    selectedItemCount++;
-        //    itemCount.text = selectedItemCount.ToString();
-        //}
+        MechanicController.Instance.MoveItem(
+         stats.inventory,                     // List Asal
+         theStorage.storage, // List Tujuan
+         itemData,                               // Item yang dipilih
+         selectedItemCount                                  // Jumlah yang ingin dipindah
+     );
+    }
+
+    public void ConfirmTakeFromStorage(ItemData itemData)
+    {
+        MechanicController.Instance.MoveItem(
+         theStorage.storage,                     // List Asal
+         PlayerController.Instance.playerData.inventory, // List Tujuan
+         itemData,                               // Item yang dipilih
+         selectedItemCount                                  // Jumlah yang ingin dipindah
+     );
+    }
+
+
+    private void IncreaseItemCount(int stackCount)
+    {
+        if (selectedItemCount < stackCount) // Tidak boleh lebih dari jumlah item yang tersedia
+        {
+            selectedItemCount++;
+            itemCount.text = selectedItemCount.ToString();
+        }
     }
 
     private void DecreaseItemCount()
@@ -377,308 +361,12 @@ public class StorageUI : MonoBehaviour
 
 
 
-    private void ClosePopUp()
+    public void ClosePopUp()
     {
         popUp.gameObject.SetActive( false );
     }
 
-    private void ConfirmStoreToStorage()
-    {
-        takeAllButton.gameObject.SetActive(true);
-        popUp.gameObject.SetActive(false);
-        //theStorage.Items = Items; // Simpan item kembali ke storage
-
-        int remainingToStore = selectedItemCount; // Jumlah item yang ingin dipindahkan
-
-        foreach (Item item in theStorage.Items)
-        {
-            if (item.itemName == selectedItem.itemName) // Cek apakah item sudah ada di storage
-            {
-                Debug.Log("Ada item yang sama di storage");
-
-                //int availableSpace = item.maxStackCount - item.stackCount;
-
-                //if (availableSpace > 0)
-                //{
-                //    Debug.Log("Masih bisa ditambahkan ke stack");
-                //    int amountToAdd = Mathf.Min(availableSpace, remainingToStore);
-                //    //item.stackCount += amountToAdd;
-                //    remainingToStore -= amountToAdd;
-
-                //    // Jika sudah penuh, ubah status isStackable ke false
-                //    //item.isStackable = item.stackCount < item.maxStackCount;
-                //}
-
-                if (remainingToStore <= 0)
-                    break; // Jika sudah cukup dipindahkan, keluar dari loop
-            }
-        }
-
-        // Jika masih ada sisa item yang belum disimpan, buat slot baru
-        while (remainingToStore > 0 && theStorage.Items.Count < theStorage.maxItem)
-        {
-            Item newItem = ItemPool.Instance.GetItemWithQuality(selectedItem.itemName, selectedItem.quality);
-            int amountToStore = Mathf.Min(remainingToStore, newItem.maxStackCount);
-            //newItem.stackCount = amountToStore;
-            remainingToStore -= amountToStore;
-
-            // Pastikan `isStackable` benar
-            //newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
-
-            theStorage.Items.Add(newItem);
-        }
-
-        // Hapus item dari inventory setelah dipindahkan
-        DeleteItemFromInventory();
-        RefreshInventoryItems();
-        
-    }
-
-
-
-    private void ConfirmTakeFromStorage()
-    {
-        popUp.gameObject.SetActive(false);
-        int remainingToTake = selectedItemCount; // Jumlah item yang ingin diambil
-
-        foreach (Item item in stats.itemList)
-        {
-            if (item.itemName == selectedItem.itemName) // Cek apakah item sudah ada di inventory
-            {
-                //int availableSpace = item.maxStackCount - item.stackCount;
-                //int amountToAdd = Mathf.Min(availableSpace, remainingToTake);
-
-                //item.stackCount += amountToAdd;
-                //remainingToTake -= amountToAdd;
-
-                // Perbaiki `isStackable`
-                //item.isStackable = item.stackCount < item.maxStackCount;
-
-                if (remainingToTake <= 0)
-                    break;
-            }
-        }
-
-        // Jika masih ada sisa item, buat slot baru di inventory
-        while (remainingToTake > 0 && stats.itemList.Count < stats.maxItem)
-        {
-            Item newItem = ItemPool.Instance.GetItemWithQuality(selectedItem.itemName, selectedItem.quality);
-            int amountToTake = Mathf.Min(remainingToTake, newItem.maxStackCount);
-            //newItem.stackCount = amountToTake;
-            remainingToTake -= amountToTake;
-
-            //newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
-
-            stats.itemList.Add(newItem);
-           PlayerController.Instance.AddItem(newItem.itemName, amountToTake, newItem.quality);
-
-
-
-
-
-        }
-
-        DeleteItemFromStorage();
-        RefreshInventoryItems();
-    }
-
-
-    private void DeleteItemFromInventory()
-    {
-        int remainingToRemove = selectedItemCount; // Jumlah yang ingin dihapus
-
-        for (int i = stats.itemList.Count - 1; i >= 0; i--)
-        {
-            Item item = stats.itemList[i];
-
-            if (selectedItem.itemName == item.itemName)
-            {
-                //if (item.stackCount > remainingToRemove)
-                //{
-                //    item.stackCount -= remainingToRemove;
-                //    item.isStackable = item.stackCount < item.maxStackCount;
-                //    return;
-                //}
-                //else
-                //{
-                //    remainingToRemove -= item.stackCount;
-                //    stats.itemList.RemoveAt(i);
-
-                //    if (remainingToRemove <= 0)
-                //        return;
-                //}
-            }
-        }
-    }
-
-
-
-    private void DeleteItemFromStorage()
-    {
-        int remainingToRemove = selectedItemCount; // Jumlah yang ingin dihapus
-        List<Item> itemsToRemove = new List<Item>(); // Menyimpan item yang perlu dihapus
-
-        for (int i = theStorage.Items.Count - 1; i >= 0; i--)
-        {
-            Item item = theStorage.Items[i];
-
-            if (selectedItem.itemName == item.itemName)
-            {
-                //if (item.stackCount > remainingToRemove)
-                //{
-                //    Debug.Log("stack count lebih besar dari jumlah yang ingin di hapus");
-                //    item.stackCount -= remainingToRemove;
-                //    item.isStackable = item.stackCount < item.maxStackCount;
-                //    return; // Menghentikan setelah mengurangi stackCount
-                //}
-                //else
-                //{
-                //    Debug.Log("hapus semua item");
-                //    remainingToRemove -= item.stackCount;
-                //    itemsToRemove.Add(item); // Tandai item untuk dihapus
-
-                //    if (remainingToRemove <= 0)
-                //        break; // Semua item sudah dihapus, keluar dari loop
-                //}
-            }
-        }
-
-        // Hapus item setelah loop selesai
-        foreach (Item item in itemsToRemove)
-        {
-            theStorage.Items.Remove(item); // Menghapus item yang ditandai
-            theStorage.Items.Remove(item);
-            Debug.Log("Item dihapus dari storage: " + item.itemName);
-        }
-    }
-
-
-
-    private void StoreAllItems()
-    {
-        popUp.gameObject.SetActive(false);
-        Debug.Log("Memindahkan semua item dari inventory ke storage...");
-
-        List<Item> itemsToRemove = new List<Item>(); // Menyimpan item yang akan dihapus dari inventory
-
-        foreach (Item itemInInventory in stats.itemList)
-        {
-            //int remainingToStore = itemInInventory.stackCount;
-
-
-            // Cek apakah item sudah ada di storage
-            //foreach (Item itemInStorage in theStorage.Items)
-            //{
-            //    if (itemInStorage.itemName == itemInInventory.itemName)
-            //    {
-            //        int availableSpace = itemInStorage.maxStackCount - itemInStorage.stackCount;
-            //        int amountToAdd = Mathf.Min(availableSpace, remainingToStore);
-
-            //        itemInStorage.stackCount += amountToAdd;
-            //        remainingToStore -= amountToAdd;
-
-            //        itemInStorage.isStackable = itemInStorage.stackCount < itemInStorage.maxStackCount;
-
-            //        if (remainingToStore <= 0) break; // Semua item sudah dipindahkan
-            //    }
-            //}
-
-            //// Jika masih ada sisa item, buat slot baru
-            //while (remainingToStore > 0 && theStorage.Items.Count < theStorage.maxItem)
-            //{
-            //    Item newItem = ItemPool.Instance.GetItemWithQuality(itemInInventory.itemName, itemInInventory.quality);
-            //    int amountToStore = Mathf.Min(remainingToStore, newItem.maxStackCount);
-            //    newItem.stackCount = amountToStore;
-            //    remainingToStore -= amountToStore;
-
-            //    newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
-
-            //    theStorage.Items.Add(newItem);
-            //}
-
-            // Tandai item untuk dihapus dari inventory
-            itemsToRemove.Add(itemInInventory);
-        }
-
-        // Hapus semua item yang telah dipindahkan dari inventory
-        foreach (Item item in itemsToRemove)
-        {
-            stats.itemList.Remove(item);
-        }
-
-        // Simpan perubahan kembali ke storage
-        //theStorage.Items = Items;
-        RefreshInventoryItems();
-        takeAllButton.gameObject.SetActive(true);
-
-        Debug.Log("Semua item telah dipindahkan ke storage!");
-    }
-
-    private void TakeAllItems()
-    {
-        popUp.gameObject.SetActive(false);
-        Debug.Log("Mengambil semua item dari storage ke inventory...");
-
-        List<Item> itemsToRemove = new List<Item>(); // Menyimpan item yang akan dihapus dari storage
-
-        foreach (Item itemInStorage in theStorage.Items)
-        {
-            //int remainingToTake = itemInStorage.stackCount;
-
-            //// Cek apakah item sudah ada di inventory
-            //foreach (Item itemInInventory in stats.itemList)
-            //{
-            //    if (itemInInventory.itemName == itemInStorage.itemName)
-            //    {
-            //        int availableSpace = itemInInventory.maxStackCount - itemInInventory.stackCount;
-            //        int amountToAdd = Mathf.Min(availableSpace, remainingToTake);
-
-            //        itemInInventory.stackCount += amountToAdd;
-            //        remainingToTake -= amountToAdd;
-
-            //        itemInInventory.isStackable = itemInInventory.stackCount < itemInInventory.maxStackCount;
-
-            //        if (remainingToTake <= 0) break; // Semua item sudah dipindahkan
-            //    }
-            //}
-
-            //// Jika masih ada sisa item, buat slot baru di inventory
-            //while (remainingToTake > 0 && stats.itemList.Count < stats.maxItem)
-            //{
-            //    Item newItem = ItemPool.Instance.GetItemWithQuality(itemInStorage.itemName, itemInStorage.quality);
-            //    int amountToTake = Mathf.Min(remainingToTake, newItem.maxStackCount);
-            //    newItem.stackCount = amountToTake;
-            //    remainingToTake -= amountToTake;
-
-            //    newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
-
-            //    stats.itemList.Add(newItem);
-            //}
-
-            // Tandai item untuk dihapus dari storage
-            itemsToRemove.Add(itemInStorage);
-        }
-
-        // Hapus semua item yang telah dipindahkan dari storage
-        foreach (Item item in itemsToRemove)
-        {
-            theStorage.Items.Remove(item);
-        }
-
-        // Simpan perubahan kembali ke storage
-        //theStorage.Items = Items;
-        RefreshInventoryItems();
-        takeAllButton.gameObject.SetActive(false);
-
-        Debug.Log("Semua item telah dipindahkan ke inventory!");
-    }
-
-
-
-
-
-
-
+    
 
 
 
