@@ -18,7 +18,6 @@ public class Player_Inventory : MonoBehaviour
     [SerializeField] GameObject normalAttackHitArea; //Referensi image hitbox
     [SerializeField] private Button switchWeaponImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     [SerializeField] private Button switchUseItemImage; // Referensi ke Image yang digunakan untuk mengganti senjata
-    [SerializeField] public ContohFlipCard contohFlipCard;
     [SerializeField] PintuManager pintuManager;
     [SerializeField] private BuffScrollController buffScrollController;
     [SerializeField] private Player_Action playerAction;
@@ -154,49 +153,49 @@ public class Player_Inventory : MonoBehaviour
         item = Instantiate(item); // Clone item agar tidak mempengaruhi data global
 
         // Cari item yang bisa di-stack
-        Item existingItem = stats.itemList.Find(x => x.itemName == item.itemName && x.stackCount < x.maxStackCount);
+        //Item existingItem = stats.itemList.Find(x => x.itemName == item.itemName && x.stackCount < x.maxStackCount);
 
-        if (existingItem != null)
-        {
-            int availableSpace = existingItem.maxStackCount - existingItem.stackCount;
-            int amountToAdd = Mathf.Min(availableSpace, item.stackCount);
+        //if (existingItem != null)
+        //{
+        //    //int availableSpace = existingItem.maxStackCount - existingItem.stackCount;
+        //    //int amountToAdd = Mathf.Min(availableSpace, item.stackCount);
 
-            existingItem.stackCount += amountToAdd;
-            item.stackCount -= amountToAdd;
+        //    //existingItem.stackCount += amountToAdd;
+        //    //item.stackCount -= amountToAdd;
 
-            // Jika stack penuh, ubah `isStackable` menjadi false
-            if (existingItem.stackCount >= existingItem.maxStackCount)
-            {
-                existingItem.isStackable = false;
-            }
+        //    //// Jika stack penuh, ubah `isStackable` menjadi false
+        //    //if (existingItem.stackCount >= existingItem.maxStackCount)
+        //    //{
+        //    //    existingItem.isStackable = false;
+        //    //}
 
-            // Jika masih ada sisa item, tambahkan ke slot baru jika ada ruang
-            if (item.stackCount > 0)
-            {
-                if (stats.itemList.Count < stats.maxItem)
-                {
-                    stats.itemList.Add(item);
-                }
-                else
-                {
-                    Debug.LogWarning("Inventory penuh! Item tidak bisa ditambahkan.");
-                    return;
-                }
-            }
-        }
-        else
-        {
-            // Jika tidak ada stack yang bisa diisi, tambahkan sebagai slot baru jika ada ruang
-            if (stats.itemList.Count < stats.maxItem)
-            {
-                stats.itemList.Add(item);
-            }
-            else
-            {
-                Debug.LogWarning("Inventory penuh! Item tidak bisa ditambahkan.");
-                return;
-            }
-        }
+        //    // Jika masih ada sisa item, tambahkan ke slot baru jika ada ruang
+        //    //if (item.stackCount > 0)
+        //    //{
+        //    //    if (stats.itemList.Count < stats.maxItem)
+        //    //    {
+        //    //        stats.itemList.Add(item);
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        Debug.LogWarning("Inventory penuh! Item tidak bisa ditambahkan.");
+        //    //        return;
+        //    //    }
+        //    //}
+        //}
+        //else
+        //{
+        //    // Jika tidak ada stack yang bisa diisi, tambahkan sebagai slot baru jika ada ruang
+        //    if (stats.itemList.Count < stats.maxItem)
+        //    {
+        //        stats.itemList.Add(item);
+        //    }
+        //    else
+        //    {
+        //        Debug.LogWarning("Inventory penuh! Item tidak bisa ditambahkan.");
+        //        return;
+        //    }
+        //}
 
         // Update UI
         inventoryUI.UpdateInventoryUI();
@@ -295,9 +294,9 @@ public class Player_Inventory : MonoBehaviour
         item = Instantiate(item);
         if (item.isStackable)
         {
-            stats.itemList.Find(x => x.itemName == item.itemName).stackCount--;
-            if (stats.itemList.Find(x => x.itemName == item.itemName).stackCount <= 0)
-                stats.itemList.Remove(stats.itemList.Find(x => x.itemName == item.itemName));
+            //stats.itemList.Find(x => x.itemName == item.itemName).stackCount--;
+            //if (stats.itemList.Find(x => x.itemName == item.itemName).stackCount <= 0)
+            //    stats.itemList.Remove(stats.itemList.Find(x => x.itemName == item.itemName));
         }
         else
             stats.itemList.Remove(stats.itemList.Find(x => x.itemName == item.itemName));
@@ -384,7 +383,7 @@ public class Player_Inventory : MonoBehaviour
             return;
 
         // Jika slot yang dipilih sudah terisi, kembalikan item sebelumnya ke stats.itemList
-        if (stats.quickSlots[index] != null && stats.quickSlots[index] != stats.emptyItem && stats.quickSlots[index].itemName != "Empty" && stats.quickSlots[index].stackCount > 0)
+        //if (stats.quickSlots[index] != null && stats.quickSlots[index] != stats.emptyItem && stats.quickSlots[index].itemName != "Empty" && stats.quickSlots[index].stackCount > 0)
         {
             stats.itemList.Add(stats.quickSlots[index]);
             Debug.Log("menambahkan item ke inventory");
@@ -420,35 +419,35 @@ public class Player_Inventory : MonoBehaviour
 
         // Using them from inventory
         print("using quick slot " + (which));
-        item.stackCount--;
+        //item.stackCount--;
         
         
 
         // Have its effect
         switch (item.types)
         {
-            case ItemType.Heal:
-                // Heal Player
-                print("HEALED");
-                healParticle.Play();
-                inventoryUI.jumlahQuickItem1.text = item.stackCount.ToString();
-                buffScrollController.GetBuff(item);
-                break;
+            //case ItemType.Heal:
+            //    // Heal Player
+            //    print("HEALED");
+            //    healParticle.Play();
+            //    inventoryUI.jumlahQuickItem1.text = item.stackCount.ToString();
+            //    buffScrollController.GetBuff(item);
+            //    break;
 
-            case ItemType.Buff:
-                // Buff player
-                inventoryUI.jumlahQuickItem2.text = item.stackCount.ToString();
-                buffScrollController.GetBuff(item);
-                break;
+            //case ItemType.Buff:
+            //    // Buff player
+            //    inventoryUI.jumlahQuickItem2.text = item.stackCount.ToString();
+            //    buffScrollController.GetBuff(item);
+            //    break;
 
             default: break;
         }
 
-        if (item.stackCount <= 0)
-        {
+        //if (item.stackCount <= 0)
+        //{
             
-            AddQuickSlot(stats.emptyItem, which);
-        }
+        //    AddQuickSlot(stats.emptyItem, which);
+        //}
     }
 
     

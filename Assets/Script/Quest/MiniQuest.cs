@@ -124,7 +124,7 @@ public class MiniQuest : MonoBehaviour
             return "unit";
         }
         string semuaNamaItem = string.Join(", ",
-    inputMiniQuest.itemsQuest.Select(item => $"{item.itemName} x{item.stackCount} {GetSatuan(item)}"));
+        inputMiniQuest.itemsQuest.Select(item => $"{item.itemName}  {GetSatuan(item)}"));
 
 
         // Pilih judul dan deskripsi acak lalu gabungkan
@@ -144,7 +144,7 @@ public class MiniQuest : MonoBehaviour
         int randomReward = 0;
         foreach (Item item in itemQuest)
         {
-            randomReward += item.stackCount;
+            //randomReward += item.stackCount;
         }
 
         if (randomReward > 0 && randomReward <= 10)
@@ -261,7 +261,7 @@ public class MiniQuest : MonoBehaviour
 
             int randomItemCount = UnityEngine.Random.Range(1, maxItemCount + 1);
             Item newItem = ItemPool.Instance.GetItemWithQuality(originalItem.name, originalItem.quality);
-            newItem.stackCount = randomItemCount;
+            //newItem.stackCount = randomItemCount;
             itemToMiniQuest.Add(newItem);
 
         }

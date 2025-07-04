@@ -82,7 +82,7 @@ public class Item : ScriptableObject
     // Regular Item
     [Header("REGULAR")]
     public bool isStackable = false;
-    public int stackCount;
+    //public int stackCount;
     public int maxStackCount;
     public int BuyValue;
     public int SellValue;

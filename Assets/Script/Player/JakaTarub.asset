@@ -31,8 +31,9 @@ MonoBehaviour:
   totalHealingQuests: 5
   itemList:
   - {fileID: 11400000, guid: bc0f9b8dceee0e347bcb64f17dfb14d5, type: 2}
-  - {fileID: 11400000, guid: 41ae895a8b82d684da645b0532a73b89, type: 2}
-  - {fileID: 11400000, guid: c35c9229d440ac1479776887736c88e2, type: 2}
+  listItem:
+  - itemData: {fileID: 0}
+    stackCount: 0
   maxItem: 18
   emptyItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedCombat:

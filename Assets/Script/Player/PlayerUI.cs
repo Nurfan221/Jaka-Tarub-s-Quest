@@ -134,6 +134,7 @@ public class PlayerUI : MonoBehaviour
 
     private void OpenInventory()
     {
+        //GameController.Instance.PindahKeScene("Village");
         inventoryUI.OpenInventory();
     }
 

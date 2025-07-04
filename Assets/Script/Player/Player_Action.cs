@@ -500,10 +500,10 @@ public class Player_Action : MonoBehaviour
             // throw rock
             StartCoroutine(ShootProjectile(itemToAttack.RangedWeapon_ProjectilePrefab, itemToAttack.Damage));
             // check if rock depleted after use then remove as equipped then remove from inventory
-            if (stats.equippedWeapon.stackCount == 1)
-            {
-                //stats.EquipItem(ItemPool.Instance.GetItem("Empty"));
-            }
+            //if (stats.equippedWeapon.stackCount == 1)
+            //{
+            //    //stats.EquipItem(ItemPool.Instance.GetItem("Empty"));
+            //}
 
             // minus rock count
             //stats.RemoveItem(ItemPool.Instance.GetItem("Batu"));

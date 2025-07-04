@@ -193,7 +193,7 @@ public class Checkingredients : MonoBehaviour
 
             // Buat Clone dari Item Agar Tidak Mengubah Data Asli
             Item ingredientClone = Instantiate(ingredient);
-            ingredientClone.stackCount = (resultCount * count);  // Set jumlah bahan yang diperlukan
+            //ingredientClone.stackCount = (resultCount * count);  // Set jumlah bahan yang diperlukan
             craftScript.ingredientItemList.Add(ingredientClone); // Tambahkan ke List
 
             // Set sprite untuk ingredient
@@ -374,7 +374,7 @@ public class Checkingredients : MonoBehaviour
     private void ConfirmResultCraft(Item result, int count)
     {
         craftScript.hasilCraftItem = result;
-        craftScript.hasilCraftItem.stackCount = count;
+        //craftScript.hasilCraftItem.stackCount = count;
 
         // Cek bahan sebelum crafting
         CheckIngredients(result.name);

@@ -149,7 +149,7 @@ public class ItemPool : MonoBehaviour
         newItem.growthObject = (GameObject[])itemTemplate.growthObject.Clone();
 
         //menetapkan data unik untuk setiap instance
-        newItem.stackCount = stackCount;
+        //newItem.stackCount = stackCount;
         newItem.quality = quality; // Menetapkan kualitas pada kloningan baru
 
         // Beri nama berbeda pada asset instance agar mudah di-debug di Unity Editor

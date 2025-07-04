@@ -144,7 +144,7 @@ public class ShopUI : MonoBehaviour
         foreach (var item in newItemList)
         {
             currentSeasonItems.Add(item);
-            Debug.Log($"Item: {item.itemName}, Jumlah: {item.stackCount}");
+            //Debug.Log($"Item: {item.itemName}, Jumlah: {item.stackCount}");
         }
     }
 
@@ -178,7 +178,7 @@ public class ShopUI : MonoBehaviour
 
             itemSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
             itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.itemName;
-            itemSlot.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+            //itemSlot.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = item.stackCount.ToString();
             itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + item.SellValue;
 
             //Inisialisasi jumlah item yang akan dijual
@@ -196,11 +196,11 @@ public class ShopUI : MonoBehaviour
 
             btnPlus.onClick.AddListener(() =>
             {
-                if (itemSellCounts[item.itemName] < item.stackCount)
-                {
-                    itemSellCounts[item.itemName]++;
-                    UpdateCountText(item.itemName, countText, itemSellCounts);
-                }
+                //if (itemSellCounts[item.itemName] < item.stackCount)
+                //{
+                //    itemSellCounts[item.itemName]++;
+                //    UpdateCountText(item.itemName, countText, itemSellCounts);
+                //}
             });
 
             btnMinus.onClick.AddListener(() =>
@@ -266,11 +266,11 @@ public class ShopUI : MonoBehaviour
 
             btnPlus.onClick.AddListener(() =>
             {
-                if (itemBuyCounts[itemShop.itemName] < itemShop.stackCount)
-                {
-                    itemBuyCounts[itemShop.itemName]++;
-                    UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
-                }
+                //if (itemBuyCounts[itemShop.itemName] < itemShop.stackCount)
+                //{
+                //    itemBuyCounts[itemShop.itemName]++;
+                //    UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
+                //}
             });
 
             btnMinus.onClick.AddListener(() =>
@@ -318,7 +318,7 @@ public class ShopUI : MonoBehaviour
             itemSlot.GetChild(0).GetComponent<Image>().sprite = itemShop.sprite;
             itemSlot.GetChild(1).GetComponent<TMP_Text>().text = itemShop.itemName;
             itemSlot.GetChild(0).GetChild(0).GetComponent<TMP_Text>().gameObject.SetActive(true);
-            itemSlot.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = itemShop.stackCount.ToString();
+            //itemSlot.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = itemShop.stackCount.ToString();
             itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + itemShop.BuyValue;
 
             //Inisialisasi jumlah item yang akan dibeli
@@ -337,11 +337,11 @@ public class ShopUI : MonoBehaviour
 
             btnPlus.onClick.AddListener(() =>
             {
-                if (itemBuyCounts[itemShop.itemName] < itemShop.stackCount)
-                {
-                    itemBuyCounts[itemShop.itemName]++;
-                    UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
-                }
+                //if (itemBuyCounts[itemShop.itemName] < itemShop.stackCount)
+                //{
+                //    itemBuyCounts[itemShop.itemName]++;
+                //    UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
+                //}
             });
 
             btnMinus.onClick.AddListener(() =>
@@ -384,54 +384,54 @@ public class ShopUI : MonoBehaviour
     {
         int remainingToBuy = itemCounts[selectedItem.itemName]; // Jumlah item yang ingin dibeli
 
-        if (gameEconomy.SpendMoney(remainingToBuy * selectedItem.BuyValue)&& remainingToBuy <= selectedItem.stackCount)
-        {
-            // Cek apakah item sudah ada di inventory
-            Item inventoryItem = stats.itemList.Find(x => x.itemName == selectedItem.itemName);
+        //if (gameEconomy.SpendMoney(remainingToBuy * selectedItem.BuyValue)&& remainingToBuy <= selectedItem.stackCount)
+        //{
+        //    // Cek apakah item sudah ada di inventory
+        //    Item inventoryItem = stats.itemList.Find(x => x.itemName == selectedItem.itemName);
 
-            if (inventoryItem != null && inventoryItem.stackCount < inventoryItem.maxStackCount)
-            {
-                int availableSpace = inventoryItem.maxStackCount - inventoryItem.stackCount;
-                int amountToAdd = Mathf.Min(availableSpace, remainingToBuy);
+        //    if (inventoryItem != null && inventoryItem.stackCount < inventoryItem.maxStackCount)
+        //    {
+        //        int availableSpace = inventoryItem.maxStackCount - inventoryItem.stackCount;
+        //        int amountToAdd = Mathf.Min(availableSpace, remainingToBuy);
 
-                inventoryItem.stackCount += amountToAdd;
-                remainingToBuy -= amountToAdd;
-            }
+        //        inventoryItem.stackCount += amountToAdd;
+        //        remainingToBuy -= amountToAdd;
+        //    }
 
-            // Jika masih ada sisa item, buat stack baru di inventory
-            while (remainingToBuy > 0 && stats.itemList.Count < stats.maxItem)
-            {
-                Item newItem = Instantiate(selectedItem);
-                int amountToTake = Mathf.Min(remainingToBuy, newItem.maxStackCount);
-                newItem.stackCount = amountToTake;
-                remainingToBuy -= amountToTake;
+        //    // Jika masih ada sisa item, buat stack baru di inventory
+        //    while (remainingToBuy > 0 && stats.itemList.Count < stats.maxItem)
+        //    {
+        //        Item newItem = Instantiate(selectedItem);
+        //        int amountToTake = Mathf.Min(remainingToBuy, newItem.maxStackCount);
+        //        newItem.stackCount = amountToTake;
+        //        remainingToBuy -= amountToTake;
 
-                newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
+        //        newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
 
-                stats.itemList.Add(newItem);
-            }
+        //        stats.itemList.Add(newItem);
+        //    }
 
-            Debug.Log("Nama item: " + selectedItem.itemName + " | Jumlah: " + itemCounts[selectedItem.itemName]);
-            Debug.Log("Total harga: " + (itemCounts[selectedItem.itemName] * selectedItem.BuyValue)); // Gunakan BuyValue!
+        //    Debug.Log("Nama item: " + selectedItem.itemName + " | Jumlah: " + itemCounts[selectedItem.itemName]);
+        //    Debug.Log("Total harga: " + (itemCounts[selectedItem.itemName] * selectedItem.BuyValue)); // Gunakan BuyValue!
 
-            //Pastikan item hanya dihapus jika ada yang tersisa untuk dihapus
-            if (itemCounts[selectedItem.itemName] > 0)
-            {
-                DeleteItemFromShop(selectedItem, itemCounts[selectedItem.itemName]);
-            }
+        //    //Pastikan item hanya dihapus jika ada yang tersisa untuk dihapus
+        //    if (itemCounts[selectedItem.itemName] > 0)
+        //    {
+        //        DeleteItemFromShop(selectedItem, itemCounts[selectedItem.itemName]);
+        //    }
 
-            itemBuyCounts[selectedItem.itemName] = 1;
-            UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
+        //    itemBuyCounts[selectedItem.itemName] = 1;
+        //    UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
 
 
-            RefreshShopUI(currentSeasonItems);
-        }
-        else
-        {
-            itemBuyCounts[selectedItem.itemName] = 1;
-            UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
-            StartCoroutine(StartUIGagal());
-        }
+        //    RefreshShopUI(currentSeasonItems);
+        //}
+        //else
+        //{
+        //    itemBuyCounts[selectedItem.itemName] = 1;
+        //    UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
+        //    StartCoroutine(StartUIGagal());
+        //}
 
         inventoryUI.RefreshInventoryItems();
         inventoryUI.UpdateSixItemDisplay();
@@ -446,17 +446,17 @@ public class ShopUI : MonoBehaviour
         // Cek apakah item sudah ada di currentSeasonItems
         Item existingItem = ItemToSell.Find(x => x.itemName == selectedItem.itemName);
 
-        if (existingItem != null)
-        {
-            Debug.Log("Ada item yang sama di storage");
-            existingItem.stackCount += remainingToStore;
-        }
-        else
-        {
-            Item newItem = Instantiate(selectedItem);
-            newItem.stackCount = remainingToStore;
-            ItemToSell.Add(newItem);
-        }
+        //if (existingItem != null)
+        //{
+        //    Debug.Log("Ada item yang sama di storage");
+        //    existingItem.stackCount += remainingToStore;
+        //}
+        //else
+        //{
+        //    Item newItem = Instantiate(selectedItem);
+        //    newItem.stackCount = remainingToStore;
+        //    ItemToSell.Add(newItem);
+        //}
 
         gameEconomy.GainMoney((selectedItem.SellValue * remainingToStore));
         DeleteItemFromInventory(selectedItem, remainingToStore);
@@ -473,20 +473,20 @@ public class ShopUI : MonoBehaviour
 
             if (selectedItem.itemName == item.itemName)
             {
-                if (item.stackCount > remainingToRemove)
-                {
-                    item.stackCount -= remainingToRemove;
-                    item.isStackable = item.stackCount < item.maxStackCount;
-                    return;
-                }
-                else
-                {
-                    remainingToRemove -= item.stackCount;
-                    stats.itemList.RemoveAt(i);
+                //if (item.stackCount > remainingToRemove)
+                //{
+                //    item.stackCount -= remainingToRemove;
+                //    item.isStackable = item.stackCount < item.maxStackCount;
+                //    return;
+                //}
+                //else
+                //{
+                //    remainingToRemove -= item.stackCount;
+                //    stats.itemList.RemoveAt(i);
 
-                    if (remainingToRemove <= 0)
-                        return;
-                }
+                //    if (remainingToRemove <= 0)
+                //        return;
+                //}
             }
         }
     }
@@ -503,20 +503,20 @@ public class ShopUI : MonoBehaviour
 
             if (selectedItem.itemName == item.itemName)
             {
-                if (item.stackCount > remainingToRemove)
-                {
-                    item.stackCount -= remainingToRemove;
-                    item.isStackable = item.stackCount < item.maxStackCount;
-                    return;
-                }
-                else
-                {
-                    remainingToRemove -= item.stackCount;
-                    currentSeasonItems.RemoveAt(i);
+                //if (item.stackCount > remainingToRemove)
+                //{
+                //    item.stackCount -= remainingToRemove;
+                //    item.isStackable = item.stackCount < item.maxStackCount;
+                //    return;
+                //}
+                //else
+                //{
+                //    remainingToRemove -= item.stackCount;
+                //    currentSeasonItems.RemoveAt(i);
 
-                    if (remainingToRemove <= 0)
-                        return;
-                }
+                //    if (remainingToRemove <= 0)
+                //        return;
+                //}
             }
         }
 
@@ -526,20 +526,20 @@ public class ShopUI : MonoBehaviour
 
             if (selectedItem.itemName == item.itemName)
             {
-                if (item.stackCount > remainingToRemove)
-                {
-                    item.stackCount -= remainingToRemove;
-                    item.isStackable = item.stackCount < item.maxStackCount;
-                    return;
-                }
-                else
-                {
-                    remainingToRemove -= item.stackCount;
-                    ItemToSell.RemoveAt(i);
+                //if (item.stackCount > remainingToRemove)
+                //{
+                //    item.stackCount -= remainingToRemove;
+                //    item.isStackable = item.stackCount < item.maxStackCount;
+                //    return;
+                //}
+                //else
+                //{
+                //    remainingToRemove -= item.stackCount;
+                //    ItemToSell.RemoveAt(i);
 
-                    if (remainingToRemove <= 0)
-                        return;
-                }
+                //    if (remainingToRemove <= 0)
+                //        return;
+                //}
             }
         }
     }

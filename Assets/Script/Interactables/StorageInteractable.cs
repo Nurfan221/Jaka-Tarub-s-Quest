@@ -25,14 +25,7 @@ public class StorageInteractable : Interactable
     private void Start()
     {
 
-        if (StorageUI.Instance == null)
-        {
-            Debug.LogError("StorageUI.Instance tidak ditemukan!");
-        }
-        else
-        {
-            Debug.Log("StorageUI.Instance berhasil ditemukan.");
-        }
+       
 
         AddItemToList();
 
@@ -75,7 +68,7 @@ public class StorageInteractable : Interactable
     {
         // Tunggu sampai animasi selesai
         yield return AnimationOpen(); // Tunggu sampai animasi selesai
-        StorageUI.Instance.OpenStorage(this, Items); // Setelah animasi selesai, buka storage
+        StorageSystem.Instance.OpenStorage(this);
 
     }
 

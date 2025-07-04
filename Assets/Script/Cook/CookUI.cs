@@ -160,7 +160,7 @@ public class CookUI : MonoBehaviour
             theItem.name = item.itemName;
             theItem.gameObject.SetActive(true);
             theItem.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            theItem.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+            //theItem.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
             theItem.GetComponent<DragCook>().itemName = item.itemName;
 
             // Menambahkan event listener ketika item diklik
@@ -197,7 +197,7 @@ public class CookUI : MonoBehaviour
         // Jika item sudah ada di itemsInCook
         if (existingItem != null)
         {
-            existingItem.stackCount += item.stackCount;
+            //existingItem.stackCount += item.stackCount;
             Debug.Log("Item sudah ada, menambahkan ke stack.");
         }
         else
@@ -248,8 +248,8 @@ public class CookUI : MonoBehaviour
         if (existingItem != null)
         {
             // Tambahkan ke stack fuel yang sudah ada
-            existingItem.stackCount += item.stackCount;
-            Debug.Log("Fuel sudah ada, menambahkan ke stack. Total sekarang: " + existingItem.stackCount);
+            //existingItem.stackCount += item.stackCount;
+            //Debug.Log("Fuel sudah ada, menambahkan ke stack. Total sekarang: " + existingItem.stackCount);
         }
         else
         {
@@ -290,7 +290,7 @@ public class CookUI : MonoBehaviour
             // Menambahkan item ke slot tampilan masak
             Transform itemSlot = Instantiate(itemSlotTemplate, ItemCook.transform);
             itemSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+            //itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
             itemSlot.gameObject.SetActive(true);
             itemSlot.name = item.itemName;
             itemSlot.GetComponent<DragCook>().itemName = item.itemName;
@@ -321,14 +321,14 @@ public class CookUI : MonoBehaviour
             // Menambahkan item ke slot tampilan masak
             Transform itemSlot = Instantiate(itemSlotTemplate, FuelCook.transform);
             itemSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+            //itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
             itemSlot.gameObject.SetActive(true);
             itemSlot.name = item.itemName;
             itemSlot.GetComponent<DragCook>().itemName = item.itemName;
             // Tambahkan listener untuk mengembalikan item ke inventory saat diklik
             itemSlot.GetComponent<Button>().onClick.AddListener(() => ReturnFuelToInventory(item));
 
-            fuelStackCount = item.stackCount;
+            //fuelStackCount = item.stackCount;
         }
         // fuelInCook.gameObject.SetActive(false);
         ChangeFireImage();
@@ -470,7 +470,7 @@ public class CookUI : MonoBehaviour
             itemCookValue = false;
             fuelCookValue = false;
             string itemName = itemsInCook[0].itemName;
-            int stackCountItem = itemsInCook[0].stackCount;
+            //int stackCountItem = itemsInCook[0].stackCount;
             
 
 
@@ -490,11 +490,11 @@ public class CookUI : MonoBehaviour
                     cookTime = recipe.result.CookTime;
 
                     // Tambahkan item ke antrian sebanyak stackCount
-                    for (int i = 0; i < stackCountItem; i++)
-                    {
-                        cookingQueue.Enqueue(cookedItem); // Masukkan ke antrian
-                        Debug.Log("Jumlah hasil yang akan di masak " +  i);
-                    }
+                    //for (int i = 0; i < stackCountItem; i++)
+                    //{
+                    //    cookingQueue.Enqueue(cookedItem); // Masukkan ke antrian
+                    //    Debug.Log("Jumlah hasil yang akan di masak " +  i);
+                    //}
 
                     if (!resultCookValue) // Jika tidak ada hasil masakan, mulai proses masak
                     {
@@ -545,15 +545,15 @@ public class CookUI : MonoBehaviour
                 if (fuelInCook.Count > 0)
                 {
                     Item firstFuel = fuelInCook[0];
-                    if (firstFuel.stackCount > 0)
-                    {
-                        firstFuel.stackCount -= 1;
+                    //if (firstFuel.stackCount > 0)
+                    //{
+                    //    firstFuel.stackCount -= 1;
 
-                        if (firstFuel.stackCount <= 0)
-                        {
-                            fuelInCook.RemoveAt(0);
-                        }
-                    }
+                    //    if (firstFuel.stackCount <= 0)
+                    //    {
+                    //        fuelInCook.RemoveAt(0);
+                    //    }
+                    //}
                 }
             }
             else if (totalBurning <= 0 && fuelStackCount == 0)
@@ -602,8 +602,8 @@ public class CookUI : MonoBehaviour
         if (existingItem != null)
         {
             // Jika item sudah ada, tambahkan ke stack
-            existingItem.stackCount += 1;
-            Debug.Log("Item sudah ada, menambahkan ke stack. Stack count: " + existingItem.stackCount);
+            //existingItem.stackCount += 1;
+            //Debug.Log("Item sudah ada, menambahkan ke stack. Stack count: " + existingItem.stackCount);
         }
         else
         {
@@ -634,15 +634,15 @@ public class CookUI : MonoBehaviour
         if (itemsInCook.Count > 0)
         {
             Item firstItem = itemsInCook[0];
-            if (firstItem.stackCount > 0)
-            {
-                firstItem.stackCount -= 1;
+            //if (firstItem.stackCount > 0)
+            //{
+            //    firstItem.stackCount -= 1;
 
-                if (firstItem.stackCount <= 0)
-                {
-                    itemsInCook.RemoveAt(0);
-                }
-            }
+            //    if (firstItem.stackCount <= 0)
+            //    {
+            //        itemsInCook.RemoveAt(0);
+            //    }
+            //}
         }
 
         
@@ -656,7 +656,7 @@ public class CookUI : MonoBehaviour
             // Menambahkan item ke slot tampilan masak
             Transform itemSlot = Instantiate(itemSlotTemplate, cookingResult.transform);
             itemSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+            //itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
             itemSlot.gameObject.SetActive(true);
             itemSlot.name = item.itemName;
             itemSlot.GetComponent<DragCook>().itemName = item.itemName;

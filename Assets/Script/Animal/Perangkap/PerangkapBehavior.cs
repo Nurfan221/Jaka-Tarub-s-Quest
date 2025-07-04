@@ -142,7 +142,7 @@ public class PerangkapBehavior : MonoBehaviour
         {
             if (stats.itemList[i].itemName == itemPerangkap.itemName)
             {
-                stats.itemList[i].stackCount += 1; // Menambahkan jumlah stack
+                //stats.itemList[i].stackCount += 1; // Menambahkan jumlah stack
                 itemFound = true;
                 break; // Keluar dari loop setelah item ditemukan
             }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
@@ -10,7 +11,6 @@ public class InventoryUI : MonoBehaviour
 {
     [Header("Daftar hubungan Script")]
     [SerializeField] NPCListUI npcListUI;
-    [SerializeField] Player_Inventory player_Inventory;
     public bool isInventoryOpen;
 
 
@@ -33,6 +33,9 @@ public class InventoryUI : MonoBehaviour
     public Button btnHapus;
 
     [Header("Item Description")]
+    public GameObject frontSide; // Drag the front side GameObject here
+    public GameObject backSide;  // Drag the back side GameObject here
+    public bool Description = false;
     public Image itemSprite;
     public TMP_Text itemName;
     public TMP_Text itemDesc;
@@ -42,7 +45,6 @@ public class InventoryUI : MonoBehaviour
     public Transform ContentGO6; // New UI Content for 6 items
     public Transform SlotTemplate6; // New UI Slot Template for 6 items
 
-    [SerializeField] public ContohFlipCard contohFlipCard;
 
 
     [System.Serializable]
@@ -130,7 +132,7 @@ public class InventoryUI : MonoBehaviour
         GameController.Instance.ShowPersistentUI(false);
         gameObject.SetActive(true);
         isInventoryOpen = true;
-        contohFlipCard.IfClose();
+        IfClose();
 
 
         if (isInventoryOpen)
@@ -181,10 +183,7 @@ public class InventoryUI : MonoBehaviour
     {
         // Pastikan referensi ke ContohFlipCard diatur saat InventoryUI diaktifkan
 
-        if (contohFlipCard == null)
-        {
-            Debug.LogError("ContohFlipCard tidak ditemukan di scene!");
-        }
+       
     }
 
     // Handle equipped items
@@ -196,11 +195,11 @@ public class InventoryUI : MonoBehaviour
             case 0: pickedSlot = equippedItem1; break;
             case 1: pickedSlot = equippedItem2; break;
             case 2: pickedSlot = quickSlot1;
-                jumlahQuickItem1.text = item.stackCount.ToString(); 
+                //jumlahQuickItem1.text = item.stackCount.ToString(); 
                 jumlahQuickItem1.gameObject.SetActive(true);
                 break;
             case 3: pickedSlot = quickSlot2;
-                jumlahQuickItem2.text = item.stackCount.ToString();
+                //jumlahQuickItem2.text = item.stackCount.ToString();
                 jumlahQuickItem2 .gameObject.SetActive(true);
                 break;
             default: pickedSlot = equippedItem1; break;
@@ -283,7 +282,7 @@ public class InventoryUI : MonoBehaviour
 
             // Set sprite dan stack count
             itemInInventory.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+            //itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
 
             // Mengatur itemID berdasarkan indeks
             ItemDragandDrop itemDragAndDrop = itemInInventory.GetComponent<ItemDragandDrop>();
@@ -298,6 +297,31 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    public void ShowDescription()
+    {
+        Debug.Log("ShowDescription method called.");
+
+        if (Description == false)
+        {
+            frontSide.SetActive(false);
+            backSide.SetActive(true);
+            Description = true;
+
+        }
+        else
+        {
+            frontSide.SetActive(true);
+            backSide.SetActive(false);
+            Description = false;
+        }
+
+    }
+    public void IfClose()
+    {
+        frontSide.SetActive(true);
+        backSide.SetActive(false);
+        Description = false;
+    }
 
     public void UpdateSixItemDisplay()
     {
@@ -339,7 +363,7 @@ public class InventoryUI : MonoBehaviour
                 }
 
                 // Cek jika stackCount tidak null
-                itemInDisplay.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+                //itemInDisplay.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
 
 
             }
@@ -348,7 +372,7 @@ public class InventoryUI : MonoBehaviour
 
     public void SetDescription(Item item)
     {
-
+        ShowDescription();
         // Set item's texts
         itemSprite.sprite = item.sprite;
         itemName.text = item.itemName;
@@ -359,15 +383,7 @@ public class InventoryUI : MonoBehaviour
         itemAction.onClick.AddListener(() =>
         {
             Debug.Log("itemAction clicked");
-            if (contohFlipCard != null)
-            {
-                Debug.Log("yeeeayy kesambung");
-                contohFlipCard.ShowDescription();
-            }
-            else
-            {
-                Debug.LogError("ga kesambung");
-            }
+            ShowDescription();
         });
 
         switch (item.types)
@@ -375,7 +391,7 @@ public class InventoryUI : MonoBehaviour
             case ItemType.Melee_Combat:
                 itemAction.onClick.AddListener(() =>
                 {
-                    //stats.EquipItem(item);
+                    PlayerController.Instance.HandleEquipItem(item);
                     // SoundManager.Instance.PlaySound("PickUp");
                 });
                 break;

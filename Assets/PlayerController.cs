@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -72,5 +73,37 @@ public class PlayerController : MonoBehaviour
     public void HandleSpendStamina(float useStamina)
     {
         ActivePlayer.Health.SpendStamina(useStamina);
+    }
+
+    public void HandleEquipItem(Item item)
+    {
+        ActivePlayer.Inventory.EquipItem(item);
+    }
+
+    public void AddItem(string name, int amount, ItemQuality quality)
+    {
+        Item itemTemplate = ItemPool.Instance.GetItemWithQuality(name, quality);
+        if (itemTemplate == null) return; // Item tidak ada di database
+
+        if (itemTemplate.isStackable)
+        {
+            ItemData existingItem = playerData.inventory.Find(x => x.itemName == name);
+            if (existingItem != null)
+            {
+                existingItem.count += amount;
+            }
+            else
+            {
+                if (playerData.inventory.Count < playerData.maxItem)
+                    playerData.inventory.Add(new ItemData(name, amount));
+            }
+        }
+        else
+        {
+            if (playerData.inventory.Count < playerData.maxItem)
+                playerData.inventory.Add(new ItemData(name, amount));
+        }
+
+        //OnInventoryChanged?.Invoke();
     }
 }

@@ -229,7 +229,7 @@ public class QuestManager : MonoBehaviour
                 Item itemCopy = new Item
                 {
                     itemName = questActive.itemQuests[i].itemName, // Salin nama item
-                    stackCount = questActive.countItem[i]          // Set stackCount dari countItem
+                    //stackCount = questActive.countItem[i]          // Set stackCount dari countItem
                 };
 
                 // Menambahkan item baru ke dalam newItemList
@@ -244,14 +244,14 @@ public class QuestManager : MonoBehaviour
         foreach (var item in newItemList)
         {
             // Mendapatkan salinan item dari ItemPool (menggunakan Instantiate)
-            Item itemFromPool = ItemPool.Instance.GetItem(item.itemName, item.stackCount);
+            //Item itemFromPool = ItemPool.Instance.GetItem(item.itemName, item.stackCount);
 
-            // Menambahkan item yang diinstansiasi ke dalam quest.itemQuests
-            if (itemFromPool != null)
-            {
-                questActive.itemQuests.Add(itemFromPool);
-                Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
-            }
+            //// Menambahkan item yang diinstansiasi ke dalam quest.itemQuests
+            //if (itemFromPool != null)
+            //{
+            //    questActive.itemQuests.Add(itemFromPool);
+            //    Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
+            //}
         }
     }
 

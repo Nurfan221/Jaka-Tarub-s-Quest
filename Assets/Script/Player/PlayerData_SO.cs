@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 // [CreateAssetMenu] adalah perintah agar kita bisa membuat file ini dari menu Assets di Unity.
 [CreateAssetMenu(fileName = "NewPlayerData", menuName = "JakaTarub/Player Data Container")]
 public class PlayerData_SO : ScriptableObject
@@ -35,7 +36,8 @@ public class PlayerData_SO : ScriptableObject
     public int totalHealingQuests = 5;
 
     [Header("Pengaturan Inventory")]
-    public List<Item> itemList;
+    public List<Item> itemList = new();
+    public List<ItemData> inventory = new List<ItemData>();
     public int maxItem = 18;
 
     public Item emptyItem;

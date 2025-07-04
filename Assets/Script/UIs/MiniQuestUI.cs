@@ -88,7 +88,7 @@ public class MiniQuestUI : MonoBehaviour
             TextMeshProUGUI itemSlotCount = itemSlot.Find("Jumlah").GetComponent<TextMeshProUGUI>();
 
             itemSlotImage.sprite = item.sprite;
-            itemSlotCount.text = item.stackCount.ToString();
+            //itemSlotCount.text = item.stackCount.ToString();
         }
 
         judul.text = questData.judulQuest;

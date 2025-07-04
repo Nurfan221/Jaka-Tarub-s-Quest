@@ -126,7 +126,7 @@ public class QuestInfoUI : MonoBehaviour
                     // Menambahkan jumlah item yang ada di itemQuest ke dalam deskripsi
                     foreach (Item itemQuest in quest.itemQuests)
                     {
-                        fullDescription += $" {itemQuest.stackCount} buah {itemQuest.itemName} kepada {quest.NPC.name} "; // Menggunakan itemName atau field lainnya dari Item
+                        //fullDescription += $" {itemQuest.stackCount} buah {itemQuest.itemName} kepada {quest.NPC.name} "; // Menggunakan itemName atau field lainnya dari Item
                                                                                                                           //Instansiasi UI untuk Quest
                         Transform itemQuestDetail = Instantiate(templateItemDeskripsi, itemDeskripsi);
                         itemQuestDetail.gameObject.SetActive(true);
@@ -138,7 +138,7 @@ public class QuestInfoUI : MonoBehaviour
 
                         itemImage.sprite = itemQuest.sprite;
                         itemName.text = itemQuest.itemName;
-                        jumlah.text = itemQuest.stackCount.ToString();
+                        //jumlah.text = itemQuest.stackCount.ToString();
 
 
                     }
@@ -276,7 +276,7 @@ public class QuestInfoUI : MonoBehaviour
                 // Menambahkan jumlah item yang ada di itemQuest ke dalam deskripsi
                 foreach (Item itemQuest in miniQuest.itemsQuest)
                 {
-                    fullDescription += $" {itemQuest.stackCount} buah {itemQuest.itemName} kepada {miniQuest.npc.name} "; // Menggunakan itemName atau field lainnya dari Item
+                    //fullDescription += $" {itemQuest.stackCount} buah {itemQuest.itemName} kepada {miniQuest.npc.name} "; // Menggunakan itemName atau field lainnya dari Item
                                                                                                                           //Instansiasi UI untuk Quest
                     Transform itemQuestDetail = Instantiate(templateItemDeskripsi, itemDeskripsi);
                     itemQuestDetail.gameObject.SetActive(true);
@@ -288,7 +288,7 @@ public class QuestInfoUI : MonoBehaviour
 
                     itemImage.sprite = itemQuest.sprite;
                     itemName.text = itemQuest.itemName;
-                    jumlah.text = itemQuest.stackCount.ToString();
+                    //jumlah.text = itemQuest.stackCount.ToString();
 
 
                 }

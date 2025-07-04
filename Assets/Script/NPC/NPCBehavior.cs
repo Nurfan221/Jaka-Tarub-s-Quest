@@ -277,26 +277,26 @@ public class NPCBehavior : MonoBehaviour
 
                         if (item != null)
                         {
-                            if (item.stackCount > 0) // Pastikan masih ada item yang diperlukan
-                            {
-                                int jumlahDiBerikan = Mathf.Min(stackItem, item.stackCount);
-                                item.stackCount -= jumlahDiBerikan;
-                                stackItem -= jumlahDiBerikan;
+                            //if (item.stackCount > 0) // Pastikan masih ada item yang diperlukan
+                            //{
+                            //    int jumlahDiBerikan = Mathf.Min(stackItem, item.stackCount);
+                            //    item.stackCount -= jumlahDiBerikan;
+                            //    stackItem -= jumlahDiBerikan;
 
-                                int idChapter = chapter.idChapter;
-                                Debug.Log("id chapter" + idChapter);
+                            //    int idChapter = chapter.idChapter;
+                            //    Debug.Log("id chapter" + idChapter);
 
-                                CheckFinishQuest(quest.questName, idChapter); // Memastikan quest diperiksa
+                            //    CheckFinishQuest(quest.questName, idChapter); // Memastikan quest diperiksa
 
-                                Debug.Log($"Stack item yang diberikan: {jumlahDiBerikan}, stackItem: {stackItem}, item.stackCount: {item.stackCount}");
+                            //    Debug.Log($"Stack item yang diberikan: {jumlahDiBerikan}, stackItem: {stackItem}, item.stackCount: {item.stackCount}");
 
-                                isItemGiven = true;
-                            }
-                            else
-                            {
-                                Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
-                                return false;
-                            }
+                            //    isItemGiven = true;
+                            //}
+                            //else
+                            //{
+                            //    Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
+                            //    return false;
+                            //}
                         }
                         else
                         {
@@ -318,26 +318,26 @@ public class NPCBehavior : MonoBehaviour
 
                 if (item != null)
                 {
-                    if (item.stackCount > 0) // Pastikan masih ada item yang diperlukan
-                    {
-                        int jumlahDiBerikan = Mathf.Min(stackItem, item.stackCount);
-                        item.stackCount -= jumlahDiBerikan;
-                        stackItem -= jumlahDiBerikan;
+                    //if (item.stackCount > 0) // Pastikan masih ada item yang diperlukan
+                    //{
+                    //    int jumlahDiBerikan = Mathf.Min(stackItem, item.stackCount);
+                    //    item.stackCount -= jumlahDiBerikan;
+                    //    stackItem -= jumlahDiBerikan;
 
 
-                        //CheckFinishQuest(quest.questName, idChapter); // Memastikan quest diperiksa
-                        CheckFinishMiniQuest(questManager.currentMiniQuest.judulQuest);
-                        //StartCoroutine(HandleQuestCompletion(questManager.currentMiniQuest.judulQuest));
+                    //    //CheckFinishQuest(quest.questName, idChapter); // Memastikan quest diperiksa
+                    //    CheckFinishMiniQuest(questManager.currentMiniQuest.judulQuest);
+                    //    //StartCoroutine(HandleQuestCompletion(questManager.currentMiniQuest.judulQuest));
 
-                        Debug.Log($"Stack item yang diberikan: {jumlahDiBerikan}, stackItem: {stackItem}, item.stackCount: {item.stackCount}");
+                    //    Debug.Log($"Stack item yang diberikan: {jumlahDiBerikan}, stackItem: {stackItem}, item.stackCount: {item.stackCount}");
 
-                        isItemGiven = true;
-                    }
-                    else
-                    {
-                        Debug.Log($"Item untuk quest {questManager.currentMiniQuest.judulQuest} sudah habis!");
-                        return false;
-                    }
+                    //    isItemGiven = true;
+                    //}
+                    //else
+                    //{
+                    //    Debug.Log($"Item untuk quest {questManager.currentMiniQuest.judulQuest} sudah habis!");
+                    //    return false;
+                    //}
                 }
                 else
                 {
@@ -378,12 +378,12 @@ public class NPCBehavior : MonoBehaviour
 
                         foreach (var item in quest.itemQuests)
                         {
-                            if (item.stackCount > 0) // Jika ada item yang belum selesai
-                            {
-                                Debug.Log("jumlah item : " + item.stackCount);
-                                allItemsComplete = false;
-                                break;
-                            }
+                            //if (item.stackCount > 0) // Jika ada item yang belum selesai
+                            //{
+                            //    Debug.Log("jumlah item : " + item.stackCount);
+                            //    allItemsComplete = false;
+                            //    break;
+                            //}
                         }
 
                         if (allItemsComplete)
@@ -402,17 +402,17 @@ public class NPCBehavior : MonoBehaviour
                                 {
                                     // Membuat salinan baru dari item yang ada untuk menghindari modifikasi referensi langsung
                                     Item itemCopy = quest.rewards[i].itemReward;
-                                    itemCopy.stackCount = quest.rewards[i].jumlahItemReward;
+                                    //itemCopy.stackCount = quest.rewards[i].jumlahItemReward;
 
                                     // Mendapatkan salinan item dari ItemPool (menggunakan Instantiate)
-                                    Item itemFromPool = ItemPool.Instance.GetItem(itemCopy.itemName, itemCopy.stackCount);
+                                    //Item itemFromPool = ItemPool.Instance.GetItem(itemCopy.itemName, itemCopy.stackCount);
 
-                                    // Menambahkan item yang diinstansiasi ke dalam quest.itemQuests
-                                    if (itemFromPool != null)
-                                    {
-                                        //Player_Inventory.Instance.AddItem(itemFromPool);
-                                        Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
-                                    }
+                                    //// Menambahkan item yang diinstansiasi ke dalam quest.itemQuests
+                                    //if (itemFromPool != null)
+                                    //{
+                                    //    //Player_Inventory.Instance.AddItem(itemFromPool);
+                                    //    Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
+                                    //}
                                 }
 
                                
@@ -560,12 +560,12 @@ public class NPCBehavior : MonoBehaviour
         // Cek apakah semua item sudah selesai
         foreach (var item in miniQuest.itemsQuest)
         {
-            if (item.stackCount > 0) // Jika masih ada item yang belum selesai
-            {
-                Debug.Log("Jumlah item belum selesai: " + item.stackCount);
-                allItemsComplete = false;
-                break;
-            }
+            //if (item.stackCount > 0) // Jika masih ada item yang belum selesai
+            //{
+            //    Debug.Log("Jumlah item belum selesai: " + item.stackCount);
+            //    allItemsComplete = false;
+            //    break;
+            //}
         }
 
         if (allItemsComplete)
@@ -585,15 +585,15 @@ public class NPCBehavior : MonoBehaviour
 
                 // Membuat salinan item dan menambahkannya ke inventory
                 Item itemCopy = miniQuest.rewardItemQuest;
-                itemCopy.stackCount = miniQuest.rewardItemQuest.stackCount;
+                //itemCopy.stackCount = miniQuest.rewardItemQuest.stackCount;
 
-                // Ambil item dari pool dan tambahkan ke inventory
-                Item itemFromPool = ItemPool.Instance.GetItem(itemCopy.itemName, itemCopy.stackCount);
-                if (itemFromPool != null)
-                {
-                    //Player_Inventory.Instance.AddItem(itemFromPool);
-                    Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
-                }
+                //// Ambil item dari pool dan tambahkan ke inventory
+                //Item itemFromPool = ItemPool.Instance.GetItem(itemCopy.itemName, itemCopy.stackCount);
+                //if (itemFromPool != null)
+                //{
+                //    //Player_Inventory.Instance.AddItem(itemFromPool);
+                //    Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
+                //}
             }
 
             Debug.Log("Quest selesai: " + miniQuest.judulQuest);
