@@ -31,21 +31,60 @@ MonoBehaviour:
   totalHealingQuests: 5
   itemList: []
   inventory:
-  - itemName: Anggur
-    count: 17
+  - itemName: Padi
+    count: 32
+    quality: 0
+  - itemName: Jagung
+    count: 4
+    quality: 0
+  - itemName: BenihPadi
+    count: 30
     quality: 0
   - itemName: Padi
-    count: 20
+    count: 12
+    quality: 0
+  - itemName: PenyiramTanaman
+    count: 1
+    quality: 0
+  - itemName: Cangkul
+    count: 1
+    quality: 0
+  - itemName: Sabit
+    count: 1
+    quality: 0
+  - itemName: Sabit
+    count: 1
+    quality: 0
+  - itemName: Sabit
+    count: 1
     quality: 0
   maxItem: 18
+  emptyItemTemplate:
+    itemName: Empty
+    count: 0
+    quality: 0
   emptyItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedCombat:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
+  equippedItemData:
+  - itemName: Cangkul
+    count: 1
+    quality: 0
+  - itemName: Sabit
+    count: 1
+    quality: 0
   equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   quickSlots:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
+  itemUseData:
+  - itemName: Empty
+    count: 1
+    quality: 0
+  - itemName: Empty
+    count: 1
+    quality: 0
   currentFatiguePenalty: 0
   maxFatiguePenalty: 50

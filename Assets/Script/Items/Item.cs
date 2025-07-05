@@ -12,6 +12,7 @@ public enum ItemType
     ItemPrefab = 32,
     Animal = 64,
     Pestisida = 128,
+    None = 256,
 }
 
 [System.Flags]

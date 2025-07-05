@@ -40,11 +40,14 @@ public class PlayerData_SO : ScriptableObject
     public List<ItemData> inventory = new List<ItemData>();
     public int maxItem = 18;
 
+    public ItemData emptyItemTemplate;
     public Item emptyItem;
     public List<Item> equippedCombat = new List<Item>(2);
+    public List<ItemData> equippedItemData = new List<ItemData>(2);
     public Item equippedWeapon;
     public Item equippedItem;
     public List<Item> quickSlots = new List<Item>(2);
+    public List<ItemData> itemUseData = new List<ItemData>(2);
 
     // BARU: Sistem Kelelahan (Fatigue)
     [Header("Fatigue System")]

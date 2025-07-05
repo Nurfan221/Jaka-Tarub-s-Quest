@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public Player_Action Action { get; private set; }
     public Player_Inventory Inventory { get; private set; }
     public Player_Health Health { get; private set; }
+    
     // Tambahkan komponen penting lainnya di sini
 
     private void Awake()

@@ -39,7 +39,7 @@ public class SumurInteractable : Interactable
        if(playerInventory != null && stats.equippedCombat[0].itemName == itemInteractable.itemName)
        {
             stats.equippedCombat[0].health = stats.equippedCombat[0].maxhealth;
-            playerUI.UpdateCapacityBar(stats.equippedCombat[0]);
+            playerUI.UpdateCapacityBar(stats.equippedItemData[0]);
        }
     }
 }

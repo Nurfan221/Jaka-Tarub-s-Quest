@@ -8,6 +8,8 @@ public class PlayerUI : MonoBehaviour
     public static PlayerUI Instance { get; private set; }
 
     public InventoryUI inventoryUI {  get; private set; }
+    private PlayerData_SO stats;
+   
     private void Awake()
     {
         // Logika Singleton lengkap
@@ -19,6 +21,16 @@ public class PlayerUI : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject.transform.root.gameObject);
+        }
+
+         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
         }
     }
     [Header("Action Button")]
@@ -95,11 +107,11 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    public void UpdateCapacityBar(Item item)
+    public void UpdateCapacityBar(ItemData item)
     {
         capacityUseItem.gameObject.SetActive(true);
         Image capacityBarImage = capacityUseItem.Find("KapacityBar").GetComponent<Image>();
-        //if (capacityBarImage != null && playerInventory.equippedCombat != null)
+        //if (capacityBarImage != null && stats.equippedCombat != null)
         //{
         //    //Debug.Log("Target Image: " + capacityBarImage.name);
         //    if (item.itemName == playerInventory.equippedWeapon.itemName)

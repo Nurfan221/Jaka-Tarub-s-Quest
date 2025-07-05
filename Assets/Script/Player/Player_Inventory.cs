@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using NUnit.Framework.Interfaces;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -110,10 +111,10 @@ public class Player_Inventory : MonoBehaviour
             Debug.LogError("switchUseItemImage is not assigned.");
         }
 
-        stats.equippedCombat[0] = stats.emptyItem;
-        stats.equippedCombat[1] = stats.emptyItem;
-        stats.quickSlots[0] = stats.emptyItem;
-        stats.quickSlots[1] = stats.emptyItem;
+        stats.equippedItemData[0].itemName = stats.emptyItemTemplate.itemName;
+        stats.equippedItemData[1].itemName = stats.emptyItemTemplate.itemName;
+        stats.itemUseData[0].itemName = stats.emptyItemTemplate.itemName;
+        stats.itemUseData[1].itemName = stats.emptyItemTemplate.itemName;
     }
 
    private void Update()
@@ -311,67 +312,68 @@ public class Player_Inventory : MonoBehaviour
         return ItemPool.Instance.GetItem("Empty");
     }
 
-    public void EquipItem(Item item)
+    public void EquipItem(ItemData itemToEquip)
     {
-        // Memastikan item ada dalam stats.itemList dan bukan "Empty"
-        if (!stats.itemList.Exists(x => x.itemName == item.itemName) && item.itemName != "Empty")
-            return;
-
-        if (stats.equippedCombat[0] == stats.emptyItem)
+        // Pastikan item yang mau dipasang ada di inventaris utama
+        if (!stats.inventory.Contains(itemToEquip))
         {
-            // Jika slot pertama kosong, tambahkan item ke slot pertama
-            stats.equippedCombat[0] = item;
-            inventoryUI.SetActiveItem(0, item);
-            if (item.itemName != "Empty")
-            {
-                playerUI.UpdateCapacityBar(item);
-            }
+            Debug.LogWarning($"Mencoba memasang '{itemToEquip.itemName}' yang tidak ada di inventaris.");
+            return;
+        }
 
-            //spesialSkillWeapon.UseWeaponSkill(item, false);
+        // Dapatkan template SO dari item untuk info (seperti tipe item)
+        Item itemTemplate = ItemPool.Instance.GetItemWithQuality(itemToEquip.itemName, itemToEquip.quality);
+        if (itemTemplate == null) return;
+
+        // Tentukan list equipment mana yang akan digunakan berdasarkan tipe item
+        // Ini membuat fungsi Anda lebih fleksibel di masa depan
+        List<ItemData> targetEquipmentList;
+        if (itemTemplate.types == ItemType.Melee_Combat || itemTemplate.types == ItemType.Ranged_Combat)
+        {
+            targetEquipmentList = stats.equippedItemData;
+        }
+        else if (itemTemplate.types == ItemType.Heal || itemTemplate.types == ItemType.Buff)
+        {
+            targetEquipmentList = stats.itemUseData;
         }
         else
         {
-            // Jika slot kedua tidak kosong
-            if (stats.equippedCombat[1] != stats.emptyItem)
-            {
-                // Tambahkan item sebelumnya yang ada di stats.equippedCombat[1] kembali ke stats.itemList
-                stats.itemList.Add(stats.equippedCombat[1]);
-
-                // Ganti item di stats.equippedCombat[1] dengan item baru
-                stats.equippedCombat[1] = item;
-
-                // Update UI untuk slot kedua
-                inventoryUI.SetActiveItem(1, item);
-
-                if (item.itemName != "Empty")
-                {
-                    playerUI.UpdateCapacityBar(item);
-                }
-
-                //spesialSkillWeapon.UseWeaponSkill(item, false);
-            }
-            else
-            {
-                // Jika slot kedua kosong, langsung tambahkan item baru ke slot kedua
-                stats.equippedCombat[1] = item;
-                inventoryUI.SetActiveItem(1, item);
-
-                if (item.itemName != "Empty")
-                {
-                    playerUI.UpdateCapacityBar(item);
-                }
-                //spesialSkillWeapon.UseWeaponSkill(item, false);
-            }
+            Debug.Log($"Item '{itemToEquip.itemName}' tidak bisa dipasang.");
+            return; // Keluar jika item tidak bisa dipasang
         }
 
-        // Hapus item yang baru dipasang dari stats.itemList
-        stats.itemList.Remove(item);
+        // --- INI LOGIKA INTI YANG LEBIH BERSIH ---
 
-        // Refresh UI inventory
-        inventoryUI.RefreshInventoryItems();
-        inventoryUI.UpdateSixItemDisplay();
+        // Cek apakah slot pertama (indeks 0) kosong
+        if (targetEquipmentList[0].itemName == "Empty") // Lebih aman membandingkan nama
+        {
+            // Jika kosong, langsung pasang di slot 0
+            targetEquipmentList[0] = itemToEquip;
+            stats.inventory.Remove(itemToEquip); // Hapus dari inventaris
+        }
+        // Jika slot pertama sudah terisi, coba cek slot kedua (indeks 1)
+        else if (targetEquipmentList[1].itemName == "Empty")
+        {
+            // Jika kosong, langsung pasang di slot 1
+            targetEquipmentList[1] = itemToEquip;
+            stats.inventory.Remove(itemToEquip);
+        }
+        // Jika kedua slot sudah terisi...
+        else
+        {
+            // Kembalikan item yang ada di slot pertama ke inventaris
+            ItemPool.Instance.AddItem(itemToEquip);
 
-        print(item.itemName + " equipped");
+
+            // Pasang item baru di slot pertama
+            targetEquipmentList[0] = itemToEquip;
+            stats.inventory.Remove(itemToEquip);
+        }
+
+        Debug.Log($"Item '{itemToEquip.itemName}' berhasil dipasang.");
+
+        MechanicController.Instance.InventoryUI.RefreshInventoryItems();
+        MechanicController.Instance.InventoryUI.UpdateSixItemDisplay();
     }
 
 
@@ -401,7 +403,7 @@ public class Player_Inventory : MonoBehaviour
         inventoryUI.UpdateSixItemDisplay();
 
         // Memperbarui UI dengan item baru di slot yang sesuai
-        inventoryUI.SetActiveItem(index + 2, item); // Menyesuaikan indeks untuk tampilan UI
+        //inventoryUI.SetActiveItem(index + 2, item); // Menyesuaikan indeks untuk tampilan UI
         print(item.itemName + " equipped");
     }
 
@@ -525,7 +527,7 @@ public class Player_Inventory : MonoBehaviour
                     }
             }
         }
-        playerUI.UpdateCapacityBar(stats.equippedWeapon); 
+        //playerUI.UpdateCapacityBar(stats.equippedWeapon); 
 
     }
 

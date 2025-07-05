@@ -189,4 +189,56 @@ public class ItemPool : MonoBehaviour
             }
         }
     }
+
+    public void AddItem(ItemData itemDataToAdd)
+    {
+        // 1. Validasi awal
+        if (itemDataToAdd == null || itemDataToAdd.count <= 0) return;
+
+        // 2. Dapatkan "Katalog Produk" (ItemSO) dari database menggunakan nama dari paket data
+        Item itemTemplate = GetItemWithQuality(itemDataToAdd.itemName, itemDataToAdd.quality);
+        if (itemTemplate == null)
+        {
+            Debug.LogError($"Tidak ada item dengan nama '{itemDataToAdd.itemName}' di ItemDatabase!");
+            return;
+        }
+
+        int amountToAdd = itemDataToAdd.count;
+
+        // 3. FASE MENUMPUK (STACKING)
+        if (itemTemplate.isStackable)
+        {
+            // Cari slot di inventaris yang itemnya sama, kualitasnya sama, dan belum penuh
+            foreach (ItemData slot in PlayerController.Instance.playerData.inventory)
+            {
+                if (slot.itemName == itemDataToAdd.itemName && slot.quality == itemDataToAdd.quality && slot.count < itemTemplate.maxStackCount)
+                {
+                    int availableSpace = itemTemplate.maxStackCount - slot.count;
+                    int amountToStack = Mathf.Min(availableSpace, amountToAdd);
+
+                    slot.count += amountToStack;
+                    amountToAdd -= amountToStack;
+
+                    if (amountToAdd <= 0) break;
+                }
+            }
+        }
+
+        // 4. FASE MEMBUAT SLOT BARU
+        while (amountToAdd > 0 && PlayerController.Instance.playerData.inventory.Count < PlayerController.Instance.playerData.maxItem)
+        {
+            int amountForNewSlot = Mathf.Min(amountToAdd, itemTemplate.maxStackCount);
+
+            // Buat "Catatan Stok" (ItemData) baru dari data yang diterima
+            ItemData newSlot = new ItemData(itemDataToAdd.itemName, amountForNewSlot, itemDataToAdd.quality);
+            PlayerController.Instance.playerData.inventory.Add(newSlot);
+
+            amountToAdd -= amountForNewSlot;
+        }
+
+        // ... (peringatan jika inventory penuh) ...
+
+        //// Siarkan berita bahwa inventory telah berubah!
+        //OnInventoryUpdated?.Invoke();
+    }
 }

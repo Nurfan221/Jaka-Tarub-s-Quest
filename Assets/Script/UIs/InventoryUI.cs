@@ -196,8 +196,9 @@ public class InventoryUI : MonoBehaviour
     }
 
     // Handle equipped items
-    public void SetActiveItem(int slot, Item item)
+    public void SetActiveItem(int slot, ItemData item)
     {
+        Item itemUse = ItemPool.Instance.GetItemWithQuality(item.itemName, item.quality);
         Transform pickedSlot;
         switch (slot)
         {
@@ -216,7 +217,7 @@ public class InventoryUI : MonoBehaviour
             default: pickedSlot = equippedItem1; break;
         }
 
-        pickedSlot.gameObject.GetComponentInChildren<Image>().sprite = item.sprite;
+        pickedSlot.gameObject.GetComponentInChildren<Image>().sprite = itemUse.sprite;
 
 
         pickedSlot.gameObject.SetActive(true);
@@ -227,13 +228,13 @@ public class InventoryUI : MonoBehaviour
     public void UpdateInventoryUI()
     {
         SetInventory();
-        if (stats.itemList.Count > 0)
+        if (stats.inventory.Count > 0)
         {
-            SetDescription(stats.itemList[0]);
+            SetDescription(stats.inventory[0]);
         }
         else
         {
-            SetDescription(stats.emptyItem);
+            SetDescription(stats.emptyItemTemplate);
         }
         Debug.Log("Inventory has running");
     }
@@ -241,29 +242,33 @@ public class InventoryUI : MonoBehaviour
     void RefreshActiveItems()
     {
         // Refresh equipped items
-        RefreshItemSlot(equippedItem1, stats.equippedCombat[0]);
-        RefreshItemSlot(equippedItem2, stats.equippedCombat[1]);
+        RefreshItemSlot(equippedItem1, stats.equippedItemData[0]);
+        RefreshItemSlot(equippedItem2, stats.equippedItemData[1]);
 
         // Refresh quick slots
-        RefreshItemSlot(quickSlot1, stats.quickSlots[0]);
-        RefreshItemSlot(quickSlot2, stats.quickSlots[1]);
+        RefreshItemSlot(quickSlot1, stats.itemUseData[0]);
+        RefreshItemSlot(quickSlot2, stats.itemUseData[1]);
     }
 
-    void RefreshItemSlot(Transform slot, Item item)
+    void RefreshItemSlot(Transform slot, ItemData item)
     {
-        if (item.sprite != null)
+
+        Item itemuse = ItemPool.Instance.GetItemWithQuality(item.itemName, item.quality);
+        if (itemuse.sprite != null)
         {
-            slot.gameObject.GetComponentInChildren<Image>().sprite = item.sprite;
+            Debug.Log("item equipped inventory di refresh");
+            slot.gameObject.GetComponentInChildren<Image>().sprite = itemuse.sprite;
+            slot.gameObject.SetActive(true);
         }
 
-        //slot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount <= 0 ? "" : item.stackCount.ToString();
+        //slot.GetChild(1).GetComponent<TMP_Text>().text = item.count <= 0 ? "" : item.count.ToString();
     }
 
     public void SetInventory()
     {
 
         // Jika item kosong, tidak perlu lanjutkan refresh
-        if (stats.itemList == null || stats.itemList.Count == 0)
+        if (stats.inventory == null || stats.inventory.Count == 0)
         {
             Debug.Log("No items to display in the inventory");
             UpdateSixItemDisplay();  // Tetap update untuk bersihkan display jika kosong
@@ -276,6 +281,7 @@ public class InventoryUI : MonoBehaviour
 
     public void RefreshInventoryItems()
     {
+        Debug.Log("item inventory di refresh");
         //error
         RefreshActiveItems();
         foreach (Transform child in ContentGO)
@@ -284,16 +290,17 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        for (int i = 0; i < stats.itemList.Count; i++)
+        for (int i = 0; i < stats.inventory.Count; i++)
         {
-            Item item = stats.itemList[i];
+            ItemData currentItemData = stats.inventory[i];
+            Item item = ItemPool.Instance.GetItemWithQuality(stats.inventory[i].itemName, stats.inventory[i].quality);
             Transform itemInInventory = Instantiate(SlotTemplate, ContentGO);
             itemInInventory.gameObject.SetActive(true);
             itemInInventory.gameObject.name = item.itemName;
 
             // Set sprite dan stack count
             itemInInventory.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            //itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+            itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = stats.inventory[i].count.ToString();
 
             // Mengatur itemID berdasarkan indeks
             ItemDragandDrop itemDragAndDrop = itemInInventory.GetComponent<ItemDragandDrop>();
@@ -304,7 +311,7 @@ public class InventoryUI : MonoBehaviour
 
             // Menambahkan listener untuk deskripsi item
             itemInInventory.GetComponent<Button>().onClick.RemoveAllListeners();
-            itemInInventory.GetComponent<Button>().onClick.AddListener(() => SetDescription(item));
+            itemInInventory.GetComponent<Button>().onClick.AddListener(() => SetDescription(currentItemData));
         }
     }
 
@@ -345,22 +352,22 @@ public class InventoryUI : MonoBehaviour
         }
 
         // Cek apakah item kosong atau tidak
-        if (stats.itemList == null || stats.itemList.Count == 0)
+        if (stats.inventory == null || stats.inventory.Count == 0)
         {
             // Debug.Log("No items to display");
             return;
         }
 
-        if (stats.itemList.Count == 0)
+        if (stats.inventory.Count == 0)
         {
             return;
         }
         else
         {
-            int itemCount = Mathf.Min(6, stats.itemList.Count);
+            int itemCount = Mathf.Min(6, stats.inventory.Count);
             for (int i = 0; i < itemCount; i++)
             {
-                Item item = stats.itemList[i];
+                Item item = ItemPool.Instance.GetItemWithQuality(stats.inventory[i].itemName, stats.inventory[i].quality);
                 if (item == null) continue; // Jika item null, skip
 
                 Transform itemInDisplay = Instantiate(SlotTemplate6, ContentGO6);
@@ -381,13 +388,14 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void SetDescription(Item item)
+    public void SetDescription(ItemData item)
     {
         ShowDescription();
+        Item getItem = ItemPool.Instance.GetItemWithQuality(item.itemName, item.quality);
         // Set item's texts
-        itemSprite.sprite = item.sprite;
-        itemName.text = item.itemName;
-        itemDesc.text = item.itemDescription;
+        itemSprite.sprite = getItem.sprite;
+        itemName.text = getItem.itemName;
+        itemDesc.text = getItem.itemDescription;
 
         // Set the "equip" button functionality
         itemAction.onClick.RemoveAllListeners();
@@ -397,7 +405,7 @@ public class InventoryUI : MonoBehaviour
             ShowDescription();
         });
 
-        switch (item.types)
+        switch (getItem.types)
         {
             case ItemType.Melee_Combat:
                 itemAction.onClick.AddListener(() =>
@@ -428,7 +436,7 @@ public class InventoryUI : MonoBehaviour
 
         // Set the "Equip" button according to item's type
         string itemUses;
-        if (item.types == ItemType.Item)
+        if (getItem.types == ItemType.Item)
         {
             itemUses = "CAN'T EQUIP";
             itemAction.interactable = false;
@@ -474,7 +482,7 @@ public class InventoryUI : MonoBehaviour
     public void RisetEquippedUse(int index)
     {
         Debug.Log("Equipped item di-reset: " + index);
-        stats.itemList.Add(stats.equippedCombat[index]);
+        stats.inventory.Add(stats.equippedItemData[index]);
         //player_Inventory.equippedCombat[index] = stats.emptyItem;
 
         Image itemImage = (index == 0) ?
@@ -491,7 +499,7 @@ public class InventoryUI : MonoBehaviour
     public void RisetQuickSlot(int index)
     {
         Debug.Log("Quick Slot di-reset: " + index);
-        stats.itemList.Add(stats.quickSlots[index]);
+        stats.inventory.Add(stats.itemUseData[index]);
         stats.quickSlots[index] = stats.emptyItem;
 
         Image itemImage = (index == 0) ?

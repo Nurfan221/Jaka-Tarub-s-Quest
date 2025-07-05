@@ -59,7 +59,21 @@ public class StorageUI : MonoBehaviour
     public Button closeStorageButton;
 
 
+    private PlayerData_SO stats;
+    private void Awake()
+    {
 
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
+    }
     // Need to refresh both inventory and storage slots
     private void Start()
     {
@@ -105,21 +119,7 @@ public class StorageUI : MonoBehaviour
        
     }
 
-    private PlayerData_SO stats;
-    private void Awake()
-    {
-
-
-        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
-        if (PlayerController.Instance != null)
-        {
-            stats = PlayerController.Instance.playerData;
-        }
-        else
-        {
-            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
-        }
-    }
+   
 
 
 
@@ -145,10 +145,10 @@ public class StorageUI : MonoBehaviour
         takeAllButton.gameObject.SetActive(false);
 
         storeAllButton.onClick.RemoveAllListeners();
-        //storeAllButton.onClick.AddListener(StoreAllItems);
+        storeAllButton.onClick.AddListener(StoreAllItems);
 
         takeAllButton.onClick.RemoveAllListeners();
-        //takeAllButton.onClick.AddListener(TakeAllItems);
+        takeAllButton.onClick.AddListener(TakeAllItems);
 
         if (theStorage.storage.Count > 0)
         {
@@ -243,7 +243,7 @@ public class StorageUI : MonoBehaviour
 
     public void OnStorageItemClick(ItemData data)
     {
-        // Sekarang Anda bekerja dengan ItemData yang benar
+        // Sekarang Anda bekerja dengan ItemData yang bena  
         PopUpStoreOrTakeItems(data, true);
     }
 
@@ -281,7 +281,7 @@ public class StorageUI : MonoBehaviour
         // BENAR: Ini memberikan "resep" atau "perintah" baru
         plusItem.onClick.AddListener(() => IncreaseItemCount(item.count));
         minusItem.onClick.AddListener(DecreaseItemCount);
-        maxItem.onClick.AddListener(MaximizeItemCount);
+        maxItem.onClick.AddListener(() => MaximizeItemCount (item.count));
         minItem.onClick.AddListener(MinimizeItemCount);
         cancel.onClick.AddListener(() =>
         {
@@ -320,12 +320,60 @@ public class StorageUI : MonoBehaviour
     {
         MechanicController.Instance.MoveItem(
          theStorage.storage,                     // List Asal
-         PlayerController.Instance.playerData.inventory, // List Tujuan
+         stats.inventory, // List Tujuan
          itemData,                               // Item yang dipilih
          selectedItemCount                                  // Jumlah yang ingin dipindah
      );
     }
 
+    public void StoreAllItems()
+    {
+        Debug.Log("Memulai proses simpan semua item ke storage...");
+
+        // Kita akan me-loop salinan ini, bukan list aslinya.
+        List<ItemData> itemsToMove = new List<ItemData>(stats.inventory);
+
+        // Sekarang, loop melalui SALINAN tersebut
+        foreach (ItemData itemData in itemsToMove)
+        {
+            // Jumlah yang dipindahkan adalah seluruh isi tumpukan (itemData.count).
+            MechanicController.Instance.MoveItem(
+                stats.inventory, // List Asal yang asli
+                theStorage.storage,                   // List Tujuan
+                itemData,                             // Item yang ingin dipindahkan
+                itemData.count                       // Jumlahnya adalah SEMUA isi tumpukan
+            );
+        }
+
+        Debug.Log("Proses simpan semua item selesai.");
+
+        // Setelah semua selesai, jangan lupa refresh UI
+        RefreshInventoryItems();
+    }
+    public void TakeAllItems()
+    {
+        Debug.Log("Memulai proses simpan semua item ke inventory...");
+
+        // Kita akan me-loop salinan ini, bukan list aslinya.
+        List<ItemData> itemsToMove = new List<ItemData>(theStorage.storage);
+
+        // Sekarang, loop melalui SALINAN tersebut
+        foreach (ItemData itemData in itemsToMove)
+        {
+            // Jumlah yang dipindahkan adalah seluruh isi tumpukan (itemData.count).
+            MechanicController.Instance.MoveItem(
+                theStorage.storage, // List Asal yang asli
+                stats.inventory,    // List Tujuan
+                itemData,           // Item yang ingin dipindahkan
+                itemData.count      // Jumlahnya adalah SEMUA isi tumpukan
+            );
+        }
+
+        Debug.Log("Proses simpan semua item selesai.");
+
+        // Setelah semua selesai, jangan lupa refresh UI
+        RefreshInventoryItems();
+    }
 
     private void IncreaseItemCount(int stackCount)
     {
@@ -346,9 +394,9 @@ public class StorageUI : MonoBehaviour
     }
 
     // Maksimalkan jumlah item yang bisa dipilih
-    private void MaximizeItemCount()
+    private void MaximizeItemCount(int stackCount)
     {
-        //selectedItemCount = selectedItem.stackCount;
+        selectedItemCount = stackCount;
         itemCount.text = selectedItemCount.ToString();
     }
 

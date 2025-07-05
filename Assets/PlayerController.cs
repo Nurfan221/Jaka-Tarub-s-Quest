@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -75,35 +76,109 @@ public class PlayerController : MonoBehaviour
         ActivePlayer.Health.SpendStamina(useStamina);
     }
 
-    public void HandleEquipItem(Item item)
+    public void HandleEquipItem(ItemData item)
     {
         ActivePlayer.Inventory.EquipItem(item);
     }
-
-    public void AddItem(string name, int amount, ItemQuality quality)
+    public void HandleSetActiveItem(int slot, ItemData item)
     {
-        Item itemTemplate = ItemPool.Instance.GetItemWithQuality(name, quality);
-        if (itemTemplate == null) return; // Item tidak ada di database
+        MechanicController.Instance.InventoryUI.SetActiveItem(slot, item);
+    }
+    public void HandleUpdateCapacityBar(ItemData item)
+    {
+        PlayerUI.Instance.UpdateCapacityBar(item);
+    }
 
+    //public void AddItem(string name, int amount, ItemQuality quality)
+    //{
+    //    Item itemTemplate = ItemPool.Instance.GetItemWithQuality(name, quality);
+    //    if (itemTemplate == null) return; // Item tidak ada di database
+
+    //    if (itemTemplate.isStackable)
+    //    {
+    //        ItemData existingItem = playerData.inventory.Find(x => x.itemName == name);
+    //        if (existingItem != null)
+    //        {
+    //            existingItem.count += amount;
+    //        }
+    //        else
+    //        {
+    //            if (playerData.inventory.Count < playerData.maxItem)
+    //                playerData.inventory.Add(new ItemData(name, amount, quality));
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (playerData.inventory.Count < playerData.maxItem)
+    //            playerData.inventory.Add(new ItemData(name, amount, quality));
+    //    }
+
+    //    //OnInventoryChanged?.Invoke();
+    //}
+
+    #region
+    //logika pemindahan item equipped
+    public void MoveItem(List<ItemData> sourceList, List<ItemData> targetList, ItemData itemToMove, int amountToMove)
+    {
+        // Dapatkan data template dari database
+        Item itemTemplate = ItemPool.Instance.GetItemWithQuality(itemToMove.itemName, itemToMove.quality); ; ;
+        if (itemTemplate == null || amountToMove <= 0) return;
+
+        // Pastikan kita tidak memindahkan lebih dari yang kita miliki
+        amountToMove = Mathf.Min(amountToMove, itemToMove.count);
+
+        int amountSuccessfullyMoved = 0;
+
+       
+        // Coba tumpuk di slot yang sudah ada di list tujuan
         if (itemTemplate.isStackable)
         {
-            ItemData existingItem = playerData.inventory.Find(x => x.itemName == name);
-            if (existingItem != null)
+            foreach (ItemData slot in targetList)
             {
-                existingItem.count += amount;
+                if (slot.itemName == itemTemplate.itemName && slot.count < itemTemplate.maxStackCount)
+                {
+                    int availableSpace = itemTemplate.maxStackCount - slot.count;
+                    int amountToAdd = Mathf.Min(availableSpace, amountToMove - amountSuccessfullyMoved);
+
+                    slot.count += amountToAdd;
+                    amountSuccessfullyMoved += amountToAdd;
+
+                    if (amountSuccessfullyMoved >= amountToMove) break;
+                }
             }
-            else
-            {
-                if (playerData.inventory.Count < playerData.maxItem)
-                    playerData.inventory.Add(new ItemData(name, amount, quality));
-            }
-        }
-        else
-        {
-            if (playerData.inventory.Count < playerData.maxItem)
-                playerData.inventory.Add(new ItemData(name, amount, quality));
         }
 
-        //OnInventoryChanged?.Invoke();
+        // Buat slot baru di list tujuan jika masih ada sisa
+        int remainingToAdd = amountToMove - amountSuccessfullyMoved;
+        int maxSlots = 24; // Anda perlu cara untuk mendapatkan maxSlots dari targetList
+
+        while (remainingToAdd > 0 && targetList.Count < maxSlots)
+        {
+            int amountForNewSlot = Mathf.Min(remainingToAdd, itemTemplate.maxStackCount);
+            ItemData newSlot = new ItemData(itemTemplate.itemName, amountForNewSlot, itemToMove.quality);
+            targetList.Add(newSlot);
+
+            amountSuccessfullyMoved += amountForNewSlot;
+            remainingToAdd -= amountForNewSlot;
+        }
+
+      
+
+        if (amountSuccessfullyMoved > 0)
+        {
+            // Kurangi jumlah dari slot asal
+            itemToMove.count -= amountSuccessfullyMoved;
+
+            // Jika jumlahnya menjadi 0 atau kurang, hapus item dari list asal
+            if (itemToMove.count <= 0)
+            {
+                sourceList.Remove(itemToMove);
+            }
+        }
+
+       MechanicController.Instance.InventoryUI.RefreshInventoryItems();
+        MechanicController.Instance.InventoryUI.UpdateSixItemDisplay();
+       
     }
+    #endregion
 }
