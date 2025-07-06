@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 68
   itemName: Kubis
-  types: 6
+  quality: 0
+  types: 2
   categories: 520
   sprite: {fileID: 8769908909763869150, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   itemDescription: Kubis segar dengan daun hijau yang rapat. Dikenal sebagai bahan
@@ -41,7 +42,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 10
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Interfaces;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -239,29 +240,76 @@ public class InventoryUI : MonoBehaviour
         Debug.Log("Inventory has running");
     }
 
-    void RefreshActiveItems()
+    // Ganti nama fungsi utama agar lebih jelas
+    void RefreshAllActiveSlots()
     {
-        // Refresh equipped items
-        RefreshItemSlot(equippedItem1, stats.equippedItemData[0]);
-        RefreshItemSlot(equippedItem2, stats.equippedItemData[1]);
+        // --- Refresh Equipped Items ---
+        // Panggil fungsi spesialis untuk setiap slot equipment
+        RefreshSingleSlot(equippedItem1, stats.equippedItemData.Count > 0 ? stats.equippedItemData[0] : null);
+        RefreshSingleSlot(equippedItem2, stats.equippedItemData.Count > 1 ? stats.equippedItemData[1] : null);
 
-        // Refresh quick slots
-        RefreshItemSlot(quickSlot1, stats.itemUseData[0]);
-        RefreshItemSlot(quickSlot2, stats.itemUseData[1]);
+        // --- Refresh Quick Slots ---
+        // Panggil fungsi spesialis yang berbeda untuk quick slot karena mereka punya teks jumlah
+        RefreshQuickSlot(quickSlot1, jumlahQuickItem1, stats.itemUseData.Count > 0 ? stats.itemUseData[0] : null);
+        RefreshQuickSlot(quickSlot2, jumlahQuickItem2, stats.itemUseData.Count > 1 ? stats.itemUseData[1] : null);
     }
 
-    void RefreshItemSlot(Transform slot, ItemData item)
+    // Fungsi ini sekarang hanya untuk slot biasa (tanpa teks jumlah)
+    void RefreshSingleSlot(Transform slotTransform, ItemData itemData)
     {
-
-        Item itemuse = ItemPool.Instance.GetItemWithQuality(item.itemName, item.quality);
-        if (itemuse.sprite != null)
+        // Cek keamanan jika slot atau data tidak ada
+        if (slotTransform == null) return;
+        if (itemData == null || itemData.itemName == "Empty")
         {
-            Debug.Log("item equipped inventory di refresh");
-            slot.gameObject.GetComponentInChildren<Image>().sprite = itemuse.sprite;
-            slot.gameObject.SetActive(true);
+            slotTransform.gameObject.SetActive(false); // Sembunyikan slot jika kosong
+            return;
+        }
+        Item itemSO = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
+        if (itemSO == null)
+        {
+            slotTransform.gameObject.SetActive(false);
+            return;
         }
 
-        //slot.GetChild(1).GetComponent<TMP_Text>().text = item.count <= 0 ? "" : item.count.ToString();
+        // Update sprite dan aktifkan slot
+        slotTransform.GetComponentInChildren<Image>().sprite = itemSO.sprite;
+        slotTransform.gameObject.SetActive(true);
+    }
+
+    // Fungsi BARU yang khusus untuk Quick Slot (dengan teks jumlah)
+    void RefreshQuickSlot(Transform slotTransform, TMP_Text countText, ItemData itemData)
+    {
+        // Cek keamanan
+        if (slotTransform == null || countText == null) return;
+        if (itemData == null || itemData.itemName == "Empty")
+        {
+            slotTransform.gameObject.SetActive(false);
+            countText.gameObject.SetActive(false);
+            return;
+        }
+
+        Item itemSO = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
+        if (itemSO == null)
+        {
+            slotTransform.gameObject.SetActive(false);
+            countText.gameObject.SetActive(false);
+            return;
+        }
+
+        // Update sprite dan aktifkan slot
+        slotTransform.GetComponentInChildren<Image>().sprite = itemSO.sprite;
+        slotTransform.gameObject.SetActive(true);
+
+        // Update teks jumlah HANYA untuk slot ini
+        if (itemData.count > 0)
+        {
+            countText.text = itemData.count.ToString();
+            countText.gameObject.SetActive(true);
+        }
+        else
+        {
+            countText.gameObject.SetActive(false);
+        }
     }
 
     public void SetInventory()
@@ -283,7 +331,7 @@ public class InventoryUI : MonoBehaviour
     {
         Debug.Log("item inventory di refresh");
         //error
-        RefreshActiveItems();
+        RefreshAllActiveSlots();
         foreach (Transform child in ContentGO)
         {
             if (child == SlotTemplate) continue;
@@ -402,37 +450,11 @@ public class InventoryUI : MonoBehaviour
         itemAction.onClick.AddListener(() =>
         {
             Debug.Log("itemAction clicked");
+            PlayerController.Instance.HandleEquipItem(item);
+
             ShowDescription();
         });
 
-        switch (getItem.types)
-        {
-            case ItemType.Melee_Combat:
-                itemAction.onClick.AddListener(() =>
-                {
-                    PlayerController.Instance.HandleEquipItem(item);
-                    // SoundManager.Instance.PlaySound("PickUp");
-                });
-                break;
-
-            case ItemType.Heal:
-                itemAction.onClick.AddListener(() =>
-                {
-                    //Player_Inventory.Instance.AddQuickSlot(item, 0);
-                    // SoundManager.Instance.PlaySound("PickUp");
-                });
-                break;
-            case ItemType.Buff:
-                itemAction.onClick.AddListener(() =>
-                {
-                    //Player_Inventory.Instance.AddQuickSlot(item, 1);
-                    // SoundManager.Instance.PlaySound("PickUp");
-                });
-                break;
-            default:
-                Debug.Log("item tidak sesuai");
-                break;
-        }
 
         // Set the "Equip" button according to item's type
         string itemUses;
@@ -482,7 +504,11 @@ public class InventoryUI : MonoBehaviour
     public void RisetEquippedUse(int index)
     {
         Debug.Log("Equipped item di-reset: " + index);
-        stats.inventory.Add(stats.equippedItemData[index]);
+        if (stats.equippedItemData[index].itemName != stats.emptyItemTemplate.itemName)
+        {
+            ItemPool.Instance.AddItem(stats.equippedItemData[index]);
+            stats.equippedItemData[index] = stats.emptyItemTemplate;
+        }
         //player_Inventory.equippedCombat[index] = stats.emptyItem;
 
         Image itemImage = (index == 0) ?
@@ -499,14 +525,16 @@ public class InventoryUI : MonoBehaviour
     public void RisetQuickSlot(int index)
     {
         Debug.Log("Quick Slot di-reset: " + index);
-        stats.inventory.Add(stats.itemUseData[index]);
-        stats.quickSlots[index] = stats.emptyItem;
+        ItemPool.Instance.AddItem(stats.itemUseData[index]);
+        stats.itemUseData[index] = stats.emptyItemTemplate;
+        //stats.equippedItemData[index].count = 0;
 
         Image itemImage = (index == 0) ?
             quickSlot1.GetComponentInChildren<Image>() :
             quickSlot2.GetComponentInChildren<Image>();
 
         itemImage.sprite = null; // Hapus sprite
+        itemImage.gameObject.SetActive(false);
         if (index == 0)
         {
             jumlahQuickItem1.gameObject.SetActive(false);
@@ -515,7 +543,7 @@ public class InventoryUI : MonoBehaviour
         {
             jumlahQuickItem2.gameObject.SetActive(false);
         }
-        itemImage.gameObject.SetActive(false);
+        //itemImage.gameObject.SetActive(false);
         RefreshInventoryItems();
         UpdateSixItemDisplay();
     }

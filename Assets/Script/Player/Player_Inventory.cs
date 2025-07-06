@@ -314,64 +314,79 @@ public class Player_Inventory : MonoBehaviour
 
     public void EquipItem(ItemData itemToEquip)
     {
-        // Pastikan item yang mau dipasang ada di inventaris utama
+        // Bagian ini sudah benar
         if (!stats.inventory.Contains(itemToEquip))
         {
             Debug.LogWarning($"Mencoba memasang '{itemToEquip.itemName}' yang tidak ada di inventaris.");
             return;
         }
 
-        // Dapatkan template SO dari item untuk info (seperti tipe item)
         Item itemTemplate = ItemPool.Instance.GetItemWithQuality(itemToEquip.itemName, itemToEquip.quality);
         if (itemTemplate == null) return;
 
-        // Tentukan list equipment mana yang akan digunakan berdasarkan tipe item
-        // Ini membuat fungsi Anda lebih fleksibel di masa depan
-        List<ItemData> targetEquipmentList;
-        if (itemTemplate.types == ItemType.Melee_Combat || itemTemplate.types == ItemType.Ranged_Combat)
+        // --- PEMISAHAN LOGIKA DIMULAI DI SINI ---
+
+        // JIKA ITEM ADALAH SENJATA
+        if (itemTemplate.types == ItemType.Heal || itemTemplate.types == ItemType.Buff)
         {
-            targetEquipmentList = stats.equippedItemData;
+            Debug.Log($"Item '{itemToEquip.itemName}' adalah Item Guna. Memasang ke slot quick-use.");
+
+            List<ItemData> quickSlotList = stats.itemUseData; // Gunakan nama yang jelas
+
+            // Logika untuk Quick Slot mungkin berbeda, misalnya hanya ada 2 slot
+            if (quickSlotList[0].itemName == "Empty")
+            {
+                quickSlotList[0] = itemToEquip;
+                stats.inventory.Remove(itemToEquip);
+            }
+            else if (quickSlotList[1].itemName == "Empty")
+            {
+                quickSlotList[1] = itemToEquip;
+                stats.inventory.Remove(itemToEquip);
+            }
+            else
+            {
+                // Kembalikan item lama di slot 0 ke inventaris
+                ItemPool.Instance.AddItem(quickSlotList[1]);
+                // Pasang item baru di slot 0
+                quickSlotList[0] = itemToEquip;
+                stats.inventory.Remove(itemToEquip);
+            }
         }
-        else if (itemTemplate.types == ItemType.Heal || itemTemplate.types == ItemType.Buff)
+
+        // JIKA ITEM ADALAH ITEM GUNA (HEAL/BUFF)
+        else if(itemTemplate.types == ItemType.Melee_Combat || itemTemplate.types == ItemType.Ranged_Combat)
         {
-            targetEquipmentList = stats.itemUseData;
+            Debug.Log($"Item '{itemToEquip.itemName}' adalah Senjata. Memasang ke slot combat.");
+
+            List<ItemData> equipmentList = stats.equippedItemData; // Gunakan nama yang jelas
+
+            if (equipmentList[0].itemName == "Empty")
+            {
+                equipmentList[0] = itemToEquip;
+                stats.inventory.Remove(itemToEquip);
+            }
+            else if (equipmentList[1].itemName == "Empty")
+            {
+                equipmentList[1] = itemToEquip;
+                stats.inventory.Remove(itemToEquip);
+            }
+            else
+            {
+                // Kembalikan item lama di slot 0 ke inventaris
+                ItemPool.Instance.AddItem(equipmentList[1]);
+                // Pasang item baru di slot 0
+                equipmentList[0] = itemToEquip;
+                stats.inventory.Remove(itemToEquip);
+            }
         }
         else
         {
             Debug.Log($"Item '{itemToEquip.itemName}' tidak bisa dipasang.");
-            return; // Keluar jika item tidak bisa dipasang
-        }
-
-        // --- INI LOGIKA INTI YANG LEBIH BERSIH ---
-
-        // Cek apakah slot pertama (indeks 0) kosong
-        if (targetEquipmentList[0].itemName == "Empty") // Lebih aman membandingkan nama
-        {
-            // Jika kosong, langsung pasang di slot 0
-            targetEquipmentList[0] = itemToEquip;
-            stats.inventory.Remove(itemToEquip); // Hapus dari inventaris
-        }
-        // Jika slot pertama sudah terisi, coba cek slot kedua (indeks 1)
-        else if (targetEquipmentList[1].itemName == "Empty")
-        {
-            // Jika kosong, langsung pasang di slot 1
-            targetEquipmentList[1] = itemToEquip;
-            stats.inventory.Remove(itemToEquip);
-        }
-        // Jika kedua slot sudah terisi...
-        else
-        {
-            // Kembalikan item yang ada di slot pertama ke inventaris
-            ItemPool.Instance.AddItem(itemToEquip);
-
-
-            // Pasang item baru di slot pertama
-            targetEquipmentList[0] = itemToEquip;
-            stats.inventory.Remove(itemToEquip);
+            return;
         }
 
         Debug.Log($"Item '{itemToEquip.itemName}' berhasil dipasang.");
-
         MechanicController.Instance.InventoryUI.RefreshInventoryItems();
         MechanicController.Instance.InventoryUI.UpdateSixItemDisplay();
     }

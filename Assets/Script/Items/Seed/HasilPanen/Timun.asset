@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 77
   itemName: Timun
-  types: 6
+  quality: 0
+  types: 2
   categories: 520
   sprite: {fileID: -1808789067199627710, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   itemDescription: Timun segar dengan kulit hijau dan daging yang renyah. Menjadi
@@ -40,7 +41,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: -1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0

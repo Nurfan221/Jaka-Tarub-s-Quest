@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 76
   itemName: Strawberry
-  types: 6
+  quality: 0
+  types: 2
   categories: 513
   sprite: {fileID: -52090667, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   itemDescription: Strawberry segar dengan rasa manis yang menggoda. Sering dimakan
@@ -40,7 +41,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0

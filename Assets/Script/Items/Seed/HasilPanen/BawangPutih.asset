@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 62
   itemName: BawangPutih
-  types: 6
+  quality: 0
+  types: 2
   categories: 520
   sprite: {fileID: -1264567601, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   itemDescription: Bawang putih yang kuat baunya, kaya akan rasa dan manfaat. Digunakan
@@ -22,6 +23,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -32,7 +41,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
