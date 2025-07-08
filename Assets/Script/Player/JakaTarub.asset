@@ -21,9 +21,9 @@ MonoBehaviour:
   health: 100
   currentHealthCap: 100
   maxStamina: 100
-  stamina: 100
+  stamina: 88
   staminaRegenRate: 5
-  currentStaminaCap: 100
+  currentStaminaCap: 88
   initialGriefPenalty: 30
   isInGrief: 0
   currentGriefPenalty: 0
@@ -34,28 +34,28 @@ MonoBehaviour:
   - itemName: Padi
     count: 32
     quality: 0
-  - itemName: Jagung
-    count: 4
+  - itemName: BenihPadi
+    count: 32
+    quality: 0
+  - itemName: Sabit
+    count: 1
     quality: 0
   - itemName: BenihPadi
-    count: 30
+    count: 13
+    quality: 0
+  - itemName: Sabit
+    count: 1
     quality: 0
   - itemName: Padi
-    count: 12
+    count: 20
     quality: 0
-  - itemName: PenyiramTanaman
+  - itemName: Kapak
     count: 1
     quality: 0
-  - itemName: Cangkul
+  - itemName: PickAxe
     count: 1
     quality: 0
-  - itemName: Sabit
-    count: 1
-    quality: 0
-  - itemName: Sabit
-    count: 1
-    quality: 0
-  - itemName: Sabit
+  - itemName: Sword
     count: 1
     quality: 0
   maxItem: 18
@@ -68,23 +68,33 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedItemData:
+  - itemName: Kapak
+    count: 1
+    quality: 0
   - itemName: Cangkul
     count: 1
     quality: 0
-  - itemName: Sabit
+  equippedWeaponTemplate:
+    itemName: Cangkul
     count: 1
     quality: 0
   equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
+  equippedItemTemplate:
+    itemName: Empty
+    count: 1
+    quality: 0
   equippedItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   quickSlots:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   itemUseData:
   - itemName: Empty
-    count: 1
+    count: 0
     quality: 0
   - itemName: Empty
     count: 1
     quality: 0
+  equipped1: 0
+  itemUse1: 0
   currentFatiguePenalty: 0
   maxFatiguePenalty: 50

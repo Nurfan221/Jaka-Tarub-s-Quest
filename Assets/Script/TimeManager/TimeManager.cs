@@ -143,7 +143,7 @@ public class TimeManager : MonoBehaviour
         questManager.CheckQuest();
         //shopUI.RestockDaily(currentSeason);
 
-        player_Health.ReverseHealthandStamina();
+        PlayerController.Instance.HandleReverseHealthandStamina();
         GetLuck();
         spawnerManager.SetSpawnerActive(dailyLuck);
 

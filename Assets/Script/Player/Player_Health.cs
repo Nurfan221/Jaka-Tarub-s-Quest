@@ -36,7 +36,7 @@ public class Player_Health : MonoBehaviour
 
     void Update()
     {
-        UpdateCaps();
+        //UpdateCaps();
 
          stats.health = (int)Mathf.Clamp(stats.health, 0, stats.currentHealthCap);
          stats.stamina = Mathf.Clamp(stats.stamina, 0, stats.currentStaminaCap);
@@ -49,6 +49,7 @@ public class Player_Health : MonoBehaviour
         if (stats.stamina <  stats.currentStaminaCap)
         {
              stats.stamina += regenRate * Time.deltaTime;
+            PlayerUI.Instance.UpdateStaminaDisplay(stats.stamina, stats.maxStamina);
         }
     }
 
@@ -123,6 +124,7 @@ public class Player_Health : MonoBehaviour
         if (buffScrollController.isBuffProtection) damage -= buffScrollController.jumlahBuffProtection;
         damage = Mathf.Max(0, damage);
         stats.health -= damage;
+        PlayerUI.Instance.UpdateHealthDisplay(stats.health, stats.maxHealth);
         if (player_Anim != null) player_Anim.PlayTakeDamageAnimation();
         StartCoroutine(ApplyKnockback(attackerPosition));
         StartCoroutine(TakeDamageVisual());
@@ -149,8 +151,36 @@ public class Player_Health : MonoBehaviour
             return false;
         }
     }
+    public bool DrainStamina(float drainPerSecond)
+    {
+        // 1. PERBAIKAN: Cek apakah BATAS STAMINA saat ini masih di atas nol.
+        if (stats.currentStaminaCap > 0)
+        {
+            // Kurangi BATAS STAMINA berdasarkan waktu.
+            stats.currentStaminaCap -= drainPerSecond;
+            PlayerUI.Instance.UpdateStaminaDisplay(stats.currentStaminaCap, stats.maxStamina);
 
-   
+
+            //    Gunakan 'stats.currentStaminaCap' lagi di dalam Mathf.Max.
+            stats.currentStaminaCap = Mathf.Max(stats.currentStaminaCap, 0);
+
+            // Setelah batasnya turun, pastikan stamina saat ini tidak melebihi batas baru tersebut.
+            stats.stamina = Mathf.Min(stats.stamina, stats.currentStaminaCap);
+
+            Debug.Log($"Stamina cap dikuras sebanyak : " + drainPerSecond);
+            Debug.Log($"Stamina cap dikuras. Batas baru: {stats.currentStaminaCap}");
+
+
+            return true;
+        }
+        else
+        {
+            Debug.Log("Batas stamina sudah habis, tidak bisa dikuras lagi.");
+            return false;
+        }
+        //Debug.Log("mengurangi stamina sejumlah : " + drainPerSecond);
+    }
+
     public void ApplyFatigue(float fatigueAmount)
     {
         stats.currentFatiguePenalty += fatigueAmount;

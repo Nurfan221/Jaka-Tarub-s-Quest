@@ -70,9 +70,14 @@ public class StorageInteractable : Interactable
         // Tunggu sampai animasi selesai
         yield return AnimationOpen(); // Tunggu sampai animasi selesai
                                       // Bertanya ke "Penjaga Gerbang" untuk mendapatkan akses ke StorageUI
-        if (MechanicController.Instance != null && MechanicController.Instance.StorageUI != null)
+        if (MechanicController.Instance != null)
         {
-            MechanicController.Instance.StorageUI.OpenStorage(this);
+            // Biarkan MechanicController yang pusing mencari dan membuka StorageUI.
+            MechanicController.Instance.HandleOpenStorage(this);
+        }
+        else
+        {
+            Debug.LogError("FATAL: MechanicController.Instance tidak ditemukan di scene!");
         }
 
     }

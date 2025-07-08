@@ -165,7 +165,7 @@ public class Player_Action : MonoBehaviour
 
     #region COMBAT_ACTIONS
 
-    private void OnAttackButtonClick()
+    public void OnAttackButtonClick()
     {
         if (combatMode && canAttack)
         {
@@ -358,7 +358,8 @@ public class Player_Action : MonoBehaviour
 
     public void Attack()
     {
-        Item itemToAttack = stats.equippedWeapon;
+        Debug.Log("tombol attack di tekan");
+        Item itemToAttack = ItemPool.Instance.GetItemWithQuality(stats.equippedWeaponTemplate.itemName, stats.equippedWeaponTemplate.quality);
         if (itemToAttack.itemName == "Empty")
             return;
 
@@ -369,10 +370,10 @@ public class Player_Action : MonoBehaviour
             //    SoundManager.Instance.PlaySound("Sword");
 
             print("melee normal attacking");
-            //playerUI.TakeCapacityBar(itemToAttack);
-            //playerHealth.SpendStamina(itemToAttack.UseStamina);
+            PlayerUI.Instance.TakeCapacityBar(itemToAttack);
+            //PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina);
             //playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
-            //Debug.Log("nama item yang sedang di pakai" + itemToAttack.itemName);
+            Debug.Log("nama item yang sedang di pakai" + itemToAttack.itemName);
             switch (itemToAttack.itemName)
             {
                 //case "Tombak Berburu":
@@ -384,8 +385,10 @@ public class Player_Action : MonoBehaviour
                 //break;
 
                 case "Kapak":
-                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
+                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
                     {
+                        Debug.Log("Menyerang menggunakan" + itemToAttack.itemName);
+
                         //Debug.Log($"Damage: {itemToAttack.Damage}");
                         //print("Mengapak tanah");
                         playerPosition = transform.position; // Posisi pemain
@@ -406,7 +409,7 @@ public class Player_Action : MonoBehaviour
                     break;
 
                 case "PickAxe":
-                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina) && itemToAttack.health <= 0)
+                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
                     {
                         //print("Mengapak tanah");
                         playerPosition = transform.position; // Posisi pemain
@@ -427,7 +430,7 @@ public class Player_Action : MonoBehaviour
                     break;
 
                 case "Sabit":
-                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina) && itemToAttack.health <= 0)
+                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
                     {
                         //print("Mengapak tanah");
                         playerPosition = transform.position; // Posisi pemain
@@ -447,7 +450,7 @@ public class Player_Action : MonoBehaviour
 
                     break;
                 case "Sword":
-                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina) && itemToAttack.health <= 0)
+                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
                     {
                         //print("Mengapak tanah");
                         playerPosition = transform.position; // Posisi pemain
@@ -468,7 +471,7 @@ public class Player_Action : MonoBehaviour
 
                     break;
                 case "Cangkul":
-                    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina)&& itemToAttack.health <= 0)
+                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
                     {
                         playerPosition = transform.position; // Posisi pemain
 
@@ -539,14 +542,15 @@ public class Player_Action : MonoBehaviour
         Item itemToAttack = stats.equippedWeapon;
         if (itemToAttack.itemName == "Empty")
             return;
-       
 
-        //playerUI.TakeCapacityBar(itemToAttack);
 
-        ////menjalankan cooldown spesial skill
-        //spesialSkillWeapon.UseWeaponSkill(itemToAttack, true);
-        if (itemToAttack.health != 0 && PlayerController.Instance.playerData.stamina > 0)
-        {
+            //playerUI.TakeCapacityBar(itemToAttack);
+
+            ////menjalankan cooldown spesial skill
+            //spesialSkillWeapon.UseWeaponSkill(itemToAttack, true);
+            if (itemToAttack.health != 0 && PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
+            {
+
            
             if (itemToAttack.itemName == "PenyiramTanaman")
             {
@@ -628,10 +632,10 @@ public class Player_Action : MonoBehaviour
                 }
                 StartCoroutine(ActivateAttack(1));
             }
-        }else
-        {
-            Debug.Log("Stamina Habis bang");
-        }
+            }else
+            {
+                Debug.Log("Stamina Habis bang");
+            }
 
         //playerHealth.SpendStamina(itemToAttack.UseStamina);
 

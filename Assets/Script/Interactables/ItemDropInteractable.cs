@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ItemDropInteractable : Interactable
 {
-    public Item item;
+    //public Item item;
+    public ItemData itemdata;
     [SerializeField] public string itemName;
     private Rigidbody2D rb;
     public float gravityDuration = 2f; // Durasi gravitasi setelah item jatuh
@@ -12,8 +13,7 @@ public class ItemDropInteractable : Interactable
     private void Start()
     {
 
-        if (item == null)
-            item = ItemPool.Instance.GetItem(itemName);
+       
         //promptMessage = "Inventory Full";
         //GetComponent<SpriteRenderer>().sprite = item.sprite;
     }
@@ -22,7 +22,7 @@ public class ItemDropInteractable : Interactable
     {
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Pick");
-        Debug.Log(item.itemName + " di ambil.");
+        Debug.Log(itemdata.itemName + " di ambil.");
         //Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(item.itemName));
         //if (item.type == ItemType.Quest) { GetComponent<QuestQuanta>().Take(); }
 

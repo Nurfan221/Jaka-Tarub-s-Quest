@@ -10,31 +10,15 @@ using static UnityEditor.Progress;
 
 public class Player_Inventory : MonoBehaviour
 {
-//public static Player_Inventory Instance { get; private set; } // Ubah sedikit menjadi property agar lebih aman
-
-    Player_Action pA;
-
-  
-
-    [SerializeField] GameObject normalAttackHitArea; //Referensi image hitbox
-    [SerializeField] private Button switchWeaponImage; // Referensi ke Image yang digunakan untuk mengganti senjata
-    [SerializeField] private Button switchUseItemImage; // Referensi ke Image yang digunakan untuk mengganti senjata
-    [SerializeField] PintuManager pintuManager;
-    [SerializeField] private BuffScrollController buffScrollController;
-    [SerializeField] private Player_Action playerAction;
-    [SerializeField] private InventoryUI inventoryUI;
-    [SerializeField] private PlayerUI playerUI;
-    [SerializeField] private SpesialSkillWeapon spesialSkillWeapon;
 
 
-    public bool meleeOrRanged = true;
-    public bool itemUse1 = true;
+
 
  
 
      public bool inventoryOpened;
      public bool inventoryClosed;
-    [SerializeField] MiniGameHewanUI miniGameHewanUI;
+    //[SerializeField] MiniGameHewanUI miniGameHewanUI;
 
     [SerializeField] ParticleSystem healParticle;
 
@@ -53,7 +37,7 @@ public class Player_Inventory : MonoBehaviour
             Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
         }
         //Instance = this;
-        pA = GetComponent<Player_Action>();
+        //pA = GetComponent<Player_Action>();
 
         //// Making sure everything in it is a clone
         //List<Item> newList = new List<Item>();
@@ -74,56 +58,17 @@ public class Player_Inventory : MonoBehaviour
         //closeInventoryButton.onClick.AddListener(CloseInventory); // Add listener to close button
 
  // Pastikan switchWeaponImage tidak null
-        if (switchWeaponImage != null)
-        {
-            // Tambahkan event listener untuk klik pada Image
-            Button button = switchWeaponImage.GetComponent<Button>();
-            if (button != null)
-            {
-                button.onClick.AddListener(ToggleWeapon);
-            }
-            else
-            {
-                Debug.LogError("Image component does not have a Button component attached.");
-            }
-        }
-        else
-        {
-            Debug.LogError("SwitchWeaponImage is not assigned.");
-        }
-
-
-        if (switchUseItemImage != null)
-        {
-            // Tambahkan event listener untuk klik pada Image
-            Button button = switchUseItemImage.GetComponent<Button>();
-            if (button != null)
-            {
-                button.onClick.AddListener(ToggleUseItem);
-            }
-            else
-            {
-                Debug.LogError("Image component does not have a Button component attached.");
-            }
-        }
-        else
-        {
-            Debug.LogError("switchUseItemImage is not assigned.");
-        }
-
-        stats.equippedItemData[0].itemName = stats.emptyItemTemplate.itemName;
-        stats.equippedItemData[1].itemName = stats.emptyItemTemplate.itemName;
-        stats.itemUseData[0].itemName = stats.emptyItemTemplate.itemName;
-        stats.itemUseData[1].itemName = stats.emptyItemTemplate.itemName;
+       
+        //stats.equippedItemData[0].itemName = stats.emptyItemTemplate.itemName;
+        //stats.equippedItemData[1].itemName = stats.emptyItemTemplate.itemName;
+        //stats.itemUseData[0].itemName = stats.emptyItemTemplate.itemName;
+        //stats.itemUseData[1].itemName = stats.emptyItemTemplate.itemName;
     }
 
    private void Update()
     {
         
 
-            UpdateEquippedWeaponUI();
-        UpdateItemUseUI();
-            // inventoryUI.UpdateSixItemDisplay();
 
              
 
@@ -149,59 +94,7 @@ public class Player_Inventory : MonoBehaviour
 
    
 
-    public void AddItem(Item item)
-    {
-        item = Instantiate(item); // Clone item agar tidak mempengaruhi data global
-
-        // Cari item yang bisa di-stack
-        //Item existingItem = stats.itemList.Find(x => x.itemName == item.itemName && x.stackCount < x.maxStackCount);
-
-        //if (existingItem != null)
-        //{
-        //    //int availableSpace = existingItem.maxStackCount - existingItem.stackCount;
-        //    //int amountToAdd = Mathf.Min(availableSpace, item.stackCount);
-
-        //    //existingItem.stackCount += amountToAdd;
-        //    //item.stackCount -= amountToAdd;
-
-        //    //// Jika stack penuh, ubah `isStackable` menjadi false
-        //    //if (existingItem.stackCount >= existingItem.maxStackCount)
-        //    //{
-        //    //    existingItem.isStackable = false;
-        //    //}
-
-        //    // Jika masih ada sisa item, tambahkan ke slot baru jika ada ruang
-        //    //if (item.stackCount > 0)
-        //    //{
-        //    //    if (stats.itemList.Count < stats.maxItem)
-        //    //    {
-        //    //        stats.itemList.Add(item);
-        //    //    }
-        //    //    else
-        //    //    {
-        //    //        Debug.LogWarning("Inventory penuh! Item tidak bisa ditambahkan.");
-        //    //        return;
-        //    //    }
-        //    //}
-        //}
-        //else
-        //{
-        //    // Jika tidak ada stack yang bisa diisi, tambahkan sebagai slot baru jika ada ruang
-        //    if (stats.itemList.Count < stats.maxItem)
-        //    {
-        //        stats.itemList.Add(item);
-        //    }
-        //    else
-        //    {
-        //        Debug.LogWarning("Inventory penuh! Item tidak bisa ditambahkan.");
-        //        return;
-        //    }
-        //}
-
-        // Update UI
-        inventoryUI.UpdateInventoryUI();
-    }
-
+  
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Cek apakah objek yang disentuh memiliki tag "ItemDrop"
@@ -209,52 +102,10 @@ public class Player_Inventory : MonoBehaviour
         {
             Debug.Log("terdeteksi item drop");
             // Ambil data dari PrefabItemBehavior jika ada
-            PrefabItemBehavior prefabItem = other.GetComponent<PrefabItemBehavior>();
+            ItemData itemData = other.GetComponent<ItemData>();
 
-            if (stats.itemList.Count < stats.maxItem)
-            {
-                if (prefabItem != null)
-                {
-                    string itemName = prefabItem.namePrefab;
-                    float itemHealth = prefabItem.health;
-
-                    // Cari item di ItemPool berdasarkan namePrefab dari PrefabItemBehavior
-                    Item itemToAdd = ItemPool.Instance.GetItem(itemName);
-
-                    if (itemToAdd != null)
-                    {
-                        int prevCount = stats.itemList.Count; // Hitung jumlah item sebelum AddItem
-
-                        // Buat clone item agar tidak merusak data asli di ItemPool
-                        itemToAdd = Instantiate(itemToAdd);
-                        itemToAdd.health = itemHealth; // Atur nilai health dari item menggunakan health dari PrefabItemBehavior
-
-                        Debug.Log("nyawa item itu adalah : " + itemHealth);
-                        // Tambahkan item ke inventory
-                        AddItem(itemToAdd);
-
-                        // Jika jumlah item di inventory bertambah, berarti item berhasil dimasukkan
-                        if (stats.itemList.Count > prevCount ||
-                            (itemToAdd.isStackable && stats.itemList.Exists(x => x.itemName == itemToAdd.itemName)))
-                        {
-                            Debug.Log($"{itemName} berhasil ditambahkan ke inventory. Menghancurkan item drop.");
-                            Destroy(other.gameObject); // Hancurkan item drop dari world
-                        }
-                        else
-                        {
-                            Debug.LogWarning($"{itemName} tidak ditambahkan ke inventory karena penuh.");
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Item dengan nama {itemName} tidak ditemukan di ItemPool.");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("Komponen PrefabItemBehavior tidak ditemukan di objek dengan tag 'ItemDrop'.");
-                }
-            }
+            ItemPool.Instance.AddItem(itemData);
+            
         }
         else if(other.CompareTag("Animal"))
         {
@@ -262,7 +113,7 @@ public class Player_Inventory : MonoBehaviour
             AnimalBehavior animalBehavior = other.GetComponent<AnimalBehavior>();
             if (animalBehavior != null && animalBehavior.isAnimalEvent)
             {
-                miniGameHewanUI.Open(other.gameObject);
+                //miniGameHewanUI.Open(other.gameObject);
                 
             }
 
@@ -324,7 +175,6 @@ public class Player_Inventory : MonoBehaviour
         Item itemTemplate = ItemPool.Instance.GetItemWithQuality(itemToEquip.itemName, itemToEquip.quality);
         if (itemTemplate == null) return;
 
-        // --- PEMISAHAN LOGIKA DIMULAI DI SINI ---
 
         // JIKA ITEM ADALAH SENJATA
         if (itemTemplate.types == ItemType.Heal || itemTemplate.types == ItemType.Buff)
@@ -346,6 +196,7 @@ public class Player_Inventory : MonoBehaviour
             }
             else
             {
+
                 // Kembalikan item lama di slot 0 ke inventaris
                 ItemPool.Instance.AddItem(quickSlotList[1]);
                 // Pasang item baru di slot 0
@@ -363,6 +214,7 @@ public class Player_Inventory : MonoBehaviour
 
             if (equipmentList[0].itemName == "Empty")
             {
+                
                 equipmentList[0] = itemToEquip;
                 stats.inventory.Remove(itemToEquip);
             }
@@ -389,38 +241,42 @@ public class Player_Inventory : MonoBehaviour
         Debug.Log($"Item '{itemToEquip.itemName}' berhasil dipasang.");
         MechanicController.Instance.InventoryUI.RefreshInventoryItems();
         MechanicController.Instance.InventoryUI.UpdateSixItemDisplay();
+        PlayerUI.Instance.UpdateItemUseUI();
+        PlayerUI.Instance.UpdateEquippedWeaponUI();
+
+
     }
 
 
     // Add item to quick slot according index (0,1)
-    public void AddQuickSlot(Item item, int index)
-    {
-        // Memastikan item ada dalam stats.itemList dan bukan "Empty"
-        if (!stats.itemList.Exists(x => x.itemName == item.itemName) && item.itemName != "Empty")
-            return;
+    //public void AddQuickSlot(Item item, int index)
+    //{
+    //    // Memastikan item ada dalam stats.itemList dan bukan "Empty"
+    //    if (!stats.itemList.Exists(x => x.itemName == item.itemName) && item.itemName != "Empty")
+    //        return;
 
-        // Jika slot yang dipilih sudah terisi, kembalikan item sebelumnya ke stats.itemList
-        //if (stats.quickSlots[index] != null && stats.quickSlots[index] != stats.emptyItem && stats.quickSlots[index].itemName != "Empty" && stats.quickSlots[index].stackCount > 0)
-        {
-            stats.itemList.Add(stats.quickSlots[index]);
-            Debug.Log("menambahkan item ke inventory");
-        }
+    //    // Jika slot yang dipilih sudah terisi, kembalikan item sebelumnya ke stats.itemList
+    //    //if (stats.quickSlots[index] != null && stats.quickSlots[index] != stats.emptyItem && stats.quickSlots[index].itemName != "Empty" && stats.quickSlots[index].stackCount > 0)
+    //    {
+    //        stats.itemList.Add(stats.quickSlots[index]);
+    //        Debug.Log("menambahkan item ke inventory");
+    //    }
 
 
-        // Menambahkan item baru ke stats.quickSlots pada index yang sesuai
-        stats.quickSlots[index] = item;
+    //    // Menambahkan item baru ke stats.quickSlots pada index yang sesuai
+    //    stats.quickSlots[index] = item;
 
-        // Menghapus item yang baru ditambahkan dari stats.itemList
-        stats.itemList.Remove(item);
+    //    // Menghapus item yang baru ditambahkan dari stats.itemList
+    //    stats.itemList.Remove(item);
 
-        // Refresh UI inventory dan memperbarui tampilan item
-        inventoryUI.RefreshInventoryItems();
-        inventoryUI.UpdateSixItemDisplay();
+    //    // Refresh UI inventory dan memperbarui tampilan item
+    //    inventoryUI.RefreshInventoryItems();
+    //    inventoryUI.UpdateSixItemDisplay();
 
-        // Memperbarui UI dengan item baru di slot yang sesuai
-        //inventoryUI.SetActiveItem(index + 2, item); // Menyesuaikan indeks untuk tampilan UI
-        print(item.itemName + " equipped");
-    }
+    //    // Memperbarui UI dengan item baru di slot yang sesuai
+    //    //inventoryUI.SetActiveItem(index + 2, item); // Menyesuaikan indeks untuk tampilan UI
+    //    print(item.itemName + " equipped");
+    //}
 
 
     // Use which quick slot (1,2)
@@ -470,100 +326,8 @@ public class Player_Inventory : MonoBehaviour
     
 
       // Fungsi untuk mengganti senjata
-    public void ToggleWeapon()
-    {
-        meleeOrRanged = !meleeOrRanged;
-        UpdateEquippedWeaponUI();
-        spesialSkillWeapon.UseWeaponSkill(stats.equippedWeapon, false);
-        Debug.Log("Weapon Toggle");
-        
-    }
-    // Fungsi untuk mengganti item yang dapat digunakan
-    public void ToggleUseItem()
-    {
-        itemUse1 = !itemUse1;
-        UpdateItemUseUI();
-        Debug.Log("Toggle uhuyyyyyyy");
-    }
+   
 
-    private void UpdateEquippedWeaponUI()
-    {
-        // Mengecek apakah ada senjata di slot melee/ranged (slot 0)
-        if (meleeOrRanged && stats.equippedCombat[0] != null)
-        {
-            stats.equippedWeapon = stats.equippedCombat[0];
-            
-            if (playerUI != null && playerUI.equippedUI != null)
-            {
-                playerUI.equippedUI.sprite = stats.equippedWeapon.sprite;
-
-                
-
-            }
-        }
-        // Mengecek apakah ada senjata di slot kedua (slot 1)
-        else if (stats.equippedCombat[1] != null)
-        {
-            stats.equippedWeapon = stats.equippedCombat[1];
-            if (playerUI != null && playerUI.equippedUI != null)
-            {
-                playerUI.equippedUI.sprite = stats.equippedWeapon.sprite;
-
-
-               
-            }
-        }
-        
-         // Jika slot 0 (melee/ranged) kosong, set default sprite
-       if (stats.equippedCombat[0] == null)
-        {
-            //Debug.Log("Item is not equipped in slot 0");
-            if (playerUI != null && playerUI.equippedUI != null)
-            {
-                if (playerAction != null)
-                    {
-                        // Sekarang Anda bisa mengakses metode atau properti di Player_Action
-                        //playerAction.buttonAttack.gameObject.SetActive(false);  // Memanggil metode di Player_Action
-
-                }
-                
-            }
-        }
-        // Jika slot 1 kosong, set default sprite
-        else if (stats.equippedCombat[1] == null)
-        {
-            //Debug.Log("Item is not equipped in slot 1");
-            if (playerUI != null && playerUI.equippedUI != null)
-            {
-                 if (playerAction != null)
-                    {
-                        // Sekarang Anda bisa mengakses metode atau properti di Player_Action
-                        //playerAction.buttonUse.gameObject.SetActive(false);  // Memanggil metode di Player_Action
-                    }
-            }
-        }
-        //playerUI.UpdateCapacityBar(stats.equippedWeapon); 
-
-    }
-
-    private void UpdateItemUseUI()
-    {
-        if (itemUse1 && stats.quickSlots[0] != null)
-        {
-            stats.equippedItem = stats.quickSlots[0];
-            if (playerUI != null && playerUI.itemUseUI != null)
-            {
-                playerUI.itemUseUI.sprite = stats.equippedItem.sprite;
-            }
-        }
-        else if (stats.quickSlots[1] != null)
-        {
-            stats.equippedItem = stats.quickSlots[1];
-            if (playerUI != null && playerUI.itemUseUI != null)
-            {
-                playerUI.itemUseUI.sprite = stats.equippedItem.sprite;
-            }
-        }
-    }
+    
 
 }

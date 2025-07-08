@@ -71,10 +71,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void HandleSpendStamina(float useStamina)
+    public bool HandleSpendStamina(float useStamina)
     {
-        ActivePlayer.Health.SpendStamina(useStamina);
+        if(ActivePlayer.Health.SpendStamina(useStamina))
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
     }
+
+    public bool HandleDrainStamina(float useStamina)
+    {
+        if (ActivePlayer.Health.DrainStamina(useStamina))
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+    public void HandleReverseHealthandStamina()
+    {
+        ActivePlayer.Health.ReverseHealthandStamina();
+    }
+
 
     public void HandleEquipItem(ItemData item)
     {
@@ -89,35 +111,7 @@ public class PlayerController : MonoBehaviour
         PlayerUI.Instance.UpdateCapacityBar(item);
     }
 
-    //public void AddItem(string name, int amount, ItemQuality quality)
-    //{
-    //    Item itemTemplate = ItemPool.Instance.GetItemWithQuality(name, quality);
-    //    if (itemTemplate == null) return; // Item tidak ada di database
-
-    //    if (itemTemplate.isStackable)
-    //    {
-    //        ItemData existingItem = playerData.inventory.Find(x => x.itemName == name);
-    //        if (existingItem != null)
-    //        {
-    //            existingItem.count += amount;
-    //        }
-    //        else
-    //        {
-    //            if (playerData.inventory.Count < playerData.maxItem)
-    //                playerData.inventory.Add(new ItemData(name, amount, quality));
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (playerData.inventory.Count < playerData.maxItem)
-    //            playerData.inventory.Add(new ItemData(name, amount, quality));
-    //    }
-
-    //    //OnInventoryChanged?.Invoke();
-    //}
-
-    #region
-    //logika pemindahan item equipped
+   
     public void MoveItem(List<ItemData> sourceList, List<ItemData> targetList, ItemData itemToMove, int amountToMove)
     {
         // Dapatkan data template dari database
@@ -180,5 +174,14 @@ public class PlayerController : MonoBehaviour
         MechanicController.Instance.InventoryUI.UpdateSixItemDisplay();
        
     }
-    #endregion
+
+    public void HandleAttackButton()
+    {
+        ActivePlayer.Action.OnAttackButtonClick();
+    }
+    //public bool HandleSpendStamina(float floatStamina)
+    //{
+    //    ActivePlayer.Health.SpendStamina(floatStamina);
+    //    //ActivePlayer.Health.SpendMaxCurrentStamina()
+    //}
 }

@@ -64,7 +64,7 @@ public class InventoryUI : MonoBehaviour
     // [SerializeField] private Image attackHUDImage;
 
 
-
+    
     private PlayerData_SO stats;
 
     private void Awake()
@@ -84,8 +84,8 @@ public class InventoryUI : MonoBehaviour
     }
     private void Start()
     {
-        PlayerUI.Instance.RegisterInventoryUI(this);
-        MechanicController.Instance.RegisterInventory(this);
+        //PlayerUI.Instance.RegisterInventoryUI(this);
+      
 
         //Loop untuk Mengatur Tombol Menu Secara Dinamis
         for (int i = 0; i < btnMenu.Length; i++)
@@ -125,13 +125,7 @@ public class InventoryUI : MonoBehaviour
         CloseInventory();
     }
 
-    private void OnDestroy()
-    {
-        if (MechanicController.Instance != null)
-        {
-            MechanicController.Instance.UnregisterInventory(this);
-        }
-    }
+
 
     public void OpenInventory()
     {
@@ -140,36 +134,37 @@ public class InventoryUI : MonoBehaviour
             SoundManager.Instance.PlaySound("Click");
 
         GameController.Instance.ShowPersistentUI(false);
+        GameController.Instance.PauseGame();
         gameObject.SetActive(true);
-        isInventoryOpen = true;
+        //isInventoryOpen = true;
         IfClose();
+        UpdateInventoryUI(); // Update UI when inventory is opened
 
-
-        if (isInventoryOpen)
-        {
-            GameController.Instance.PauseGame();
-            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-            //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-
-
-
+        //if (isInventoryOpen)
+        //{
+        //    GameController.Instance.PauseGame();
+        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
+        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
 
 
 
-            UpdateInventoryUI(); // Update UI when inventory is opened
-        }
-        else
-        {
-            GameController.Instance.ResumeGame();
-        }
+
+
+
+
+        //}
+        //else
+        //{
+        //    GameController.Instance.ResumeGame();
+        //}
     }
 
     public void CloseInventory()
@@ -243,7 +238,7 @@ public class InventoryUI : MonoBehaviour
     // Ganti nama fungsi utama agar lebih jelas
     void RefreshAllActiveSlots()
     {
-        // --- Refresh Equipped Items ---
+
         // Panggil fungsi spesialis untuk setiap slot equipment
         RefreshSingleSlot(equippedItem1, stats.equippedItemData.Count > 0 ? stats.equippedItemData[0] : null);
         RefreshSingleSlot(equippedItem2, stats.equippedItemData.Count > 1 ? stats.equippedItemData[1] : null);
@@ -429,7 +424,7 @@ public class InventoryUI : MonoBehaviour
                 }
 
                 // Cek jika stackCount tidak null
-                //itemInDisplay.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
+                itemInDisplay.GetChild(1).GetComponent<TMP_Text>().text = stats.inventory[i].count.ToString();
 
 
             }
@@ -519,6 +514,7 @@ public class InventoryUI : MonoBehaviour
         itemImage.gameObject.SetActive(false);
         RefreshInventoryItems();
         UpdateSixItemDisplay();
+        PlayerUI.Instance.UpdateEquippedWeaponUI();
     }
 
     //Fungsi untuk Mereset Quick Slot
@@ -546,6 +542,8 @@ public class InventoryUI : MonoBehaviour
         //itemImage.gameObject.SetActive(false);
         RefreshInventoryItems();
         UpdateSixItemDisplay();
+        PlayerUI.Instance.UpdateItemUseUI();
+
     }
 
 }

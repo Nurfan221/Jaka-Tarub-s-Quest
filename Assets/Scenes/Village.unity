@@ -17152,7 +17152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &593584932
 Transform:
   m_ObjectHideFlags: 0
@@ -65867,6 +65867,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 232490309290314681, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 529045622081772688, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -65926,6 +65930,14 @@ PrefabInstance:
     - target: {fileID: 1901402564269242364, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1910815124942042945, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2157005784443403571, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2275840250752920472, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_IsActive
@@ -66070,6 +66082,10 @@ PrefabInstance:
     - target: {fileID: 3965640704161393692, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216283400703990690, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4456475757810776287, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_SizeDelta.x
@@ -66393,7 +66409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8001177148399849436, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000019073486
+      value: -0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 8016212584862088717, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_Size
@@ -66425,7 +66441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8555332484385303825, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -256.0094
+      value: -253.58157
       objectReference: {fileID: 0}
     - target: {fileID: 8588972791980073415, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: farmTile
@@ -66459,6 +66475,14 @@ PrefabInstance:
       propertyPath: playerInventory
       value: 
       objectReference: {fileID: 1143600495}
+    - target: {fileID: 8726503915802899856, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: switchWeaponImage
+      value: 
+      objectReference: {fileID: 1640808723}
+    - target: {fileID: 8726503915802899856, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: switchUseItemImage
+      value: 
+      objectReference: {fileID: 1560501750}
     - target: {fileID: 8726503915802899856, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: closeInventoryButton
       value: 

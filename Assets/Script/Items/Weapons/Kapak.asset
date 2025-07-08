@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 89
   itemName: Kapak
+  quality: 0
   types: 0
   categories: 256
   sprite: {fileID: 1746577874986120735, guid: d566de0f6bdec3f48bd0b58bab4a43c1, type: 3}
@@ -36,10 +37,9 @@ MonoBehaviour:
   SpecialAttackCD: 4
   SpecialAttackStamina: 4
   UpgradeCost: 500
-  UseStamina: 3
+  UseStamina: 10
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 0
-  stackCount: 1
   maxStackCount: 1
   BuyValue: 0
   SellValue: 0

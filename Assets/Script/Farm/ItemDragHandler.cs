@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using NUnit.Framework.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -80,8 +81,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // Proses penanaman benih
         bool itemFound = false;
 
-        foreach (Item item in stats.itemList)
+        foreach (ItemData itemData in stats.inventory)
         {
+            Item item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
             if (item.itemName == itemInDrag && item.IsInCategory(ItemCategory.PlantSeed))
             {
                 itemFound = true;
@@ -95,13 +97,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 // Panggil fungsi untuk menyimpan status tile
                 SaveTileStatus(cellPosition, true);
 
-                //item.stackCount -= 1;
+                itemData.count -= 1;
 
-                //if (item.stackCount <= 0)
-                //{
-                //    //Player_Inventory.Instance.RemoveItem(item);
-                //    //   Debug.Log("Item habis dan dihapus.");
-                //}
+                if (itemData.count <= 0)
+                {
+                    stats.inventory.Remove(itemData);
+                    Debug.Log("Item habis dan dihapus.");
+                }
 
                 // Refresh UI
                 inventoryUI.RefreshInventoryItems();
@@ -123,8 +125,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
         Debug.Log(" fungsi cek tree seed di jalankan");
 
-        foreach (Item item in stats.itemList)
+        foreach (ItemData itemData in stats.inventory)
         {
+            Item item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
 
             // Debug.Log("nama itemInDrag  " + itemInDrag);
             // Cek apakah nama item sama dengan itemInDrag dan kategori item adalah Seed
@@ -152,19 +155,20 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 }
 
                 // Kurangi stack item setelah menanam
-                //stackItem--;
+                itemData.count--;
                 //item.stackCount = stackItem; // Perbarui jumlah stack dalam item
 
-                //if (stackItem <= 0)
-                //{
-                //    // Jika stack count habis, hapus item dari inventory
-                //    //Player_Inventory.Instance.RemoveItem(item);
-                //    //    Debug.Log("Item habis dan dihapus dari inventory.");
-                //}
-                //else
-                //{
-                //    // Debug.Log("Jumlah item tersisa: " + stackItem);
-                //}
+                if (itemData.count <= 0)
+                {
+                    stats.inventory.Remove(itemData);
+                    // Jika stack count habis, hapus item dari inventory
+                    //Player_Inventory.Instance.RemoveItem(item);
+                    //    Debug.Log("Item habis dan dihapus dari inventory.");
+                }
+                else
+                {
+                    // Debug.Log("Jumlah item tersisa: " + stackItem);
+                }
 
                 rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
 
@@ -485,54 +489,59 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
 
-        foreach (Item item in stats.itemList)
+        foreach (ItemData itemData in stats.inventory)
         {
+            Item item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
+
             // Cek apakah nama item sama dengan itemInDrag dan kategori item bukan Seed
             if (item.itemName == itemInDrag && item.categories != ItemCategory.PlantSeed)
             {
                 itemFound = true; // Tandai bahwa item ditemukan
-                //int stackItem = item.stackCount; // Ambil jumlah item yang ada
+                int stackItem = itemData.count; // Ambil jumlah item yang ada
 
                 //Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
 
                 npc.itemQuest = item.itemName;
 
                 // Kurangi stack item setelah memberi
-                //if (npc.CheckItemGive(ref stackItem, QuestType.Side))
-                //{
-                //    // Update item.stackCount dengan nilai stackItem yang telah dikurangi
-                //    item.stackCount = stackItem;
-                //    //Debug.Log("jumlah item quest yang di kurangi " + stackItem);
+                if (npc.CheckItemGive(ref stackItem, QuestType.Side))
+                {
+                    // Update item.stackCount dengan nilai stackItem yang telah dikurangi
+                    itemData.count = stackItem;
+                    //Debug.Log("jumlah item quest yang di kurangi " + stackItem);
 
 
-                //    if (stackItem <= 0)
-                //    {
-                //        // Hapus item jika jumlahnya sudah habis
-                //        //Player_Inventory.Instance.RemoveItem(item);
-                //        //Debug.Log("Item habis dan dihapus dari inventory.");
-                //    }
-                //    else
-                //    {
-                //        Debug.Log("Jumlah item tersisa: " + stackItem);
-                //    }
-                //}else if(npc.CheckItemGive(ref stackItem, QuestType.Mini))
-                //{
-                //    // Update item.stackCount dengan nilai stackItem yang telah dikurangi
-                //    item.stackCount = stackItem;
-                //    //Debug.Log("jumlah item quest yang di kurangi " + stackItem);
+                    if (stackItem <= 0)
+                    {
+                        // Hapus item jika jumlahnya sudah habis
+                        //Player_Inventory.Instance.RemoveItem(item);
+                        //Debug.Log("Item habis dan dihapus dari inventory.");
+                        stats.inventory.Remove(itemData);
+                    }
+                    else
+                    {
+                        Debug.Log("Jumlah item tersisa: " + stackItem);
+                    }
+                }
+                else if (npc.CheckItemGive(ref stackItem, QuestType.Mini))
+                {
+                    // Update item.stackCount dengan nilai stackItem yang telah dikurangi
+                    itemData.count = stackItem;
+                    //Debug.Log("jumlah item quest yang di kurangi " + stackItem);
 
 
-                //    if (stackItem <= 0)
-                //    {
-                //        // Hapus item jika jumlahnya sudah habis
-                //        //Player_Inventory.Instance.RemoveItem(item);
-                //        //Debug.Log("Item habis dan dihapus dari inventory.");
-                //    }
-                //    else
-                //    {
-                //        Debug.Log("Jumlah item tersisa: " + stackItem);
-                //    }
-                //}
+                    if (stackItem <= 0)
+                    {
+                        // Hapus item jika jumlahnya sudah habis
+                        //Player_Inventory.Instance.RemoveItem(item);
+                        //Debug.Log("Item habis dan dihapus dari inventory.");
+                        stats.inventory.Remove(itemData);
+                    }
+                    else
+                    {
+                        Debug.Log("Jumlah item tersisa: " + stackItem);
+                    }
+                }
 
                 rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
 
@@ -617,8 +626,10 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
             if (plantSeed != null && plantSeed.isInsect)
             {
-                foreach (Item item in stats.itemList)
+                foreach (ItemData itemData in stats.inventory)
                 {
+                    Item item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
+
                     Debug.Log("Memeriksa item: " + item.itemName + " dengan itemInDrag: " + itemInDrag);
 
                     // Cek apakah item yang dipilih sesuai
@@ -629,12 +640,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                         Debug.Log("Item cocok ditemukan: " + item.itemName);
 
                         // Kurangi jumlah item dalam inventory
-                        //item.stackCount--;
+                        itemData.count--;
 
-                        //if (item.stackCount <= 0)
-                        //{
-                        //    //Player_Inventory.Instance.RemoveItem(item);
-                        //}
+                        if (itemData.count <= 0)
+                        {
+                            //Player_Inventory.Instance.RemoveItem(item);
+                            stats.inventory.Remove(itemData);
+                        }
 
                         plantSeed.isInsect = false;
                         plantSeed.siram = false;

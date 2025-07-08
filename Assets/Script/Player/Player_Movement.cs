@@ -78,9 +78,9 @@ public class Player_Movement : MonoBehaviour
     {
         // Cek ke "Otak" apakah kita punya cukup stamina
         //&& Player_Health.Instance.SpendStamina(controller.dashStamina)
-        if (!isDashing && stats.stamina >stats.dashStamina  )
+        if (!isDashing && PlayerController.Instance.HandleSpendStamina(PlayerController.Instance.playerData.dashStamina)  )
         {
-            PlayerController.Instance.HandleSpendStamina(PlayerController.Instance.playerData.dashStamina);
+            
             StartCoroutine(DashCoroutine());
         }else
         {

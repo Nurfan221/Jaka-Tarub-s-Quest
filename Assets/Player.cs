@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -32,4 +33,6 @@ public class Player : MonoBehaviour
             Debug.LogError("Player tidak bisa menemukan PlayerController untuk mendaftar!");
         }
     }
+
+    
 }

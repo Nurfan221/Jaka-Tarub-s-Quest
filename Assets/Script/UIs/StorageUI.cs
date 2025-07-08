@@ -77,16 +77,7 @@ public class StorageUI : MonoBehaviour
     // Need to refresh both inventory and storage slots
     private void Start()
     {
-        //StorageSystem.Instance.RegisterStorage(this);
-        // Saat StorageUI muncul, ia langsung melapor ke "Penjaga Gerbang"
-        if (MechanicController.Instance != null)
-        {
-            MechanicController.Instance.RegisterStorage(this); // 'this' merujuk ke skrip StorageUI ini
-        }
-        else
-        {
-            Debug.LogError("MechanicController tidak ditemukan!");
-        }
+      
         Debug.Log("StorageUI Start() dipanggil!"); // Debug awal
 
         if (closeStorageButton != null)
@@ -105,13 +96,7 @@ public class StorageUI : MonoBehaviour
     }
 
     // Jangan lupa untuk "unregister" agar tidak ada referensi yang menggantung
-    private void OnDestroy()
-    {
-        if (MechanicController.Instance != null)
-        {
-            MechanicController.Instance.UnregisterStorage(this);
-        }
-    }
+   
 
     private void Update()
     {
@@ -125,7 +110,7 @@ public class StorageUI : MonoBehaviour
 
     public void OpenStorage(StorageInteractable theStorage)
     {
-        //GameController.Instance.PindahKeScene("Village");
+        GameController.Instance.PindahKeScene("Village");
 
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Click");
@@ -158,7 +143,7 @@ public class StorageUI : MonoBehaviour
 
     
 
-    private void CloseStorage()
+    public void CloseStorage()
     {
         GameController.Instance.ResumeGame();
         // Tutup UI Storage

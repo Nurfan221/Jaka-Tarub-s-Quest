@@ -99,7 +99,7 @@ public class ItemPool : MonoBehaviour
             interactable.StartCoroutine(interactable.StopGravity(rb, 0.8f));
         }
 
-        droppedItem.GetComponent<ItemDropInteractable>().item = GetItem(itemName, count, level);
+        //droppedItem.GetComponent<ItemDropInteractable>().item = GetItem(itemName, count, level);
     }
 
     // Membuat kloningan (deep copy) dari sebuah item template dengan jumlah dan kualitas tertentu.

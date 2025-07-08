@@ -6,8 +6,44 @@ public class MechanicController : MonoBehaviour
 {
     public static MechanicController Instance { get; private set; }
 
-    public StorageUI StorageUI {  get; private set; }
-    public InventoryUI InventoryUI { get; private set; }
+    private StorageUI _storageUI;
+    private InventoryUI _inventoryUI;
+
+    // --- Properti "Pintar" yang Bisa Mencari Sendiri ---
+    public StorageUI StorageUI
+    {
+        get
+        {
+            // Jika kita belum pernah mencari StorageUI...
+            if (_storageUI == null)
+            {
+                // ...cari di seluruh scene, TERMASUK yang tidak aktif. Ini kuncinya!
+                _storageUI = FindObjectOfType<StorageUI>(true);
+                if (_storageUI == null)
+                {
+                    Debug.LogError("MechanicController tidak bisa menemukan [StorageUI] di scene!");
+                }
+            }
+            return _storageUI;
+        }
+    }
+
+    public InventoryUI InventoryUI
+    {
+        get
+        {
+            // Lakukan hal yang sama untuk InventoryUI
+            if (_inventoryUI == null)
+            {
+                _inventoryUI = FindObjectOfType<InventoryUI>(true);
+                if (_inventoryUI == null)
+                {
+                    Debug.LogError("MechanicController tidak bisa menemukan [InventoryUI] di scene!");
+                }
+            }
+            return _inventoryUI;
+        }
+    }
 
     private void Awake()
     {
@@ -21,52 +57,9 @@ public class MechanicController : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    public void RegisterStorage(StorageUI storage)
-    {
-        this.StorageUI = storage;
-        //Debug.Log($"StorageController: Paket Storage '{st.gameObject.name}' telah terdaftar.");
-    }
 
-    // Fungsi Unregister juga diubah
-    public void UnregisterStorage(StorageUI storage)
-    {
-        if (this.StorageUI == storage)
-        {
-            this.StorageUI = null;
-        }
-    }
-    public void RegisterInventory(InventoryUI inventory)
-    {
-        this.InventoryUI = inventory;
-        //Debug.Log($"InventoryController: Paket Inventory '{st.gameObject.name}' telah terdaftar.");
-    }
-
-    // Fungsi Unregister juga diubah
-    public void UnregisterInventory(InventoryUI inventory)
-    {
-        if (this.InventoryUI == inventory)
-        {
-            this.InventoryUI = null;
-        }
-    }
-
-    public void HandleRefreshInventoryUI()
-    {
-        StorageUI.RefreshInventoryItems();
-        InventoryUI.UpdateSixItemDisplay();
-    }
     public void MoveItem(List<ItemData> sourceList, List<ItemData> targetList, ItemData itemToMove, int amountToMove)
     {
         // Dapatkan data template dari database
@@ -78,7 +71,6 @@ public class MechanicController : MonoBehaviour
 
         int amountSuccessfullyMoved = 0;
 
-        // --- FASE 1: TAMBAHKAN ITEM KE LIST TUJUAN ---
 
         // Coba tumpuk di slot yang sudah ada di list tujuan
         if (itemTemplate.isStackable)
@@ -112,7 +104,6 @@ public class MechanicController : MonoBehaviour
             remainingToAdd -= amountForNewSlot;
         }
 
-        // --- FASE 2: KURANGI ITEM DARI LIST ASAL ---
 
         if (amountSuccessfullyMoved > 0)
         {
@@ -133,5 +124,34 @@ public class MechanicController : MonoBehaviour
         // Contoh:
         // StorageUI.Instance.RefreshUI();
         // PlayerInventory.Instance.OnInventoryUpdated?.Invoke();
+    }
+
+    public void HandleOpenInventory()
+    {
+        //GameController.Instance.PindahKeScene("Village");
+        Debug.Log("buka inventory");
+        if (InventoryUI !=null)
+        {
+            InventoryUI.OpenInventory();
+        }else
+        {
+            Debug.Log("inventory ui kosong bro");
+        }
+    }
+
+    public void HandleCloseInventory()
+    {
+        InventoryUI.CloseInventory();
+    }
+    public void HandleOpenStorage(StorageInteractable storage)
+    {
+        Debug.Log("membuka storage");
+        StorageUI.OpenStorage(storage);
+    }
+
+   public void HandleUpdateInventory()
+    {
+        InventoryUI.UpdateInventoryUI();
+        InventoryUI.UpdateSixItemDisplay();
     }
 }

@@ -133,7 +133,8 @@ public class PerangkapBehavior : MonoBehaviour
     public void TakePerangkap()
     {
         ItemDropInteractable itemDropInteractable = gameObject.GetComponent<ItemDropInteractable>();
-        Item itemPerangkap = itemDropInteractable.item;
+        ItemData itemDataPerangkap = itemDropInteractable.itemdata;
+        Item itemPerangkap = ItemPool.Instance.GetItemWithQuality(itemDataPerangkap.itemName, itemDataPerangkap.quality);
         itemPerangkap.health = prefabItemBehavior.health;
 
         bool itemFound = false; // Menyimpan status apakah item sudah ditemukan
