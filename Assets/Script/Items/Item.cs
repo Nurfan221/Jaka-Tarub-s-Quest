@@ -13,6 +13,8 @@ public enum ItemType
     Animal = 64,
     Pestisida = 128,
     None = 256,
+    PenyiramTanaman = 512,
+    Cangkul = 1024,
 }
 
 [System.Flags]

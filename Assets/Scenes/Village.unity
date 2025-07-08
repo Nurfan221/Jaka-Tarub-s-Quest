@@ -66441,12 +66441,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8555332484385303825, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -253.58157
+      value: -256.00986
       objectReference: {fileID: 0}
     - target: {fileID: 8588972791980073415, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: farmTile
       value: 
       objectReference: {fileID: 1865608108}
+    - target: {fileID: 8588972791980073415, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: statsFarm
+      value: 
+      objectReference: {fileID: 11400000, guid: 73795b77998d91e4190c31ac190c71f4, type: 2}
     - target: {fileID: 8588972791980073415, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: farmTilemap
       value: 
@@ -67347,6 +67351,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 670030280}
     m_Modifications:
+    - target: {fileID: 88522354055928528, guid: 9a073e65f251ec44c9108d27a33392a9, type: 3}
+      propertyPath: farmData
+      value: 
+      objectReference: {fileID: 11400000, guid: 73795b77998d91e4190c31ac190c71f4, type: 2}
     - target: {fileID: 88522354055928528, guid: 9a073e65f251ec44c9108d27a33392a9, type: 3}
       propertyPath: timeManager
       value: 

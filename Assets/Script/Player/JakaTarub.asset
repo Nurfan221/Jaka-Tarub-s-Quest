@@ -21,9 +21,9 @@ MonoBehaviour:
   health: 100
   currentHealthCap: 100
   maxStamina: 100
-  stamina: 88
+  stamina: 100
   staminaRegenRate: 5
-  currentStaminaCap: 88
+  currentStaminaCap: 100
   initialGriefPenalty: 30
   isInGrief: 0
   currentGriefPenalty: 0
@@ -34,14 +34,11 @@ MonoBehaviour:
   - itemName: Padi
     count: 32
     quality: 0
-  - itemName: BenihPadi
-    count: 32
-    quality: 0
   - itemName: Sabit
     count: 1
     quality: 0
   - itemName: BenihPadi
-    count: 13
+    count: 11
     quality: 0
   - itemName: Sabit
     count: 1
@@ -58,6 +55,9 @@ MonoBehaviour:
   - itemName: Sword
     count: 1
     quality: 0
+  - itemName: Cangkul
+    count: 1
+    quality: 0
   maxItem: 18
   emptyItemTemplate:
     itemName: Empty
@@ -68,7 +68,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedItemData:
-  - itemName: Kapak
+  - itemName: PenyiramTanaman
     count: 1
     quality: 0
   - itemName: Cangkul

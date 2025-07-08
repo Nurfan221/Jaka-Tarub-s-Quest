@@ -132,9 +132,9 @@ public class TimeManager : MonoBehaviour
         weatherManager.SetRainChance();
         weatherManager.CheckForRain();
 
-        farmTile.Siram();
-        farmTile.CheckTile();
-        farmTile.ResetWateredTiles();
+        //farmTile.Siram();
+        //farmTile.CheckTile();
+        //farmTile.ResetWateredTiles();
         if (weatherManager.isRain)
         {
             farmTile.DiSiramHujan();

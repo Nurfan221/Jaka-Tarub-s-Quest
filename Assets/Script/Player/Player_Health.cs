@@ -33,10 +33,14 @@ public class Player_Health : MonoBehaviour
             Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
         }
     }
+    private void Start()
+    {
+        UpdateCaps();
+    }
 
     void Update()
     {
-        //UpdateCaps();
+
 
          stats.health = (int)Mathf.Clamp(stats.health, 0, stats.currentHealthCap);
          stats.stamina = Mathf.Clamp(stats.stamina, 0, stats.currentStaminaCap);

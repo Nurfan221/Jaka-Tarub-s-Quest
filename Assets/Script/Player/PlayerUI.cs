@@ -128,6 +128,13 @@ public class PlayerUI : MonoBehaviour
             Button buttonAttack = equippedUI.GetComponent<Button>();
             buttonAttack.onClick.AddListener(PlayerController.Instance.HandleAttackButton);
         }
+
+        if (specialAttackUI != null)
+        {
+            Button buttonSpesialAttack = specialAttackUI.GetComponent<Button>();
+            buttonSpesialAttack.onClick.AddListener(PlayerController.Instance.HandleSpesialAttackButton);
+        }
+      
     }
 
    

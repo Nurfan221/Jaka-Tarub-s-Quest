@@ -1,14 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.UI;
+using static MainQuest1_Controller;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+
+// Enum bantuan untuk membuat kode lebih mudah dibaca
+
 
 public class Player_Action : MonoBehaviour
 {
-  
+    private enum FarmActionType { Hoe, Water, UsePesticide }
     public Animator animator; // Deklarasikan Animator
     public SpriteRenderer hitBoxRenderer;
 
@@ -54,7 +59,7 @@ public class Player_Action : MonoBehaviour
     [SerializeField] private FarmTile farmTile;
     // [SerializeField] private plantSeed plantSeed;
 
-  
+
 
 
     bool canInteract = false;
@@ -173,7 +178,7 @@ public class Player_Action : MonoBehaviour
         }
     }
 
-    private void OnSpecialAttackButtonClick()
+    public void OnSpecialAttackButtonClick()
     {
         if (combatMode && canAttack && canSpecialAttack)
         {
@@ -237,7 +242,7 @@ public class Player_Action : MonoBehaviour
         activeHitbox.name = damage.ToString();
 
         activeHitbox.SetActive(true);
-        //StartCoroutine(DeactivateHitboxAfterAnimation(activeHitbox, howLong));
+        StartCoroutine(DeactivateHitboxAfterAnimation(activeHitbox, howLong));
 
         //logika menambahkan damage buff ke dalaam damage senjata
         //if (buffScrollController.isBuffDamage)
@@ -488,6 +493,25 @@ public class Player_Action : MonoBehaviour
                     //print("Mengapak tanah");
 
                     break;
+                case "PenyiramTanaman":
+                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
+                    {
+                        playerPosition = transform.position; // Posisi pemain
+
+                        // Ambil arah dari posisi face
+                        faceDirection = face.localPosition.normalized;
+                        PlayActionAnimation(itemToAttack.itemName);
+                        //ActivateHitboxAndPlayAction(itemToAttack.itemName, 0, 0.5f, true);
+                        FarmTile.Instance.WaterTile(playerPosition, faceDirection);
+                        //farmTile.HoeTile(playerPosition, faceDirection);
+                    }
+                    else
+                    {
+                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
+                    }
+                    //print("Mengapak tanah");
+
+                    break;
 
 
 
@@ -535,112 +559,108 @@ public class Player_Action : MonoBehaviour
 
 
 
+    // Diasumsikan fungsi ini ada di dalam skrip seperti Player_Action.cs
+
     public void SpecialAttack()
     {
-        Debug.Log("spesial skill on click");
-       
-        Item itemToAttack = stats.equippedWeapon;
-        if (itemToAttack.itemName == "Empty")
+        Debug.Log("Special Skill dipicu!");
+
+        // Ambil data item yang sedang aktif dari "Papan Pengumuman"
+        ItemData activeWeaponData = PlayerController.Instance.playerData.equippedWeaponTemplate;
+        if (activeWeaponData.itemName == "Empty") return;
+
+        // Dapatkan "Katalog Produk" (ItemSO) dari database
+        Item itemTemplate = ItemPool.Instance.GetItemWithQuality(activeWeaponData.itemName, activeWeaponData.quality);
+        if (itemTemplate == null) return;
+
+        // Cek stamina SEBELUM melakukan aksi apapun
+        if (!PlayerController.Instance.HandleDrainStamina(itemTemplate.UseStamina))
+        {
+            Debug.Log("Stamina tidak cukup untuk menggunakan skill!");
             return;
+        }
 
+        // --- DELEGASI TUGAS BERDASARKAN TIPE ITEM ---
 
-            //playerUI.TakeCapacityBar(itemToAttack);
+        // Apakah ini alat untuk bertani?
+        if (itemTemplate.IsInType(ItemType.Pestisida)) // Prioritaskan tipe yang paling spesifik
+        {
+            HandleFarmingAction(itemTemplate, FarmActionType.UsePesticide);
+        }
+        else if (itemTemplate.IsInType(ItemType.PenyiramTanaman))
+        {
+            HandleFarmingAction(itemTemplate, FarmActionType.Water);
+        }
+        else if (itemTemplate.IsInType(ItemType.Cangkul))
+        {
+            HandleFarmingAction(itemTemplate, FarmActionType.Hoe);
+        }
+        // Apakah ini senjata untuk bertarung?
+        else if (itemTemplate.IsInType(ItemType.Melee_Combat))
+        {
+            HandleCombatAction(itemTemplate, false);
+        }
+        else if (itemTemplate.IsInType(ItemType.Ranged_Combat))
+        {
+            HandleCombatAction(itemTemplate, true);
+        }
+        else
+        {
+            Debug.Log($"Item '{itemTemplate.itemName}' tidak memiliki special attack.");
+        }
 
-            ////menjalankan cooldown spesial skill
-            //spesialSkillWeapon.UseWeaponSkill(itemToAttack, true);
-            if (itemToAttack.health != 0 && PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
-            {
-
-           
-            if (itemToAttack.itemName == "PenyiramTanaman")
-            {
-
-
-                // SoundManager.Instance.PlaySound("Siram");
-                print("watering plants");
-
-                 playerPosition = transform.position; // Posisi pemain
-
-                // Ambil arah dari posisi face
-                 faceDirection = face.localPosition.normalized;
-                PlayActionAnimation(itemToAttack.itemName);
-
-                // Panggil HoeTile menggunakan playerPosition dan arah face
-                farmTile.WaterTile(playerPosition, faceDirection);
-
-            }
-            else if (itemToAttack.itemName == "Cangkul")
-            {
-                print("mencangkul tanah");
-                playerPosition = transform.position; // Posisi pemain
-
-                // Ambil arah dari posisi face
-                faceDirection = face.localPosition.normalized;
-                PlayActionAnimation(itemToAttack.itemName);
-                // Panggil HoeTile menggunakan playerPosition dan arah face
-                farmTile.HoeTile(playerPosition, faceDirection);
-            }
-            else if(itemToAttack.itemName == "Kapak")
-            {
-                print("Mengapak pohon");
-                playerPosition = transform.position; // Posisi pemain
-
-                // Ambil arah dari posisi face
-                faceDirection = face.localPosition.normalized;
-                PlayActionAnimation(itemToAttack.itemName);
-                // Panggil HoeTile menggunakan playerPosition dan arah face
-            }
-            else if (itemToAttack.itemName == "Sword")
-            {
-
-                //print("buffing");
-                //// Buff
-                //buffParticle.Play();
-                //StartCoroutine(StartBuff_PedangRen(30));
-                //StartCoroutine(ActivateAttack(1));
-
-            }
-            else if (itemToAttack.itemName == "Ranting Pohon")
-            {
-                print("special attacking with a stick");
-                //ActivateHitbox(itemToAttack.Damage * 4, itemToAttack.AreaOfEffect, 1, true);
-                StartCoroutine(ActivateAttack(1));
-
-            }
-            else if (itemToAttack.itemName == "Batu")
-            {
-                print("rock no special attack");
-            }
-            else if (itemToAttack.types == ItemType.Ranged_Combat)
-            {
-                print("bow special attack");
-                for (int i = 0; i < 5; i++)
-                {
-                    // Check for arrow first
-                    if (stats.itemList.Exists(x => x.itemName == "Anak Panah"))
-                    {
-                        print("shooting arrow");
-                        // Shoot arrow if possible
-                        StartCoroutine(ShootProjectile(itemToAttack.RangedWeapon_ProjectilePrefab, itemToAttack.Damage, i * .1f));
-                        // minus arrow count
-                        //Player_Inventory.Instance.RemoveItem(ItemPool.Instance.GetItem("Anak Panah"));
-                    }
-                    else
-                    {
-                        print("no arrow bish");
-                    }
-                }
-                StartCoroutine(ActivateAttack(1));
-            }
-            }else
-            {
-                Debug.Log("Stamina Habis bang");
-            }
-
-        //playerHealth.SpendStamina(itemToAttack.UseStamina);
-
-        //playerHealth.ApplyFatigue(itemToAttack.UseStamina);
+        // Kurangi durability/kapasitas alat jika ada
+        // playerUI.TakeCapacityBar(activeWeaponData);
     }
+
+    // --- FUNGSI-FUNGSI BANTUAN YANG LEBIH FOKUS ---
+
+    // Satu fungsi untuk menangani semua aksi bertani
+    private void HandleFarmingAction(Item tool, FarmActionType actionType)
+    {
+        Debug.Log($"Melakukan aksi bertani: {actionType}");
+
+        // Dapatkan posisi dan arah sekali saja
+        Vector3 playerPosition = transform.position;
+        Vector2 faceDirection = face.localPosition.normalized;
+
+        PlayActionAnimation(tool.itemName); // Mainkan animasi
+
+        // Gunakan switch untuk menjalankan logika yang tepat
+        switch (actionType)
+        {
+            case FarmActionType.Hoe:
+                FarmTile.Instance.HoeTile(playerPosition, faceDirection);
+                break;
+            case FarmActionType.Water:
+                ActivateHitboxAndPlayAction(tool.itemName, 0, 0.5f, true);
+                FarmTile.Instance.WaterTile(playerPosition, faceDirection);
+                break;
+            case FarmActionType.UsePesticide:
+                // Logika untuk pestisida...
+                break;
+        }
+    }
+
+    // Satu fungsi untuk menangani semua aksi pertarungan
+    private void HandleCombatAction(Item weapon, bool isRanged)
+    {
+        Debug.Log($"Melakukan aksi pertarungan dengan: {weapon.itemName}");
+        PlayActionAnimation(weapon.itemName);
+
+        if (isRanged)
+        {
+            // Logika untuk menembakkan proyektil
+            // if (PlayerInventory.Instance.HasItem("Anak Panah")) { ... }
+            StartCoroutine(ShootProjectile(weapon.RangedWeapon_ProjectilePrefab, weapon.Damage, 0f));
+        }
+        else
+        {
+            // Logika untuk serangan melee
+            StartCoroutine(ActivateAttack(1f));
+        }
+    }
+
 
     private void WaterNearbyPlants()
     {

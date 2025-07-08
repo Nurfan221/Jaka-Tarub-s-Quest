@@ -179,9 +179,16 @@ public class PlayerController : MonoBehaviour
     {
         ActivePlayer.Action.OnAttackButtonClick();
     }
+
+    public void HandleSpesialAttackButton()
+    {
+        ActivePlayer.Action.OnSpecialAttackButtonClick();
+    }
     //public bool HandleSpendStamina(float floatStamina)
     //{
     //    ActivePlayer.Health.SpendStamina(floatStamina);
     //    //ActivePlayer.Health.SpendMaxCurrentStamina()
     //}
+
+
 }

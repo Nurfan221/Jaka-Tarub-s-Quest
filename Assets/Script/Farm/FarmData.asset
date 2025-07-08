@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0169bc123dd602349a30bffacae45448, type: 3}
+  m_Name: FarmData
+  m_EditorClassIdentifier: 
+  hoeedTile: {fileID: 11400000, guid: 86f383e847b4d7f4e89e3ffef78d8eb3, type: 2}
+  wateredTile: {fileID: 11400000, guid: fa5e3f0145ad5b843b1ed3d46d60862e, type: 2}
+  emptySoilTile: {fileID: 11400000, guid: ca06167502382894582e3567417d8c10, type: 2}
+  grassTile: {fileID: 11400000, guid: bc9d6f134b157a94586bad8403ab7898, type: 2}
+  hoedTilesList:
+  - tilePosition: {x: -14, y: -2, z: 0}
+    hoedTime: 1
+    watered: 0
+    isFarm: 1
+    plantedItemName: BenihPadi
+  - tilePosition: {x: -15, y: -2, z: 0}
+    hoedTime: 1
+    watered: 0
+    isFarm: 1
+    plantedItemName: BenihPadi
+  - tilePosition: {x: -16, y: -2, z: 0}
+    hoedTime: 1
+    watered: 0
+    isFarm: 1
+    plantedItemName: BenihPadi
+  - tilePosition: {x: -17, y: -2, z: 0}
+    hoedTime: 1
+    watered: 0
+    isFarm: 1
+    plantedItemName: BenihPadi
+  - tilePosition: {x: -18, y: -2, z: 0}
+    hoedTime: 1
+    watered: 0
+    isFarm: 1
+    plantedItemName: BenihPadi
+  - tilePosition: {x: -19, y: -2, z: 0}
+    hoedTime: 1
+    watered: 0
+    isFarm: 1
+    plantedItemName: BenihPadi
