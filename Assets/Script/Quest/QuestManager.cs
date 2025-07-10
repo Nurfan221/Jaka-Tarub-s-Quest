@@ -189,7 +189,7 @@ public class QuestManager : MonoBehaviour
             {
                 //Debug.Log("Tanggal quest active: " + quest.date);
 
-                if ((timeManager.date + 1) == quest.date  && !quest.questActive)
+                if ((timeManager.timeData_SO.date + 1) == quest.date  && !quest.questActive)
                 {
                     quest.questActive = true;
                     questInfoUI.DisplayActiveQuest(quest);
@@ -211,7 +211,7 @@ public class QuestManager : MonoBehaviour
         DisplayActiveQuests();
         npcManager.CheckNPCQuest();
 
-        Debug.Log("tanggal sekarang : " + timeManager.date + 1);
+        Debug.Log("tanggal sekarang : " + timeManager.timeData_SO.date + 1);
         CheckForScheduledQuest();
     }
 
@@ -329,7 +329,7 @@ public class QuestManager : MonoBehaviour
         {
             if (chapter.idChapter == countCurrentMainQuest)
             {
-                int tanggalSekarang = timeManager.date;
+                int tanggalSekarang = timeManager.timeData_SO.date;
 
                 foreach (var quest in chapter.sideQuest)
                 {
@@ -350,7 +350,7 @@ public class QuestManager : MonoBehaviour
         int nextQuestNumber = completedChapterId; // Asumsi Chapter 1 akan memicu Main Quest 1, dst.
 
         // Tentukan tanggal mulainya, misalnya 2 hari dari sekarang
-        int startDate = timeManager.date + 2; // Anda bisa membuat jeda ini menjadi variabel
+        int startDate = timeManager.timeData_SO.date + 2; // Anda bisa membuat jeda ini menjadi variabel
 
         // Simpan informasi penjadwalan ini
         scheduledMainQuestIndex = nextQuestNumber;
@@ -363,7 +363,7 @@ public class QuestManager : MonoBehaviour
     public void CheckForScheduledQuest()
     {
         // Cek apakah ada quest yang dijadwalkan DAN apakah tanggalnya sudah tiba
-        if (scheduledMainQuestIndex != -1 && timeManager.date == scheduledMainQuestDate)
+        if (scheduledMainQuestIndex != -1 && timeManager.timeData_SO.date == scheduledMainQuestDate)
         {
             // Waktunya memulai quest!
             // Kita gunakan countCurrentMainQuest dari variabel yang terjadwal

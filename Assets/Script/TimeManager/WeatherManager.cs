@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WeatherManager : MonoBehaviour
 {
+
     [SerializeField] private TimeManager timeManager;  // Referensi ke TimeManager
     [SerializeField] private ClockManager clockManager;
     public ParticleSystem rainParticle;
@@ -12,7 +13,13 @@ public class WeatherManager : MonoBehaviour
     void Start()
     {
         // Set initial rain chance
-        SetRainChance();
+        //SetRainChance();
+        TimeManager.Instance.RegisterWeather(this);
+    }
+
+    private void OnDestroy()
+    {
+        TimeManager.Instance.UnregisterWeather(this);
     }
 
     void Update()
@@ -20,25 +27,25 @@ public class WeatherManager : MonoBehaviour
         // Optionally update rain chance each frame, if needed
     }
 
-    public void SetRainChance()
-    {
-        // Akses currentSeason melalui timeManager
-        switch (timeManager.currentSeason)
-        {
+    //public void SetRainChance()
+    //{
+    //    // Akses currentSeason melalui timeManager
+    //    switch (timeManager.timeData_SO.currentSeason)
+    //    {
 
-            case TimeManager.Season.Rain:
-                rainChance = 0.80f;
-                break;
+    //        case TimeManager.Season.Rain:
+    //            rainChance = 0.80f;
+    //            break;
 
-            case TimeManager.Season.Dry:
-                rainChance = 0.1f; // Dry season doesn't have rain chance
-                break;
+    //        case TimeManager.Season.Dry:
+    //            rainChance = 0.1f; // Dry season doesn't have rain chance
+    //            break;
 
-            default:
-                rainChance = 0f;  // Nilai default jika tidak ada yang cocok
-                break;
-        }
-    }
+    //        default:
+    //            rainChance = 0f;  // Nilai default jika tidak ada yang cocok
+    //            break;
+    //    }
+    //}
 
     public void CheckForRain()
     {

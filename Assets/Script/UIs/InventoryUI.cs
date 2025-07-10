@@ -121,8 +121,9 @@ public class InventoryUI : MonoBehaviour
             quickSlotButtons[i].onClick.RemoveAllListeners();
             quickSlotButtons[i].onClick.AddListener(() => ShowDeleteButton(() => RisetQuickSlot(index)));
         }
-
+        UpdateSixItemDisplay();
         CloseInventory();
+
     }
 
 
@@ -139,6 +140,7 @@ public class InventoryUI : MonoBehaviour
         //isInventoryOpen = true;
         IfClose();
         UpdateInventoryUI(); // Update UI when inventory is opened
+
 
         //if (isInventoryOpen)
         //{

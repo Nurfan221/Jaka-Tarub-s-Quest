@@ -86,7 +86,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // Cek apakah tile sudah tertanami
         foreach (var lokasihoedTile in statsFarm.hoedTilesList)
         {
-            if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.isFarm == true)  // Membandingkan dengan Vector3Int
+            if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.isPlanted == true)  // Membandingkan dengan Vector3Int
             {
                 return;
             }
@@ -265,7 +265,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // Cek apakah tile sudah tertanami
             foreach (var lokasihoedTile in statsFarm.hoedTilesList)
             {
-                if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.isFarm == true)  // Membandingkan dengan Vector3Int
+                if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.isPlanted == true)  // Membandingkan dengan Vector3Int
                 {
                     return;
                 }
@@ -316,7 +316,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // Cek apakah tile sudah tertanami
             foreach (var lokasihoedTile in statsFarm.hoedTilesList)
             {
-                if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.isFarm == true)  // Membandingkan dengan Vector3Int
+                if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.isPlanted == true)  // Membandingkan dengan Vector3Int
                 {
                     bool berhasil = PlacePestisida(cellPosition);
 
@@ -446,7 +446,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             seedComponent.dropItem = dropItem;
             seedComponent.growthImages = growthImages; // Simpan growthImages ke komponen Seed
             seedComponent.growthTime = growthTime; // Simpan growthTime ke komponen Seed
-            seedComponent.plantLocation = spawnPosition;
+            //seedComponent.plantLocation = spawnPosition;
         }
 
         // Memeriksa apakah ada tile yang dicangkul dan menambahkan plantStatus
@@ -454,7 +454,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             if (lokasihoedTile.tilePosition == spawnPositionInt)  // Membandingkan dengan Vector3Int
             {
-                lokasihoedTile.isFarm = true;
+                lokasihoedTile.isPlanted = true;
+                lokasihoedTile.growthProgress = 0;
                 lokasihoedTile.plantedItemName = namaSeed;
             }
         }
@@ -620,7 +621,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             PlantSeed plantSeed = tanaman.GetComponent<PlantSeed>();
 
-            if (plantSeed != null && plantSeed.isInsect)
+            if (plantSeed != null && plantSeed.isInfected)
             {
                 foreach (ItemData itemData in stats.inventory)
                 {
@@ -644,9 +645,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                             stats.inventory.Remove(itemData);
                         }
 
-                        plantSeed.isInsect = false;
-                        plantSeed.siram = false;
-                        plantSeed.ParticleEffect();
+                        plantSeed.isInfected = false;
+                        plantSeed.isWatered = false;
+                        plantSeed.UpdateParticleEffect();
 
                         inventoryUI.RefreshInventoryItems();
                         inventoryUI.UpdateSixItemDisplay();

@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,27 +6,22 @@ public class FarmTile : MonoBehaviour
 {
     public static FarmTile Instance { get; private set; }
 
-    // Referensi ke Tilemap di scene ini
+    [Header("Komponen & Referensi")]
     public Tilemap tilemap;
-
-    public bool siram = false;
+    public Transform plantsContainer;
+    [SerializeField] private TimeManager timeManager;
 
     [Header("Data Ladang (Aset)")]
-    private List<Vector3Int> wateredTiles = new List<Vector3Int>(); // Menyimpan posisi tile yang disiram
+    public FarmData_SO farmData;
+
+    // Dictionary untuk melacak GameObject tanaman aktif berdasarkan posisi tile
     public Dictionary<Vector3Int, GameObject> activePlants = new Dictionary<Vector3Int, GameObject>();
-    public FarmData_SO farmData; // DRAG & DROP aset "LadangJaka_Data" ke sini
-
-    //public List<GameObject> plantStatus;
-
-    [SerializeField] private TimeManager timeManager;  // Referensi ke timeManager.dateManager
-
 
     private void Awake()
     {
-        // Logika Singleton standar, tapi tanpa DontDestroyOnLoad
         if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
@@ -36,429 +29,262 @@ public class FarmTile : MonoBehaviour
         }
     }
 
-    // Fungsi untuk mengubah tile sekarang bisa diakses dari mana saja
-    public void ChangeTile(Vector3Int position, Tile newTile)
+    private void Start()
     {
-        tilemap.SetTile(position, newTile);
-    }
-    public void Start()
-    {
-
         RestoreFarmStateFromData();
     }
 
-
-    void Update()
+  
+    /// Fungsi utama yang dieksekusi setiap kali hari berganti.
+    public void AdvanceDay(bool isRaining = false)
     {
-        // Simulasikan waktu berjalan
-        // timeManager.date += timeManager.date.deltatimeManager.date;
+        //Debug.Log("--- Memulai Hari Baru (Tanggal: " + timeManager.date + ")Hujan: " + isRaining);
+        if (farmData == null || farmData.hoedTilesList == null) return;
 
-        // Ketika timeManager.date mencapai 1, kembalikan tile yang sudah disiram ke hoeedTile
-        // if (timeManager.date == waktuKetikaSiram +1)
-        // {
-        //     Debug.Log("set tile kembali ke tanah di pacul");
-        //     waktuKetikaSiram = timeManager.date;
-        //     ResetWateredTiles();
-        //     // ResetfarmData.hoedTilesList();
-        // }
-        // if (timeManager.date == waktuKetikaCangkul +4)
-        // {
-        //     Debug.Log("set tile kembali ke tanah di pacul");
-        //     // ResetWateredTiles();
-        //     ResetfarmData.hoedTilesList();
-        // }
-
-        // foreach (var hoedTile in farmData.hoedTilesList)
-        // {
-        //     // Jika waktu sekarang >= waktu cangkul + 4 hari, reset tile
-        //     if (timeManager.date >= hoedTile.hoedTime + 4)
-        //     {
-        //         Debug.Log($"Resetting tile at {hoedTile.tilePosition}, time passed: {timeManager.date - hoedTile.hoedTime} days.");
-        //         ResetfarmData.hoedTilesList(hoedTile.tilePosition); // Panggil reset untuk tile yang sudah lebih dari 4 hari
-        //     }
-        // }
-
-    }
-    public void RestoreFarmStateFromData()
-    {
-        if (farmData == null || tilemap == null)
+        // Jika hujan, siram semua tile terlebih dahulu
+        if (isRaining)
         {
-            Debug.LogError("FarmData atau tilemap belum di-set di Inspector FarmTile!");
-            return;
+            WaterAllHoedTiles();
         }
 
-        Debug.Log($"Memuat kondisi ladang. Ditemukan {farmData.hoedTilesList.Count} data tile yang dicangkul.");
-
-        // Loop melalui setiap data tile yang tersimpan di "Buku Catatan"
-        foreach (HoedTileData tileData in farmData.hoedTilesList)
+        // Looping mundur agar aman saat menghapus item dari list
+        for (int i = farmData.hoedTilesList.Count - 1; i >= 0; i--)
         {
-            // --- Langkah 1: Kembalikan Tampilan Tile ---
-            Tile targetTile = tileData.watered ? farmData.wateredTile : farmData.hoeedTile;
-            tilemap.SetTile(tileData.tilePosition, targetTile);
+            HoedTileData tileData = farmData.hoedTilesList[i];
+            PlantSeed plant = GetPlantAtPosition(tileData.tilePosition)?.GetComponent<PlantSeed>();
 
-            // --- Langkah 2: Munculkan Kembali Tanaman (Jika Ada) ---
-            if (tileData.isFarm && !string.IsNullOrEmpty(tileData.plantedItemName))
+            //Proses Pertumbuhan Tanaman (jika kemarin disiram)
+            if (tileData.isPlanted && plant != null)
             {
-                // Dapatkan template item dari database
-                Item itemTemplate = ItemPool.Instance.GetItem(tileData.plantedItemName);
-                if (itemTemplate != null && itemTemplate.prefabItem != null)
-                {
-                    // Tentukan posisi spawn di tengah tile
-                    Vector3 spawnPosition = tilemap.GetCellCenterWorld(tileData.tilePosition);
+                Debug.Log($"[DEBUG] Memproses pertumbuhan tanaman di {tileData.tilePosition} ({plant.namaSeed})");
+                ProcessPlantGrowth(tileData, plant);
+            }
 
-                    // Buat instance GameObject tanaman
-                    GameObject plantObject = Instantiate(itemTemplate.prefabItem, spawnPosition, Quaternion.identity);
-                    
+            // Ini memaksa pemain untuk menyiram lagi setiap hari.
+            if (!isRaining)
+            {
+                DryOutWateredTile(tileData, plant);
+            }
 
-                    // Daftarkan tanaman yang baru "hidup" ini ke dictionary pelacak
-                    activePlants[tileData.tilePosition] = plantObject;
-
-                    // Anda bisa menambahkan logika untuk mengembalikan state tanaman (misal: tahap pertumbuhan) di sini
-                    // Contoh:
-                    // PlantSeed plantSeed = plantObject.GetComponent<PlantSeed>();
-                    // if (plantSeed != null)
-                    // {
-                    //     plantSeed.LoadStateFromData(tileData.plantGrowthProgress);
-                    // }
-                }
+            // Reset Tanah Cangkulan yang Terlantar (jika tidak ditanami)
+            if (!tileData.isPlanted && timeManager.timeData_SO.date >= tileData.hoedTime + 3)
+            {
+                RevertTileToSoil(tileData.tilePosition);
             }
         }
-        Debug.Log("Kondisi ladang berhasil dimuat!");
-    }
 
-    public GameObject GetPlantAtPosition(Vector3Int tilePosition)
-    {
-        if (activePlants.ContainsKey(tilePosition))
+        // Munculkan Hama Secara Acak (jika tidak hujan)
+        if (!isRaining)
         {
-            return activePlants[tilePosition];
+            TrySpawningPests();
         }
-        return null;
     }
+  
+
     public void HoeTile(Vector3 playerPosition, Vector3 faceDirection)
     {
-        // Konversi posisi pemain ke cell tilemap
-        Vector3Int playerTilePos = tilemap.WorldToCell(playerPosition);
-
-        // Menentukan tile berdasarkan arah face
-        Vector3Int tileToHoe = playerTilePos + new Vector3Int(Mathf.RoundToInt(faceDirection.x), Mathf.RoundToInt(faceDirection.y), 0);
-
-        // Mendapatkan tile yang ada di posisi tersebut
+        Vector3Int tileToHoe = tilemap.WorldToCell(playerPosition + faceDirection);
         TileBase currentTile = tilemap.GetTile(tileToHoe);
 
-        // Lakukan pengecekan dan penggantian tile
         if (currentTile == farmData.emptySoilTile)
         {
             tilemap.SetTile(tileToHoe, farmData.hoeedTile);
-            Debug.Log($"Tile at {tileToHoe} has been changed to hoeedTile.");
-
-            // Simpan posisi tile yang dicangkul dan waktu cangkul
-            HoedTileData newHoedTile = new HoedTileData(tileToHoe, timeManager.date);
+            HoedTileData newHoedTile = new HoedTileData(tileToHoe, timeManager.timeData_SO.date);
             farmData.hoedTilesList.Add(newHoedTile);
-            Debug.Log($"Tile at {tileToHoe} hoed at time: {timeManager.date}");
-        }
-        else
-        {
-            Debug.Log("Cannot hoe this tile, it's not empty soil.");
         }
     }
 
-
-
-    //// Fungsi untuk mengecek apakah tile sudah dicangkul sebelumnya
-    //private bool TileAlreadyHoed(Vector3Int tilePos)
-    //{
-    //    foreach (HoedTileData data in farmData.hoedTilesList)
-    //    {
-    //        if (data.tilePosition == tilePos)
-    //        {
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //}
-
-    // Fungsi untuk menyiram tile
     public void WaterTile(Vector3 playerPosition, Vector3 faceDirection)
     {
-        // Konversi posisi pemain ke cell farmData.tilemap
-        Vector3Int playerTilePos = tilemap.WorldToCell(playerPosition);
+        Vector3Int tileToWater = tilemap.WorldToCell(playerPosition + faceDirection);
+        HoedTileData hoedTile = farmData.hoedTilesList.Find(t => t.tilePosition == tileToWater);
 
-        // Menentukan tile berdasarkan arah face
-        Vector3Int tilesiram = playerTilePos + new Vector3Int(Mathf.RoundToInt(faceDirection.x), Mathf.RoundToInt(faceDirection.y), 0);
 
-        // Cari tile yang dicangkul pada posisi ini di farmData.hoedTilesList
-        HoedTileData hoedTile = farmData.hoedTilesList.Find(tile => tile.tilePosition == tilesiram);
-
-        // Jika tidak ada data tile atau tile sudah disiram, keluar dari fungsi
         if (hoedTile == null)
         {
-            Debug.Log("Tile belum dicangkul, tidak bisa disiram.");
+            Debug.Log($"[DEBUG] Gagal menyiram di {tileToWater}: Tile ini tidak pernah dicangkul.");
             return;
         }
         if (hoedTile.watered)
         {
-            Debug.Log("Tile sudah disiram. Tidak perlu menyiram lagi.");
+            Debug.Log($"[DEBUG] Gagal menyiram di {tileToWater}: Tile ini SUDAH dalam keadaan basah.");
             return;
         }
 
-        // Mendapatkan tile yang ada di posisi tersebut
-        TileBase currentTile = tilemap.GetTile(tilesiram);
 
-        // Lakukan pengecekan dan penggantian tile jika tile dalam keadaan hoeedTile
-        if (currentTile == farmData.hoeedTile)
+        PlantSeed plant = GetPlantAtPosition(tileToWater)?.GetComponent<PlantSeed>();
+
+        if (plant == null || (!plant.isInfected && !plant.isReadyToHarvest))
         {
-            // Cek apakah ada objek dengan script SeedManager di posisi tile yang akan disiram
-            Vector3 worldPosition = tilemap.GetCellCenterWorld(tilesiram);
-            Collider2D collider = Physics2D.OverlapPoint(worldPosition);
+            tilemap.SetTile(tileToWater, farmData.wateredTile);
+            hoedTile.watered = true;
+            // Catat kapan terakhir disiram
+            hoedTile.hoedTime = timeManager.timeData_SO.date;
 
-            if (collider != null)
+            if (plant != null)
             {
-                Debug.Log("Collider found on object: " + collider.gameObject.name);
-
-                // Cek apakah objek yang ditemukan memiliki komponen SeedManager
-                PlantSeed plantSeed = collider.GetComponent<PlantSeed>();
-                if (plantSeed != null && !plantSeed.isInsect && !plantSeed.isReadyToHarvest)
-                {
-                    Debug.Log("Found an object with SeedManager at this tile position.");
-
-                    // Memanggil metode untuk menyiram tanaman
-                    plantSeed.siram = true;
-                    plantSeed.ParticleEffect();
-
-                    // Ubah tile ke wateredTile dan tandai tile sebagai sudah disiram
-                    tilemap.SetTile(tilesiram, farmData.wateredTile);
-                    hoedTile.watered = true;
-                    Debug.Log("tanggal di cangkul : " + hoedTile.hoedTime);
-                    hoedTile.hoedTime = hoedTile.hoedTime + 1;
-                    Debug.Log("tanggal di cangkul : " + hoedTile.hoedTime);
-                    Debug.Log($"Tile at {tilesiram} has been changed to wateredTile.");
-                }
-                else
-                {
-                    Debug.Log("No SeedManager component found on this object.");
-                    Debug.Log("lokasi tile yang di aksi" + worldPosition);
-                }
-
-
+                plant.isWatered = true;
+                plant.UpdateParticleEffect();
             }
-            else
-            {
-                Debug.Log("No collider found at this position.");
-            }
+            Debug.Log($"[DEBUG] Berhasil menyiram tile di {tileToWater}.");
         }
         else
         {
-            Debug.Log("Cannot water this tile, it's not hoeedTile.");
+            if (plant != null)
+            {
+                Debug.Log($"[DEBUG] Gagal menyiram di {tileToWater}: Tanaman terinfeksi (isInfected: {plant.isInfected}) atau siap panen (isReadyToHarvest: {plant.isReadyToHarvest}).");
+            }
         }
     }
 
-
-
-
-    // Fungsi untuk mengembalikan tile yang sudah disiram ke hoeedTile
-    public void ResetWateredTiles()
+    private void DryOutWateredTile(HoedTileData tileData, PlantSeed plant)
     {
-        for (int i = 0; i < farmData.hoedTilesList.Count; i++)
+        // Jika tile basah dan sudah lewat satu hari sejak disiram
+        if (tileData.watered && timeManager.timeData_SO.date + 1 > tileData.hoedTime)
         {
-            HoedTileData tileData = farmData.hoedTilesList[i];
-            Debug.Log($"Tile Position: {tileData.tilePosition}, Hoe Time: {tileData.hoedTime}, Watered: {tileData.watered}");
+            tileData.watered = false;
+            tilemap.SetTile(tileData.tilePosition, farmData.hoeedTile);
+            Debug.Log($"[DEBUG] Memeriksa tile di {tileData.tilePosition} untuk mengeringkan...");
 
-            // Cek apakah waktu saat ini adalah waktu cangkul dan tile dalam keadaan disiram
-            if (timeManager.date + 1 == tileData.hoedTime && tileData.watered)
+            if (plant != null)
             {
-                // Set nilai watered menjadi false
-                tileData.watered = false;
+                Debug.Log($"[DEBUG] Mengeringkan tanaman {plant.namaSeed} di {tileData.tilePosition}.");
+                plant.isWatered = false;
+                plant.UpdateParticleEffect();
+            }
+        }
+    }
 
-                // Reset tile ke hoeedTile di farmData.tilemap
-                tilemap.SetTile(tileData.tilePosition, farmData.hoeedTile);
-                GameObject tanaman = GetPlantAtPosition(tileData.tilePosition);
-                PlantSeed plantSeed = tanaman.gameObject.GetComponent<PlantSeed>();
-                plantSeed.siram = false;
-                plantSeed.PlantsTerinfeksi();
-                if (plantSeed.currentStage != GrowthStage.ReadyToHarvest)
+    private void WaterAllHoedTiles()
+    {
+        Debug.Log("Hujan turun! Menyiram semua tanaman...");
+        foreach (var tileData in farmData.hoedTilesList)
+        {
+            if (!tileData.watered)
+            {
+                tilemap.SetTile(tileData.tilePosition, farmData.wateredTile);
+                tileData.watered = true;
+                tileData.hoedTime = timeManager.timeData_SO.date; // Update waktu siram
+
+                PlantSeed plant = GetPlantAtPosition(tileData.tilePosition)?.GetComponent<PlantSeed>();
+                if (plant != null && !plant.isInfected && !plant.isReadyToHarvest)
                 {
-                    plantSeed.ParticleEffect();
+                    plant.isWatered = true;
+                    plant.UpdateParticleEffect();
                 }
             }
         }
+    }
 
-        // Bersihkan daftar tile yang sudah di-reset
-        wateredTiles.Clear();
-        RandomHama();
+ 
+    private void ProcessPlantGrowth(HoedTileData tileData, PlantSeed plant)
+    {
+        // Hanya tumbuh jika disiram
+        if (!plant.isWatered) return;
+
+        // Jangan tumbuh lagi jika sudah siap panen
+        if (plant.isReadyToHarvest) return;
+
+        tileData.growthProgress++;
+        plant.growthTimer = tileData.growthProgress;
+        Debug.Log($"[DEBUG] {plant.namaSeed} di {tileData.tilePosition}: Progress tumbuh menjadi {tileData.growthProgress}, Butuh {plant.growthTime} total.");
+
+        // Cek apakah sudah waktunya panen
+        if (plant.growthTimer >= plant.growthTime)
+        {
+            plant.currentStage = GrowthStage.ReadyToHarvest;
+            plant.isReadyToHarvest = true;
+            Debug.Log($"[DEBUG] {plant.namaSeed} SIAP PANEN!");
+            plant.UpdateSprite(); // Pastikan sprite terakhir (panen) juga di-update
+            plant.UpdateParticleEffect();
+        }
+        // Cek apakah sudah waktunya ganti tahap pertumbuhan
+        // Pastikan growthSpeed tidak nol untuk menghindari error pembagian
+        else if (plant.growthSpeed > 0 && tileData.growthProgress % plant.growthSpeed == 0)
+        {
+            plant.AdvanceGrowthStage();
+            tileData.currentStage = plant.currentStage; // Update tahap pertumbuhan di data tile
+        }
     }
 
 
-    // private void ResetfarmData.hoedTilesList()
-    // {
-    //     Debug.Log("fungsi reset hoe tile list di panggil ");
-    //     foreach (var tilePos in farmData.hoedTilesList)
-    //     {
-    //         // Ganti kembali ke hoeedTile
-    //         farmData.tilemap.SetTile(tilePos, emptySoilTile);
-    //         Debug.Log($"Tile at {tilePos} has been reset to hoeedTile.");
-    //     }
 
-    //     // Bersihkan daftar tile yang sudah di-reset
-    //     hoedTilesList.Clear();
-    // }
-
-    private void ResetHoedTilesList(Vector3Int tilePosition)
+    private void TrySpawningPests()
     {
-        // Reset tile ke keadaan awal (misalnya kembali ke emptySoilTile)
+        foreach (var tileData in farmData.hoedTilesList)
+        {
+            if (tileData.isPlanted && Random.value < 0.1f) // 10% kemungkinan
+            {
+                PlantSeed plant = GetPlantAtPosition(tileData.tilePosition)?.GetComponent<PlantSeed>();
+                if (plant != null && !plant.isReadyToHarvest && !plant.isInfected)
+                {
+                    plant.isInfected = true;
+                    plant.UpdateParticleEffect();
+                    Debug.Log("Hama muncul di tanaman: " + plant.namaSeed);
+                }
+            }
+        }
+    }
+
+    private void RevertTileToSoil(Vector3Int tilePosition)
+    {
         tilemap.SetTile(tilePosition, farmData.emptySoilTile);
-        Debug.Log($"Tile at {tilePosition} has been reset to empty soil.");
 
-        // Hapus dari daftar hoedTilesList
-
-
-
-        foreach (var lokasiTarget in farmData.hoedTilesList)
+        // Hapus juga tanaman yang ada di atasnya
+        GameObject plantToDestroy = GetPlantAtPosition(tilePosition);
+        if (plantToDestroy != null)
         {
-            if (lokasiTarget.tilePosition == tilePosition)
-            {
-                if (lokasiTarget.isFarm == true)
-                {
-                    GameObject tanaman = GetPlantAtPosition(lokasiTarget.tilePosition);
-                    //Destroy(lokasiTarget.plantStatus);
-                    PlantSeed plantSeed = tanaman.gameObject.GetComponent<PlantSeed>();
-                    plantSeed.DestroyPlant();
-                }
-            }
+            Destroy(plantToDestroy);
+            activePlants.Remove(tilePosition);
         }
+
+        // Hapus data tile dari list
         farmData.hoedTilesList.RemoveAll(item => item.tilePosition == tilePosition);
-
     }
 
-
-    public void CheckTile()
+    public GameObject GetPlantAtPosition(Vector3Int tilePosition)
     {
-        for (int i = 0; i < farmData.hoedTilesList.Count; i++)
-        {
-            HoedTileData tileData = farmData.hoedTilesList[i];
-            Debug.Log($"Tile Position: {tileData.tilePosition}, Hoe Time: {tileData.hoedTime}, Watered: {tileData.watered}");
-
-            // Contoh modifikasi data
-            if (timeManager.date == tileData.hoedTime + 1 && tileData.watered == false)
-            {
-                ResetHoedTilesList(tileData.tilePosition);
-            }
-
-        }
-
+        activePlants.TryGetValue(tilePosition, out GameObject plant);
+        return plant;
     }
 
-    public void Siram()
+    public void RestoreFarmStateFromData()
     {
-        Debug.Log("memanggil fungsi siram");
-        // Pengecekan Keamanan #1: Pastikan data ladang ada.
-        if (farmData == null || farmData.hoedTilesList == null)
+        if (farmData == null || tilemap == null) return;
+
+        foreach (HoedTileData tileData in farmData.hoedTilesList)
         {
-            Debug.LogWarning("FarmData belum siap, fungsi Siram dibatalkan.");
-            return;
-        }
-        foreach (var hoedlist in farmData.hoedTilesList)
-        {
-            if (hoedlist.isFarm == true)
+            Tile targetTile = tileData.watered ? farmData.wateredTile : farmData.hoeedTile;
+            tilemap.SetTile(tileData.tilePosition, targetTile);
+
+            if (tileData.isPlanted && !string.IsNullOrEmpty(tileData.plantedItemName))
             {
-                GameObject tanaman = GetPlantAtPosition(hoedlist.tilePosition);
-                PlantSeed plantSeed = tanaman.GetComponent<PlantSeed>();
-                if (plantSeed.siram)
+                Item itemTemplate = ItemPool.Instance.GetItem(tileData.plantedItemName);
+                if (itemTemplate != null && itemTemplate.prefabItem != null)
                 {
-                    plantSeed.growthTimer++; // Tambahkan satu hari ke growthTimer
+                    Vector3 spawnPosition = tilemap.GetCellCenterWorld(tileData.tilePosition);
+                    GameObject plantObject = Instantiate(itemTemplate.prefabItem, spawnPosition, Quaternion.identity, plantsContainer);
 
-                    Debug.Log("tambahkan growt timer");
-                    Debug.Log("nilai dari growthtime saat fungsi AddOneDay di jalankan" + plantSeed.growthTime);
-                    Debug.Log("nilai dari growtimer " + plantSeed.growthTimer);
-
-                    // Cek apakah growthTimer telah mencapai growthSpeed
-                    if (plantSeed.growthTimer % plantSeed.growthSpeed == 0)
+                    PlantSeed seedComponent = plantObject.GetComponent<PlantSeed>();
+                    if (seedComponent != null)
                     {
-                        Debug.Log("fungsi AdvanceGrowthStage di jalankan");
-                        plantSeed.AdvanceGrowthStage(); // Maju ke tahap berikutnya
+                        // Setup data tanaman
+                        seedComponent.namaSeed = tileData.plantedItemName;
+                        seedComponent.dropItem = itemTemplate.dropItem;
+                        seedComponent.growthImages = itemTemplate.growthImages;
+                        seedComponent.growthTime = itemTemplate.growthTime;
+                        seedComponent.plantLocation = spawnPosition;
+                        seedComponent.isWatered = tileData.watered;
+                        seedComponent.growthTimer = tileData.growthProgress;
+                        seedComponent.currentStage = tileData.currentStage;
+
+                        // Panggil Initialize untuk final setup
+                        seedComponent.Initialize();
                     }
 
-                    // Cek apakah growthTimer telah mencapai growthTime
-                    if (plantSeed.growthTimer >= plantSeed.growthTime)
-                    {
-                        plantSeed.currentStage = GrowthStage.ReadyToHarvest; // Set tahap akhir
-                        Debug.Log("Tanaman siap dipanen!");
-                        plantSeed.isReadyToHarvest = true;
-                    }
+                    activePlants[tileData.tilePosition] = plantObject;
                 }
             }
         }
     }
-
-    public void RandomHama()
-    {
-
-        foreach (var hoedlist in farmData.hoedTilesList)
-        {
-            int randomValue = Random.Range(0, 1);
-            GameObject tanaman = GetPlantAtPosition(hoedlist.tilePosition);
-            PlantSeed plantSeed = tanaman.GetComponent<PlantSeed>();
-            if (Random.value < 0.2f && !plantSeed.isReadyToHarvest)
-            {
-                plantSeed.isInsect = true;
-                plantSeed.siram = false;
-                plantSeed.ParticleEffect();
-                plantSeed.insectTime = 1;
-            }
-
-        }
-    }
-
-
-
-
-    public void DiSiramHujan()
-    {
-        foreach (var lokasiTarget in farmData.hoedTilesList)
-        {
-            // Mendapatkan tile yang ada di posisi tersebut
-            TileBase currentTile = tilemap.GetTile(lokasiTarget.tilePosition);
-
-            // Lakukan pengecekan dan penggantian tile jika tile dalam keadaan hoeedTile
-            if (currentTile == farmData.hoeedTile)
-            {
-                // Pastikan plantStatus tidak null sebelum mengakses komponen PlantSeed
-                if (lokasiTarget.isFarm == true)
-                {
-                    GameObject tanaman = GetPlantAtPosition(lokasiTarget.tilePosition);
-                    PlantSeed plantSeed = tanaman.GetComponent<PlantSeed>();
-
-                    if (plantSeed != null && !plantSeed.isInsect && !plantSeed.isReadyToHarvest)
-                    {
-                        Debug.Log("Found an object with SeedManager at this tile position.");
-
-                        // Memanggil metode untuk menyiram tanaman
-                        plantSeed.siram = true;
-                        plantSeed.ParticleEffect();
-
-                        // Ubah tile ke wateredTile dan tandai tile sebagai sudah disiram
-                        tilemap.SetTile(lokasiTarget.tilePosition, farmData.wateredTile);
-                        lokasiTarget.watered = true;
-
-                        // Tambah waktu cangkul
-                        lokasiTarget.hoedTime += 1;
-                        Debug.Log($"Tile at {lokasiTarget.tilePosition} has been changed to wateredTile.");
-                    }
-                    else
-                    {
-                        Debug.Log("No SeedManager component found on this object or plant is ready to harvest/infected.");
-                    }
-                }
-                else
-                {
-                    Debug.Log("plantStatus is null at this tile position.");
-                }
-            }
-            else
-            {
-                Debug.Log("Cannot water this tile, it's not hoeedTile.");
-            }
-        }
-    }
-
-
 }

@@ -133,7 +133,7 @@ public class MiniQuest : MonoBehaviour
         string deskripsiAkhir = rencanaDipilih.deskripsiAkhir[UnityEngine.Random.Range(0, rencanaDipilih.deskripsiAkhir.Count)];
 
         // ambil tanggal hari ini
-        currentDateMiniQuest = timeManager.date + 3;
+        currentDateMiniQuest = timeManager.timeData_SO.date + 3;
 
         // Bangun kalimat utuh
         string judulLengkap = $"{npcDipilih.name} {judulAcak}";

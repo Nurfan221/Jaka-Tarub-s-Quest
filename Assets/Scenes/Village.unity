@@ -37046,7 +37046,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weatherManager: {fileID: 1289497374}
-  farmTile: {fileID: 1865608108}
   npcManager: {fileID: 893111564}
   questManager: {fileID: 1357952847}
   player_Health: {fileID: 1143600489}
@@ -37060,19 +37059,11 @@ MonoBehaviour:
   environmentManagerKuburan: {fileID: 124087004}
   environmentManagerBunga: {fileID: 65609262}
   buffScrollController: {fileID: 1994473454}
-  totalHari: 0
-  hari: 0
-  date: 0
-  minggu: 0
-  bulan: 1
-  tahun: 1
-  currentDay: 1
-  currentSeason: 0
-  dailyLuck: 0
   secondsIncrease: 10
   tickInterval: 1.5
   minutes: 0
   hour: 24
+  timeData_SO: {fileID: 11400000, guid: 85e48f731100d374eab31efa1ecd06a5, type: 2}
 --- !u!114 &1289497374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66441,7 +66432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8555332484385303825, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -256.00986
+      value: -256.00995
       objectReference: {fileID: 0}
     - target: {fileID: 8588972791980073415, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: farmTile
@@ -67359,6 +67350,10 @@ PrefabInstance:
       propertyPath: timeManager
       value: 
       objectReference: {fileID: 1289497373}
+    - target: {fileID: 88522354055928528, guid: 9a073e65f251ec44c9108d27a33392a9, type: 3}
+      propertyPath: plantsContainer
+      value: 
+      objectReference: {fileID: 906908347}
     - target: {fileID: 4137287558789625216, guid: 9a073e65f251ec44c9108d27a33392a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

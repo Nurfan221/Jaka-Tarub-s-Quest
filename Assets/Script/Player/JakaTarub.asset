@@ -31,14 +31,17 @@ MonoBehaviour:
   totalHealingQuests: 5
   itemList: []
   inventory:
+  - itemName: BenihPadi
+    count: 28
+    quality: 0
+  - itemName: Insectisida
+    count: 21
+    quality: 0
   - itemName: Padi
     count: 32
     quality: 0
   - itemName: Sabit
     count: 1
-    quality: 0
-  - itemName: BenihPadi
-    count: 11
     quality: 0
   - itemName: Sabit
     count: 1
@@ -75,7 +78,7 @@ MonoBehaviour:
     count: 1
     quality: 0
   equippedWeaponTemplate:
-    itemName: Cangkul
+    itemName: PenyiramTanaman
     count: 1
     quality: 0
   equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
@@ -94,7 +97,7 @@ MonoBehaviour:
   - itemName: Empty
     count: 1
     quality: 0
-  equipped1: 0
+  equipped1: 1
   itemUse1: 0
   currentFatiguePenalty: 0
   maxFatiguePenalty: 50

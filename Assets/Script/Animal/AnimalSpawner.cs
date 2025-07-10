@@ -108,7 +108,7 @@ public class AnimalSpawner : MonoBehaviour
     public void SpawnAnimalSpesial()
     {
         float spawnAnimalSpesial = Random.Range(0f, 1f);
-        float spawnChance = Mathf.Clamp(1f - (timeManager.dailyLuck * 0.2f), 0f, 1f);
+        float spawnChance = Mathf.Clamp(1f - (timeManager.timeData_SO.dailyLuck * 0.2f), 0f, 1f);
 
 
         // Cek apakah spawnAnimalSpesial lebih kecil dari peluang yang disesuaikan dengan luck
