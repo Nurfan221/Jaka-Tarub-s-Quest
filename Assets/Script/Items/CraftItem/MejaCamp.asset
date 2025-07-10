@@ -12,14 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: MejaCamp
   m_EditorClassIdentifier: 
-  itemID: 6
+  itemID: 102
   itemName: MejaCamp
-  type: 6
+  quality: 0
+  types: 32
   categories: 4096
-  sprite: {fileID: -3479281171318946369, guid: feb47a9f2f209d845850187794c9d503, type: 3}
+  sprite: {fileID: -3479281171318946369, guid: 13e55a2275e9c6c4098af1384054586f, type: 3}
   itemDescription: gunakan ini untuk menangkap hewan kecil
   QuantityFuel: 0
+  maxhealth: 0
   health: 4
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -27,15 +37,16 @@ MonoBehaviour:
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 0
+  UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 4992219504839692284, guid: 704fea7ce88ee2c49a1cfa225bd6472f, type: 3}
+  prefabItem: {fileID: 5388214106243207399, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 0}

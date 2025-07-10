@@ -102,9 +102,12 @@ public class Player_Inventory : MonoBehaviour
         {
             Debug.Log("terdeteksi item drop");
             // Ambil data dari PrefabItemBehavior jika ada
-            ItemData itemData = other.GetComponent<ItemData>();
+            ItemDropInteractable itemDropInteractable = other.GetComponent<ItemDropInteractable>();
+            ItemData itemData = itemDropInteractable.itemdata;
 
             ItemPool.Instance.AddItem(itemData);
+            MechanicController.Instance.HandleUpdateInventory();
+            Destroy(other.gameObject);
             
         }
         else if(other.CompareTag("Animal"))

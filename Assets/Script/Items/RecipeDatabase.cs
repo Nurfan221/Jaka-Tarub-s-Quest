@@ -12,21 +12,38 @@ public class Recipe
 }
 
 public class RecipeDatabase : MonoBehaviour
+{
+    public static RecipeDatabase Instance { get; private set; }
+
+    private void Awake()
     {
-
-
-        [System.Serializable]
-        public class CraftRecipe
+        if (Instance != null && Instance != this)
         {
-            public List<Item> ingredients;        // Daftar item yang dibutuhkan untuk resep
-            public List<int> ingredientsCount;    // Jumlah item yang dibutuhkan untuk setiap ingredient
-            public Item result;                   // Item hasil craft
+            Destroy(this.gameObject);
         }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
+    [System.Serializable]
+    public class CraftRecipe
+    {
+        // --- SEBELUMNYA ---
+        // public List<Item> ingredients;
+        // public List<int> ingredientsCount;
+        // public Item result;
+
+        // +++ MENJADI +++
+        public List<ItemData> ingredients; // Satu list untuk bahan dan jumlahnya
+        public ItemData result;            // Satu object untuk hasil dan jumlahnya
+    }
 
     [Header("Daftar Semua Resep")]
     public List<CraftRecipe> craftRecipes;
 
-   
+
 
 
     [Header("Daftar Resep Makanan")]

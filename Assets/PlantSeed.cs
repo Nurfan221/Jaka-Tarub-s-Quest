@@ -2,9 +2,7 @@ using UnityEngine;
 
 public enum GrowthStage
 {
-    none, // Tahap ini tidak digunakan, hanya untuk keamanan
     Seed,
-    Sprout,
     YoungPlant,
     MaturePlant,
     ReadyToHarvest
@@ -14,6 +12,7 @@ public class PlantSeed : MonoBehaviour
 {
     [Header("Particle Effects")]
     public ParticleSystem waterEffect; // Efek "perlu disiram" atau "siap panen"
+    public ParticleSystem harvestParticle;
     public ParticleSystem growEffect;  // Efek saat tumbuh setelah disiram
     public ParticleSystem insectEffect; // Efek saat terserang hama
 
@@ -35,8 +34,8 @@ public class PlantSeed : MonoBehaviour
     public int insectTime = 0; // Menghitung berapa lama tanaman terinfeksi
 
     public Vector3 plantLocation;
+    public Vector3Int tilePosition; 
 
-   
     private void Start()
     {
         // Cari GameObject anak berdasarkan NAMA, lalu ambil komponen ParticleSystem-nya.
@@ -59,6 +58,12 @@ public class PlantSeed : MonoBehaviour
         if (insectTransform != null)
         {
             insectEffect = insectTransform.GetComponent<ParticleSystem>();
+        }
+
+        Transform harvestTransform = transform.Find("HarvestParticle");
+        if (harvestTransform != null)
+        {
+            harvestParticle = harvestTransform.GetComponent<ParticleSystem>();
         }
 
         // Hitung waktu jeda pertumbuhan jika belum di-set
@@ -91,7 +96,7 @@ public class PlantSeed : MonoBehaviour
     public void UpdateSprite()
     {
         int stageIndex = (int)currentStage;
-        if (stageIndex >= 0 && stageIndex < growthImages.Length)
+        if (stageIndex >= 0 && stageIndex <= growthImages.Length)
         {
             // DEBUGGING LOG
             Debug.Log($"[DEBUG] UpdateSprite: Mengganti sprite ke growthImages[{stageIndex}]. Nama Sprite: {growthImages[stageIndex].name}");
@@ -102,6 +107,7 @@ public class PlantSeed : MonoBehaviour
         {
             // DEBUGGING LOG
             Debug.LogError($"[DEBUG] UpdateSprite GAGAL: Index {stageIndex} di luar jangkauan array growthImages (panjang: {growthImages.Length}).");
+            Debug.LogError($"[DEBUG] nilai currentStage = {(int)currentStage} dan nilai growthImages =   (panjang: {growthImages.Length}).");
             // AKHIR DEBUGGING
         }
     }
@@ -122,6 +128,7 @@ public class PlantSeed : MonoBehaviour
             // Disarankan menggunakan efek berbeda untuk siap panen (misal: berkilau)
             // Untuk sementara, kita gunakan waterEffect sebagai tanda.
             //waterEffect.Play();
+            harvestParticle.Play();
         }
         
         else if (isInfected)
@@ -158,9 +165,17 @@ public class PlantSeed : MonoBehaviour
     {
         if (isReadyToHarvest)
         {
+            Debug.Log("Biji dipanen!");
+
             ItemPool.Instance.DropItem(dropItem.name, transform.position + new Vector3(0, 0.5f, 0), dropItem);
-            // Penghancuran akan di-handle oleh FarmTile setelah tile di-reset
+
+            FarmTile.Instance.OnPlantHarvested(this.tilePosition);
+
             Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Biji belum siap dipanen bos");
         }
     }
 

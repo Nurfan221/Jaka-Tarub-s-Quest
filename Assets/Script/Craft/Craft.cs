@@ -41,7 +41,7 @@ public class Craft : MonoBehaviour
 
     [Header("item untuk Craft")]
     public Item hasilCraftItem;
-    public List<Item> ingredientItemList;
+    public List<ItemData> ingredientItemList; // Ini juga diubah
 
     private bool hasilCraftValue = false; // Variabel untuk status crafting
     private PlayerData_SO stats;

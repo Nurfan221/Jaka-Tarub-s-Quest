@@ -52,6 +52,7 @@ public class FarmTile : MonoBehaviour
         {
             HoedTileData tileData = farmData.hoedTilesList[i];
             PlantSeed plant = GetPlantAtPosition(tileData.tilePosition)?.GetComponent<PlantSeed>();
+            //plant.tilePosition = tileData.tilePosition;
 
             //Proses Pertumbuhan Tanaman (jika kemarin disiram)
             if (tileData.isPlanted && plant != null)
@@ -193,7 +194,9 @@ public class FarmTile : MonoBehaviour
         if (plant.growthTimer >= plant.growthTime)
         {
             plant.currentStage = GrowthStage.ReadyToHarvest;
+            tileData.currentStage = GrowthStage.ReadyToHarvest;
             plant.isReadyToHarvest = true;
+            tileData.isReadyToHarvest = true;
             Debug.Log($"[DEBUG] {plant.namaSeed} SIAP PANEN!");
             plant.UpdateSprite(); // Pastikan sprite terakhir (panen) juga di-update
             plant.UpdateParticleEffect();
@@ -274,15 +277,62 @@ public class FarmTile : MonoBehaviour
                         seedComponent.growthImages = itemTemplate.growthImages;
                         seedComponent.growthTime = itemTemplate.growthTime;
                         seedComponent.plantLocation = spawnPosition;
+                        seedComponent.tilePosition = tileData.tilePosition; 
                         seedComponent.isWatered = tileData.watered;
                         seedComponent.growthTimer = tileData.growthProgress;
                         seedComponent.currentStage = tileData.currentStage;
+                        seedComponent.isReadyToHarvest = tileData.isReadyToHarvest;
 
                         // Panggil Initialize untuk final setup
                         seedComponent.Initialize();
                     }
 
                     activePlants[tileData.tilePosition] = plantObject;
+                }
+            }
+        }
+    }
+
+    public void OnPlantHarvested(Vector3Int tilePosition)
+    {
+        // 1. Cari data tile yang sesuai di dalam list
+        HoedTileData tileData = farmData.hoedTilesList.Find(t => t.tilePosition == tilePosition);
+
+        if (tileData != null)
+        {
+            // 2. Update data: tandai bahwa tile sudah tidak ditanami lagi
+            tileData.isPlanted = false;
+
+            // 3. (Opsional tapi direkomendasikan) Reset data tanaman lainnya untuk kebersihan
+            tileData.plantedItemName = null;
+            tileData.growthProgress = 0;
+            tileData.currentStage = GrowthStage.Seed;
+            tileData.isReadyToHarvest = false;
+
+            Debug.Log($"Tanaman di posisi {tilePosition} telah dipanen. Tile sekarang bisa ditanami kembali.");
+        }
+
+        // 4. Hapus referensi tanaman dari dictionary tanaman aktif
+        if (activePlants.ContainsKey(tilePosition))
+        {
+            activePlants.Remove(tilePosition);
+        }
+    }
+
+    //hanya contoh bisa di gunakan nanti jika panjul berubah pikiran
+    void SaveFarmData()
+    {
+        foreach (var tileData in farmData.hoedTilesList)
+        {
+            if (tileData.isPlanted)
+            {
+                GameObject plantObject = GetPlantAtPosition(tileData.tilePosition);
+                if (plantObject != null)
+                {
+                    PlantSeed seed = plantObject.GetComponent<PlantSeed>();
+                    // Simpan state terakhir tanaman ke dalam data
+                    tileData.currentStage = seed.currentStage;
+                    tileData.isReadyToHarvest = seed.isReadyToHarvest;
                 }
             }
         }

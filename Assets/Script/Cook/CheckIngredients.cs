@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro; 
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; 
 
 public class Checkingredients : MonoBehaviour
 {
-    [SerializeField] private RecipeDatabase recipeDatabaseInstance;
     [SerializeField] Craft craftScript;
     [SerializeField] Transform ContentGO; 
     [SerializeField] Transform SlotTemplate; // Parent untuk menempatkan hasil resep
@@ -28,7 +27,7 @@ public class Checkingredients : MonoBehaviour
     public GameObject itemCraft4;
     public GameObject itemResult;
     public int resultCount;
-    //Loop hanya sesuai jumlah bahan**
+    //Loop hanya sesuai jumlah bahan
     public GameObject[] craftSlots;
 
     [Header("Button Action")]
@@ -41,7 +40,21 @@ public class Checkingredients : MonoBehaviour
     public Button maxResult;
     public Button minResult;
 
+    private RecipeDatabase database;
+    private void Awake()
+    {
 
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (RecipeDatabase.Instance != null)
+        {
+            database = RecipeDatabase.Instance;
+        }
+        else
+        {
+            Debug.LogError("RecipeDatabase.Instance tidak ditemukan saat Awake!");
+        }
+    }
 
     public void Start()
     {
@@ -72,25 +85,26 @@ public class Checkingredients : MonoBehaviour
         }
 
         // Perulangan untuk setiap resep di database
-        foreach (RecipeDatabase.CraftRecipe recipe in recipeDatabaseInstance.craftRecipes)
+        foreach (RecipeDatabase.CraftRecipe recipe in database.craftRecipes)
         {
             int ingredientCount = recipe.ingredients.Count; // Hitung jumlah bahan dalam resep
 
-            // **Filter berdasarkan jumlah ingredients**
+            // Filter berdasarkan jumlah ingredients
             if ((twoIngredients && ingredientCount == 2) || (!twoIngredients && ingredientCount > 2))
             {
                 // Instansiasi SlotTemplate untuk setiap resep yang sesuai dengan kondisi
                 Transform recipeSlot = Instantiate(SlotTemplate, ContentGO);
                 recipeSlot.gameObject.SetActive(true);
 
+                Item resultItem = ItemPool.Instance.GetItem(recipe.result.itemName);
                 // Set sprite gambar hasil resep
-                recipeSlot.GetChild(0).GetComponent<Image>().sprite = recipe.result.sprite;
+                recipeSlot.GetChild(0).GetComponent<Image>().sprite = resultItem.sprite;
 
                 // Set jumlah hasil (biasanya hanya 1)
                 recipeSlot.GetChild(1).GetComponent<TMP_Text>().text = "1";
 
                 // Set nama slot berdasarkan nama hasil resep
-                recipeSlot.name = recipe.result.name;
+                recipeSlot.name = recipe.result.itemName;
                 recipeSlot.name = recipeSlot.name.Replace("(Clone)", ""); // Hilangkan "(Clone)"
 
                 // Tambahkan listener untuk menampilkan popup crafting
@@ -98,7 +112,7 @@ public class Checkingredients : MonoBehaviour
                 button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() =>
                 {
-                    PopUpCraftResult(recipe.result);
+                    PopUpCraftResult(resultItem);
                 });
             }
         }
@@ -111,9 +125,9 @@ public class Checkingredients : MonoBehaviour
         // Reset SEMUA slot sebelum memproses resep baru
         ResetIngredientSlots(4); // Reset sampai 4 agar item sebelumnya tidak tersisa
 
-        foreach (RecipeDatabase.CraftRecipe recipe in recipeDatabaseInstance.craftRecipes)
+        foreach (RecipeDatabase.CraftRecipe recipe in database.craftRecipes)
         {
-            if (recipe.result.name == nameResult)
+            if (recipe.result.itemName == nameResult)
             {
                 if ((twoIngredients && recipe.ingredients.Count > 2) || (!twoIngredients && recipe.ingredients.Count <= 2))
                 {
@@ -121,12 +135,15 @@ public class Checkingredients : MonoBehaviour
                     return;
                 }
 
-                recipeCount = recipe.ingredients.Count;  // Simpan jumlah bahan saat ini
-                ResetIngredientSlots(recipeCount);      // Reset ulang berdasarkan jumlah baru
+                recipeCount = recipe.ingredients.Count;
+                ResetIngredientSlots(recipeCount);
 
+                // Loop menggunakan struktur ItemData yang baru
                 for (int i = 0; i < recipeCount; i++)
                 {
-                    DisplayIngredientInSlot(craftSlots[i], recipe.ingredients[i], recipe.ingredientsCount[i]);
+                    ItemData ingredientData = recipe.ingredients[i];
+                    // Kirim seluruh ItemData ke fungsi Display
+                    DisplayIngredientInSlot(craftSlots[i], ingredientData);
                     craftScript.CheckItemtoCraft(i + 1);
                 }
             }
@@ -139,7 +156,7 @@ public class Checkingredients : MonoBehaviour
     {
         // Reset list bahan crafting
         craftScript.ingredientItemList.Clear();
-
+         
         // Nonaktifkan semua slot ingredient
 
 
@@ -177,61 +194,38 @@ public class Checkingredients : MonoBehaviour
     }
 
 
-    private void DisplayIngredientInSlot(GameObject itemCraftSlot, Item ingredient, int count)
+    private void DisplayIngredientInSlot(GameObject itemCraftSlot, ItemData ingredientData)
     {
-        // Pastikan itemCraftSlot bukan null
         if (itemCraftSlot != null)
         {
+            // Ambil data dari ItemData
+            Item ingredientItem = ItemPool.Instance.GetItem(ingredientData.itemName);
+            int requiredCount = ingredientData.count;
 
-
-            // Instansiasi slot template untuk ingredient
             GameObject craftSlot = itemCraftSlot;
             craftSlot.gameObject.SetActive(true);
+            craftSlot.gameObject.name = ingredientItem.name;
 
-            // Set nama item (untuk debugging atau keperluan lain)
-            craftSlot.gameObject.name = ingredient.name;
+            // Tambahkan ke list bahan crafting di Craft.cs
+            // Kita tidak perlu clone, cukup tambahkan ItemData-nya langsung
+            craftScript.ingredientItemList.Add(ingredientData);
 
-            // Buat Clone dari Item Agar Tidak Mengubah Data Asli
-            Item ingredientClone = Instantiate(ingredient);
-            //ingredientClone.stackCount = (resultCount * count);  // Set jumlah bahan yang diperlukan
-            craftScript.ingredientItemList.Add(ingredientClone); // Tambahkan ke List
-
-            // Set sprite untuk ingredient
+            // Set sprite
             Transform imageTransform = craftSlot.transform.Find("itemImage");
             if (imageTransform != null)
             {
                 imageTransform.gameObject.SetActive(true);
-                Image targetImage = imageTransform.GetComponent<Image>();
-                targetImage.sprite = ingredient.sprite;
+                imageTransform.GetComponent<Image>().sprite = ingredientItem.sprite;
             }
-            else
-            {
-                Debug.LogWarning("Image untuk item tidak ditemukan di dalam slot!");
-            }
-            
 
-
-
-            // Set jumlah ingredient
-                Transform TextTransform = craftSlot.transform.Find("IngridientCount");
+            // Set jumlah bahan yang dibutuhkan
+            Transform TextTransform = craftSlot.transform.Find("IngridientCount");
             if (TextTransform != null)
             {
                 TextTransform.gameObject.SetActive(true);
-                TMP_Text targetText = craftSlot.GetComponentInChildren<TMP_Text>();
-                targetText.text = (resultCount * count).ToString();
-            }
-            else
-            {
-                Debug.LogWarning("text untuk item tidak ditemukan di dalam slot!");
-            }
-      
-
-            // Menambahkan listener untuk menampilkan deskripsi bahan saat diklik
-            Button button = craftSlot.GetComponent<Button>();
-            if (button != null)
-            {
-                button.onClick.RemoveAllListeners();
-                //button.onClick.AddListener(() => SetDescription(ingredient));
+                // Jumlah total yang dibutuhkan = jumlah per resep * jumlah hasil yang ingin dibuat
+                int totalRequired = requiredCount * resultCount;
+                TextTransform.GetComponent<TMP_Text>().text = totalRequired.ToString();
             }
         }
     }

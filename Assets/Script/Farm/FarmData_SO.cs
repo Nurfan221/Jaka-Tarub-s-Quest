@@ -13,6 +13,7 @@ public class HoedTileData
     public int growthProgress;
     public string plantedItemName;
     public GrowthStage currentStage;
+    public bool isReadyToHarvest;
 
     public HoedTileData(Vector3Int pos, int time)
     {
@@ -22,7 +23,8 @@ public class HoedTileData
         isPlanted = false;
         growthProgress = 0;
         plantedItemName = null;
-        currentStage = GrowthStage.none; // Inisialisasi dengan tahap awal
+        currentStage = GrowthStage.Seed; // Inisialisasi dengan tahap awal
+        isReadyToHarvest = false;
     }
 }
 

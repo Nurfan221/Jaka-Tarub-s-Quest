@@ -94,7 +94,14 @@ public class PlayerController : MonoBehaviour
     }
     public void HandleReverseHealthandStamina()
     {
-        ActivePlayer.Health.ReverseHealthandStamina();
+
+        if (ActivePlayer.Health != null)
+        {
+            ActivePlayer.Health.ReverseHealthandStamina();
+        }else
+        {
+            Debug.LogError("player Heal kosong bang");
+        }
     }
 
 

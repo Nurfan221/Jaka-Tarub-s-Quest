@@ -5,7 +5,7 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 public class PrefabItemBehavior : MonoBehaviour
 {
     public float health;
-    public string namePrefab;
+    private string namePrefab;
 
     public GameObject itemDrop;
     private int minItemDrop = 2;
@@ -14,7 +14,6 @@ public class PrefabItemBehavior : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
     }
 
     // Update is called once per frame

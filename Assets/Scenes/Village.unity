@@ -46337,6 +46337,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cd310ddecba59d419e12895ec546d8f, type: 3}
+--- !u!1001 &1624411772
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3014339130429936612, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.463283
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.4884233
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388214106243207399, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+      propertyPath: m_Name
+      value: MejaCamp
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
 --- !u!1001 &1625683873
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65926,6 +65983,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2014318234431467795, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: items.Array.size
+      value: 102
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014318234431467795, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: 'items.Array.data[101]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7df6be613d652884b9b5162c3229108a, type: 2}
     - target: {fileID: 2157005784443403571, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -66246,6 +66311,38 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6231770344535315722, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: craftRecipes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231770344535315722, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: craftRecipes.Array.data[0].result.count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231770344535315722, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: craftRecipes.Array.data[0].result.itemName
+      value: MejaCamp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231770344535315722, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: craftRecipes.Array.data[0].ingredients.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231770344535315722, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: craftRecipes.Array.data[0].ingredients.Array.data[0].count
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231770344535315722, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: craftRecipes.Array.data[0].ingredients.Array.data[1].count
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231770344535315722, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: craftRecipes.Array.data[0].ingredients.Array.data[0].itemName
+      value: Kayu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6231770344535315722, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: craftRecipes.Array.data[0].ingredients.Array.data[1].itemName
+      value: Ranting
+      objectReference: {fileID: 0}
     - target: {fileID: 6265374312807617816, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -66432,7 +66529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8555332484385303825, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -256.00995
+      value: -256.00986
       objectReference: {fileID: 0}
     - target: {fileID: 8588972791980073415, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: farmTile
@@ -69299,11 +69396,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4957292456533852197, guid: b4b1832c19e74134d85e67f78740512c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.92
+      value: -14.82
       objectReference: {fileID: 0}
     - target: {fileID: 4957292456533852197, guid: b4b1832c19e74134d85e67f78740512c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.17
+      value: 7.18
       objectReference: {fileID: 0}
     - target: {fileID: 4957292456533852197, guid: b4b1832c19e74134d85e67f78740512c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -71118,3 +71215,4 @@ SceneRoots:
   - {fileID: 17063711}
   - {fileID: 2017206431}
   - {fileID: 1386263270}
+  - {fileID: 1624411772}
