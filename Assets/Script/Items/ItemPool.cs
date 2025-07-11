@@ -192,10 +192,10 @@ public class ItemPool : MonoBehaviour
 
     public void AddItem(ItemData itemDataToAdd)
     {
-        // 1. Validasi awal
+        //Validasi awal
         if (itemDataToAdd == null || itemDataToAdd.count <= 0) return;
 
-        // 2. Dapatkan "Katalog Produk" (ItemSO) dari database menggunakan nama dari paket data
+        //Dapatkan "Katalog Produk" (ItemSO) dari database menggunakan nama dari paket data
         Item itemTemplate = GetItemWithQuality(itemDataToAdd.itemName, itemDataToAdd.quality);
         if (itemTemplate == null)
         {
@@ -205,7 +205,7 @@ public class ItemPool : MonoBehaviour
 
         int amountToAdd = itemDataToAdd.count;
 
-        // 3. FASE MENUMPUK (STACKING)
+        //FASE MENUMPUK (STACKING)
         if (itemTemplate.isStackable)
         {
             // Cari slot di inventaris yang itemnya sama, kualitasnya sama, dan belum penuh
@@ -224,7 +224,7 @@ public class ItemPool : MonoBehaviour
             }
         }
 
-        // 4. FASE MEMBUAT SLOT BARU
+        // FASE MEMBUAT SLOT BARU
         while (amountToAdd > 0 && PlayerController.Instance.playerData.inventory.Count < PlayerController.Instance.playerData.maxItem)
         {
             int amountForNewSlot = Mathf.Min(amountToAdd, itemTemplate.maxStackCount);
@@ -240,5 +240,49 @@ public class ItemPool : MonoBehaviour
 
         //// Siarkan berita bahwa inventory telah berubah!
         //OnInventoryUpdated?.Invoke();
+    }
+
+    public void RemoveItemsFromInventory(ItemData itemDataToRemove)
+    {
+        // Jumlah yang masih harus dihapus, diambil dari argumen.
+        int remainingToRemove = itemDataToRemove.count;
+
+        // Nama item yang akan dihapus untuk perbandingan.
+        string itemNameToRemove = itemDataToRemove.itemName;
+
+        // Loop dari BELAKANG ke depan. Ini wajib dilakukan agar aman saat
+        // menghapus elemen dari sebuah list di tengah-tengah perulangan.
+        for (int i = PlayerController.Instance.playerData.inventory.Count - 1; i >= 0; i--)
+        {
+            ItemData slot = PlayerController.Instance.playerData.inventory[i];
+
+            // Jika nama item di slot ini cocok
+            if (slot.itemName == itemNameToRemove)
+            {
+                int amountInSlot = slot.count;
+
+                // Jika jumlah di slot ini lebih dari cukup untuk memenuhi sisa yang perlu dihapus
+                if (amountInSlot > remainingToRemove)
+                {
+                    // Kurangi jumlah di slot, dan selesai.
+                    slot.count -= remainingToRemove;
+                    remainingToRemove = 0;
+                }
+                // Jika jumlah di slot ini pas atau kurang dari yang perlu dihapus
+                else
+                {
+                    // Kurangi sisa yang perlu dihapus dengan seluruh isi slot ini
+                    remainingToRemove -= amountInSlot;
+                    // Hapus seluruh slot dari inventory karena isinya diambil semua.
+                    PlayerController.Instance.playerData.inventory.RemoveAt(i);
+                }
+            }
+
+            // Jika semua item yang perlu dihapus sudah terpenuhi, hentikan loop untuk efisiensi.
+            if (remainingToRemove <= 0)
+            {
+                break;
+            }
+        }
     }
 }

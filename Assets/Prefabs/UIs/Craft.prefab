@@ -274,7 +274,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 1.2750854, y: 0}
-  m_SizeDelta: {x: -546.95, y: 10}
+  m_SizeDelta: {x: -546.95, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &9032160621082252516
 MonoBehaviour:
@@ -2383,14 +2383,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4999637442711836667}
-  - component: {fileID: 9551895062018895}
   m_Layer: 5
   m_Name: Craft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4999637442711836667
 Transform:
   m_ObjectHideFlags: 0
@@ -2411,31 +2410,6 @@ Transform:
   - {fileID: 5575927782398134004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9551895062018895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3355055318330791921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 043aacfa8935a8c43adbf6ff380b26bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recipeDatabaseInstance: {fileID: 0}
-  checkingredients: {fileID: 4318443694947499533}
-  inventoryUI: {fileID: 0}
-  craftUI: {fileID: 9551895062018895}
-  validCategories: 01000000020000000800000000020000
-  buttonClose: {fileID: 7436093963080401942}
-  itemCraft1: {fileID: 587976833753133095}
-  itemCraft2: {fileID: 4063032340456627541}
-  itemCraft3: {fileID: 31965817582766632}
-  itemCraft4: {fileID: 6013060339553700257}
-  buttonCraft: {fileID: 6001079229537658714}
-  hasilCraftItem: {fileID: 0}
-  ingredientItemList: []
 --- !u!1 &3399200994723069181
 GameObject:
   m_ObjectHideFlags: 0
@@ -2447,7 +2421,6 @@ GameObject:
   - component: {fileID: 8274009575119089695}
   - component: {fileID: 3881366529414826137}
   - component: {fileID: 2853860509814343783}
-  - component: {fileID: 4318443694947499533}
   - component: {fileID: 7182139278267995516}
   m_Layer: 5
   m_Name: CraftIngredients
@@ -2514,43 +2487,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4318443694947499533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3399200994723069181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76dc674013782844cbe3a2abf4add7d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recipeDatabaseInstance: {fileID: 0}
-  craftScript: {fileID: 9551895062018895}
-  ContentGO: {fileID: 4401685386605444242}
-  SlotTemplate: {fileID: 824674890999254491}
-  popUp: {fileID: 5039073584393854848}
-  imagePopUp: {fileID: 8880107887314645436}
-  itemCount: {fileID: 5619068094766645766}
-  twoIngredients: 0
-  checkRecipes: 0
-  recipeCount: 0
-  itemActive: 
-  selectedItem: {fileID: 0}
-  itemCraft1: {fileID: 587976833753133095}
-  itemCraft2: {fileID: 4063032340456627541}
-  itemCraft3: {fileID: 31965817582766632}
-  itemCraft4: {fileID: 6013060339553700257}
-  itemResult: {fileID: 5457521575579833270}
-  resultCount: 0
-  craftSlots: []
-  plusItem: {fileID: 5094742574875156875}
-  minusItem: {fileID: 391439800111823903}
-  confirm: {fileID: 650878725826784965}
-  cancel: {fileID: 4107547612415311666}
-  maxResult: {fileID: 2751013273158273087}
-  minResult: {fileID: 3599937012982205282}
 --- !u!114 &7182139278267995516
 MonoBehaviour:
   m_ObjectHideFlags: 0

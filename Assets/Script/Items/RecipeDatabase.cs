@@ -51,4 +51,6 @@ public class RecipeDatabase : MonoBehaviour
 
     [Header("Daftar Resep Khusus (Opsional)")]
     public Recipe[] specialRecipes; // Resep khusus atau lainnya
+
+ 
 }

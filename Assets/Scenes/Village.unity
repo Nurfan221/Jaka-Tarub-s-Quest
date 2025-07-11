@@ -43545,22 +43545,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 368900974}
     m_Modifications:
-    - target: {fileID: 9551895062018895, guid: d32bb5142d596124ea684d19e488807c, type: 3}
-      propertyPath: inventoryUI
-      value: 
-      objectReference: {fileID: 572715868}
-    - target: {fileID: 9551895062018895, guid: d32bb5142d596124ea684d19e488807c, type: 3}
-      propertyPath: recipeDatabaseInstance
-      value: 
-      objectReference: {fileID: 2075418405}
     - target: {fileID: 3355055318330791921, guid: d32bb5142d596124ea684d19e488807c, type: 3}
       propertyPath: m_Name
-      value: Craft
+      value: CraftUI
       objectReference: {fileID: 0}
     - target: {fileID: 4318443694947499533, guid: d32bb5142d596124ea684d19e488807c, type: 3}
-      propertyPath: recipeDatabaseInstance
+      propertyPath: craftScript
       value: 
-      objectReference: {fileID: 2075418405}
+      objectReference: {fileID: 0}
     - target: {fileID: 4999637442711836667, guid: d32bb5142d596124ea684d19e488807c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -62692,17 +62684,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4999637442711836667, guid: d32bb5142d596124ea684d19e488807c, type: 3}
   m_PrefabInstance: {fileID: 1511820362}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2024382534 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9551895062018895, guid: d32bb5142d596124ea684d19e488807c, type: 3}
-  m_PrefabInstance: {fileID: 1511820362}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 043aacfa8935a8c43adbf6ff380b26bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2024507928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66529,7 +66510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8555332484385303825, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -256.00986
+      value: -256.00992
       objectReference: {fileID: 0}
     - target: {fileID: 8588972791980073415, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: farmTile
@@ -69389,7 +69370,7 @@ PrefabInstance:
     - target: {fileID: 3436595357372821194, guid: b4b1832c19e74134d85e67f78740512c, type: 3}
       propertyPath: craft
       value: 
-      objectReference: {fileID: 2024382534}
+      objectReference: {fileID: 0}
     - target: {fileID: 3768322494726522806, guid: b4b1832c19e74134d85e67f78740512c, type: 3}
       propertyPath: m_Name
       value: Craft

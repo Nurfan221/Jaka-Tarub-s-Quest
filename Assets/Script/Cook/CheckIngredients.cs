@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Checkingredients : MonoBehaviour
 {
-    [SerializeField] Craft craftScript;
+    //[SerializeField] Craft craftScript;
     [SerializeField] Transform ContentGO; 
     [SerializeField] Transform SlotTemplate; // Parent untuk menempatkan hasil resep
     public GameObject popUp;
@@ -144,7 +144,7 @@ public class Checkingredients : MonoBehaviour
                     ItemData ingredientData = recipe.ingredients[i];
                     // Kirim seluruh ItemData ke fungsi Display
                     DisplayIngredientInSlot(craftSlots[i], ingredientData);
-                    craftScript.CheckItemtoCraft(i + 1);
+                    //craftScript.CheckItemtoCraft(i + 1);
                 }
             }
         }
@@ -155,7 +155,7 @@ public class Checkingredients : MonoBehaviour
     private void ResetIngredientSlots(int countRecipe)
     {
         // Reset list bahan crafting
-        craftScript.ingredientItemList.Clear();
+        //craftScript.ingredientItemList.Clear();
          
         // Nonaktifkan semua slot ingredient
 
@@ -208,7 +208,7 @@ public class Checkingredients : MonoBehaviour
 
             // Tambahkan ke list bahan crafting di Craft.cs
             // Kita tidak perlu clone, cukup tambahkan ItemData-nya langsung
-            craftScript.ingredientItemList.Add(ingredientData);
+            //craftScript.ingredientItemList.Add(ingredientData);
 
             // Set sprite
             Transform imageTransform = craftSlot.transform.Find("itemImage");
@@ -367,7 +367,7 @@ public class Checkingredients : MonoBehaviour
 
     private void ConfirmResultCraft(Item result, int count)
     {
-        craftScript.hasilCraftItem = result;
+        //craftScript.hasilCraftItem = result;
         //craftScript.hasilCraftItem.stackCount = count;
 
         // Cek bahan sebelum crafting
@@ -377,8 +377,8 @@ public class Checkingredients : MonoBehaviour
         DisplayResultInSlot(itemResult, result, count);
 
         // Pastikan buttonCraft tetap memiliki listener setelah konfirmasi
-        craftScript.buttonCraft.onClick.RemoveAllListeners();
-        craftScript.buttonCraft.onClick.AddListener(craftScript.Crafting);
+        //craftScript.buttonCraft.onClick.RemoveAllListeners();
+        //craftScript.buttonCraft.onClick.AddListener(craftScript.Crafting);
 
         // Tutup pop-up setelah crafting dikonfirmasi
         popUp.gameObject.SetActive(false);

@@ -8,7 +8,7 @@ public class MechanicController : MonoBehaviour
 
     private StorageUI _storageUI;
     private InventoryUI _inventoryUI;
-
+    private CraftUI _craftingUI;
     // --- Properti "Pintar" yang Bisa Mencari Sendiri ---
     public StorageUI StorageUI
     {
@@ -44,7 +44,22 @@ public class MechanicController : MonoBehaviour
             return _inventoryUI;
         }
     }
-
+    public CraftUI CraftingUI
+    {
+        get
+        {
+            // Lakukan hal yang sama untuk CraftingUI
+            if (_craftingUI == null)
+            {
+                _craftingUI = FindObjectOfType<CraftUI>(true);
+                if (_craftingUI == null)
+                {
+                    Debug.LogError("MechanicController tidak bisa menemukan [Craft] di scene!");
+                }
+            }
+            return _craftingUI;
+        }
+    }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -153,5 +168,10 @@ public class MechanicController : MonoBehaviour
     {
         InventoryUI.UpdateInventoryUI();
         InventoryUI.UpdateSixItemDisplay();
+    }
+
+    public void HandleOpenCrafting()
+    {
+        CraftingUI.OpenUI();
     }
 }
