@@ -98,7 +98,7 @@ public class QuestInfoUI : MonoBehaviour
             ItemDragandDrop itemDragAndDrop = questDetail.GetComponent<ItemDragandDrop>();
             if (itemDragAndDrop != null)
             {
-                itemDragAndDrop.itemID = i;
+                itemDragAndDrop.index = i;
             }
             Button btnDeskripsi = questDetail.GetComponent<Button>();
             btnDeskripsi.onClick.AddListener(() =>

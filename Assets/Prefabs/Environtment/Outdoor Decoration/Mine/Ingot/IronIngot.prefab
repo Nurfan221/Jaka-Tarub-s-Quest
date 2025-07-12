@@ -103,7 +103,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: IronIngot
-  item: {fileID: 11400000, guid: 3bd66d80fb23e764f9744b7e7fcfaa76, type: 2}
+  itemdata:
+    itemName: IronIngot
+    count: 0
+    quality: 0
   itemName: IronIngot
   gravityDuration: 1
 --- !u!61 &648529286410309539

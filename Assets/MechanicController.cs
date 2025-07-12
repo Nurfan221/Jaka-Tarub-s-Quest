@@ -174,4 +174,9 @@ public class MechanicController : MonoBehaviour
     {
         CraftingUI.OpenUI();
     }
+
+    public void HandleSwapItems (int sourceIndex, int destinationIndex)
+    {
+        InventoryUI.SwapItems(sourceIndex, destinationIndex);
+    }
 }

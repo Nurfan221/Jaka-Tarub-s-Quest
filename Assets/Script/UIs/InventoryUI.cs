@@ -23,6 +23,7 @@ public class InventoryUI : MonoBehaviour
     public TMP_Text jumlahQuickItem1;
     public Transform quickSlot2;
     public TMP_Text jumlahQuickItem2;
+    public Transform tongSampah;
 
     [Header("UI STUFF")]
     public Transform ContentGO;
@@ -351,7 +352,7 @@ public class InventoryUI : MonoBehaviour
             ItemDragandDrop itemDragAndDrop = itemInInventory.GetComponent<ItemDragandDrop>();
             if (itemDragAndDrop != null)
             {
-                itemDragAndDrop.itemID = i; // Set itemID dengan indeks item
+                itemDragAndDrop.index = i; // Set itemID dengan indeks item
             }
 
             // Menambahkan listener untuk deskripsi item
@@ -547,5 +548,36 @@ public class InventoryUI : MonoBehaviour
         PlayerUI.Instance.UpdateItemUseUI();
 
     }
+
+    //public void SwapItems(int id1, int id2)
+    //{
+    //    if (id1 < 0 || id1 >= stats.inventory.Count || id2 < 0 || id2 >= stats.inventory.Count)
+    //        return; // Pastikan ID valid
+
+    //    ItemData tempItem = stats.inventory[id1];
+    //    stats.inventory[id1] = stats.inventory[id2];
+    //    stats.inventory[id2] = tempItem;
+
+    //    // Opsional: Anda bisa menambahkan logika untuk mengupdate status item jika diperlukan
+    //}
+    public void SwapItems(int indexA, int indexB)
+    {
+        // Pastikan index valid
+        if (indexA < 0 || indexA >= stats.inventory.Count || indexB < 0 || indexB >= stats.inventory.Count)
+        {
+            Debug.LogWarning("Indeks untuk swap tidak valid.");
+            return;
+        }
+
+        // Tukar posisi data di dalam list
+        ItemData temp = stats.inventory[indexA];
+        stats.inventory[indexA] = stats.inventory[indexB];
+        stats.inventory[indexB] = temp;
+
+        // Setelah data ditukar, panggil Refresh untuk menggambar ulang semuanya
+        RefreshInventoryItems();
+    }
+
+   
 
 }

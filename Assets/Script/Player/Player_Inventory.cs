@@ -80,17 +80,7 @@ public class Player_Inventory : MonoBehaviour
 
 
 
-    public void SwapItems(int id1, int id2)
-    {
-        if (id1 < 0 || id1 >= stats.itemList.Count || id2 < 0 || id2 >= stats.itemList.Count)
-            return; // Pastikan ID valid
 
-        Item tempItem = stats.itemList[id1];
-        stats.itemList[id1] = stats.itemList[id2];
-        stats.itemList[id2] = tempItem;
-
-        // Opsional: Anda bisa menambahkan logika untuk mengupdate status item jika diperlukan
-    }
 
    
 

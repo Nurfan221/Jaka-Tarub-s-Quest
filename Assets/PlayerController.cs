@@ -197,5 +197,25 @@ public class PlayerController : MonoBehaviour
     //    //ActivePlayer.Health.SpendMaxCurrentStamina()
     //}
 
+    public ItemData HandleGetItem(int index)
+    {
+        // Pastikan ada player aktif dan data inventory ada
+        if (ActivePlayer == null || playerData == null)
+        {
+            return null;
+        }
+
+        // 1. Validasi: Pastikan indeks yang diminta berada dalam jangkauan list inventory.
+        if (index < 0 || index >= playerData.inventory.Count)
+        {
+            Debug.LogWarning($"Percobaan mengambil item pada indeks di luar jangkauan: {index}");
+            return null; // Kembalikan null karena indeks tidak valid
+        }
+
+        // 2. Langsung ambil dan kembalikan ItemData pada indeks yang benar.
+        // Tidak perlu menggunakan loop.
+        ItemData itemData = playerData.inventory[index];
+        return itemData;
+    }
 
 }
