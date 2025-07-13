@@ -57,7 +57,7 @@ public class ItemPool : MonoBehaviour
     }
 
 
-    public void DropItem(string itemName, Vector2 pos, GameObject itemDrop, int count = 1, int level = 1)
+    public void DropItem(string itemName, Vector2 pos, GameObject itemDrop, string tagString = "ItemDrop", int count = 1, int level = 1)
     {
         if (itemDrop == null)
         {
@@ -68,7 +68,7 @@ public class ItemPool : MonoBehaviour
         GameObject droppedItem = Instantiate(itemDrop, pos, Quaternion.identity);
 
         // Set tag menjadi ItemDrop agar bisa dideteksi saat player mengambilnya
-        droppedItem.tag = "ItemDrop";
+        droppedItem.tag = tagString;
 
         // Jika item memiliki komponen visual (misalnya SpriteRenderer)
         SpriteRenderer spriteRenderer = droppedItem.GetComponent<SpriteRenderer>();

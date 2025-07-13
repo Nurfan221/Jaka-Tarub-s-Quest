@@ -13,7 +13,10 @@ public class InventoryUI : MonoBehaviour
     [Header("Daftar hubungan Script")]
     [SerializeField] NPCListUI npcListUI;
     public bool isInventoryOpen;
-
+    [Header("Komponen untuk Interaksi Mobile")]
+    public Image dragIcon; // Ikon yang mengikuti sentuhan
+    public ItemInteraction heldItem; // Ganti state dari bool menjadi referensi skrip
+    public Item contohItem;
 
 
     [Header("Active Slot")]
@@ -82,7 +85,9 @@ public class InventoryUI : MonoBehaviour
         {
             Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
         }
+        dragIcon.gameObject.SetActive(false); // Pastikan ikon nonaktif di awal
     }
+
     private void Start()
     {
         //PlayerUI.Instance.RegisterInventoryUI(this);
@@ -128,7 +133,10 @@ public class InventoryUI : MonoBehaviour
     }
 
 
-
+    private void Update()
+    {
+      
+    }
     public void OpenInventory()
     {
         Debug.Log("membuka inventory");
@@ -349,15 +357,26 @@ public class InventoryUI : MonoBehaviour
             itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = stats.inventory[i].count.ToString();
 
             // Mengatur itemID berdasarkan indeks
-            ItemDragandDrop itemDragAndDrop = itemInInventory.GetComponent<ItemDragandDrop>();
-            if (itemDragAndDrop != null)
+            ItemInteraction itemInteraction = itemInInventory.GetComponent<ItemInteraction>();
+            if (itemInteraction != null)
             {
-                itemDragAndDrop.index = i; // Set itemID dengan indeks item
+                itemInteraction.index = i; // Set itemID dengan indeks item
             }
 
-            // Menambahkan listener untuk deskripsi item
-            itemInInventory.GetComponent<Button>().onClick.RemoveAllListeners();
-            itemInInventory.GetComponent<Button>().onClick.AddListener(() => SetDescription(currentItemData));
+            Button button = itemInInventory.GetComponent<Button>();
+            if (button != null)
+            {
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() =>
+                {
+                    Debug.Log($"Item {item.itemName} clicked");
+                    SetDescription(currentItemData);
+                });
+            }
+            else
+            {
+                Debug.LogWarning("Button component not found on itemInInventory");
+            }
         }
     }
 
@@ -560,24 +579,154 @@ public class InventoryUI : MonoBehaviour
 
     //    // Opsional: Anda bisa menambahkan logika untuk mengupdate status item jika diperlukan
     //}
+
+    //logika drag item dan swap item
+    // Dipanggil oleh ItemInteraction setelah press and hold berhasil
+    // Dipanggil oleh OnBeginDrag pada ItemInteraction
+    public void InitiateDrag(ItemInteraction itemToDrag)
+    {
+        // Jangan mulai drag baru jika sudah ada yang di-drag
+        if (heldItem != null) return;
+
+        // Cek apakah item yang di-drag punya data
+        ItemData itemData =PlayerController.Instance.HandleGetItem(itemToDrag.index);
+        Item itemUse = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
+        if (itemData == null) return; // Jangan drag slot kosong
+
+        // Simpan item yang di-drag
+        heldItem = itemToDrag;
+
+        // Atur dan tampilkan ikon drag
+        dragIcon.sprite = itemUse.sprite; // Ambil sprite dari data
+        dragIcon.gameObject.SetActive(true);
+
+        // Sembunyikan item asli di grid
+        heldItem.SetAlpha(0f);
+    }
+
+    // Dipanggil oleh OnDrag pada ItemInteraction
+    public void UpdateDragPosition(Vector2 screenPosition)
+    {
+        if (heldItem != null)
+        {
+            dragIcon.transform.position = screenPosition;
+        }
+    }
+
+    // Dipanggil oleh OnDrop pada item target atau TrashZone
+    public void SuccessfulDrop(int targetIndex)
+    {
+        Debug.Log($"Drop berhasil pada index {targetIndex}");
+        if (heldItem != null)
+        {
+            // Jika targetIndex valid (>= 0), lakukan swap
+            if (targetIndex >= 0)
+            {
+              SwapItems(heldItem.index, targetIndex);
+            }
+            // Jika tidak, berarti item dibuang (logika RemoveItem sudah dipanggil oleh TrashZone)
+
+            // Sembunyikan ikon dan reset state
+            dragIcon.gameObject.SetActive(false);
+            heldItem = null;
+
+            // Selalu refresh UI untuk menampilkan hasil akhir
+            RefreshInventoryItems();
+        }
+    }
+
+    // Dipanggil oleh OnEndDrag jika drop tidak valid
+    public void CancelDrag()
+    {
+        Debug.Log("Drag dibatalkan");
+        if (heldItem != null)
+        {
+            // Tampilkan kembali item asli
+            heldItem.SetAlpha(1f);
+
+            // Sembunyikan ikon dan reset state
+            dragIcon.gameObject.SetActive(false);
+            heldItem = null;
+        }
+    }
+
+    // Helper untuk mendapatkan item yang dipegang
+    public ItemInteraction GetHeldItem()
+    {
+        return heldItem;
+    }
     public void SwapItems(int indexA, int indexB)
     {
-        // Pastikan index valid
+        Debug.Log($"Mencoba menukar item pada index {indexA} dan {indexB}");
+        // Pengecekan keamanan untuk memastikan kedua index valid
         if (indexA < 0 || indexA >= stats.inventory.Count || indexB < 0 || indexB >= stats.inventory.Count)
         {
-            Debug.LogWarning("Indeks untuk swap tidak valid.");
+            Debug.LogWarning("Swap Gagal: Index di luar jangkauan.");
             return;
         }
 
-        // Tukar posisi data di dalam list
+        // Logika swapping standar menggunakan variabel temporary
         ItemData temp = stats.inventory[indexA];
         stats.inventory[indexA] = stats.inventory[indexB];
         stats.inventory[indexB] = temp;
 
-        // Setelah data ditukar, panggil Refresh untuk menggambar ulang semuanya
         RefreshInventoryItems();
+        Debug.Log($"Data pada index {indexA} dan {indexB} berhasil ditukar.");
     }
 
-   
+    public void DropItemFromInventory(int itemIndex, int quantityToRemove)
+    {
+        // --- Pengecekan Awal (Sudah Benar) ---
+        if (itemIndex < 0 || itemIndex >= stats.inventory.Count)
+        {
+            Debug.LogWarning("Index item untuk di-drop tidak valid.");
+            return;
+        }
+
+        ItemData itemData = stats.inventory[itemIndex];
+        if (itemData == null) return;
+
+        Item itemUse = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
+        contohItem = itemUse; // Simpan contoh item untuk referensi
+        if (itemUse == null)
+        {
+            if(itemUse.dropItem == null)
+            {
+                Debug.LogError($"Item '{itemData.itemName}' tidak memiliki prefab untuk di-drop.");
+                return;
+            }
+           Debug.LogWarning($"Item '{itemData.itemName}' tidak ditemukan dalam database.");
+            return;
+        }
+
+       
+        int actualDropCount = Mathf.Min(quantityToRemove, itemData.count);
+
+        // Simpan posisi player sekali saja
+        Vector3 playerPosition = PlayerController.Instance.HandleGetPlayerPosition();
+
+        for (int i = 0; i < actualDropCount; i++)
+        {
+            // Beri sedikit offset acak agar item tidak menumpuk sempurna di satu titik
+            Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), 0.5f, UnityEngine.Random.Range(-0.2f, 0.2f));
+            ItemPool.Instance.DropItem(itemData.itemName, playerPosition + offset, itemUse.dropItem, "Untagged");
+        }
+
+        // Gunakan actualDropCount untuk perbandingan yang lebih aman.
+        if (actualDropCount >= itemData.count)
+        {
+            Debug.Log($"Membuang semua ({actualDropCount} buah) {itemData.itemName}.");
+            stats.inventory.RemoveAt(itemIndex);
+        }
+        else
+        {
+            itemData.count -= actualDropCount;
+            Debug.Log($"Membuang {actualDropCount} dari {itemData.itemName}. Sisa: {itemData.count}");
+        }
+
+        // Jangan lupa refresh UI setelah ada perubahan data
+        MechanicController.Instance.HandleUpdateInventory();
+    }
+
 
 }

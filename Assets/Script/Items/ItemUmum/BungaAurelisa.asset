@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: BungaAurelisa
   m_EditorClassIdentifier: 
-  itemID: 0
+  itemID: 35
   itemName: BungaAurelisa
+  quality: 0
   types: 8
   categories: 512
   sprite: {fileID: -263525793505709528, guid: 221e39bd7a9bfa647b48f1fb31b83d7a, type: 3}
@@ -21,6 +22,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 0
   MaxLevel: 0
   Damage: 0
@@ -31,7 +40,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
@@ -40,4 +48,5 @@ MonoBehaviour:
   prefabItem: {fileID: 4459120725376062254, guid: 880b645ee2c5c0147a861c6382782375, type: 3}
   growthTime: 0
   growthImages: []
-  dropItem: {fileID: 0}
+  growthObject: []
+  dropItem: {fileID: 4459120725376062254, guid: 880b645ee2c5c0147a861c6382782375, type: 3}

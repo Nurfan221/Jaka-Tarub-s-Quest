@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Getah
   m_EditorClassIdentifier: 
-  itemID: 26
+  itemID: 29
   itemName: Getah
+  quality: 0
   types: 8
   categories: 512
   sprite: {fileID: -6953872761602461374, guid: 22ca46a4b54c021448c2f2ff9de9c5aa, type: 3}
@@ -21,6 +22,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -31,7 +40,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
@@ -40,4 +48,5 @@ MonoBehaviour:
   prefabItem: {fileID: 4459120725376062254, guid: bdb3f5ac6519083489f3b7cc3ba86397, type: 3}
   growthTime: 0
   growthImages: []
-  dropItem: {fileID: 0}
+  growthObject: []
+  dropItem: {fileID: 4459120725376062254, guid: bdb3f5ac6519083489f3b7cc3ba86397, type: 3}

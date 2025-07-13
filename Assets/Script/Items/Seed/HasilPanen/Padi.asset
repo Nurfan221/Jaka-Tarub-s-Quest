@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Padi
   quality: 0
   types: 2
-  categories: 512
+  categories: 520
   sprite: {fileID: 6208842792875286600, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   itemDescription: Padi yang matang, siap dipanen dan menjadi bahan dasar makanan
     pokok. Dengan perawatan yang baik, padi ini akan memberi hasil yang melimpah.
@@ -50,4 +50,4 @@ MonoBehaviour:
   growthTime: 0
   growthImages: []
   growthObject: []
-  dropItem: {fileID: 0}
+  dropItem: {fileID: 2792997999344615050, guid: 7c95f681b8b21a4458b7909d6ad05c70, type: 3}

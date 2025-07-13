@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 23
   itemName: BenihWortel
+  quality: 0
   types: 8
   categories: 1024
   sprite: {fileID: -5135470581713205809, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
@@ -22,6 +23,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -32,7 +41,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 50
   SellValue: 20
@@ -46,4 +54,4 @@ MonoBehaviour:
   - {fileID: -5193384967799301183, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -3464796530716590142, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: 430a2f84db18f7e438ca4b0ccb0b47ac, type: 3}
+  dropItem: {fileID: 7562009284141931606, guid: c77f55ce5b287b2479c081d59af7361f, type: 3}

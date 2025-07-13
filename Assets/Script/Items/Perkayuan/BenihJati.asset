@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: BenihJati
   m_EditorClassIdentifier: 
-  itemID: 28
+  itemID: 31
   itemName: Benih
+  quality: 0
   types: 32
   categories: 2048
   sprite: {fileID: 7865146041029273321, guid: 31b0c90595bfd4f4cb21fbdc818fe1ec, type: 3}
@@ -21,6 +22,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -31,7 +40,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
@@ -45,4 +53,4 @@ MonoBehaviour:
   - {fileID: 5090815853600988913, guid: 4750d7d6cc78a8d43ae94b22a7c03972, type: 3}
   - {fileID: 5090815853600988913, guid: d79fec40f012a87499f286a8288135d6, type: 3}
   - {fileID: 5090815853600988913, guid: 6773ce559afe3ff40ab2860a335cbaa4, type: 3}
-  dropItem: {fileID: 0}
+  dropItem: {fileID: 4459120725376062254, guid: 0faa01f2659285449bc947d6c2a46321, type: 3}

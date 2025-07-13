@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 51
   itemName: IronIngot
+  quality: 0
   types: 0
   categories: 512
   sprite: {fileID: -6540123201979456734, guid: 35a83fac362f6b345843b0099c51c735, type: 3}
@@ -22,6 +23,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -32,7 +41,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 150
   SellValue: 100
@@ -42,4 +50,4 @@ MonoBehaviour:
   growthTime: 0
   growthImages: []
   growthObject: []
-  dropItem: {fileID: 0}
+  dropItem: {fileID: 7562009284141931606, guid: 9b59ca22d74e07244b1071acea95c153, type: 3}

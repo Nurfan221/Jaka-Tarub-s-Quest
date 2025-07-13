@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 26
   itemName: BenihOak
+  quality: 0
   types: 32
   categories: 2048
   sprite: {fileID: 9164150160921697602, guid: 31b0c90595bfd4f4cb21fbdc818fe1ec, type: 3}
@@ -21,6 +22,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -31,7 +40,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
@@ -45,4 +53,4 @@ MonoBehaviour:
   - {fileID: 5090815853600988913, guid: 46fe6bf07f49a3643bac2afb837a6820, type: 3}
   - {fileID: 5090815853600988913, guid: e6ddfdbc7ef7bd8448e3e6f2a40afe75, type: 3}
   - {fileID: 5090815853600988913, guid: f7ee8f3f1bbd93e45900fef8c31722ec, type: 3}
-  dropItem: {fileID: 0}
+  dropItem: {fileID: 4459120725376062254, guid: fff5f9dbd6203284ab4ee362239d7278, type: 3}

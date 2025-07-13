@@ -27,6 +27,7 @@ public class ItemDropInteractable : Interactable
         Debug.Log(itemdata.itemName + " di ambil.");
         //Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(item.itemName));
         //if (item.type == ItemType.Quest) { GetComponent<QuestQuanta>().Take(); }
+        ItemPool.Instance.AddItem(itemdata);
 
         Destroy(gameObject);
     }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 13
   itemName: BenihLobak
+  quality: 0
   types: 8
   categories: 1024
   sprite: {fileID: 3279241373581556107, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
@@ -22,6 +23,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -32,7 +41,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 50
   SellValue: 20
@@ -46,4 +54,4 @@ MonoBehaviour:
   - {fileID: -4898284958070484869, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -3460137552963467502, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: bb8c70527cc361c42b4f61875439a2fd, type: 3}
+  dropItem: {fileID: 7562009284141931606, guid: 49cacc4e1f0b43d43af5eb9282dfb56f, type: 3}

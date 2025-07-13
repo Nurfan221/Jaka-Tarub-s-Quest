@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Batu
   m_EditorClassIdentifier: 
-  itemID: 29
+  itemID: 49
   itemName: Batu
+  quality: 0
   types: 0
   categories: 768
   sprite: {fileID: -5294746339773730591, guid: 7b853fa4f8d2258499aac8718e81eb37, type: 3}
@@ -22,6 +23,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 1
@@ -32,7 +41,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 6794102656783284840, guid: 909e3c18bff69b747bf9a19f7727bc83, type: 3}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 5
   SellValue: 2
@@ -41,4 +49,5 @@ MonoBehaviour:
   prefabItem: {fileID: 7562009284141931606, guid: d4cee6a55e1fb82438aa6521e6a8e45c, type: 3}
   growthTime: 0
   growthImages: []
-  dropItem: {fileID: 0}
+  growthObject: []
+  dropItem: {fileID: 7562009284141931606, guid: d4cee6a55e1fb82438aa6521e6a8e45c, type: 3}

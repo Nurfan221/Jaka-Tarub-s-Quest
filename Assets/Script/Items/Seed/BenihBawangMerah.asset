@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 3
   itemName: BenihBawangMerah
+  quality: 0
   types: 8
   categories: 1024
   sprite: {fileID: 332597446, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
@@ -23,6 +24,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -33,7 +42,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 50
   SellValue: 20
@@ -47,4 +55,4 @@ MonoBehaviour:
   - {fileID: -1519813476, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: -326614784, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: 9e67d809421516d4e91e5d05ce9d685b, type: 3}
+  dropItem: {fileID: 7562009284141931606, guid: ff0dd6b8324eed7439fbd4e722aef334, type: 3}

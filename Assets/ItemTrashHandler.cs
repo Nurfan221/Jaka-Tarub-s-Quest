@@ -2,31 +2,71 @@ using NUnit.Framework.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems; 
 
-public class ItemTrashHandler : MonoBehaviour, IDropHandler // Implementasikan interface IDropHandler
+public class ItemTrashHandler : MonoBehaviour, IDropHandler
 {
-    public GameObject itemPrefab; // Prefab item yang akan di-drop
-                                  // HANYA jika sebuah objek di-drop di atas GameObject yang memiliki script ini.
+    public ItemInteraction itemToPotentiallyTrash;
+
+    private void Start()
+    {
+        // Daftarkan listener ke event popup sekali saja saat permainan dimulai
+        if (QuantityPopupUI.Instance != null)
+        {
+            QuantityPopupUI.Instance.onConfirm.AddListener(HandleTrashConfirmation);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Selalu baik untuk melepaskan listener saat objek dihancurkan
+        if (QuantityPopupUI.Instance != null)
+        {
+            QuantityPopupUI.Instance.onConfirm.RemoveListener(HandleTrashConfirmation);
+        }
+    }
+
+    /// Metode ini dipanggil oleh Unity Event System saat item dilepaskan di atas objek ini.
+
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject draggedObject = eventData.pointerDrag;
-        ItemDragandDrop draggedItemScript = draggedObject.GetComponent<ItemDragandDrop>();
+        // Dapatkan item yang sedang diseret dari manajer UI
+        ItemInteraction draggedItem = MechanicController.Instance.HandleGetHeldItem();
 
-        if (draggedItemScript != null)
+        // Jika ada item yang valid sedang diseret
+        if (draggedItem != null)
         {
-            // Ambil data terbaru langsung dari PlayerController menggunakan index.
-            ItemData currentItemData = PlayerController.Instance.HandleGetItem(draggedItemScript.index);
-            if (currentItemData == null) return; // Item mungkin sudah tidak ada, hentikan.
+            // Simpan item ini sementara, agar kita tahu apa yang harus dibuang saat popup dikonfirmasi
+            itemToPotentiallyTrash = draggedItem;
 
-            // Dapatkan definisi Item (termasuk prefab dropItem) dari ItemPool.
-            Item itemDefinition = ItemPool.Instance.GetItemWithQuality(currentItemData.itemName, currentItemData.quality);
-            if (itemDefinition == null || itemDefinition.dropItem == null) return; // Tidak ada prefab untuk didrop.
+            // Dapatkan data lengkap item untuk ditampilkan di popup
+            ItemData itemData = PlayerController.Instance.HandleGetItem(draggedItem.index);
+            if (itemData == null) return;
 
-            draggedItemScript.MarkAsDroppedSuccessfully();
+            Item itemSO = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
+            if (itemSO == null) return;
 
-            GameObject itemPrefab = itemDefinition.dropItem; // Sekarang ini dijamin punya nilai
-            ItemPool.Instance.DropItem(itemDefinition.itemName, transform.position + new Vector3(0, 0.5f, 0), itemPrefab);
-            // Lanjutkan sisa logika Anda...
-            // ...
+            // Tampilkan popup dengan jumlah maksimum adalah jumlah item yang dimiliki
+            QuantityPopupUI.Instance.Show(itemSO.sprite, 1, itemData.count);
+        }
+    }
+
+    /// Metode ini akan dipanggil secara otomatis saat pemain menekan "Confirm" di popup.
+
+    private void HandleTrashConfirmation(int quantityToTrash)
+    {
+        // Pastikan kita tahu item mana yang akan dibuang
+        if (itemToPotentiallyTrash != null)
+        {
+            Debug.Log($"Konfirmasi diterima! Membuang {quantityToTrash} buah dari item di index [{itemToPotentiallyTrash.index}]");
+
+            // Panggil manajer data untuk menghapus item dengan jumlah tertentu
+            //InventoryManager.Instance.RemoveItem(itemToPotentiallyTrash.index, quantityToTrash);
+            MechanicController.Instance.HandleDropItemFromInventory(itemToPotentiallyTrash.index, quantityToTrash);
+
+            // Beri tahu manajer UI untuk menyelesaikan proses drag dan me-refresh inventaris
+            MechanicController.Instance.HandleSuccessfulDrop(-1); // Kirim -1 karena ini bukan swap
+
+            // Reset item sementara setelah selesai
+            itemToPotentiallyTrash = null;
         }
     }
 

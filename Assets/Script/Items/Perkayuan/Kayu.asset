@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Kayu
   m_EditorClassIdentifier: 
-  itemID: 25
+  itemID: 28
   itemName: Kayu
+  quality: 0
   types: 8
   categories: 516
   sprite: {fileID: 6531007186347156393, guid: 31b0c90595bfd4f4cb21fbdc818fe1ec, type: 3}
@@ -22,6 +23,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -32,7 +41,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 100
   SellValue: 100
@@ -41,4 +49,5 @@ MonoBehaviour:
   prefabItem: {fileID: 4459120725376062254, guid: 02a41b6e3057e434dbdda20dc4f9d697, type: 3}
   growthTime: 0
   growthImages: []
-  dropItem: {fileID: 0}
+  growthObject: []
+  dropItem: {fileID: 4459120725376062254, guid: 02a41b6e3057e434dbdda20dc4f9d697, type: 3}

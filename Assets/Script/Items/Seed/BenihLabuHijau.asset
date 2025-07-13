@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 12
   itemName: BenihLabuHijau
+  quality: 0
   types: 8
   categories: 1024
   sprite: {fileID: 8205303287840453473, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
@@ -22,6 +23,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -32,7 +41,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 50
   SellValue: 20
@@ -46,4 +54,4 @@ MonoBehaviour:
   - {fileID: 1098396795, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: -2036590343, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: 333355865f2bd8e49b208ec049e86a6c, type: 3}
+  dropItem: {fileID: 7562009284141931606, guid: eda1acdec6e1a864a9ce0d751e6fcfeb, type: 3}

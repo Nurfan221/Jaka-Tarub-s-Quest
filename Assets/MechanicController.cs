@@ -8,7 +8,7 @@ public class MechanicController : MonoBehaviour
 
     private StorageUI _storageUI;
     private InventoryUI _inventoryUI;
-    private CraftUI _craftingUI;
+    public CraftUI _craftingUI;
     // --- Properti "Pintar" yang Bisa Mencari Sendiri ---
     public StorageUI StorageUI
     {
@@ -44,6 +44,8 @@ public class MechanicController : MonoBehaviour
             return _inventoryUI;
         }
     }
+
+   
     public CraftUI CraftingUI
     {
         get
@@ -132,8 +134,8 @@ public class MechanicController : MonoBehaviour
             }
         }
 
-        StorageUI.RefreshInventoryItems();
-        StorageUI.ClosePopUp();
+        MechanicController.Instance.HandleUpdateInventory();
+        //StorageUI.ClosePopUp();
         // --- FASE 3: REFRESH UI ---
         // Panggil fungsi refresh UI Anda di sini setelah semua operasi selesai
         // Contoh:
@@ -166,8 +168,7 @@ public class MechanicController : MonoBehaviour
 
    public void HandleUpdateInventory()
     {
-        InventoryUI.UpdateInventoryUI();
-        InventoryUI.UpdateSixItemDisplay();
+        InventoryUI.SetInventory();
     }
 
     public void HandleOpenCrafting()
@@ -179,4 +180,51 @@ public class MechanicController : MonoBehaviour
     {
         InventoryUI.SwapItems(sourceIndex, destinationIndex);
     }
+
+    public void HandleInitiateDrag(ItemInteraction itemToDrag)
+    {
+        // Logika untuk memulai drag item
+        // Misalnya, Anda bisa mengaktifkan mode drag pada InventoryUI
+        InventoryUI.InitiateDrag(itemToDrag);
+    }
+
+    public void HandleSetDescription(ItemData itemData)
+    {
+        // Logika untuk mengatur deskripsi item
+        // Misalnya, Anda bisa mengupdate UI deskripsi di InventoryUI
+        InventoryUI.SetDescription(itemData);
+    }
+
+    public void HandleCancelDrag()
+    {
+        // Logika untuk membatalkan drag item
+        // Misalnya, Anda bisa menonaktifkan mode drag pada InventoryUI
+        InventoryUI.CancelDrag();
+    }
+
+    public ItemInteraction HandleGetHeldItem()
+    {
+        ItemInteraction heldItem = InventoryUI.GetHeldItem();
+        return heldItem;
+    }
+
+    public void HandleSuccessfulDrop(int targetIndex)
+    {
+        // Logika untuk menangani drop item yang berhasil
+        // Misalnya, Anda bisa memperbarui UI atau menyimpan perubahan ke database
+        InventoryUI.SuccessfulDrop(targetIndex);
+    }
+    public void HandleUpdateDragPosition(Vector2 position)
+    {
+        // Logika untuk memperbarui posisi item yang sedang di-drag
+        // Misalnya, Anda bisa mengupdate posisi item di InventoryUI
+        InventoryUI.UpdateDragPosition(position);
+    }
+
+    public void HandleDropItemFromInventory(int itemIndex, int quantityToRemove)
+    {
+        InventoryUI.DropItemFromInventory(itemIndex, quantityToRemove);
+    }
+
+
 }

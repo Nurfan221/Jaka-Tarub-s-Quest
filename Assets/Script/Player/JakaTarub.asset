@@ -31,11 +31,8 @@ MonoBehaviour:
   totalHealingQuests: 5
   itemList: []
   inventory:
-  - itemName: Sabit
-    count: 1
-    quality: 0
-  - itemName: Kapak
-    count: 1
+  - itemName: Padi
+    count: 12
     quality: 0
   - itemName: PickAxe
     count: 1
@@ -46,29 +43,23 @@ MonoBehaviour:
   - itemName: Sabit
     count: 1
     quality: 0
-  - itemName: Sword
-    count: 1
-    quality: 0
   - itemName: MejaCamp
-    count: 4
+    count: 7
     quality: 0
-  - itemName: Cangkul
+  - itemName: Sabit
     count: 1
     quality: 0
-  - itemName: Kayu
-    count: 30
+  - itemName: Chest
+    count: 3
     quality: 0
   - itemName: Ranting
     count: 30
     quality: 0
-  - itemName: IronIngot
-    count: 30
+  - itemName: BenihPadi
+    count: 15
     quality: 0
-  - itemName: IronIngot
-    count: 30
-    quality: 0
-  - itemName: Padi
-    count: 30
+  - itemName: Sword
+    count: 1
     quality: 0
   maxItem: 18
   emptyItemTemplate:

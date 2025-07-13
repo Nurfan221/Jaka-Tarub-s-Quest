@@ -218,4 +218,19 @@ public class PlayerController : MonoBehaviour
         return itemData;
     }
 
+    public Vector3 HandleGetPlayerPosition()
+    {
+        // Pastikan ada player aktif
+        if (ActivePlayer != null)
+        {
+            // Kembalikan nilai dari properti transform.position, yang bertipe Vector3
+            return ActivePlayer.Movement.face.transform.position;
+        }
+        else
+        {
+            Debug.LogError("Tidak ada Player aktif untuk mendapatkan posisi.");
+            // Kembalikan posisi default (0,0,0) jika tidak ada player
+            return Vector3.zero;
+        }
+    }
 }

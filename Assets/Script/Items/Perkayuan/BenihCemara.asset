@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: BenihCemara
   m_EditorClassIdentifier: 
-  itemID: 29
+  itemID: 32
   itemName: BenihCemara
+  quality: 0
   types: 32
   categories: 2048
   sprite: {fileID: 1352490464343919810, guid: 31b0c90595bfd4f4cb21fbdc818fe1ec, type: 3}
@@ -21,6 +22,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -31,7 +40,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
@@ -45,4 +53,4 @@ MonoBehaviour:
   - {fileID: 5090815853600988913, guid: 8f440ccbfa916ee4a9ca8c6a34da722e, type: 3}
   - {fileID: 5090815853600988913, guid: 024da220ab3fc124dac92970640c8a99, type: 3}
   - {fileID: 5090815853600988913, guid: 1b3af91a00af8bd4b92bb9db3786cc79, type: 3}
-  dropItem: {fileID: 0}
+  dropItem: {fileID: 4459120725376062254, guid: 7ab20b52098ecab4da88474c130259f8, type: 3}

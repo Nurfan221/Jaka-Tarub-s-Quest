@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: GoldOre
   m_EditorClassIdentifier: 
-  itemID: 38
+  itemID: 47
   itemName: GoldOre
+  quality: 0
   types: 0
   categories: 512
   sprite: {fileID: -8656567730949352908, guid: 35a83fac362f6b345843b0099c51c735, type: 3}
@@ -22,6 +23,14 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 0
   MaxLevel: 0
   Damage: 0
@@ -32,7 +41,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 150
   SellValue: 100
@@ -41,4 +49,5 @@ MonoBehaviour:
   prefabItem: {fileID: 4459120725376062254, guid: 404ead58060275946b10c9e990130a62, type: 3}
   growthTime: 0
   growthImages: []
-  dropItem: {fileID: 0}
+  growthObject: []
+  dropItem: {fileID: 4459120725376062254, guid: 404ead58060275946b10c9e990130a62, type: 3}

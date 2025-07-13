@@ -1,125 +1,125 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
+using TMPro; // Gunakan ini jika Anda memakai TextMeshPro
 
 public class ItemDragandDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    public int index; // ID item yang disimpan
+    // --- Variabel Publik ---
+    // Index item ini di dalam List data inventaris. Diatur oleh skrip UI Manager.
+    public int index;
 
-    private RectTransform rectTransform;
-    private CanvasGroup canvasGroup;
+    [Header("Komponen UI (Hubungkan di Inspector)")]
+    [SerializeField] private Image itemIcon;
+    [SerializeField] private TextMeshProUGUI countText;
+
+    // --- Variabel Statis ---
+    // Referensi statis ke item yang SEDANG diseret.
+    // Ini memudahkan skrip lain (seperti TrashZone) untuk mengetahui item mana yang aktif.
+    public static ItemDragandDrop itemBeingDragged;
+
+    // --- Variabel Privat ---
     private Transform originalParent;
-    public ItemData itemData; // Data item yang di-drag
-    public Item item; // Item yang di-drag
-    private bool droppedOnValidSlot;
+    private CanvasGroup canvasGroup;
 
-    //private void Start()
-    //{
-    //    GetItemFromInventory();
-    //}
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
+        // Ambil komponen CanvasGroup untuk mengatur transparansi dan interaksi.
         canvasGroup = GetComponent<CanvasGroup>();
-        originalParent = transform.parent; // Simpan parent asli
+        if (canvasGroup == null)
+        {
+            canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        }
     }
+
+    /// <summary>
+    /// Metode publik untuk mengatur tampilan visual item ini berdasarkan data.
+    /// Dipanggil oleh UI Manager saat me-refresh inventaris.
+    /// </summary>
+    //public void UpdateDisplay(ItemData data)
+    //{
+    //    if (data != null)
+    //    {
+    //        Item item = ItemPool.Instance.GetItemWithQuality(data.itemName, data.quality);
+    //        itemIcon.sprite = item.sprite;
+    //        itemIcon.enabled = true;
+    //        countText.text = data.count > 1 ? data.count.ToString() : "";
+    //        countText.enabled = data.count > 1;
+    //    }
+    //    else // Jika slot ini seharusnya kosong
+    //    {
+    //        itemIcon.sprite = null;
+    //        itemIcon.enabled = false;
+    //        countText.text = "";
+    //        countText.enabled = false;
+    //    }
+    //}
+
+    // --- Implementasi Interface Drag & Drop ---
+
+    // Di dalam ItemDragandDrop.cs
+    // Di dalam ItemDragandDrop.cs
+    // Di dalam ItemDragandDrop.cs
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // PINDAHKAN KE SINI!
-        // Dengan ini, data item selalu yang paling baru setiap kali drag dimulai.
-        GetItemFromInventory();
+        if (itemIcon.sprite == null) return;
 
-        // Jika slotnya ternyata kosong, itemData akan null, dan kita hentikan proses drag.
-        if (itemData == null)
-        {
-            eventData.pointerDrag = null; // Batalkan drag jika tidak ada item
-            return;
-        }
+        // Atur item ini sebagai item yang sedang diseret
+        itemBeingDragged = this;
 
-        droppedOnValidSlot = false;
-        canvasGroup.alpha = 0.6f;
-        transform.SetParent(transform.root);
+        // Tampilkan dan atur DragIcon
+        MechanicController.Instance.InventoryUI.dragIcon.sprite = this.itemIcon.sprite;
+        MechanicController.Instance.InventoryUI.dragIcon.gameObject.SetActive(true);
+
+        // HANYA sembunyikan item asli secara visual. JANGAN sentuh blocksRaycasts.
+        // Item ini harus tetap bisa dideteksi oleh OnDrop.
+        canvasGroup.alpha = 0;
     }
+
     public void OnDrag(PointerEventData eventData)
     {
-        canvasGroup.alpha = 0.6f; // Memberikan efek transparansi saat di-drag
-        rectTransform.anchoredPosition += eventData.delta; // Gerakkan item saat di-drag
-
+        // Gerakkan DragIcon
+        MechanicController.Instance.InventoryUI.dragIcon.transform.position = eventData.position;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.alpha = 1f;
-        transform.SetParent(originalParent); // Selalu kembalikan ke parent asli untuk mereset posisi jika tidak di-drop ke mana pun
-        GetComponent<RectTransform>().anchoredPosition = Vector2.zero; // Reset posisi di dalam slotnya
-
-        // **Logika Inti: Cek apakah item dibuang atau tidak**
-        if (!droppedOnValidSlot)
+        // OnEndDrag hanya berjalan jika drop GAGAL (tidak mengenai target valid).
+        // Jika itemBeingDragged belum di-reset oleh OnDrop, berarti drop gagal.
+        if (itemBeingDragged != null)
         {
-            // Jika penanda false, berarti item dibuang ke luar inventory
-            Debug.Log("Item dibuang ke dunia game!");
+            // Kembalikan item asli menjadi terlihat
+            canvasGroup.alpha = 1;
 
-            ItemData itemToDropData = PlayerController.Instance.HandleGetItem(index);
-            if (itemToDropData == null) return; // Jika karena suatu hal item sudah tidak ada
+            // Sembunyikan DragIcon
+            MechanicController.Instance.InventoryUI.dragIcon.gameObject.SetActive(false);
 
-            Item itemInDrag = ItemPool.Instance.GetItemWithQuality(itemToDropData.itemName, itemToDropData.quality);
-            if (itemInDrag != null && itemInDrag.dropItem != null)
-            {
-                // Drop satu tumpukan item sebagai satu objek fisik
-
-                ItemPool.Instance.DropItem(itemInDrag.itemName, transform.position + new Vector3(0, 0.5f, 0), itemInDrag.dropItem, itemToDropData.count);
-                ItemPool.Instance.RemoveItemsFromInventory(itemData);
-
-            }
-            else
-            {
-
-                Debug.LogError("Item tidak ditemukan atau prefab untuk drop tidak ada!");
-            }
-
-            // 3. Hapus item dari data inventaris (PENTING!)
-            // Anda perlu sebuah fungsi untuk menghapus item berdasarkan indexnya
-
-            // 4. Perbarui UI inventaris
-            MechanicController.Instance.HandleUpdateInventory();
+            // Reset referensi
+            itemBeingDragged = null;
         }
-        // Jika droppedOnValidSlot adalah true, tidak terjadi apa-apa di sini karena logika swap sudah ditangani di OnDrop.
     }
-    public void MarkAsDroppedSuccessfully()
-    {
-        droppedOnValidSlot = true;
-    }
+
     public void OnDrop(PointerEventData eventData)
     {
-        ItemDragandDrop draggedItem = eventData.pointerDrag.GetComponent<ItemDragandDrop>();
+        // Metode ini sekarang akan terpanggil dengan benar!
+        ItemDragandDrop draggedItem = ItemDragandDrop.itemBeingDragged;
+
         if (draggedItem != null && draggedItem != this)
         {
-            // Panggil metode baru untuk menandai drop berhasil
-            draggedItem.MarkAsDroppedSuccessfully();
+            Debug.Log($"OnDrop terpicu! Menukar item {draggedItem.index} dengan {this.index}");
 
-            // Lanjutkan logika tukar item
+            // Panggil manajer untuk menukar DATA
             MechanicController.Instance.HandleSwapItems(draggedItem.index, this.index);
+
+            // Sembunyikan DragIcon karena operasi selesai
+            MechanicController.Instance.InventoryUI.dragIcon.gameObject.SetActive(false);
+
+            // Panggil refresh untuk menggambar ulang UI
             MechanicController.Instance.HandleUpdateInventory();
+
+            // Reset referensi statis
+            ItemDragandDrop.itemBeingDragged = null;
         }
     }
-
-    public void GetItemFromInventory()
-    {
-        Debug.Log($"[DEBUG] Mengambil item dari inventaris dengan index: {index}");
-        itemData = PlayerController.Instance.HandleGetItem(index);
-        if (itemData != null)
-        {
-            // Hanya cari 'Item' jika 'itemData' valid
-            item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
-        }
-        else
-        {
-            // Pastikan 'item' juga null jika tidak ada data
-            item = null;
-        }
-    }
-
 }
