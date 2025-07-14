@@ -6,15 +6,19 @@ public class PlantContainer : MonoBehaviour
 {
 
     public List<GameObject> plantObject;
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        TimeManager.OnDayChanged += HandleNewDay;
+    }
+    private void OnDisable()
+    {
+        TimeManager.OnDayChanged -= HandleNewDay;
+    }
+    
+    private void HandleNewDay()
+    {
+        HitungPertumbuhanPohon();
     }
 
     public void HitungPertumbuhanPohon()

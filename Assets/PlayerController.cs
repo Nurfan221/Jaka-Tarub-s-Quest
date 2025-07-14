@@ -28,7 +28,22 @@ public class PlayerController : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
     }
+    private void OnEnable()
+    {
+        // Berlangganan ke event saat objek aktif
+        TimeManager.OnDayChanged += HandleNewDay;
+    }
 
+    private void OnDisable()
+    {
+        // Selalu berhenti berlangganan saat objek nonaktif untuk menghindari error
+        TimeManager.OnDayChanged -= HandleNewDay;
+    }
+
+    public void HandleNewDay()
+    {
+        HandleReverseHealthandStamina();
+    }
     // Fungsi ini akan dipanggil oleh setiap Player_Movement baru yang muncul.
     public void RegisterPlayer(Player player)
     {

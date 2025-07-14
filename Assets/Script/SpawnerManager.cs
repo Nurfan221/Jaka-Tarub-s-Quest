@@ -13,6 +13,18 @@ public class SpawnerManager : MonoBehaviour
     public Spawner[] spawner;
     [SerializeField] QuestManager questManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private void OnEnable()
+    {
+        // Berlangganan ke event saat objek aktif
+        TimeManager.OnDayChanged += HandleNewDay;
+    }
+
+    private void OnDisable()
+    {
+        // Selalu berhenti berlangganan saat objek nonaktif untuk menghindari error
+        TimeManager.OnDayChanged -= HandleNewDay;
+    }
     void Start()
     {
         
@@ -24,6 +36,11 @@ public class SpawnerManager : MonoBehaviour
         
     }
 
+    public void HandleNewDay()
+    {
+        float luck = TimeManager.Instance.GetDayLuck();
+        SetSpawnerActive(luck);
+    }
     public void SetSpawnerActive(float random)
     {
         // Loop untuk menonaktifkan semua spawner

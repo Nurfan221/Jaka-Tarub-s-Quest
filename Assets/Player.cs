@@ -34,5 +34,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+    private void OnDestroy()
+    {
+        if (PlayerController.Instance != null)
+        {
+            PlayerController.Instance.UnregisterPlayer(this);
+        }
+    }
+
+
 }

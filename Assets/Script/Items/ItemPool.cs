@@ -93,6 +93,7 @@ public class ItemPool : MonoBehaviour
 
         // Panggil StopGravity dari komponen ItemDropInteractable
         ItemDropInteractable interactable = droppedItem.GetComponent<ItemDropInteractable>();
+        interactable.itemDrop = true;
         if (interactable != null)
         {
             Debug.Log("item berhenti");

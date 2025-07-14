@@ -122,7 +122,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -179,9 +179,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Kentang
-  item: {fileID: 11400000, guid: 785cbdf7f049dc841b1bfc5ea05dfe0e, type: 2}
+  itemdata:
+    itemName: 
+    count: 0
+    quality: 0
   itemName: Kentang
   gravityDuration: 1
+  pickableTag: ItemDrop
+  pickupDelay: 5
 --- !u!114 &-1422522926936980395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2633e0124ee11d84e94ea99cfb571598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemID: 0
+  index: 0
+  itemIcon: {fileID: 0}
+  countText: {fileID: 0}
 --- !u!114 &-3049239174393603468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,5 +215,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  namePrefab: Kentang
   itemDrop: {fileID: 2792997999344615050}

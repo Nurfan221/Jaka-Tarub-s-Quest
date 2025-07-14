@@ -34,7 +34,29 @@ public class FarmTile : MonoBehaviour
         RestoreFarmStateFromData();
     }
 
-  
+    private void OnEnable()
+    {
+        // Berlangganan ke event saat objek aktif
+        TimeManager.OnDayChanged += HandleNewDay;
+    }
+
+    private void OnDisable()
+    {
+        // Selalu berhenti berlangganan saat objek nonaktif untuk menghindari error
+        TimeManager.OnDayChanged -= HandleNewDay;
+    }
+
+
+    private void HandleNewDay()
+    {
+        Debug.Log("WeatherManager menerima sinyal hari baru!");
+
+        // Pastikan timeData_SO di TimeManager bersifat public atau memiliki getter.
+        bool isRaining = TimeManager.Instance.timeData_SO.isRain;
+        AdvanceDay(isRaining);
+    }
+
+
     /// Fungsi utama yang dieksekusi setiap kali hari berganti.
     public void AdvanceDay(bool isRaining = false)
     {

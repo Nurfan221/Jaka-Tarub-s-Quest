@@ -13,7 +13,7 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 public class ShopUI : MonoBehaviour
 {
     [Header("Daftar Hubungan")]
-    public Player_Inventory player_Inventory;
+    //public Player_Inventory player_Inventory;
     public GameEconomy gameEconomy;
     public InventoryUI inventoryUI;
 
@@ -40,6 +40,7 @@ public class ShopUI : MonoBehaviour
     public Button btnClose;
     public Button gagalUI;
     public Transform deskripsiUI;
+    private Season currenSeason;
 
     private Dictionary<string, int> itemSellCounts = new(); // Menyimpan jumlah item yang akan dibeli
     private Dictionary<string , int> itemBuyCounts = new();
@@ -58,6 +59,34 @@ public class ShopUI : MonoBehaviour
         {
             Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
         }
+    }
+
+    private void OnEnable()
+    {
+        // Berlangganan ke event saat objek aktif
+        TimeManager.OnDayChanged += HandleNewDay;
+        TimeManager.OnSeasonChanged += HandleNewSeason;
+    }
+
+    private void OnDisable()
+    {
+        // Selalu berhenti berlangganan saat objek nonaktif untuk menghindari error
+        TimeManager.OnDayChanged -= HandleNewDay;
+        TimeManager.OnSeasonChanged -= HandleNewSeason;
+    }
+
+    public void HandleNewDay()
+    {
+        //RestockDaily(currentSeason)
+        currenSeason = TimeManager.Instance.GetCurrentSeason();
+        UpdateShopBySeason(currenSeason);
+    }
+
+    public void HandleNewSeason()
+    {
+        currenSeason = TimeManager.Instance.GetCurrentSeason();
+        UpdateShopBySeason(currenSeason);
+
     }
 
     private void Start()

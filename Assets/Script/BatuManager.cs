@@ -22,6 +22,15 @@ public class BatuManager : MonoBehaviour
 
     public ResourceData[] minerResource;
     // Start is called before the first frame update
+
+    private void OnEnable()
+    {
+        TimeManager.OnDayChanged += HandleNewDay;
+    }
+    private void OnDisable()
+    {
+        TimeManager.OnDayChanged -= HandleNewDay;
+    }
     void Start()
     {
         
@@ -33,6 +42,14 @@ public class BatuManager : MonoBehaviour
         
     }
 
+    public void HandleNewDay()
+    {
+        float dailyLuck = TimeManager.Instance.GetDayLuck();
+        CheckLocationResource();
+        UpdatePositionMiner(dailyLuck);
+
+
+    }
     public void CheckLocationResource()
     {
         foreach (var item in minerResource)

@@ -38,6 +38,7 @@ public class TimeData_SO : ScriptableObject
     public Days currentDay = Days.Mon;
     public Season currentSeason = Season.Rain;
     public float dailyLuck;
+    public bool isRain;
 
     /// <summary>
     /// Fungsi untuk mereset semua data waktu ke kondisi awal.

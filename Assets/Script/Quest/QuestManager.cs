@@ -180,6 +180,17 @@ public class QuestManager : MonoBehaviour
     {
         // Update rutin, jika diperlukan
     }
+    private void OnEnable()
+    {
+        // Berlangganan ke event saat objek aktif
+        TimeManager.OnDayChanged += CheckQuest;
+    }
+
+    private void OnDisable()
+    {
+        // Selalu berhenti berlangganan saat objek nonaktif untuk menghindari error
+        TimeManager.OnDayChanged -= CheckQuest;
+    }
 
     public void CheckQuest()
     {
@@ -211,7 +222,7 @@ public class QuestManager : MonoBehaviour
         DisplayActiveQuests();
         npcManager.CheckNPCQuest();
 
-        Debug.Log("tanggal sekarang : " + timeManager.timeData_SO.date + 1);
+        Debug.Log("tanggal sekarang : " + timeManager.timeData_SO.date);
         CheckForScheduledQuest();
     }
 

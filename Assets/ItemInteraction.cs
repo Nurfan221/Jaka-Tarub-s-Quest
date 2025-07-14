@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 // Nama baru: ItemInteraction
 // Mengimplementasikan semua interface yang dibutuhkan untuk memulai dan menerima drag.
@@ -10,6 +11,9 @@ public class ItemInteraction : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     // Komponen CanvasGroup untuk mengatur transparansi item asli di grid.
     private CanvasGroup canvasGroup;
+
+ 
+
 
     private void Awake()
     {
@@ -69,4 +73,6 @@ public class ItemInteraction : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         canvasGroup.alpha = alpha;
     }
+    
+
 }

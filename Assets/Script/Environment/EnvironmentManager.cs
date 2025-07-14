@@ -28,6 +28,14 @@ public class EnvironmentManager : MonoBehaviour
     public int jumlahdiBersihkan;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void OnEnable()
+    {
+        TimeManager.OnDayChanged += HandleNewDay;
+    }
+    private void OnDisable()
+    {
+        TimeManager.OnDayChanged -= HandleNewDay;
+    }
     void Start()
     {
 
@@ -46,6 +54,11 @@ public class EnvironmentManager : MonoBehaviour
 
     }
 
+    public void HandleNewDay()
+    {
+        float dayLuck = TimeManager.Instance.GetDayLuck();
+        SpawnFromEnvironmentList(dayLuck);
+    }
     public void RegisterAllObject()
     {
         environmentList.Clear();

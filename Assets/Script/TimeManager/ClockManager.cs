@@ -9,7 +9,7 @@ public class ClockManager : MonoBehaviour
     public Image weatherSprite;
     public Sprite[] weatherSprites;
 
-    public Light sunlight;
+
     public float nightIntensity = 0.05f;  // Malam lebih gelap
     public float dayIntensity = 1.5f;     // Siang lebih terang
     public AnimationCurve dayNightCurve;  // Untuk transisi halus
@@ -21,10 +21,10 @@ public class ClockManager : MonoBehaviour
     public Color rainColor = new Color(0.4f, 0.4f, 0.6f); // pencahayaan saat hujan 
     public Color currentColor; // Atur transisi warna berdasarkan waktu 
 
-    [SerializeField] private TimeManager timeManager;
+    //[SerializeField] private TimeManager timeManager;
     [SerializeField] GameEconomy gameEconomy;
-    [SerializeField] WeatherManager weatherManager;
 
+  
     private void OnEnable()
     {
         TimeManager.OnTimeChanged += UpdateDateTime;
@@ -35,20 +35,23 @@ public class ClockManager : MonoBehaviour
         TimeManager.OnTimeChanged -= UpdateDateTime;
     }
 
+
     private void UpdateDateTime()
     {
-        Date.text = timeManager.GetFormattedDate();
-        Time.text = timeManager.GetFormattedTime();
-        Season.text = timeManager.GetCurrentSeason();
+        // Panggil langsung dari TimeManager.Instance
+        Date.text = TimeManager.Instance.GetFormattedDate();
+        Time.text = TimeManager.Instance.GetFormattedTime();
+        Season.text = TimeManager.Instance.GetCurrentSeason().ToString();
         Money.text = gameEconomy.money.ToString();
+        int minutes = TimeManager.Instance.minutes; // Akses melalui properti
+        float hour = TimeManager.Instance.hour + (minutes / 60f); // Akses melalui properti
 
-        float hour = timeManager.hour + (timeManager.minutes / 60f);
 
         float t = hour / 24f;
         float dayNightT = dayNightCurve.Evaluate(t);
-
+        bool isRaining = TimeManager.Instance.timeData_SO.isRain;
         // CEK DULU: Kalau hujan, pakai nightColor terus!
-        if (weatherManager.isRain)
+        if (isRaining)
         {
             //Debug.Log("hujan");
             currentColor = rainColor;
@@ -81,8 +84,8 @@ public class ClockManager : MonoBehaviour
             }
         }
 
-        sunlight.intensity = Mathf.Lerp(nightIntensity, dayIntensity, dayNightT);
-        sunlight.color = currentColor;
+        GameController.Instance.sunlight.intensity = Mathf.Lerp(nightIntensity, dayIntensity, dayNightT);
+        GameController.Instance.sunlight.color = currentColor;
 
         RenderSettings.ambientLight = Color.Lerp(nightColor, currentColor, dayNightT);
         RenderSettings.fogColor = Color.Lerp(new Color(0.03f, 0.03f, 0.08f), currentColor, dayNightT);

@@ -7,54 +7,56 @@ public class TimeManager : MonoBehaviour
 {
     // Menambahkan properti Singleton
     public static TimeManager Instance { get; private set; }
-    public WeatherManager WeatherManager { get; private set; }
+
     private void Awake()
     {
-        // Pastikan hanya ada satu instance dari TimeManager
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);  // Agar tidak dihancurkan saat scene berganti
+            Destroy(this.gameObject);
         }
         else
         {
-            Destroy(gameObject);  // Hancurkan objek jika sudah ada instance lain
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject); // Gunakan jika Anda ingin waktu terus berjalan antar scene
         }
     }
 
 
-    [SerializeField] private WeatherManager weatherManager;
-    [SerializeField] private NPCManager npcManager;
-    [SerializeField] private QuestManager questManager;
+
+    //[SerializeField] private WeatherManager weatherManager;
+    //[SerializeField] private NPCManager npcManager;
+    //[SerializeField] private QuestManager questManager;
     //[SerializeField] private DialogueSystem dialogueSystem;
-    [SerializeField] public Player_Health player_Health;
-    [SerializeField] private ShopUI shopUI;
-    [SerializeField] private SpawnerManager spawnerManager;
-    [SerializeField] private TrashManager trashManager;
-    [SerializeField] private BatuManager batuManager;
-    [SerializeField] PlantContainer plantContainer;
-    [SerializeField] EnvironmentManager environmentManagerTrees;
-    [SerializeField] EnvironmentManager environmentManagerJamur;
-    [SerializeField] EnvironmentManager environmentManagerKuburan;
-    [SerializeField] EnvironmentManager environmentManagerBunga;
-    [SerializeField] BuffScrollController buffScrollController;
+    //[SerializeField] public Player_Health player_Health;
+    //[SerializeField] private ShopUI shopUI;
+    //[SerializeField] private SpawnerManager spawnerManager;
+    //[SerializeField] private TrashManager trashManager;
+    //[SerializeField] private BatuManager batuManager;
+    //[SerializeField] PlantContainer plantContainer;
+    //[SerializeField] EnvironmentManager environmentManagerTrees;
+    //[SerializeField] EnvironmentManager environmentManagerJamur;
+    //[SerializeField] EnvironmentManager environmentManagerKuburan;
+    //[SerializeField] EnvironmentManager environmentManagerBunga;
+    //[SerializeField] BuffScrollController buffScrollController;
    
 
     [Header("Logika Waktu")]
     public int secondsIncrease = 10;
     public float tickInterval = 1f;
     private float tickTimer = 0f;
-    public int minutes = 0;
-    public int hour = 0;
+    public int minutes;// Ubah menjadi properti agar lebih aman
+    public int hour;    // Ubah menjadi properti agar lebih aman
+
 
     public static event UnityAction OnTimeChanged;
 
     //logika mengirim waktu 
-    public static event Action<int> OnDayChanged;
 
     private List<TreeBehavior> registeredTrees = new List<TreeBehavior>(); // Menyimpan pohon-pohon yang terdaftar
     private List<PerangkapBehavior> registeredTrap = new List<PerangkapBehavior>();// Menyimpan perangkap-perangkap yang terdaftar
-    public static event Action<int> OnHourChanged; // Event untuk perubahan jam
+    public static event System.Action OnHourChanged;
+    public static event System.Action OnDayChanged;
+    public static event System.Action OnSeasonChanged;
 
     [Header("Data Waktu")]
     public TimeData_SO timeData_SO;
@@ -62,11 +64,13 @@ public class TimeManager : MonoBehaviour
 
     private void Start()
     {
-        shopUI.UpdateShopBySeason(timeData_SO.currentSeason);
-        batuManager.CheckLocationResource();
+        //shopUI.UpdateShopBySeason(timeData_SO.currentSeason);
         AdvanceTime();
+        OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
+
     }
 
+  
 
     private void Update()
     {
@@ -85,20 +89,7 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    public void RegisterWeather(WeatherManager weatherManager)
-    {
-        this.weatherManager = weatherManager;
-        Debug.Log($"PlayerController: Paket Player '{weatherManager.gameObject.name}' telah terdaftar.");
-    }
-
-    // Fungsi Unregister juga diubah
-    public void UnregisterWeather(WeatherManager weatherManager)
-    {
-        if (this.weatherManager == weatherManager)
-        {
-            this.weatherManager = null;
-        }
-    }
+   
 
 
     private void AdvanceTime()
@@ -109,11 +100,11 @@ public class TimeManager : MonoBehaviour
         {
             minutes -= 60;
             hour++;
-            OnHourChanged?.Invoke(hour); // Memanggil event saat jam berubah
-            if (buffScrollController.isBuffDamage || buffScrollController.isBuffSprint || buffScrollController.isBuffProtection)
-            {
-                buffScrollController.UpdateBuffTime();
-            }
+            OnHourChanged?.Invoke(); // Memanggil event saat jam berubah
+            //if (buffScrollController.isBuffDamage || buffScrollController.isBuffSprint || buffScrollController.isBuffProtection)
+            //{
+            //    buffScrollController.UpdateBuffTime();
+            //}
 
            
         }
@@ -139,36 +130,29 @@ public class TimeManager : MonoBehaviour
     {
         hour = 4;
         timeData_SO.currentDay = (Days)((timeData_SO.totalHari % 7 == 0) ? 7 : timeData_SO.totalHari % 7);
-
+        OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
         // Tentukan probabilitas hujan berdasarkan musim
-        //weatherManager.SetRainChance();
-        weatherManager.CheckForRain();
-        FarmTile.Instance.AdvanceDay(weatherManager.isRain);
 
-        //FarmTile.Instance.HandleNewDay();
 
-        questManager.CheckQuest();
+        //questManager.CheckQuest();
         //shopUI.RestockDaily(currentSeason);
 
-        PlayerController.Instance.HandleReverseHealthandStamina();
+        //PlayerController.Instance.HandleReverseHealthandStamina();
         GetLuck();
-        spawnerManager.SetSpawnerActive(timeData_SO.dailyLuck);
+        //spawnerManager.SetSpawnerActive(timeData_SO.dailyLuck);
 
 
-        trashManager.UpdateTrash();
 
-        batuManager.UpdatePositionMiner(timeData_SO.dailyLuck);
-        plantContainer.HitungPertumbuhanPohon();
-        environmentManagerTrees.SpawnFromEnvironmentList(timeData_SO.dailyLuck);
-        environmentManagerJamur.SpawnFromEnvironmentList(timeData_SO.dailyLuck);
-        environmentManagerBunga.SpawnFromEnvironmentList(timeData_SO.dailyLuck);
-        environmentManagerKuburan.UpdateKondisiKuburan();
+
+        //environmentManagerTrees.SpawnFromEnvironmentList(timeData_SO.dailyLuck);
+        //environmentManagerJamur.SpawnFromEnvironmentList(timeData_SO.dailyLuck);
+        //environmentManagerBunga.SpawnFromEnvironmentList(timeData_SO.dailyLuck);
+        //environmentManagerKuburan.UpdateKondisiKuburan();
 
 
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
         Debug.Log($"Hari telah berganti: {timeData_SO.totalHari}");
-        OnDayChanged?.Invoke(timeData_SO.totalHari); // Mengirim timeData_SO.totalHari ke semua pohon
-        OnDayChanged?.Invoke(timeData_SO.date);
+
 
         //Update semua perangkap
         foreach (var trap in registeredTrap)
@@ -202,13 +186,19 @@ public class TimeManager : MonoBehaviour
 
     }
 
+    public float GetDayLuck()
+    {
+        return timeData_SO.dailyLuck;
+    }
+
+
+
     private void UpdateSeason()
     {
         // Mengganti musim secara berurutan setiap kali fungsi ini dipanggil
         timeData_SO.currentSeason = (Season)(((int)timeData_SO.currentSeason + 1) % Enum.GetValues(typeof(Season)).Length);
         Debug.Log("Season updated to: " + timeData_SO.currentSeason);
-
-        shopUI.UpdateShopBySeason(timeData_SO.currentSeason);
+        OnSeasonChanged?.Invoke();
 
     }
 
@@ -258,9 +248,9 @@ public class TimeManager : MonoBehaviour
         return $"{hour:D2}:{minutes:D2}";
     }
 
-    public string GetCurrentSeason()
+    public Season GetCurrentSeason()
     {
-        return timeData_SO.currentSeason.ToString();
+        return timeData_SO.currentSeason;
     }
 
     public string GetCurrentWeek()

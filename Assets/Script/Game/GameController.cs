@@ -33,6 +33,8 @@ public class GameController : MonoBehaviour
     public bool gamePaused;
     [SerializeField] GameObject pauseUI;
 
+    [Header("Environment penting dalam game")]
+    public Light sunlight;
     private void Awake()
     {
         if (persistent != null)

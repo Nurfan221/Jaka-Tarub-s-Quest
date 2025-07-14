@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class BuffScrollController : MonoBehaviour
 {
+    public static BuffScrollController Instance { get; private set; }
     public RectTransform contentTransform; // Referensi ke Content
     public float scrollSpeed = 3f; // Kecepatan scroll
 
@@ -38,7 +39,18 @@ public class BuffScrollController : MonoBehaviour
     [Header("Daftar Hubungan")]
     [SerializeField] Player_Health player_Health;
 
-
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
     void Start()
     {
         totalBuffs = contentTransform.childCount; // Total buff berdasarkan jumlah child dalam Content

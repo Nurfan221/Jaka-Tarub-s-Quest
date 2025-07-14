@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c84b5556442f34281f75bcb035de32, type: 3}
   m_Name: TimeData
   m_EditorClassIdentifier: 
-  totalHari: 1
-  hari: 1
-  date: 1
+  totalHari: 3
+  hari: 3
+  date: 3
   minggu: 1
   bulan: 1
   tahun: 1
-  currentDay: 1
+  currentDay: 3
   currentSeason: 0
-  dailyLuck: 0
+  dailyLuck: 1.6675166
+  isRain: 1

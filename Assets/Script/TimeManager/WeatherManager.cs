@@ -3,49 +3,61 @@ using UnityEngine;
 public class WeatherManager : MonoBehaviour
 {
 
-    [SerializeField] private TimeManager timeManager;  // Referensi ke TimeManager
-    [SerializeField] private ClockManager clockManager;
+
     public ParticleSystem rainParticle;
-    public bool isRain;
+    //public bool isRain;
 
     public float rainChance = 0f;
 
-    void Start()
-    {
-        // Set initial rain chance
-        //SetRainChance();
-        TimeManager.Instance.RegisterWeather(this);
-    }
-
-    private void OnDestroy()
-    {
-        TimeManager.Instance.UnregisterWeather(this);
-    }
+   
 
     void Update()
     {
         // Optionally update rain chance each frame, if needed
     }
+    private void OnEnable()
+    {
+        // Berlangganan ke event saat objek aktif
+        TimeManager.OnDayChanged += HandleNewDay;
+    }
 
-    //public void SetRainChance()
-    //{
-    //    // Akses currentSeason melalui timeManager
-    //    switch (timeManager.timeData_SO.currentSeason)
-    //    {
+    private void OnDisable()
+    {
+        // Selalu berhenti berlangganan saat objek nonaktif untuk menghindari error
+        TimeManager.OnDayChanged -= HandleNewDay;
+    }
 
-    //        case TimeManager.Season.Rain:
-    //            rainChance = 0.80f;
-    //            break;
 
-    //        case TimeManager.Season.Dry:
-    //            rainChance = 0.1f; // Dry season doesn't have rain chance
-    //            break;
+    private void HandleNewDay()
+    {
+        Debug.Log("WeatherManager menerima sinyal hari baru!");
 
-    //        default:
-    //            rainChance = 0f;  // Nilai default jika tidak ada yang cocok
-    //            break;
-    //    }
-    //}
+        // Pastikan timeData_SO di TimeManager bersifat public atau memiliki getter.
+        Season currentSeason = TimeManager.Instance.timeData_SO.currentSeason;
+
+        SetRainChance(currentSeason);
+    }
+    public void SetRainChance(Season currentSeason)
+    {
+        // Akses currentSeason melalui timeManager
+        switch (currentSeason)
+        {
+
+            case Season.Rain:
+                rainChance = 0.80f;
+                break;
+
+            case Season.Dry:
+                rainChance = 0.1f; // Dry season doesn't have rain chance
+                break;
+
+            default:
+                rainChance = 0f;  // Nilai default jika tidak ada yang cocok
+                break;
+        }
+
+        CheckForRain();
+    }
 
     public void CheckForRain()
     {
@@ -53,12 +65,13 @@ public class WeatherManager : MonoBehaviour
 
         if (randomValue <= rainChance)
         {
-            isRain = true;
+            TimeManager.Instance.timeData_SO.isRain = true;
+            Debug.Log("Hujan turun bang");
             rainParticle.Play();
         }
         else
         {
-            isRain = false;
+            TimeManager.Instance.timeData_SO.isRain = false;
             rainParticle.Stop();
             Debug.Log("Tidak turun hujan");
         }

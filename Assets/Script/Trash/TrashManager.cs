@@ -13,6 +13,23 @@ public class TrashManager : MonoBehaviour
     public int randomCount;
     public int minimalRandomCount;
 
+
+    private void OnEnable()
+    {
+        // Berlangganan ke event saat objek aktif
+        TimeManager.OnDayChanged += HandleNewDay;
+    }
+
+    private void OnDisable()
+    {
+        // Selalu berhenti berlangganan saat objek nonaktif untuk menghindari error
+        TimeManager.OnDayChanged -= HandleNewDay;
+    }
+
+    public void HandleNewDay()
+    {
+        UpdateTrash();
+    }
     void Start()
     {
 

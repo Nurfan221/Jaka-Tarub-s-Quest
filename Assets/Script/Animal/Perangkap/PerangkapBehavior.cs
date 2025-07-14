@@ -46,9 +46,9 @@ public class PerangkapBehavior : MonoBehaviour
         TimeManager.OnDayChanged -= OnDayChanged;
     }
 
-    private void OnDayChanged(int currentDay)
+    private void OnDayChanged()
     {
-        Debug.Log($"Pohon menerima perubahan hari, Hari ke-{currentDay}");
+        Debug.Log($"Pohon menerima perubahan hari, Hari ke-");
         GetAnimalToTrap();
         Debug.Log("pohon tumbuh");
     }
