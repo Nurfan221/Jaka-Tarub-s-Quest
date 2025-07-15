@@ -19,6 +19,20 @@ public enum QuestType
 
 public class QuestManager : MonoBehaviour
 {
+    public static QuestManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
     [System.Serializable]
     public class Chapter
     {
@@ -74,12 +88,12 @@ public class QuestManager : MonoBehaviour
         public string questName;
         public Dialogues dialogueQuest;
         public GameObject NPC;
-        public List<Item> itemQuests;
+        public List<ItemData> itemQuests;
         public int[] countItem;
         public int date;
         //public int bulan;
         public int reward;
-        public Reward[] rewards;
+        public ItemData[] rewards;
         public string questInfo;
         public string questDetail;
         public string deskripsiAwal;
@@ -97,14 +111,7 @@ public class QuestManager : MonoBehaviour
 
     }
 
-   
 
-    [System.Serializable]
-    public class Reward
-    {
-        public Item itemReward;
-        public int jumlahItemReward;
-    }
 
     public Chapter[] chapters;
 
@@ -167,19 +174,7 @@ public class QuestManager : MonoBehaviour
 
 
     public Dialogues notFinished;
-    
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Inisialisasi awal, jika diperlukan
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Update rutin, jika diperlukan
-    }
     private void OnEnable()
     {
         // Berlangganan ke event saat objek aktif
@@ -191,20 +186,33 @@ public class QuestManager : MonoBehaviour
         // Selalu berhenti berlangganan saat objek nonaktif untuk menghindari error
         TimeManager.OnDayChanged -= CheckQuest;
     }
+    // Start is called before the first frame update
+    void Start()
+    {
+        // Inisialisasi awal, jika diperlukan
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Update rutin, jika diperlukan
+    }
+    
 
     public void CheckQuest()
     {
+        Debug.Log("fungsi checkQuest di jalankan");
         foreach (var chapter in chapters)
         {
             foreach (var quest in chapter.sideQuest)
             {
                 //Debug.Log("Tanggal quest active: " + quest.date);
 
-                if ((timeManager.timeData_SO.date + 1) == quest.date  && !quest.questActive)
+                if ((timeManager.timeData_SO.date) == quest.date  && !quest.questActive)
                 {
                     quest.questActive = true;
                     questInfoUI.DisplayActiveQuest(quest);
-                    AddItemToList(quest);
+                    //AddItemToList(quest);
 
                     if(quest.isSpawner && quest.spawner != null)
                     {
@@ -229,22 +237,17 @@ public class QuestManager : MonoBehaviour
     public void AddItemToList(Quest questActive)
     {
         // Membuat salinan dari item yang ada di quest.itemQuests sebelum menghapus item lama
-        List<Item> newItemList = new List<Item>();
+        List<ItemData> newItemList = new List<ItemData>();
 
         if(questActive != null && questActive.itemQuests.Count > 0)
         {
             // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
             for (int i = 0; i < questActive.itemQuests.Count; i++)
             {
-                // Membuat salinan baru dari item yang ada untuk menghindari modifikasi referensi langsung
-                Item itemCopy = new Item
-                {
-                    itemName = questActive.itemQuests[i].itemName, // Salin nama item
-                    //stackCount = questActive.countItem[i]          // Set stackCount dari countItem
-                };
+                
 
                 // Menambahkan item baru ke dalam newItemList
-                newItemList.Add(itemCopy);
+                //newItemList.Add(itemCopy);
             }
         }
 
@@ -481,6 +484,6 @@ public class QuestManager : MonoBehaviour
         //currentMainQuest.locationMainQuest[currentMainQuest.indexLocation -1 ].spawner.gameObject.SetActive(false);
     }
 
-    
+    //public Chapter
     
 }

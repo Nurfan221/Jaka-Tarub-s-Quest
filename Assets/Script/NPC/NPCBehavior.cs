@@ -14,7 +14,7 @@ using NUnit.Framework.Interfaces;
 public class NPCBehavior : MonoBehaviour
 {
     [Header("Daftar Hubungan")]
-    [SerializeField] QuestManager questManager;
+    //[SerializeField] QuestManager questManager;
     [SerializeField] protected DialogueSystem dialogueSystem;
     [SerializeField] NPCManager npcManager;
     [SerializeField] GameEconomy gameEconomy;
@@ -260,61 +260,47 @@ public class NPCBehavior : MonoBehaviour
     //    // Tambahkan logika untuk menerima item
     //}
 
-    public bool CheckItemGive(ref int stackItem, QuestType questType)
+    public bool CheckItemGive(ItemData inventoryItemData, QuestType questType)
     {
-        Debug.Log("check item give di jalankan ");
-        bool isItemGiven = false;
+        // Set itemQuest berdasarkan item yang diberikan dari inventory
+        itemQuest = inventoryItemData.itemName;
+        bool itemWasGiven = false;
 
+        // Logika untuk Side Quest
         if (questType == QuestType.Side)
         {
-            foreach (var chapter in questManager.chapters)
+            foreach (var chapter in QuestManager.Instance.chapters)
             {
                 foreach (var quest in chapter.sideQuest)
                 {
-                    if (npcName == quest.NPC.name && quest.questActive) // Pastikan quest aktif
+                    if (npcName == quest.NPC.name && quest.questActive)
                     {
-                        var item = quest.itemQuests.FirstOrDefault(i => i.itemName == itemQuest);
+                        ItemData questItemData = quest.itemQuests.FirstOrDefault(i => i.itemName.Equals(itemQuest, System.StringComparison.OrdinalIgnoreCase));
 
-                        if (item != null)
+                        if (questItemData != null && questItemData.count > 0)
                         {
-                            //if (item.stackCount > 0) // Pastikan masih ada item yang diperlukan
-                            //{
-                            //    int jumlahDiBerikan = Mathf.Min(stackItem, item.stackCount);
-                            //    item.stackCount -= jumlahDiBerikan;
-                            //    stackItem -= jumlahDiBerikan;
+                            // Hitung berapa banyak yang bisa diberikan
+                            int amountToGive = Mathf.Min(inventoryItemData.count, questItemData.count);
 
-                            //    int idChapter = chapter.idChapter;
-                            //    Debug.Log("id chapter" + idChapter);
+                            // Kurangi dari kedua tempat
+                            questItemData.count -= amountToGive;
+                            inventoryItemData.count -= amountToGive;
 
-                            //    CheckFinishQuest(quest.questName, idChapter); // Memastikan quest diperiksa
-
-                            //    Debug.Log($"Stack item yang diberikan: {jumlahDiBerikan}, stackItem: {stackItem}, item.stackCount: {item.stackCount}");
-
-                            //    isItemGiven = true;
-                            //}
-                            //else
-                            //{
-                            //    Debug.Log($"Item untuk quest {quest.questName} sudah habis!");
-                            //    return false;
-                            //}
+                            Debug.Log($"Diberikan {amountToGive} {inventoryItemData.itemName}. Sisa di inventaris: {inventoryItemData.count}, sisa di quest: {questItemData.count}");
+                            CheckFinishQuest(quest.questName, chapter.idChapter);
+                            itemWasGiven = true;
+                            break; // Keluar dari loop quest setelah item diproses
                         }
-                        else
-                        {
-                            Debug.Log($"Item dengan nama {itemQuest} tidak ditemukan di quest {quest.questName}.");
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("Npc name tidak sama ");
                     }
                 }
+                if (itemWasGiven) break; // Keluar dari loop chapter juga
             }
-        }else if(questType == QuestType.Mini)
+        }
+        else if(questType == QuestType.Mini)
         {
-            if (questManager.currentMiniQuest != null && npcName == questManager.currentMiniQuest.npc.name && questManager.currentMiniQuest.questActive) // Pastikan quest aktif
+            if (QuestManager.Instance.currentMiniQuest != null && npcName == QuestManager.Instance.currentMiniQuest.npc.name && QuestManager.Instance.currentMiniQuest.questActive) // Pastikan quest aktif
             {
-                var item = questManager.currentMiniQuest.itemsQuest.FirstOrDefault(i => i.itemName == itemQuest);
+                var item = QuestManager.Instance.currentMiniQuest.itemsQuest.FirstOrDefault(i => i.itemName == itemQuest);
 
                 if (item != null)
                 {
@@ -341,7 +327,7 @@ public class NPCBehavior : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log($"Item dengan nama {itemQuest} tidak ditemukan di quest {questManager.currentMiniQuest.judulQuest}.");
+                    Debug.Log($"Item dengan nama {itemQuest} tidak ditemukan di quest {QuestManager.Instance.currentMiniQuest.judulQuest}.");
                     return false;
                 }
             }
@@ -355,7 +341,7 @@ public class NPCBehavior : MonoBehaviour
 
 
 
-        return isItemGiven; // Pastikan return di bagian akhir
+        return itemWasGiven;
     }
 
 
@@ -366,7 +352,7 @@ public class NPCBehavior : MonoBehaviour
 
     public void CheckFinishQuest(string nameQuest, int idChapter)
     {
-        foreach (var chapter in questManager.chapters)
+        foreach (var chapter in QuestManager.Instance.chapters)
         {
             if (chapter.idChapter == idChapter)
             {
@@ -378,12 +364,12 @@ public class NPCBehavior : MonoBehaviour
 
                         foreach (var item in quest.itemQuests)
                         {
-                            //if (item.stackCount > 0) // Jika ada item yang belum selesai
-                            //{
-                            //    Debug.Log("jumlah item : " + item.stackCount);
-                            //    allItemsComplete = false;
-                            //    break;
-                            //}
+                            if (item.count > 0) // Jika ada item yang belum selesai
+                            {
+                                Debug.Log("jumlah item : " + item.count);
+                                allItemsComplete = false;
+                                break;
+                            }
                         }
 
                         if (allItemsComplete)
@@ -401,21 +387,10 @@ public class NPCBehavior : MonoBehaviour
                                 for (int i = 0; i < quest.rewards.Length; i++)
                                 {
                                     // Membuat salinan baru dari item yang ada untuk menghindari modifikasi referensi langsung
-                                    Item itemCopy = quest.rewards[i].itemReward;
-                                    //itemCopy.stackCount = quest.rewards[i].jumlahItemReward;
-
-                                    // Mendapatkan salinan item dari ItemPool (menggunakan Instantiate)
-                                    //Item itemFromPool = ItemPool.Instance.GetItem(itemCopy.itemName, itemCopy.stackCount);
-
-                                    //// Menambahkan item yang diinstansiasi ke dalam quest.itemQuests
-                                    //if (itemFromPool != null)
-                                    //{
-                                    //    //Player_Inventory.Instance.AddItem(itemFromPool);
-                                    //    Debug.Log($"Item: {itemFromPool.itemName}, Jumlah: {itemFromPool.stackCount}");
-                                    //}
+                                    ItemPool.Instance.AddItem(quest.rewards[i]);
                                 }
 
-                               
+
                             }
 
                             Debug.Log("selesai: " + quest.questName);
@@ -429,20 +404,20 @@ public class NPCBehavior : MonoBehaviour
                                 chapter.currentSideQuest++;
                                 if (chapter.currentSideQuest == chapter.sideQuest.Length)
                                 {
-                                    questManager.ScheduleNextMainQuest(chapter.idChapter);
+                                    QuestManager.Instance.ScheduleNextMainQuest(chapter.idChapter);
 
                                 }
-                                questManager.UpdateDateSideQuest();
+                                QuestManager.Instance.UpdateDateSideQuest();
                             }
                             quest.questActive = false;
-                            questManager.CheckQuest();
+                            QuestManager.Instance.CheckQuest();
                             questInfoUI.SetQuestInActive(quest.questName);
                         }
                         else
                         {
-                            questManager.notFinished.TheDialogues[0].name = npcName;
-                            questManager.notFinished.mainSpeaker = npcName;
-                            dialogueSystem.theDialogues = questManager.notFinished;
+                            QuestManager.Instance.notFinished.TheDialogues[0].name = npcName;
+                            QuestManager.Instance.notFinished.mainSpeaker = npcName;
+                            dialogueSystem.theDialogues = QuestManager.Instance.notFinished;
                                         dialogueSystem.StartDialogue();
                         }
                     }
@@ -455,7 +430,7 @@ public class NPCBehavior : MonoBehaviour
     public void CheckFinishMainQuest()
     {
         bool allItemMainQuest = true;
-       //foreach(var item in questManager.currentMainQuest.itemQuests)
+       //foreach(var item in QuestManager.Instance.currentMainQuest.itemQuests)
        // {
        //     if (item.stackCount >0)
        //     {
@@ -469,24 +444,24 @@ public class NPCBehavior : MonoBehaviour
         if (allItemMainQuest)
         {
             // Tandai quest selesai dan jalankan dialog selesai
-            //questManager.currentMainQuest.finish.TheDialogues[0].name = npcName;
-            //questManager.currentMainQuest.finish.mainSpeaker = npcName;
-            //dialogueSystem.theDialogues = questManager.currentMainQuest.finish;
+            //QuestManager.Instance.currentMainQuest.finish.TheDialogues[0].name = npcName;
+            //QuestManager.Instance.currentMainQuest.finish.mainSpeaker = npcName;
+            //dialogueSystem.theDialogues = QuestManager.Instance.currentMainQuest.finish;
             //dialogueSystem.StartDialogue();
-            //gameEconomy.money += questManager.currentMainQuest.reward;
+            //gameEconomy.money += QuestManager.Instance.currentMainQuest.reward;
 
-            //if (questManager.currentMainQuest.rewards.Length > 0)
+            //if (QuestManager.Instance.currentMainQuest.rewards.Length > 0)
             //{
-            //    dialogueSystem.theDialogues = questManager.currentMainQuest.rewardItemQuest;
+            //    dialogueSystem.theDialogues = QuestManager.Instance.currentMainQuest.rewardItemQuest;
             //    dialogueSystem.StartDialogue();
-            //    for (int i = 0; i < questManager.currentMainQuest.rewards.Length; i++)
+            //    for (int i = 0; i < QuestManager.Instance.currentMainQuest.rewards.Length; i++)
             //    {
             //        // Pastikan itemReward tidak null untuk menghindari NullReferenceException
-            //        if (questManager.currentMainQuest.rewards[i].itemReward != null)
+            //        if (QuestManager.Instance.currentMainQuest.rewards[i].itemReward != null)
             //        {
             //            // Mengambil nama item dari itemReward
-            //            string itemRewardName = questManager.currentMainQuest.rewards[i].itemReward.name;
-            //            Item itemReward = questManager.currentMainQuest.rewards[i].itemReward;
+            //            string itemRewardName = QuestManager.Instance.currentMainQuest.rewards[i].itemReward.name;
+            //            Item itemReward = QuestManager.Instance.currentMainQuest.rewards[i].itemReward;
 
             //            // Debug untuk memastikan nama itemReward terambil dengan benar
             //            Debug.Log($"Item Reward Name: {itemRewardName}");
@@ -498,20 +473,20 @@ public class NPCBehavior : MonoBehaviour
             //}
 
 
-            //Debug.Log("selesai: " + questManager.currentMainQuest.questName);
-            //questManager.currentMainQuest.questComplete = true;
+            //Debug.Log("selesai: " + QuestManager.Instance.currentMainQuest.questName);
+            //QuestManager.Instance.currentMainQuest.questComplete = true;
             
-            //questManager.currentMainQuest.questActive = false;
-            //questManager.MainQuestSelesai();
-            //questInfoUI.SetQuestInActive(questManager.currentMainQuest.questName);
+            //QuestManager.Instance.currentMainQuest.questActive = false;
+            //QuestManager.Instance.MainQuestSelesai();
+            //questInfoUI.SetQuestInActive(QuestManager.Instance.currentMainQuest.questName);
 
         }
         else
         {
             // Dialog "belum selesai"
-            questManager.notFinished.TheDialogues[0].name = npcName;
-            questManager.notFinished.mainSpeaker = npcName;
-            dialogueSystem.theDialogues = questManager.notFinished;
+            QuestManager.Instance.notFinished.TheDialogues[0].name = npcName;
+            QuestManager.Instance.notFinished.mainSpeaker = npcName;
+            dialogueSystem.theDialogues = QuestManager.Instance.notFinished;
             dialogueSystem.StartDialogue();
         }
     }
@@ -549,7 +524,7 @@ public class NPCBehavior : MonoBehaviour
 
     public void CheckFinishMiniQuest(string nameQuest)
     {
-        var miniQuest = questManager.currentMiniQuest; // Menyimpan reference mini quest aktif
+        var miniQuest = QuestManager.Instance.currentMiniQuest; // Menyimpan reference mini quest aktif
 
         // Cek apakah miniQuest valid dan judulnya sesuai dengan quest yang dimaksud
         if (miniQuest == null || miniQuest.judulQuest != nameQuest)
@@ -603,22 +578,22 @@ public class NPCBehavior : MonoBehaviour
             miniQuest.questActive = false;
 
             // Update quest side jika perlu
-            questManager.UpdateDateSideQuest();
-            questManager.CheckQuest();
+            QuestManager.Instance.UpdateDateSideQuest();
+            QuestManager.Instance.CheckQuest();
 
             // Update UI quest yang sudah tidak aktif
             questInfoUI.SetQuestInActive(miniQuest.judulQuest);
 
             // Reset quest
-            questManager.currentMiniQuest = null;
+            QuestManager.Instance.currentMiniQuest = null;
         }
         else
         {
             // Jika masih ada item yang belum selesai, beri dialog pengingat
-            questManager.notFinished.TheDialogues[0].name = npcName;
-            questManager.notFinished.mainSpeaker = npcName;
+            QuestManager.Instance.notFinished.TheDialogues[0].name = npcName;
+            QuestManager.Instance.notFinished.mainSpeaker = npcName;
 
-            dialogueSystem.theDialogues = questManager.notFinished;
+            dialogueSystem.theDialogues = QuestManager.Instance.notFinished;
             dialogueSystem.StartDialogue();
         }
     }

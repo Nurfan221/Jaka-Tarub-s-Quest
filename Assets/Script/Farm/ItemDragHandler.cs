@@ -503,78 +503,47 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void CheckItem(NPCBehavior npc)
     {
-        bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
+        bool itemFoundAndProcessed = false;
 
-        foreach (ItemData itemData in stats.inventory)
+        // Loop dari belakang ke depan. Ini cara aman untuk menghapus elemen dari list saat iterasi.
+        for (int i = stats.inventory.Count - 1; i >= 0; i--)
         {
-            Item item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
+            ItemData inventoryItemData = stats.inventory[i];
+            Item itemSO = ItemPool.Instance.GetItemWithQuality(inventoryItemData.itemName, inventoryItemData.quality);
 
-            // Cek apakah nama item sama dengan itemInDrag dan kategori item bukan Seed
-            if (item.itemName == itemInDrag && item.categories != ItemCategory.PlantSeed)
+            // Cek apakah ini item yang dicari
+            if (itemSO.itemName == itemInDrag && itemSO.categories != ItemCategory.PlantSeed)
             {
-                itemFound = true; // Tandai bahwa item ditemukan
-                int stackItem = itemData.count; // Ambil jumlah item yang ada
+                // Panggil CheckItemGive. Fungsi ini akan mengubah inventoryItemData.count secara langsung.
+                // Coba untuk Side Quest, jika gagal, coba untuk Mini Quest.
+                bool success = npc.CheckItemGive(inventoryItemData, QuestType.Side) || npc.CheckItemGive(inventoryItemData, QuestType.Mini);
 
-                //Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
-
-                npc.itemQuest = item.itemName;
-
-                // Kurangi stack item setelah memberi
-                if (npc.CheckItemGive(ref stackItem, QuestType.Side))
+                if (success)
                 {
-                    // Update item.stackCount dengan nilai stackItem yang telah dikurangi
-                    itemData.count = stackItem;
-                    //Debug.Log("jumlah item quest yang di kurangi " + stackItem);
-
-
-                    if (stackItem <= 0)
+                    // Setelah item berhasil diberikan, periksa jumlahnya di inventaris
+                    if (inventoryItemData.count <= 0)
                     {
-                        // Hapus item jika jumlahnya sudah habis
-                        //Player_Inventory.Instance.RemoveItem(item);
-                        //Debug.Log("Item habis dan dihapus dari inventory.");
-                        stats.inventory.Remove(itemData);
+                        // Hapus dari list jika habis
+                        stats.inventory.RemoveAt(i);
+                        Debug.Log($"{inventoryItemData.itemName} habis dan dihapus dari inventory.");
                     }
-                    else
-                    {
-                        Debug.Log("Jumlah item tersisa: " + stackItem);
-                    }
+
+                    itemFoundAndProcessed = true;
+                    break; // Keluar dari loop karena item sudah ditemukan dan diproses
                 }
-                else if (npc.CheckItemGive(ref stackItem, QuestType.Mini))
-                {
-                    // Update item.stackCount dengan nilai stackItem yang telah dikurangi
-                    itemData.count = stackItem;
-                    //Debug.Log("jumlah item quest yang di kurangi " + stackItem);
-
-
-                    if (stackItem <= 0)
-                    {
-                        // Hapus item jika jumlahnya sudah habis
-                        //Player_Inventory.Instance.RemoveItem(item);
-                        //Debug.Log("Item habis dan dihapus dari inventory.");
-                        stats.inventory.Remove(itemData);
-                    }
-                    else
-                    {
-                        Debug.Log("Jumlah item tersisa: " + stackItem);
-                    }
-                }
-
-                rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
-
-                // Refresh UI setelah perubahan
-                inventoryUI.RefreshInventoryItems();
-                inventoryUI.UpdateSixItemDisplay();
-                break; // Keluar dari loop setelah menemukan item
             }
         }
 
-        if (!itemFound)
+        // Kembalikan item yang di-drag ke slotnya (jika ini adalah sistem drag-and-drop)
+        if (rectTransform != null && originalParent != null)
         {
-            //Debug.Log("Item tidak ditemukan atau kategori item bukan Seed");
-            rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
+            rectTransform.SetParent(originalParent);
         }
-    }
 
+        // Selalu refresh UI di akhir untuk menampilkan perubahan
+        inventoryUI.RefreshInventoryItems();
+        inventoryUI.UpdateSixItemDisplay();
+    }
 
     private void PlacePrefab(Vector3Int cellPosition, string namaItem, GameObject prefabItem, float health)
     {

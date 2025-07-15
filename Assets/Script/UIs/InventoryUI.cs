@@ -91,7 +91,7 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         //PlayerUI.Instance.RegisterInventoryUI(this);
-      
+
 
         //Loop untuk Mengatur Tombol Menu Secara Dinamis
         for (int i = 0; i < btnMenu.Length; i++)
@@ -671,6 +671,7 @@ public class InventoryUI : MonoBehaviour
         stats.inventory[indexB] = temp;
 
         RefreshInventoryItems();
+        UpdateSixItemDisplay();
         Debug.Log($"Data pada index {indexA} dan {indexB} berhasil ditukar.");
     }
 
