@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static MainQuest1_Controller;
 
 public class QuestInteractable : Interactable
 {

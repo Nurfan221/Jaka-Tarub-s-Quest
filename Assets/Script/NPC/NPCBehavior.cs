@@ -319,40 +319,34 @@ public class NPCBehavior : MonoBehaviour
     // Buat fungsi helper baru untuk memeriksa penyelesaian quest
     private void CheckIfQuestIsComplete(PlayerQuestStatus questStatus)
     {
-        bool allRequirementsMet = true;
+        // Cek apakah quest valid
+        if (questStatus == null || questStatus.Progress != QuestProgress.Accepted)
+        {
+            return;
+        }
 
-        // Periksa setiap item yang dibutuhkan
+        bool allRequirementsMet = true;
         foreach (var requirement in questStatus.Quest.itemRequirements)
         {
-            // Jika progres item saat ini masih kurang dari yang dibutuhkan
             if (questStatus.itemProgress[requirement.itemName] < requirement.count)
             {
-                allRequirementsMet = false; // Tandai quest belum selesai
-                break; // Tidak perlu cek lagi, keluar dari loop
+                allRequirementsMet = false;
+                break;
             }
         }
 
-        // Jika semua persyaratan sudah terpenuhi
+        // JIKA SEMUA SYARAT TERPENUHI...
         if (allRequirementsMet)
         {
-            Debug.Log($"SELURUH ITEM UNTUK QUEST '{questStatus.Quest.questName}' TELAH TERKUMPUL!");
-
-            // Panggil fungsi di QuestManager untuk menyelesaikan quest secara resmi
+            // Biarkan QuestManager yang mengurus sisanya (dialog, hadiah, save).
             QuestManager.Instance.CompleteQuest(questStatus);
-
-            // Di sini Anda bisa memicu dialog "selesai"
-            dialogueSystem.theDialogues = questStatus.Quest.finishDialogue;
-            dialogueSystem.StartDialogue();
         }
         else
         {
-            // Jika belum selesai, Anda bisa memicu dialog "pengingat"
-            // dialogueSystem.theDialogues = questStatus.Quest.reminderDialogue;
-            // dialogueSystem.StartDialogue();
+            // Jika belum selesai, Anda bisa memicu dialog "pengingat" di sini
             Debug.Log("Quest belum selesai, masih ada item yang dibutuhkan.");
         }
     }
-
 
 
 

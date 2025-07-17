@@ -19,12 +19,20 @@ MonoBehaviour:
     Berikan
   DeskripsiAkhir: ' Untuk menyelesaikan quest ini .'
   locateNpcQuest: {x: 0, y: 0, z: 0}
+  questType: 0
+  questProgress: 1
   dateToActivate: 3
   MonthToActivate: 1
-  npcID: Fahri Pranajaya
+  npcName: 
   itemRequirements:
   - itemName: Padi
-    count: 15
+    count: 5
+    quality: 0
+  - itemName: Jagung
+    count: 5
+    quality: 0
+  - itemName: Wortel
+    count: 5
     quality: 0
   goldReward: 500
   itemRewards: []

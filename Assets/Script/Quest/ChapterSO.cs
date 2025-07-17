@@ -8,4 +8,6 @@ public class ChapterSO : ScriptableObject
     public string chapterName;
     public List<QuestSO> sideQuests; // Sekarang berisi list dari ASET QuestSO
     // public List<QuestSO> mainQuests; // Jika Anda ingin memisahkan main quest
+
+    public MainQuestSO mainQuest; // Referensi ke prefab controller untuk main quest
 }

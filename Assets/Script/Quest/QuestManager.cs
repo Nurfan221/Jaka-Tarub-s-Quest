@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.IO; // Penting untuk operasi file
 using System.Linq;
+using NUnit.Framework.Interfaces;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.IO; // Penting untuk operasi file
 
 public class QuestManager : MonoBehaviour
 {
@@ -16,13 +17,19 @@ public class QuestManager : MonoBehaviour
     [Header("Database Quest (Aset SO)")]
     // Cukup seret semua aset ChapterSO Anda ke sini.
     public List<ChapterSO> allChapters;
+    //MainQuestController 
+    public MainQuestSO pendingMainQuest; // Quest yang menunggu untuk diaktifkan
+    public MainQuestController activeMainQuestController; // Controller yang sedang berjalan
+
 
     [Header("Status Quest Pemain")]
     // List ini akan melacak semua quest (side quest) yang sedang aktif atau sudah selesai.
     public List<PlayerQuestStatus> questLog = new List<PlayerQuestStatus>();
 
+
     // Event ini akan memberitahu UI atau sistem lain jika ada pembaruan pada log quest.
     public static event System.Action OnQuestLogUpdated;
+
 
     private void Awake()
     {
@@ -50,31 +57,33 @@ public class QuestManager : MonoBehaviour
         // Selalu berhenti berlangganan untuk menghindari error
         TimeManager.OnDayChanged -= CheckForNewQuests;
     }
-
-    /// <summary>
-    /// Dipanggil setiap hari baru untuk memeriksa apakah ada quest baru yang harus diaktifkan.
-    /// </summary>
+    // Dipanggil setiap hari baru untuk memeriksa apakah ada quest baru yang harus diaktifkan.
     public void CheckForNewQuests()
     {
-        // Loop melalui setiap aset Chapter yang kita miliki
+        // --- Cek Side Quest (Logika Anda sudah benar) ---
         foreach (var chapterAsset in allChapters)
         {
-            // Loop melalui setiap aset Side Quest di dalam chapter tersebut
             foreach (var questAsset in chapterAsset.sideQuests)
             {
-                // Lewati jika quest ini sudah ada di log pemain (baik aktif maupun selesai)
                 if (IsQuestInLog(questAsset.questName)) continue;
-
-                // Cek apakah tanggal aktivasi quest sudah tiba
-                if (TimeManager.Instance.timeData_SO.date == questAsset.dateToActivate)
+                if (TimeManager.Instance.timeData_SO.date == questAsset.dateToActivate && TimeManager.Instance.timeData_SO.bulan == questAsset.MonthToActivate)
                 {
                     ActivateQuest(questAsset);
                 }
             }
         }
+
+        // --- Cek Main Quest yang Tertunda ---
+        if (pendingMainQuest != null && activeMainQuestController == null)
+        {
+            if (TimeManager.Instance.timeData_SO.date == pendingMainQuest.dateToActivate && TimeManager.Instance.timeData_SO.bulan == pendingMainQuest.monthToActivate)
+            {
+                StartMainQuest(pendingMainQuest);
+            }
+        }
     }
 
-    /// Mengaktifkan sebuah quest dan menambahkannya ke log pemain.
+    // Mengaktifkan sebuah quest dan menambahkannya ke log pemain.
     public void ActivateQuest(QuestSO questToActivate)
     {
         Debug.Log($"Mengaktifkan Side Quest: {questToActivate.questName}");
@@ -104,45 +113,59 @@ public class QuestManager : MonoBehaviour
         );
     }
 
+
     public void CreateTemplateQuest()
     {
         Debug.Log("Membuat template quest...");
-        // Pastikan ContentTemplate sudah diatur di Inspector
         if (ContentTemplate == null)
         {
             Debug.LogError("ContentTemplate belum diatur di Inspector!");
             return;
         }
-        // Hapus semua anak dari ContentTemplate sebelum membuat yang baru
+
         foreach (Transform child in ContentTemplate)
         {
-            // Hati-hati, jika TemplateQuest adalah anak dari ContentTemplate, ini akan menghapusnya.
-            // Sebaiknya simpan TemplateQuest di luar ContentTemplate.
             Destroy(child.gameObject);
         }
 
-        // Buat template untuk setiap quest yang ada di log
         foreach (var questStatus in questLog)
         {
-           if(questStatus.Progress != QuestProgress.Completed)
+            // Tampilkan hanya jika belum selesai
+            if (questStatus.Progress != QuestProgress.Completed)
             {
-                Transform questTransform = Instantiate(TemplateQuest, ContentTemplate);
-                questTransform.gameObject.SetActive(true);
-
-                questTransform.gameObject.name = $"Quest - {questStatus.Quest.questName}";
-
-
-                TMP_Text questNameText = questTransform.GetComponentInChildren<TMP_Text>();
-                if (questNameText != null)
-                {
-                    questNameText.text = questStatus.Quest.questName;
-                }
-                else
-                {
-                    Debug.LogWarning("Tidak ditemukan TMP_Text di dalam TemplateQuest!");
-                }
+                // Buat sebuah fungsi helper untuk menghindari duplikasi kode
+                InstantiateQuestUI(questStatus.Quest.questName, questStatus.Quest.questInfo);
             }
+        }
 
+      
+        // Cek dulu apakah 'activeMainQuestController' ada, BARU akses propertinya.
+        if (activeMainQuestController != null && !activeMainQuestController.IsComplete())
+        {
+            // Ini membutuhkan sebuah fungsi publik baru di MainQuestController Anda.
+            string currentObjective = activeMainQuestController.GetCurrentObjectiveInfo();
+
+            // Gunakan fungsi helper yang sama untuk membuat UI-nya
+            InstantiateQuestUI(activeMainQuestController.questName, currentObjective);
+        }
+    }
+
+ 
+    private void InstantiateQuestUI(string questName, string objectiveInfo)
+    {
+        Transform questTransform = Instantiate(TemplateQuest, ContentTemplate);
+        questTransform.gameObject.SetActive(true);
+        questTransform.name = $"Quest - {questName}";
+
+        TMP_Text questNameText = questTransform.GetComponentInChildren<TMP_Text>();
+        if (questNameText != null)
+        {
+            // Tampilkan nama quest DAN tujuan/info saat ini
+            questNameText.text = $"{questName}\n- {objectiveInfo}";
+        }
+        else
+        {
+            Debug.LogWarning("Tidak ditemukan TMP_Text di dalam TemplateQuest!");
         }
     }
 
@@ -164,23 +187,51 @@ public class QuestManager : MonoBehaviour
     // Fungsi untuk menyelesaikan quest
     public void CompleteQuest(PlayerQuestStatus questStatus)
     {
-        PlayerQuestStatus quest = questStatus;
-        if (questStatus != null && questStatus.Progress == QuestProgress.Accepted)
+        // Pengecekan keamanan di awal
+        if (questStatus == null || questStatus.Progress != QuestProgress.Accepted) return;
+
+
+        questStatus.Progress = QuestProgress.Completed;
+        Debug.Log($"Quest '{questStatus.Quest.questName}' telah selesai!");
+
+        GameEconomy.Instance.GainMoney(questStatus.Quest.goldReward);
+        CreateTemplateQuest();
+        // (Tambahkan logika untuk memberi item reward di sini jika ada)
+
+        // Pastikan referensi DialogueSystem ada dan benar
+        if (questStatus.Quest.finishDialogue != null)
         {
-            //questStatus.Progress = QuestProgress.Completed;
-            questStatus.Progress = QuestProgress.Completed;
-            Debug.Log($"Quest '{questStatus.Quest.questName}' telah selesai!");
-
-            // Berikan hadiah ke pemain di sini
-            GameEconomy.Instance.GainMoney(questStatus.Quest.goldReward);
-            CreateTemplateQuest();
-            GameEconomy.Instance.UpdateMoneyText();
-            SaveQuests();
-            // gameEconomy.money += questStatus.Quest.goldReward;
-            // foreach(var item in questStatus.Quest.itemRewards) { ... }
-
-            //OnQuestLogUpdated?.Invoke(); // Beri tahu UI untuk refresh
+            DialogueSystem.Instance.theDialogues = questStatus.Quest.finishDialogue;
+            DialogueSystem.Instance.StartDialogue();
         }
+
+        CreateTemplateQuest();
+
+        SaveQuests();
+
+        ChapterSO parentChapter = FindChapterForQuest(questStatus.Quest);
+        if (parentChapter != null && AreAllSideQuestsComplete(parentChapter))
+        {
+            if (parentChapter.mainQuest != null)
+            {
+                SetNextMainQuest(parentChapter.mainQuest);
+            }
+        }
+    }
+
+    // Fungsi bantuan untuk menemukan chapter dari sebuah quest.
+    private ChapterSO FindChapterForQuest(QuestSO questToFind)
+    {
+        // Cari di semua chapter yang ada
+        foreach (var chapter in allChapters)
+        {
+            // Cek apakah list side quest di chapter ini mengandung quest yang kita cari
+            if (chapter.sideQuests.Contains(questToFind))
+            {
+                return chapter; // Jika ditemukan, kembalikan chapternya
+            }
+        }
+        return null; // Jika tidak ditemukan
     }
 
     private string GetSavePath()
@@ -192,17 +243,17 @@ public class QuestManager : MonoBehaviour
 
     public void SaveQuests()
     {
-        // 1. Buat list baru yang berisi data yang siap disimpan
+        // Buat list baru yang berisi data yang siap disimpan
         List<QuestSaveData> saveDataList = new List<QuestSaveData>();
         foreach (var questStatus in questLog)
         {
             saveDataList.Add(new QuestSaveData(questStatus));
         }
 
-        // 2. Ubah list tersebut menjadi format teks JSON
+        // Ubah list tersebut menjadi format teks JSON
         string json = JsonUtility.ToJson(new Serialization<QuestSaveData>(saveDataList), true);
 
-        //// 3. Tulis teks JSON tersebut ke dalam sebuah file
+        // Tulis teks JSON tersebut ke dalam sebuah file
         File.WriteAllText(GetSavePath(), json);
         Debug.Log("Progres quest berhasil disimpan ke: " + GetSavePath());
     }
@@ -225,7 +276,7 @@ public class QuestManager : MonoBehaviour
                     PlayerQuestStatus status = new PlayerQuestStatus(questSO);
                     status.Progress = saveData.progress;
 
-                    // --- PERBAIKAN ---
+
                     // Bangun kembali Dictionary dari dua list
                     status.itemProgress = new Dictionary<string, int>();
                     for (int i = 0; i < saveData.itemProgressKeys.Count; i++)
@@ -244,6 +295,52 @@ public class QuestManager : MonoBehaviour
         CreateTemplateQuest();
     }
 
+    public void DeleteSaveData()
+    {
+        string path = GetSavePath();
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.LogWarning("FILE SAVE QUEST TELAH DIHAPUS!");
+
+            // Kosongkan log yang ada di memori saat ini
+            questLog.Clear();
+
+            // Pastikan Anda sudah menambahkan "using UnityEngine.SceneManagement;" di bagian atas
+            GameController.Instance.PindahKeScene("Village");
+        }
+        else
+        {
+            Debug.Log("Tidak ada file save quest yang ditemukan untuk dihapus.");
+        }
+    }
+
+
+
+    //pengecekan apakah seluruh Side Quest sudah selesai
+    private bool AreAllSideQuestsComplete(ChapterSO chapter)
+    {
+        // Jika chapter ini tidak punya side quest, anggap saja "selesai".
+        if (chapter.sideQuests == null || chapter.sideQuests.Count == 0)
+        {
+            return true;
+        }
+
+        // Gunakan LINQ 'All' untuk memeriksa setiap side quest yang dibutuhkan.
+        // 'All' akan mengembalikan true hanya jika SEMUA elemen memenuhi kondisi.
+        return chapter.sideQuests.All(requiredQuestSO =>
+        {
+            // Untuk setiap 'requiredQuestSO', cari statusnya di dalam 'questLog'.
+            PlayerQuestStatus statusInLog = questLog.FirstOrDefault(status => status.Quest == requiredQuestSO);
+
+            // Kondisinya adalah: statusnya harus ada di log DAN progresnya harus 'Completed'.
+            return statusInLog != null && statusInLog.Progress == QuestProgress.Completed;
+        });
+    }
+
+
+
     // Fungsi helper untuk mencari QuestSO berdasarkan nama
     private QuestSO FindQuestSOByName(string name)
     {
@@ -258,6 +355,39 @@ public class QuestManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    //Logika menjalankan Main Quest
+    public void SetNextMainQuest(MainQuestSO mainQuest)
+    {
+        // Hanya siapkan quest jika belum ada yang disiapkan atau sedang aktif
+        if (pendingMainQuest == null && activeMainQuestController == null)
+        {
+            pendingMainQuest = mainQuest;
+            pendingMainQuest.dateToActivate = TimeManager.Instance.timeData_SO.date + 1;
+            pendingMainQuest.monthToActivate = TimeManager.Instance.timeData_SO.bulan;
+            Debug.Log($"Main Quest '{mainQuest.questName}' disiapkan untuk dimulai pada tanggal {mainQuest.dateToActivate}.");
+        }
+    }
+    public void StartMainQuest(MainQuestSO mainQuestSO)
+    {
+        if (activeMainQuestController != null) return;
+        if (mainQuestSO.questControllerPrefab == null)
+        {
+            Debug.LogError($"Prefab controller untuk '{mainQuestSO.questName}' belum diatur!");
+            return;
+        }
+
+        Debug.Log($"MEMULAI MAIN QUEST: {mainQuestSO.questName}");
+        GameObject controllerGO = Instantiate(mainQuestSO.questControllerPrefab, this.transform);
+        activeMainQuestController = controllerGO.GetComponent<MainQuestController>();
+
+        if (activeMainQuestController != null)
+        {
+            activeMainQuestController.StartQuest(this); // Langsung mulai HANYA SEKALI.
+            pendingMainQuest = null; // Hapus dari antrian setelah dimulai
+            CreateTemplateQuest(); // Perbarui UI
+        }
     }
 }
 

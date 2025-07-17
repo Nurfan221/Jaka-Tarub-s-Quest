@@ -5,7 +5,6 @@ using TMPro;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.UI;
-using static MainQuest1_Controller;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 // Enum bantuan untuk membuat kode lebih mudah dibaca

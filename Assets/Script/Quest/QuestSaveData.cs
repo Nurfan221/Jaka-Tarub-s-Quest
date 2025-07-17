@@ -34,3 +34,11 @@ public class Serialization<T>
     public List<T> ToList() { return items; }
     public Serialization(List<T> items) { this.items = items; }
 }
+
+// Tambahkan class ini di file yang sama dengan QuestSaveData
+[System.Serializable]
+public class MainQuestSaveData
+{
+    public string questName; // Untuk tahu quest mana yang aktif
+    public string currentState; // Menyimpan nama state enum saat ini (misal, "PergiKeHutan")
+}
