@@ -51,25 +51,25 @@ public class QuestInteractable : Interactable
        
 
         // Coba dapatkan MainQuest1_Controller dari quest yang aktif
-        MainQuest1_Controller mq1 = questManager.CurrentActiveQuest as MainQuest1_Controller;
+        //MainQuest1_Controller mq1 = questManager.CurrentActiveQuest as MainQuest1_Controller;
 
         // Jika quest yang aktif adalah MainQuest1...
-        if (mq1 != null)
-        {
-            Debug.Log("Dialogue npc di picu");
-            // Beritahu skrip quest tersebut bahwa NPC ini di-interact
-            NPCBehavior npcBehavior = gameObject.GetComponent<NPCBehavior>();
-            mq1.OnNPCInteracted(npcBehavior.npcName);
+        //if (mq1 != null)
+        //{
+        //    Debug.Log("Dialogue npc di picu");
+        //    // Beritahu skrip quest tersebut bahwa NPC ini di-interact
+        //    NPCBehavior npcBehavior = gameObject.GetComponent<NPCBehavior>();
+        //    mq1.OnNPCInteracted(npcBehavior.npcName);
            
 
-        }
-        else
-        {
-            // Jika main quest lain yang aktif atau tidak ada main quest,
-            // mainkan dialog basa-basi.
-            dialogueSystem.theDialogues = currentDialogue;
-            dialogueSystem.StartDialogue();
-        }
+        //}
+        //else
+        //{
+        //    // Jika main quest lain yang aktif atau tidak ada main quest,
+        //    // mainkan dialog basa-basi.
+        //    dialogueSystem.theDialogues = currentDialogue;
+        //    dialogueSystem.StartDialogue();
+        //}
 
         
        

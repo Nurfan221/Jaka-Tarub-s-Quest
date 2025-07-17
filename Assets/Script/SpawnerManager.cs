@@ -72,10 +72,10 @@ public class SpawnerManager : MonoBehaviour
 
                 // Spawn hewan baru dan hewan spesial
                 animalSpawner.SpawnAnimal();
-                if (questManager.chapter1IsDone)
-                {
-                    animalSpawner.SpawnAnimalSpesial();
-                }
+                //if (questManager.chapter1IsDone)
+                //{
+                //    animalSpawner.SpawnAnimalSpesial();
+                //}
             }
         }
 

@@ -13,6 +13,8 @@ public enum JobType
     Pemburu,
     Penjahit
 }
+
+
 public class NPCManager : MonoBehaviour
 {
 
@@ -115,61 +117,61 @@ public class NPCManager : MonoBehaviour
     public void CheckNPCQuest()
     {
         Debug.Log("check npc quest di jalankan");
-       foreach (var chapter in questManager.chapters)
-        {
-            foreach(var quest in chapter.sideQuest)
-            {
-                if (quest.questActive)
-                {
-                    string nameNpc = quest.NPC.name;
-                    Debug.Log("nama npc dari struck quest adalah" + nameNpc);
-                    foreach (var NPC in npcDataArray)
-                    {
-                        if (NPC.prefab.name == nameNpc)
-                        {
-                            QuestInteractable interactable = NPC.prefab.GetComponent<QuestInteractable>();
-                            if (interactable != null)
-                            {
-                                interactable.currentDialogue = quest.dialogueQuest;
-                                interactable.promptMessage = "Quest " + quest.questName;
-                                interactable.isQuestNPC = true;
-                            }
-                        }
-                        else
-                        {
-                            Debug.Log("nama npc berbeda");
-                        }
-                    }
-                }
-            }
-        }
+       //foreach (var chapter in questManager.chapters)
+       // {
+       //     foreach(var quest in chapter.sideQuest)
+       //     {
+       //         if (quest.questActive)
+       //         {
+       //             string nameNpc = quest.NPC.name;
+       //             Debug.Log("nama npc dari struck quest adalah" + nameNpc);
+       //             foreach (var NPC in npcDataArray)
+       //             {
+       //                 if (NPC.prefab.name == nameNpc)
+       //                 {
+       //                     QuestInteractable interactable = NPC.prefab.GetComponent<QuestInteractable>();
+       //                     if (interactable != null)
+       //                     {
+       //                         interactable.currentDialogue = quest.dialogueQuest;
+       //                         interactable.promptMessage = "Quest " + quest.questName;
+       //                         interactable.isQuestNPC = true;
+       //                     }
+       //                 }
+       //                 else
+       //                 {
+       //                     Debug.Log("nama npc berbeda");
+       //                 }
+       //             }
+       //         }
+       //     }
+       // }
 
-        if (questManager.CurrentActiveQuest != null )
-        {
-            // maka otomatis buatkan variabel baru bernama "mq1" dengan tipe tersebut.
-            if (questManager.CurrentActiveQuest is MainQuest1_Controller mq1)
-            {
-                // Tidak perlu casting manual, kita bisa langsung pakai mq1
+        //if (questManager.CurrentActiveQuest != null )
+        //{
+        //    // maka otomatis buatkan variabel baru bernama "mq1" dengan tipe tersebut.
+        //    if (questManager.CurrentActiveQuest is MainQuest1_Controller mq1)
+        //    {
+        //        // Tidak perlu casting manual, kita bisa langsung pakai mq1
 
                
                 
-                string nameNpc = mq1.targetNpcName;
-                foreach (var npc in npcDataArray)
-                {
-                    if (npc.prefab != null && npc.prefab.name == nameNpc)
-                    {
-                        QuestInteractable interactable = npc.prefab.GetComponent<QuestInteractable>();
-                        if (interactable != null)
-                        {
-                            interactable.currentDialogue = mq1.dialoguePengingat;
-                            interactable.promptMessage = "Quest " + questManager.CurrentActiveQuest.questName;
-                        }
-                    }
-                }
-                Debug.Log($"NPC untuk Main Quest 1 adalah: {nameNpc}");
-            }
+        //        string nameNpc = mq1.targetNpcName;
+        //        foreach (var npc in npcDataArray)
+        //        {
+        //            if (npc.prefab != null && npc.prefab.name == nameNpc)
+        //            {
+        //                QuestInteractable interactable = npc.prefab.GetComponent<QuestInteractable>();
+        //                if (interactable != null)
+        //                {
+        //                    interactable.currentDialogue = mq1.dialoguePengingat;
+        //                    //interactable.promptMessage = "Quest " + questManager.CurrentActiveQuest.questName;
+        //                }
+        //            }
+        //        }
+        //        Debug.Log($"NPC untuk Main Quest 1 adalah: {nameNpc}");
+        //    }
             
-        }
+        //}
 
 
 

@@ -516,7 +516,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
                 // Panggil CheckItemGive. Fungsi ini akan mengubah inventoryItemData.count secara langsung.
                 // Coba untuk Side Quest, jika gagal, coba untuk Mini Quest.
-                bool success = npc.CheckItemGive(inventoryItemData, QuestType.Side) || npc.CheckItemGive(inventoryItemData, QuestType.Mini);
+                bool success = npc.CheckItemGive(inventoryItemData) || npc.CheckItemGive(inventoryItemData);
 
                 if (success)
                 {

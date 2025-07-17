@@ -48,13 +48,13 @@ public class BanditHitbox : MonoBehaviour
                 if (isBanditQuest)
                 {
                     int sekaratThreshold = (int)(PlayerController.Instance.playerData.maxHealth * 0.3f);
-                    if (PlayerController.Instance.playerData.health <= sekaratThreshold && !questManager.playerSekaratSudahDiproses)
-                    {
-                        Debug.Log("Player sekarat! Memulai event kekalahan...");
-                        questManager.playerSekaratSudahDiproses = true;
-                        //questManager.currentMainQuest.currentQuestState = MainQuest1State.Sekarat;
-                        //questManager.NextQuestState();
-                    }
+                    //if (PlayerController.Instance.playerData.health <= sekaratThreshold && !questManager.playerSekaratSudahDiproses)
+                    //{
+                    //    Debug.Log("Player sekarat! Memulai event kekalahan...");
+                    //    questManager.playerSekaratSudahDiproses = true;
+                    //    //questManager.currentMainQuest.currentQuestState = MainQuest1State.Sekarat;
+                    //    //questManager.NextQuestState();
+                    //}
                 }
             }
 

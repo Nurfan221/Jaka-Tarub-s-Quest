@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ClockManager : MonoBehaviour
 {
-    public TextMeshProUGUI Date, Time, Season, Money;
+    public TextMeshProUGUI Date, Time, Season;
     public Image weatherSprite;
     public Sprite[] weatherSprites;
 
@@ -22,7 +22,7 @@ public class ClockManager : MonoBehaviour
     public Color currentColor; // Atur transisi warna berdasarkan waktu 
 
     //[SerializeField] private TimeManager timeManager;
-    [SerializeField] GameEconomy gameEconomy;
+    //[SerializeField] GameEconomy gameEconomy;
 
   
     private void OnEnable()
@@ -42,7 +42,7 @@ public class ClockManager : MonoBehaviour
         Date.text = TimeManager.Instance.GetFormattedDate();
         Time.text = TimeManager.Instance.GetFormattedTime();
         Season.text = TimeManager.Instance.GetCurrentSeason().ToString();
-        Money.text = gameEconomy.money.ToString();
+
         int minutes = TimeManager.Instance.minutes; // Akses melalui properti
         float hour = TimeManager.Instance.hour + (minutes / 60f); // Akses melalui properti
 

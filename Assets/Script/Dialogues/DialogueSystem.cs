@@ -43,17 +43,17 @@ public class DialogueSystem : MonoBehaviour
 
     public void CheckDialogue()
     {
-        foreach (var chapter in questManager.chapters)
-        {
-            foreach (var quest in chapter.sideQuest)
-            {
-                if (quest.questActive)
-                {
-                    theDialogues = quest.dialogueQuest;
+        //foreach (var chapter in questManager.chapters)
+        //{
+        //    foreach (var quest in chapter.sideQuest)
+        //    {
+        //        if (quest.questActive)
+        //        {
+        //            theDialogues = quest.dialogueQuest;
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
     }
     public void StartDialogue()
     {
@@ -188,10 +188,10 @@ public class DialogueSystem : MonoBehaviour
         Debug.Log("Dialog main quest selesai!");
 
         //Lanjutkan logika setelah dialog selesai
-        if(questManager.CurrentActiveQuest != null)
-        {
-            questManager.questUI.gameObject.SetActive(false);
-        }
+        //if(questManager.CurrentActiveQuest != null)
+        //{
+        //    questManager.questUI.gameObject.SetActive(false);
+        //}
 
     }
 }

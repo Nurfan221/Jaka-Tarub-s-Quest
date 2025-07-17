@@ -94,21 +94,21 @@ public class MainQuest1_Controller : MainQuestController
 
                 Vector3 locationNpcMainQuest = locateNpcQuest;
 
-                questManager.npcManager.PindahkanNPCToQuestLocation(targetNpcName, locationNpcMainQuest);
+                //questManager.npcManager.PindahkanNPCToQuestLocation(targetNpcName, locationNpcMainQuest);
                 break;
 
             case MainQuest1State.PergiKeHutan:
                 // Beri tugas baru ke pemain.
-                questManager.mainQuestInfo = "Pergilah ke Hutan Ajaib";
-                questManager.UpdateDisplayQuest(questName);
-                questManager.npcManager.KembalikanNPKeJadwalNormal(targetNpcName);
+                //questManager.mainQuestInfo = "Pergilah ke Hutan Ajaib";
+                //questManager.UpdateDisplayQuest(questName);
+                //questManager.npcManager.KembalikanNPKeJadwalNormal(targetNpcName);
                 // Set lokasi yang kita tunggu.
                 lokasiYangDitunggu = arrayLocationMainQuest[0].locationQuest.name;
                 break;
 
             case MainQuest1State.CariRusa:
-                questManager.mainQuestInfo = "Cari jejak Rusa di sekitar hutan";
-                questManager.UpdateDisplayQuest("Pergilah ke Hutan Ajaib");
+                //questManager.mainQuestInfo = "Cari jejak Rusa di sekitar hutan";
+                //questManager.UpdateDisplayQuest("Pergilah ke Hutan Ajaib");
                 ShowDialogueAndSprite(2, 0, false);
                 // Logika untuk spawn rusa atau jejaknya bisa dimulai di sini.
                 rusaQuestAktif.Clear();
@@ -169,22 +169,22 @@ public class MainQuest1_Controller : MainQuestController
         Debug.Log("Mulai Scene Cerita");
         if (pakaiImage)
         {
-            questManager.questUI.gameObject.SetActive(true);
-            //tentukan image yang ingin di tampilkan
-            Image questImageUI = questManager.questUI.GetChild(0).GetComponent<Image>();
-            questImageUI.sprite = spriteQuest[indexImage];
+            //questManager.questUI.gameObject.SetActive(true);
+            ////tentukan image yang ingin di tampilkan
+            //Image questImageUI = questManager.questUI.GetChild(0).GetComponent<Image>();
+            //questImageUI.sprite = spriteQuest[indexImage];
 
             // Pastikan index tidak melebihi batas array
-            questManager.dialogueSystem.theDialogues = dialogueQuest[indexDialogue];
-            questManager.dialogueSystem.StartDialogue();
-            StartCoroutine(questManager.dialogueSystem.WaitForDialogueToEnd());
+            //questManager.dialogueSystem.theDialogues = dialogueQuest[indexDialogue];
+            //questManager.dialogueSystem.StartDialogue();
+            //StartCoroutine(questManager.dialogueSystem.WaitForDialogueToEnd());
         }
         else
         {
             // Pastikan index tidak melebihi batas array
-            questManager.dialogueSystem.theDialogues = dialogueQuest[indexDialogue];
-            questManager.dialogueSystem.StartDialogue();
-            StartCoroutine(questManager.dialogueSystem.WaitForDialogueToEnd());
+            //questManager.dialogueSystem.theDialogues = dialogueQuest[indexDialogue];
+            //questManager.dialogueSystem.StartDialogue();
+            //StartCoroutine(questManager.dialogueSystem.WaitForDialogueToEnd());
         }
 
 
@@ -208,7 +208,7 @@ public class MainQuest1_Controller : MainQuestController
             {
                 case MainQuest1State.AdeganMimpi:
                     Debug.Log($"Kondisi terpenuhi! Memulai dialog dengan NPC: {targetNpcName}");
-                    StartCoroutine(PlayDialogueSequence(dialogueQuest[1], MainQuest1State.PergiKeHutan));
+                    //StartCoroutine(PlayDialogueSequence(dialogueQuest[1], MainQuest1State.PergiKeHutan));
                     
                     break;
 
@@ -225,28 +225,28 @@ public class MainQuest1_Controller : MainQuestController
 
     // Ini adalah fungsi bantuan yang sangat penting!
     // Ia akan memainkan dialog, MENUNGGU sampai selesai, lalu mengubah state.
-    private IEnumerator PlayDialogueSequence(Dialogues dialogueToPlay, MainQuest1State nextState)
-    {
-        // Beri tahu sistem bahwa dialog sedang berjalan
-        isDialoguePlaying = true;
+    //private IEnumerator PlayDialogueSequence(Dialogues dialogueToPlay, MainQuest1State nextState)
+    //{
+    //    // Beri tahu sistem bahwa dialog sedang berjalan
+    //    isDialoguePlaying = true;
 
-        // Set dialog yang benar di DialogueSystem
-        questManager.dialogueSystem.theDialogues = dialogueToPlay;
+    //    // Set dialog yang benar di DialogueSystem
+    //    //questManager.dialogueSystem.theDialogues = dialogueToPlay;
 
-        //Mulai dialognya
-        questManager.dialogueSystem.StartDialogue();
+    //    //Mulai dialognya
+    //    //questManager.dialogueSystem.StartDialogue();
 
-        //Mulai coroutine di DialogueSystem dan TUNGGU di sini sampai coroutine itu selesai.
-        yield return StartCoroutine(questManager.dialogueSystem.WaitForDialogueToEnd());
+    //    //Mulai coroutine di DialogueSystem dan TUNGGU di sini sampai coroutine itu selesai.
+    //    //yield return StartCoroutine(questManager.dialogueSystem.WaitForDialogueToEnd());
 
-        // 5. Kode di bawah ini HANYA akan berjalan SETELAH WaitForDialogueToEnd() selesai.
-        Debug.Log("Selesai menunggu dialog. Melanjutkan ke state berikutnya.");
-        ChangeState(nextState);
+    //    // 5. Kode di bawah ini HANYA akan berjalan SETELAH WaitForDialogueToEnd() selesai.
+    //    Debug.Log("Selesai menunggu dialog. Melanjutkan ke state berikutnya.");
+    //    ChangeState(nextState);
 
-        GameController.Instance.PindahKeScene("Village");
-        // Set kembali status dialog
-        isDialoguePlaying = false;
-    }
+    //    GameController.Instance.PindahKeScene("Village");
+    //    // Set kembali status dialog
+    //    isDialoguePlaying = false;
+    //}
 
     //logika mendeskripsikan kematian rusa dan memunculkan harimau 
     // Di dalam MainQuest1_Controller.cs

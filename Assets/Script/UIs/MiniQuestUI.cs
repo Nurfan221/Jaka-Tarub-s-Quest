@@ -97,7 +97,7 @@ public class MiniQuestUI : MonoBehaviour
         imageTemplateRewardItem.sprite = questData.rewardItemQuest.sprite;
         buttonTake.onClick.AddListener(() =>
         {
-            questManager.CreateQuestDisplay(questData.judulQuest);
+            //questManager.CreateQuestDisplay(questData.judulQuest);
             TakeMiniQuest(questData.questID);
             questInfoUI.AddMiniQuestActive(questData);
             buttonTake.gameObject.SetActive(false);
