@@ -9,7 +9,10 @@ using UnityEngine;
 public class QuestStateData
 {
     // Ganti 'MainQuest1State' dengan enum dari controller yang sesuai
+
     public MainQuest1_Controller.MainQuest1State state;
+    [HideInInspector]
+    public string nameState;
 
     [Header("Data untuk Adegan Ini")]
     public Dialogues dialogueToPlay;
@@ -23,26 +26,34 @@ public class QuestStateData
     public string locationToEnterTrigger;
     public GameObject[] prefabsToSpawn;
     public string animalToDefeatTrigger;
+
+    public void OnValidate()
+    {
+        // Update nameState agar selalu sama dengan nama enum 'state' yang dipilih
+        nameState = state.ToString();
+    }
 }
 
 
 // Ini adalah skrip "Sutradara" utama Anda
 public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi dari kelas dasar Anda
 {
-    public enum MainQuest1State { BelumMulai, AdeganMimpi, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, Selesai }
+    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, Selesai }
 
     [Header("Progres Cerita")]
     [SerializeField] private MainQuest1State currentState = MainQuest1State.BelumMulai;
     private bool isChangingState = false; // Flag "rem" kita
     private string objectiveInfoForUI;
-    public string lokasiYangDitunggu;
+    //public string lokasiYangDitunggu;
+    public Transform lokasiYangDitunggu;
+    private string nameLokasiYangDitunggu;
 
     //KUMPULAN "KARTU ADEGAN"
     [Header("Data untuk Setiap Adegan")]
     public List<QuestStateData> stateDataList;
 
     // Variabel lain yang spesifik untuk quest ini
-    private List<GameObject> spawnedQuestAnimals = new List<GameObject>();
+    public List<GameObject> spawnedQuestAnimals = new List<GameObject>();
     private string targetNpcName;
     private void OnEnable()
     {
@@ -52,6 +63,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         // Berlangganan ke event akhir dialog
         DialogueSystem.OnDialogueEnded += HandleDialogueEnd;
         PlayerQuest.OnPlayerEnteredLocation += HandleLocationTrigger;
+        AnimalBehavior.OnAnimalDied += HandleAnimalDied;
         //DialogueSystem.OnDialogueEnded += HandleDialogueTrigger;
     }
 
@@ -62,6 +74,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         AnimalBehavior.OnAnimalDied -= HandleAnimalTrigger;
         DialogueSystem.OnDialogueEnded -= HandleDialogueEnd;
         PlayerQuest.OnPlayerEnteredLocation -= HandleLocationTrigger;
+        AnimalBehavior.OnAnimalDied -= HandleAnimalDied;
         //DialogueSystem.OnDialogueEnded -= HandleDialogueTrigger;
     }
 
@@ -99,6 +112,16 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 //QuestManager.Instance
                 //DialogueSystem.Instance.StartDialogue(dialogMimpi);
                 break;
+            case MainQuest1State.ApaArtiMimpiItu:
+                HandleSpriteAndDialogue(MainQuest1State.ApaArtiMimpiItu);
+                break;
+            case MainQuest1State.PerjodohanDenganLaraswati:
+                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PerjodohanDenganLaraswati)?.locationToEnterTrigger ?? "";
+                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PerjodohanDenganLaraswati)?.objectiveInfoForUI ?? "";
+                QuestManager.Instance.CreateTemplateQuest();
+
+
+                break;
 
             case MainQuest1State.PermintaanJhorgeo:
                 objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PermintaanJhorgeo)?.objectiveInfoForUI ?? "";
@@ -125,8 +148,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
             case MainQuest1State.PergiKeHutan:
                 objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PergiKeHutan)?.objectiveInfoForUI ?? "";
-
-                lokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PergiKeHutan)?.locationToEnterTrigger ?? "";
+                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PergiKeHutan)?.locationToEnterTrigger ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
 
                 // Logika untuk adegan pergi ke hutan
@@ -134,10 +156,20 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             case MainQuest1State.CariRusa:
                 objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.CariRusa)?.objectiveInfoForUI ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
+                HandleSpriteAndDialogue(MainQuest1State.CariRusa);
+                SpawnPrefabsForState(MainQuest1State.CariRusa);
+
+
+                break;
+            case MainQuest1State.MunculkanHarimau:
+                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.MunculkanHarimau)?.objectiveInfoForUI ?? "";
+                QuestManager.Instance.CreateTemplateQuest();
                 break;
         }
         StartCoroutine(FinishStateChange());
     }
+
+
 
     private IEnumerator FinishStateChange()
     {
@@ -160,8 +192,15 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         {
             case MainQuest1State.AdeganMimpi:
                 // Setelah dialog mimpi selesai, pindah ke adegan berikutnya
-                ChangeState(MainQuest1State.PermintaanJhorgeo);
+                //ChangeState(MainQuest1State.ApaArtiMimpiItu);
+                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.ApaArtiMimpiItu)?.locationToEnterTrigger ?? "";
                 break;
+            case MainQuest1State.ApaArtiMimpiItu:
+                ChangeState(MainQuest1State.PerjodohanDenganLaraswati);
+                break;
+            case MainQuest1State.PerjodohanDenganLaraswati:
+                ChangeState(MainQuest1State.PermintaanJhorgeo);
+                break; 
 
             case MainQuest1State.PermintaanJhorgeo:
 
@@ -184,6 +223,9 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
                 ChangeState(MainQuest1State.CariRusa);
                 break;
+            //case MainQuest1State.CariRusa:
+            //    ChangeState(MainQuest1State.MunculkanHarimau);
+            //    break;
 
 
                 // Tambahkan case lain jika diperlukan
@@ -249,27 +291,81 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
     }
 
-    private void HandleLocationTrigger(string locationName)
+    private void HandleLocationTrigger(Transform enteredLocationTransform)
     {
-        // Jika tidak ada quest aktif atau tidak ada lokasi yang ditunggu, abaikan saja.
-        if (currentState == MainQuest1State.BelumMulai || string.IsNullOrEmpty(lokasiYangDitunggu))
-        {
-            return;
-        }
 
-        // Cek apakah nama lokasi yang dimasuki pemain sama dengan yang ditunggu oleh state saat ini.
-        if (locationName == lokasiYangDitunggu)
+        LocationConfiguration locationConfig = enteredLocationTransform.GetComponent<LocationConfiguration>();
+        // Cek apakah nama dari Transform yang dimasuki sama dengan nama yang kita tunggu
+        if (locationConfig.locationName == nameLokasiYangDitunggu)
         {
-            Debug.Log($"Syarat lokasi terpenuhi! Pemain masuk ke '{locationName}'.");
+            Debug.Log($"Syarat lokasi terpenuhi! Pemain masuk ke '{enteredLocationTransform.name}'.");
 
-            // Contoh: Jika sedang dalam state PergiKeHutan, pindah ke CariRusa
+            // Simpan Transform dari area trigger ini untuk digunakan nanti.
+            this.lokasiYangDitunggu = enteredLocationTransform;
+
+            // Lanjutkan ke adegan berikutnya
+            if (currentState == MainQuest1State.AdeganMimpi)
+            {
+                ChangeState(MainQuest1State.ApaArtiMimpiItu);
+            }
+            if (currentState == MainQuest1State.PerjodohanDenganLaraswati)
+            {
+                HandleSpriteAndDialogue(MainQuest1State.PerjodohanDenganLaraswati);
+            }
             if (currentState == MainQuest1State.PergiKeHutan)
             {
-                HandleSpriteAndDialogue(MainQuest1State.PergiKeHutan);
-
+                ChangeState(MainQuest1State.CariRusa);
             }
+        }
+    }
+    private void HandleAnimalDied(AnimalBehavior animalThatDied)
+    {
+        //Cek dulu apakah kita sedang dalam state yang peduli tentang ini (misal: CariRusa)
+        if (currentState != MainQuest1State.CariRusa)
+        {
+            return; // Jika tidak, abaikan saja
+        }
 
+        // Cek apakah hewan yang mati adalah salah satu dari hewan quest yang kita lacak
+        if (spawnedQuestAnimals.Contains(animalThatDied.gameObject))
+        {
+            Debug.Log($"Quest: Hewan '{animalThatDied.name}' telah dikalahkan. Mencoret dari daftar.");
+
+            //Hapus hewan tersebut dari daftar kita
+            spawnedQuestAnimals.Remove(animalThatDied.gameObject);
+
+            //Cek apakah daftar sekarang sudah kosong
+            if (spawnedQuestAnimals.Count == 0)
+            {
+                Debug.Log("SEMUA HEWAN QUEST TELAH DIKALAHKAN!");
+                // Jika ya, pindah ke adegan berikutnya
+                ChangeState(MainQuest1State.MunculkanHarimau);
+            }
         }
     }
 
+    public void SpawnPrefabsForState(MainQuest1State state)
+    {
+        // Ambil data adegan berdasarkan state
+        QuestStateData data = stateDataList.FirstOrDefault(s => s.state == state);
+        if (data == null || data.prefabsToSpawn == null || data.prefabsToSpawn.Length == 0)
+        {
+            Debug.LogWarning($"Tidak ada prefab untuk state {state}");
+            return;
+        }
+        // Hapus prefab yang sudah ada sebelumnya
+        foreach (GameObject spawnedAnimal in spawnedQuestAnimals)
+        {
+            Destroy(spawnedAnimal);
+        }
+        spawnedQuestAnimals.Clear();
+        // Spawn prefab baru
+        foreach (GameObject prefab in data.prefabsToSpawn)
+        {
+            GameObject spawnedObject = Instantiate(prefab, lokasiYangDitunggu);
+            spawnedQuestAnimals.Add(spawnedObject);
+        }
+
+
+    }
 }

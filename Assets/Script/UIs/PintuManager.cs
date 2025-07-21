@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PintuManager : MonoBehaviour
 {
+    public static PintuManager Instance { get; private set; }
     [Serializable]
     public class ArrayPintu
     {
@@ -16,6 +17,19 @@ public class PintuManager : MonoBehaviour
 
     [Header("Daftar Hubungan")]
     public GameObject player;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

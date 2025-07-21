@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PintuInteractable : Interactable
 {
-    [SerializeField] PintuManager pintuManager;
+    //[SerializeField] PintuManager pintuManager;
     public string pintuName;
 
     private void Start()
@@ -11,7 +11,7 @@ public class PintuInteractable : Interactable
     }
     protected override void Interact()
     {
-        pintuManager.EnterArea(pintuName);
+        PintuManager.Instance.EnterArea(pintuName);
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
    

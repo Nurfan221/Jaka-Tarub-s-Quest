@@ -47,33 +47,42 @@ MonoBehaviour:
   questName: Pertemuan dan Perpisahan
   questDescription: Deskripsi singkat quest.
   currentState: 0
-  lokasiYangDitunggu: 
+  lokasiYangDitunggu: {fileID: 0}
   stateDataList:
   - state: 1
+    nameState: 
     dialogueToPlay: {fileID: 11400000, guid: e537283d9f6d70041b010d8e0def7a9d, type: 2}
     spriteToShow: {fileID: 1543060256506197984, guid: 6c229b8c47a49fc4589219f094685dea, type: 3}
     objectiveInfoForUI: Siapakah Wanita itu ?
     npcPositionStartQuest: {x: 0, y: 0}
     locationToEnterTrigger: 
+    prefabsToSpawn: []
     animalToDefeatTrigger: 
   - state: 2
-    dialogueToPlay: {fileID: 11400000, guid: 946b4ecc67f27f84b9614f7fed7786ce, type: 2}
-    spriteToShow: {fileID: 0}
-    objectiveInfoForUI: Jhorgeo Butuh Bantuan
-    npcPositionStartQuest: {x: -13, y: 7}
-    locationToEnterTrigger: 
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: bf42946ea39d1ce41a98f80532e5b0b9, type: 2}
+    spriteToShow: {fileID: -7477809722036027705, guid: 7f0bc9e2000dde54f9ffc482e50d66ed, type: 3}
+    objectiveInfoForUI: Mbok Milah ada-ada saja
+    npcPositionStartQuest: {x: 0, y: 0}
+    locationToEnterTrigger: RumahJaka
+    prefabsToSpawn: []
     animalToDefeatTrigger: 
   - state: 3
-    dialogueToPlay: {fileID: 11400000, guid: 3e72b271dce0ace448ecb6f0975043e1, type: 2}
-    spriteToShow: {fileID: 0}
-    objectiveInfoForUI: Pergi ke Hutan
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: 6cb034356c7c17b49a9ce0615b7f17c4, type: 2}
+    spriteToShow: {fileID: 3032774256733227401, guid: eb392e3b990e3cd42841eda7cb624a5a, type: 3}
+    objectiveInfoForUI: Pergi Ke Ladang
     npcPositionStartQuest: {x: 0, y: 0}
-    locationToEnterTrigger: HutanAjaib
+    locationToEnterTrigger: LadangDepanRumah
+    prefabsToSpawn: []
     animalToDefeatTrigger: 
   - state: 4
-    dialogueToPlay: {fileID: 0}
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: 946b4ecc67f27f84b9614f7fed7786ce, type: 2}
     spriteToShow: {fileID: 0}
-    objectiveInfoForUI: 'Cari Rusa '
-    npcPositionStartQuest: {x: 0, y: 0}
+    objectiveInfoForUI: Permintaan Jhorgeo
+    npcPositionStartQuest: {x: -14, y: 7}
     locationToEnterTrigger: 
+    prefabsToSpawn: []
     animalToDefeatTrigger: 
+  spawnedQuestAnimals: []
