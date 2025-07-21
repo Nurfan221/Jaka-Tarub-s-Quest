@@ -4097,7 +4097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcManager: {fileID: 893111564}
   player_Health: {fileID: 1143600489}
-  npcJob: {fileID: 757680505}
+  npcJob: {fileID: 0}
   parentEnvironment: {fileID: 124087003}
   environmentList: []
   gameObjectsList: []
@@ -7230,107 +7230,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5365388021736372849, guid: ee96851204eec8d4082732090db0bd5c, type: 3}
   m_PrefabInstance: {fileID: 1791755610}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &220116127
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 893111563}
-    m_Modifications:
-    - target: {fileID: 1522165594464081912, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: npcName
-      value: Jhorgeo Wicaksana
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522165594464081912, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 1522165594464081912, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: gameEconomy
-      value: 
-      objectReference: {fileID: 2075418404}
-    - target: {fileID: 1522165594464081912, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: questInfoUI
-      value: 
-      objectReference: {fileID: 876119311}
-    - target: {fileID: 1522165594464081912, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 1522165594464081912, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 1522165594464081912, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: kuburanInteractable
-      value: 
-      objectReference: {fileID: 124087004}
-    - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 31.839
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -4.357
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149731949982193558, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 3149731949982193558, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 3149731949982193558, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: promptMessage
-      value: Jhorgeo Wicaksana
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149731949982193558, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 3632186851480370098, guid: 15969de47881d4942891605af5d4043b, type: 3}
-      propertyPath: m_Name
-      value: Jhorgeo Wicaksana
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 15969de47881d4942891605af5d4043b, type: 3}
 --- !u!4 &221016229 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6467848702856471926, guid: 35fb5c9bfaf845c48b05d535525d8feb, type: 3}
@@ -8361,99 +8260,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
---- !u!1001 &249936149
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 893111563}
-    m_Modifications:
-    - target: {fileID: 1522165594464081912, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 1522165594464081912, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: gameEconomy
-      value: 
-      objectReference: {fileID: 2075418404}
-    - target: {fileID: 1522165594464081912, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: questInfoUI
-      value: 
-      objectReference: {fileID: 876119311}
-    - target: {fileID: 1522165594464081912, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 1522165594464081912, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 1522165594464081912, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: kuburanInteractable
-      value: 
-      objectReference: {fileID: 124087004}
-    - target: {fileID: 2836848314507029469, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 31.810001
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -4.3600006
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149731949982193558, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 3149731949982193558, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 3149731949982193558, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 3632186851480370098, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-      propertyPath: m_Name
-      value: 'Sekar Arum '
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
 --- !u!1001 &250439843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8996,103 +8802,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39e0a5c4b0e9b704ea70f36a83fd4360, type: 3}
---- !u!1001 &266719063
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 893111563}
-    m_Modifications:
-    - target: {fileID: 1522165594464081912, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: npcName
-      value: MbokRini
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522165594464081912, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 1522165594464081912, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: gameEconomy
-      value: 
-      objectReference: {fileID: 2075418404}
-    - target: {fileID: 1522165594464081912, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: questInfoUI
-      value: 
-      objectReference: {fileID: 876119311}
-    - target: {fileID: 1522165594464081912, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 1522165594464081912, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 1522165594464081912, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: kuburanInteractable
-      value: 
-      objectReference: {fileID: 124087004}
-    - target: {fileID: 2836848314507029469, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -28
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149731949982193558, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 3149731949982193558, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 3149731949982193558, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 3632186851480370098, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-      propertyPath: m_Name
-      value: MbokRini
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
 --- !u!1001 &267798184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10271,16 +9980,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6467848702856471926, guid: 79fbe21c56b5cee45875e2bb5ceffbc2, type: 3}
   m_PrefabInstance: {fileID: 1362810087}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &314725041 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3632186851480370098, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-  m_PrefabInstance: {fileID: 1233910171}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &314725047 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2836848314507029469, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-  m_PrefabInstance: {fileID: 1233910171}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &317985598
 PrefabInstance:
@@ -13926,99 +13625,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cd310ddecba59d419e12895ec546d8f, type: 3}
---- !u!1001 &468420687
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 893111563}
-    m_Modifications:
-    - target: {fileID: 1522165594464081912, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 1522165594464081912, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: gameEconomy
-      value: 
-      objectReference: {fileID: 2075418404}
-    - target: {fileID: 1522165594464081912, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: questInfoUI
-      value: 
-      objectReference: {fileID: 876119311}
-    - target: {fileID: 1522165594464081912, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 1522165594464081912, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 1522165594464081912, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: kuburanInteractable
-      value: 
-      objectReference: {fileID: 124087004}
-    - target: {fileID: 2836848314507029469, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 40.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -10.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149731949982193558, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 3149731949982193558, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 3149731949982193558, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 3632186851480370098, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-      propertyPath: m_Name
-      value: 'Mamat Wirasena '
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
 --- !u!4 &469217547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5297067821582616087, guid: f7ee8f3f1bbd93e45900fef8c31722ec, type: 3}
@@ -15604,99 +15210,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4059415801196439076, guid: 57157725d11060949a25bd746a72203f, type: 3}
   m_PrefabInstance: {fileID: 520364193}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &523867704
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 893111563}
-    m_Modifications:
-    - target: {fileID: 1522165594464081912, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 1522165594464081912, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: gameEconomy
-      value: 
-      objectReference: {fileID: 2075418404}
-    - target: {fileID: 1522165594464081912, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: questInfoUI
-      value: 
-      objectReference: {fileID: 876119311}
-    - target: {fileID: 1522165594464081912, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 1522165594464081912, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 1522165594464081912, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: kuburanInteractable
-      value: 
-      objectReference: {fileID: 124087004}
-    - target: {fileID: 2836848314507029469, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 20.69
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149731949982193558, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 3149731949982193558, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 3149731949982193558, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 3632186851480370098, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-      propertyPath: m_Name
-      value: 'Amru Kusnadi '
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d9c4a05755f644d4998957e7229402de, type: 3}
 --- !u!1001 &524024134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17165,38 +16678,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79fbe21c56b5cee45875e2bb5ceffbc2, type: 3}
---- !u!1 &588204067
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 588204068}
-  m_Layer: 0
-  m_Name: MainQuestController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &588204068
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588204067}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1832480919}
-  m_Father: {fileID: 1856415617}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &589085900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17723,103 +17204,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8495912602200955057, guid: ffac6f25070790c4fb72118a37af902f, type: 3}
   m_PrefabInstance: {fileID: 763780295}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &604365395
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 893111563}
-    m_Modifications:
-    - target: {fileID: 1522165594464081912, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 1522165594464081912, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: gameEconomy
-      value: 
-      objectReference: {fileID: 2075418404}
-    - target: {fileID: 1522165594464081912, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: questInfoUI
-      value: 
-      objectReference: {fileID: 876119311}
-    - target: {fileID: 1522165594464081912, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: pekerjaanNPC
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522165594464081912, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 1522165594464081912, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 1522165594464081912, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: kuburanInteractable
-      value: 
-      objectReference: {fileID: 124087004}
-    - target: {fileID: 2836848314507029469, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -8.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -41.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149731949982193558, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 3149731949982193558, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 3149731949982193558, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 3632186851480370098, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-      propertyPath: m_Name
-      value: 'Brata Mahardika '
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
 --- !u!4 &606558929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5297067821582616087, guid: f7ee8f3f1bbd93e45900fef8c31722ec, type: 3}
@@ -18241,16 +17625,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6467848702856471926, guid: d857c0bcd7f30ea45b64c723913b06af, type: 3}
   m_PrefabInstance: {fileID: 1653951302}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &618051776 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3632186851480370098, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-  m_PrefabInstance: {fileID: 468420687}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &618051782 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2836848314507029469, guid: 30bf690dc94a4ed4f9e582fcb76cf32e, type: 3}
-  m_PrefabInstance: {fileID: 468420687}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &620314280
 PrefabInstance:
@@ -21842,16 +21216,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7ee8f3f1bbd93e45900fef8c31722ec, type: 3}
---- !u!1 &757680505 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3632186851480370098, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-  m_PrefabInstance: {fileID: 604365395}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &757680511 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2836848314507029469, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
-  m_PrefabInstance: {fileID: 604365395}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &758361524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5297067821582616087, guid: 6773ce559afe3ff40ab2860a335cbaa4, type: 3}
@@ -24013,99 +23377,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5297067821582616087, guid: 1b3af91a00af8bd4b92bb9db3786cc79, type: 3}
   m_PrefabInstance: {fileID: 589085900}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &835258737
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 893111563}
-    m_Modifications:
-    - target: {fileID: 1522165594464081912, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 1522165594464081912, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: gameEconomy
-      value: 
-      objectReference: {fileID: 2075418404}
-    - target: {fileID: 1522165594464081912, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: questInfoUI
-      value: 
-      objectReference: {fileID: 876119311}
-    - target: {fileID: 1522165594464081912, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 1522165594464081912, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 1522165594464081912, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: kuburanInteractable
-      value: 
-      objectReference: {fileID: 124087004}
-    - target: {fileID: 2836848314507029469, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 12.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.87
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149731949982193558, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 3149731949982193558, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 3149731949982193558, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 3632186851480370098, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-      propertyPath: m_Name
-      value: Kartika Saraswati
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
 --- !u!4 &836766022 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4059415801196439076, guid: a442f0971df64334e91b8d8921c86ce4, type: 3}
@@ -26085,17 +25356,7 @@ Transform:
   m_LocalPosition: {x: 13.95, y: -9.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1180384362}
-  - {fileID: 1433299333}
-  - {fileID: 618051782}
-  - {fileID: 314725047}
-  - {fileID: 2012227997}
-  - {fileID: 977016402}
-  - {fileID: 1732394342}
-  - {fileID: 1890974594}
-  - {fileID: 1332003071}
-  - {fileID: 757680511}
+  m_Children: []
   m_Father: {fileID: 98952643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &893111564
@@ -26110,715 +25371,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e028d3a9854cbc84e8181231f2c206d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcDataArray:
-  - npcName: Fahri
-    fullName: Fahri Pranajaya
-    pekerjaan: Kepala Desa
-    hobi: Ngoding
-    tanggalUltah: 3
-    bulanUltah: 1
-    npcSprite: {fileID: 0}
-    prefab: {fileID: 1332003066}
-    totalFrendships: 0
-    countGift: 0
-    schedules:
-    - activityName: MulaiSchedule
-      waypoints:
-      - {x: 26.38, y: -3.75, z: 0}
-      - {x: 26.38, y: -3.75, z: 0}
-      startTime: 5
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: MemantauDesa
-      waypoints:
-      - {x: 26.38, y: -3.75, z: 0}
-      - {x: 26.38, y: -8, z: 0}
-      - {x: 29.77, y: -8, z: 0}
-      - {x: 29.77, y: -16.29, z: 0}
-      - {x: 41.43, y: -16.29, z: 0}
-      startTime: 5
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: MelihatSawah
-      waypoints:
-      - {x: 41.43, y: -16.29, z: 0}
-      - {x: 41.43, y: -14, z: 0}
-      - {x: 51.03, y: -14, z: 0}
-      - {x: 51.03, y: -12.48, z: 0}
-      - {x: 46.13, y: -8, z: 0}
-      - {x: 51.02, y: -8, z: 0}
-      startTime: 10
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: RumahMasWidura
-      waypoints:
-      - {x: 51.02, y: -8, z: 0}
-      - {x: 51.02, y: -22.35, z: 0}
-      startTime: 15
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: 51.02, y: -22.35, z: 0}
-      - {x: 51.02, y: -24.91, z: 0}
-      - {x: 42.62, y: -24.91, z: 0}
-      - {x: 42.62, y: -25.95, z: 0}
-      - {x: 29.58, y: -25.95, z: 0}
-      - {x: 29.58, y: -7.65, z: 0}
-      - {x: 26.4, y: -7.65, z: 0}
-      - {x: 26.4, y: -3.81, z: 0}
-      startTime: 18
-      hasStarted: 0
-      isOngoing: 0
-    frendship:
-      favoriteValue: 5
-      likesValue: 3
-      normalValue: 1
-      hateValue: -3
-      favorites:
-      - {fileID: 0}
-      like:
-      - {fileID: 0}
-      normal:
-      - {fileID: 0}
-      hate:
-      - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-  - npcName: Mbok Rini
-    fullName: Rini Jayanti
-    pekerjaan: Petani
-    hobi: 
-    tanggalUltah: 0
-    bulanUltah: 0
-    npcSprite: {fileID: 0}
-    prefab: {fileID: 1890974593}
-    totalFrendships: 0
-    countGift: 0
-    schedules:
-    - activityName: MulaiSchedule
-      waypoints:
-      - {x: -13, y: 7, z: 0}
-      startTime: 5
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeSawah
-      waypoints:
-      - {x: -13, y: 7, z: 0}
-      - {x: -12, y: 4.69, z: 0}
-      - {x: -11.45, y: -2.84, z: 0}
-      startTime: 5
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Istirahat
-      waypoints:
-      - {x: -11.45, y: -2.84, z: 0}
-      - {x: -1, y: -2.84, z: 0}
-      - {x: -1, y: -5.13, z: 0}
-      startTime: 11
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeSawah
-      waypoints:
-      - {x: -1, y: -5.13, z: 0}
-      - {x: -1, y: -2.84, z: 0}
-      - {x: -11.45, y: -2.84, z: 0}
-      startTime: 15
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: -11.45, y: -2.84, z: 0}
-      - {x: -12, y: 4.69, z: 0}
-      - {x: -13, y: 7, z: 0}
-      startTime: 17
-      hasStarted: 0
-      isOngoing: 0
-    frendship:
-      favoriteValue: 5
-      likesValue: 3
-      normalValue: 1
-      hateValue: -3
-      favorites:
-      - {fileID: 0}
-      like:
-      - {fileID: 0}
-      normal:
-      - {fileID: 0}
-      hate:
-      - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-  - npcName: Sekar
-    fullName: 'Sekar Arum '
-    pekerjaan: Pedagang
-    hobi: 
-    tanggalUltah: 0
-    bulanUltah: 0
-    npcSprite: {fileID: 0}
-    prefab: {fileID: 1732394336}
-    totalFrendships: 0
-    countGift: 0
-    schedules:
-    - activityName: MulaiSchedule
-      waypoints:
-      - {x: 45, y: -13.72, z: 0}
-      startTime: 5
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeToko
-      waypoints:
-      - {x: 45, y: -13.72, z: 0}
-      - {x: 45, y: -14.38, z: 0}
-      - {x: 51.04, y: -14.38, z: 0}
-      - {x: 51.04, y: -13, z: 0}
-      - {x: 46.16, y: -8, z: 0}
-      - {x: 43.99, y: -8, z: 0}
-      - {x: 43.99, y: -7.1, z: 0}
-      startTime: 6
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KetokoMbaAsih
-      waypoints:
-      - {x: 43.99, y: -7.1, z: 0}
-      - {x: 43.99, y: -8, z: 0}
-      - {x: 39, y: -7.96, z: 0}
-      - {x: 39, y: -5, z: 0}
-      - {x: 44.5, y: 0.34, z: 0}
-      - {x: 41.26, y: 0.34, z: 0}
-      startTime: 15
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: 41.26, y: 0.34, z: 0}
-      - {x: 44.5, y: 0.34, z: 0}
-      - {x: 39, y: -5, z: 0}
-      - {x: 39, y: -7.96, z: 0}
-      - {x: 39, y: -10.9, z: 0}
-      - {x: 42, y: -14.32, z: 0}
-      - {x: 45, y: -14.32, z: 0}
-      - {x: 45, y: -13.7, z: 0}
-      startTime: 19
-      hasStarted: 0
-      isOngoing: 0
-    frendship:
-      favoriteValue: 5
-      likesValue: 3
-      normalValue: 1
-      hateValue: -3
-      favorites:
-      - {fileID: 0}
-      like:
-      - {fileID: 0}
-      normal:
-      - {fileID: 0}
-      hate:
-      - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-  - npcName: Jhorgeo
-    fullName: Jhorgeo Wicaksana
-    pekerjaan: Pemburu
-    hobi: 
-    tanggalUltah: 0
-    bulanUltah: 0
-    npcSprite: {fileID: 0}
-    prefab: {fileID: 1433299327}
-    totalFrendships: 0
-    countGift: 0
-    schedules:
-    - activityName: MulaiSchedule
-      waypoints:
-      - {x: 45, y: -13.72, z: 0}
-      startTime: 4
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Berburu
-      waypoints:
-      - {x: 45, y: -13.72, z: 0}
-      - {x: 45, y: -14.41, z: 0}
-      - {x: 42, y: -14.41, z: 0}
-      - {x: 39, y: -11.05, z: 0}
-      - {x: 39, y: -5, z: 0}
-      - {x: 44.5, y: 0.27, z: 0}
-      - {x: 44.5, y: 16.6, z: 0}
-      - {x: 48.5, y: 20.79, z: 0}
-      - {x: 53.41, y: 20.79, z: 0}
-      - {x: 53.41, y: 30.4, z: 0}
-      startTime: 5
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Manceng
-      waypoints:
-      - {x: 53.41, y: 30.4, z: 0}
-      - {x: 53.41, y: 20.79, z: 0}
-      - {x: 48.5, y: 20.79, z: 0}
-      - {x: 44.5, y: 16.6, z: 0}
-      - {x: 44.5, y: 0.27, z: 0}
-      - {x: 39, y: -5, z: 0}
-      - {x: 39, y: -11.05, z: 0}
-      - {x: 42, y: -14.41, z: 0}
-      - {x: 43.46, y: -14.41, z: 0}
-      - {x: 43.46, y: -18.98, z: 0}
-      - {x: 42.72, y: -19.69, z: 0}
-      - {x: 42.72, y: -25.37, z: 0}
-      - {x: 51.71, y: -25.37, z: 0}
-      - {x: 51.71, y: -29.26, z: 0}
-      startTime: 13
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: 51.71, y: -29.26, z: 0}
-      - {x: 51.71, y: -25.37, z: 0}
-      - {x: 42.72, y: -25.37, z: 0}
-      - {x: 42.72, y: -19.69, z: 0}
-      - {x: 43.46, y: -18.98, z: 0}
-      - {x: 43.46, y: -14.41, z: 0}
-      - {x: 45, y: -14.41, z: 0}
-      - {x: 45, y: -13.72, z: 0}
-      startTime: 18
-      hasStarted: 0
-      isOngoing: 0
-    frendship:
-      favoriteValue: 5
-      likesValue: 3
-      normalValue: 1
-      hateValue: -3
-      favorites:
-      - {fileID: 0}
-      like:
-      - {fileID: 0}
-      normal:
-      - {fileID: 0}
-      hate:
-      - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-  - npcName: Asih
-    fullName: 'Asih Pertiwi '
-    pekerjaan: Penenun
-    hobi: 
-    tanggalUltah: 0
-    bulanUltah: 0
-    npcSprite: {fileID: 0}
-    prefab: {fileID: 977016396}
-    totalFrendships: 0
-    countGift: 0
-    schedules:
-    - activityName: StartActivity
-      waypoints:
-      - {x: 34, y: -13.87, z: 0}
-      startTime: 5
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeToko
-      waypoints:
-      - {x: 34, y: -13.87, z: 0}
-      - {x: 34, y: -14.43, z: 0}
-      - {x: 29.76, y: -14.43, z: 0}
-      - {x: 29.76, y: -8.83, z: 0}
-      - {x: 39, y: -8.83, z: 0}
-      - {x: 39, y: -2, z: 0}
-      startTime: 6
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeSampingToko
-      waypoints:
-      - {x: 39, y: -2, z: 0}
-      - {x: 39, y: -8.83, z: 0}
-      - {x: 39, y: -5, z: 0}
-      - {x: 44.5, y: 0.21, z: 0}
-      - {x: 42, y: 1.37, z: 0}
-      startTime: 15
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: 42, y: 1.37, z: 0}
-      - {x: 44.5, y: 0.21, z: 0}
-      - {x: 39, y: -5, z: 0}
-      - {x: 39, y: -8.83, z: 0}
-      - {x: 29.76, y: -8.83, z: 0}
-      - {x: 29.76, y: -14.43, z: 0}
-      - {x: 34, y: -14.43, z: 0}
-      - {x: 34, y: -13.87, z: 0}
-      startTime: 19
-      hasStarted: 0
-      isOngoing: 0
-    frendship:
-      favoriteValue: 5
-      likesValue: 3
-      normalValue: 1
-      hateValue: -3
-      favorites:
-      - {fileID: 0}
-      like:
-      - {fileID: 0}
-      normal:
-      - {fileID: 0}
-      hate:
-      - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-  - npcName: Amru
-    fullName: 'Amru Kusnadi '
-    pekerjaan: Petani
-    hobi: 
-    tanggalUltah: 0
-    bulanUltah: 0
-    npcSprite: {fileID: 0}
-    prefab: {fileID: 1180384356}
-    totalFrendships: 0
-    countGift: 0
-    schedules:
-    - activityName: StartActivity
-      waypoints:
-      - {x: 34, y: -13.87, z: 0}
-      startTime: 4
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeSawah
-      waypoints:
-      - {x: 34, y: -13.87, z: 0}
-      - {x: 34, y: -14.43, z: 0}
-      - {x: 29.76, y: -14.43, z: 0}
-      - {x: 29.76, y: -8.83, z: 0}
-      - {x: 39, y: -8.83, z: 0}
-      - {x: 51.53, y: -8.83, z: 0}
-      - {x: 51.53, y: -6, z: 0}
-      - {x: 56.05, y: -6, z: 0}
-      startTime: 5
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: 56.05, y: -6, z: 0}
-      - {x: 51.53, y: -6, z: 0}
-      - {x: 51.53, y: -8.83, z: 0}
-      - {x: 39, y: -8.83, z: 0}
-      - {x: 29.76, y: -8.83, z: 0}
-      - {x: 29.76, y: -14.43, z: 0}
-      - {x: 34, y: -14.43, z: 0}
-      - {x: 34, y: -13.87, z: 0}
-      startTime: 12
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Manceng
-      waypoints:
-      - {x: 34, y: -13.87, z: 0}
-      - {x: 34, y: -14.87, z: 0}
-      - {x: 43.45, y: -14.87, z: 0}
-      - {x: 43.45, y: -19.09, z: 0}
-      - {x: 42.77, y: -19.72, z: 0}
-      - {x: 42.77, y: -25.37, z: 0}
-      - {x: 53.12, y: -25.37, z: 0}
-      - {x: 53.12, y: -29.24, z: 0}
-      startTime: 15
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: 53.12, y: -29.24, z: 0}
-      - {x: 53.12, y: -25.37, z: 0}
-      - {x: 42.77, y: -25.37, z: 0}
-      - {x: 42.77, y: -19.72, z: 0}
-      - {x: 43.45, y: -19.09, z: 0}
-      - {x: 43.45, y: -14.87, z: 0}
-      - {x: 34, y: -14.87, z: 0}
-      - {x: 34, y: -13.87, z: 0}
-      startTime: 18
-      hasStarted: 0
-      isOngoing: 0
-    frendship:
-      favoriteValue: 5
-      likesValue: 3
-      normalValue: 1
-      hateValue: -3
-      favorites:
-      - {fileID: 0}
-      like:
-      - {fileID: 0}
-      normal:
-      - {fileID: 0}
-      hate:
-      - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-  - npcName: Kartika
-    fullName: Kartika Saraswati
-    pekerjaan: Penjaga Perpus
-    hobi: 
-    tanggalUltah: 0
-    bulanUltah: 0
-    npcSprite: {fileID: 0}
-    prefab: {fileID: 2012227991}
-    totalFrendships: 0
-    countGift: 0
-    schedules:
-    - activityName: StartSchedule
-      waypoints:
-      - {x: 26, y: -15.71, z: 0}
-      startTime: 7
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KePerpustakaan
-      waypoints:
-      - {x: 26, y: -15.71, z: 0}
-      - {x: 26, y: -16.34, z: 0}
-      - {x: 29.74, y: -16.34, z: 0}
-      - {x: 29.74, y: -9, z: 0}
-      - {x: 31.41, y: -9, z: 0}
-      - {x: 31.41, y: -7.05, z: 0}
-      startTime: 8
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeTaman
-      waypoints:
-      - {x: 31.41, y: -7.05, z: 0}
-      - {x: 31.41, y: -9, z: 0}
-      - {x: 29.74, y: -9, z: 0}
-      - {x: 29.74, y: -16.34, z: 0}
-      - {x: 29.74, y: -20, z: 0}
-      - {x: 36, y: -20, z: 0}
-      startTime: 14
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: 36, y: -20, z: 0}
-      - {x: 29.74, y: -20, z: 0}
-      - {x: 29.74, y: -16.34, z: 0}
-      - {x: 29.74, y: -9, z: 0}
-      - {x: 31.41, y: -9, z: 0}
-      - {x: 31.41, y: -7.05, z: 0}
-      startTime: 18
-      hasStarted: 0
-      isOngoing: 0
-    frendship:
-      favoriteValue: 5
-      likesValue: 3
-      normalValue: 1
-      hateValue: -3
-      favorites:
-      - {fileID: 0}
-      like:
-      - {fileID: 0}
-      normal:
-      - {fileID: 0}
-      hate:
-      - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-  - npcName: Ratri
-    fullName: 'Ratri Wulandari '
-    pekerjaan: Ibu Rumah Tangga
-    hobi: 
-    tanggalUltah: 0
-    bulanUltah: 0
-    npcSprite: {fileID: 0}
-    prefab: {fileID: 314725041}
-    totalFrendships: 0
-    countGift: 0
-    schedules:
-    - activityName: StartActivity
-      waypoints:
-      - {x: 26.36, y: -3.75, z: 0}
-      startTime: 7
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeTokoNyiSekar
-      waypoints:
-      - {x: 26.36, y: -3.75, z: 0}
-      - {x: 26.36, y: -8.09, z: 0}
-      - {x: 44, y: -8.09, z: 0}
-      - {x: 44, y: -7, z: 0}
-      startTime: 7
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: 44, y: -7, z: 0}
-      - {x: 44, y: -8.09, z: 0}
-      - {x: 26.36, y: -8.09, z: 0}
-      - {x: 26.36, y: -3.75, z: 0}
-      startTime: 10
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: 22, y: -5.26, z: 0}
-      - {x: 22, y: -8.09, z: 0}
-      - {x: 26.36, y: -8.09, z: 0}
-      - {x: 26.36, y: -3.75, z: 0}
-      startTime: 15
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: MengurusBunga
-      waypoints:
-      - {x: 26.36, y: -3.75, z: 0}
-      - {x: 26.36, y: -8.09, z: 0}
-      - {x: 22, y: -8.09, z: 0}
-      - {x: 22, y: -5.26, z: 0}
-      startTime: 15
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: MengurusBunga
-      waypoints:
-      - {x: 22, y: -5.26, z: 0}
-      - {x: 22, y: -8.09, z: 0}
-      - {x: 26.36, y: -8.09, z: 0}
-      - {x: 26.36, y: -3.75, z: 0}
-      startTime: 15
-      hasStarted: 0
-      isOngoing: 0
-    frendship:
-      favoriteValue: 5
-      likesValue: 3
-      normalValue: 1
-      hateValue: -3
-      favorites:
-      - {fileID: 0}
-      like:
-      - {fileID: 0}
-      normal:
-      - {fileID: 0}
-      hate:
-      - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-  - npcName: Mamat
-    fullName: 'Mamat Wirasena '
-    pekerjaan: Pengrajin Senjata
-    hobi: 
-    tanggalUltah: 0
-    bulanUltah: 0
-    npcSprite: {fileID: 0}
-    prefab: {fileID: 618051776}
-    totalFrendships: 0
-    countGift: 0
-    schedules:
-    - activityName: StartActivity
-      waypoints:
-      - {x: 54.5, y: -20.27, z: 0}
-      startTime: 7
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeToko
-      waypoints:
-      - {x: 54.5, y: -20.27, z: 0}
-      - {x: 54.5, y: -24.56, z: 0}
-      - {x: 42.78, y: -24.56, z: 0}
-      - {x: 42.78, y: -25.77, z: 0}
-      - {x: 29.5, y: -25.77, z: 0}
-      - {x: 29.5, y: -23.38, z: 0}
-      - {x: 26.12, y: -23.38, z: 0}
-      startTime: 8
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Kesamping Rumah
-      waypoints:
-      - {x: 26.12, y: -23.38, z: 0}
-      - {x: 29.5, y: -23.38, z: 0}
-      - {x: 29.5, y: -25.77, z: 0}
-      - {x: 42.78, y: -25.77, z: 0}
-      - {x: 42.78, y: -24.56, z: 0}
-      - {x: 49.71, y: -24.56, z: 0}
-      - {x: 49.71, y: -22.96, z: 0}
-      startTime: 14
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: 49.71, y: -22.96, z: 0}
-      - {x: 49.71, y: -24.56, z: 0}
-      - {x: 54.5, y: -24.56, z: 0}
-      - {x: 54.5, y: -20.27, z: 0}
-      startTime: 18
-      hasStarted: 0
-      isOngoing: 0
-    frendship:
-      favoriteValue: 5
-      likesValue: 3
-      normalValue: 1
-      hateValue: -3
-      favorites:
-      - {fileID: 0}
-      like:
-      - {fileID: 0}
-      normal:
-      - {fileID: 0}
-      hate:
-      - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-  - npcName: Ki Brata
-    fullName: 'Brata Mahardika '
-    pekerjaan: '-'
-    hobi: 
-    tanggalUltah: 0
-    bulanUltah: 0
-    npcSprite: {fileID: 0}
-    prefab: {fileID: 757680505}
-    totalFrendships: 0
-    countGift: 0
-    schedules:
-    - activityName: StartActivity
-      waypoints:
-      - {x: 5, y: -51, z: 0}
-      startTime: 5
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeTepiSungai
-      waypoints:
-      - {x: 5, y: -51, z: 0}
-      - {x: 5, y: -55.12, z: 0}
-      - {x: -24.5, y: -55.12, z: 0}
-      - {x: -24.5, y: -62.71, z: 0}
-      startTime: 6
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeSampingRumah
-      waypoints:
-      - {x: -24.5, y: -62.71, z: 0}
-      - {x: -24.5, y: -50, z: 0}
-      - {x: -1.18, y: -50, z: 0}
-      startTime: 10
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: PulangKeRumah
-      waypoints:
-      - {x: -1.18, y: -50, z: 0}
-      - {x: 0.7, y: -50, z: 0}
-      - {x: 0.7, y: -55.12, z: 0}
-      - {x: 4.96, y: -55.12, z: 0}
-      - {x: 4.96, y: -51.12, z: 0}
-      startTime: 13
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: KeSungai
-      waypoints:
-      - {x: 5, y: -51.12, z: 0}
-      - {x: 5, y: -52.78, z: 0}
-      - {x: 12.6, y: -52.78, z: 0}
-      - {x: 12.6, y: -51.41, z: 0}
-      - {x: 18.56, y: -51.41, z: 0}
-      startTime: 15
-      hasStarted: 0
-      isOngoing: 0
-    - activityName: Pulang
-      waypoints:
-      - {x: 18.56, y: -51.41, z: 0}
-      - {x: 12.6, y: -51.41, z: 0}
-      - {x: 12.6, y: -52.78, z: 0}
-      - {x: 5, y: -52.78, z: 0}
-      - {x: 5, y: -51.12, z: 0}
-      startTime: 15
-      hasStarted: 0
-      isOngoing: 0
-    frendship:
-      favoriteValue: 5
-      likesValue: 3
-      normalValue: 1
-      hateValue: -3
-      favorites:
-      - {fileID: 0}
-      like:
-      - {fileID: 0}
-      normal:
-      - {fileID: 0}
-      hate:
-      - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-  timeManager: {fileID: 1289497373}
-  questManager: {fileID: 1357952847}
-  dialogueSystem: {fileID: 153990557110953066}
-  kuburanEnvironment: {fileID: 124087004}
-  gameEconomy: {fileID: 2075418404}
-  dialogueTerimakasih: {fileID: 11400000, guid: ceff8b4d3c28bd44eb14c3138fa0e938, type: 2}
-  wargaDesaParent: {fileID: 893111562}
+  wargaDesaParent: {fileID: 893111563}
+  allNpcDefinitions:
+  - {fileID: 11400000, guid: 1a253342cb821e740af0613e16c101e8, type: 2}
 --- !u!4 &893899085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5297067821582616087, guid: 1b3af91a00af8bd4b92bb9db3786cc79, type: 3}
@@ -29295,16 +27850,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c3d0eebc85b7ba4789592768488fe7c, type: 3}
---- !u!1 &977016396 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3632186851480370098, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-  m_PrefabInstance: {fileID: 978678546}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &977016402 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2836848314507029469, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-  m_PrefabInstance: {fileID: 978678546}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &977416793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29366,99 +27911,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26fc1dccdcc05fc4dbe4681d4ee8184c, type: 3}
---- !u!1001 &978678546
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 893111563}
-    m_Modifications:
-    - target: {fileID: 1522165594464081912, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 1522165594464081912, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: gameEconomy
-      value: 
-      objectReference: {fileID: 2075418404}
-    - target: {fileID: 1522165594464081912, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: questInfoUI
-      value: 
-      objectReference: {fileID: 876119311}
-    - target: {fileID: 1522165594464081912, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 1522165594464081912, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 1522165594464081912, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: kuburanInteractable
-      value: 
-      objectReference: {fileID: 124087004}
-    - target: {fileID: 2836848314507029469, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 20.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -4.0299997
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149731949982193558, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 3149731949982193558, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 3149731949982193558, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 3632186851480370098, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
-      propertyPath: m_Name
-      value: 'Asih Pertiwi '
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
 --- !u!1001 &981615038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34285,16 +32737,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5365388021736372849, guid: 142ce295196a3a1498e50aadee03f7ac, type: 3}
   m_PrefabInstance: {fileID: 724048157}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1180384356 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3632186851480370098, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-  m_PrefabInstance: {fileID: 523867704}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1180384362 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2836848314507029469, guid: d9c4a05755f644d4998957e7229402de, type: 3}
-  m_PrefabInstance: {fileID: 523867704}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1183697436 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5297067821582616087, guid: f7ee8f3f1bbd93e45900fef8c31722ec, type: 3}
@@ -35674,99 +34116,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6282538871750894974, guid: f6d5f05518855c6419c83ec5d38a9a17, type: 3}
   m_PrefabInstance: {fileID: 435539302}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1233910171
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 893111563}
-    m_Modifications:
-    - target: {fileID: 1522165594464081912, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 1522165594464081912, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: gameEconomy
-      value: 
-      objectReference: {fileID: 2075418404}
-    - target: {fileID: 1522165594464081912, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: questInfoUI
-      value: 
-      objectReference: {fileID: 876119311}
-    - target: {fileID: 1522165594464081912, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 1522165594464081912, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 1522165594464081912, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: kuburanInteractable
-      value: 
-      objectReference: {fileID: 124087004}
-    - target: {fileID: 2836848314507029469, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 12.496
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.939
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149731949982193558, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 3149731949982193558, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 3149731949982193558, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 3632186851480370098, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
-      propertyPath: m_Name
-      value: 'Ratri Wulandari '
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
 --- !u!1 &1235653975 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8486291666243436108, guid: 1238713a66b761c41bf8125f3ef17258, type: 3}
@@ -38867,16 +37216,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a0d992818f75324eb0c093c877eb829, type: 3}
---- !u!1 &1332003066 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3632186851480370098, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-  m_PrefabInstance: {fileID: 2022756779}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1332003071 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2836848314507029469, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-  m_PrefabInstance: {fileID: 2022756779}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1336370023
 GameObject:
   m_ObjectHideFlags: 0
@@ -41931,16 +40270,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d05580c193bb5f54a94e2da48c5904b7, type: 3}
---- !u!1 &1433299327 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3632186851480370098, guid: 15969de47881d4942891605af5d4043b, type: 3}
-  m_PrefabInstance: {fileID: 220116127}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1433299333 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
-  m_PrefabInstance: {fileID: 220116127}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1434485395 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1784783501594626427, guid: 39e0a5c4b0e9b704ea70f36a83fd4360, type: 3}
@@ -45555,6 +43884,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5297067821582616087, guid: f7ee8f3f1bbd93e45900fef8c31722ec, type: 3}
   m_PrefabInstance: {fileID: 1056435492}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1557634489 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4390291186170000578, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+  m_PrefabInstance: {fileID: 153990557110953065}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1557715152 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5297067821582616087, guid: f7ee8f3f1bbd93e45900fef8c31722ec, type: 3}
@@ -55358,16 +53698,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a442f0971df64334e91b8d8921c86ce4, type: 3}
---- !u!1 &1732394336 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3632186851480370098, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-  m_PrefabInstance: {fileID: 249936149}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1732394342 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2836848314507029469, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
-  m_PrefabInstance: {fileID: 249936149}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1732617588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55429,6 +53759,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d25c4a63e1e9fdd4fbd2730d7a0d7976, type: 3}
+--- !u!224 &1734440284 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 410440628249741405, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+  m_PrefabInstance: {fileID: 153990557110953065}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1734666427 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4059415801196439076, guid: 0f29eb5bc7b86cc41abe435c8ee3b27c, type: 3}
@@ -58462,11 +56797,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6467848702856471926, guid: 74258f867a93d904bb2b978edacd814f, type: 3}
   m_PrefabInstance: {fileID: 8966217801078412195}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1832480919 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5494669026390121685, guid: 46817a00f24647948b47276462426db1, type: 3}
-  m_PrefabInstance: {fileID: 6564281014265227937}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1835968204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4059415801196439076, guid: 0f29eb5bc7b86cc41abe435c8ee3b27c, type: 3}
@@ -59665,16 +57995,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6467848702856471926, guid: 57bd6f2bfe24d8844b9d75260f3fa575, type: 3}
   m_PrefabInstance: {fileID: 1890089490}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1890974593 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3632186851480370098, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-  m_PrefabInstance: {fileID: 266719063}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1890974594 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2836848314507029469, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
-  m_PrefabInstance: {fileID: 266719063}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1892850094 stripped
 GameObject:
@@ -63055,16 +61375,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 242766782310632990, guid: 4e9b9361ba3957d45bf36469a188183f, type: 3}
   m_PrefabInstance: {fileID: 1635241400}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2012227991 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3632186851480370098, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-  m_PrefabInstance: {fileID: 835258737}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2012227997 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2836848314507029469, guid: bbd7d20dc7976274cb5e0146673dfd3f, type: 3}
-  m_PrefabInstance: {fileID: 835258737}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2013353548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6467848702856471926, guid: d857c0bcd7f30ea45b64c723913b06af, type: 3}
@@ -63424,101 +61734,7 @@ MonoBehaviour:
   countquest: 0
   finishQuest: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
   rewardQuest: {fileID: 11400000, guid: e309547988c29b5479a07f49415eeba9, type: 2}
-  npcManager: {fileID: 893111564}
   timeManager: {fileID: 1289497373}
---- !u!1001 &2022756779
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 893111563}
-    m_Modifications:
-    - target: {fileID: 1522165594464081912, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 1522165594464081912, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: gameEconomy
-      value: 
-      objectReference: {fileID: 2075418404}
-    - target: {fileID: 1522165594464081912, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: questInfoUI
-      value: 
-      objectReference: {fileID: 876119311}
-    - target: {fileID: 1522165594464081912, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 1522165594464081912, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 1522165594464081912, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: kuburanInteractable
-      value: 
-      objectReference: {fileID: 124087004}
-    - target: {fileID: 2836848314507029469, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 12.490001
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2836848314507029469, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3149731949982193558, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 893111564}
-    - target: {fileID: 3149731949982193558, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: questManager
-      value: 
-      objectReference: {fileID: 1357952847}
-    - target: {fileID: 3149731949982193558, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: dialogueSystem
-      value: 
-      objectReference: {fileID: 153990557110953066}
-    - target: {fileID: 3632186851480370098, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
-      propertyPath: m_Name
-      value: Fahri Pranajaya
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
 --- !u!4 &2023642013 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6467848702856471926, guid: e4ffc3f675e1e614994a4af59e1ea995, type: 3}
@@ -66788,6 +65004,14 @@ PrefabInstance:
       propertyPath: player_Health
       value: 
       objectReference: {fileID: 1143600489}
+    - target: {fileID: 606486419237685040, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 651695739130536112, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 812677929144042284, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -66937,7 +65161,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1289497373}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: ContentStory
+      value: 
+      objectReference: {fileID: 1734440284}
+    - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: contentStory
+      value: 
+      objectReference: {fileID: 1734440284}
+    - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: TemplateQuest
+      value: 
+      objectReference: {fileID: 1659956731}
+    - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: templateQuest
       value: 
       objectReference: {fileID: 1659956731}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
@@ -66949,12 +65185,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 505429937}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: contentTemplate
+      value: 
+      objectReference: {fileID: 505429937}
+    - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: locationManager
       value: 
       objectReference: {fileID: 2134291580}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: pendingMainQuest
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e079712a97a8f34fabc15b1de8b3c56, type: 2}
+    - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: allChapters.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: activeMainQuestController
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: 'allChapters.Array.data[0]'
@@ -66963,43 +65211,43 @@ PrefabInstance:
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: chapters.Array.data[0].sideQuest.Array.data[0].NPC
       value: 
-      objectReference: {fileID: 1890974593}
+      objectReference: {fileID: 0}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: chapters.Array.data[0].sideQuest.Array.data[1].NPC
       value: 
-      objectReference: {fileID: 1332003066}
+      objectReference: {fileID: 0}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: chapters.Array.data[0].sideQuest.Array.data[2].NPC
       value: 
-      objectReference: {fileID: 1433299327}
+      objectReference: {fileID: 0}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: chapters.Array.data[0].sideQuest.Array.data[3].NPC
       value: 
-      objectReference: {fileID: 1732394336}
+      objectReference: {fileID: 0}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: chapters.Array.data[0].sideQuest.Array.data[4].NPC
       value: 
-      objectReference: {fileID: 314725041}
+      objectReference: {fileID: 0}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: chapters.Array.data[0].sideQuest.Array.data[5].NPC
       value: 
-      objectReference: {fileID: 1180384356}
+      objectReference: {fileID: 0}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: chapters.Array.data[1].sideQuest.Array.data[0].NPC
       value: 
-      objectReference: {fileID: 1433299327}
+      objectReference: {fileID: 0}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: chapters.Array.data[1].sideQuest.Array.data[1].NPC
       value: 
-      objectReference: {fileID: 1433299327}
+      objectReference: {fileID: 0}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: chapters.Array.data[1].sideQuest.Array.data[2].NPC
       value: 
-      objectReference: {fileID: 618051776}
+      objectReference: {fileID: 0}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: chapters.Array.data[1].sideQuest.Array.data[3].NPC
       value: 
-      objectReference: {fileID: 1732394336}
+      objectReference: {fileID: 0}
     - target: {fileID: 2786279115319923343, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: chapters.Array.data[0].sideQuest.Array.data[5].spawner
       value: 
@@ -67068,6 +65316,10 @@ PrefabInstance:
       propertyPath: m_FillAmount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4292011840412921473, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4364749294833400916, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -67100,6 +65352,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4615568667551417519, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: endButton
+      value: 
+      objectReference: {fileID: 1557634489}
     - target: {fileID: 4686897266922013383, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -67259,7 +65515,7 @@ PrefabInstance:
     - target: {fileID: 5523479395495634011, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: 'questStateDataList.Array.data[1].enemiesToSpawn.Array.data[0]'
       value: 
-      objectReference: {fileID: 1433299327}
+      objectReference: {fileID: 0}
     - target: {fileID: 5527009479123829447, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_text
       value: 
@@ -67291,6 +65547,10 @@ PrefabInstance:
     - target: {fileID: 5527009479123829447, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5651338683217849956, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: m_Sprite
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5878514064243291298, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchorMax.y
@@ -67594,7 +65854,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8001177148399849436, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.00006271899
+      value: -0.000022888184
       objectReference: {fileID: 0}
     - target: {fileID: 8016212584862088717, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_Size
@@ -67730,9 +65990,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7915405124011612827, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       insertIndex: 3
       addedObject: {fileID: 1684918959}
-    - targetCorrespondingSourceObject: {fileID: 7915405124011612827, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 588204068}
     - targetCorrespondingSourceObject: {fileID: 2808371289005836124, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       insertIndex: 2
       addedObject: {fileID: 1659956731}
@@ -71172,63 +69429,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3116671828bd74147b92e3fb7c5c6219, type: 3}
---- !u!1001 &6564281014265227937
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 588204068}
-    m_Modifications:
-    - target: {fileID: 5494669026390121685, guid: 46817a00f24647948b47276462426db1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5494669026390121685, guid: 46817a00f24647948b47276462426db1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5494669026390121685, guid: 46817a00f24647948b47276462426db1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5494669026390121685, guid: 46817a00f24647948b47276462426db1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5494669026390121685, guid: 46817a00f24647948b47276462426db1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5494669026390121685, guid: 46817a00f24647948b47276462426db1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5494669026390121685, guid: 46817a00f24647948b47276462426db1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5494669026390121685, guid: 46817a00f24647948b47276462426db1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5494669026390121685, guid: 46817a00f24647948b47276462426db1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5494669026390121685, guid: 46817a00f24647948b47276462426db1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7144715889913139730, guid: 46817a00f24647948b47276462426db1, type: 3}
-      propertyPath: m_Name
-      value: MainQuest-1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 46817a00f24647948b47276462426db1, type: 3}
 --- !u!1001 &6666878177188753605
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,14 +5,15 @@ using NUnit.Framework.Interfaces;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+//using UnityEngine.UIElements;
 
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance { get; private set; }
     [Header("Template Quest UI")]
-    public Transform TemplateQuest;
-    public Transform ContentTemplate;
+    public Transform templateQuest;
+    public Transform contentTemplate;
+    public Transform contentStory;
 
     [Header("Database Quest (Aset SO)")]
     // Cukup seret semua aset ChapterSO Anda ke sini.
@@ -50,12 +51,25 @@ public class QuestManager : MonoBehaviour
     {
         // Berlangganan event pergantian hari dari TimeManager
         TimeManager.OnDayChanged += CheckForNewQuests;
+        DialogueSystem.OnDialogueEnded += DialogueEnd;
     }
 
     private void OnDisable()
     {
         // Selalu berhenti berlangganan untuk menghindari error
         TimeManager.OnDayChanged -= CheckForNewQuests;
+        DialogueSystem.OnDialogueEnded -= DialogueEnd;
+    }
+
+    private void Start()
+    {
+        StartMainQuest(pendingMainQuest);
+    }
+
+    public void DialogueEnd()
+    {
+        // Cek apakah ada quest yang sedang aktif
+        HideContentStory();
     }
     // Dipanggil setiap hari baru untuk memeriksa apakah ada quest baru yang harus diaktifkan.
     public void CheckForNewQuests()
@@ -78,7 +92,11 @@ public class QuestManager : MonoBehaviour
         {
             if (TimeManager.Instance.timeData_SO.date == pendingMainQuest.dateToActivate && TimeManager.Instance.timeData_SO.bulan == pendingMainQuest.monthToActivate)
             {
+                Debug.Log($"Memulai Main Quest yang tertunda: {pendingMainQuest.questName}");
                 StartMainQuest(pendingMainQuest);
+            }else
+            {
+                Debug.LogError($"Main Quest '{pendingMainQuest.questName}' belum bisa dimulai. Tanggal saat ini: {TimeManager.Instance.timeData_SO.date}, Bulan: {TimeManager.Instance.timeData_SO.bulan}. Tanggal aktivasi: {pendingMainQuest.dateToActivate}, Bulan: {pendingMainQuest.monthToActivate}");
             }
         }
     }
@@ -117,13 +135,13 @@ public class QuestManager : MonoBehaviour
     public void CreateTemplateQuest()
     {
         Debug.Log("Membuat template quest...");
-        if (ContentTemplate == null)
+        if (contentTemplate == null)
         {
             Debug.LogError("ContentTemplate belum diatur di Inspector!");
             return;
         }
 
-        foreach (Transform child in ContentTemplate)
+        foreach (Transform child in contentTemplate)
         {
             Destroy(child.gameObject);
         }
@@ -151,9 +169,9 @@ public class QuestManager : MonoBehaviour
     }
 
  
-    private void InstantiateQuestUI(string questName, string objectiveInfo)
+    public void InstantiateQuestUI(string questName, string objectiveInfo)
     {
-        Transform questTransform = Instantiate(TemplateQuest, ContentTemplate);
+        Transform questTransform = Instantiate(templateQuest, contentTemplate);
         questTransform.gameObject.SetActive(true);
         questTransform.name = $"Quest - {questName}";
 
@@ -384,10 +402,31 @@ public class QuestManager : MonoBehaviour
 
         if (activeMainQuestController != null)
         {
-            activeMainQuestController.StartQuest(this); // Langsung mulai HANYA SEKALI.
+            activeMainQuestController.StartQuest(this, mainQuestSO);
             pendingMainQuest = null; // Hapus dari antrian setelah dimulai
             CreateTemplateQuest(); // Perbarui UI
         }
+    }
+
+    // Handle Template Story active
+    public void HandleContentStory(Sprite sp)
+    {
+        contentStory.gameObject.SetActive(true);
+        // Beritahu C# untuk menggunakan Image dari namespace UnityEngine.UI
+        UnityEngine.UI.Image image = contentStory.Find("ImageScene").GetComponent<UnityEngine.UI.Image>();
+        if (image != null)
+        {
+            image.sprite = sp;
+        }
+        else
+        {
+            Debug.LogError("Tidak ditemukan komponen Image di dalam ContentStory!");
+        }
+    }
+
+    public void HideContentStory()
+    {
+        contentStory.gameObject.SetActive(false);
     }
 }
 

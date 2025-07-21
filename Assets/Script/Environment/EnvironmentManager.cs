@@ -226,8 +226,8 @@ public class EnvironmentManager : MonoBehaviour
     public void UpdateStatusJob()
     {
         Debug.Log("oiiii ada kerjaan");
-        QuestInteractable npcQuest = npcJob.GetComponent<QuestInteractable>();
-        npcQuest.isJob = true;
+        NPCBehavior npcQuest = npcJob.GetComponent<NPCBehavior>();
+        npcQuest.isLockedForQuest = true;
     }
 
 

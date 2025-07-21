@@ -356,9 +356,9 @@ MonoBehaviour:
   useEvents: 0
   promptMessage: Kartika Saraswati
   questManager: {fileID: 0}
+  npcManager: {fileID: 0}
+  npcBehavior: {fileID: 0}
   dialogueSystem: {fileID: 0}
-  currentDialogue: {fileID: 0}
-  npcObject: {fileID: 0}
 --- !u!114 &1522165594464081912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,32 +371,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af090061db728ff4b893657a90fdd2db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questManager: {fileID: 0}
-  dialogueSystem: {fileID: 0}
-  npcManager: {fileID: 0}
-  gameEconomy: {fileID: 0}
-  questInfoUI: {fileID: 0}
-  npcAnimation: {fileID: 2517617769778707667}
-  npcName: Kartika Saraswati
-  startPosition: {x: 0, y: 0, z: 0}
+  isLockedForQuest: 0
+  questOverrideDialogue: {fileID: 0}
+  normalDialogue: {fileID: 0}
   movementSpeed: 2
-  isMoving: 0
-  currentWaypointIndex: 0
-  itemQuest: 
-  jumlahItem: 0
-  animations:
-  - name: Baju
-    sprites:
-    - {fileID: -4134312061517182793, guid: 1ac6c12d2c244304aabea628f8192e2c, type: 3}
-    - {fileID: 3901845930445426722, guid: 1ac6c12d2c244304aabea628f8192e2c, type: 3}
-    - {fileID: -1319537585473513097, guid: 1ac6c12d2c244304aabea628f8192e2c, type: 3}
-    - {fileID: -6454023301712263564, guid: 1ac6c12d2c244304aabea628f8192e2c, type: 3}
-    - {fileID: -3067325181294390211, guid: 1ac6c12d2c244304aabea628f8192e2c, type: 3}
-    - {fileID: 175351642753194131, guid: 1ac6c12d2c244304aabea628f8192e2c, type: 3}
-    - {fileID: -2029705835510544045, guid: 1ac6c12d2c244304aabea628f8192e2c, type: 3}
-    - {fileID: 3293564647277184339, guid: 1ac6c12d2c244304aabea628f8192e2c, type: 3}
-    spriteRenderers: {fileID: 937240686707969317}
-  frameRate: 0.1
 --- !u!114 &2517617769778707667
 MonoBehaviour:
   m_ObjectHideFlags: 0

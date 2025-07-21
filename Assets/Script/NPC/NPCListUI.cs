@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +11,9 @@ public class NPCListUI : MonoBehaviour
     [Header("Daftar Hubungan")]
     [SerializeField] NPCManager npcManager;
 
-    public NPCData npcData;
+    [Header("Database Definisi NPC")]
+    public List<NpcSO> allNpcDefinitions; // Seret semua aset NpcSO Anda ke sini
+    public NpcSO npcData; // Data NPC yang sedang ditampilkan di deskripsi
 
     [Header("UI STUFF")]
     [SerializeField] Transform ContentList;
@@ -41,32 +45,25 @@ public class NPCListUI : MonoBehaviour
     {
         Debug.Log("Memanggil fungsi RefreshNPCList");
 
-        if (npcManager != null)
-        {
-            ClearChildrenExceptTemplate(ContentList, SlotTemplateList);
+        ClearChildrenExceptTemplate(ContentList, SlotTemplateList);
 
-            foreach (var npc in npcManager.npcDataArray)
+        foreach (var npc in allNpcDefinitions)
+        {
+            Transform npcList = Instantiate(SlotTemplateList, ContentList);
+            npcList.gameObject.SetActive(true);
+            npcList.name = npc.npcName;
+
+            // Perbaikan: Mengubah teks pada hasil instansiasi, bukan template aslinya
+            npcList.GetChild(1).GetComponent<TMP_Text>().text = npc.npcName;
+
+            Button btnDeskripsi = npcList.GetComponent<Button>();
+
+            btnDeskripsi.onClick.RemoveAllListeners();
+            btnDeskripsi.onClick.AddListener(() =>
             {
-                Transform npcList = Instantiate(SlotTemplateList, ContentList);
-                npcList.gameObject.SetActive(true);
-                npcList.name = npc.npcName;
-
-                // Perbaikan: Mengubah teks pada hasil instansiasi, bukan template aslinya
-                npcList.GetChild(1).GetComponent<TMP_Text>().text = npc.npcName;
-
-                Button btnDeskripsi = npcList.GetComponent<Button>();
-
-                btnDeskripsi.onClick.RemoveAllListeners();
-                btnDeskripsi.onClick.AddListener(() =>
-                {
-                    npcData = npc;
-                    NPCDeskripsi();
-                });
-            }
-        }
-        else
-        {
-            Debug.LogError("NPCManager belum terhubung!");
+                npcData = npc;
+                NPCDeskripsi();
+            });
         }
     }
 

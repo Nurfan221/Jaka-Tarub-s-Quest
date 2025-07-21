@@ -55,13 +55,13 @@ public class MiniQuest : MonoBehaviour
     public Dialogues rewardQuest;
 
     [Header("Daftar Hubungan")]
-    [SerializeField] public NPCManager npcManager;
+    //[SerializeField] public NPCManager npcManager;
     [SerializeField] public TimeManager timeManager;
 
     void Start()
     {
-        RandomMiniQuest();
-        RandomMiniQuest();
+        //RandomMiniQuest();
+        //RandomMiniQuest();
     }
 
     // Update is called once per frame
@@ -70,135 +70,135 @@ public class MiniQuest : MonoBehaviour
 
     }
 
-    public void RandomMiniQuest()
-    {
-        if (miniQuestLists.Count > 1)
-        {
-            Debug.Log("hapus item dari mini qeust list");
-            miniQuestLists.Clear();
-        }
+    //public void RandomMiniQuest()
+    //{
+    //    if (miniQuestLists.Count > 1)
+    //    {
+    //        Debug.Log("hapus item dari mini qeust list");
+    //        miniQuestLists.Clear();
+    //    }
 
-        // Cek apakah list rencana tersedia
-        if (semuaRencanaMiniQuest.Count == 0)
-        {
-            Debug.LogWarning("List Mini Quest kosong!");
-            return;
-        }
+    //    // Cek apakah list rencana tersedia
+    //    if (semuaRencanaMiniQuest.Count == 0)
+    //    {
+    //        Debug.LogWarning("List Mini Quest kosong!");
+    //        return;
+    //    }
 
-        // Pilih rencana quest secara acak
-        int indexRencana = UnityEngine.Random.Range(0, semuaRencanaMiniQuest.Count);
+    //    // Pilih rencana quest secara acak
+    //    int indexRencana = UnityEngine.Random.Range(0, semuaRencanaMiniQuest.Count);
 
-        Debug.Log("nilai index rencana" + indexRencana);
-        RencanaMiniQuest rencanaDipilih = semuaRencanaMiniQuest[indexRencana];
+    //    Debug.Log("nilai index rencana" + indexRencana);
+    //    RencanaMiniQuest rencanaDipilih = semuaRencanaMiniQuest[indexRencana];
 
-        // Pilih NPC acak dari manager
-        int indexNPC = UnityEngine.Random.Range(0, npcManager.npcDataArray.Length);
+    //    // Pilih NPC acak dari manager
+    //    int indexNPC = UnityEngine.Random.Range(0, npcManager.npcDataArray.Length);
 
-        // Pastikan NPC yang dipilih berbeda dari NPC yang sebelumnya
-        while (indexNPC == currentIndexNpc)
-        {
-            indexNPC = UnityEngine.Random.Range(0, npcManager.npcDataArray.Length);
-        }
+    //    // Pastikan NPC yang dipilih berbeda dari NPC yang sebelumnya
+    //    while (indexNPC == currentIndexNpc)
+    //    {
+    //        indexNPC = UnityEngine.Random.Range(0, npcManager.npcDataArray.Length);
+    //    }
 
-        currentIndexNpc = indexNPC;
-        GameObject npcDipilih = npcManager.npcDataArray[indexNPC].prefab;
-
-
-        // Buat objek MiniQuest baru
-        MiniQuestList inputMiniQuest = new MiniQuestList
-        {
-            npc = npcDipilih
-        };
-
-        // Ambil item quest berdasarkan kategori
-        List<Item> itemQuest = RandomItemforMiniQuest(indexRencana);
-
-        inputMiniQuest.itemsQuest = itemQuest;
-
-        // Pilih satu item untuk ditampilkan di judul
-        string GetSatuan(Item item)
-        {
-            if ((item.categories & ItemCategory.Fruit) != 0) return "buah";
-            if ((item.categories & ItemCategory.Vegetable) != 0) return "buah";
-            if ((item.categories & ItemCategory.Meat) != 0) return "potong";
-            return "unit";
-        }
-        string semuaNamaItem = string.Join(", ",
-        inputMiniQuest.itemsQuest.Select(item => $"{item.itemName}  {GetSatuan(item)}"));
+    //    currentIndexNpc = indexNPC;
+    //    GameObject npcDipilih = npcManager.npcDataArray[indexNPC].prefab;
 
 
-        // Pilih judul dan deskripsi acak lalu gabungkan
-        string judulAcak = rencanaDipilih.judul[UnityEngine.Random.Range(0, rencanaDipilih.judul.Count)];
-        string deskripsiAwal = rencanaDipilih.deskripsiAwal[UnityEngine.Random.Range(0, rencanaDipilih.deskripsiAwal.Count)];
-        string deskripsiAkhir = rencanaDipilih.deskripsiAkhir[UnityEngine.Random.Range(0, rencanaDipilih.deskripsiAkhir.Count)];
+    //    // Buat objek MiniQuest baru
+    //    MiniQuestList inputMiniQuest = new MiniQuestList
+    //    {
+    //        npc = npcDipilih
+    //    };
 
-        // ambil tanggal hari ini
-        currentDateMiniQuest = timeManager.timeData_SO.date + 3;
+    //    // Ambil item quest berdasarkan kategori
+    //    List<Item> itemQuest = RandomItemforMiniQuest(indexRencana);
 
-        // Bangun kalimat utuh
-        string judulLengkap = $"{npcDipilih.name} {judulAcak}";
-        string deskripsiGabunganAwal = $"{deskripsiAwal} Berikan item itu Sebelum tanggal {currentDateMiniQuest}";
-        string deskripsiGabunganAkhir = deskripsiAkhir;
+    //    inputMiniQuest.itemsQuest = itemQuest;
 
-        //input reward berdasarkan jumlah item
-        int randomReward = 0;
-        foreach (Item item in itemQuest)
-        {
-            //randomReward += item.stackCount;
-        }
-
-        if (randomReward > 0 && randomReward <= 10)
-        {
-            randomReward = UnityEngine.Random.Range(250, 500);
-        }else if (randomReward > 10 && randomReward <= 20)
-        {
-            randomReward = UnityEngine.Random.Range(500, 750);
-        }else if(randomReward > 20 && randomReward <= 30)
-        {
-            randomReward = UnityEngine.Random.Range(750, 1000);
-        }
-
-        //ambil item untuk hadiah quest 
-        Item randomItemReward = null;
-
-        foreach (var group in ItemPool.Instance.itemCategoryGroups)
-        {
-            if (group.categories == ItemCategory.Food && group.items.Count > 0)
-            {
-                int index = UnityEngine.Random.Range(0, group.items.Count);
-                randomItemReward = group.items[index];
-                break; // keluar setelah menemukan kategori yang cocok
-            }
-        }
+    //    // Pilih satu item untuk ditampilkan di judul
+    //    string GetSatuan(Item item)
+    //    {
+    //        if ((item.categories & ItemCategory.Fruit) != 0) return "buah";
+    //        if ((item.categories & ItemCategory.Vegetable) != 0) return "buah";
+    //        if ((item.categories & ItemCategory.Meat) != 0) return "potong";
+    //        return "unit";
+    //    }
+    //    string semuaNamaItem = string.Join(", ",
+    //    inputMiniQuest.itemsQuest.Select(item => $"{item.itemName}  {GetSatuan(item)}"));
 
 
+    //    // Pilih judul dan deskripsi acak lalu gabungkan
+    //    string judulAcak = rencanaDipilih.judul[UnityEngine.Random.Range(0, rencanaDipilih.judul.Count)];
+    //    string deskripsiAwal = rencanaDipilih.deskripsiAwal[UnityEngine.Random.Range(0, rencanaDipilih.deskripsiAwal.Count)];
+    //    string deskripsiAkhir = rencanaDipilih.deskripsiAkhir[UnityEngine.Random.Range(0, rencanaDipilih.deskripsiAkhir.Count)];
 
-        // Masukkan ke dalam quest
-        inputMiniQuest.judulQuest = judulLengkap;
-        inputMiniQuest.DateMiniQuest = currentDateMiniQuest; // Jika kamu ingin menyimpan tanggal
-        inputMiniQuest.deskripsiAwal = deskripsiGabunganAwal;
-        inputMiniQuest.deskripsiAkhir = deskripsiAkhir;
-        inputMiniQuest.rewardQuest = randomReward;
-        inputMiniQuest.rewardItemQuest = randomItemReward;
-        inputMiniQuest.finishDialogue = finishQuest;
-        inputMiniQuest.rewardDialogueQuest = rewardQuest;
+    //    // ambil tanggal hari ini
+    //    currentDateMiniQuest = timeManager.timeData_SO.date + 3;
 
-        ////ubah nilai stackcount item menjadi 0
-        //foreach (Item item in itemQuest)
-        //{
-        //    item.stackCount = 0;
-        //}
-        // Simpan ke list
+    //    // Bangun kalimat utuh
+    //    string judulLengkap = $"{npcDipilih.name} {judulAcak}";
+    //    string deskripsiGabunganAwal = $"{deskripsiAwal} Berikan item itu Sebelum tanggal {currentDateMiniQuest}";
+    //    string deskripsiGabunganAkhir = deskripsiAkhir;
 
-        miniQuestLists.Add(inputMiniQuest);
-        for(int i = 0; i < miniQuestLists.Count; i++)
-        {
-            miniQuestLists[i].questID = i;
-        }
+    //    //input reward berdasarkan jumlah item
+    //    int randomReward = 0;
+    //    foreach (Item item in itemQuest)
+    //    {
+    //        //randomReward += item.stackCount;
+    //    }
 
-        // Debug
+    //    if (randomReward > 0 && randomReward <= 10)
+    //    {
+    //        randomReward = UnityEngine.Random.Range(250, 500);
+    //    }else if (randomReward > 10 && randomReward <= 20)
+    //    {
+    //        randomReward = UnityEngine.Random.Range(500, 750);
+    //    }else if(randomReward > 20 && randomReward <= 30)
+    //    {
+    //        randomReward = UnityEngine.Random.Range(750, 1000);
+    //    }
 
-    }
+    //    //ambil item untuk hadiah quest 
+    //    Item randomItemReward = null;
+
+    //    foreach (var group in ItemPool.Instance.itemCategoryGroups)
+    //    {
+    //        if (group.categories == ItemCategory.Food && group.items.Count > 0)
+    //        {
+    //            int index = UnityEngine.Random.Range(0, group.items.Count);
+    //            randomItemReward = group.items[index];
+    //            break; // keluar setelah menemukan kategori yang cocok
+    //        }
+    //    }
+
+
+
+    //    // Masukkan ke dalam quest
+    //    inputMiniQuest.judulQuest = judulLengkap;
+    //    inputMiniQuest.DateMiniQuest = currentDateMiniQuest; // Jika kamu ingin menyimpan tanggal
+    //    inputMiniQuest.deskripsiAwal = deskripsiGabunganAwal;
+    //    inputMiniQuest.deskripsiAkhir = deskripsiAkhir;
+    //    inputMiniQuest.rewardQuest = randomReward;
+    //    inputMiniQuest.rewardItemQuest = randomItemReward;
+    //    inputMiniQuest.finishDialogue = finishQuest;
+    //    inputMiniQuest.rewardDialogueQuest = rewardQuest;
+
+    //    ////ubah nilai stackcount item menjadi 0
+    //    //foreach (Item item in itemQuest)
+    //    //{
+    //    //    item.stackCount = 0;
+    //    //}
+    //    // Simpan ke list
+
+    //    miniQuestLists.Add(inputMiniQuest);
+    //    for(int i = 0; i < miniQuestLists.Count; i++)
+    //    {
+    //        miniQuestLists[i].questID = i;
+    //    }
+
+    //    // Debug
+
+    //}
 
 
     public List<Item> RandomItemforMiniQuest(int random)

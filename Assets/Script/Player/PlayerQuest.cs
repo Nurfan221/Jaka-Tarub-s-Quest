@@ -11,8 +11,6 @@ public class PlayerQuest : MonoBehaviour
     public static event Action<string> OnPlayerEnteredLocation;
 
 
-    [SerializeField] QuestManager questManager;
-    [SerializeField] DialogueSystem dialogueSystem;
     [SerializeField] LocationManager locationManager;
     [SerializeField] Player_Health player_Health;
     //public GameObject locationMainQuest;

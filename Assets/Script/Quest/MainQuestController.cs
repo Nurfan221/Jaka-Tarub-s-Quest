@@ -12,13 +12,17 @@ public abstract class MainQuestController : MonoBehaviour
 
     // 'protected' berarti variabel ini hanya bisa diakses oleh kelas ini dan kelas turunannya.
     protected QuestManager questManager;
+    protected MainQuestSO questData;
     protected bool isQuestComplete = false;
 
    
-    public virtual void StartQuest(QuestManager manager)
+    public virtual void StartQuest(QuestManager manager, MainQuestSO so)
     {
         this.questManager = manager;
+        this.questData = so; // Simpan referensi ke naskahnya
         this.isQuestComplete = false;
+        // Ambil nama dari SO agar konsisten
+        this.questName = so.questName;
         Debug.Log($"Memulai Main Quest: {questName}");
     }
 

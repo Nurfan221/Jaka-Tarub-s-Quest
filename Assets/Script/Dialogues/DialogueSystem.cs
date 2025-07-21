@@ -23,8 +23,12 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] TMP_Text narrationText;
 
     [SerializeField] Button NextButton;
+    public Button endButton; // Tombol untuk mengakhiri dialog
 
-    public GameObject npcToDestroy; // NPC yang akan dihapus setelah dialog selesai
+
+
+    // Ini adalah "saluran radio" baru kita
+    public static event System.Action OnDialogueEnded;
 
     private void Awake()
     {
@@ -71,6 +75,8 @@ public class DialogueSystem : MonoBehaviour
 
         NextButton.onClick.RemoveAllListeners();
         NextButton.onClick.AddListener(NextDialogue);
+        endButton.onClick.RemoveAllListeners();
+        endButton.onClick.AddListener(EndDialogue);
 
         NextDialogue();
     }
@@ -125,19 +131,15 @@ public class DialogueSystem : MonoBehaviour
 
     public void EndDialogue()
     {
+        OnDialogueEnded?.Invoke();
         print("End of conversations");
         currentDialogues.AfterDialogue();
 
-        // Hapus NPC jika ada
-        if (npcToDestroy != null)
-        {
-            Debug.Log($"Menghapus NPC {npcToDestroy.name}");
-            Destroy(npcToDestroy);
-
-            npcToDestroy = null;
-        }
+      
         dialogueUI.SetActive(false);
         GameController.Instance.ResumeGame();
+        // Siarkan pengumuman bahwa dialog telah berakhir!
+
     }
 
 
@@ -188,10 +190,16 @@ public class DialogueSystem : MonoBehaviour
         Debug.Log("Dialog main quest selesai!");
 
         //Lanjutkan logika setelah dialog selesai
-        //if(questManager.CurrentActiveQuest != null)
+        //if (questManager.CurrentActiveQuest != null)
         //{
         //    questManager.questUI.gameObject.SetActive(false);
         //}
 
+    }
+
+    public void HandlePlayDialogue(Dialogues dialogues)
+    {
+        theDialogues = dialogues;
+        StartDialogue();
     }
 }

@@ -121,6 +121,7 @@ public class TimeManager : MonoBehaviour
             {
                 UpdateSeason();
             }
+            OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
         }
 
         OnTimeChanged?.Invoke();
@@ -130,7 +131,7 @@ public class TimeManager : MonoBehaviour
     {
         hour = 4;
         timeData_SO.currentDay = (Days)((timeData_SO.totalHari % 7 == 0) ? 7 : timeData_SO.totalHari % 7);
-        OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
+
         // Tentukan probabilitas hujan berdasarkan musim
 
 
