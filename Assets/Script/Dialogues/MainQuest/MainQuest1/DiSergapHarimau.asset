@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: DiSergapHarimau
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: Lumayan besar. Mbok Milah pasti senang...
+  - name: . . .
+    sentence: Tiba-tiba, geraman berat, dalam, menggetarkan membelah kesunyian hutan.
+      Jaka Tarub seketika terdiam, Pedang di genggaman erat, matanya menyapu sekeliling,
+      mencari sumber suara
+  - name: Jaka Tarub
+    sentence: Hah... Siapa itu, sepertinya bukan babi hutan... suara itu...
+  - name: . . .
+    sentence: Dari rimbunnya semak, sesosok harimau jantan dewasa dengan loreng gelap
+      pekat menerjang keluar. Diam. Hanya tatapan mata kuningnya yang menyala di
+      antara dedaunan. Ia berdiri gagah, fokusnya terpaku pada rusa di tangan Jaka
+      Tarub
+  - name: Jaka Tarub
+    sentence: Ma-mahluk apa kau...? Jangan mendekat
+  - name: Jaka Tarub
+    sentence: ' Kumohon... jangan. Aku tidak mengganggumu!'
+  - name: Jaka Tarub
+    sentence: Jangan! Jangan kau ambil!
+  - name: . . .
+    sentence: GRROOOOAAARRRHHH !!!!!
+  - name: Jaka Tarub
+    sentence: ARGGGHH!
+  mainSpeaker: Jaka Tarub
+  promptAfterDialogue: Di sergap Harimau

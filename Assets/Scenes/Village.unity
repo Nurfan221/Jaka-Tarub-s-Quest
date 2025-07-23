@@ -6759,6 +6759,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 205357507}
   m_CullTransparentMesh: 1
+--- !u!1001 &205532688
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6282538871750894974, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.3730943
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282538871750894974, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.6110119
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282538871750894974, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282538871750894974, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282538871750894974, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282538871750894974, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282538871750894974, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282538871750894974, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282538871750894974, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282538871750894974, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_Name
+      value: Harimau (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
 --- !u!1001 &205630861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14240,6 +14301,99 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6d5f05518855c6419c83ec5d38a9a17, type: 3}
+--- !u!1 &488959429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 488959430}
+  - component: {fileID: 488959432}
+  - component: {fileID: 488959431}
+  m_Layer: 0
+  m_Name: LadangDepanRumah
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &488959430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488959429}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.93, y: -5.73, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1016895948}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &488959431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488959429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0940ea153a77ce84cbd75e8a67b5f735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationName: LadangDepanRumah
+  isQuest: 0
+--- !u!61 &488959432
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488959429}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 1.4650187, y: 0.18490553}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 13.7726965, y: 11.724514}
+  m_EdgeRadius: 0
 --- !u!1001 &489687197
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17523,7 +17677,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Keluar Dari Shop
-  pintuManager: {fileID: 1316305750}
   pintuName: Out
 --- !u!58 &613712006
 CircleCollider2D:
@@ -23668,7 +23821,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Keluar rumah Jaka
-  pintuManager: {fileID: 1316305750}
   pintuName: RumahJakaOut
 --- !u!1001 &852256560
 PrefabInstance:
@@ -28714,6 +28866,7 @@ Transform:
   - {fileID: 286026382}
   - {fileID: 1476429174}
   - {fileID: 2008698797}
+  - {fileID: 488959430}
   m_Father: {fileID: 2134291579}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1018236976
@@ -31332,7 +31485,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Masuk Ke Toko
-  pintuManager: {fileID: 1316305750}
   pintuName: ShopIn
 --- !u!58 &1133155114
 CircleCollider2D:
@@ -39628,7 +39780,7 @@ Transform:
   m_GameObject: {fileID: 1411172856}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 51.8, y: 42.5, z: 0}
+  m_LocalPosition: {x: 4.88, y: 4.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39723,8 +39875,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0000038146973, y: 0}
-  m_Radius: 16.094158
+  m_Offset: {x: -0.94201374, y: 0}
+  m_Radius: 7.380578
 --- !u!114 &1411172861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41291,7 +41443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0940ea153a77ce84cbd75e8a67b5f735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locationName: 
+  locationName: RumahJaka
   isQuest: 0
 --- !u!58 &1476429176
 CircleCollider2D:
@@ -44608,7 +44760,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Masuk Rumah Jaka
-  pintuManager: {fileID: 1316305750}
   pintuName: RumahJakaIn
 --- !u!1001 &1592978001
 PrefabInstance:
@@ -65272,6 +65423,14 @@ PrefabInstance:
       propertyPath: chapters.Array.data[0].sideQuest.Array.data[0].itemQuests.Array.data[0].itemName
       value: Padi
       objectReference: {fileID: 0}
+    - target: {fileID: 2961673577991431112, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 2961673577991431112, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0050201
+      objectReference: {fileID: 0}
     - target: {fileID: 3475884109955796986, guid: de4a80c8ec66b084082cb2198957d308, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -67303,11 +67462,11 @@ PrefabInstance:
       objectReference: {fileID: 1994473454}
     - target: {fileID: 5998541882732084300, guid: f582ea4934c566747a7d7495d0a0efc4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.73
+      value: -131.4
       objectReference: {fileID: 0}
     - target: {fileID: 5998541882732084300, guid: f582ea4934c566747a7d7495d0a0efc4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.39
+      value: 63.6
       objectReference: {fileID: 0}
     - target: {fileID: 5998541882732084300, guid: f582ea4934c566747a7d7495d0a0efc4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -70627,3 +70786,4 @@ SceneRoots:
   - {fileID: 1624411772}
   - {fileID: 110397325}
   - {fileID: 1027941604}
+  - {fileID: 205532688}

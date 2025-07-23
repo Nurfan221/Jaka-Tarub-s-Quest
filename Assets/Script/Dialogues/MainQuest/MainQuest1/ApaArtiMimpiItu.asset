@@ -12,6 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
   m_Name: ApaArtiMimpiItu
   m_EditorClassIdentifier: 
-  TheDialogues: []
-  mainSpeaker: 
-  promptAfterDialogue: 
+  TheDialogues:
+  - name: Mbok Milah
+    sentence: Jaka? Sudah bangun, Nak? Kenapa melamun saja di situ?
+  - name: Jaka Tarub
+    sentence: Eh, Mbok. Belum lama.
+  - name: Jaka Tarub
+    sentence: Hanya... memikirkan sesuatu.
+  - name: Mbok Milah
+    sentence: Memikirkan apa?
+  - name: Mbok Milah
+    sentence: Jangan-jangan memikirkan calon istri, ya?
+  - name: Mbok Milah
+    sentence: Usiamu sudah pantas untuk berumah tangga, Nak. Teman-temanmu sudah
+      banyak yang menikah.
+  - name: Jaka Tarub
+    sentence: Ah, Mbok ini... Ada-ada saja.
+  - name: Jaka Tarub
+    sentence: Tidak ada yang salah kok, Nak. Mbok hanya ingin melihatmu bahagia.
+  mainSpeaker: Mbok Milah
+  promptAfterDialogue: Apa Arti Mimpi Itu

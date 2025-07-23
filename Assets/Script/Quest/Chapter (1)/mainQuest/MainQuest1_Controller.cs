@@ -164,6 +164,8 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             case MainQuest1State.MunculkanHarimau:
                 objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.MunculkanHarimau)?.objectiveInfoForUI ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
+                HandleSpriteAndDialogue(MainQuest1State.MunculkanHarimau);
+                SpawnPrefabsForState(MainQuest1State.MunculkanHarimau);
                 break;
         }
         StartCoroutine(FinishStateChange());
@@ -363,6 +365,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         foreach (GameObject prefab in data.prefabsToSpawn)
         {
             GameObject spawnedObject = Instantiate(prefab, lokasiYangDitunggu);
+            Debug.Log($"Spawned prefab {prefab.name} for state {state} at location {lokasiYangDitunggu.name}");
             spawnedQuestAnimals.Add(spawnedObject);
         }
 

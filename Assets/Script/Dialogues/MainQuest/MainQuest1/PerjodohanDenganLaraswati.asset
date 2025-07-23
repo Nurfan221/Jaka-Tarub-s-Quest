@@ -12,6 +12,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
   m_Name: PerjodohanDenganLaraswati
   m_EditorClassIdentifier: 
-  TheDialogues: []
-  mainSpeaker: 
-  promptAfterDialogue: 
+  TheDialogues:
+  - name: Amru Kusnadi
+    sentence: Wah, Mbok Milah! Rajin sekali siang-siang begini masih di sawah. Padinya
+      sudah mulai menguning, ya? Hasil panennya pasti melimpah tahun ini.
+  - name: Mbok Milah
+    sentence: Ah, Pak Ranu! Ada-ada saja. Ini cuma membersihkan sedikit rumput. Padi
+      Bapak juga tak kalah bagusnya itu. Semoga berkah untuk kita semua, ya.
+  - name: Amru Kusnadi
+    sentence: Amin, Mbok. Ngomong-ngomong soal berkah, saya jadi teringat sesuatu.
+      Boleh saya bertanya sedikit, Mbok?
+  - name: Mbok Milah
+    sentence: Silakan, Pak Ranu. Ada apa?
+  - name: Amru Kusnadi
+    sentence: Begini, Mbok. Saya melihat Jaka, anakmu itu, semakin dewasa saja.
+  - name: Amru Kusnadi
+    sentence: Pekerjaannya rajin, wataknya baik. Tapi saya perhatikan... sampai saat
+      ini belum juga berumah tangga, ya?
+  - name: Mbok Milah
+    sentence: Begitulah, Pak Ranu. Entahlah, belum ada tanda-tanda jodohnya. Saya
+      sendiri kadang kepikiran juga.
+  - name: Mbok Milah
+    sentence: Memang kenapa, Pak Ranu, tiba-tiba menanyakan hal ini?
+  - name: Amru Kusnadi
+    sentence: Tidak apa-apa, Mbok Milah. Justru karena saya melihat Jaka itu anak
+      yang baik, saya punya niat...
+  - name: Amru Kusnadi
+    sentence: niat baik, Mbok. Saya bermaksud menjodohkan Jaka dengan anakku, Laraswati.
+  - name: Mbok Milah
+    sentence: Astaga, Pak Ranu! Benarkah itu? Laraswati?
+  - name: Mbok Milah
+    sentence: Oh, saya sangat senang mendengarnya! Laraswati itu kan gadis yang cantik,
+      tutur katanya juga lemah lembut. Saya yakin Jaka pasti cocok dengannya!
+  - name: Amru Kusnadi
+    sentence: Begitulah, Mbok. Jadi, bagaimana menurut Mbok Milah?
+  - name: Mbok Milah
+    sentence: Saya setuju sekali, Pak Ranu. Tapi, sebaiknya kita tanyakan dulu pada
+      anak kita masing-masing. Biar bagaimanapun, Jaka sudah dewasa dan punya keinginannya
+      sendiri.
+  - name: Mbok Milah
+    sentence: Betul sekali, Mbok Milah. Pikiranmu bijak. Baiklah, nanti saya akan
+      bicara dengan Laraswati. Semoga saja niat baik ini bisa terwujud, ya.
+  mainSpeaker: Amru Kusnadi
+  promptAfterDialogue: Perjodohan dengan Laraswati

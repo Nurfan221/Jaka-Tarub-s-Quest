@@ -85,4 +85,33 @@ MonoBehaviour:
     locationToEnterTrigger: 
     prefabsToSpawn: []
     animalToDefeatTrigger: 
+  - state: 5
+    nameState: 
+    dialogueToPlay: {fileID: 0}
+    spriteToShow: {fileID: 0}
+    objectiveInfoForUI: Pergi ke Hutan Ajaib
+    npcPositionStartQuest: {x: 0, y: 0}
+    locationToEnterTrigger: HutanAjaib
+    prefabsToSpawn: []
+    animalToDefeatTrigger: 
+  - state: 6
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: 3e72b271dce0ace448ecb6f0975043e1, type: 2}
+    spriteToShow: {fileID: 0}
+    objectiveInfoForUI: Cari Rusa di sekitar
+    npcPositionStartQuest: {x: 0, y: 0}
+    locationToEnterTrigger: HutanAjaib
+    prefabsToSpawn:
+    - {fileID: 8466065145438896573, guid: d9dad64e904191b4c859c3c9375e85a5, type: 3}
+    animalToDefeatTrigger: 
+  - state: 7
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: 067307b7da008ca4386a198b557c87b0, type: 2}
+    spriteToShow: {fileID: -2484584918422414592, guid: 42368eaf62277ad4b8b7a7a270dbdbf3, type: 3}
+    objectiveInfoForUI: Kemunculan Raja Hutan
+    npcPositionStartQuest: {x: 0, y: 0}
+    locationToEnterTrigger: HutanAjaib
+    prefabsToSpawn:
+    - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+    animalToDefeatTrigger: 
   spawnedQuestAnimals: []
