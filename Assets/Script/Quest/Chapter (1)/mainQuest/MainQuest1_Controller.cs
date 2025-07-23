@@ -38,7 +38,7 @@ public class QuestStateData
 // Ini adalah skrip "Sutradara" utama Anda
 public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi dari kelas dasar Anda
 {
-    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, Selesai }
+    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, BerikanHasilBuruan, Selesai }
 
     [Header("Progres Cerita")]
     [SerializeField] private MainQuest1State currentState = MainQuest1State.BelumMulai;
@@ -47,6 +47,8 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
     //public string lokasiYangDitunggu;
     public Transform lokasiYangDitunggu;
     private string nameLokasiYangDitunggu;
+    private AnimalBehavior animalBehavior;
+
 
     //KUMPULAN "KARTU ADEGAN"
     [Header("Data untuk Setiap Adegan")]
@@ -166,6 +168,14 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 QuestManager.Instance.CreateTemplateQuest();
                 HandleSpriteAndDialogue(MainQuest1State.MunculkanHarimau);
                 SpawnPrefabsForState(MainQuest1State.MunculkanHarimau);
+                break;
+            case MainQuest1State.BerikanHasilBuruan:
+                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.BerikanHasilBuruan)?.objectiveInfoForUI ?? "";
+                QuestManager.Instance.CreateTemplateQuest();
+                if (animalBehavior != null)
+                {
+                    animalBehavior.ChangeAnimalType(AnimalType.isQuest);
+                }
                 break;
         }
         StartCoroutine(FinishStateChange());
@@ -365,6 +375,13 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         foreach (GameObject prefab in data.prefabsToSpawn)
         {
             GameObject spawnedObject = Instantiate(prefab, lokasiYangDitunggu);
+
+            AnimalBehavior behavior = spawnedObject.GetComponent<AnimalBehavior>();
+            if (behavior.namaHewan == "Harimau")
+            {
+                this.animalBehavior = behavior; // Simpan referensi ke hewan harimau
+            }
+
             Debug.Log($"Spawned prefab {prefab.name} for state {state} at location {lokasiYangDitunggu.name}");
             spawnedQuestAnimals.Add(spawnedObject);
         }

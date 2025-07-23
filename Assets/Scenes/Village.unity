@@ -10052,11 +10052,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6282538871750894974, guid: f6d5f05518855c6419c83ec5d38a9a17, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.42
+      value: 2.63
       objectReference: {fileID: 0}
     - target: {fileID: 6282538871750894974, guid: f6d5f05518855c6419c83ec5d38a9a17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.02
+      value: 0.79
       objectReference: {fileID: 0}
     - target: {fileID: 6282538871750894974, guid: f6d5f05518855c6419c83ec5d38a9a17, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10096,7 +10096,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8466065145438896573, guid: f6d5f05518855c6419c83ec5d38a9a17, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -39184,10 +39184,6 @@ PrefabInstance:
     - target: {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
       propertyPath: m_Name
       value: Harimau
-      objectReference: {fileID: 0}
-    - target: {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

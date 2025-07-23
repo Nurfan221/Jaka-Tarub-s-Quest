@@ -4,7 +4,7 @@ using System.Collections.Generic; // Diperlukan jika menggunakan List
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum AnimalType { Pasif, Agresif }
+public enum AnimalType { Pasif, Agresif, isQuest }
 
 public class AnimalBehavior : MonoBehaviour
 {
@@ -47,7 +47,7 @@ public class AnimalBehavior : MonoBehaviour
     public SpriteRenderer animalRenderer;
 
     [Header("Logika Deteksi")]
-    public float detectionRadius ; // Atur angka ini agar SAMA dengan radius CircleCollider2D di RadiusDeteksi
+    public float detectionRadius; // Atur angka ini agar SAMA dengan radius CircleCollider2D di RadiusDeteksi
 
 
     public string namaHewan;
@@ -88,6 +88,8 @@ public class AnimalBehavior : MonoBehaviour
     {
         // Logika Agresif hanya berjalan jika ada target
         if (tipeHewan != AnimalType.Agresif || currentTarget == null) return;
+        if (tipeHewan == AnimalType.isQuest) return;
+
 
         float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
 
@@ -132,9 +134,12 @@ public class AnimalBehavior : MonoBehaviour
             yield return new WaitForSeconds(5f);
         }
     }
-   
 
 
+    public void ChangeAnimalType(AnimalType animalType)
+    {
+        tipeHewan = animalType;
+    }
 
     private string GetRandomAnimationForCurrentState()
     {
@@ -148,6 +153,7 @@ public class AnimalBehavior : MonoBehaviour
             int randomIndex = UnityEngine.Random.Range(0, state.availableStates.Length);
             return state.availableStates[randomIndex];
         }
+
 
 
         // Jika tidak ada animasi yang tersedia, kembalikan animasi default
@@ -197,7 +203,7 @@ public class AnimalBehavior : MonoBehaviour
             animalAnimator.Play("TidurNyenyak");
             currentState = "TidurNyenyak";
         }
-        else if(nextState == "Rebahan")
+        else if (nextState == "Rebahan")
         {
             yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
             animalAnimator.Play("TidurNyenyak");
@@ -287,7 +293,7 @@ public class AnimalBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Environment") || collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Stone")|| collision.gameObject.CompareTag("Animal")|| collision.gameObject.CompareTag("Tebing"))
+        if (collision.gameObject.CompareTag("Environment") || collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Stone") || collision.gameObject.CompareTag("Animal") || collision.gameObject.CompareTag("Tebing"))
         {
             lastCollisionPoint = collision.transform.position;
 
@@ -328,7 +334,7 @@ public class AnimalBehavior : MonoBehaviour
     {
         int normalItemCount = UnityEngine.Random.Range(minNormalItem, maxNormalItem + 1);
         DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
-        if (dropitems.Length >2) // Jika ada special items
+        if (dropitems.Length > 2) // Jika ada special items
         {
             int specialItemCount = UnityEngine.Random.Range(minSpecialItem, maxSpecialItem + 1);
             DropItemsByType(3, dropitems.Length, specialItemCount);
@@ -501,12 +507,12 @@ public class AnimalBehavior : MonoBehaviour
 
         if (currentTarget != null) return;
 
-        if (other.CompareTag("Animal")|| other.CompareTag("Player"))
+        if (other.CompareTag("Animal") || other.CompareTag("Player"))
         {
             // Ambil skrip AnimalBehavior dari objek yang terdeteksi
             AnimalBehavior otherAnimal = other.GetComponent<AnimalBehavior>();
 
-         
+
             if (otherAnimal != null && otherAnimal != this && otherAnimal.tipeHewan == AnimalType.Pasif)
             {
                 Debug.Log($"{namaHewan} melihat mangsa: {other.name}!");
@@ -517,7 +523,8 @@ public class AnimalBehavior : MonoBehaviour
 
                 // Hentikan perilaku pasif agar tidak bentrok
                 StopAllCoroutines();
-            }else
+            }
+            else
             {
                 currentTarget = other.transform;
                 currentState = "Mengejar";
@@ -558,7 +565,7 @@ public class AnimalBehavior : MonoBehaviour
     }
 
     // LOGIKA AGRESIF
-   private void ChaseTarget()
+    private void ChaseTarget()
     {
         isMoving = true;
         Vector2 direction = (currentTarget.position - transform.position).normalized;
@@ -574,7 +581,7 @@ public class AnimalBehavior : MonoBehaviour
             animalRenderer.flipX = false; // Sprite menghadap ke kiri
             animalAnimator.Play("JalanKiri"); // Atau animasi lari jika ada
         }
-         // Pastikan referensi zonaSerangTransform dan currentTarget ada
+        // Pastikan referensi zonaSerangTransform dan currentTarget ada
         if (zonaSerangTransform != null && currentTarget != null)
         {
             Vector2 directionToTarget = (currentTarget.position - transform.position).normalized;
@@ -616,10 +623,10 @@ public class AnimalBehavior : MonoBehaviour
                 Player_Health player_Health = currentTarget.GetComponent<Player_Health>();
                 if (player_Health != null)
                 {
-                    player_Health.TakeDamage(20,zonaSerangTransform.position);
+                    player_Health.TakeDamage(20, zonaSerangTransform.position);
                 }
             }
-          
+
         }
     }
 
@@ -637,5 +644,5 @@ public class AnimalBehavior : MonoBehaviour
         }
     }
 
-  
+
 }
