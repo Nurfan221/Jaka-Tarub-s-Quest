@@ -252,14 +252,12 @@ MonoBehaviour:
   jarakOffsetSerang: 1
   animalAnimator: {fileID: 779017872243086411}
   animalRenderer: {fileID: -4335485848235824116}
+  detectionRadius: 0
   namaHewan: Domba
   health: 10
   maxHealth: 20
   dropitems:
   - {fileID: 4459120725376062254, guid: ed5cad5dac6105e41836b4772e81d04d, type: 3}
-  - {fileID: 4459120725376062254, guid: 603e2ee1c4c31c849a12d854d986843f, type: 3}
-  - {fileID: 4459120725376062254, guid: 3e5d53a94294c734ab5cc9bb92c77dd3, type: 3}
-  - {fileID: 4459120725376062254, guid: 6698b5aef210925498de544f97a87bbb, type: 3}
   minNormalItem: 1
   maxNormalItem: 2
   minSpecialItem: 0

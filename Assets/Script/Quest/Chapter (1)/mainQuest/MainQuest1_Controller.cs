@@ -66,6 +66,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         DialogueSystem.OnDialogueEnded += HandleDialogueEnd;
         PlayerQuest.OnPlayerEnteredLocation += HandleLocationTrigger;
         AnimalBehavior.OnAnimalDied += HandleAnimalDied;
+        Player_Health.Sekarat += HandlePlayerSekarat; // Misalnya, jika quest ini berhubungan dengan kematian pemain
         //DialogueSystem.OnDialogueEnded += HandleDialogueTrigger;
     }
 
@@ -77,6 +78,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         DialogueSystem.OnDialogueEnded -= HandleDialogueEnd;
         PlayerQuest.OnPlayerEnteredLocation -= HandleLocationTrigger;
         AnimalBehavior.OnAnimalDied -= HandleAnimalDied;
+        Player_Health.Sekarat -= HandlePlayerSekarat; // Misalnya, jika quest ini berhubungan dengan kematian pemain
         //DialogueSystem.OnDialogueEnded -= HandleDialogueTrigger;
     }
 
@@ -170,10 +172,13 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 SpawnPrefabsForState(MainQuest1State.MunculkanHarimau);
                 break;
             case MainQuest1State.BerikanHasilBuruan:
+                Debug.Log("Memulai adegan Berikan Hasil Buruan...");
                 objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.BerikanHasilBuruan)?.objectiveInfoForUI ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
+                HandleSpriteAndDialogue(MainQuest1State.BerikanHasilBuruan);
                 if (animalBehavior != null)
                 {
+                    Debug.Log("Mengubah tipe hewan menjadi isQuest untuk harimau.");
                     animalBehavior.ChangeAnimalType(AnimalType.isQuest);
                 }
                 break;
@@ -252,6 +257,21 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
     }
 
     public override void UpdateQuest() { /* Dibiarkan kosong karena berbasis event */ }
+    private void HandlePlayerSekarat()
+    {
+        // --- TAMBAHKAN PENGECEKAN INI ---
+        // Hanya bereaksi jika kita sedang dalam adegan melawan harimau.
+        if (currentState == MainQuest1State.MunculkanHarimau)
+        {
+            Debug.Log("Sinyal sekarat diterima SAAT melawan harimau. Mengganti state...");
+            ChangeState(MainQuest1State.BerikanHasilBuruan);
+        }
+        else
+        {
+            // Abaikan sinyal jika tidak relevan dengan state saat ini.
+            Debug.Log("Sinyal sekarat diterima, tetapi tidak dalam state LawanHarimau. Diabaikan.");
+        }
+    }
 
     public override void SetInitialState(System.Enum state)
     {

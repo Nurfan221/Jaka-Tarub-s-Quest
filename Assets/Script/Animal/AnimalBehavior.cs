@@ -366,7 +366,7 @@ public class AnimalBehavior : MonoBehaviour
                 Debug.Log("nama item yang di drop adalah : " + itemToDrop.name);
                 //Instantiate(itemToDrop, transform.position, Quaternion.identity);
                 Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
-                ItemPool.Instance.DropItem(itemToDrop.name, transform.position + offset, itemToDrop);
+                ItemPool.Instance.DropItem(itemToDrop.name, transform.position + offset, itemToDrop, "ItemDrop");
             }
             else
             {
@@ -567,6 +567,10 @@ public class AnimalBehavior : MonoBehaviour
     // LOGIKA AGRESIF
     private void ChaseTarget()
     {
+        if (tipeHewan == AnimalType.isQuest)
+        {
+            return;
+        }
         isMoving = true;
         Vector2 direction = (currentTarget.position - transform.position).normalized;
         transform.position = Vector2.MoveTowards(transform.position, currentTarget.position, moveSpeed * Time.deltaTime);
@@ -594,13 +598,17 @@ public class AnimalBehavior : MonoBehaviour
 
     public void JalankanLogikaSerangan()
     {
+        if (tipeHewan == AnimalType.isQuest)
+        {
+            return;
+        }
         // Cek apakah sudah waktunya untuk menyerang lagi (cooldown)
         if (Time.time < lastAttackTime + attackCooldown)
         {
             // Jika belum waktunya, jangan lakukan apa-apa.
             return;
         }
-
+         
         // Jika sudah waktunya, catat waktu serangan ini untuk cooldown berikutnya.
         lastAttackTime = Time.time;
 
@@ -624,6 +632,7 @@ public class AnimalBehavior : MonoBehaviour
                 if (player_Health != null)
                 {
                     player_Health.TakeDamage(20, zonaSerangTransform.position);
+                    player_Health.CheckSekarat();
                 }
             }
 

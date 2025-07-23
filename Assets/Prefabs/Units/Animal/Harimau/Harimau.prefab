@@ -479,7 +479,6 @@ MonoBehaviour:
     - Makan
     - Idle
   currentState: Idle
-  animalState: 0
   jedaAnimasi: 3
   isMoving: 0
   moveSpeed: 2
@@ -493,7 +492,7 @@ MonoBehaviour:
   animalAnimator: {fileID: 779017872243086411}
   animalRenderer: {fileID: -4335485848235824116}
   detectionRadius: 5
-  namaHewan: Sapi
+  namaHewan: Harimau
   health: 30
   maxHealth: 30
   dropitems:

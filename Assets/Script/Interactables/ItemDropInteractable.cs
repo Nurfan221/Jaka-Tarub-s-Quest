@@ -14,7 +14,7 @@ public class ItemDropInteractable : Interactable
 
     [Tooltip("Waktu tunda dalam detik sebelum item bisa diambil.")]
     public float pickupDelay = 5.0f; // Jeda waktu 5 detik sesuai permintaan Anda
-    public bool itemDrop;
+
 
     private void Start()
     {
@@ -25,7 +25,7 @@ public class ItemDropInteractable : Interactable
         itemdata.itemName = itemName;
         itemdata.count = 1;
 
-        if (itemDrop)
+        if (gameObject.CompareTag("Untagged"))
         {
             StartCoroutine(ActivatePickupAfterDelay());
         }

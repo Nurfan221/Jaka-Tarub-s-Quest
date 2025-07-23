@@ -67,8 +67,6 @@ public class ItemPool : MonoBehaviour
 
         GameObject droppedItem = Instantiate(itemDrop, pos, Quaternion.identity);
 
-        // Set tag menjadi ItemDrop agar bisa dideteksi saat player mengambilnya
-        droppedItem.tag = tagString;
 
         // Jika item memiliki komponen visual (misalnya SpriteRenderer)
         SpriteRenderer spriteRenderer = droppedItem.GetComponent<SpriteRenderer>();
@@ -93,7 +91,7 @@ public class ItemPool : MonoBehaviour
 
         // Panggil StopGravity dari komponen ItemDropInteractable
         ItemDropInteractable interactable = droppedItem.GetComponent<ItemDropInteractable>();
-        interactable.itemDrop = true;
+        interactable.tag = tagString; // Set tag sesuai parameter
         if (interactable != null)
         {
             Debug.Log("item berhenti");

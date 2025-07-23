@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class Player_Health : MonoBehaviour
     [SerializeField] Player_Anim player_Anim;
     [SerializeField] BuffScrollController buffScrollController;
 
+    public static event Action Sekarat;
 
     // Batas health/stamina saat ini akan kita hitung secara dinamis
 
@@ -238,5 +240,18 @@ public class Player_Health : MonoBehaviour
     {
         Debug.Log("Player Died");
         GameController.Instance.PlayerDied();
+    }
+
+    public void CheckSekarat()
+    {
+        Debug.Log("Mengecek kondisi sekarat..."); // Tambahkan ini untuk tahu fungsi dipanggil
+
+        // Pastikan perbandingannya benar. Gunakan (float) untuk pembagian yang akurat.
+        if ((float)stats.health / stats.maxHealth <= 0.3f)
+        {
+            // Tambahkan ini untuk tahu kondisi terpenuhi
+            Debug.Log("KONDISI SEKARAT TERPENUHI! MENYIARKAN EVENT...");
+            Sekarat?.Invoke();
+        }
     }
 }

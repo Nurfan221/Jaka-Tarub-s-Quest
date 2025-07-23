@@ -114,4 +114,14 @@ MonoBehaviour:
     prefabsToSpawn:
     - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
     animalToDefeatTrigger: 
+  - state: 8
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: 20084ae82e63d6240ad97357db157147, type: 2}
+    spriteToShow: {fileID: 0}
+    objectiveInfoForUI: 'Serahkan Daging Rusa '
+    npcPositionStartQuest: {x: 0, y: 0}
+    locationToEnterTrigger: 
+    prefabsToSpawn:
+    - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+    animalToDefeatTrigger: 
   spawnedQuestAnimals: []
