@@ -140,7 +140,7 @@ public class StoneBehavior : MonoBehaviour
                 Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
                 for (int j = 0; j < results.Count; j++)
                 {
-                    ItemPool.Instance.DropItem(results[j].name, transform.position + offset, results[j],"ItemDrop", 1);
+                    ItemPool.Instance.DropItem(results[j].name, transform.position + offset, results[j], 1);
                 }
             }
         }

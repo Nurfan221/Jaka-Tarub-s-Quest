@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3101284487820938114}
   m_Layer: 0
   m_Name: Semak 10 (3)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,7 +105,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rumputAnimation: []
   frameRate: 0.1
+  nameEnvironment: 
   itemDrop: {fileID: 0}
+  plantsContainer: {fileID: 0}
 --- !u!114 &3164184782139945333
 MonoBehaviour:
   m_ObjectHideFlags: 0

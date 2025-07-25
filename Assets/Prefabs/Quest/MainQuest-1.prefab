@@ -124,4 +124,34 @@ MonoBehaviour:
     prefabsToSpawn:
     - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
     animalToDefeatTrigger: 
+  - state: 9
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: 495254d4225fe564b8525f74537f74ce, type: 2}
+    spriteToShow: {fileID: 0}
+    objectiveInfoForUI: Cari Tempat Aman
+    npcPositionStartQuest: {x: 0, y: 0}
+    locationToEnterTrigger: SekitarDanau
+    prefabsToSpawn:
+    - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+    animalToDefeatTrigger: 
+  - state: 10
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: b364f7180adbce7459b8c135129750d1, type: 2}
+    spriteToShow: {fileID: 5598371188817609087, guid: 806a21963b1ff804589905da3ef50b6f, type: 3}
+    objectiveInfoForUI: Danau ?
+    npcPositionStartQuest: {x: 0, y: 0}
+    locationToEnterTrigger: SekitarDanau
+    prefabsToSpawn:
+    - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+    animalToDefeatTrigger: 
+  - state: 11
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: dda9db41fa401fa408823499022f4145, type: 2}
+    spriteToShow: {fileID: -9156445652639325360, guid: 4b6c2e1b685a2794a934c9318c8b953b, type: 3}
+    objectiveInfoForUI: KabarKesedihan
+    npcPositionStartQuest: {x: 0, y: 0}
+    locationToEnterTrigger: RumahJaka
+    prefabsToSpawn:
+    - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+    animalToDefeatTrigger: 
   spawnedQuestAnimals: []

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 94
   itemName: Sword
+  quality: 0
   types: 0
   categories: 256
   sprite: {fileID: 4515062826918275721, guid: d566de0f6bdec3f48bd0b58bab4a43c1, type: 3}
@@ -22,9 +23,17 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 3
-  Damage: 5
+  Damage: 30
   AreaOfEffect: 3
   SpecialAttackCD: 40
   SpecialAttackStamina: 0
@@ -32,7 +41,6 @@ MonoBehaviour:
   UseStamina: 3
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 0
-  stackCount: 1
   maxStackCount: 1
   BuyValue: 500
   SellValue: 500

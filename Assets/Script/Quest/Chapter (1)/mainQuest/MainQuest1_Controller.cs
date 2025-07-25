@@ -38,7 +38,7 @@ public class QuestStateData
 // Ini adalah skrip "Sutradara" utama Anda
 public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi dari kelas dasar Anda
 {
-    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, BerikanHasilBuruan, Selesai }
+    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, BerikanHasilBuruan, CariTempatAman, ApakahIniDanauItu, KabarKesedihan , Selesai }
 
     [Header("Progres Cerita")]
     [SerializeField] private MainQuest1State currentState = MainQuest1State.BelumMulai;
@@ -61,20 +61,27 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
     {
         // Berlangganan ke semua pemicu yang mungkin dibutuhkan quest ini
         //PlayerQuest.OnPlayerEnteredLocation += HandleLocationTrigger;
-        AnimalBehavior.OnAnimalDied += HandleAnimalTrigger;
+        AnimalBehavior.OnAnimalPickItem += HandleAnimalTrigger;
         // Berlangganan ke event akhir dialog
         DialogueSystem.OnDialogueEnded += HandleDialogueEnd;
         PlayerQuest.OnPlayerEnteredLocation += HandleLocationTrigger;
         AnimalBehavior.OnAnimalDied += HandleAnimalDied;
+
         Player_Health.Sekarat += HandlePlayerSekarat; // Misalnya, jika quest ini berhubungan dengan kematian pemain
+
         //DialogueSystem.OnDialogueEnded += HandleDialogueTrigger;
+    }
+
+    private void AnimalBehavior_OnAnimalPickItem()
+    {
+        throw new System.NotImplementedException();
     }
 
     private void OnDisable()
     {
         // Selalu berhenti berlangganan saat selesai
         //PlayerQuest.OnPlayerEnteredLocation -= HandleLocationTrigger;
-        AnimalBehavior.OnAnimalDied -= HandleAnimalTrigger;
+        AnimalBehavior.OnAnimalPickItem -= HandleAnimalTrigger;
         DialogueSystem.OnDialogueEnded -= HandleDialogueEnd;
         PlayerQuest.OnPlayerEnteredLocation -= HandleLocationTrigger;
         AnimalBehavior.OnAnimalDied -= HandleAnimalDied;
@@ -182,6 +189,28 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                     animalBehavior.ChangeAnimalType(AnimalType.isQuest);
                 }
                 break;
+             case MainQuest1State.CariTempatAman:
+                Debug.Log("Memulai adegan Cari Tempat Aman...");
+                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.CariTempatAman)?.objectiveInfoForUI ?? "";
+                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.CariTempatAman)?.locationToEnterTrigger ?? "";
+                QuestManager.Instance.CreateTemplateQuest();
+                HandleSpriteAndDialogue(MainQuest1State.CariTempatAman);
+
+
+                break;
+             case MainQuest1State.ApakahIniDanauItu:
+                Debug.Log("Memulai adegan Apakah Ini Danau Itu...");
+                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.ApakahIniDanauItu)?.objectiveInfoForUI ?? "";
+                //nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.ApakahIniDanauItu)?.locationToEnterTrigger ?? "";
+                QuestManager.Instance.CreateTemplateQuest();
+                HandleSpriteAndDialogue(MainQuest1State.ApakahIniDanauItu);
+                break;
+             case MainQuest1State.KabarKesedihan:
+                Debug.Log("Memulai adegan Kabar Kesedihan...");
+                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.KabarKesedihan)?.objectiveInfoForUI ?? "";
+                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.KabarKesedihan)?.locationToEnterTrigger ?? "";
+                QuestManager.Instance.CreateTemplateQuest();
+                break;
         }
         StartCoroutine(FinishStateChange());
     }
@@ -251,9 +280,12 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
 
 
-    private void HandleAnimalTrigger(AnimalBehavior animal)
+    private void HandleAnimalTrigger()
     {
         // Logika untuk mengurangi daftar hewan dan pindah state jika semua sudah kalah
+        Debug.Log("HandleAnimalTrigger dipanggil. Mungkin ada hewan yang dipilih.");
+        ChangeState(MainQuest1State.CariTempatAman);
+
     }
 
     public override void UpdateQuest() { /* Dibiarkan kosong karena berbasis event */ }
@@ -347,6 +379,10 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             if (currentState == MainQuest1State.PergiKeHutan)
             {
                 ChangeState(MainQuest1State.CariRusa);
+            }
+            if (currentState == MainQuest1State.CariTempatAman)
+            {
+                ChangeState(MainQuest1State.ApakahIniDanauItu);
             }
         }
     }

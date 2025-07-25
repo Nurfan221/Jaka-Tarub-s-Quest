@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6489185203300255750}
   m_Layer: 0
   m_Name: Semak 11
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -182,7 +182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  namePrefab: 
   itemDrop: {fileID: 0}
 --- !u!61 &-2450848009458499496
 BoxCollider2D:

@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
   m_Name: JakaTarubMenyerah
   m_EditorClassIdentifier: 
-  TheDialogues: []
-  mainSpeaker: 
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: Tunggu! Jangan... jangan terkam aku!
+  - name: Jaka Tarub
+    sentence: Aku tidak akan mengganggumu. Ambillah. Aku hanya... aku hanya minta
+      agar kau membiarkanku pergi.
+  - name: Jaka Tarub
+    sentence: Hampir saja... hampir saja tamat riwayatku. Syukurlah... syukurlah
+      ia hanya menginginkan rusanya
+  mainSpeaker: Jaka Tarub
   promptAfterDialogue: 

@@ -6,7 +6,7 @@ public class ItemDropInteractable : Interactable
 {
     //public Item item;
     public ItemData itemdata;
-    [SerializeField] public string itemName;
+ public string itemName;
     private Rigidbody2D rb;
     public float gravityDuration = 2f; // Durasi gravitasi setelah item jatuh
     [Tooltip("Tag yang akan digunakan setelah item bisa diambil kembali.")]
@@ -15,7 +15,18 @@ public class ItemDropInteractable : Interactable
     [Tooltip("Waktu tunda dalam detik sebelum item bisa diambil.")]
     public float pickupDelay = 5.0f; // Jeda waktu 5 detik sesuai permintaan Anda
 
+    private Collider2D itemCollider; // Tambahkan ini
 
+    void Awake()
+    {
+        itemCollider = GetComponent<Collider2D>(); // Dapatkan referensi collider saat Awake
+        if (itemCollider == null)
+        {
+            Debug.LogError("ItemDropInteractable requires a Collider2D component!");
+        }
+
+
+    }
     private void Start()
     {
 
@@ -25,10 +36,7 @@ public class ItemDropInteractable : Interactable
         itemdata.itemName = itemName;
         itemdata.count = 1;
 
-        if (gameObject.CompareTag("Untagged"))
-        {
-            StartCoroutine(ActivatePickupAfterDelay());
-        }
+        StartCoroutine(ActivatePickupAfterDelay());
     }
 
     protected override void Interact()
@@ -54,18 +62,27 @@ public class ItemDropInteractable : Interactable
 
     private IEnumerator ActivatePickupAfterDelay()
     {
-        // 1. Saat item baru saja dibuat, langsung ubah tag-nya menjadi "Untagged"
-        //    agar tidak bisa langsung diambil oleh player.
-        gameObject.tag = "Untagged";
-        Debug.Log($"Item '{this.name}' dijatuhkan, tag diubah menjadi 'Untagged'. Menunggu {pickupDelay} detik...");
+        // Item sudah memiliki tag "ItemDrop" sejak dijatuhkan.
+        // Untuk mencegah player mengambilnya, nonaktifkan collidernya sementara.
+        if (itemCollider != null)
+        {
+            itemCollider.enabled = false; // Nonaktifkan collider agar player tidak bisa berinteraksi
+        }
+        // Jika Anda menggunakan tag untuk deteksi player, Anda bisa ganti di sini:
+        // gameObject.tag = "UntaggedForPlayer"; // Atau tag lain yang tidak dideteksi player
 
-        // 2. Jeda eksekusi fungsi ini selama 'pickupDelay' detik.
-        //    Bagian ini tidak akan membekukan (freeze) seluruh game.
+        Debug.Log($"Item '{this.name}' dijatuhkan, collider dinonaktifkan. Menunggu {pickupDelay} detik...");
+
         yield return new WaitForSeconds(pickupDelay);
 
-        // 3. Setelah jeda selesai, kode di bawah ini akan dijalankan.
-        //    Ubah kembali tag-nya agar bisa diambil oleh player.
-        gameObject.tag = pickableTag;
-        Debug.Log($"Item '{this.name}' sekarang bisa diambil! Tag diubah menjadi '{pickableTag}'.");
+        // Aktifkan kembali collider agar player bisa mengambilnya.
+        if (itemCollider != null)
+        {
+            itemCollider.enabled = true; // Aktifkan collider
+        }
+        // Jika menggunakan tag khusus player:
+        // gameObject.tag = pickableTag;
+
+        Debug.Log($"Item '{this.name}' sekarang bisa diambil! Collider diaktifkan kembali.");
     }
 }

@@ -18,12 +18,12 @@ MonoBehaviour:
   dashForce: 20
   playerPosition: {x: 0, y: 0}
   maxHealth: 100
-  health: 100
+  health: 20
   currentHealthCap: 100
   maxStamina: 100
-  stamina: 100
+  stamina: 97
   staminaRegenRate: 5
-  currentStaminaCap: 100
+  currentStaminaCap: 97
   initialGriefPenalty: 30
   isInGrief: 0
   currentGriefPenalty: 0
@@ -58,11 +58,14 @@ MonoBehaviour:
   - itemName: Kayu
     count: 8
     quality: 0
-  - itemName: Sword
-    count: 1
-    quality: 0
   - itemName: MejaCamp
     count: 10
+    quality: 0
+  - itemName: Cangkul
+    count: 1
+    quality: 0
+  - itemName: DagingDomba
+    count: 25
     quality: 0
   maxItem: 18
   emptyItemTemplate:
@@ -74,14 +77,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedItemData:
-  - itemName: PenyiramTanaman
+  - itemName: Sword
     count: 1
     quality: 0
   - itemName: Cangkul
     count: 1
     quality: 0
   equippedWeaponTemplate:
-    itemName: Cangkul
+    itemName: Sword
     count: 1
     quality: 0
   equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
@@ -100,7 +103,7 @@ MonoBehaviour:
   - itemName: Empty
     count: 1
     quality: 0
-  equipped1: 0
+  equipped1: 1
   itemUse1: 0
   currentFatiguePenalty: 0
   maxFatiguePenalty: 50

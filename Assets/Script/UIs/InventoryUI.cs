@@ -710,7 +710,7 @@ public class InventoryUI : MonoBehaviour
         {
             // Beri sedikit offset acak agar item tidak menumpuk sempurna di satu titik
             Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), 0.5f, UnityEngine.Random.Range(-0.2f, 0.2f));
-            ItemPool.Instance.DropItem(itemData.itemName, playerPosition + offset, itemUse.dropItem, "Untagged");
+            ItemPool.Instance.DropItem(itemData.itemName, playerPosition + offset, itemUse.dropItem);
         }
 
         // Gunakan actualDropCount untuk perbandingan yang lebih aman.

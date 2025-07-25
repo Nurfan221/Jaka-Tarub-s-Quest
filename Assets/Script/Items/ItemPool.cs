@@ -57,7 +57,7 @@ public class ItemPool : MonoBehaviour
     }
 
 
-    public void DropItem(string itemName, Vector2 pos, GameObject itemDrop, string tagString = "ItemDrop", int count = 1, int level = 1)
+    public void DropItem(string itemName, Vector2 pos, GameObject itemDrop, int count = 1, int level = 1)
     {
         if (itemDrop == null)
         {
@@ -91,7 +91,7 @@ public class ItemPool : MonoBehaviour
 
         // Panggil StopGravity dari komponen ItemDropInteractable
         ItemDropInteractable interactable = droppedItem.GetComponent<ItemDropInteractable>();
-        interactable.tag = tagString; // Set tag sesuai parameter
+
         if (interactable != null)
         {
             Debug.Log("item berhenti");

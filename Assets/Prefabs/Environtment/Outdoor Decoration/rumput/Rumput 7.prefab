@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1864868281198516365}
   m_Layer: 0
   m_Name: Rumput 7
-  m_TagString: Untagged
+  m_TagString: Fence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,4 +110,6 @@ MonoBehaviour:
   - {fileID: -1948526420, guid: bdf288f223e01b042913a2cd7ddbe9f4, type: 3}
   - {fileID: -104115326, guid: bdf288f223e01b042913a2cd7ddbe9f4, type: 3}
   frameRate: 0.1
+  nameEnvironment: 
   itemDrop: {fileID: 0}
+  plantsContainer: {fileID: 0}

@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic; // Diperlukan jika menggunakan List
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,20 +12,20 @@ public class AnimalBehavior : MonoBehaviour
     [System.Serializable]
     public class AnimationState
     {
-        public string stateName;         // Nama state (Idle, Jalan, Makan)
-        public string[] availableStates; // Array animasi yang bisa dituju
+        public string stateName;
+        public string[] availableStates;
     }
 
     public Sprite[] animalIdle;
 
 
-    public AnimationState[] animationStates; // Array semua animasi dan transisinya
-    public string currentState = "Idle";  // Set awal ke Idle
+    public AnimationState[] animationStates;
+    public string currentState = "Idle";
     public float jedaAnimasi = 3f;
     public bool isMoving;
     public float moveSpeed;
-    private Vector2 lastCollisionPoint; // Menyimpan posisi objek yang disentuh
-    private bool isAvoiding = false;    // Menandakan apakah hewan sedang menghindar
+    private Vector2 lastCollisionPoint;
+    private bool isAvoiding = false;
     public bool isAnimalEvent;
     private Coroutine currentMovementCoroutine;
 
@@ -47,7 +47,7 @@ public class AnimalBehavior : MonoBehaviour
     public SpriteRenderer animalRenderer;
 
     [Header("Logika Deteksi")]
-    public float detectionRadius; // Atur angka ini agar SAMA dengan radius CircleCollider2D di RadiusDeteksi
+    public float detectionRadius;
 
 
     public string namaHewan;
@@ -55,21 +55,19 @@ public class AnimalBehavior : MonoBehaviour
     public int maxHealth;
 
 
-
-    //element 0 harus selalu di isi dengan prefab daging
-    //element 1 harus selalu di isi dengan animalSkin
-    //element 3 harus selalu di isi dengan animalBone
-    //element 4 dan seterusnya boleh di isi dengan barang spesial milik hewan yang akan di drop
-
     public GameObject[] dropitems;
-    // Logika menentukan jumlah minimal dan maksimal dari item yang akan dijatuhkan
-    public int minNormalItem = 1;  // Jumlah minimum normal item
-    public int maxNormalItem = 2;  // Jumlah maksimum normal item
-    public int minSpecialItem = 0; // Jumlah item spesial seperti copper, iron, atau gold
+    public int minNormalItem = 1;
+    public int maxNormalItem = 2;
+    public int minSpecialItem = 0;
     public int maxSpecialItem = 1;
 
-    //teriakan bahwa hewan telah mati 
     public static event Action<AnimalBehavior> OnAnimalDied;
+    public static event Action OnAnimalPickItem;
+
+    // Tambahkan referensi ke Player jika ingin harimau isQuest langsung mengejar player
+    [Header("Quest Behavior")]
+    public Transform playerTransform; // Pastikan ini di-assign di Inspector jika diperlukan
+
     private void Start()
     {
         health = maxHealth;
@@ -78,59 +76,140 @@ public class AnimalBehavior : MonoBehaviour
         {
             StartCoroutine(PlayRandomAnimationPeriodically());
         }
-        else
+        else if (tipeHewan == AnimalType.Agresif) // Tambahkan ini jika agresif butuh Idle awal
         {
             currentState = "Idle";
             animalAnimator.Play("Idle");
         }
+        else if (tipeHewan == AnimalType.isQuest)
+        {
+            // Jika diawal sudah isQuest, langsung coba kejar player
+            if (playerTransform == null)
+            {
+                playerTransform = GameObject.FindWithTag("Player")?.transform;
+            }
+            if (playerTransform != null)
+            {
+                currentTarget = playerTransform;
+                currentState = "Mengejar"; // Akan mengejar player
+                StopAllCoroutines(); // Hentikan perilaku pasif
+                Debug.Log($"{namaHewan} (Quest) mulai mengikuti Player.");
+            }
+            else
+            {
+                currentState = "Idle"; // Jika tidak ada player, kembali idle
+                animalAnimator.Play("Idle");
+                StartCoroutine(PlayRandomAnimationPeriodically()); // Mungkin perlu perilaku acak jika tak ada player
+            }
+        }
     }
+
     private void Update()
     {
-        // Logika Agresif hanya berjalan jika ada target
-        if (tipeHewan != AnimalType.Agresif || currentTarget == null) return;
-        if (tipeHewan == AnimalType.isQuest) return;
-
-
-        float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
-
-        // Tentukan state berdasarkan jarak
-        if (distanceToTarget <= attackRange)
+        // Logika untuk AnimalType.Agresif dan AnimalType.isQuest
+        if (currentTarget == null)
         {
-            currentState = "Menyerang";
-        }
-        else
-        {
-            currentState = "Mengejar";
-        }
-
-        // Jalankan logika state
-        switch (currentState)
-        {
-            case "Mengejar":
-                ChaseTarget();
-                break;
-            case "Menyerang":
-                // Kita panggil fungsi yang sudah kita siapkan
-                JalankanLogikaSerangan();
-                // Kita juga bisa menghentikan gerakan di sini
+            // Jika tidak ada target, dan bukan hewan pasif, kembali ke Idle
+            if (tipeHewan != AnimalType.Pasif)
+            {
+                currentState = "Idle";
+                if (animalAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle") == false)
+                {
+                    animalAnimator.Play("Idle");
+                }
                 isMoving = false;
-                animalAnimator.Play("Idle"); // Agar tidak berjalan di tempat
-                break;
+                // Jika ingin hewan isQuest kembali ke perilaku acak setelah kehilangan target,
+                // bisa panggil StartCoroutine(PlayRandomAnimationPeriodically()); di sini.
+            }
+            return; // Hentikan Update jika tidak ada target
+        }
+
+        // Jika tipe hewan adalah isQuest dan targetnya bukan ItemDrop,
+        // dia hanya akan mengikuti player tanpa menyerang.
+        if (tipeHewan == AnimalType.isQuest && currentTarget.CompareTag("ItemDrop") == false)
+        {
+            // Pastikan currentTarget adalah player (jika Anda ingin selalu mengikuti player)
+            if (currentTarget.CompareTag("Player"))
+            {
+                float distanceToPlayer = Vector2.Distance(transform.position, currentTarget.position);
+                if (distanceToPlayer > attackRange) // Jika masih di luar jarak serang
+                {
+                    currentState = "Mengejar";
+                    ChaseTarget();
+                }
+                else // Sudah dekat dengan player
+                {
+                    currentState = "Idle"; // Berhenti mengejar, tetap di tempat
+                    isMoving = false;
+                    animalAnimator.Play("Idle"); // Animasi idle
+                }
+            }
+            else
+            {
+                // Jika isQuest punya target selain player/itemdrop (misal hewan lain), hapus targetnya.
+                // Ini untuk memastikan isQuest hanya fokus ke player atau ItemDrop.
+                currentTarget = null;
+                currentState = "Idle";
+                StartCoroutine(PlayRandomAnimationPeriodically());
+            }
+            return; // Hentikan Update untuk isQuest jika tidak ada ItemDrop
+        }
+
+        // Logika Agresif (hanya untuk AnimalType.Agresif) atau isQuest yang mengejar ItemDrop
+        if (tipeHewan == AnimalType.Agresif || (tipeHewan == AnimalType.isQuest && currentTarget.CompareTag("ItemDrop")))
+        {
+            float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
+
+            if (distanceToTarget <= attackRange)
+            {
+                currentState = "Menyerang"; // Atau "MengambilItem" jika targetnya ItemDrop
+            }
+            else
+            {
+                currentState = "Mengejar";
+            }
+
+            switch (currentState)
+            {
+                case "Mengejar":
+                    ChaseTarget();
+                    break;
+                case "Menyerang": // Ini akan dipanggil juga jika isQuest mencapai ItemDrop
+                    // Untuk isQuest yang mencapai ItemDrop, kita akan "mengambil" itemnya
+                    if (tipeHewan == AnimalType.isQuest && currentTarget.CompareTag("ItemDrop"))
+                    {
+                        Debug.Log($"{namaHewan} (Quest) telah mencapai item: {currentTarget.name}. Mengambilnya!");
+                        OnAnimalPickItem?.Invoke(); // Panggil event jika ada yang mendengarkan
+                        // Hancurkan item atau nonaktifkan
+                        Destroy(currentTarget.gameObject);
+                        currentTarget = null; // Hapus target
+                        currentState = "Idle"; // Kembali ke idle setelah mengambil item
+                        StartCoroutine(PlayRandomAnimationPeriodically()); // Lanjutkan perilaku pasif/acak
+                    }
+                    else // Ini untuk AnimalType.Agresif yang menyerang
+                    {
+                        JalankanLogikaSerangan();
+                    }
+                    isMoving = false;
+                    animalAnimator.Play("Idle");
+                    break;
+            }
         }
     }
+
     private IEnumerator PlayRandomAnimationPeriodically()
     {
-
-        // Jika bukan jam tidur, jalankan animasi acak
-        while (true)  // Loop terus-menerus untuk animasi acak
+        while (true)
         {
-            // Pilih animasi acak berdasarkan currentState
+            // Jangan jalankan animasi acak jika sedang mengejar atau bertipe quest (yang mengikuti player)
+            if (currentTarget != null && (tipeHewan == AnimalType.Agresif || tipeHewan == AnimalType.isQuest))
+            {
+                yield return new WaitForSeconds(1f); // Cek lagi setelah 1 detik
+                continue;
+            }
+
             string nextState = GetRandomAnimationForCurrentState();
-
-            // Jalankan animasi yang terpilih
             TransitionTo(nextState);
-
-            // Tunggu selama 5 detik sebelum memilih animasi baru
             yield return new WaitForSeconds(5f);
         }
     }
@@ -139,24 +218,57 @@ public class AnimalBehavior : MonoBehaviour
     public void ChangeAnimalType(AnimalType animalType)
     {
         tipeHewan = animalType;
+        if (tipeHewan == AnimalType.isQuest)
+        {
+            Debug.Log("Animal type changed to isQuest. Stopping current coroutines.");
+            StopAllCoroutines(); // Hentikan semua coroutine sebelumnya
+
+            // Set target ke player secara langsung saat diubah menjadi isQuest
+            if (playerTransform == null)
+            {
+                playerTransform = GameObject.FindWithTag("Player")?.transform;
+            }
+
+            if (playerTransform != null)
+            {
+                currentTarget = playerTransform;
+                currentState = "Mengejar"; // Mulai mengejar player
+                Debug.Log($"{namaHewan} (Quest) mulai mengikuti Player setelah diubah tipe.");
+            }
+            else
+            {
+                Debug.LogWarning("Player Transform not found for isQuest animal.");
+                currentState = "Idle";
+                animalAnimator.Play("Idle");
+                StartCoroutine(PlayRandomAnimationPeriodically());
+            }
+        }
+        else if (tipeHewan == AnimalType.Agresif)
+        {
+            // Jika diubah menjadi agresif, pastikan tidak ada target acak dan kembali ke idle
+            currentTarget = null;
+            currentState = "Idle";
+            animalAnimator.Play("Idle");
+            StopAllCoroutines(); // Hentikan coroutine pasif jika ada
+            // Agresif akan mencari target melalui OnTriggerEnter2D
+        }
+        else if (tipeHewan == AnimalType.Pasif)
+        {
+            currentTarget = null;
+            currentState = "Idle";
+            StopAllCoroutines();
+            StartCoroutine(PlayRandomAnimationPeriodically());
+        }
     }
 
     private string GetRandomAnimationForCurrentState()
     {
-        // Cari state animasi yang sedang aktif
         AnimationState state = System.Array.Find(animationStates, s => s.stateName == currentState);
-
-        // Jika ada animasi yang tersedia untuk state ini
         if (state != null && state.availableStates.Length > 0)
         {
-            // Pilih animasi acak dari availableStates
             int randomIndex = UnityEngine.Random.Range(0, state.availableStates.Length);
             return state.availableStates[randomIndex];
         }
-
-
-
-        // Jika tidak ada animasi yang tersedia, kembalikan animasi default
         return "Idle";
     }
 
@@ -174,32 +286,19 @@ public class AnimalBehavior : MonoBehaviour
 
     private IEnumerator PlayNextStateThenTransition(string nextState)
     {
-        // Jalankan animasi sementara (nextState) terlebih dahulu
         animalAnimator.Play(nextState);
-        //Debug.Log("Playing animation: " + nextState);
-
-        // Tunggu hingga animasi selesai
         yield return new WaitUntil(() =>
         {
             AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0);
             return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0);
         });
 
-        // Setelah animasi sementara selesai, jalankan animasi target
         if (nextState == "Duduk")
         {
-            yield return new WaitUntil(() =>
-            {
-                AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0);
-                return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0);
-            });
+            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
             animalAnimator.Play("Rebahan");
             currentState = "Rebahan";
-            yield return new WaitUntil(() =>
-            {
-                AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0);
-                return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0);
-            });
+            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
             animalAnimator.Play("TidurNyenyak");
             currentState = "TidurNyenyak";
         }
@@ -234,61 +333,38 @@ public class AnimalBehavior : MonoBehaviour
             animalAnimator.Play(nextState);
             currentState = nextState;
         }
-
-        //Debug.Log("Transitioned to: " + currentState);
     }
 
     private IEnumerator AnimalMovement(string currentAnimation)
     {
-        //Debug.Log("animal mencarai jalan");
-        // Tentukan arah pergerakan berdasarkan animasi
         Vector2 randomDirection = Vector2.zero;
-
-        // Cek apakah animasi yang dipilih adalah JalanKanan atau JalanKiri
         if (currentAnimation == "JalanKanan")
         {
-            randomDirection = new Vector2(1, UnityEngine.Random.Range(-1f, 1f)); // Kiri dengan variasi atas/bawah
-            //Debug.Log("Moving Left");
+            randomDirection = new Vector2(1, UnityEngine.Random.Range(-1f, 1f));
             animalRenderer.flipX = true;
         }
         else if (currentAnimation == "JalanKiri")
         {
-            randomDirection = new Vector2(-1, UnityEngine.Random.Range(-1f, 1f)); // Kanan dengan variasi atas/bawah
-            //Debug.Log("Moving Right");
+            randomDirection = new Vector2(-1, UnityEngine.Random.Range(-1f, 1f));
             animalRenderer.flipX = false;
         }
 
-
-        // Tentukan posisi target berdasarkan arah pergerakan yang sudah dipilih
-        Vector2 targetPosition = (Vector2)transform.position + randomDirection * 3f; // Target posisi gerakan
-        //Debug.Log("Target Position: " + targetPosition);
-
-        // Mulai pergerakan menuju target
+        Vector2 targetPosition = (Vector2)transform.position + randomDirection * 3f;
         isMoving = true;
-        yield return MoveForDuration(targetPosition);  // Gerak menuju posisi target
+        yield return MoveForDuration(targetPosition);
         isMoving = false;
-
-        // Setelah bergerak, beri waktu untuk makan atau tidur
-        yield return new WaitForSeconds(5); // Waktu tunggu sebelum kembali ke aktivitas lain
+        yield return new WaitForSeconds(5);
     }
 
     private IEnumerator MoveForDuration(Vector2 targetPosition)
     {
         Vector2 startPosition = transform.position;
-
-        // Cek jarak target
-        //Debug.Log("Starting to move. Current position: " + startPosition + ", Target position: " + targetPosition);
-
-        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)  // Selama jarak masih ada
+        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
         {
-            // Gerakkan objek dengan kecepatan yang sudah diatur
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            yield return null;  // Tunggu frame berikutnya
+            yield return null;
         }
-
-        //Debug.Log("Movement finished!");
-        // Setelah bergerak, beri waktu untuk makan atau tidur
-        yield return new WaitForSeconds(3f); // Waktu tunggu sebelum kembali ke aktivitas lain
+        yield return new WaitForSeconds(3f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -296,7 +372,6 @@ public class AnimalBehavior : MonoBehaviour
         if (collision.gameObject.CompareTag("Environment") || collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Stone") || collision.gameObject.CompareTag("Animal") || collision.gameObject.CompareTag("Tebing"))
         {
             lastCollisionPoint = collision.transform.position;
-
             if (isMoving && !isAvoiding)
             {
                 isAvoiding = true;
@@ -312,44 +387,44 @@ public class AnimalBehavior : MonoBehaviour
     private IEnumerator MoveAwayFromObstacle(Collision2D collision)
     {
         Debug.Log("nabrak bang");
-        // Menghitung arah untuk menjauh dari objek yang memiliki tag "Environment"
         Vector2 directionAwayFromObstacle = ((Vector2)transform.position - (Vector2)collision.transform.position).normalized;
-
-        // Tentukan posisi target untuk bergerak menjauhi objek
-        Vector2 targetPosition = (Vector2)transform.position + directionAwayFromObstacle * 5f;  // Menjauh sejauh 5 unit dari objek
-
-        // Gerakkan hewan ke arah target
-        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)  // Selama jarak masih ada
+        Vector2 targetPosition = (Vector2)transform.position + directionAwayFromObstacle * 5f;
+        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
         {
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            yield return null;  // Tunggu frame berikutnya
+            yield return null;
         }
-
-        // Setelah bergerak menjauhi objek, kembalikan status dan lanjutkan pergerakan acak
         isAvoiding = false;
-        StartCoroutine(AnimalMovement(currentState));  // Mulai pergerakan acak lagi setelah menghindar
+        // Hanya melanjutkan gerakan acak jika tidak memiliki target aktif
+        if (tipeHewan == AnimalType.Pasif && currentTarget == null)
+        {
+            StartCoroutine(AnimalMovement(currentState));
+        }
+        else if (currentTarget != null) // Jika ada target, kembali mengejar target
+        {
+            currentState = "Mengejar"; // Set ulang state ke mengejar
+            // Tidak perlu memanggil ChaseTarget() di sini, akan otomatis di Update()
+        }
     }
 
     public void DropItem()
     {
         int normalItemCount = UnityEngine.Random.Range(minNormalItem, maxNormalItem + 1);
         DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
-        if (dropitems.Length > 2) // Jika ada special items
+        if (dropitems.Length > 2)
         {
             int specialItemCount = UnityEngine.Random.Range(minSpecialItem, maxSpecialItem + 1);
             DropItemsByType(3, dropitems.Length, specialItemCount);
         }
     }
-    // Fungsi untuk menjatuhkan item berdasarkan rentang index tertentu
+
     private void DropItemsByType(int startIndex, int endIndex, int itemCount)
     {
-
         if (dropitems == null || dropitems.Length == 0)
         {
             Debug.LogWarning("Drop items array is empty or null.");
             return;
         }
-        // Pastikan rentang indeks valid
         if (startIndex < 0 || endIndex > dropitems.Length || startIndex >= endIndex)
         {
             Debug.LogError($"Invalid index range: startIndex={startIndex}, endIndex={endIndex}, arrayLength={dropitems.Length}");
@@ -358,15 +433,13 @@ public class AnimalBehavior : MonoBehaviour
 
         for (int i = 0; i < itemCount; i++)
         {
-            //Debug.Log("for untuk perulangan drop item");
             int randomIndex = UnityEngine.Random.Range(startIndex, endIndex);
             GameObject itemToDrop = dropitems[randomIndex];
             if (itemToDrop != null)
             {
                 Debug.Log("nama item yang di drop adalah : " + itemToDrop.name);
-                //Instantiate(itemToDrop, transform.position, Quaternion.identity);
                 Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
-                ItemPool.Instance.DropItem(itemToDrop.name, transform.position + offset, itemToDrop, "ItemDrop");
+                ItemPool.Instance.DropItem(itemToDrop.name, transform.position + offset, itemToDrop);
             }
             else
             {
@@ -387,243 +460,309 @@ public class AnimalBehavior : MonoBehaviour
         {
             Die();
         }
-        else if (tipeHewan == AnimalType.Pasif) // Hanya hewan pasif yang lari
+        else if (tipeHewan == AnimalType.Pasif)
         {
-            StopAllCoroutines(); // Hentikan perilaku acak sebelum lari
+            StopAllCoroutines();
             Run();
         }
-        // Hewan agresif mungkin akan langsung menyerang balik saat diserang,
-        // logika itu bisa ditambahkan di sini jika perlu.
     }
 
     public void Run()
     {
-        float runSpeed = 5f;  // Kecepatan lari lebih cepat dari kecepatan normal
-        Vector2 currentPosition = transform.position; // Posisi awal
+        float runSpeed = 5f;
+        Vector2 currentPosition = transform.position;
 
-        // Pilih tiga titik acak untuk lari
         Vector2 point1 = GetRandomPoint(currentPosition);
         Vector2 point2 = GetRandomPoint(point1);
         Vector2 point3 = GetRandomPoint(point2);
 
-        // Menjalankan animasi lari
         currentState = "Lari";
         animalAnimator.Play("Lari");
 
-        // Mulai pergerakan menuju titik-titik acak secara bertahap
         currentMovementCoroutine = StartCoroutine(AnimalRunMovement(point1, runSpeed, point2, point3));
     }
 
     private IEnumerator AnimalRunMovement(Vector2 point1, float speed, Vector2 point2, Vector2 point3)
     {
-        // Tentukan arah animasi berdasarkan perbandingan posisi point1 dengan posisi saat ini
         SetRunningAnimation(point1);
-
-        // Gerak menuju titik pertama
         yield return MoveToTarget(point1, speed);
 
-        // Tentukan arah animasi untuk point2
         SetRunningAnimation(point2);
-
-        // Gerak menuju titik kedua setelah mencapai titik pertama
         yield return MoveToTarget(point2, speed);
 
-        // Tentukan arah animasi untuk point3
         SetRunningAnimation(point3);
-
-        // Gerak menuju titik ketiga setelah mencapai titik kedua
         yield return MoveToTarget(point3, speed);
 
-        // Setelah mencapai titik ketiga, kembali ke animasi normal
-        yield return new WaitForSeconds(3f); // Misalnya berhenti berlari selama 3 detik
+        yield return new WaitForSeconds(3f);
         currentState = "Idle";
         animalAnimator.Play("Idle");
 
-        // Mulai Coroutine untuk memilih dan menjalankan animasi secara otomatis
         StartCoroutine(PlayRandomAnimationPeriodically());
     }
 
 
     private void SetRunningAnimation(Vector2 targetPosition)
     {
-        // Hentikan animasi sebelumnya dengan memulai animasi baru (lari)
         StopPreviousAnimation();
 
-        // Tentukan arah berdasarkan posisi target dibandingkan dengan posisi hewan
-        if (targetPosition.x > transform.position.x) // Target di kanan
+        if (targetPosition.x > transform.position.x)
         {
-            animalRenderer.flipX = true;  // Menunjukkan animasi lari ke kanan
-            currentState = "JalanKanan";  // Ganti state ke JalanKanan
-            animalAnimator.Play("JalanKanan");  // Mainkan animasi JalanKanan
+            animalRenderer.flipX = true;
+            currentState = "JalanKanan";
+            animalAnimator.Play("JalanKanan");
         }
-        else if (targetPosition.x < transform.position.x) // Target di kiri
+        else if (targetPosition.x < transform.position.x)
         {
-            animalRenderer.flipX = false;   // Menunjukkan animasi lari ke kiri
-            currentState = "JalanKiri";   // Ganti state ke JalanKiri
-            animalAnimator.Play("JalanKiri");  // Mainkan animasi JalanKiri
+            animalRenderer.flipX = false;
+            currentState = "JalanKiri";
+            animalAnimator.Play("JalanKiri");
         }
     }
 
     private void StopPreviousAnimation()
     {
-        // Menghentikan animasi sebelumnya
-        // Anda bisa menggunakan SetTrigger atau SetBool untuk memastikan animasi sebelumnya dihentikan dengan transisi yang halus
-        animalAnimator.Play("Idle");  // Sebagai contoh, hentikan animasi sebelumnya dan setel ke "Idle" sebelum berlari
+        animalAnimator.Play("Idle");
     }
-
-
 
     private IEnumerator MoveToTarget(Vector2 targetPosition, float speed)
     {
-        // Gerakkan hewan menuju posisi target
         while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
         {
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-            yield return null;  // Tunggu frame berikutnya
+            yield return null;
         }
     }
 
     private Vector2 GetRandomPoint(Vector2 lastPosition)
     {
-        // Pilih titik acak dalam jarak tertentu dari posisi terakhir
-        float randomX = UnityEngine.Random.Range(-5f, 5f);  // Jarak acak dalam sumbu X
-        float randomY = UnityEngine.Random.Range(-5f, 5f);  // Jarak acak dalam sumbu Y
-        return lastPosition + new Vector2(randomX, randomY);  // Titik acak berdasarkan posisi terakhir
+        float randomX = UnityEngine.Random.Range(-5f, 5f);
+        float randomY = UnityEngine.Random.Range(-5f, 5f);
+        return lastPosition + new Vector2(randomX, randomY);
     }
 
     void Die()
     {
-        // Kirim sinyal bahwa hewan ini telah mati.
         OnAnimalDied?.Invoke(this);
         DropItem();
         Debug.Log(gameObject.name + " has died.");
         Destroy(gameObject);
     }
 
-    //logika hewan predator 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (tipeHewan != AnimalType.Agresif) return;
-
-        if (currentTarget != null) return;
-
-        if (other.CompareTag("Animal") || other.CompareTag("Player"))
+        if (tipeHewan == AnimalType.isQuest && currentTarget != null && currentTarget.CompareTag("ItemDrop"))
         {
-            // Ambil skrip AnimalBehavior dari objek yang terdeteksi
-            AnimalBehavior otherAnimal = other.GetComponent<AnimalBehavior>();
+            Debug.Log($"Harimau (Quest) sudah mengejar {currentTarget.name}. Mengabaikan collider lain: {other.name}");
+            return; // Hentikan eksekusi seluruh fungsi OnTriggerEnter2D
+        }
+        // Jika hewan adalah isQuest
+        if (tipeHewan == AnimalType.isQuest)
+        {
+            // Pertama, coba dapatkan komponen ItemDropInteractable dari objek yang masuk trigger
+            ItemDropInteractable itemDrop = other.GetComponent<ItemDropInteractable>();
 
-
-            if (otherAnimal != null && otherAnimal != this && otherAnimal.tipeHewan == AnimalType.Pasif)
+            // Cek apakah komponen ItemDropInteractable ada DAN tag-nya sesuai
+            if (itemDrop != null && other.CompareTag("ItemDrop"))
             {
-                Debug.Log($"{namaHewan} melihat mangsa: {other.name}!");
-
-                // Set mangsa sebagai target
-                currentTarget = other.transform;
-                currentState = "Mengejar"; // Langsung ubah state
-
-                // Hentikan perilaku pasif agar tidak bentrok
-                StopAllCoroutines();
+                // Jika itemDrop ada dan tag-nya sesuai, cek apakah itemName-nya "DagingDomba"
+                if (itemDrop.itemName == "DagingDomba")
+                {
+                    Debug.Log($"{namaHewan} (Quest) melihat item quest: {other.name}!");
+                    currentTarget = other.transform; // Set target ke item drop
+                    currentState = "Mengejar"; // Ubah state menjadi mengejar
+                    StopAllCoroutines(); // Hentikan perilaku lain (misal mengikuti player)
+                    return; // Penting: hentikan eksekusi lebih lanjut karena target sudah ditemukan
+                }
+                else
+                {
+                    // ItemDropInteractable ada, tag-nya sesuai, tapi bukan "DagingDomba".
+                    // Harimau harus diam atau kembali ke perilaku sebelumnya jika ada.
+                    Debug.Log($"{namaHewan} (Quest) mendeteksi item lain: {other.name}, tapi bukan 'DagingDomba'. Tetap diam.");
+                    // Pastikan tidak ada target lain yang sedang dikejar jika ini terjadi
+                    // Jika sebelumnya mengejar player, biarkan tetap mengejar player sampai daging domba muncul
+                    // atau ubah currentTarget = null; currentState = "Idle"; jika ingin dia berhenti total.
+                    // Untuk skenario "diam sampai ada item yang benar", kita harus berhenti mengejar player.
+                    if (currentTarget != null && currentTarget.CompareTag("Player"))
+                    {
+                        currentTarget = null;
+                        currentState = "Idle";
+                        animalAnimator.Play("Idle"); // Pastikan animasinya idle
+                        StopAllCoroutines(); // Berhenti dari pengejaran player
+                    }
+                    return; // Penting: hentikan eksekusi lebih lanjut
+                }
+            }
+            else if (other.CompareTag("Player")) // Jika bukan item drop yang relevan, cek apakah itu player
+            {
+                // Jika hewan isQuest mendeteksi Player
+                // Jangan ubah target jika sudah fokus ke ItemDrop yang benar (sudah dihandle di awal fungsi)
+                Debug.Log($"{namaHewan} (Quest) mendeteksi Player: {other.name}!");
+                currentTarget = other.transform; // Set target ke player
+                currentState = "Mengejar"; // Mulai mengejar player
+                StopAllCoroutines(); // Hentikan perilaku acak jika ada
+                return; // Penting: hentikan eksekusi lebih lanjut
             }
             else
             {
-                currentTarget = other.transform;
-                currentState = "Mengejar";
-                StopAllCoroutines();
+                // other tidak memiliki komponen ItemDropInteractable, atau tag-nya tidak "Untagged" atau "ItemDrop",
+                // dan juga bukan "Player". Harimau harus diam.
+                Debug.Log($"{namaHewan} (Quest) mendeteksi objek non-item quest: {other.name}. Tetap diam.");
+                // Pastikan tidak ada target yang sedang dikejar (terutama player)
+                if (currentTarget != null && currentTarget.CompareTag("Player"))
+                {
+                    currentTarget = null;
+                    currentState = "Idle";
+                    animalAnimator.Play("Idle");
+                    StopAllCoroutines();
+                }
+                return; // Penting: hentikan eksekusi lebih lanjut
+            }
+        }
+
+        // Jika bukan isQuest, atau isQuest tapi targetnya bukan ItemDrop, lanjutkan ke logika lain.
+        if (tipeHewan == AnimalType.Pasif) return;
+
+        // Jangan ubah target jika sudah ada target kecuali untuk kasus ItemDrop di atas.
+        // Jika currentTarget sudah ItemDrop, jangan ganti ke Player/Animal lain.
+        if (currentTarget != null && currentTarget.CompareTag("ItemDrop")) return;
+
+
+        if (other.CompareTag("Animal") || other.CompareTag("Player"))
+        {
+            // Untuk AnimalType.isQuest, dia akan mengikuti player, bukan menyerang animal lain
+            if (tipeHewan == AnimalType.isQuest && other.CompareTag("Player"))
+            {
+                Debug.Log($"{namaHewan} (Quest) mendeteksi Player: {other.name}!");
+                currentTarget = other.transform; // Set target ke player
+                currentState = "Mengejar"; // Mulai mengejar player
+                StopAllCoroutines(); // Hentikan perilaku acak jika ada
+            }
+            else if (tipeHewan == AnimalType.Agresif) // Logika agresif hanya untuk tipe Agresif
+            {
+                AnimalBehavior otherAnimal = other.GetComponent<AnimalBehavior>();
+
+                if (otherAnimal != null && otherAnimal != this && otherAnimal.tipeHewan == AnimalType.Pasif)
+                {
+                    Debug.Log($"{namaHewan} (Agresif) melihat mangsa: {other.name}!");
+                    currentTarget = other.transform;
+                    currentState = "Mengejar";
+                    StopAllCoroutines();
+                }
+                else if (other.CompareTag("Player")) // Agresif juga menyerang Player
+                {
+                    Debug.Log($"{namaHewan} (Agresif) melihat Player: {other.name}!");
+                    currentTarget = other.transform;
+                    currentState = "Mengejar";
+                    StopAllCoroutines();
+                }
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        // Cek dasar: Apakah kita agresif? Apakah yang keluar adalah target kita?
-        if (tipeHewan != AnimalType.Agresif || other.transform != currentTarget)
+        // Jika yang keluar adalah target saat ini
+        if (other.transform == currentTarget)
         {
-            return; // Jika tidak, abaikan event ini.
-        }
+            // Jika hewan adalah isQuest dan targetnya adalah ItemDrop yang baru diambil
+            if (tipeHewan == AnimalType.isQuest && other.CompareTag("ItemDrop"))
+            {
+                Debug.Log($"{namaHewan} (Quest) sudah 'mengambil' ItemDrop. Kembali Idle.");
+                currentTarget = null;
+                currentState = "Idle";
+                StartCoroutine(PlayRandomAnimationPeriodically());
+                return;
+            }
 
-        // Hitung jarak saat ini antara kita dan target yang baru saja keluar dari sebuah trigger.
-        float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
+            // Hitung jarak saat ini
+            float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
 
-        // HANYA JIKA jaraknya lebih besar dari radius deteksi utama kita...
-        if (distanceToTarget > detectionRadius)
-        {
-            // ...BARULAH kita anggap target benar-benar hilang.
-            Debug.Log($"{namaHewan} kehilangan jejak mangsanya karena terlalu jauh.");
+            // HANYA JIKA jaraknya lebih besar dari radius deteksi utama kita,
+            // barulah kita anggap target benar-benar hilang.
+            if (distanceToTarget > detectionRadius)
+            {
+                Debug.Log($"{namaHewan} kehilangan jejak targetnya karena terlalu jauh.");
+                currentTarget = null;
+                currentState = "Idle";
 
-            currentTarget = null; // Hapus target.
-            currentState = "Idle"; // Kembali ke state Idle.
-
-            // Mulai lagi perilaku pasifnya.
-            StartCoroutine(PlayRandomAnimationPeriodically());
-        }
-        else
-        {
-            // Jika target masih di dalam radius deteksi (misalnya, baru saja keluar dari ZonaSerang),
-            // jangan lakukan apa-apa. Biarkan hewan terus mengejar.
-            Debug.Log($"Target keluar dari trigger kecil, tapi masih dalam jangkauan deteksi. Pengejaran dilanjutkan.");
+                // Untuk hewan isQuest, setelah kehilangan target (selain itemdrop),
+                // mungkin kita ingin dia kembali mengejar player
+                if (tipeHewan == AnimalType.isQuest && playerTransform != null)
+                {
+                    Debug.Log($"{namaHewan} (Quest) kembali fokus pada Player.");
+                    currentTarget = playerTransform;
+                    currentState = "Mengejar";
+                }
+                else // Jika bukan isQuest atau tidak ada player
+                {
+                    StartCoroutine(PlayRandomAnimationPeriodically());
+                }
+            }
+            else
+            {
+                Debug.Log($"Target keluar dari trigger kecil, tapi masih dalam jangkauan deteksi. Pengejaran dilanjutkan.");
+            }
         }
     }
 
-    // LOGIKA AGRESIF
     private void ChaseTarget()
     {
-        if (tipeHewan == AnimalType.isQuest)
-        {
-            return;
-        }
         isMoving = true;
         Vector2 direction = (currentTarget.position - transform.position).normalized;
         transform.position = Vector2.MoveTowards(transform.position, currentTarget.position, moveSpeed * Time.deltaTime);
 
-        if (direction.x > 0) // Bergerak ke kanan
+        if (direction.x > 0)
         {
-            animalRenderer.flipX = true; // Sprite menghadap ke kanan
-            animalAnimator.Play("JalanKanan"); // Atau animasi lari jika ada
+            animalRenderer.flipX = true;
+            animalAnimator.Play("JalanKanan");
         }
-        else if (direction.x < 0) // Bergerak ke kiri
+        else if (direction.x < 0)
         {
-            animalRenderer.flipX = false; // Sprite menghadap ke kiri
-            animalAnimator.Play("JalanKiri"); // Atau animasi lari jika ada
+            animalRenderer.flipX = false;
+            animalAnimator.Play("JalanKiri");
         }
-        // Pastikan referensi zonaSerangTransform dan currentTarget ada
         if (zonaSerangTransform != null && currentTarget != null)
         {
             Vector2 directionToTarget = (currentTarget.position - transform.position).normalized;
-
-            //    Dikalikan dengan jarak offset agar posisinya pas di depan hewan.
             zonaSerangTransform.localPosition = directionToTarget * jarakOffsetSerang;
         }
-        //UpdateZonaSerangPosition();
     }
 
     public void JalankanLogikaSerangan()
     {
+        // Harimau dengan tipe AnimalType.isQuest TIDAK AKAN MENYERANG!
         if (tipeHewan == AnimalType.isQuest)
         {
-            return;
+            // Di sini Anda bisa tambahkan logika untuk event quest, misalnya:
+            // if (currentTarget.CompareTag("ItemDrop"))
+            // {
+            //     Debug.Log("Harimau quest berhasil mencapai item drop!");
+            //     Destroy(currentTarget.gameObject); // Ambil itemnya
+            //     currentTarget = null;
+            //     currentState = "Idle";
+            //     StartCoroutine(PlayRandomAnimationPeriodically());
+            // }
+            return; // Hentikan fungsi jika hewan adalah quest
         }
-        // Cek apakah sudah waktunya untuk menyerang lagi (cooldown)
+
+        // Logika serangan HANYA untuk AnimalType.Agresif
         if (Time.time < lastAttackTime + attackCooldown)
         {
-            // Jika belum waktunya, jangan lakukan apa-apa.
             return;
         }
-         
-        // Jika sudah waktunya, catat waktu serangan ini untuk cooldown berikutnya.
+
         lastAttackTime = Time.time;
 
-        // Pastikan masih ada target
         if (currentTarget != null)
         {
             Debug.Log($"{namaHewan} sedang memberikan damage ke {currentTarget.name}");
 
-            // Ambil komponen health dari target dan berikan damage.
             if (currentTarget.CompareTag("Animal"))
             {
                 AnimalBehavior targetBehavior = currentTarget.GetComponent<AnimalBehavior>();
                 if (targetBehavior != null)
                 {
-                    targetBehavior.TakeDamage(10); // Contoh damage
+                    targetBehavior.TakeDamage(10);
                 }
             }
             else if (currentTarget.CompareTag("Player"))
@@ -635,23 +774,19 @@ public class AnimalBehavior : MonoBehaviour
                     player_Health.CheckSekarat();
                 }
             }
-
         }
     }
-
 
     private void UpdateZonaSerangPosition()
     {
         if (zonaSerangTransform == null) return;
-        if (animalRenderer.flipX) // Menghadap ke kiri
+        if (animalRenderer.flipX)
         {
             zonaSerangTransform.localPosition = new Vector3(jarakOffsetSerang, 0, 0);
         }
-        else // Menghadap ke kanan
+        else
         {
             zonaSerangTransform.localPosition = new Vector3(-jarakOffsetSerang, 0, 0);
         }
     }
-
-
 }
