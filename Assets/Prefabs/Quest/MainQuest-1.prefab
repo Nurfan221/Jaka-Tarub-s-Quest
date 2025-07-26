@@ -52,7 +52,7 @@ MonoBehaviour:
   - state: 1
     nameState: 
     dialogueToPlay: {fileID: 11400000, guid: e537283d9f6d70041b010d8e0def7a9d, type: 2}
-    spriteToShow: {fileID: 1543060256506197984, guid: 6c229b8c47a49fc4589219f094685dea, type: 3}
+    spriteToShow: {fileID: 8259674881149527467, guid: 07faa3f47efab56469c337e84d21ec1f, type: 3}
     objectiveInfoForUI: Siapakah Wanita itu ?
     npcPositionStartQuest: {x: 0, y: 0}
     locationToEnterTrigger: 
@@ -140,7 +140,7 @@ MonoBehaviour:
     spriteToShow: {fileID: 5598371188817609087, guid: 806a21963b1ff804589905da3ef50b6f, type: 3}
     objectiveInfoForUI: Danau ?
     npcPositionStartQuest: {x: 0, y: 0}
-    locationToEnterTrigger: SekitarDanau
+    locationToEnterTrigger: RumahJaka
     prefabsToSpawn:
     - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
     animalToDefeatTrigger: 
@@ -150,6 +150,16 @@ MonoBehaviour:
     spriteToShow: {fileID: -9156445652639325360, guid: 4b6c2e1b685a2794a934c9318c8b953b, type: 3}
     objectiveInfoForUI: KabarKesedihan
     npcPositionStartQuest: {x: 0, y: 0}
+    locationToEnterTrigger: RumahJaka
+    prefabsToSpawn:
+    - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+    animalToDefeatTrigger: 
+  - state: 12
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: 27dcaea2d1a65574aaf903f0fc90e04a, type: 2}
+    spriteToShow: {fileID: 0}
+    objectiveInfoForUI: Mas Jhorgeo minta apa yaa ?
+    npcPositionStartQuest: {x: -14, y: 7}
     locationToEnterTrigger: RumahJaka
     prefabsToSpawn:
     - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}

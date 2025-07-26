@@ -13,17 +13,12 @@ MonoBehaviour:
   m_Name: Sekarat
   m_EditorClassIdentifier: 
   TheDialogues:
-  - name: Bandit
-    sentence: Hahaha! Rasakan kekalahanmu, bocah! Sekarang serahkan semua yang kau
-      punya kalau kau masih ingin hidup!
   - name: Jaka Tarub
-    sentence: Tidak akan! Kalian tidak pantas memiliki barangku!
+    sentence: Sepertinya Harimau itu hanya ingin hasil buruanku
   - name: Jaka Tarub
-    sentence: Tidak akan! Kalian tidak pantas memiliki barangku!
+    sentence: Aku harus pergi dari sini sebelum dia  berubah fikiran
   - name: Jaka Tarub
-    sentence: "Aku tidak bisa menang dalam keadaan seperti ini\u2026 Aku harus cari
-      celah untuk kabur!"
-  - name: Bandit
-    sentence: "Hei\u2026 Kau pikir bisa kabur begitu saja?"
-  mainSpeaker: Bandit
+    sentence: kalau tidak salah ada sebuah danau di sini, aku harus pergi ke sana
+      untuk beristirahat
+  mainSpeaker: Jaka Tarub
   promptAfterDialogue: 

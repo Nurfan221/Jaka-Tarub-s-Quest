@@ -38,7 +38,7 @@ public class QuestStateData
 // Ini adalah skrip "Sutradara" utama Anda
 public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi dari kelas dasar Anda
 {
-    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, BerikanHasilBuruan, CariTempatAman, ApakahIniDanauItu, KabarKesedihan , Selesai }
+    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, BerikanHasilBuruan, CariTempatAman, ApakahIniDanauItu, KabarKesedihan, PengingatMainQuest , Selesai }
 
     [Header("Progres Cerita")]
     [SerializeField] private MainQuest1State currentState = MainQuest1State.BelumMulai;
@@ -48,6 +48,9 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
     public Transform lokasiYangDitunggu;
     private string nameLokasiYangDitunggu;
     private AnimalBehavior animalBehavior;
+    private Vector2 positionNpc;
+    private Dialogues questtDialogue;
+    private NPCBehavior npcToCommand;
 
 
     //KUMPULAN "KARTU ADEGAN"
@@ -66,7 +69,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         DialogueSystem.OnDialogueEnded += HandleDialogueEnd;
         PlayerQuest.OnPlayerEnteredLocation += HandleLocationTrigger;
         AnimalBehavior.OnAnimalDied += HandleAnimalDied;
-
+        TimeManager.OnDayChanged += HandleDayChange ; // Misalnya, jika quest ini berhubungan dengan pergantian hari
         Player_Health.Sekarat += HandlePlayerSekarat; // Misalnya, jika quest ini berhubungan dengan kematian pemain
 
         //DialogueSystem.OnDialogueEnded += HandleDialogueTrigger;
@@ -86,6 +89,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         PlayerQuest.OnPlayerEnteredLocation -= HandleLocationTrigger;
         AnimalBehavior.OnAnimalDied -= HandleAnimalDied;
         Player_Health.Sekarat -= HandlePlayerSekarat; // Misalnya, jika quest ini berhubungan dengan kematian pemain
+        TimeManager.OnDayChanged -= HandleDayChange; // Misalnya, jika quest ini berhubungan dengan pergantian hari
         //DialogueSystem.OnDialogueEnded -= HandleDialogueTrigger;
     }
 
@@ -137,16 +141,14 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             case MainQuest1State.PermintaanJhorgeo:
                 objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PermintaanJhorgeo)?.objectiveInfoForUI ?? "";
 
-                Vector2 positionNpc = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PermintaanJhorgeo)?.npcPositionStartQuest ?? Vector2.zero;
-                Dialogues questtDialogue = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PermintaanJhorgeo)?.dialogueToPlay;
+                positionNpc = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PermintaanJhorgeo)?.npcPositionStartQuest ?? Vector2.zero;
+                questtDialogue = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PermintaanJhorgeo)?.dialogueToPlay;
 
                 //UpdateQuest update quest UI 
-                NPCBehavior npcToCommand = NPCManager.Instance.GetActiveNpcByName(targetNpcName);
+                npcToCommand = NPCManager.Instance.GetActiveNpcByName(targetNpcName);
 
-                // 2. Pastikan NPC-nya ditemukan.
                 if (npcToCommand != null)
                 {
-                    // 3. Beri perintah pada NPC yang sudah "hidup" di scene tersebut.
                     npcToCommand.OverrideForQuest(positionNpc, questtDialogue);
                 }
                 else
@@ -201,7 +203,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
              case MainQuest1State.ApakahIniDanauItu:
                 Debug.Log("Memulai adegan Apakah Ini Danau Itu...");
                 objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.ApakahIniDanauItu)?.objectiveInfoForUI ?? "";
-                //nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.ApakahIniDanauItu)?.locationToEnterTrigger ?? "";
+                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.ApakahIniDanauItu)?.locationToEnterTrigger ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
                 HandleSpriteAndDialogue(MainQuest1State.ApakahIniDanauItu);
                 break;
@@ -209,6 +211,29 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 Debug.Log("Memulai adegan Kabar Kesedihan...");
                 objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.KabarKesedihan)?.objectiveInfoForUI ?? "";
                 nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.KabarKesedihan)?.locationToEnterTrigger ?? "";
+                QuestManager.Instance.CreateTemplateQuest();
+                HandleSpriteAndDialogue(MainQuest1State.KabarKesedihan);
+                PlayerController.Instance.HandlePlayerIsGreaf();
+                break;
+             case MainQuest1State.PengingatMainQuest:
+                Debug.Log("Memulai adegan Pengingat Main Quest...");
+                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PengingatMainQuest)?.objectiveInfoForUI ?? "";
+
+                positionNpc = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PengingatMainQuest)?.npcPositionStartQuest ?? Vector2.zero;
+                questtDialogue = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PengingatMainQuest)?.dialogueToPlay;
+
+                //UpdateQuest update quest UI 
+                npcToCommand = NPCManager.Instance.GetActiveNpcByName(targetNpcName);
+
+                if (npcToCommand != null)
+                {
+                    npcToCommand.OverrideForQuest(positionNpc, questtDialogue);
+                }
+                else
+                {
+                    Debug.LogError($"Gagal memberi perintah: NPC aktif dengan nama '{targetNpcName}' tidak ditemukan di scene!");
+                }
+
                 QuestManager.Instance.CreateTemplateQuest();
                 break;
         }
@@ -384,6 +409,10 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             {
                 ChangeState(MainQuest1State.ApakahIniDanauItu);
             }
+            if (currentState == MainQuest1State.ApakahIniDanauItu)
+            {
+                ChangeState(MainQuest1State.KabarKesedihan);
+            }
         }
     }
     private void HandleAnimalDied(AnimalBehavior animalThatDied)
@@ -410,6 +439,20 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 ChangeState(MainQuest1State.MunculkanHarimau);
             }
         }
+    }
+
+    private void HandleDayChange()
+    {
+        // Cek apakah kita sedang dalam state yang peduli tentang ini (misal: PergiKeHutan)
+        if (currentState != MainQuest1State.KabarKesedihan)
+        {
+            return; // Jika tidak, abaikan saja
+        }
+
+        ChangeState(MainQuest1State.PengingatMainQuest);
+        // Logika untuk menangani perubahan hari saat berada di PergiKeHutan
+        Debug.Log("Hari telah berubah. Mungkin ada yang perlu dilakukan di PergiKeHutan.");
+        // Misalnya, spawn hewan baru atau ubah kondisi lingkungan
     }
 
     public void SpawnPrefabsForState(MainQuest1State state)

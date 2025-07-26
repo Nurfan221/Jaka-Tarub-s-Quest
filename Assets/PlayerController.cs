@@ -248,4 +248,17 @@ public class PlayerController : MonoBehaviour
             return Vector3.zero;
         }
     }
+
+    public void HandlePlayerIsGreaf()
+    {
+        if (ActivePlayer.Health != null)
+        {
+          ActivePlayer.Health.StartGrief();
+            Debug.Log("Status grief telah diatur ke true untuk player aktif.");
+        }
+        else
+        {
+            Debug.LogError("Tidak ada Player aktif untuk mengatur status grief.");
+        }
+    }
 }

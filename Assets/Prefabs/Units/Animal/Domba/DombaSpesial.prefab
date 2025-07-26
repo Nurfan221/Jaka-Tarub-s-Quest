@@ -242,6 +242,7 @@ MonoBehaviour:
   currentState: Idle
   jedaAnimasi: 3
   isMoving: 0
+  isAnimalQuest: 1
   moveSpeed: 1
   isAnimalEvent: 0
   tipeHewan: 0
@@ -257,8 +258,9 @@ MonoBehaviour:
   health: 10
   maxHealth: 20
   dropitems:
-  - {fileID: 4459120725376062254, guid: ed5cad5dac6105e41836b4772e81d04d, type: 3}
+  - {fileID: 4459120725376062254, guid: 9592d68b08e41894985222185f1c0cee, type: 3}
   minNormalItem: 1
   maxNormalItem: 2
   minSpecialItem: 0
   maxSpecialItem: 1
+  playerTransform: {fileID: 0}

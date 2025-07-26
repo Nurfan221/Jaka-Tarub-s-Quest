@@ -23,6 +23,7 @@ public class AnimalBehavior : MonoBehaviour
     public string currentState = "Idle";
     public float jedaAnimasi = 3f;
     public bool isMoving;
+    public bool isAnimalQuest;
     public float moveSpeed;
     private Vector2 lastCollisionPoint;
     private bool isAvoiding = false;
@@ -409,13 +410,37 @@ public class AnimalBehavior : MonoBehaviour
 
     public void DropItem()
     {
+        // Bagian ini untuk drop item "normal" (daging, kulit, tulang)
         int normalItemCount = UnityEngine.Random.Range(minNormalItem, maxNormalItem + 1);
-        DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
-        if (dropitems.Length > 2)
+
+
+        if (isAnimalQuest) // Asumsi: ingin mengecek tipeHewan
         {
+         
+            if (dropitems.Length > 0)
+            {
+                GameObject itemToDrop = dropitems[0]; // Asumsi: daging domba adalah elemen pertama
+                Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
+                ItemPool.Instance.DropItem(itemToDrop.name, transform.position + offset, itemToDrop);
+
+            }
+            else
+            {
+                Debug.LogWarning("Dropitems array is empty, cannot drop quest item.");
+            }
+        }
+        else if(!isAnimalQuest)
+        {
+            DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
+        }
+        else if (!isAnimalQuest && dropitems.Length > 2) // Gunakan tipeHewan == AnimalType.isQuest
+        {
+
             int specialItemCount = UnityEngine.Random.Range(minSpecialItem, maxSpecialItem + 1);
             DropItemsByType(3, dropitems.Length, specialItemCount);
         }
+
+     
     }
 
     private void DropItemsByType(int startIndex, int endIndex, int itemCount)
@@ -565,7 +590,7 @@ public class AnimalBehavior : MonoBehaviour
             if (itemDrop != null && other.CompareTag("ItemDrop"))
             {
                 // Jika itemDrop ada dan tag-nya sesuai, cek apakah itemName-nya "DagingDomba"
-                if (itemDrop.itemName == "DagingDomba")
+                if (itemDrop.itemName == "DagingDombaSpesial")
                 {
                     Debug.Log($"{namaHewan} (Quest) melihat item quest: {other.name}!");
                     currentTarget = other.transform; // Set target ke item drop

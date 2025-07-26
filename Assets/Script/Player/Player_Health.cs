@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Player_Health : MonoBehaviour
 {
-    public static Player_Health Instance;
+    //public static Player_Health Instance;
 
     [SerializeField] Player_Anim player_Anim;
     [SerializeField] BuffScrollController buffScrollController;

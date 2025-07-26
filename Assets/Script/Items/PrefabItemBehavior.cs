@@ -10,10 +10,14 @@ public class PrefabItemBehavior : MonoBehaviour
     public GameObject itemDrop;
     private int minItemDrop = 2;
     private int maxItemDrop = 4;
-
+    public ParticleSystem particleSystem;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (particleSystem != null)
+        {
+            particleSystem.Play();
+        }
     }
 
     // Update is called once per frame
