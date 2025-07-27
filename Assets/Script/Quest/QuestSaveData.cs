@@ -39,6 +39,51 @@ public class Serialization<T>
 [System.Serializable]
 public class MainQuestSaveData
 {
-    public string questName; // Untuk tahu quest mana yang aktif
-    public string currentState; // Menyimpan nama state enum saat ini (misal, "PergiKeHutan")
+    // Mengidentifikasi Main Quest SO mana yang sedang aktif
+    public string questNameID; // Menggunakan nama SO sebagai ID unik (misalnya "MainQuestJakaTarub")
+
+    // Progres keseluruhan Main Quest (misal Accepted, Completed)
+    public QuestProgress progress;
+
+    // State spesifik MainQuestController (misal "BerikanHasilBuruan")
+    public string currentStateName;
+
+    // Progres item, disimpan sebagai dua list terpisah karena Dictionary tidak langsung Serializable
+    public List<string> itemProgressKeys;
+    public List<int> itemProgressValues;
+
+    // Konstruktor untuk membuat MainQuestSaveData dari PlayerMainQuestStatus
+    public MainQuestSaveData(PlayerMainQuestStatus status)
+    {
+        // Memastikan MainQuestDefinition tidak null sebelum mengakses namanya
+        this.questNameID = status.MainQuestDefinition != null ? status.MainQuestDefinition.name : ""; // Mengambil nama SO
+        this.progress = status.Progress;
+        this.currentStateName = status.CurrentStateName; // Mengambil state yang sudah kita tambahkan
+
+        // Mengonversi Dictionary itemProgress ke dua List terpisah
+        this.itemProgressKeys = new List<string>();
+        this.itemProgressValues = new List<int>();
+        if (status.itemProgress != null) // Cek null untuk itemProgress
+        {
+            foreach (var pair in status.itemProgress)
+            {
+                this.itemProgressKeys.Add(pair.Key);
+                this.itemProgressValues.Add(pair.Value);
+            }
+        }
+    }
+
+    // Metode pembantu untuk mengonversi kembali ke Dictionary (opsional, bisa juga dilakukan di Loader)
+    public Dictionary<string, int> GetItemProgressDictionary()
+    {
+        Dictionary<string, int> dict = new Dictionary<string, int>();
+        if (itemProgressKeys != null && itemProgressValues != null && itemProgressKeys.Count == itemProgressValues.Count)
+        {
+            for (int i = 0; i < itemProgressKeys.Count; i++)
+            {
+                dict[itemProgressKeys[i]] = itemProgressValues[i];
+            }
+        }
+        return dict;
+    }
 }

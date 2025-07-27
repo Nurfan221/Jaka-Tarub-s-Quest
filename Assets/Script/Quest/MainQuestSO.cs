@@ -1,5 +1,7 @@
 // Di MainQuestSO.cs
+using System.Collections.Generic;
 using UnityEngine;
+using System.Linq; // Tambahkan ini untuk menggunakan .FirstOrDefault()
 
 [CreateAssetMenu(fileName = "New Main Quest", menuName = "Quest System/Main Quest")]
 public class MainQuestSO : ScriptableObject
@@ -8,10 +10,16 @@ public class MainQuestSO : ScriptableObject
     [TextArea(3, 5)]
     public string description;
 
-    // Tambahkan variabel ini untuk menentukan kapan quest bisa dimulai
     public int dateToActivate;
-    public int monthToActivate; // Jika perlu bulan juga
-    public string namaNpcQuest; // Nama NPC yang memberikan quest
+    public int monthToActivate;
+    public string namaNpcQuest;
+    public List<ItemData> itemRequirements; // List item yang dibutuhkan quest
+    public int goldReward;
+    public List<ItemData> itemRewards;
 
     public GameObject questControllerPrefab;
+
+
+    
 }
+

@@ -38553,6 +38553,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.25, y: 0.34375}
   m_EdgeRadius: 0
+--- !u!114 &1353698680 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1391474619495877927, guid: d32bb5142d596124ea684d19e488807c, type: 3}
+  m_PrefabInstance: {fileID: 1932654062}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be834e9ce55cbd44943996ed1ad4e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1355092603 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4059415801196439076, guid: a442f0971df64334e91b8d8921c86ce4, type: 3}
@@ -47679,7 +47690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0254749bc8e9ce549a7e9e380ccda005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _craftingUI: {fileID: 0}
+  _craftingUI: {fileID: 1353698680}
 --- !u!1001 &1685637046
 PrefabInstance:
   m_ObjectHideFlags: 0

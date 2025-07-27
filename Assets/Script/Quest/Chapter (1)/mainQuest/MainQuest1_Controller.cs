@@ -93,25 +93,46 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         //DialogueSystem.OnDialogueEnded -= HandleDialogueTrigger;
     }
 
-    public override void StartQuest(QuestManager manager, MainQuestSO so)
+    public override void StartQuest(QuestManager manager, MainQuestSO so, PlayerMainQuestStatus status)
     {
-        base.StartQuest(manager, so); // Panggil implementasi dasar
+        base.StartQuest(manager, so, status); // Panggil implementasi dasar
 
         // Sekarang Anda bisa mengakses nama NPC dari naskah
         this.targetNpcName = questData.namaNpcQuest;
         Debug.Log($"NPC target untuk quest ini adalah: {this.targetNpcName}");
 
         // Mulai adegan pertama
-        ChangeState(MainQuest1State.AdeganMimpi);
+        if (!string.IsNullOrEmpty(playerQuestStatus.CurrentStateName))
+        {
+            // Konversi string kembali ke enum
+            if (System.Enum.TryParse(playerQuestStatus.CurrentStateName, out MainQuest1State loadedState))
+            {
+                ChangeState(loadedState); // Set state berdasarkan data yang dimuat
+            }
+            else
+            {
+                Debug.LogWarning($"Gagal memuat state '{playerQuestStatus.CurrentStateName}'. Menggunakan state awal.");
+                ChangeState(MainQuest1State.AdeganMimpi); // Fallback ke state awal
+            }
+        }
+        else
+        {
+            ChangeState(MainQuest1State.AdeganMimpi); // Jika tidak ada state yang dimuat, mulai dari awal
+        }
     }
 
     private void ChangeState(MainQuest1State newState)
     {
+        QuestManager.Instance.SaveMainQuest();
 
         if (isChangingState) return; // Jika sedang sibuk, jangan lakukan apa-apa
 
         isChangingState = true;
         currentState = newState;
+        if (playerQuestStatus != null)
+        {
+            playerQuestStatus.CurrentStateName = newState.ToString();
+        }
         //Debug.Log($"Main Quest '{questName}' masuk ke adegan: {currentState}");
 
         QuestStateData data = stateDataList.FirstOrDefault(s => s.state == newState);
@@ -312,6 +333,14 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         ChangeState(MainQuest1State.CariTempatAman);
 
     }
+    
+    private void HandleItemGive(ItemData itemDate)
+    {
+        // Logika untuk menangani item yang diberikan
+        Debug.Log($"Item '{itemDate.itemName}' telah diberikan. Mungkin ada aksi yang perlu dilakukan.");
+        // Misalnya, pindah ke adegan berikutnya
+
+    }
 
     public override void UpdateQuest() { /* Dibiarkan kosong karena berbasis event */ }
     private void HandlePlayerSekarat()
@@ -487,4 +516,41 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
 
     }
+
+    public bool TryProcessGivenItem(ItemData givenItemData)
+    {
+        // Pastikan kita punya status quest yang valid
+        if (playerQuestStatus == null || playerQuestStatus.Progress != QuestProgress.Accepted)
+        {
+            Debug.LogWarning("Tidak ada Main Quest aktif atau sudah selesai untuk memproses item.");
+            return false;
+        }
+
+        Debug.Log($"Main Quest Controller: Memproses item '{givenItemData.itemName}'...");
+
+        ItemData requiredItem = GetRequiredItem(givenItemData.itemName); // Menggunakan fungsi dari base class
+        if (requiredItem == null) return false;
+
+        int neededAmount = GetNeededItemCount(givenItemData.itemName); // Menggunakan fungsi dari base class
+        if (neededAmount <= 0) return false;
+
+        int amountToProcess = Mathf.Min(givenItemData.count, neededAmount);
+
+        if (amountToProcess > 0)
+        {
+            // Update progres item di PlayerMainQuestStatus yang disimpan di base class
+            playerQuestStatus.itemProgress[givenItemData.itemName] += amountToProcess;
+
+            Debug.Log($"Progres '{givenItemData.itemName}' untuk '{questName}' diupdate: {playerQuestStatus.itemProgress[givenItemData.itemName]}/{requiredItem.count}");
+
+            if (AreAllItemRequirementsMet()) // Menggunakan fungsi dari base class tanpa parameter
+            {
+                Debug.Log($"SEMUA ITEM DIBUTUHKAN UNTUK MAIN QUEST '{questName}' TELAH TERPENUHI!");
+                ChangeState(MainQuest1State.Selesai);
+            }
+            return true;
+        }
+        return false;
+    }
+
 }

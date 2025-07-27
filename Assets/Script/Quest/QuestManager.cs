@@ -21,6 +21,7 @@ public class QuestManager : MonoBehaviour
     //MainQuestController 
     public MainQuestSO pendingMainQuest; // Quest yang menunggu untuk diaktifkan
     public MainQuestController activeMainQuestController; // Controller yang sedang berjalan
+    public PlayerMainQuestStatus activePlayerMainQuestStatus;
 
 
     [Header("Status Quest Pemain")]
@@ -44,6 +45,7 @@ public class QuestManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
             LoadQuests(); // Panggil Load saat Awake
+            LoadMainQuest();
         }
     }
 
@@ -63,7 +65,8 @@ public class QuestManager : MonoBehaviour
 
     private void Start()
     {
-        StartMainQuest(pendingMainQuest);
+        //StartMainQuest(pendingMainQuest);
+
     }
 
     public void DialogueEnd()
@@ -94,7 +97,8 @@ public class QuestManager : MonoBehaviour
             {
                 Debug.Log($"Memulai Main Quest yang tertunda: {pendingMainQuest.questName}");
                 StartMainQuest(pendingMainQuest);
-            }else
+            }
+            else
             {
                 Debug.LogError($"Main Quest '{pendingMainQuest.questName}' belum bisa dimulai. Tanggal saat ini: {TimeManager.Instance.timeData_SO.date}, Bulan: {TimeManager.Instance.timeData_SO.bulan}. Tanggal aktivasi: {pendingMainQuest.dateToActivate}, Bulan: {pendingMainQuest.monthToActivate}");
             }
@@ -274,7 +278,13 @@ public class QuestManager : MonoBehaviour
         // Tulis teks JSON tersebut ke dalam sebuah file
         File.WriteAllText(GetSavePath(), json);
         Debug.Log("Progres quest berhasil disimpan ke: " + GetSavePath());
+
+
+        //buat logika save main quest
+        //MainQuestSaveData mainQuestSaveData = new 
     }
+
+  
 
     // Di dalam QuestManager.cs
     public void LoadQuests()
@@ -311,6 +321,96 @@ public class QuestManager : MonoBehaviour
         }
 
         CreateTemplateQuest();
+    }
+
+    public void SaveMainQuest()
+    {
+        // Pastikan ada Main Quest aktif yang bisa disimpan
+        if (activePlayerMainQuestStatus == null)
+        {
+            Debug.Log("Tidak ada Main Quest aktif untuk disimpan.");
+            return;
+        }
+
+        MainQuestSaveData mainQuestSaveData = new MainQuestSaveData(activePlayerMainQuestStatus);
+
+        // JsonUtility.ToJson bisa langsung menserialisasi satu objek
+        string json = JsonUtility.ToJson(mainQuestSaveData, true); // 'true' untuk pretty print (mudah dibaca)
+
+        // Application.persistentDataPath adalah lokasi yang aman untuk menyimpan data di berbagai platform
+        string filePath = Application.persistentDataPath + "/mainQuestSave.json"; // Gunakan ekstensi .json
+
+        // Tulis string JSON ke file
+        try
+        {
+            System.IO.File.WriteAllText(filePath, json);
+            Debug.Log($"Main Quest data berhasil disimpan ke: {filePath}");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Gagal menyimpan Main Quest data: {e.Message}");
+        }
+    }
+    public void LoadMainQuest()
+    {
+        string filePath = Application.persistentDataPath + "/mainQuestSave.json";
+
+        if (!System.IO.File.Exists(filePath))
+        {
+            Debug.LogWarning("File save Main Quest tidak ditemukan. Memulai dari awal.");
+            return;
+        }
+
+        string json = System.IO.File.ReadAllText(filePath);
+        MainQuestSaveData loadedSaveData = JsonUtility.FromJson<MainQuestSaveData>(json);
+
+        if (loadedSaveData == null)
+        {
+            Debug.LogError("Data Main Quest yang dimuat kosong atau tidak valid.");
+            return;
+        }
+
+        Debug.Log($"Data JSON berhasil diparsing. questNameID dari save: '{loadedSaveData.questNameID}'"); // <<< Tambahkan ini
+
+        MainQuestSO foundMainQuestSO = Resources.Load<MainQuestSO>(loadedSaveData.questNameID); // Line 404
+
+        if (foundMainQuestSO == null)
+        {
+            Debug.LogError($"ERROR: MainQuestSO dengan ID '{loadedSaveData.questNameID}' tidak ditemukan saat memuat. Quest tidak dapat dilanjutkan.");
+            return;
+        }
+
+        // Hancurkan controller yang ada jika game sedang berjalan sebelum memuat
+        if (activeMainQuestController != null)
+        {
+            Destroy(activeMainQuestController.gameObject);
+            activeMainQuestController = null;
+        }
+
+        // Instantiate kembali MainQuestController prefab yang sesuai
+        GameObject controllerGO = Instantiate(foundMainQuestSO.questControllerPrefab, this.transform);
+        activeMainQuestController = controllerGO.GetComponent<MainQuestController>();
+
+        if (activeMainQuestController == null)
+        {
+            Debug.LogError($"ERROR: Prefab '{foundMainQuestSO.questControllerPrefab.name}' tidak memiliki komponen MainQuestController.");
+            Destroy(controllerGO);
+            return;
+        }
+
+        // Buat objek PlayerMainQuestStatus baru dari data yang dimuat
+        activePlayerMainQuestStatus = new PlayerMainQuestStatus(foundMainQuestSO); // Inisialisasi dengan definisi SO
+        activePlayerMainQuestStatus.Progress = loadedSaveData.progress;
+        activePlayerMainQuestStatus.CurrentStateName = loadedSaveData.currentStateName;
+        activePlayerMainQuestStatus.itemProgress = loadedSaveData.GetItemProgressDictionary(); // Isi dictionary progres item
+
+        // Panggil StartQuest pada controller yang baru di-spawn, berikan status yang sudah dimuat
+        activeMainQuestController.StartQuest(this, foundMainQuestSO, activePlayerMainQuestStatus);
+
+        Debug.Log($"Main Quest '{activePlayerMainQuestStatus.MainQuestDefinition.questName}' berhasil diinisialisasi ulang ke state '{activePlayerMainQuestStatus.CurrentStateName}'.");
+
+        // Jika Anda punya UI untuk Quest Manager, perbarui di sini
+        // CreateTemplateQuest();
     }
 
     public void DeleteSaveData()
@@ -389,7 +489,11 @@ public class QuestManager : MonoBehaviour
     }
     public void StartMainQuest(MainQuestSO mainQuestSO)
     {
-        if (activeMainQuestController != null) return;
+        if (activeMainQuestController != null)
+        {
+            Debug.LogWarning($"Main Quest '{activeMainQuestController.questName}' sudah aktif. Tidak bisa memulai '{mainQuestSO.questName}'.");
+            return;
+        }
         if (mainQuestSO.questControllerPrefab == null)
         {
             Debug.LogError($"Prefab controller untuk '{mainQuestSO.questName}' belum diatur!");
@@ -397,17 +501,28 @@ public class QuestManager : MonoBehaviour
         }
 
         Debug.Log($"MEMULAI MAIN QUEST: {mainQuestSO.questName}");
+
+        // Instantiate controller prefab
         GameObject controllerGO = Instantiate(mainQuestSO.questControllerPrefab, this.transform);
         activeMainQuestController = controllerGO.GetComponent<MainQuestController>();
 
+        // Buat dan simpan status Main Quest yang baru ke variabel kelas
+        this.activePlayerMainQuestStatus = new PlayerMainQuestStatus(mainQuestSO); // <<< PENTING: Assign ke variabel kelas
+
         if (activeMainQuestController != null)
         {
-            activeMainQuestController.StartQuest(this, mainQuestSO);
+            // Panggil StartQuest pada controller, dan berikan status Main Quest yang baru dibuat
+            activeMainQuestController.StartQuest(this, mainQuestSO, activePlayerMainQuestStatus);
             pendingMainQuest = null; // Hapus dari antrian setelah dimulai
             CreateTemplateQuest(); // Perbarui UI
+
+
         }
     }
-
+    public PlayerMainQuestStatus GetActiveMainQuestStatus()
+    {
+        return activePlayerMainQuestStatus;
+    }
     // Handle Template Story active
     public void HandleContentStory(Sprite sp)
     {
