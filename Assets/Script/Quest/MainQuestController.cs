@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
+using static MainQuest1_Controller;
 
 public abstract class MainQuestController : MonoBehaviour
 {
@@ -22,6 +24,7 @@ public abstract class MainQuestController : MonoBehaviour
     protected bool isQuestComplete = false;
 
     protected PlayerMainQuestStatus playerQuestStatus;
+    public static event Action<bool> OnItemGivenToNPC;
 
     public virtual void StartQuest(QuestManager manager, MainQuestSO so, PlayerMainQuestStatus status)
     {
@@ -116,5 +119,42 @@ public abstract class MainQuestController : MonoBehaviour
         }
 
         return requiredItem.count - currentProgress;
+    }
+
+    public bool TryProcessGivenItem(ItemData givenItemData)
+    {
+        // Pastikan kita punya status quest yang valid
+        if (playerQuestStatus == null || playerQuestStatus.Progress != QuestProgress.Accepted)
+        {
+            Debug.LogWarning("Tidak ada Main Quest aktif atau sudah selesai untuk memproses item.");
+            return false;
+        }
+
+        Debug.Log($"Main Quest Controller: Memproses item '{givenItemData.itemName}'...");
+
+        ItemData requiredItem = GetRequiredItem(givenItemData.itemName); // Menggunakan fungsi dari base class
+        if (requiredItem == null) return false;
+
+        int neededAmount = GetNeededItemCount(givenItemData.itemName); // Menggunakan fungsi dari base class
+        if (neededAmount <= 0) return false;
+
+        int amountToProcess = Mathf.Min(givenItemData.count, neededAmount);
+
+        if (amountToProcess > 0)
+        {
+            // Update progres item di PlayerMainQuestStatus yang disimpan di base class
+            playerQuestStatus.itemProgress[givenItemData.itemName] += amountToProcess;
+
+            Debug.Log($"Progres '{givenItemData.itemName}' untuk '{questName}' diupdate: {playerQuestStatus.itemProgress[givenItemData.itemName]}/{requiredItem.count}");
+
+            if (AreAllItemRequirementsMet()) // Menggunakan fungsi dari base class tanpa parameter
+            {
+                Debug.Log($"SEMUA ITEM DIBUTUHKAN UNTUK MAIN QUEST '{questName}' TELAH TERPENUHI!");
+                OnItemGivenToNPC?.Invoke(true); // Panggil event jika semua item terpenuhi
+            }
+            return true;
+        }
+        return false;
+        OnItemGivenToNPC?.Invoke(false); // Panggil event jika item tidak relevan
     }
 }

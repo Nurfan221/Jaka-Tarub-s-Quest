@@ -1,5 +1,6 @@
-using UnityEngine;
+using System;
 using System.Linq;
+using UnityEngine;
 
 public class NPCBehavior : MonoBehaviour
 {
@@ -132,95 +133,30 @@ public class NPCBehavior : MonoBehaviour
         Debug.Log($"NPC {npcName} dipindahkan ke lokasi quest.");
     }
 
- 
+
 
     public bool CheckItemGive(ItemData inventoryItemData)
     {
-        Debug.Log($"Memeriksa apakah NPC {this.npcName} membutuhkan item {inventoryItemData.itemName}");
-        PlayerQuestStatus activeQuestStatus = QuestManager.Instance.GetActiveQuestForNPC(this.npcName);
+        Debug.Log($"NPC {this.npcName}: Pemain mencoba memberikan item {inventoryItemData.itemName}");
 
-        if (activeQuestStatus == null)
+        // Panggil fungsi terpusat di QuestManager untuk memproses item
+        bool itemProcessedByQuest = QuestManager.Instance.ProcessItemGivenToNPC(inventoryItemData, this.npcName); // <<< PENTING
+
+        if (itemProcessedByQuest)
         {
-            Debug.Log($"Tidak ada quest aktif untuk NPC {this.npcName}");
-            return false;
-            //Debug.Log($"seharusnya nama npc adalah {activeQuestStatus.Quest.npcName}");
-        }
+          
 
-        //Cari apakah item yang diberikan pemain dibutuhkan oleh quest aktif tersebut.
-        ItemData requiredItem = activeQuestStatus.Quest.itemRequirements
-            .FirstOrDefault(req => req.itemName.Equals(inventoryItemData.itemName, System.StringComparison.OrdinalIgnoreCase));
-
-        // Jika item tidak dibutuhkan oleh quest ini, hentikan fungsi.
-        if (requiredItem == null)
-        {
-            Debug.Log($"Item {inventoryItemData.itemName} tidak dibutuhkan untuk quest '{activeQuestStatus.Quest.questName}'.");
-            return false;
-        }
-
-        //Hitung progres dan jumlah yang dibutuhkan
-        int currentProgress = activeQuestStatus.itemProgress[inventoryItemData.itemName];
-        int needed = requiredItem.count - currentProgress;
-
-        if (needed <= 0)
-        {
-            Debug.Log($"Kebutuhan untuk item {inventoryItemData.itemName} sudah terpenuhi.");
-            return false; // Kebutuhan item ini sudah selesai
-        }
-
-        //Tentukan berapa banyak item yang akan diberikan
-        int amountToGive = Mathf.Min(inventoryItemData.count, needed);
-
-        //Lakukan proses serah terima
-        if (amountToGive > 0)
-        {
-            // Tambahkan progres di data status quest
-            activeQuestStatus.itemProgress[inventoryItemData.itemName] += amountToGive;
-
-            // Kurangi item dari inventaris pemain
-            inventoryItemData.count -= amountToGive;
-
-            Debug.Log($"Diberikan {amountToGive} {inventoryItemData.itemName} untuk quest '{activeQuestStatus.Quest.questName}'.");
-
-            // Setelah memberikan item, periksa apakah quest tersebut sekarang sudah selesai
-            CheckIfQuestIsComplete(activeQuestStatus);
-
-            return true; // Berhasil memberikan item
-        }
-
-        return false; // Gagal memberikan item
-    }
-
-    // Buat fungsi helper baru untuk memeriksa penyelesaian quest
-    private void CheckIfQuestIsComplete(PlayerQuestStatus questStatus)
-    {
-        // Cek apakah quest valid
-        if (questStatus == null || questStatus.Progress != QuestProgress.Accepted)
-        {
-            return;
-        }
-
-        bool allRequirementsMet = true;
-        foreach (var requirement in questStatus.Quest.itemRequirements)
-        {
-            if (questStatus.itemProgress[requirement.itemName] < requirement.count)
-            {
-                allRequirementsMet = false;
-                break;
-            }
-        }
-
-        // JIKA SEMUA SYARAT TERPENUHI...
-        if (allRequirementsMet)
-        {
-            // Biarkan QuestManager yang mengurus sisanya (dialog, hadiah, save).
-            QuestManager.Instance.CompleteQuest(questStatus);
+            Debug.Log($"NPC {this.npcName}: Item '{inventoryItemData.itemName}' telah diproses oleh sistem quest.");
+            // Panggil fungsi untuk memperbarui UI Inventaris pemain
+            // MechanicController.Instance.HandleUpdateInventory(); // Contoh
+            return true; // Item berhasil diberikan dan diproses
         }
         else
         {
-            // Jika belum selesai, Anda bisa memicu dialog "pengingat" di sini
-            Debug.Log("Quest belum selesai, masih ada item yang dibutuhkan.");
+            Debug.Log($"NPC {this.npcName}: Item '{inventoryItemData.itemName}' tidak relevan untuk quest manapun.");
+            return false; // Item tidak diproses
         }
     }
 
-    // HAPUS SEMUA FUNGSI LAMA: CheckFinishQuest, CheckFinishMainQuest, CheckFinishMiniQuest.
+
 }

@@ -38,7 +38,7 @@ public class QuestStateData
 // Ini adalah skrip "Sutradara" utama Anda
 public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi dari kelas dasar Anda
 {
-    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, BerikanHasilBuruan, CariTempatAman, ApakahIniDanauItu, KabarKesedihan, PengingatMainQuest , Selesai }
+    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, BerikanHasilBuruan, CariTempatAman, ApakahIniDanauItu, KabarKesedihan, PengingatMainQuest, ProsesToGiveItem, Selesai }
 
     [Header("Progres Cerita")]
     [SerializeField] private MainQuest1State currentState = MainQuest1State.BelumMulai;
@@ -257,6 +257,10 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
                 QuestManager.Instance.CreateTemplateQuest();
                 break;
+            case MainQuest1State.ProsesToGiveItem:
+                Debug.Log("Memulai adegan Proses To Give Item...");
+
+                break;
         }
         StartCoroutine(FinishStateChange());
     }
@@ -315,9 +319,12 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
                 ChangeState(MainQuest1State.CariRusa);
                 break;
-            //case MainQuest1State.CariRusa:
-            //    ChangeState(MainQuest1State.MunculkanHarimau);
-            //    break;
+            case MainQuest1State.PengingatMainQuest:
+                ChangeState(MainQuest1State.ProsesToGiveItem);
+                break;
+                //case MainQuest1State.CariRusa:
+                //    ChangeState(MainQuest1State.MunculkanHarimau);
+                //    break;
 
 
                 // Tambahkan case lain jika diperlukan
@@ -517,40 +524,6 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
     }
 
-    public bool TryProcessGivenItem(ItemData givenItemData)
-    {
-        // Pastikan kita punya status quest yang valid
-        if (playerQuestStatus == null || playerQuestStatus.Progress != QuestProgress.Accepted)
-        {
-            Debug.LogWarning("Tidak ada Main Quest aktif atau sudah selesai untuk memproses item.");
-            return false;
-        }
-
-        Debug.Log($"Main Quest Controller: Memproses item '{givenItemData.itemName}'...");
-
-        ItemData requiredItem = GetRequiredItem(givenItemData.itemName); // Menggunakan fungsi dari base class
-        if (requiredItem == null) return false;
-
-        int neededAmount = GetNeededItemCount(givenItemData.itemName); // Menggunakan fungsi dari base class
-        if (neededAmount <= 0) return false;
-
-        int amountToProcess = Mathf.Min(givenItemData.count, neededAmount);
-
-        if (amountToProcess > 0)
-        {
-            // Update progres item di PlayerMainQuestStatus yang disimpan di base class
-            playerQuestStatus.itemProgress[givenItemData.itemName] += amountToProcess;
-
-            Debug.Log($"Progres '{givenItemData.itemName}' untuk '{questName}' diupdate: {playerQuestStatus.itemProgress[givenItemData.itemName]}/{requiredItem.count}");
-
-            if (AreAllItemRequirementsMet()) // Menggunakan fungsi dari base class tanpa parameter
-            {
-                Debug.Log($"SEMUA ITEM DIBUTUHKAN UNTUK MAIN QUEST '{questName}' TELAH TERPENUHI!");
-                ChangeState(MainQuest1State.Selesai);
-            }
-            return true;
-        }
-        return false;
-    }
+  
 
 }

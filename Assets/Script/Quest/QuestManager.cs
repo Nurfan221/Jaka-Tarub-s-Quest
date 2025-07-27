@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO; // Penting untuk operasi file
 using System.Linq;
@@ -22,6 +23,8 @@ public class QuestManager : MonoBehaviour
     public MainQuestSO pendingMainQuest; // Quest yang menunggu untuk diaktifkan
     public MainQuestController activeMainQuestController; // Controller yang sedang berjalan
     public PlayerMainQuestStatus activePlayerMainQuestStatus;
+
+    public static event Action<ItemData> OnItemGivenToNPC;
 
 
     [Header("Status Quest Pemain")]
@@ -135,7 +138,140 @@ public class QuestManager : MonoBehaviour
         );
     }
 
+    public PlayerMainQuestStatus GetActiveMainQuestStatus(string npcName)
+    {
+        // Pertama, cek apakah ada Main Quest yang aktif secara keseluruhan
+        if (activePlayerMainQuestStatus == null || activePlayerMainQuestStatus.Progress != QuestProgress.Accepted)
+        {
+            return null; // Tidak ada Main Quest aktif atau belum diterima
+        }
 
+        // Kemudian, cek apakah NPC yang diberikan adalah NPC yang terkait dengan Main Quest ini
+        // (Asumsi MainQuestSO.npcName sudah diset dengan benar)
+        if (activePlayerMainQuestStatus.MainQuestDefinition != null &&
+            activePlayerMainQuestStatus.MainQuestDefinition.namaNpcQuest.Equals(npcName, StringComparison.OrdinalIgnoreCase))
+        {
+            return activePlayerMainQuestStatus; // Main Quest aktif, dan NPC cocok
+        }
+
+        return null; // Main Quest aktif tetapi NPC tidak cocok, atau MainQuestDefinition null
+    }
+    public void TriggerOnItemGivenToNPC(ItemData item)
+    {
+        // Pastikan ada yang mendengarkan sebelum memicu event
+        OnItemGivenToNPC?.Invoke(item);
+        Debug.Log($"Event OnItemGivenToNPC dipicu: Item '{item.itemName}'");
+    }
+
+    // Mengembalikan TRUE jika item berhasil diproses oleh Main Quest ATAU Side Quest
+    private void CheckIfQuestIsComplete(PlayerQuestStatus questStatus)
+    {
+        // Cek apakah quest valid
+        if (questStatus == null || questStatus.Progress != QuestProgress.Accepted)
+        {
+            return;
+        }
+
+        bool allRequirementsMet = true;
+        // Pastikan questStatus.Quest dan itemRequirements tidak null
+        if (questStatus.Quest != null && questStatus.Quest.itemRequirements != null)
+        {
+            foreach (var requirement in questStatus.Quest.itemRequirements)
+            {
+                // Pastikan itemProgress mengandung kunci ini sebelum mengaksesnya
+                if (!questStatus.itemProgress.ContainsKey(requirement.itemName) || questStatus.itemProgress[requirement.itemName] < requirement.count)
+                {
+                    allRequirementsMet = false;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            allRequirementsMet = false; // Jika tidak ada definisi quest atau itemRequirements
+        }
+
+
+        // JIKA SEMUA SYARAT TERPENUHI...
+        if (allRequirementsMet)
+        {
+            Debug.Log($"Side Quest '{questStatus.Quest.questName}' TELAH TERPENUHI!");
+            // Biarkan QuestManager yang mengurus sisanya (dialog, hadiah, save).
+            // Pastikan fungsi CompleteQuest ini ada dan menangani Side Quest
+            CompleteQuest(questStatus);
+        }
+        else
+        {
+            // Jika belum selesai, Anda bisa memicu dialog "pengingat" di sini
+            Debug.Log($"Side Quest '{questStatus.Quest.questName}' belum selesai, masih ada item yang dibutuhkan.");
+        }
+    }
+
+    public bool ProcessItemGivenToNPC(ItemData givenItemData, string npcName)
+    {
+        Debug.Log($"QuestManager: Menerima item '{givenItemData.itemName}' dari '{npcName}' untuk diproses.");
+
+        //Logika pengecekan MainQuest
+        PlayerMainQuestStatus currentMainQuestStatus = GetActiveMainQuestStatus(npcName);
+        if (currentMainQuestStatus != null)
+        {
+            if (currentMainQuestStatus.MainQuestDefinition != null &&
+                currentMainQuestStatus.MainQuestDefinition.namaNpcQuest.Equals(npcName, StringComparison.OrdinalIgnoreCase))
+            {
+                if (activeMainQuestController != null)
+                {
+                    // TryProcessGivenItem di MainQuestController sudah memiliki logika pengecekan kelengkapan item
+                    // dan memajukan state quest jika semua item terpenuhi.
+                    bool processedByMainQuest = activeMainQuestController.TryProcessGivenItem(givenItemData);
+                    if (processedByMainQuest)
+                    {
+                        Debug.Log($"QuestManager: Item '{givenItemData.itemName}' berhasil diproses oleh Main Quest.");
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.Log($"QuestManager: Item '{givenItemData.itemName}' tidak sepenuhnya diproses oleh Main Quest (mungkin sudah cukup atau tidak relevan untuk state saat ini).");
+                    }
+                }
+            }
+        }
+
+        //logika pengecekan untuk sideQuest 
+        PlayerQuestStatus activeSideQuestStatus = GetActiveQuestForNPC(npcName);
+        if (activeSideQuestStatus != null)
+        {
+            ItemData requiredSideItem = activeSideQuestStatus.Quest.itemRequirements
+                .FirstOrDefault(req => req.itemName.Equals(givenItemData.itemName, StringComparison.OrdinalIgnoreCase));
+
+            if (requiredSideItem != null)
+            {
+                int currentProgressSide = activeSideQuestStatus.itemProgress.ContainsKey(givenItemData.itemName) ? activeSideQuestStatus.itemProgress[givenItemData.itemName] : 0;
+                int neededSide = requiredSideItem.count - currentProgressSide;
+
+                if (neededSide > 0)
+                {
+                    int amountToGiveSide = Mathf.Min(givenItemData.count, neededSide);
+
+                    if (amountToGiveSide > 0)
+                    {
+                        activeSideQuestStatus.itemProgress[givenItemData.itemName] += amountToGiveSide;
+                        // givenItemData.count -= amountToGiveSide; // Pengurangan item diinventaris dilakukan di NPCBehavior setelah ini.
+                        // Kurangi item dari inventaris pemain
+                        givenItemData.count -= amountToGiveSide;
+                        Debug.Log($"QuestManager: Item '{givenItemData.itemName}' berhasil diproses oleh Side Quest.");
+
+                        // <<< PANGGIL FUNGSI INI DI SINI UNTUK SIDE QUEST >>>
+                        CheckIfQuestIsComplete(activeSideQuestStatus);
+
+                        return true; // Side Quest berhasil memprosesnya
+                    }
+                }
+            }
+        }
+
+        Debug.Log($"QuestManager: Item '{givenItemData.itemName}' tidak diproses oleh quest manapun.");
+        return false; // Tidak ada quest yang memproses item ini
+    }
     public void CreateTemplateQuest()
     {
         Debug.Log("Membuat template quest...");
@@ -519,10 +655,7 @@ public class QuestManager : MonoBehaviour
 
         }
     }
-    public PlayerMainQuestStatus GetActiveMainQuestStatus()
-    {
-        return activePlayerMainQuestStatus;
-    }
+
     // Handle Template Story active
     public void HandleContentStory(Sprite sp)
     {
