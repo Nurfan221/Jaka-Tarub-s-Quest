@@ -16,6 +16,7 @@ public class MainQuestSO : ScriptableObject
     public List<ItemData> itemRequirements; // List item yang dibutuhkan quest
     public int goldReward;
     public List<ItemData> itemRewards;
+    public Dialogues questNotComplate;
 
     public GameObject questControllerPrefab;
 

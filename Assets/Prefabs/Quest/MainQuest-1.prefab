@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questName: Pertemuan dan Perpisahan
+  itemRequirements: []
+  questNotComplate: {fileID: 0}
+  goldReward: 0
+  itemRewards: []
   questDescription: Deskripsi singkat quest.
   currentState: 0
   lokasiYangDitunggu: {fileID: 0}
@@ -160,8 +164,25 @@ MonoBehaviour:
     spriteToShow: {fileID: 0}
     objectiveInfoForUI: Mas Jhorgeo minta apa yaa ?
     npcPositionStartQuest: {x: -14, y: 7}
-    locationToEnterTrigger: RumahJaka
-    prefabsToSpawn:
-    - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+    locationToEnterTrigger: 
+    prefabsToSpawn: []
+    animalToDefeatTrigger: 
+  - state: 13
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: ceff8b4d3c28bd44eb14c3138fa0e938, type: 2}
+    spriteToShow: {fileID: 0}
+    objectiveInfoForUI: Mas Jhorgeo minta apa yaa ?
+    npcPositionStartQuest: {x: -14, y: 7}
+    locationToEnterTrigger: 
+    prefabsToSpawn: []
+    animalToDefeatTrigger: 
+  - state: 14
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: ceff8b4d3c28bd44eb14c3138fa0e938, type: 2}
+    spriteToShow: {fileID: -8393480617640707146, guid: a2ca9386a602436479338e10cd6ed72b, type: 3}
+    objectiveInfoForUI: Makan Malam Sederhana
+    npcPositionStartQuest: {x: 0, y: 0}
+    locationToEnterTrigger: RumahJhorgeo
+    prefabsToSpawn: []
     animalToDefeatTrigger: 
   spawnedQuestAnimals: []

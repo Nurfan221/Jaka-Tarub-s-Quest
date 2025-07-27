@@ -24,9 +24,6 @@ public class QuestManager : MonoBehaviour
     public MainQuestController activeMainQuestController; // Controller yang sedang berjalan
     public PlayerMainQuestStatus activePlayerMainQuestStatus;
 
-    public static event Action<ItemData> OnItemGivenToNPC;
-
-
     [Header("Status Quest Pemain")]
     // List ini akan melacak semua quest (side quest) yang sedang aktif atau sudah selesai.
     public List<PlayerQuestStatus> questLog = new List<PlayerQuestStatus>();
@@ -68,7 +65,7 @@ public class QuestManager : MonoBehaviour
 
     private void Start()
     {
-        //StartMainQuest(pendingMainQuest);
+        StartMainQuest(pendingMainQuest);
 
     }
 
@@ -156,12 +153,6 @@ public class QuestManager : MonoBehaviour
 
         return null; // Main Quest aktif tetapi NPC tidak cocok, atau MainQuestDefinition null
     }
-    public void TriggerOnItemGivenToNPC(ItemData item)
-    {
-        // Pastikan ada yang mendengarkan sebelum memicu event
-        OnItemGivenToNPC?.Invoke(item);
-        Debug.Log($"Event OnItemGivenToNPC dipicu: Item '{item.itemName}'");
-    }
 
     // Mengembalikan TRUE jika item berhasil diproses oleh Main Quest ATAU Side Quest
     private void CheckIfQuestIsComplete(PlayerQuestStatus questStatus)
@@ -213,7 +204,7 @@ public class QuestManager : MonoBehaviour
 
         //Logika pengecekan MainQuest
         PlayerMainQuestStatus currentMainQuestStatus = GetActiveMainQuestStatus(npcName);
-        if (currentMainQuestStatus != null)
+        if (currentMainQuestStatus != null && currentMainQuestStatus.CurrentStateName == "ProsesToGiveItem")
         {
             if (currentMainQuestStatus.MainQuestDefinition != null &&
                 currentMainQuestStatus.MainQuestDefinition.namaNpcQuest.Equals(npcName, StringComparison.OrdinalIgnoreCase))
@@ -251,13 +242,14 @@ public class QuestManager : MonoBehaviour
                 if (neededSide > 0)
                 {
                     int amountToGiveSide = Mathf.Min(givenItemData.count, neededSide);
+                    givenItemData.count -= amountToGiveSide;
 
                     if (amountToGiveSide > 0)
                     {
                         activeSideQuestStatus.itemProgress[givenItemData.itemName] += amountToGiveSide;
                         // givenItemData.count -= amountToGiveSide; // Pengurangan item diinventaris dilakukan di NPCBehavior setelah ini.
                         // Kurangi item dari inventaris pemain
-                        givenItemData.count -= amountToGiveSide;
+
                         Debug.Log($"QuestManager: Item '{givenItemData.itemName}' berhasil diproses oleh Side Quest.");
 
                         // <<< PANGGIL FUNGSI INI DI SINI UNTUK SIDE QUEST >>>

@@ -38,7 +38,7 @@ public class QuestStateData
 // Ini adalah skrip "Sutradara" utama Anda
 public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi dari kelas dasar Anda
 {
-    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, BerikanHasilBuruan, CariTempatAman, ApakahIniDanauItu, KabarKesedihan, PengingatMainQuest, ProsesToGiveItem, Selesai }
+    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PermintaanJhorgeo, PergiKeHutan, CariRusa, MunculkanHarimau, BerikanHasilBuruan, CariTempatAman, ApakahIniDanauItu, KabarKesedihan, PengingatMainQuest, ProsesToGiveItem,PergiKeRumahJhorgeo, Selesai }
 
     [Header("Progres Cerita")]
     [SerializeField] private MainQuest1State currentState = MainQuest1State.BelumMulai;
@@ -214,6 +214,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 break;
              case MainQuest1State.CariTempatAman:
                 Debug.Log("Memulai adegan Cari Tempat Aman...");
+
                 objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.CariTempatAman)?.objectiveInfoForUI ?? "";
                 nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.CariTempatAman)?.locationToEnterTrigger ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
@@ -227,6 +228,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.ApakahIniDanauItu)?.locationToEnterTrigger ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
                 HandleSpriteAndDialogue(MainQuest1State.ApakahIniDanauItu);
+                HandleDestroySpawnedAnimals();
                 break;
              case MainQuest1State.KabarKesedihan:
                 Debug.Log("Memulai adegan Kabar Kesedihan...");
@@ -259,6 +261,14 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 break;
             case MainQuest1State.ProsesToGiveItem:
                 Debug.Log("Memulai adegan Proses To Give Item...");
+
+
+                break;
+             case MainQuest1State.PergiKeRumahJhorgeo:
+                Debug.Log("Memulai adegan Pergi Ke Rumah Jhorgeo...");
+                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PergiKeRumahJhorgeo)?.objectiveInfoForUI ?? "";
+                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PergiKeRumahJhorgeo)?.locationToEnterTrigger ?? "";
+                QuestManager.Instance.CreateTemplateQuest();
 
                 break;
         }
@@ -300,7 +310,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
             case MainQuest1State.PermintaanJhorgeo:
 
-                NPCBehavior npcToCommand = NPCManager.Instance.GetActiveNpcByName(targetNpcName);
+                npcToCommand = NPCManager.Instance.GetActiveNpcByName(targetNpcName);
 
                 if (npcToCommand != null)
                 {
@@ -320,6 +330,16 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 ChangeState(MainQuest1State.CariRusa);
                 break;
             case MainQuest1State.PengingatMainQuest:
+                npcToCommand = NPCManager.Instance.GetActiveNpcByName(targetNpcName);
+
+                if (npcToCommand != null)
+                {
+                    npcToCommand.ReturnToPreQuestPosition();
+                }
+                else
+                {
+                    Debug.LogError($"Gagal memberi perintah: NPC aktif dengan nama '{targetNpcName}' tidak ditemukan di scene!");
+                }
                 ChangeState(MainQuest1State.ProsesToGiveItem);
                 break;
                 //case MainQuest1State.CariRusa:
@@ -449,8 +469,13 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             {
                 ChangeState(MainQuest1State.KabarKesedihan);
             }
+            if (currentState == MainQuest1State.PergiKeRumahJhorgeo)
+            {
+                HandleSpriteAndDialogue(MainQuest1State.PergiKeRumahJhorgeo);
+            }
         }
     }
+
     private void HandleAnimalDied(AnimalBehavior animalThatDied)
     {
         //Cek dulu apakah kita sedang dalam state yang peduli tentang ini (misal: CariRusa)
@@ -491,6 +516,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         // Misalnya, spawn hewan baru atau ubah kondisi lingkungan
     }
 
+
     public void SpawnPrefabsForState(MainQuest1State state)
     {
         // Ambil data adegan berdasarkan state
@@ -524,6 +550,29 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
     }
 
-  
+    public void HandleDestroySpawnedAnimals()
+    {
+        // Hapus semua hewan yang sudah di-spawn
+        foreach (GameObject spawnedAnimal in spawnedQuestAnimals)
+        {
+            Destroy(spawnedAnimal);
+        }
+        spawnedQuestAnimals.Clear();
+        Destroy(animalBehavior.gameObject); // Hapus hewan harimau jika ada
+        Debug.Log("Semua hewan quest telah dihapus.");
+    }
 
+
+    protected override void OnAllItemRequirementsFulfilled()
+    {
+        HandleSpriteAndDialogue(MainQuest1State.ProsesToGiveItem);
+        // kita bisa langsung memajukan state quest.
+        ChangeState(MainQuest1State.PergiKeRumahJhorgeo);
+    }
+
+    protected override void SetQuestNotComplete()
+    {
+        DialogueSystem.Instance.theDialogues = questNotComplate;
+        DialogueSystem.Instance.StartDialogue();
+    }
 }

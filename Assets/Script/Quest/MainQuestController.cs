@@ -9,7 +9,7 @@ public abstract class MainQuestController : MonoBehaviour
     [Header("Data Umum Quest")]
     public string questName = "Nama Main Quest";
     public List<ItemData> itemRequirements; // List item yang dibutuhkan quest
-
+    public Dialogues questNotComplate;
     public int goldReward;
     public List<ItemData> itemRewards;
     [TextArea(3, 5)]
@@ -37,6 +37,7 @@ public abstract class MainQuestController : MonoBehaviour
         this.itemRequirements = so.itemRequirements;
         this.goldReward = so.goldReward;
         this.itemRewards = so.itemRewards;
+        this.questNotComplate = so.questNotComplate;
 
         Debug.Log($"Memulai Main Quest: {questName}");
     }
@@ -139,6 +140,7 @@ public abstract class MainQuestController : MonoBehaviour
         if (neededAmount <= 0) return false;
 
         int amountToProcess = Mathf.Min(givenItemData.count, neededAmount);
+        givenItemData.count -= amountToProcess;
 
         if (amountToProcess > 0)
         {
@@ -150,11 +152,24 @@ public abstract class MainQuestController : MonoBehaviour
             if (AreAllItemRequirementsMet()) // Menggunakan fungsi dari base class tanpa parameter
             {
                 Debug.Log($"SEMUA ITEM DIBUTUHKAN UNTUK MAIN QUEST '{questName}' TELAH TERPENUHI!");
-                OnItemGivenToNPC?.Invoke(true); // Panggil event jika semua item terpenuhi
+                OnAllItemRequirementsFulfilled(); 
             }
             return true;
         }
+        SetQuestNotComplete(); // Panggil hook untuk logika spesifik quest
         return false;
-        OnItemGivenToNPC?.Invoke(false); // Panggil event jika item tidak relevan
+
+    }
+
+    protected virtual void OnAllItemRequirementsFulfilled()
+    {
+        // Ini adalah hook yang bisa di-override oleh subclass
+        Debug.Log("Base MainQuestController: Persyaratan item terpenuhi, override ini di subclass untuk logika spesifik.");
+    }
+
+    protected virtual void SetQuestNotComplete()
+    {
+        // Ini adalah hook yang bisa di-override oleh subclass
+        Debug.Log("Base MainQuestController: Quest belum lengkap, override ini di subclass untuk logika spesifik.");
     }
 }
