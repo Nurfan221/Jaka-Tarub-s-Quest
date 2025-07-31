@@ -3670,6 +3670,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1289196137}
+    - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1289196140}
   m_SourcePrefab: {fileID: 100100000, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
 --- !u!1001 &107450123
 PrefabInstance:
@@ -4584,6 +4587,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1225773469}
+    - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1225773475}
   m_SourcePrefab: {fileID: 100100000, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
 --- !u!4 &141058540 stripped
 Transform:
@@ -12820,6 +12826,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1252158936}
+    - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1252158942}
   m_SourcePrefab: {fileID: 100100000, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
 --- !u!1001 &435539302
 PrefabInstance:
@@ -19357,6 +19366,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 901170107}
+    - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 901170113}
   m_SourcePrefab: {fileID: 100100000, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
 --- !u!1001 &663135614
 PrefabInstance:
@@ -19608,6 +19620,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4342680799774598729, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
   m_PrefabInstance: {fileID: 743213755}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &665427088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665427081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0940ea153a77ce84cbd75e8a67b5f735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationName: banditSpawner
+  isQuest: 0
 --- !u!1 &667402232
 GameObject:
   m_ObjectHideFlags: 0
@@ -21282,6 +21308,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 665427082}
+    - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 665427088}
   m_SourcePrefab: {fileID: 100100000, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
 --- !u!1001 &743891223
 PrefabInstance:
@@ -26043,6 +26072,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4342680799774598729, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
   m_PrefabInstance: {fileID: 658856181}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &901170113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901170106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0940ea153a77ce84cbd75e8a67b5f735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationName: banditSpawner
+  isQuest: 0
 --- !u!1 &901312220 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7562009284141931606, guid: a12fb09ddf7bba441a1af89a3875ac3c, type: 3}
@@ -26372,6 +26415,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1198044499}
+    - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1198044505}
   m_SourcePrefab: {fileID: 100100000, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
 --- !u!1 &914468736
 GameObject:
@@ -28469,11 +28515,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
       propertyPath: m_Name
-      value: SpawnerBandit (6)
+      value: SpawnerQuest1_6
       objectReference: {fileID: 0}
     - target: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8904713916914028977, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
       propertyPath: m_Enabled
@@ -28497,6 +28543,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1887391903}
+    - targetCorrespondingSourceObject: {fileID: 4462828541567617859, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1887391909}
   m_SourcePrefab: {fileID: 100100000, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
 --- !u!4 &981983377 stripped
 Transform:
@@ -33825,6 +33874,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4342680799774598729, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
   m_PrefabInstance: {fileID: 913082401}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1198044505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198044498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0940ea153a77ce84cbd75e8a67b5f735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationName: banditSpawner
+  isQuest: 0
 --- !u!4 &1199407004 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4059415801196439076, guid: a442f0971df64334e91b8d8921c86ce4, type: 3}
@@ -34424,6 +34487,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4342680799774598729, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
   m_PrefabInstance: {fileID: 137601559}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1225773475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225773468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0940ea153a77ce84cbd75e8a67b5f735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationName: banditSpawner
+  isQuest: 0
 --- !u!1001 &1226070310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35260,6 +35337,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4342680799774598729, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
   m_PrefabInstance: {fileID: 435279001}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1252158942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252158935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0940ea153a77ce84cbd75e8a67b5f735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationName: banditSpawner
+  isQuest: 0
 --- !u!1001 &1252881775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36466,6 +36557,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1289196140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130087736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0940ea153a77ce84cbd75e8a67b5f735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationName: banditSpawner
+  isQuest: 0
 --- !u!1 &1289497371
 GameObject:
   m_ObjectHideFlags: 0
@@ -44989,7 +45094,8 @@ MonoBehaviour:
     - {fileID: 1252158935}
     - {fileID: 665427081}
     - {fileID: 1198044498}
-  questManager: {fileID: 1357952847}
+    - {fileID: 1887391902}
+  spawnerListQuestActive: []
 --- !u!4 &1590141123 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5297067821582616087, guid: f7ee8f3f1bbd93e45900fef8c31722ec, type: 3}
@@ -58470,6 +58576,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4342680799774598729, guid: 81f4302e82d231e48ae4163503ab178e, type: 3}
   m_PrefabInstance: {fileID: 981615038}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1887391909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887391902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0940ea153a77ce84cbd75e8a67b5f735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationName: SpawnerQuest1_6
+  isQuest: 0
 --- !u!1 &1887782576
 GameObject:
   m_ObjectHideFlags: 0

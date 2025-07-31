@@ -10,34 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
-  m_Name: Quest-1
+  m_Name: Quest-1.5
   m_EditorClassIdentifier: 
-  questName: Tutorial Menanam Tanaman
-  questInfo: Bicara Dengan Mbok Milah
-  DeskripsiAwal: Bantu Jaka Tarub belajar bertani bersama Mbok Rini. Mulai dari menggemburkan
-    tanah, menanam benih padi, hingga menyiram tanaman dengan telaten. Ikuti petunjuk
-    Mbok Rini untuk merawat kebun agar subur. Berikan
+  questName: 'Makan malam keluarga '
+  questInfo: Bicara Dengan Mbak Asih
+  DeskripsiAwal: 'Mbak Asih membutuhkan daging rusa dan beberapa rempah untuk membuat
+    makan malam keluarganya. Berikan '
   DeskripsiAkhir: ' Untuk menyelesaikan quest ini .'
   locateNpcQuest: {x: 0, y: 0, z: 0}
   questType: 0
   questProgress: 1
-  dateToActivate: 1
+  dateToActivate: 20
   MonthToActivate: 1
-  npcName: Jhorgeo Wicaksana
+  npcName: 
   itemRequirements:
-  - itemName: Padi
-    count: 10
+  - itemName: DagingDomba
+    count: 3
     quality: 0
-  goldReward: 200
+  - itemName: Cabai
+    count: 2
+    quality: 0
+  - itemName: Tomat
+    count: 2
+    quality: 0
+  - itemName: Wortel
+    count: 5
+    quality: 0
+  goldReward: 500
   itemRewards:
-  - itemName: BenihJagung
-    count: 5
+  - itemName: DagingDombaPanggang
+    count: 2
     quality: 0
-  - itemName: BenihKentang
-    count: 5
-    quality: 0
-  startDialogue: {fileID: 11400000, guid: 91485e6417e32c24f8c5b0c9d41a0835, type: 2}
+  startDialogue: {fileID: 11400000, guid: cc9f422faa6995a46ab5db5ae39085a6, type: 2}
   finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
   isMainQuest: 0
   isInGrief: 0
-  spawnerToActivate: {fileID: 0}
+  isSpawner: 0
+  spawnerToActivate: 

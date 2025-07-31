@@ -36,5 +36,7 @@ public class QuestSO : ScriptableObject
     [Header("Flags & Events")]
     public bool isMainQuest; // Untuk membedakan main/side quest
     public bool isInGrief;
-    public GameObject spawnerToActivate; // Ganti referensi GameObject
+    public bool isSpawner;
+    public string spawnerToActivate;
+    //public GameObject nameSpawnerToActive; // Ganti referensi GameObject
 }

@@ -1,8 +1,22 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerManager : MonoBehaviour
 {
+    public static SpawnerManager Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
     [Serializable]
     public class Spawner
     {
@@ -11,7 +25,7 @@ public class SpawnerManager : MonoBehaviour
         public GameObject[] spawner;
     }
     public Spawner[] spawner;
-    [SerializeField] QuestManager questManager;
+    public List<GameObject> spawnerListQuestActive;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void OnEnable()
@@ -84,50 +98,97 @@ public class SpawnerManager : MonoBehaviour
 
     public void SetSpawnerBanditActive(float random)
     {
-        // Loop untuk menonaktifkan semua spawner
+        // Loop pertama untuk menonaktifkan semua spawner
         for (int i = 0; i < spawner[1].spawner.Length; i++)
         {
-            // Nonaktifkan spawner
             spawner[1].spawner[i].gameObject.SetActive(false);
         }
 
         if (spawner[1] != null && spawner[1].spawner.Length > 0)
         {
-            // Menggunakan dailyLuck untuk menentukan peluang
-            float adjustedRandom = Mathf.Lerp(0.5f, 3f, 1 - random); // Nilai antara 0.5 dan 3 berdasarkan dailyLuck (lebih kecil dailyLuck, lebih besar chance-nya)
 
-            // Kondisi untuk menentukan berapa banyak loop berdasarkan adjustedRandom
+            List<GameObject> availableSpawners = new List<GameObject>();
+            for (int i = 0; i < spawner[1].spawner.Length; i++)
+            {
+                LocationConfiguration locationConfiguration = spawner[1].spawner[i].GetComponent<LocationConfiguration>();
+                // Tambahkan spawner ke list jika nama lokasinya BUKAN "SpawnerQuest1_6"
+                if (locationConfiguration != null && locationConfiguration.locationName != "SpawnerQuest1_6")
+                {
+                    availableSpawners.Add(spawner[1].spawner[i]);
+                }
+            }
+
+            // Jika tidak ada spawner yang tersedia, hentikan
+            if (availableSpawners.Count == 0)
+            {
+                Debug.LogWarning("Tidak ada spawner bandit yang tersedia.");
+                return;
+            }
+
+            // Tentukan jumlah spawner yang akan diaktifkan
+            int spawnerToActivateCount = 0;
+            float adjustedRandom = Mathf.Lerp(0.5f, 3f, 1 - random);
+
             if (adjustedRandom >= 0 && adjustedRandom < 1f)
             {
-                // Loop sebanyak "adjustedRandom" untuk memilih spawner yang aktif
-                for (int i = 0; i < 7; i++)  // Jika adjustedRandom berada antara 0 dan 1, aktifkan 7 spawner
-                {
-                    int randomIntSpawner = UnityEngine.Random.Range(0, spawner[1].spawner.Length);
-                    spawner[1].spawner[randomIntSpawner].gameObject.SetActive(true);
-                }
+                spawnerToActivateCount = 7;
             }
             else if (adjustedRandom >= 1 && adjustedRandom < 2)
             {
-                // Loop sebanyak "adjustedRandom" untuk memilih spawner yang aktif
-                for (int i = 0; i < 4; i++)  // Jika adjustedRandom berada antara 1 dan 2, aktifkan 4 spawner
-                {
-                    int randomIntSpawner = UnityEngine.Random.Range(0, spawner[1].spawner.Length);
-                    spawner[1].spawner[randomIntSpawner].gameObject.SetActive(true);
-                }
+                spawnerToActivateCount = 4;
             }
             else if (adjustedRandom >= 2)
             {
-                // Loop sebanyak "adjustedRandom" untuk memilih spawner yang aktif
-                for (int i = 0; i < 2; i++)  // Jika adjustedRandom lebih besar dari 2, aktifkan 2 spawner
-                {
-                    int randomIntSpawner = UnityEngine.Random.Range(0, spawner[1].spawner.Length);
-                    spawner[1].spawner[randomIntSpawner].gameObject.SetActive(true);
-                }
+                spawnerToActivateCount = 2;
+            }
+
+            // Pastikan jumlah spawner yang diaktifkan tidak melebihi yang tersedia
+            spawnerToActivateCount = Mathf.Min(spawnerToActivateCount, availableSpawners.Count);
+
+            //Lakukan loop sebanyak spawner yang harus diaktifkan
+            for (int i = 0; i < spawnerToActivateCount; i++)
+            {
+                // Pilih indeks acak dari list spawner yang tersedia
+                int randomIndex = UnityEngine.Random.Range(0, availableSpawners.Count);
+
+                // Aktifkan spawner yang terpilih
+                availableSpawners[randomIndex].gameObject.SetActive(true);
+
+                // Hapus spawner yang sudah diaktifkan dari list agar tidak terpilih lagi
+                availableSpawners.RemoveAt(randomIndex);
             }
         }
+
+        foreach (var item in spawnerListQuestActive)
+        {
+            item.gameObject.SetActive(true);
+        }
     }
+    public void HandleSpawnerActive(string nameSpawner)
+    {
 
+        for (int i = 0; i < spawner[1].spawner.Length; i++)
 
+        {
+
+            if (spawner[1].spawner[i].name == nameSpawner)
+
+            {
+                spawnerListQuestActive.Add(spawner[1].spawner[i].gameObject);
+                Debug.Log("lokasi SpawnerQuest1_6 ditemukan");
+                spawner[1].spawner[i].gameObject.SetActive(true);
+
+            }
+            else
+
+            {
+
+                Debug.Log("Lokasi SpawnerQuest1_6 tidak ditemukan");
+
+            }
+
+        }
+    }
 
 
 }

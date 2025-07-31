@@ -17,6 +17,7 @@ public class MainQuestSO : ScriptableObject
     public int goldReward;
     public List<ItemData> itemRewards;
     public Dialogues questNotComplate;
+    public Dialogues finishDialogue;
 
     public GameObject questControllerPrefab;
 

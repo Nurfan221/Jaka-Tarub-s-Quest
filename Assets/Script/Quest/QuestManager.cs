@@ -113,7 +113,11 @@ public class QuestManager : MonoBehaviour
         // Buat data status baru untuk quest ini
         PlayerQuestStatus newQuestStatus = new PlayerQuestStatus(questToActivate);
         questLog.Add(newQuestStatus);
-
+        if (questToActivate.isSpawner)
+        {
+            Debug.Log("mengaktifkan spawner SpawnerQuest1_6");
+            SpawnerManager.Instance.HandleSpawnerActive(questToActivate.spawnerToActivate);
+        }
         // Siarkan event agar UI bisa memperbarui tampilannya
         //OnQuestLogUpdated?.Invoke();
         CreateTemplateQuest();
@@ -367,6 +371,33 @@ public class QuestManager : MonoBehaviour
                 SetNextMainQuest(parentChapter.mainQuest);
             }
         }
+    }
+
+    public void ComplateMainQuest(PlayerMainQuestStatus mainQuestStatus)
+    {
+        // Pengecekan keamanan di awal
+        if (mainQuestStatus == null || mainQuestStatus.Progress != QuestProgress.Accepted) return;
+
+
+        mainQuestStatus.Progress = QuestProgress.Completed;
+        Debug.Log($"Quest '{mainQuestStatus.MainQuestDefinition.questName}' telah selesai!");
+
+        //GameEconomy.Instance.GainMoney(mainQuestStatus.MainQuestDefinition.goldReward);
+        CreateTemplateQuest();
+        // (Tambahkan logika untuk memberi item reward di sini jika ada)
+
+        // Pastikan referensi DialogueSystem ada dan benar
+        if (mainQuestStatus.MainQuestDefinition.finishDialogue != null)
+        {
+            DialogueSystem.Instance.theDialogues = mainQuestStatus.MainQuestDefinition.finishDialogue;
+            DialogueSystem.Instance.StartDialogue();
+        }
+
+        CreateTemplateQuest();
+
+        SaveQuests();
+
+
     }
 
     // Fungsi bantuan untuk menemukan chapter dari sebuah quest.

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
-  m_Name: Quest-2
+  m_Name: Quest-1.2
   m_EditorClassIdentifier: 
   questName: Kebutuhan Padi Desa
   questInfo: Bicara Dengan Pak Wirya
@@ -26,12 +26,9 @@ MonoBehaviour:
   npcName: 
   itemRequirements:
   - itemName: Padi
-    count: 5
+    count: 10
     quality: 0
   - itemName: Jagung
-    count: 5
-    quality: 0
-  - itemName: Wortel
     count: 5
     quality: 0
   goldReward: 500
