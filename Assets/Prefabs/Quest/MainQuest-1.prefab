@@ -60,6 +60,7 @@ MonoBehaviour:
     objectiveInfoForUI: Siapakah Wanita itu ?
     npcPositionStartQuest: {x: 0, y: 0}
     locationToEnterTrigger: 
+    isLocationTrigger: 0
     prefabsToSpawn: []
     animalToDefeatTrigger: 
   - state: 2
@@ -69,6 +70,7 @@ MonoBehaviour:
     objectiveInfoForUI: Mbok Milah ada-ada saja
     npcPositionStartQuest: {x: 0, y: 0}
     locationToEnterTrigger: RumahJaka
+    isLocationTrigger: 0
     prefabsToSpawn: []
     animalToDefeatTrigger: 
   - state: 3
@@ -78,24 +80,27 @@ MonoBehaviour:
     objectiveInfoForUI: Pergi Ke Ladang
     npcPositionStartQuest: {x: 0, y: 0}
     locationToEnterTrigger: LadangDepanRumah
+    isLocationTrigger: 0
     prefabsToSpawn: []
     animalToDefeatTrigger: 
   - state: 4
     nameState: 
     dialogueToPlay: {fileID: 11400000, guid: 946b4ecc67f27f84b9614f7fed7786ce, type: 2}
-    spriteToShow: {fileID: 0}
-    objectiveInfoForUI: Permintaan Jhorgeo
-    npcPositionStartQuest: {x: -14, y: 7}
+    spriteToShow: {fileID: -5739977794296458426, guid: cb53df173171b054c80787197cd211ab, type: 3}
+    objectiveInfoForUI: Pamit Untuk Berburu
+    npcPositionStartQuest: {x: 0, y: 0}
     locationToEnterTrigger: 
+    isLocationTrigger: 0
     prefabsToSpawn: []
     animalToDefeatTrigger: 
   - state: 5
     nameState: 
     dialogueToPlay: {fileID: 0}
     spriteToShow: {fileID: 0}
-    objectiveInfoForUI: Pergi ke Hutan Ajaib
+    objectiveInfoForUI: Pergi ke Hutan Wanawasa
     npcPositionStartQuest: {x: 0, y: 0}
-    locationToEnterTrigger: HutanAjaib
+    locationToEnterTrigger: HutanWanawasa
+    isLocationTrigger: 0
     prefabsToSpawn: []
     animalToDefeatTrigger: 
   - state: 6
@@ -104,7 +109,8 @@ MonoBehaviour:
     spriteToShow: {fileID: 0}
     objectiveInfoForUI: Cari Rusa di sekitar
     npcPositionStartQuest: {x: 0, y: 0}
-    locationToEnterTrigger: HutanAjaib
+    locationToEnterTrigger: HutanWanawasa
+    isLocationTrigger: 0
     prefabsToSpawn:
     - {fileID: 8466065145438896573, guid: d9dad64e904191b4c859c3c9375e85a5, type: 3}
     animalToDefeatTrigger: 
@@ -114,7 +120,8 @@ MonoBehaviour:
     spriteToShow: {fileID: -2484584918422414592, guid: 42368eaf62277ad4b8b7a7a270dbdbf3, type: 3}
     objectiveInfoForUI: Kemunculan Raja Hutan
     npcPositionStartQuest: {x: 0, y: 0}
-    locationToEnterTrigger: HutanAjaib
+    locationToEnterTrigger: HutanWanawasa
+    isLocationTrigger: 0
     prefabsToSpawn:
     - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
     animalToDefeatTrigger: 
@@ -125,6 +132,7 @@ MonoBehaviour:
     objectiveInfoForUI: 'Serahkan Daging Rusa '
     npcPositionStartQuest: {x: 0, y: 0}
     locationToEnterTrigger: 
+    isLocationTrigger: 0
     prefabsToSpawn:
     - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
     animalToDefeatTrigger: 
@@ -134,46 +142,50 @@ MonoBehaviour:
     spriteToShow: {fileID: 0}
     objectiveInfoForUI: Cari Tempat Aman
     npcPositionStartQuest: {x: 0, y: 0}
-    locationToEnterTrigger: SekitarDanau
+    locationToEnterTrigger: DanauToyawening
+    isLocationTrigger: 0
     prefabsToSpawn:
     - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
     animalToDefeatTrigger: 
   - state: 10
     nameState: 
-    dialogueToPlay: {fileID: 11400000, guid: b364f7180adbce7459b8c135129750d1, type: 2}
-    spriteToShow: {fileID: 5598371188817609087, guid: 806a21963b1ff804589905da3ef50b6f, type: 3}
-    objectiveInfoForUI: Danau ?
+    dialogueToPlay: {fileID: 11400000, guid: 25b87597e73619e41a02e4d5e346b982, type: 2}
+    spriteToShow: {fileID: 0}
+    objectiveInfoForUI: Cari Rusa disekitar
     npcPositionStartQuest: {x: 0, y: 0}
-    locationToEnterTrigger: RumahJaka
-    prefabsToSpawn:
-    - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
+    locationToEnterTrigger: HutanAjaib
+    isLocationTrigger: 0
+    prefabsToSpawn: []
     animalToDefeatTrigger: 
   - state: 11
+    nameState: 
+    dialogueToPlay: {fileID: 11400000, guid: e7558db2deae227478703daa9ad1440b, type: 2}
+    spriteToShow: {fileID: -8121326836770452446, guid: 2b79bdc940bc72c469a5d54e3c80d331, type: 3}
+    objectiveInfoForUI: 'Ada apa dengan hari ini '
+    npcPositionStartQuest: {x: 0, y: 0}
+    locationToEnterTrigger: RumahJaka
+    isLocationTrigger: 0
+    prefabsToSpawn: []
+    animalToDefeatTrigger: 
+  - state: 12
     nameState: 
     dialogueToPlay: {fileID: 11400000, guid: dda9db41fa401fa408823499022f4145, type: 2}
     spriteToShow: {fileID: -9156445652639325360, guid: 4b6c2e1b685a2794a934c9318c8b953b, type: 3}
     objectiveInfoForUI: KabarKesedihan
     npcPositionStartQuest: {x: 0, y: 0}
     locationToEnterTrigger: RumahJaka
+    isLocationTrigger: 0
     prefabsToSpawn:
     - {fileID: 8466065145438896573, guid: 57d3ce1bd269d464285eb2c30aeefd31, type: 3}
     animalToDefeatTrigger: 
-  - state: 12
-    nameState: 
-    dialogueToPlay: {fileID: 11400000, guid: 27dcaea2d1a65574aaf903f0fc90e04a, type: 2}
-    spriteToShow: {fileID: 0}
-    objectiveInfoForUI: Mas Jhorgeo minta apa yaa ?
-    npcPositionStartQuest: {x: -14, y: 7}
-    locationToEnterTrigger: 
-    prefabsToSpawn: []
-    animalToDefeatTrigger: 
   - state: 13
     nameState: 
-    dialogueToPlay: {fileID: 11400000, guid: ceff8b4d3c28bd44eb14c3138fa0e938, type: 2}
+    dialogueToPlay: {fileID: 11400000, guid: 2becfa2ef3de69a4ab6766b25281b580, type: 2}
     spriteToShow: {fileID: 0}
     objectiveInfoForUI: Mas Jhorgeo minta apa yaa ?
     npcPositionStartQuest: {x: -14, y: 7}
     locationToEnterTrigger: 
+    isLocationTrigger: 0
     prefabsToSpawn: []
     animalToDefeatTrigger: 
   - state: 14
@@ -183,6 +195,7 @@ MonoBehaviour:
     objectiveInfoForUI: Makan Malam Sederhana
     npcPositionStartQuest: {x: 0, y: 0}
     locationToEnterTrigger: RumahJhorgeo
+    isLocationTrigger: 0
     prefabsToSpawn: []
     animalToDefeatTrigger: 
   spawnedQuestAnimals: []

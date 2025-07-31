@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: kembaliBerburu
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: 'Ada apa ini mengapa tidak ada seekorpun hewan hari ini '
+  - name: Jaka Tarub
+    sentence: Ini tidak bisa dibiarkan. Aku tidak akan pulang dengan tangan kosong.
+  - name: Jaka Tarub
+    sentence: Aku harus dapatkan satu lagi. Tidak peduli seberapa lama, aku akan
+      mencari sampai dapat.
+  - name: Jaka Tarub
+    sentence: Mungkin... aku harus mencoba lebih dalam lagi ke dalam hutan.
+  mainSpeaker: Jaka Tarub
+  promptAfterDialogue: Kembali Berburu

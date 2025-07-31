@@ -17,6 +17,8 @@ public class InventoryUI : MonoBehaviour
     public Image dragIcon; // Ikon yang mengikuti sentuhan
     public ItemInteraction heldItem; // Ganti state dari bool menjadi referensi skrip
     public Item contohItem;
+    public Transform kembangApi;
+    public ParticleSystem particleSystemPrefab; // Prefab kembang api
 
 
     [Header("Active Slot")]
@@ -139,12 +141,14 @@ public class InventoryUI : MonoBehaviour
     }
     public void OpenInventory()
     {
+        kembangApi.gameObject.SetActive(true);
+        particleSystemPrefab.Play();
         Debug.Log("membuka inventory");
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Click");
 
         GameController.Instance.ShowPersistentUI(false);
-        GameController.Instance.PauseGame();
+        //GameController.Instance.PauseGame();
         gameObject.SetActive(true);
         //isInventoryOpen = true;
         IfClose();

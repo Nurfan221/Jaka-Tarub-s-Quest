@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: AjakanMakanMalam
+  m_EditorClassIdentifier: 
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: "Permisi, Mas\u2026 aku datang membawa ini. Daging rusa... seperti
+      yang kemarin kau minta."
+  - name: Mas Jhorgeo
+    sentence: Wah, wah! Ini dia yang saya tunggu! Kerja bagus, Jaka.
+  - name: Mas Jhorgeo
+    sentence: Oh iya, bagaimana kabarmu, Nak?
+  - name: Jaka Tarub
+    sentence: Ah, baik saja, Mas. Hehehe.
+  - name: Mas Jhorgeo
+    sentence: Hmm... maksud saya, apa kamu tidak merasa kesepian di rumah sendiri
+      sekarang, Nak? Sepeninggal Mbok Milah... rumah pasti terasa hampa, ya?
+  - name: Jaka Tarub
+    sentence: Benar sekali, Mas... Kadang rasanya masih tidak percaya. Sepi sekali
+      rasanya, tidak ada yang memarahi saya kalau bangun kesiangan lagi.
+  - name: Mas Jhorgeo
+    sentence: ami semua mengerti, Nak. Sangat berat memang. Tapi, Mbok Milah pasti
+      tidak ingin kamu terus larut dalam kesedihan. Bagaimana jika kamu ikut makan
+      malam bersama saya di rumah?
+  - name: Mas Jhorgeo
+    sentence: Mungkin bisa sedikit membantu kamu untuk mengurangi rasa kesedihan
+      itu.
+  - name: Jaka Tarub
+    sentence: Benarkah, Mas? Boleh sekali, Mas! Terima kasih banyak. Saya... saya
+      sangat menghargai tawaran ini.
+  - name: Jhorgeo
+    sentence: Bagus kalau begitu! Jangan sungkan, Nak. Besok Jam 18.00 Bagaimana,
+      ya? Sekalian saja setelah azan berkumandang, langsung kemari. Tidak perlu repot-repot
+      bawa apa-apa. Kami tunggu, ya
+  - name: Jaka Tarub
+    sentence: Baik, Mas Jhorgeo! Besok saya langsung datang. Sekali lagi, terima
+      kasih banyak mas.
+  mainSpeaker: Jaka Tarub
+  promptAfterDialogue: 'Ajakan Makan Malam '

@@ -18,15 +18,15 @@ MonoBehaviour:
   dashForce: 20
   playerPosition: {x: 0, y: 0}
   maxHealth: 100
-  health: 20
-  currentHealthCap: 100
+  health: 50
+  currentHealthCap: 50
   maxStamina: 100
-  stamina: 97
+  stamina: 50
   staminaRegenRate: 5
-  currentStaminaCap: 97
-  initialGriefPenalty: 30
-  isInGrief: 0
-  currentGriefPenalty: 0
+  currentStaminaCap: 50
+  initialGriefPenalty: 50
+  isInGrief: 1
+  currentGriefPenalty: 50
   healingQuestsCompleted: 0
   totalHealingQuests: 5
   itemList: []
@@ -38,10 +38,10 @@ MonoBehaviour:
     count: 1
     quality: 0
   - itemName: Padi
-    count: 69
+    count: 49
     quality: 0
-  - itemName: Ranting
-    count: 15
+  - itemName: DagingDombaSpesial
+    count: 11
     quality: 0
   - itemName: BenihPadi
     count: 15
@@ -66,6 +66,9 @@ MonoBehaviour:
     quality: 0
   - itemName: DagingDomba
     count: 25
+    quality: 0
+  - itemName: Ranting
+    count: 15
     quality: 0
   maxItem: 18
   emptyItemTemplate:
