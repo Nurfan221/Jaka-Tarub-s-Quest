@@ -9,8 +9,8 @@ public class Checkingredients : MonoBehaviour
     //[SerializeField] Craft craftScript;
     [SerializeField] Transform ContentGO; 
     [SerializeField] Transform SlotTemplate; // Parent untuk menempatkan hasil resep
-    public GameObject popUp;
-    public Image imagePopUp;
+    //public GameObject popUp;
+    //public Image imagePopUp;
     public TextMeshProUGUI itemCount;
 
     [Header("Deskripsi Craft")]
@@ -33,12 +33,12 @@ public class Checkingredients : MonoBehaviour
     [Header("Button Action")]
 
     // [SerializeField] Button itemAction;
-    public Button plusItem;
-    public Button minusItem;
-    public Button confirm;
-    public Button cancel;
-    public Button maxResult;
-    public Button minResult;
+    //public Button plusItem;
+    //public Button minusItem;
+    //public Button confirm;
+    //public Button cancel;
+    //public Button maxResult;
+    //public Button minResult;
 
     private RecipeDatabase database;
     private void Awake()
@@ -285,7 +285,7 @@ public class Checkingredients : MonoBehaviour
 
     private void DestroyCraftItems()
     {
-        popUp.gameObject.SetActive(false);
+        //popUp.gameObject.SetActive(false);
         // Menghapus item yang ada di setiap ItemCraft slot
         DestroyItemInSlot(itemCraft1);
         DestroyItemInSlot(itemCraft2);
@@ -306,31 +306,31 @@ public class Checkingredients : MonoBehaviour
 
     private void PopUpCraftResult(Item item)
     {
-        popUp.gameObject.SetActive(true);
-        selectedItem = item;
-        resultCount = 1; // Default ke 1
+        //popUp.gameObject.SetActive(true);
+        //selectedItem = item;
+        //resultCount = 1; // Default ke 1
 
-        // Tampilkan gambar dan jumlah item
-        imagePopUp.sprite = item.sprite;
-        itemCount.text = resultCount.ToString(); // Pastikan UI diperbarui langsung
+        //// Tampilkan gambar dan jumlah item
+        //imagePopUp.sprite = item.sprite;
+        //itemCount.text = resultCount.ToString(); // Pastikan UI diperbarui langsung
 
-        // Reset event listener agar tidak bertumpuk
-        minResult.onClick.RemoveAllListeners();
-        plusItem.onClick.RemoveAllListeners();
-        maxResult.onClick.RemoveAllListeners();
-        confirm.onClick.RemoveAllListeners();
-        cancel.onClick.RemoveAllListeners();
+        //// Reset event listener agar tidak bertumpuk
+        //minResult.onClick.RemoveAllListeners();
+        //plusItem.onClick.RemoveAllListeners();
+        //maxResult.onClick.RemoveAllListeners();
+        //confirm.onClick.RemoveAllListeners();
+        //cancel.onClick.RemoveAllListeners();
 
-        // Tambahkan fungsi ke tombol UI
-        plusItem.onClick.AddListener(IncreaseItemCount);
-        minusItem.onClick.AddListener(DecreaseItemCount);
-        minResult.onClick.AddListener(MinimizeItemCount);
-        confirm.onClick.AddListener(() => ConfirmResultCraft(selectedItem, resultCount)); // Panggil setelah konfirmasi
+        //// Tambahkan fungsi ke tombol UI
+        //plusItem.onClick.AddListener(IncreaseItemCount);
+        //minusItem.onClick.AddListener(DecreaseItemCount);
+        //minResult.onClick.AddListener(MinimizeItemCount);
+        //confirm.onClick.AddListener(() => ConfirmResultCraft(selectedItem, resultCount)); // Panggil setelah konfirmasi
 
-        cancel.onClick.AddListener(() =>
-        {
-            popUp.gameObject.SetActive(false);
-        });
+        //cancel.onClick.AddListener(() =>
+        //{
+        //    popUp.gameObject.SetActive(false);
+        //});
     }
 
 
@@ -381,7 +381,7 @@ public class Checkingredients : MonoBehaviour
         //craftScript.buttonCraft.onClick.AddListener(craftScript.Crafting);
 
         // Tutup pop-up setelah crafting dikonfirmasi
-        popUp.gameObject.SetActive(false);
+        //popUp.gameObject.SetActive(false);
     }
 
 

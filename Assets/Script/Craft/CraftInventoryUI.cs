@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static RecipeDatabase;
 
-public class CraftUI : MonoBehaviour
+public class CraftInventoryUI : MonoBehaviour
 {
     #region UI References & Dependencies
     [Header("Dependencies")]
@@ -58,13 +58,13 @@ public class CraftUI : MonoBehaviour
         {
             // Gunakan nama fungsi yang benar: HandlePopupConfirm dan HandlePopupCancel
             QuantityPopupUI.Instance.onConfirm.AddListener(HandlePopupConfirm);
-            QuantityPopupUI.Instance.onCancel.AddListener(HandlePopupCancel);
+            //QuantityPopupUI.Instance.onCancel.AddListener(HandlePopupCancel);
         }
         else
         {
             Debug.LogError("Referensi ke QuantityPopupUI.Instance adalah null saat Start(). Pastikan objek popup ada di scene.");
         }
-      
+
     }
     #endregion
 
@@ -72,17 +72,18 @@ public class CraftUI : MonoBehaviour
     public void OpenUI()
     {
         gameObject.SetActive(true);
-        GameController.Instance.ShowPersistentUI(false);
-        GameController.Instance.PauseGame();
+        //GameController.Instance.ShowPersistentUI(false);
+        //GameController.Instance.PauseGame();
         RefreshRecipeList();
         ClearRecipeDetails();
     }
 
-    private void CloseUI()
+    public void CloseUI()
     {
         gameObject.SetActive(false);
-        GameController.Instance.ShowPersistentUI(true);
-        GameController.Instance.ResumeGame();
+        Debug.Log("CraftInventoryUI: CloseUI called");
+        //GameController.Instance.ShowPersistentUI(true);
+        //GameController.Instance.ResumeGame();
     }
 
     private void RefreshRecipeList()
@@ -118,8 +119,8 @@ public class CraftUI : MonoBehaviour
             else
             {
                 // Warna redup/abu-abu jika tidak bisa
-               recipeSlotGO.GetComponent<Button>().interactable = false; // Nonaktifkan interaksi
-               //recipeSlotGO.interactab
+                recipeSlotGO.GetComponent<Button>().interactable = false; // Nonaktifkan interaksi
+                                                                          //recipeSlotGO.interactab
             }
 
             // ... (sisa kode untuk menampilkan sprite dan listener) ...
@@ -264,7 +265,8 @@ public class CraftUI : MonoBehaviour
 
         Debug.Log($"Berhasil crafting {resultData.itemName} x{resultData.count}");
         MechanicController.Instance.HandleUpdateInventory();
-        CloseUI();
+
+        MechanicController.Instance.HandleUpdateMenuInventory(0);
     }
     #endregion
 

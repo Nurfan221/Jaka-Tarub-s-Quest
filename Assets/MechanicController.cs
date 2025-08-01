@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Progress;
@@ -226,5 +227,9 @@ public class MechanicController : MonoBehaviour
         InventoryUI.DropItemFromInventory(itemIndex, quantityToRemove);
     }
 
+    public void HandleUpdateMenuInventory(int targetIndex)
+    {
+        InventoryUI.ChangeMenu(targetIndex);
+    }
 
 }

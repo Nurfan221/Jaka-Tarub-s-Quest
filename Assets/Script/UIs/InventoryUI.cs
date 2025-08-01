@@ -12,13 +12,13 @@ public class InventoryUI : MonoBehaviour
 {
     [Header("Daftar hubungan Script")]
     [SerializeField] NPCListUI npcListUI;
+    [SerializeField] CraftInventoryUI craftInventoryUI;
     public bool isInventoryOpen;
     [Header("Komponen untuk Interaksi Mobile")]
     public Image dragIcon; // Ikon yang mengikuti sentuhan
     public ItemInteraction heldItem; // Ganti state dari bool menjadi referensi skrip
     public Item contohItem;
-    public Transform kembangApi;
-    public ParticleSystem particleSystemPrefab; // Prefab kembang api
+
 
 
     [Header("Active Slot")]
@@ -141,14 +141,13 @@ public class InventoryUI : MonoBehaviour
     }
     public void OpenInventory()
     {
-        kembangApi.gameObject.SetActive(true);
-        particleSystemPrefab.Play();
+
         Debug.Log("membuka inventory");
-        if (SoundManager.Instance != null)
-            SoundManager.Instance.PlaySound("Click");
+        //if (SoundManager.Instance != null)
+        //    SoundManager.Instance.PlaySound("Click");
 
         GameController.Instance.ShowPersistentUI(false);
-        //GameController.Instance.PauseGame();
+        GameController.Instance.PauseGame();
         gameObject.SetActive(true);
         //isInventoryOpen = true;
         IfClose();
@@ -258,7 +257,7 @@ public class InventoryUI : MonoBehaviour
         RefreshSingleSlot(equippedItem1, stats.equippedItemData.Count > 0 ? stats.equippedItemData[0] : null);
         RefreshSingleSlot(equippedItem2, stats.equippedItemData.Count > 1 ? stats.equippedItemData[1] : null);
 
-        // --- Refresh Quick Slots ---
+        //Refresh Quick Slots 
         // Panggil fungsi spesialis yang berbeda untuk quick slot karena mereka punya teks jumlah
         RefreshQuickSlot(quickSlot1, jumlahQuickItem1, stats.itemUseData.Count > 0 ? stats.itemUseData[0] : null);
         RefreshQuickSlot(quickSlot2, jumlahQuickItem2, stats.itemUseData.Count > 1 ? stats.itemUseData[1] : null);
@@ -494,20 +493,68 @@ public class InventoryUI : MonoBehaviour
 
     public void ChangeMenu(int menu)
     {
-        for (int i = 0; i < menuPanels.Length; i++)
+        // Cek untuk menghindari error jika menu di luar batas array
+        if (menu < 0 || menu >= menuPanels.Length)
         {
-            bool isActive = (i == menu);
-            menuPanels[i].panelInventory.SetActive(isActive);
-            menuPanels[i].panelMenu.SetActive(isActive);
-
-            string nameMenuPanel = menuPanels[i].panelInventory.name;
-            if (nameMenuPanel != null && nameMenuPanel == "NPCList")
-            {
-                npcListUI.RefreshNPCList();
-            }
+            Debug.LogError($"Indeks menu {menu} tidak valid.");
+            return;
         }
 
-        Debug.Log($"Menu {menu} aktif");
+        //Langkah 1: Nonaktifkan semua panel 
+        for (int i = 0; i < menuPanels.Length; i++)
+        {
+            menuPanels[i].panelInventory.SetActive(false);
+            menuPanels[i].panelMenu.SetActive(false);
+        }
+
+        //Langkah 2: Aktifkan panel yang benar dan jalankan logika spesifik 
+        bool isActive = true;
+        menuPanels[menu].panelInventory.SetActive(isActive);
+        menuPanels[menu].panelMenu.SetActive(isActive);
+
+        string nameMenuPanel = menuPanels[menu].panelInventory.name;
+
+        switch (nameMenuPanel)
+        {
+            case "NPCList":
+                if (npcListUI != null)
+                {
+                    npcListUI.RefreshNPCList();
+                }
+                if (craftInventoryUI != null)
+                {
+                    craftInventoryUI.CloseUI();
+                }
+                break;
+
+            case "Craft":
+                Debug.Log("Craft Inventory UI is being opened");
+                if (craftInventoryUI != null)
+                {
+                    craftInventoryUI.OpenUI();
+                }
+                //if (npcListUI != null)
+                //{
+                //    // Jika perlu, tutup NPC list saat membuka Crafting
+                //    npcListUI.CloseUI();
+                //}
+                break;
+
+            default:
+                // Logika default jika tidak ada panel yang cocok
+                Debug.Log("Menu bukan NPCList atau Craft. Menutup UI khusus.");
+                if (craftInventoryUI != null)
+                {
+                    craftInventoryUI.CloseUI();
+                }
+                //if (npcListUI != null)
+                //{
+                //    npcListUI.CloseUI();
+                //}
+                break;
+        }
+
+        Debug.Log($"Menu {menu} ({nameMenuPanel}) diaktifkan.");
     }
 
     //Fungsi untuk Menampilkan Tombol Hapus dan Mengatur Listener
@@ -681,7 +728,7 @@ public class InventoryUI : MonoBehaviour
 
     public void DropItemFromInventory(int itemIndex, int quantityToRemove)
     {
-        // --- Pengecekan Awal (Sudah Benar) ---
+        //Pengecekan Awal (Sudah Benar) 
         if (itemIndex < 0 || itemIndex >= stats.inventory.Count)
         {
             Debug.LogWarning("Index item untuk di-drop tidak valid.");
