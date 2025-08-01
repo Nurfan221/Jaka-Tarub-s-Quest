@@ -65,7 +65,7 @@ public class QuestManager : MonoBehaviour
 
     private void Start()
     {
-        StartMainQuest(pendingMainQuest);
+        //StartMainQuest(pendingMainQuest);
 
     }
 
