@@ -164,10 +164,12 @@ public class MechanicController : MonoBehaviour
     public void HandleOpenStorage(StorageInteractable storage)
     {
         Debug.Log("membuka storage");
-        StorageUI.OpenStorage(storage);
+        GameController.Instance.PindahKeScene("Village");
+
+        //StorageUI.OpenStorage(storage);
     }
 
-   public void HandleUpdateInventory()
+    public void HandleUpdateInventory()
     {
         InventoryUI.SetInventory();
     }

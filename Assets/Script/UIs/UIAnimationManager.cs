@@ -11,7 +11,7 @@ public class UIAnimationManager : MonoBehaviour
     public float startPosition_Y = 500f; // Posisi Y awal (di luar layar atas)
 
     public bool isAnimating = false;
-    [SerializeField] private Animator characterAnimator;
+    [SerializeField] private Animator[] characterAnimator;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,14 +35,16 @@ public class UIAnimationManager : MonoBehaviour
 
     public void StartCharacterAnimation()
     {
-        if (characterAnimator != null)
+        foreach (Animator animator in characterAnimator)
         {
-            characterAnimator.Play("JalanKanan");
-            Debug.Log("Animasi 'JalanKanan' diputar!");
-        }
-        else
-        {
-            Debug.LogError("Referensi Animator di UIAnimationManager tidak ditemukan!");
+            if (animator != null)
+            {
+                animator.Play("JalanKanan");
+            }
+            else
+            {
+                Debug.LogWarning("Animator tidak ditemukan!");
+            }
         }
     }
 

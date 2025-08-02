@@ -77,7 +77,6 @@ public class StorageUI : MonoBehaviour
     #region Alur Buka & Tutup UI
     public void OpenStorage(StorageInteractable storage)
     {
-        GameController.Instance.PindahKeScene("Village");
         QuestManager.Instance.DeleteSaveData();
         Debug.Log("Membuka Storage UI untuk: " + storage.name);
         this.theStorage = storage;
