@@ -21,9 +21,30 @@ MonoBehaviour:
   npcSprite: {fileID: 0}
   prefab: {fileID: 3632186851480370098, guid: 15969de47881d4942891605af5d4043b, type: 3}
   schedules:
-  - activityName: Coba
+  - activityName: PergiBerburu
     waypoints:
-    - {x: -13, y: -4, z: 0}
+    - {x: 47.37, y: -13, z: 0}
+    - {x: 47.37, y: -14.5, z: 0}
+    - {x: 42.18, y: -14.5, z: 0}
+    - {x: 38.34, y: -10, z: 0}
+    - {x: 38.34, y: -6.41, z: 0}
+    - {x: 44.65, y: 0, z: 0}
+    - {x: 44.65, y: 16.24, z: 0}
+    - {x: 49, y: 21, z: 0}
+    - {x: 49, y: 35.93, z: 0}
+    startTime: 0
+  - activityName: Berburu
+    waypoints:
+    - {x: 49, y: 35.93, z: 0}
+    - {x: 49, y: 24, z: 0}
+    - {x: 21.13, y: 24, z: 0}
+    - {x: 17.54, y: 21.35, z: 0}
+    - {x: -8.41, y: 21.35, z: 0}
+    - {x: -8.41, y: 35.02, z: 0}
+    startTime: 0
+  - activityName: KembaliKeDesa
+    waypoints:
+    - {x: -8.41, y: 35.02, z: 0}
     startTime: 0
   frendship:
     favoriteValue: 0

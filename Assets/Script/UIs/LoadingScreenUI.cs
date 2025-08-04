@@ -19,6 +19,15 @@ public class LoadingScreenUI : MonoBehaviour
 
 
     [SerializeField] string[] tips;
+    [Header("UI Animation")]
+    public RectTransform bgTransform; // Gunakan RectTransform untuk UI
+
+    [Header("Pengaturan Animasi")]
+    public float animationSpeed; // Kecepatan animasi
+    public float endPosition_Y = 0f; // Posisi Y akhir (biasanya di tengah)
+    public float startPosition_Y = 500f; // Posisi Y awal (di luar layar atas)
+
+    public bool isAnimating = false;
 
     private void Awake()
     {
@@ -27,7 +36,11 @@ public class LoadingScreenUI : MonoBehaviour
     }
 
 
+    private void Update()
+    {
 
+
+    }
     public void ShowLoading()
     {
         // Hentikan coroutine lama jika ada sebelum memulai yang baru
@@ -76,19 +89,20 @@ public class LoadingScreenUI : MonoBehaviour
 
 
 
-    IEnumerator LoadingScene(int i)
-    {
-        Debug.Log("LOADING SCENE");
+    //IEnumerator LoadingScene(int i)
+    //{
+    //    Debug.Log("LOADING SCENE");
 
-        string loading = "Loading...";
-        StartCoroutine(PlayLoadingAnimation()); // Mulai animasi
-        yield return new WaitForSeconds(i);
-        transform.GetChild(0).gameObject.SetActive(false);
-        Debug.Log("DONE");
-    }
+    //    string loading = "Loading...";
+    //    StartCoroutine(PlayLoadingAnimation()); // Mulai animasi
+    //    yield return new WaitForSeconds(i);
+    //    transform.GetChild(0).gameObject.SetActive(false);
+    //    Debug.Log("DONE");
+    //}
 
     private IEnumerator PlayLoadingAnimation()
     {
+        StartAnimation();
         while (true) // Loop tanpa batas (animasi berulang)
         {
             if (loadingImages.Length > 0) // Pastikan array sprite tidak kosong
@@ -100,4 +114,47 @@ public class LoadingScreenUI : MonoBehaviour
             yield return new WaitForSecondsRealtime(frameRate); // Tunggu sebelum beralih ke frame berikutnya
         }
     }
+
+
+
+
+    public void StartAnimation() // Ubah nama fungsi ini agar tidak bentrok dengan Start()
+    {
+        // Hentikan coroutine lama jika ada
+        //StopAllCoroutines();
+
+        // Atur posisi awal
+        if (bgTransform != null)
+        {
+            bgTransform.anchoredPosition = new Vector2(bgTransform.anchoredPosition.x, startPosition_Y);
+        }
+
+        // Mulai coroutine animasi
+        StartCoroutine(AnimateDownCoroutine());
+    }
+
+    private IEnumerator AnimateDownCoroutine()
+    {
+        Debug.Log("Memulai animasi turun...");
+        Vector2 targetPosition = new Vector2(bgTransform.anchoredPosition.x, endPosition_Y);
+
+        while (Vector2.Distance(bgTransform.anchoredPosition, targetPosition) > 0.1f)
+        {
+            // Gunakan Time.unscaledDeltaTime yang mengabaikan Time.timeScale
+            bgTransform.anchoredPosition = Vector2.Lerp(
+                bgTransform.anchoredPosition,
+                targetPosition,
+                Time.unscaledDeltaTime * animationSpeed
+            );
+
+            yield return null; // Tunggu satu frame
+        }
+
+        // Posisikan secara tepat di posisi akhir
+        bgTransform.anchoredPosition = targetPosition;
+
+        Debug.Log("Animasi selesai!");
+    }
+
+
 }

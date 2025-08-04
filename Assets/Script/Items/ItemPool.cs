@@ -91,6 +91,7 @@ public class ItemPool : MonoBehaviour
 
         // Panggil StopGravity dari komponen ItemDropInteractable
         ItemDropInteractable interactable = droppedItem.GetComponent<ItemDropInteractable>();
+        interactable.isPickable = false; // Pastikan item bisa diambil
 
         if (interactable != null)
         {

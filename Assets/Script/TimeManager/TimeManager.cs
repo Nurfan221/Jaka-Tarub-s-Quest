@@ -67,6 +67,7 @@ public class TimeManager : MonoBehaviour
         //shopUI.UpdateShopBySeason(timeData_SO.currentSeason);
         AdvanceTime();
         OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
+        UpdateDay();
 
     }
 

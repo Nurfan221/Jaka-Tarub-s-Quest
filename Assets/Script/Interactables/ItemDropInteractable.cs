@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemDropInteractable : Interactable
 {
     //public Item item;
     public ItemData itemdata;
- public string itemName;
+    public string itemName;
     private Rigidbody2D rb;
     public float gravityDuration = 2f; // Durasi gravitasi setelah item jatuh
     [Tooltip("Tag yang akan digunakan setelah item bisa diambil kembali.")]
-    public string pickableTag = "ItemDrop"; // Tag akhir setelah jeda
+    public bool isPickable; // Menandakan apakah item bisa diambil
 
     [Tooltip("Waktu tunda dalam detik sebelum item bisa diambil.")]
     public float pickupDelay = 5.0f; // Jeda waktu 5 detik sesuai permintaan Anda
@@ -64,7 +65,8 @@ public class ItemDropInteractable : Interactable
     {
         // Item sudah memiliki tag "ItemDrop" sejak dijatuhkan.
         // Untuk mencegah player mengambilnya, nonaktifkan collidernya sementara.
-        if (itemCollider != null)
+
+        if (itemCollider != null && !isPickable)
         {
             itemCollider.enabled = false; // Nonaktifkan collider agar player tidak bisa berinteraksi
         }
@@ -78,6 +80,7 @@ public class ItemDropInteractable : Interactable
         // Aktifkan kembali collider agar player bisa mengambilnya.
         if (itemCollider != null)
         {
+            isPickable = true; // Tandai item sebagai bisa diambil
             itemCollider.enabled = true; // Aktifkan collider
         }
         // Jika menggunakan tag khusus player:

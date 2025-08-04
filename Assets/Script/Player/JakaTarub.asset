@@ -18,14 +18,14 @@ MonoBehaviour:
   dashForce: 20
   playerPosition: {x: 0, y: 0}
   maxHealth: 100
-  health: 50
-  currentHealthCap: 50
+  health: 100
+  currentHealthCap: 100
   maxStamina: 100
-  stamina: 50
+  stamina: 100
   staminaRegenRate: 5
-  currentStaminaCap: 50
+  currentStaminaCap: 100
   initialGriefPenalty: 50
-  isInGrief: 1
+  isInGrief: 0
   currentGriefPenalty: 50
   healingQuestsCompleted: 0
   totalHealingQuests: 5

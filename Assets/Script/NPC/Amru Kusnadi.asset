@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
+  m_Name: Amru Kusnadi
+  m_EditorClassIdentifier: 
+  npcName: 
+  fullName: 
+  pekerjaan: 
+  hobi: 
+  tanggalUltah: 0
+  bulanUltah: 0
+  npcSprite: {fileID: 0}
+  prefab: {fileID: 0}
+  schedules: []
+  frendship:
+    favoriteValue: 0
+    likesValue: 0
+    normalValue: 0
+    hateValue: 0
+    favorites: []
+    like: []
+    normal: []
+    hate: []

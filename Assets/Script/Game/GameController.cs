@@ -292,34 +292,35 @@ public class GameController : MonoBehaviour
     // --- COROUTINE YANG MENANGANI SELURUH PROSES ---
     private IEnumerator ProsesLoadingDanPindahScene(string namaScene)
     {
-       
-        //    Ini akan menjeda game dan menampilkan UI loading.
-        LoadingScreenUI.Instance.ShowLoading();
+        // --- LANGKAH 1: Tampilkan UI Loading dan jeda game ---
+        LoadingScreenUI.Instance.ShowLoading(); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
 
-      
-        //    Beri waktu agar animasi fade-in atau tampilan loading screen terlihat mulus,
-        //    bukan muncul dan langsung hilang. 0.5 detik biasanya cukup.
+        // Beri waktu agar animasi fade-in atau tampilan loading screen terlihat mulus
         yield return new WaitForSecondsRealtime(0.5f);
 
-    
-        //    Contoh: memuat scene baru secara asynchronous.
-        //    (Jangan lupa 'using UnityEngine.SceneManagement;')
+        // --- LANGKAH 2: Muat scene baru secara asynchronous ---
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(namaScene);
 
-        // Tunggu sampai proses loading scene selesai
-        while (!asyncLoad.isDone)
+        // Hentikan agar scene tidak langsung aktif saat selesai dimuat
+        asyncLoad.allowSceneActivation = false;
+
+        // Tampilkan progres loading jika Anda ingin
+        while (asyncLoad.progress < 0.9f) // progress 0.9f adalah ketika scene hampir selesai dimuat
         {
-            // Selama loading, kita tunggu frame berikutnya.
-            // Slider loading bar bisa diupdate di sini.
+            // Di sini Anda bisa mengupdate loading bar jika ada
+            // float progress = asyncLoad.progress / 0.9f;
+            // loadingSlider.value = progress;
             yield return null;
         }
 
-        //    Terkadang loading selesai sangat cepat. Memberi jeda minimal (misal 1.5 detik)
-        //    membuat pemain sempat membaca tips dan tidak merasa loading screen hanya "berkedip".
-        yield return new WaitForSecondsRealtime(1.5f);
+        // --- LANGKAH 3: Beri waktu tunggu minimal untuk pengalaman pengguna yang baik ---
+        yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
 
-        //    Baris ini sekarang PASTI akan tercapai.
-        //    Ini akan melanjutkan game dan menampilkan UI game.
-        LoadingScreenUI.Instance.HideLoading();
+        // --- LANGKAH 4: Aktifkan scene baru dan sembunyikan UI loading ---
+        asyncLoad.allowSceneActivation = true;
+        // Tunggu sampai scene benar-benar aktif
+        yield return new WaitUntil(() => asyncLoad.isDone);
+
+        LoadingScreenUI.Instance.HideLoading(); // Ini akan memanggil ResumeGame()
     }
 }
