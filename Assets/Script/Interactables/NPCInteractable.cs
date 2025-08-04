@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class NPCInteractable : Interactable
 {
-    [SerializeField] QuestManager questManager;
-    [SerializeField] NPCManager npcManager;
+
     [SerializeField] NPCBehavior npcBehavior;
     //[SerializeField] protected DialogueSystem dialogueSystem;
 

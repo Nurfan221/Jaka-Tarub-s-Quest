@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using System.Collections;
 
 public class NPCBehavior : MonoBehaviour
 {
@@ -16,7 +17,9 @@ public class NPCBehavior : MonoBehaviour
     private int currentWaypointIndex = 0;
     private Vector3 preQuestPosition;
     public float movementSpeed = 2.0f;
-    private Schedule currentActivity; // Aktivitas yang sedang dilakukan NPC
+    private Schedule currentActivity;
+    private Coroutine movementCoroutine; // Tambahkan ini untuk mengelola coroutine
+
 
 
     public void Initialize(NpcSO data)
@@ -35,40 +38,10 @@ public class NPCBehavior : MonoBehaviour
         // Jika tidak sedang bergerak, periksa jadwal
         if (!isMoving)
         {
-            //CheckSchedule();
+            CheckSchedule();
         }
-        else
-        {
-            // Jika sedang bergerak, lanjutkan pergerakan
-            MoveToNextWaypoint();
-        }
+        // Jika sedang bergerak, biarkan coroutine yang mengurusnya, tidak perlu di sini
     }
-
-    public void OverrideForQuest(Vector3 newPosition, Dialogues newDialogue)
-    {
-        Debug.Log($"NPC {this.name} sekarang dibajak oleh quest.");
-        Debug.Log($"NPC {this.name} akan pindah ke posisi {newPosition} dengan dialog quest baru.");
-        // Pastikan NPC tidak sedang bergerak
-        isLockedForQuest = true; // Kunci jadwalnya!
-        isQuestLocation = true; // Tandai bahwa NPC berada di lokasi quest
-        preQuestPosition = transform.position; // Simpan lokasi saat ini
-        transform.position = newPosition; // Pindahkan langsung ke lokasi quest
-        questOverrideDialogue = newDialogue; // Simpan dialog quest sementaranya
-
-
-        // Pastikan NPC terlihat jika sebelumnya tidak aktif
-        gameObject.SetActive(true);
-    }
-
-    public void ReturnToPreQuestPosition()
-    {
-        // Jangan lakukan apa-apa jika NPC tidak sedang dalam mode quest
-        if (!isLockedForQuest) return;
-
-        Debug.Log($"NPC {this.name} kembali ke posisi semula di {preQuestPosition}");
-        transform.position = preQuestPosition;
-    }
-
 
     // Perintah dari luar untuk melepaskan NPC kembali ke jadwal normalnya.
 
@@ -82,25 +55,101 @@ public class NPCBehavior : MonoBehaviour
     // NPC memeriksa jadwalnya sendiri berdasarkan waktu saat ini.
     private void CheckSchedule()
     {
-        // Reset status 'hasStarted' setiap hari baru (misal, jam 4 pagi)
-       
+        // Temukan jadwal terbaru yang seharusnya sudah dimulai
+        Schedule newSchedule = npcData.schedules
+            .Where(s => TimeManager.Instance.hour >= s.startTime)
+            .OrderByDescending(s => s.startTime) // Urutkan dari yang paling lambat
+            .FirstOrDefault(); // Ambil yang paling lambat (terbaru)
 
-        foreach (var schedule in npcData.schedules)
+        // Jika tidak ada jadwal yang cocok atau jadwalnya sama dengan yang sedang berjalan, keluar
+        if (newSchedule == null || newSchedule == currentActivity)
         {
-            if (TimeManager.Instance.hour >= schedule.startTime)
-            {
-                StartActivity(schedule);
-                break; // Hanya mulai satu aktivitas
-            }
+            return;
         }
+
+        // Mulai aktivitas baru
+        StartActivity(newSchedule);
     }
 
-    public void StartActivity(Schedule schedule)
+    public void StartActivity(Schedule newSchedule)
     {
-        currentActivity = schedule;
+        // Hentikan coroutine pergerakan lama jika ada
+        if (movementCoroutine != null)
+        {
+            StopCoroutine(movementCoroutine);
+        }
+
+        currentActivity = newSchedule;
         currentWaypointIndex = 0;
         isMoving = true;
+
+        Debug.Log($"NPC '{npcName}' memulai aktivitas: {currentActivity.activityName}");
+
+        // Mulai coroutine pergerakan baru
+        movementCoroutine = StartCoroutine(FollowWaypoints(currentActivity.waypoints));
     }
+
+    private IEnumerator FollowWaypoints(Vector3[] waypoints)
+    {
+        if (waypoints == null || waypoints.Length == 0)
+        {
+            isMoving = false;
+            yield break;
+        }
+
+        foreach (Vector3 targetPosition in waypoints)
+        {
+            while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
+                yield return null; // Tunggu satu frame
+            }
+        }
+
+        // Setelah selesai, hentikan pergerakan
+        isMoving = false;
+        Debug.Log($"NPC '{npcName}' telah sampai di tujuan terakhir.");
+    }
+    public void OverrideForQuest(Vector3 newPosition, Dialogues newDialogue)
+    {
+        isLockedForQuest = true;
+        isQuestLocation = true;
+        preQuestPosition = transform.position;
+        questOverrideDialogue = newDialogue;
+
+        // Pindah ke posisi quest dengan pergerakan halus (Coroutines)
+        if (movementCoroutine != null) StopCoroutine(movementCoroutine);
+        movementCoroutine = StartCoroutine(MoveToTargetPosition(newPosition, true));
+
+        // Pastikan NPC terlihat
+        gameObject.SetActive(true);
+    }
+
+    public void ReturnToPreQuestPosition()
+    {
+        if (!isLockedForQuest) return;
+
+        if (movementCoroutine != null) StopCoroutine(movementCoroutine);
+        movementCoroutine = StartCoroutine(MoveToTargetPosition(preQuestPosition, false));
+    }
+
+    // --- FUNGSI BANTUAN UNTUK PERGERAKAN HALUS (COROUTINE) ---
+    private IEnumerator MoveToTargetPosition(Vector3 targetPosition, bool isQuestMove)
+    {
+        while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        // Setelah sampai, atur status
+        if (!isQuestMove)
+        {
+            ReturnToNormalSchedule(); // Kembalikan ke jadwal normal
+        }
+        Debug.Log($"NPC '{npcName}' telah sampai di posisi target.");
+    }
+
 
     private void MoveToNextWaypoint()
     {
@@ -157,6 +206,8 @@ public class NPCBehavior : MonoBehaviour
             return false; // Item tidak diproses
         }
     }
+
+
 
 
 }

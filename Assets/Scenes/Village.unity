@@ -7825,7 +7825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8222417266887828513, guid: 8c177946296dbd14e8c5ff41bb2a8dcb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -26.54004
+      value: -26.539978
       objectReference: {fileID: 0}
     - target: {fileID: 8222417266887828513, guid: 8c177946296dbd14e8c5ff41bb2a8dcb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9693,7 +9693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8562865648284200056, guid: 0c3d0eebc85b7ba4789592768488fe7c, type: 3}
       propertyPath: m_SortingOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25922,20 +25922,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wargaDesaParent: {fileID: 893111563}
   allNpcDefinitions:
-  - {fileID: 11400000, guid: d9ef52d3ded3f0f498982140d91771a1, type: 2}
-  - {fileID: 11400000, guid: ea0e84cd9b86b3f44b14bb92064d2d30, type: 2}
-  - {fileID: 11400000, guid: 2444e4cb3ba9a4d4d812bbceeb334c35, type: 2}
-  - {fileID: 11400000, guid: cf950c4f9fe304c4181088420e227bb3, type: 2}
-  - {fileID: 11400000, guid: a0394bcee7126be439812fc87cdc3856, type: 2}
   - {fileID: 11400000, guid: 1a253342cb821e740af0613e16c101e8, type: 2}
-  - {fileID: 11400000, guid: e1b9116ef3545a34199952e7aeea28fa, type: 2}
-  - {fileID: 11400000, guid: 55d4620ce7ac8b94e9adaa5ab3b9a77e, type: 2}
-  - {fileID: 11400000, guid: 1d82cb26354795e41a9e4ac37ead5ddb, type: 2}
-  - {fileID: 11400000, guid: 094a38bb65ec356498fd09bf32f4e118, type: 2}
-  - {fileID: 11400000, guid: c6159032a86c18c48bf395f455a12865, type: 2}
-  - {fileID: 11400000, guid: b38046c5cd394da4a8d02ae27274d4e4, type: 2}
-  - {fileID: 11400000, guid: c6159032a86c18c48bf395f455a12865, type: 2}
-  - {fileID: 11400000, guid: 9fb14fcf3109ea84b975e6ca38070775, type: 2}
+  activeNpcs: []
 --- !u!4 &893899085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5297067821582616087, guid: 1b3af91a00af8bd4b92bb9db3786cc79, type: 3}
@@ -38106,6 +38094,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fahri Pranajaya
       objectReference: {fileID: 0}
+    - target: {fileID: 3632186851480370098, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -46224,6 +46216,93 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cd310ddecba59d419e12895ec546d8f, type: 3}
+--- !u!1 &1623469338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1623469340}
+  - component: {fileID: 1623469339}
+  m_Layer: 0
+  m_Name: KantorDesa_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1623469339
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623469338}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -6458733928346672903, guid: 91ab76ebbd064d3489cb9595863f6031, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 16, y: 8}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1623469340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623469338}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 76.74, y: -6.18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1624411772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46744,11 +46823,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.41
+      value: 51.04
       objectReference: {fileID: 0}
     - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 35.02
+      value: -14.43
       objectReference: {fileID: 0}
     - target: {fileID: 2836848314507029469, guid: 15969de47881d4942891605af5d4043b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -46782,9 +46861,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2863225171348835852, guid: 15969de47881d4942891605af5d4043b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3632186851480370098, guid: 15969de47881d4942891605af5d4043b, type: 3}
       propertyPath: m_Name
       value: Jhorgeo Wicaksana
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632186851480370098, guid: 15969de47881d4942891605af5d4043b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6032118409941731965, guid: 15969de47881d4942891605af5d4043b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -68407,6 +68498,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 368900974}
     m_Modifications:
+    - target: {fileID: 2030943784225983479, guid: 908137c901934d145aad8b7ad76bb134, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 6.999939
+      objectReference: {fileID: 0}
     - target: {fileID: 2478012253758430772, guid: 908137c901934d145aad8b7ad76bb134, type: 3}
       propertyPath: gameEconomy
       value: 
@@ -71448,3 +71543,4 @@ SceneRoots:
   - {fileID: 714493224}
   - {fileID: 1341506022}
   - {fileID: 1629569604}
+  - {fileID: 1623469340}

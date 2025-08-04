@@ -12,15 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
   m_Name: Fahri  Pranajaya
   m_EditorClassIdentifier: 
-  npcName: 
-  fullName: 
-  pekerjaan: 
+  npcName: Fahri Pranajaya
+  fullName: Fahri Pranajaya
+  pekerjaan: Kepala Desa
   hobi: 
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
   prefab: {fileID: 0}
-  schedules: []
+  schedules:
+  - activityName: PergiKepusatDesa
+    waypoints:
+    - {x: 26.5, y: -2, z: 0}
+    - {x: 26.5, y: -9, z: 0}
+    - {x: 29.61, y: -9, z: 0}
+    - {x: 29.61, y: -14.43, z: 0}
+    - {x: 36, y: -14.43, z: 0}
+    - {x: 36, y: -15.5, z: 0}
+    startTime: 0
+  - activityName: PergiKepusatDesa
+    waypoints:
+    - {x: 36, y: -15.5, z: 0}
+    - {x: 36, y: -14.43, z: 0}
+    startTime: 0
   frendship:
     favoriteValue: 0
     likesValue: 0

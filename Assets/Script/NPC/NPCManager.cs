@@ -12,7 +12,7 @@ public class NPCManager : MonoBehaviour
 
     [Header("Database Definisi NPC")]
     public List<NpcSO> allNpcDefinitions; // Seret semua aset NpcSO Anda ke sini
-    private List<NPCBehavior> activeNpcs = new List<NPCBehavior>();
+    public List<NPCBehavior> activeNpcs = new List<NPCBehavior>();
 
     // 'Dictionary' adalah cara super efisien untuk menyimpan dan mencari data relasi
     public Dictionary<string, NpcRelationshipData> playerNpcRelationships = new Dictionary<string, NpcRelationshipData>();
@@ -77,8 +77,18 @@ public class NPCManager : MonoBehaviour
         }
     }
 
-  
 
+    public void UpdateScheduleNPC()
+    {
+        // Perbarui jadwal semua NPC aktif
+        foreach (var npc in activeNpcs)
+        {
+            if (npc != null && !npc.isLockedForQuest)
+            {
+
+            }
+        }
+    }
 
 
 }
