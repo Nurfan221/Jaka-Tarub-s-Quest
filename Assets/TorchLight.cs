@@ -5,12 +5,10 @@ public class TorchLight : MonoBehaviour
     public Light torchLight;
     public float nightStart = 18f;
     public float nightEnd = 6f;
-    private TimeManager timeManager;
 
     private void Start()
     {
         // Mencari TimeManager di scene saat runtime
-        timeManager = FindObjectOfType<TimeManager>();
 
        
     }
@@ -18,10 +16,11 @@ public class TorchLight : MonoBehaviour
 
     private void Update()
     {
-        float hour = timeManager.hour + (timeManager.minutes / 60f);
+        float hour = TimeManager.Instance.hour;
+        bool isRain = TimeManager.Instance.timeData_SO.isRain;
 
         // Hidupkan lampu obor hanya di malam hari
-        if (hour >= nightStart || hour < nightEnd)
+        if (hour >= nightStart || hour < nightEnd || isRain)
         {
             torchLight.enabled = true;
         }

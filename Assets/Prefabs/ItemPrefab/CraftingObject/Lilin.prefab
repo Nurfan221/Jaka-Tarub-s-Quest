@@ -78,8 +78,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 78103283165299179, guid: 2c80239a9d7684040b970c153fe17af6, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 2763812293992782901, guid: 57c5ac242fdd4e94fb75391c24f1f923, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &8753991768299431060
@@ -102,17 +102,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rumputAnimation:
-  - {fileID: 4736707664447460310, guid: 66be3f18716eb8d4c85607da7de8551d, type: 3}
-  - {fileID: 8792429208287474283, guid: 66be3f18716eb8d4c85607da7de8551d, type: 3}
-  - {fileID: -1605529715037214668, guid: 66be3f18716eb8d4c85607da7de8551d, type: 3}
-  - {fileID: 5997045715057413254, guid: 66be3f18716eb8d4c85607da7de8551d, type: 3}
-  - {fileID: -5786284042308714951, guid: 66be3f18716eb8d4c85607da7de8551d, type: 3}
-  - {fileID: -2532057114367058711, guid: 66be3f18716eb8d4c85607da7de8551d, type: 3}
-  - {fileID: 3861321962388811606, guid: 66be3f18716eb8d4c85607da7de8551d, type: 3}
-  - {fileID: 4333957319399983620, guid: 66be3f18716eb8d4c85607da7de8551d, type: 3}
+  rumputAnimation: []
   frameRate: 0.1
+  nameEnvironment: 
   itemDrop: {fileID: 0}
+  plantsContainer: {fileID: 0}
 --- !u!114 &875132793960531145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +114,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3889454340021637116}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37f15381b9251b049b3ea9316eccf418, type: 3}
   m_Name: 
@@ -144,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2812402230870303325
 Transform:
   m_ObjectHideFlags: 0
@@ -154,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 5394333660416106248}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -170,9 +164,9 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 0.7433963, g: 0.6171282, b: 0.22301881, a: 1}
+  m_Color: {r: 0.8679245, g: 0.69015944, b: 0.1514774, a: 1}
   m_Intensity: 1.5
-  m_Range: 2.02
+  m_Range: 2.44
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
