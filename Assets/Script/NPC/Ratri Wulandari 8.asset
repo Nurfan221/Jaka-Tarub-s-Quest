@@ -12,15 +12,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
   m_Name: Ratri Wulandari 8
   m_EditorClassIdentifier: 
-  npcName: 
-  fullName: 
-  pekerjaan: 
-  hobi: 
+  npcName: 'Ratri Wulandari '
+  fullName: 'Ratri Wulandari '
+  pekerjaan: Ibu Rumah Tangga
+  hobi: Memasak
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 0}
-  schedules: []
+  prefab: {fileID: 3632186851480370098, guid: 00fdd1574a29fc94b9f95c82a48aed5e, type: 3}
+  schedules:
+  - activityName: PekerjaanRumah
+    waypoints:
+    - {x: 26.5, y: -2, z: 0}
+    startTime: 5
+  - activityName: PergiKeWarung
+    waypoints:
+    - {x: 26.5, y: -2, z: 0}
+    - {x: 26.5, y: -9, z: 0}
+    - {x: 39.5, y: -9, z: 0}
+    - {x: 39.5, y: 0, z: 0}
+    startTime: 8
+  - activityName: PulangKeRumah
+    waypoints:
+    - {x: 39.5, y: 0, z: 0}
+    - {x: 39.5, y: -9, z: 0}
+    - {x: 26.5, y: -9, z: 0}
+    - {x: 26.5, y: -2, z: 0}
+    startTime: 12
+  - activityName: MengurusTanaman
+    waypoints:
+    - {x: 26.5, y: -2, z: 0}
+    - {x: 26.5, y: -9, z: 0}
+    - {x: 22, y: -9, z: 0}
+    - {x: 22, y: -5.47, z: 0}
+    startTime: 15
+  - activityName: PulangdanIstirahat
+    waypoints:
+    - {x: 22, y: -5.47, z: 0}
+    - {x: 22, y: -9, z: 0}
+    - {x: 26.5, y: -9, z: 0}
+    - {x: 26.5, y: -2, z: 0}
+    startTime: 18
   frendship:
     favoriteValue: 0
     likesValue: 0

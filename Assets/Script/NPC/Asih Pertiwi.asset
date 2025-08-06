@@ -12,15 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
   m_Name: Asih Pertiwi
   m_EditorClassIdentifier: 
-  npcName: 
-  fullName: 
-  pekerjaan: 
-  hobi: 
+  npcName: 'Asih Pertiwi '
+  fullName: 'Asih Pertiwi '
+  pekerjaan: Peternak
+  hobi: Beternak
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 0}
-  schedules: []
+  prefab: {fileID: 3632186851480370098, guid: 17dffd9322834c54b827efdbc97e6563, type: 3}
+  schedules:
+  - activityName: BekerjaDiRumah
+    waypoints:
+    - {x: 65.1, y: -22, z: 0}
+    startTime: 5
+  - activityName: Kewarung
+    waypoints:
+    - {x: 65.1, y: -22, z: 0}
+    - {x: 65.1, y: -25.25, z: 0}
+    - {x: 42.5, y: -25.25, z: 0}
+    - {x: 42.97, y: -15.17, z: 0}
+    - {x: 38.5, y: -10, z: 0}
+    - {x: 39.5, y: 0, z: 0}
+    startTime: 9
+  - activityName: Pulang
+    waypoints:
+    - {x: 39.5, y: 0, z: 0}
+    - {x: 38.8, y: -9.55, z: 0}
+    - {x: 42.5, y: -14.3, z: 0}
+    - {x: 42.5, y: -25.25, z: 0}
+    - {x: 65.1, y: -25.25, z: 0}
+    - {x: 65.1, y: -22, z: 0}
+    startTime: 12
+  - activityName: NgobrolIbuIbu
+    waypoints:
+    - {x: 65.1, y: -22, z: 0}
+    - {x: 65.1, y: -25.25, z: 0}
+    - {x: 49, y: -25.25, z: 0}
+    - {x: 49, y: -17.77, z: 0}
+    startTime: 15
+  - activityName: Pulang
+    waypoints:
+    - {x: 49, y: -19, z: 0}
+    - {x: 49, y: -25.25, z: 0}
+    - {x: 65.1, y: -25.25, z: 0}
+    - {x: 65.1, y: -22, z: 0}
+    startTime: 18
   frendship:
     favoriteValue: 0
     likesValue: 0

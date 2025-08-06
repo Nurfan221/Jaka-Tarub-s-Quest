@@ -29,6 +29,7 @@ public class AnimalBehavior : MonoBehaviour
     private bool isAvoiding = false;
     public bool isAnimalEvent;
     private Coroutine currentMovementCoroutine;
+    public Rigidbody2D rb; // Tambahkan referensi Rigidbody2D
 
     [Header("Tipe Perilaku Hewan")]
     public AnimalType tipeHewan = AnimalType.Pasif;
@@ -69,6 +70,10 @@ public class AnimalBehavior : MonoBehaviour
     [Header("Quest Behavior")]
     public Transform playerTransform; // Pastikan ini di-assign di Inspector jika diperlukan
 
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>(); // Dapatkan referensi Rigidbody2D
+    }
     private void Start()
     {
         health = maxHealth;
@@ -107,6 +112,7 @@ public class AnimalBehavior : MonoBehaviour
 
     private void Update()
     {
+        UpdateZonaSerangPosition();
         // Logika untuk AnimalType.Agresif dan AnimalType.isQuest
         if (currentTarget == null)
         {
@@ -136,7 +142,7 @@ public class AnimalBehavior : MonoBehaviour
                 if (distanceToPlayer > attackRange) // Jika masih di luar jarak serang
                 {
                     currentState = "Mengejar";
-                    ChaseTarget();
+                    ChaseTargetFixedUpdate();
                 }
                 else // Sudah dekat dengan player
                 {
@@ -159,6 +165,7 @@ public class AnimalBehavior : MonoBehaviour
         // Logika Agresif (hanya untuk AnimalType.Agresif) atau isQuest yang mengejar ItemDrop
         if (tipeHewan == AnimalType.Agresif || (tipeHewan == AnimalType.isQuest && currentTarget.CompareTag("ItemDrop")))
         {
+
             float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
 
             if (distanceToTarget <= attackRange)
@@ -173,7 +180,7 @@ public class AnimalBehavior : MonoBehaviour
             switch (currentState)
             {
                 case "Mengejar":
-                    ChaseTarget();
+                    ChaseTargetFixedUpdate();
                     break;
                 case "Menyerang": // Ini akan dipanggil juga jika isQuest mencapai ItemDrop
                     // Untuk isQuest yang mencapai ItemDrop, kita akan "mengambil" itemnya
@@ -202,17 +209,75 @@ public class AnimalBehavior : MonoBehaviour
     {
         while (true)
         {
-            // Jangan jalankan animasi acak jika sedang mengejar atau bertipe quest (yang mengikuti player)
-            if (currentTarget != null && (tipeHewan == AnimalType.Agresif || tipeHewan == AnimalType.isQuest))
+            // Tunggu jeda animasi sebelum memulai aksi baru
+            yield return new WaitForSeconds(jedaAnimasi);
+
+            // Jangan lakukan apa-apa jika ada target yang harus dikejar
+            if (currentTarget != null)
             {
-                yield return new WaitForSeconds(1f); // Cek lagi setelah 1 detik
                 continue;
             }
 
             string nextState = GetRandomAnimationForCurrentState();
-            TransitionTo(nextState);
-            yield return new WaitForSeconds(5f);
+
+            if (nextState.Contains("Jalan"))
+            {
+                // Set state di sini
+                currentState = nextState;
+                isMoving = true;
+                animalAnimator.Play(currentState); // Panggil sekali saja
+
+                // Tentukan target pergerakan dan mulai bergerak
+                Vector2 randomDirection = (nextState == "JalanKanan") ? new Vector2(1, UnityEngine.Random.Range(-1f, 1f)) : new Vector2(-1, UnityEngine.Random.Range(-1f, 1f));
+                animalRenderer.flipX = (nextState == "JalanKanan");
+                Vector2 targetPosition = (Vector2)rb.position + randomDirection * 3f;
+
+                // Panggil coroutine pergerakan
+                yield return StartCoroutine(MoveToTargetWithPhysics(targetPosition, moveSpeed));
+            }
+
+            // Setelah pergerakan, atur kembali ke Idle
+            currentState = "Idle";
+            animalAnimator.Play("Idle");
+            isMoving = false;
         }
+    }
+
+    // Coroutine baru untuk pergerakan yang lebih aman
+    private IEnumerator MoveToTargetWithPhysics(Vector2 targetPosition, float speed)
+    {
+        while (Vector2.Distance(rb.position, targetPosition) > 0.1f)
+        {
+            // MovePosition() harus di FixedUpdate()
+            // Jadi kita hanya perlu mengarahkan hewan di sini
+            Vector2 direction = (targetPosition - rb.position).normalized;
+            rb.linearVelocity = direction * speed;
+
+            yield return null; // Tunggu satu frame
+        }
+        rb.linearVelocity = Vector2.zero; // Hentikan gerakan setelah sampai
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isMoving)
+        {
+            rb.linearVelocity = Vector2.zero; // Hentikan gerakan saat tabrakan
+            isMoving = false; // Set isMoving ke false saat tabrakan
+            Debug.Log($"{namaHewan} berhenti bergerak karena tabrakan dengan {collision.gameObject.name}");
+            StartCoroutine(PlayRandomAnimationPeriodically()); // Mulai animasi acak setelah tabrakan
+
+        }    
+    }
+
+    // FixedUpdate() baru untuk menangani fisika
+    void FixedUpdate()
+    {
+        if (isMoving && currentTarget != null)
+        {
+            ChaseTargetFixedUpdate();
+        }
+        // Jika tidak mengejar, gerakan acak akan dihandle oleh coroutine MoveToTargetWithPhysics
     }
 
 
@@ -287,6 +352,7 @@ public class AnimalBehavior : MonoBehaviour
 
     private IEnumerator PlayNextStateThenTransition(string nextState)
     {
+        // Logika ini lebih cocok untuk animasi non-pergerakan (Duduk, Tidur, dll.)
         animalAnimator.Play(nextState);
         yield return new WaitUntil(() =>
         {
@@ -294,119 +360,12 @@ public class AnimalBehavior : MonoBehaviour
             return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0);
         });
 
-        if (nextState == "Duduk")
-        {
-            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
-            animalAnimator.Play("Rebahan");
-            currentState = "Rebahan";
-            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
-            animalAnimator.Play("TidurNyenyak");
-            currentState = "TidurNyenyak";
-        }
-        else if (nextState == "Rebahan")
-        {
-            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
-            animalAnimator.Play("TidurNyenyak");
-            currentState = ("TidurNyenyak");
-        }
-        else if (nextState == "Berdiri")
-        {
-            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
-            animalAnimator.Play("Idle");
-            currentState = "Idle";
-        }
-        else if (nextState == "Makan")
-        {
-            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
-            animalAnimator.Play("Mengunyah");
-            currentState = "Mengunyah";
-        }
-        else if (nextState == "JalanKanan" || nextState == "JalanKiri")
-        {
-            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
-            animalAnimator.Play(nextState);
-            currentState = nextState;
-            StartCoroutine(AnimalMovement(nextState));
-        }
-        else
-        {
-            yield return new WaitUntil(() => { AnimatorStateInfo stateInfo = animalAnimator.GetCurrentAnimatorStateInfo(0); return stateInfo.normalizedTime >= 1 && !animalAnimator.IsInTransition(0); });
-            animalAnimator.Play(nextState);
-            currentState = nextState;
-        }
+        // Perbarui currentState setelah transisi selesai
+        currentState = nextState;
     }
 
-    private IEnumerator AnimalMovement(string currentAnimation)
-    {
-        Vector2 randomDirection = Vector2.zero;
-        if (currentAnimation == "JalanKanan")
-        {
-            randomDirection = new Vector2(1, UnityEngine.Random.Range(-1f, 1f));
-            animalRenderer.flipX = true;
-        }
-        else if (currentAnimation == "JalanKiri")
-        {
-            randomDirection = new Vector2(-1, UnityEngine.Random.Range(-1f, 1f));
-            animalRenderer.flipX = false;
-        }
+    
 
-        Vector2 targetPosition = (Vector2)transform.position + randomDirection * 3f;
-        isMoving = true;
-        yield return MoveForDuration(targetPosition);
-        isMoving = false;
-        yield return new WaitForSeconds(5);
-    }
-
-    private IEnumerator MoveForDuration(Vector2 targetPosition)
-    {
-        Vector2 startPosition = transform.position;
-        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-        yield return new WaitForSeconds(3f);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Environment") || collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Stone") || collision.gameObject.CompareTag("Animal") || collision.gameObject.CompareTag("Tebing"))
-        {
-            lastCollisionPoint = collision.transform.position;
-            if (isMoving && !isAvoiding)
-            {
-                isAvoiding = true;
-                if (currentMovementCoroutine != null)
-                {
-                    StopCoroutine(currentMovementCoroutine);
-                }
-                currentMovementCoroutine = StartCoroutine(MoveAwayFromObstacle(collision));
-            }
-        }
-    }
-
-    private IEnumerator MoveAwayFromObstacle(Collision2D collision)
-    {
-        Debug.Log("nabrak bang");
-        Vector2 directionAwayFromObstacle = ((Vector2)transform.position - (Vector2)collision.transform.position).normalized;
-        Vector2 targetPosition = (Vector2)transform.position + directionAwayFromObstacle * 5f;
-        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-        isAvoiding = false;
-        // Hanya melanjutkan gerakan acak jika tidak memiliki target aktif
-        if (tipeHewan == AnimalType.Pasif && currentTarget == null)
-        {
-            StartCoroutine(AnimalMovement(currentState));
-        }
-        else if (currentTarget != null) // Jika ada target, kembali mengejar target
-        {
-            currentState = "Mengejar"; // Set ulang state ke mengejar
-            // Tidak perlu memanggil ChaseTarget() di sini, akan otomatis di Update()
-        }
-    }
 
     public void DropItem()
     {
@@ -551,9 +510,11 @@ public class AnimalBehavior : MonoBehaviour
 
     private IEnumerator MoveToTarget(Vector2 targetPosition, float speed)
     {
-        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
+        // Ganti transform.position di sini
+        while (Vector2.Distance(rb.position, targetPosition) > 0.1f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            Vector2 newPosition = Vector2.MoveTowards(rb.position, targetPosition, speed * Time.deltaTime);
+            rb.MovePosition(newPosition);
             yield return null;
         }
     }
@@ -730,12 +691,12 @@ public class AnimalBehavior : MonoBehaviour
         }
     }
 
-    private void ChaseTarget()
+    private void ChaseTargetFixedUpdate()
     {
-        isMoving = true;
         Vector2 direction = (currentTarget.position - transform.position).normalized;
-        transform.position = Vector2.MoveTowards(transform.position, currentTarget.position, moveSpeed * Time.deltaTime);
+        rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
 
+        // Logika flip dan animasi tetap di sini
         if (direction.x > 0)
         {
             animalRenderer.flipX = true;
@@ -746,12 +707,9 @@ public class AnimalBehavior : MonoBehaviour
             animalRenderer.flipX = false;
             animalAnimator.Play("JalanKiri");
         }
-        if (zonaSerangTransform != null && currentTarget != null)
-        {
-            Vector2 directionToTarget = (currentTarget.position - transform.position).normalized;
-            zonaSerangTransform.localPosition = directionToTarget * jarakOffsetSerang;
-        }
     }
+
+  
 
     public void JalankanLogikaSerangan()
     {
@@ -804,14 +762,45 @@ public class AnimalBehavior : MonoBehaviour
 
     private void UpdateZonaSerangPosition()
     {
-        if (zonaSerangTransform == null) return;
-        if (animalRenderer.flipX)
+        // Pastikan zonaSerangTransform dan currentTarget tidak null
+        if (zonaSerangTransform == null || currentTarget == null)
         {
-            zonaSerangTransform.localPosition = new Vector3(jarakOffsetSerang, 0, 0);
+            return;
         }
-        else
+
+        // Hanya jalankan logika ini jika hewan agresif
+        if (tipeHewan != AnimalType.Agresif)
         {
-            zonaSerangTransform.localPosition = new Vector3(-jarakOffsetSerang, 0, 0);
+            return;
+        }
+
+        // Hitung vektor arah dari hewan ke target
+        Vector3 directionToTarget = currentTarget.position - transform.position;
+
+        // Hitung sudut rotasi dalam derajat dari vektor arah
+        // Atan2 memberikan sudut dalam radian, kita konversi ke derajat
+        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+
+        // Terapkan rotasi ke zonaSerangTransform
+        // Quaternion.Euler akan membuat rotasi baru dengan sumbu Z yang sesuai
+        zonaSerangTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        // Anda juga bisa menyesuaikan posisi zona serang di sepanjang arah ini
+        // Misalnya, untuk menempatkannya sedikit di depan hewan
+        zonaSerangTransform.localPosition = new Vector3(
+            directionToTarget.normalized.x * jarakOffsetSerang,
+            directionToTarget.normalized.y * jarakOffsetSerang,
+            0
+        );
+
+        // Tetap gunakan logika flipX untuk renderer hewan agar animasinya benar
+        if (directionToTarget.x > 0)
+        {
+            animalRenderer.flipX = true;
+        }
+        else if (directionToTarget.x < 0)
+        {
+            animalRenderer.flipX = false;
         }
     }
 }

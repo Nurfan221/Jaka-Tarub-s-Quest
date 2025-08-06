@@ -12,15 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
   m_Name: Rini Jayanti
   m_EditorClassIdentifier: 
-  npcName: 
-  fullName: 
-  pekerjaan: 
+  npcName: Rini Jayanti
+  fullName: Rini Jayanti
+  pekerjaan: Petani
   hobi: 
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 0}
-  schedules: []
+  prefab: {fileID: 3632186851480370098, guid: a521e12039fbf9a4882e06f31e7fb686, type: 3}
+  schedules:
+  - activityName: BerangkatKesawah
+    waypoints:
+    - {x: -14, y: 8, z: 0}
+    - {x: -14, y: -3, z: 0}
+    startTime: 5
+  - activityName: Istirahat
+    waypoints:
+    - {x: -14, y: -3, z: 0}
+    - {x: -2.63, y: -3, z: 0}
+    - {x: -2.63, y: -4.3, z: 0}
+    startTime: 9
+  - activityName: KembaliBekerja
+    waypoints:
+    - {x: -2.63, y: -4.3, z: 0}
+    - {x: -2.63, y: 6, z: 0}
+    startTime: 12
+  - activityName: Pulang
+    waypoints:
+    - {x: -2.63, y: 6, z: 0}
+    - {x: -2.63, y: -4.3, z: 0}
+    - {x: -14, y: -4.3, z: 0}
+    - {x: -14, y: 8, z: 0}
+    startTime: 15
   frendship:
     favoriteValue: 0
     likesValue: 0

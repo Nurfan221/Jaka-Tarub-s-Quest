@@ -90,7 +90,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -155,10 +155,10 @@ TextureImporter:
       name: Planters_0
       rect:
         serializedVersion: 2
-        x: 8
+        x: 0
         y: 80
-        width: 33
-        height: 14
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -177,10 +177,10 @@ TextureImporter:
       name: Planters_1
       rect:
         serializedVersion: 2
-        x: 52
-        y: 80
-        width: 25
-        height: 14
+        x: 0
+        y: 64
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -199,10 +199,10 @@ TextureImporter:
       name: Planters_2
       rect:
         serializedVersion: 2
-        x: 87
-        y: 64
-        width: 35
-        height: 21
+        x: 0
+        y: 48
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,10 +221,10 @@ TextureImporter:
       name: Planters_3
       rect:
         serializedVersion: 2
-        x: 132
-        y: 64
-        width: 26
-        height: 21
+        x: 0
+        y: 32
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -243,10 +243,10 @@ TextureImporter:
       name: Planters_4
       rect:
         serializedVersion: 2
-        x: 8
-        y: 64
-        width: 33
-        height: 14
+        x: 0
+        y: 16
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,10 +265,10 @@ TextureImporter:
       name: Planters_5
       rect:
         serializedVersion: 2
-        x: 52
-        y: 64
-        width: 25
-        height: 14
+        x: 0
+        y: 0
+        width: 48
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -283,187 +283,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Planters_6
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 48
-        width: 33
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9a40d756e040ef4d0800000000000000
-      internalID: -3099035033705577303
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Planters_7
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 0
-        width: 33
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b58053fb3a74e2420800000000000000
-      internalID: 2607100002907261019
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Planters_8
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 48
-        width: 25
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: be0634f814834ea80800000000000000
-      internalID: -8438557947557879573
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Planters_9
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 0
-        width: 25
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8899a8d5c352d7cd0800000000000000
-      internalID: -2558848072078943864
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Planters_10
-      rect:
-        serializedVersion: 2
-        x: 87
-        y: 32
-        width: 35
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e3d3ebdfb7038cbc0800000000000000
-      internalID: -3762704179571835586
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Planters_11
-      rect:
-        serializedVersion: 2
-        x: 132
-        y: 32
-        width: 26
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e7df28a524024e6c0800000000000000
-      internalID: -4115128690151326338
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Planters_12
-      rect:
-        serializedVersion: 2
-        x: 87
-        y: 0
-        width: 35
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0821e26ad28bb3300800000000000000
-      internalID: 232982311940788864
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Planters_13
-      rect:
-        serializedVersion: 2
-        x: 132
-        y: 0
-        width: 26
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dc4d11ba5882b6900800000000000000
-      internalID: 678680723415225549
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 65a37b642dd2f4b4d9149a6115b667cc
     internalID: 0
     vertices: []
     indices: 
@@ -475,18 +299,10 @@ TextureImporter:
     nameFileIdTable:
       Planters_0: -4120502745591785976
       Planters_1: -8269117867946475853
-      Planters_10: -3762704179571835586
-      Planters_11: -4115128690151326338
-      Planters_12: 232982311940788864
-      Planters_13: 678680723415225549
       Planters_2: -6873406329573126339
       Planters_3: -5301238191455848420
       Planters_4: -4277069876772677916
       Planters_5: -2985201466905630288
-      Planters_6: -3099035033705577303
-      Planters_7: 2607100002907261019
-      Planters_8: -8438557947557879573
-      Planters_9: -2558848072078943864
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

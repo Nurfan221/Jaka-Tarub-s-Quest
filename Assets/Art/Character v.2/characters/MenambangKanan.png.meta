@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: 90c46b47a4f051f40adf47cd697f9175
+guid: 8566e7861e9da8140803fc3577a89b76
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1327929139418342234
-    second: Fence_Big_Gate_0
+      213: 1235766125142177406
+    second: MenambangKanan_0
   - first:
-      213: -8235223020627859250
-    second: Fence_Big_Gate_1
+      213: 7071922387939982556
+    second: MenambangKanan_1
   - first:
-      213: 6948652546513566252
-    second: Fence_Big_Gate_2
+      213: 4076281942336530268
+    second: MenambangKanan_2
   - first:
-      213: -4371069112329613013
-    second: Fence_Big_Gate_3
+      213: -245918698266219091
+    second: MenambangKanan_3
   - first:
-      213: 2681505394731369360
-    second: Fence_Big_Gate_4
+      213: -4636240136522617259
+    second: MenambangKanan_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -63,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -125,13 +125,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fence_Big_Gate_0
+      name: MenambangKanan_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 13
-        width: 71
-        height: 38
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a53abe14480cd6210800000000000000
-      internalID: 1327929139418342234
+      spriteID: e767f825eb2562110800000000000000
+      internalID: 1235766125142177406
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fence_Big_Gate_1
+      name: MenambangKanan_1
       rect:
         serializedVersion: 2
-        x: 73
-        y: 10
-        width: 43
-        height: 44
+        x: 64
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,20 +162,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ec86b597b4c96bd80800000000000000
-      internalID: -8235223020627859250
+      spriteID: cdc7b4471f3842260800000000000000
+      internalID: 7071922387939982556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fence_Big_Gate_2
+      name: MenambangKanan_2
       rect:
         serializedVersion: 2
-        x: 124
-        y: 4
-        width: 37
-        height: 55
+        x: 128
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,20 +184,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c2afd8eeca29e6060800000000000000
-      internalID: 6948652546513566252
+      spriteID: c57ee4954dcd19830800000000000000
+      internalID: 4076281942336530268
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fence_Big_Gate_3
+      name: MenambangKanan_3
       rect:
         serializedVersion: 2
-        x: 175
-        y: 3
-        width: 30
-        height: 58
+        x: 192
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,20 +206,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b2159ee1dc7d653c0800000000000000
-      internalID: -4371069112329613013
+      spriteID: dad27323f32569cf0800000000000000
+      internalID: -245918698266219091
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fence_Big_Gate_4
+      name: MenambangKanan_4
       rect:
         serializedVersion: 2
-        x: 227
-        y: 3
-        width: 13
-        height: 58
+        x: 256
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,8 +228,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 093c14403fe963520800000000000000
-      internalID: 2681505394731369360
+      spriteID: 55e2921e824c8afb0800000000000000
+      internalID: -4636240136522617259
       vertices: []
       indices: 
       edges: []
@@ -238,7 +238,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7a6618a349487f64cb09256863fa7f79
     internalID: 0
     vertices: []
     indices: 
@@ -248,11 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Fence_Big_Gate_0: 1327929139418342234
-      Fence_Big_Gate_1: -8235223020627859250
-      Fence_Big_Gate_2: 6948652546513566252
-      Fence_Big_Gate_3: -4371069112329613013
-      Fence_Big_Gate_4: 2681505394731369360
+      MenambangKanan_0: 1235766125142177406
+      MenambangKanan_1: 7071922387939982556
+      MenambangKanan_2: 4076281942336530268
+      MenambangKanan_3: -245918698266219091
+      MenambangKanan_4: -4636240136522617259
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

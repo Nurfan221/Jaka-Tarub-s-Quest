@@ -386,7 +386,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8466065145438896573}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -481,8 +481,10 @@ MonoBehaviour:
   currentState: Idle
   jedaAnimasi: 3
   isMoving: 0
+  isAnimalQuest: 0
   moveSpeed: 2
   isAnimalEvent: 0
+  rb: {fileID: 0}
   tipeHewan: 1
   currentTarget: {fileID: 0}
   attackRange: 1.5
@@ -505,3 +507,4 @@ MonoBehaviour:
   maxNormalItem: 2
   minSpecialItem: 0
   maxSpecialItem: 1
+  playerTransform: {fileID: 0}

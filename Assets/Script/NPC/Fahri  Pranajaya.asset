@@ -19,7 +19,7 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 0}
+  prefab: {fileID: 3632186851480370098, guid: 7877e0b094d9a8545ad125673b4af327, type: 3}
   schedules:
   - activityName: PergiKepusatDesa
     waypoints:
@@ -29,12 +29,34 @@ MonoBehaviour:
     - {x: 29.61, y: -14.43, z: 0}
     - {x: 36, y: -14.43, z: 0}
     - {x: 36, y: -15.5, z: 0}
-    startTime: 0
-  - activityName: PergiKepusatDesa
+    startTime: 5
+  - activityName: PergiKekantor
     waypoints:
     - {x: 36, y: -15.5, z: 0}
     - {x: 36, y: -14.43, z: 0}
-    startTime: 0
+    - {x: 43, y: -14.43, z: 0}
+    - {x: 43, y: -25.11, z: 0}
+    - {x: 65.5, y: -25.11, z: 0}
+    - {x: 65.5, y: -37, z: 0}
+    - {x: 74.55, y: -37, z: 0}
+    - {x: 74.55, y: -29.62, z: 0}
+    startTime: 7
+  - activityName: MengunjungiWarga
+    waypoints:
+    - {x: 74.55, y: -29.62, z: 0}
+    - {x: 74.55, y: -37, z: 0}
+    - {x: 65.5, y: -37, z: 0}
+    - {x: 65.5, y: -25.11, z: 0}
+    - {x: 63, y: -25.11, z: 0}
+    - {x: 63, y: -11.61, z: 0}
+    - {x: 60.18, y: -9.42, z: 0}
+    startTime: 14
+  - activityName: Pulang
+    waypoints:
+    - {x: 60.18, y: -9.42, z: 0}
+    - {x: 26.5, y: -9.42, z: 0}
+    - {x: 26.5, y: -2, z: 0}
+    startTime: 18
   frendship:
     favoriteValue: 0
     likesValue: 0

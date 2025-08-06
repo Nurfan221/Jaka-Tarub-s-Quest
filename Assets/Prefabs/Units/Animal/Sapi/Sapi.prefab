@@ -145,7 +145,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8466065145438896573}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -162,7 +162,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &779017872243086411
 Animator:
@@ -240,10 +240,19 @@ MonoBehaviour:
   currentState: Idle
   jedaAnimasi: 3
   isMoving: 0
+  isAnimalQuest: 0
   moveSpeed: 1
   isAnimalEvent: 0
+  rb: {fileID: 0}
+  tipeHewan: 0
+  currentTarget: {fileID: 0}
+  attackRange: 1.5
+  attackCooldown: 2
+  zonaSerangTransform: {fileID: 0}
+  jarakOffsetSerang: 1
   animalAnimator: {fileID: 779017872243086411}
   animalRenderer: {fileID: -4335485848235824116}
+  detectionRadius: 0
   namaHewan: Sapi
   health: 30
   maxHealth: 30
@@ -257,3 +266,4 @@ MonoBehaviour:
   maxNormalItem: 2
   minSpecialItem: 0
   maxSpecialItem: 1
+  playerTransform: {fileID: 0}

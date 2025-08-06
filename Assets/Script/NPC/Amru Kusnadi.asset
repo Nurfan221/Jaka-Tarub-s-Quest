@@ -12,15 +12,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
   m_Name: Amru Kusnadi
   m_EditorClassIdentifier: 
-  npcName: 
-  fullName: 
-  pekerjaan: 
-  hobi: 
+  npcName: Amru Kusnadi
+  fullName: Amru Kusnadi
+  pekerjaan: Petani
+  hobi: Bertani
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 0}
-  schedules: []
+  prefab: {fileID: 3632186851480370098, guid: d9c4a05755f644d4998957e7229402de, type: 3}
+  schedules:
+  - activityName: BerangkatKeSawah
+    waypoints:
+    - {x: 65.1, y: -22, z: 0}
+    - {x: 65.1, y: -25.25, z: 0}
+    - {x: 63, y: -25.25, z: 0}
+    - {x: 63, y: -11.5, z: 0}
+    - {x: 63, y: -3, z: 0}
+    startTime: 5
+  - activityName: PulangKerumah
+    waypoints:
+    - {x: 63, y: -3, z: 0}
+    - {x: 63, y: -11.5, z: 0}
+    - {x: 63, y: -25.25, z: 0}
+    - {x: 65.1, y: -25.25, z: 0}
+    - {x: 65.1, y: -22, z: 0}
+    startTime: 9
+  - activityName: KeSawah
+    waypoints:
+    - {x: 65.1, y: -22, z: 0}
+    - {x: 65.1, y: -25.25, z: 0}
+    - {x: 63, y: -25.25, z: 0}
+    - {x: 63, y: -11.5, z: 0}
+    - {x: 58, y: -9, z: 0}
+    startTime: 12
+  - activityName: KeSawah
+    waypoints:
+    - {x: 58, y: -9, z: 0}
+    - {x: 63, y: -11.5, z: 0}
+    - {x: 63, y: -25.25, z: 0}
+    - {x: 65.1, y: -25.25, z: 0}
+    - {x: 65.1, y: -22, z: 0}
+    startTime: 18
   frendship:
     favoriteValue: 0
     likesValue: 0

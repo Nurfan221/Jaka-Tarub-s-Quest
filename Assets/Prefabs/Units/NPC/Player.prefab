@@ -15339,7 +15339,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5998541882732084300}
   - component: {fileID: 8831596829291859742}
-  - component: {fileID: 3309368558563943548}
   - component: {fileID: 2696770339627116132}
   - component: {fileID: 5854799743846047212}
   - component: {fileID: 5684611985928635090}
@@ -15432,42 +15431,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &3309368558563943548
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8129610806355446646}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.013364792, y: -0.27066302}
-  m_Radius: 0.548702
 --- !u!50 &2696770339627116132
 Rigidbody2D:
   serializedVersion: 5
@@ -15507,19 +15470,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bd65f80d1a207447bcb55c521539151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {x: 0, y: 0}
-  face: {fileID: 3446040036883624188}
-  circleBoundary: {fileID: 1499737637291563661}
-  isMoving: 1
-  walkSpd: 5
+  rb: {fileID: 0}
+  controller: {fileID: 0}
+  facePlayer: {fileID: 0}
   dashParticle: {fileID: 3862012485650969772}
-  dashStamina: 40
-  dashDistance: 3
-  dashForce: 100
-  dashButton: {fileID: 0}
-  movementJoystick: {fileID: 0}
-  joystickHandle: {fileID: 0}
-  joystickBackground: {fileID: 0}
+  face: {fileID: 3446040036883624188}
+  jarakOffsetSerang: 1
+  movementDirection: {x: 0, y: 0}
+  lastDirection: {x: 0, y: 0}
+  isDashing: 0
 --- !u!114 &5684611985928635090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15532,10 +15491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 132dedbacd33c80409d249375caddc2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerUI: {fileID: 0}
-  playerHealth: {fileID: 8403737879081081286}
   animator: {fileID: 5182133446376496793}
-  toolsAnimator: {fileID: 0}
   hitBoxRenderer: {fileID: 8032780791927186798}
   combatMode: 1
   canAttack: 1
@@ -15543,12 +15499,10 @@ MonoBehaviour:
   specialAttackHitArea: {fileID: 920648282362804236}
   faceDirection: {x: 0, y: 0, z: 0}
   playerPosition: {x: 0, y: 0, z: 0}
+  canSpecialAttack: 1
   buffParticle: {fileID: 6111915780568683359}
   quickSlotCD: 2
   farmTile: {fileID: 0}
-  buttonAttack: {fileID: 0}
-  specialAttack: {fileID: 0}
-  buttonUse: {fileID: 0}
   face: {fileID: 3446040036883624188}
 --- !u!114 &4187796554494207513
 MonoBehaviour:
@@ -15562,31 +15516,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dc05bc95878abe46bb80585ed59fe4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList:
-  - {fileID: 11400000, guid: 6f34cae93e4590e42b8acaf469896f96, type: 2}
-  maxItem: 18
-  normalAttackHitArea: {fileID: 2033105564713796990}
-  switchWeaponImage: {fileID: 0}
-  switchUseItemImage: {fileID: 0}
-  contohFlipCard: {fileID: 0}
-  pintuManager: {fileID: 0}
-  meleeOrRanged: 1
-  itemUse1: 1
-  emptyItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
-  equippedCombat:
-  - {fileID: 0}
-  - {fileID: 0}
-  equippedWeapon: {fileID: 0}
-  equippedItem: {fileID: 0}
-  quickSlots:
-  - {fileID: 0}
-  - {fileID: 0}
   inventoryOpened: 0
   inventoryClosed: 0
-  miniGameHewanUI: {fileID: 0}
   healParticle: {fileID: 9013086940009283592}
-  inventoryButton: {fileID: 0}
-  closeInventoryButton: {fileID: 0}
 --- !u!114 &8866308063379065053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15630,15 +15562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_Anim: {fileID: 2042781221665071364}
-  maxHealth: 100
-  health: 30
-  maxStamina: 100
-  stamina: 100
-  staminaRegenRate: 15
-  currentMaxStamina: 0
-  emotionalHealthCap: 100
-  emotionalStaminaCap: 100
-  isInGrief: 0
+  buffScrollController: {fileID: 0}
   sr: {fileID: 590918729192924437}
 --- !u!114 &3153821618895573808
 MonoBehaviour:
@@ -15670,15 +15594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_Anim: {fileID: 0}
-  maxHealth: 100
-  health: 100
-  maxStamina: 250
-  stamina: 250
-  staminaRegenRate: 15
-  currentMaxStamina: 0
-  emotionalHealthCap: 100
-  emotionalStaminaCap: 100
-  isInGrief: 0
+  buffScrollController: {fileID: 0}
   sr: {fileID: 590918729192924437}
 --- !u!114 &8171202124435529208
 MonoBehaviour:
@@ -15692,11 +15608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e59f623250dd9ff41b7581d209378174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questManager: {fileID: 0}
-  dialogueSystem: {fileID: 0}
   locationManager: {fileID: 0}
   player_Health: {fileID: 8403737879081081286}
-  locationMainQuest: {fileID: 0}
   dialogueInLocation: {fileID: 0}
   environmentObject: {fileID: 0}
   mainQuestInLocation: 0
