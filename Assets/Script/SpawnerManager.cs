@@ -53,7 +53,7 @@ public class SpawnerManager : MonoBehaviour
     public void HandleNewDay()
     {
         float luck = TimeManager.Instance.GetDayLuck();
-        SetSpawnerActive(luck);
+        //SetSpawnerActive(luck);
     }
     public void SetSpawnerActive(float random)
     {

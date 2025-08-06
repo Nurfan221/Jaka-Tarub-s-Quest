@@ -219,27 +219,74 @@ public class AnimalBehavior : MonoBehaviour
             }
 
             string nextState = GetRandomAnimationForCurrentState();
+            currentState = nextState;
+            animalAnimator.Play(currentState);
 
+            // Jika animasi adalah pergerakan (JalanKanan/JalanKiri)
             if (nextState.Contains("Jalan"))
             {
-                // Set state di sini
-                currentState = nextState;
                 isMoving = true;
-                animalAnimator.Play(currentState); // Panggil sekali saja
-
-                // Tentukan target pergerakan dan mulai bergerak
                 Vector2 randomDirection = (nextState == "JalanKanan") ? new Vector2(1, UnityEngine.Random.Range(-1f, 1f)) : new Vector2(-1, UnityEngine.Random.Range(-1f, 1f));
                 animalRenderer.flipX = (nextState == "JalanKanan");
                 Vector2 targetPosition = (Vector2)rb.position + randomDirection * 3f;
 
-                // Panggil coroutine pergerakan
                 yield return StartCoroutine(MoveToTargetWithPhysics(targetPosition, moveSpeed));
+
+                isMoving = false;
+            }
+            else // Jika animasi adalah non-pergerakan (Idle, Duduk, dll.)
+            {
+                isMoving = false;
+
+                // Logika baru untuk animasi berurutan
+                if (nextState == "Duduk")
+                {
+                    // Tunggu animasi 'Duduk' selesai
+                    float dudukDuration = animalAnimator.GetCurrentAnimatorStateInfo(0).length;
+                    yield return new WaitForSeconds(dudukDuration);
+
+                    // Setelah Duduk selesai, jalankan animasi 'Rebahan'
+                    currentState = "Rebahan";
+                    animalAnimator.Play("Rebahan");
+
+                    // Tunggu durasi animasi 'Rebahan'
+                    float rebahanDuration = animalAnimator.GetCurrentAnimatorStateInfo(0).length;
+                    yield return new WaitForSeconds(rebahanDuration);
+                    currentState = "TidurNyenyak";
+                    animalAnimator.Play("TidurNyenyak");
+
+                    // Tunggu durasi animasi 'Rebahan'
+                    yield return new WaitForSeconds(jedaAnimasi);
+                }
+                else if(nextState == "Rebahan")
+                {
+                    // Tunggu animasi 'Duduk' selesai
+                    yield return new WaitForSeconds(jedaAnimasi);
+
+                    // Setelah Duduk selesai, jalankan animasi 'Rebahan'
+                    currentState = "TidurNyenyak";
+                    animalAnimator.Play("TidurNyenyak");
+
+                    // Tunggu durasi animasi 'Rebahan'
+                    yield return new WaitForSeconds(jedaAnimasi);
+
+                    currentState = "Berdiri";
+                    animalAnimator.Play(currentState);
+                    float berdiriDuration = animalAnimator.GetCurrentAnimatorStateInfo(0).length;
+                    yield return new WaitForSeconds(berdiriDuration);
+
+                }
+                else
+                {
+                    // Tunggu durasi animasi non-pergerakan lainnya
+                    //float animationDuration = animalAnimator.GetCurrentAnimatorStateInfo(0).length;
+                    yield return new WaitForSeconds(jedaAnimasi);
+                }
             }
 
-            // Setelah pergerakan, atur kembali ke Idle
+            // Setelah animasi/pergerakan selesai, atur state ke Idle
             currentState = "Idle";
             animalAnimator.Play("Idle");
-            isMoving = false;
         }
     }
 
@@ -333,6 +380,7 @@ public class AnimalBehavior : MonoBehaviour
         if (state != null && state.availableStates.Length > 0)
         {
             int randomIndex = UnityEngine.Random.Range(0, state.availableStates.Length);
+            Debug.Log("Sekarang sedang menjalankan animasi: " + state.availableStates[randomIndex]);
             return state.availableStates[randomIndex];
         }
         return "Idle";

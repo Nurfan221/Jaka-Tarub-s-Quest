@@ -26,9 +26,12 @@ public class AnimalSpawner : MonoBehaviour
     public bool CanSpawn = true;
     [SerializeField] private Collider2D spawnArea; // Area spawn menggunakan Collider2D
     [SerializeField] private float spawnCD = 2f;   // Cooldown spawn
+    public Vector2[] spawnPoint; // Titik spawn yang akan digunakan
 
     private float spawnTimer;
-    public int maxSpawnCount = 2;                     // Jumlah hewan yang akan spawn
+    public int maxSpawnCount;  // Jumlah hewan yang akan spawn
+    public int spawnCount;
+    public int minSpawnCount;
     private SpawnCategory currentCategory = SpawnCategory.None; // Kategori spawn yang aktif
     public GameObject currentAnimalSpesial;
 
@@ -36,19 +39,23 @@ public class AnimalSpawner : MonoBehaviour
 
     private void Start()
     {
+        spawnCount = Random.Range(minSpawnCount, maxSpawnCount);
+        // Hapus pendaftaran event di OnDestroy()
+        TimeManager.OnHourChanged -= UpdateSpawnCategory;
+        // Daftar event di sini agar hanya sekali
+        TimeManager.OnHourChanged += UpdateSpawnCategory;
+
+        // Pastikan enemies bersih di awal
         DeleteEnemiesFromArray();
 
-        // Validasi jika animalPools kosong
         if (animalPools.Count == 0)
         {
             Debug.LogError("AnimalPools kosong! Pastikan untuk menambahkan data di Inspector.");
             return;
         }
 
-        // Daftar ke event OnHourChanged di TimeManager
-       
-
-
+        // Inisialisasi kategori awal
+        UpdateSpawnCategory();
     }
 
     private void OnDestroy()
@@ -59,7 +66,7 @@ public class AnimalSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (enemies.Count < maxSpawnCount && CanSpawn)
+        if (enemies.Count < spawnCount && CanSpawn)
         {
             spawnTimer += Time.deltaTime;
             if (spawnTimer > spawnCD)
@@ -72,30 +79,26 @@ public class AnimalSpawner : MonoBehaviour
 
     public void SpawnAnimal()
     {
-        if (enemies.Count >= maxSpawnCount) return;  // Pastikan jumlah hewan tidak melebihi maxSpawnCount
+        // Pastikan tidak ada pendaftaran event berulang di sini
+        if (enemies.Count >= spawnCount) return;
 
-        TimeManager.OnHourChanged += UpdateSpawnCategory;
+        //// Hitung berapa banyak hewan yang perlu di-spawn untuk mencapai maxSpawnCount
+        //spawnCount = maxSpawnCount - enemies.Count;
 
-        int spawnAnimal = Random.Range(0, maxSpawnCount - enemies.Count); // Membatasi spawn hanya untuk sisa slot yang kurang
-        for (int i = 0; i < spawnAnimal; i++)
+        for (int i = 0; i < spawnCount; i++)
         {
             if (CanSpawn)
             {
-                // Dapatkan prefab berdasarkan kategori aktif
                 GameObject prefabToSpawn = GetRandomAnimalFromCategory(currentCategory);
                 if (prefabToSpawn == null)
                 {
-                    // Debug.LogWarning("Tidak ada hewan yang tersedia untuk kategori ini.");
+                    Debug.LogWarning("Tidak ada hewan yang tersedia untuk kategori ini.");
                     return;
                 }
 
-                // Spawn hewan di posisi yang valid
                 GameObject newEnemy = Instantiate(prefabToSpawn);
                 newEnemy.transform.position = GetSpawnPosition();
-                newEnemy.transform.localScale = Vector3.one;  // Pastikan skala 1,1,1
-                newEnemy.transform.parent = transform;        // Atur parent setelahnya
-
-                // Atur skala prefab ke 1 untuk memastikan ukurannya sesuai dengan prefab aslinya
+                newEnemy.transform.parent = transform;
                 newEnemy.transform.localScale = Vector3.one;
 
                 enemies.Add(newEnemy);
@@ -161,34 +164,12 @@ public class AnimalSpawner : MonoBehaviour
 
     private Vector2 GetSpawnPosition()
     {
-        if (spawnArea == null)
-        {
-            //Debug.LogWarning("Spawn area tidak ditemukan, menggunakan posisi default.");
-            return transform.position;
-        }
-
-        Bounds bounds = spawnArea.bounds;
-        Vector2 randomPosition;
-        int maxAttempts = 100; // Batas percobaan spawn
-        int attempts = 0;
-
-        do
-        {
-            randomPosition = new Vector2(
-                Random.Range(bounds.min.x, bounds.max.x),
-                Random.Range(bounds.min.y, bounds.max.y)
-            );
-            attempts++;
-        } while (!spawnArea.OverlapPoint(randomPosition) && attempts < maxAttempts);
-
-        if (attempts >= maxAttempts)
-        {
-            //Debug.LogWarning("Gagal menemukan posisi spawn yang valid. Menggunakan posisi default.");
-            return bounds.center;
-        }
-
-        return randomPosition;
+       int randomPositionPoint = Random.Range(0, spawnPoint.Length);
+        return spawnPoint[randomPositionPoint];
     }
+
+    // Fungsi tambahan untuk memeriksa apakah sebuah titik berada di dalam poligon
+  
 
     public void DeleteEnemiesFromArray()
     {
