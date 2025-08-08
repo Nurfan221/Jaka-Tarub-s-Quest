@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6467848702856471926}
   - component: {fileID: 1875809329078935253}
   - component: {fileID: 1864868281198516365}
-  - component: {fileID: 8717634045059135908}
+  - component: {fileID: -4686587224607985825}
   m_Layer: 0
-  m_Name: Bunga 7
+  m_Name: Bunga 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,13 +77,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: -1824353235719115481, guid: f1fa929d00f5a11489586b0ceb9ad3d0, type: 3}
+  m_SortingOrder: 4
+  m_Sprite: {fileID: -5086539909155329147, guid: a7c68dbf24ee5554da3b888ab6b409ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -101,18 +101,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rumputAnimation:
-  - {fileID: -1824353235719115481, guid: f1fa929d00f5a11489586b0ceb9ad3d0, type: 3}
-  - {fileID: -1379307211406112361, guid: f1fa929d00f5a11489586b0ceb9ad3d0, type: 3}
-  - {fileID: -4976057725095057398, guid: f1fa929d00f5a11489586b0ceb9ad3d0, type: 3}
-  - {fileID: -4409861876001432252, guid: f1fa929d00f5a11489586b0ceb9ad3d0, type: 3}
-  - {fileID: 2115615118947072595, guid: f1fa929d00f5a11489586b0ceb9ad3d0, type: 3}
-  - {fileID: 8480057136465512260, guid: f1fa929d00f5a11489586b0ceb9ad3d0, type: 3}
-  frameRate: 0.2
+  rumputAnimation: []
+  frameRate: 0.1
   nameEnvironment: 
   itemDrop: {fileID: 0}
   plantsContainer: {fileID: 0}
---- !u!61 &8717634045059135908
+--- !u!61 &-4686587224607985825
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,15 +140,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.030883789, y: -0.15134406}
+  m_Offset: {x: 0.011381149, y: 0.013131142}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.5, y: 1.5}
+    newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.49346924, y: 0.6108308}
+  m_Size: {x: 0.52570724, y: 0.97167397}
   m_EdgeRadius: 0

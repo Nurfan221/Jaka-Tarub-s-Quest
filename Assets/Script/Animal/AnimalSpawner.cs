@@ -82,7 +82,7 @@ public class AnimalSpawner : MonoBehaviour
         // Pastikan tidak ada pendaftaran event berulang di sini
         if (enemies.Count >= spawnCount) return;
 
-        //// Hitung berapa banyak hewan yang perlu di-spawn untuk mencapai maxSpawnCount
+        // Hitung berapa banyak hewan yang perlu di-spawn untuk mencapai maxSpawnCount
         //spawnCount = maxSpawnCount - enemies.Count;
 
         for (int i = 0; i < spawnCount; i++)

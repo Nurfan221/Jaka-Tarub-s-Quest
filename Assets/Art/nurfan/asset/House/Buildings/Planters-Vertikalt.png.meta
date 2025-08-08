@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: bd23cd7bbacf4944895c349e86e6c684
+guid: a7c68dbf24ee5554da3b888ab6b409ea
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -290624990376767147
-    second: IdleAtas_0
+      213: 4549165499085636281
+    second: Planters-Vertikalt_0
   - first:
-      213: 450889558465702466
-    second: IdleAtas_1
+      213: -873242750400385765
+    second: Planters-Vertikalt_1
+  - first:
+      213: -5086539909155329147
+    second: Planters-Vertikalt_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IdleAtas_0
+      name: Planters-Vertikalt_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 16
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 551ddbd6c1e77fbf0800000000000000
-      internalID: -290624990376767147
+      spriteID: 9b2467d3be1e12f30800000000000000
+      internalID: 4549165499085636281
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: IdleAtas_1
+      name: Planters-Vertikalt_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 16
         y: 0
-        width: 64
-        height: 64
+        width: 16
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +156,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 24ae74d1aa1e14600800000000000000
-      internalID: 450889558465702466
+      spriteID: b1d23bb585e91e3f0800000000000000
+      internalID: -873242750400385765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planters-Vertikalt_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58be2faf6eaf869b0800000000000000
+      internalID: -5086539909155329147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planters-Vertikalt_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2b6f3f5cbb0b1143b30418ece6ae7e0
+      internalID: -1320043210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planters-Vertikalt_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95bcb0a09a9e6e448bddd3a9c8ecb8aa
+      internalID: -1410904136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planters-Vertikalt_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a9df7a3523db674aaec8dacac9d0daa
+      internalID: -1762212571
       vertices: []
       indices: 
       edges: []
@@ -163,7 +254,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c755d473cc57b1d4992f20010e70d627
+    spriteID: 12fdf7470867f7e4fb43c2c8e10b3f29
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +264,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IdleAtas_0: -290624990376767147
-      IdleAtas_1: 450889558465702466
+      Planters-Vertikalt_0: 4549165499085636281
+      Planters-Vertikalt_1: -873242750400385765
+      Planters-Vertikalt_2: -5086539909155329147
+      Planters-Vertikalt_3: -1320043210
+      Planters-Vertikalt_4: -1410904136
+      Planters-Vertikalt_5: -1762212571
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3bfa95106347c5d47b329713037e7c4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,8 +108,10 @@ MonoBehaviour:
   - {fileID: 5536397041280894307, guid: ebf9443086982c14fbbc541dc0e04904, type: 3}
   - {fileID: -4853173777336515058, guid: ebf9443086982c14fbbc541dc0e04904, type: 3}
   - {fileID: 7619656022073789496, guid: ebf9443086982c14fbbc541dc0e04904, type: 3}
-  frameRate: 0.1
+  frameRate: 0.2
+  nameEnvironment: 
   itemDrop: {fileID: 0}
+  plantsContainer: {fileID: 0}
 --- !u!61 &-6712358949518289778
 BoxCollider2D:
   m_ObjectHideFlags: 0

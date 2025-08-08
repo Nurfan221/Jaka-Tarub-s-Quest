@@ -59,7 +59,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3bfa95106347c5d47b329713037e7c4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -132,9 +132,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: BungaMalam
-  item: {fileID: 11400000, guid: 98c8e48ad99efd243a6560a6b87624e6, type: 2}
+  itemdata:
+    itemName: 
+    count: 0
+    quality: 0
   itemName: BungaMalam
   gravityDuration: 1
+  isPickable: 1
+  pickupDelay: 5
 --- !u!61 &-1687654317166898783
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -194,5 +199,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  namePrefab: BungaMalam
   itemDrop: {fileID: 4459120725376062254}
+  particleSystem: {fileID: 0}
