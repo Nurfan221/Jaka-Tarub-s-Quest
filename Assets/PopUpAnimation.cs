@@ -5,7 +5,7 @@ public class PopUpAnimation : MonoBehaviour
     public float startYOffset = -2f;  // Seberapa jauh objek muncul dari bawah
     public float animationDuration = 0.5f;  // Durasi animasi muncul
     public AnimationCurve popUpCurve;  // Kurva animasi untuk efek lebih halus
-
+    private SpriteRenderer spriteRenderer;
 
     private Vector3 originalPosition;
     private bool isAnimating = false;
@@ -13,8 +13,10 @@ public class PopUpAnimation : MonoBehaviour
 
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         originalPosition = transform.position;
         transform.position += new Vector3(0, startYOffset, 0);  // Pindah objek ke bawah
+        spriteRenderer.enabled = false;
     }
 
     public void TriggerPopUp()

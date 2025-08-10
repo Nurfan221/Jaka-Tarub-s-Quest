@@ -12,15 +12,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
   m_Name: Indra Wijaya
   m_EditorClassIdentifier: 
-  npcName: 
-  fullName: 
-  pekerjaan: 
-  hobi: 
+  npcName: Indra Wijaya
+  fullName: Indra Wijaya
+  pekerjaan: Pemancing
+  hobi: Mancing
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 0}
-  schedules: []
+  prefab: {fileID: 3632186851480370098, guid: c1aaabec08890bc4b8c3129b0029119d, type: 3}
+  schedules:
+  - activityName: Berangkat Mancing
+    waypoints:
+    - {x: 96.5, y: -27, z: 0}
+    - {x: 96.5, y: -33, z: 0}
+    - {x: 98.5, y: -33, z: 0}
+    - {x: 100, y: -32, z: 0}
+    - {x: 109.5, y: -32, z: 0}
+    - {x: 109.5, y: -32, z: 0}
+    - {x: 113.5, y: -35.5, z: 0}
+    - {x: 108.5, y: -39, z: 0}
+    - {x: 108.5, y: -53, z: 0}
+    startTime: 10
+  - activityName: Pindah Tempat
+    waypoints:
+    - {x: 108.5, y: -53, z: 0}
+    - {x: 76.5, y: -53, z: 0}
+    - {x: 76.5, y: -72.5, z: 0}
+    startTime: 14
+  - activityName: Istirahat
+    waypoints:
+    - {x: 76.5, y: -72.5, z: 0}
+    - {x: 76.5, y: -63, z: 0}
+    - {x: 81.27, y: -63, z: 0}
+    - {x: 81.27, y: -60, z: 0}
+    startTime: 18
+  - activityName: Mancing
+    waypoints:
+    - {x: 81.27, y: -60, z: 0}
+    - {x: 81.27, y: -66, z: 0}
+    startTime: 19
+  - activityName: Pulang
+    waypoints:
+    - {x: 81.27, y: -60, z: 0}
+    - {x: 81.27, y: -63, z: 0}
+    - {x: 86, y: -63, z: 0}
+    - {x: 86, y: -63, z: 0}
+    - {x: 86, y: -53.5, z: 0}
+    - {x: 113.5, y: -35.5, z: 0}
+    - {x: 109.5, y: -32, z: 0}
+    - {x: 100, y: -32, z: 0}
+    - {x: 98.5, y: -33, z: 0}
+    - {x: 96.5, y: -33, z: 0}
+    - {x: 96.5, y: -27, z: 0}
+    startTime: 20
   frendship:
     favoriteValue: 0
     likesValue: 0

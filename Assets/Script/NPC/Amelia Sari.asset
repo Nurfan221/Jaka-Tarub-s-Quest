@@ -12,15 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
   m_Name: Amelia Sari
   m_EditorClassIdentifier: 
-  npcName: 
-  fullName: 
-  pekerjaan: 
+  npcName: 'Amelia Sari '
+  fullName: 'Amelia Sari '
+  pekerjaan: Penjual Roti
   hobi: 
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
   prefab: {fileID: 0}
-  schedules: []
+  schedules:
+  - activityName: Membuka Toko
+    waypoints:
+    - {x: 24.5, y: -14, z: 0}
+    startTime: 8
+  - activityName: Kewarung
+    waypoints:
+    - {x: 24.5, y: -14, z: 0}
+    startTime: 8
   frendship:
     favoriteValue: 0
     likesValue: 0

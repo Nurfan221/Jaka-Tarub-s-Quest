@@ -29,40 +29,33 @@ MonoBehaviour:
   - activityName: Pulang
     waypoints:
     - {x: 17, y: -9, z: 0}
-    - {x: 30, y: -9, z: 0}
-    - {x: 30, y: -26, z: 0}
-    - {x: 42, y: -26, z: 0}
-    - {x: 43, y: -25.25, z: 0}
-    - {x: 83.5, y: -25.25, z: 0}
-    - {x: 83.5, y: -30.5, z: 0}
-    - {x: 96.5, y: -30.5, z: 0}
-    - {x: 96.5, y: -27, z: 0}
+    - {x: 29.5, y: -9, z: 0}
+    - {x: 29.5, y: -23, z: 0}
+    - {x: 26.6, y: -23, z: 0}
+    - {x: 26.6, y: -21, z: 0}
     startTime: 6
-  - activityName: Berangkat Berjaga
+  - activityName: Berangkat Kerja
     waypoints:
-    - {x: 96.5, y: -27, z: 0}
-    - {x: 96.5, y: -30.5, z: 0}
-    - {x: 83.5, y: -30.5, z: 0}
-    - {x: 83.5, y: -25.25, z: 0}
-    - {x: 37.5, y: -25.25, z: 0}
-    - {x: 37.5, y: -22, z: 0}
-    - {x: 37.5, y: -24, z: 0}
-    startTime: 15
-  - activityName: Pindah tempat berjaga
+    - {x: 26.6, y: -21, z: 0}
+    - {x: 26.6, y: -23, z: 0}
+    - {x: 38, y: -23, z: 0}
+    - {x: 38, y: -24, z: 0}
+    startTime: 14
+  - activityName: Pindah Tempat
     waypoints:
-    - {x: 37.5, y: -24, z: 0}
-    - {x: 37.5, y: -26, z: 0}
-    - {x: 30, y: -26, z: 0}
-    - {x: 30, y: -5, z: 0}
-    - {x: 30, y: -6, z: 0}
+    - {x: 38, y: -24, z: 0}
+    - {x: 38, y: -23, z: 0}
+    - {x: 29.6, y: -23, z: 0}
+    - {x: 30.25, y: -5, z: 0}
+    - {x: 30.25, y: -6, z: 0}
     startTime: 20
-  - activityName: Melamun
+  - activityName: Pindah Tempat
     waypoints:
-    - {x: 30, y: -6, z: 0}
-    - {x: 30, y: -8, z: 0}
+    - {x: 30.25, y: -6, z: 0}
+    - {x: 30.25, y: -8, z: 0}
     - {x: 17, y: -8, z: 0}
     - {x: 17, y: -9, z: 0}
-    startTime: 23
+    startTime: 20
   frendship:
     favoriteValue: 0
     likesValue: 0

@@ -12,15 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
   m_Name: Lestari Cendani
   m_EditorClassIdentifier: 
-  npcName: 
-  fullName: 
-  pekerjaan: 
-  hobi: 
+  npcName: Lestari Cendani
+  fullName: Lestari Cendani
+  pekerjaan: Petugas Desa
+  hobi: Mengobrol
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 0}
-  schedules: []
+  prefab: {fileID: 3632186851480370098, guid: 617c90500c1c4764d8970c5d09d5f71f, type: 3}
+  schedules:
+  - activityName: Berangkat Kewarung
+    waypoints:
+    - {x: 26.6, y: -21, z: 0}
+    - {x: 26.6, y: -23, z: 0}
+    - {x: 29.5, y: -23, z: 0}
+    - {x: 26, y: -23, z: 0}
+    - {x: 42.5, y: -23, z: 0}
+    - {x: 44, y: -25.25, z: 0}
+    - {x: 65.5, y: -25.25, z: 0}
+    - {x: 65.5, y: -36.5, z: 0}
+    - {x: 74.5, y: -36.5, z: 0}
+    - {x: 74.5, y: -29, z: 0}
+    startTime: 5
+  - activityName: Mengobrol ibu ibu
+    waypoints:
+    - {x: 74.5, y: -29, z: 0}
+    - {x: 74.5, y: -36.5, z: 0}
+    - {x: 65.5, y: -36.5, z: 0}
+    - {x: 65.5, y: -25.25, z: 0}
+    - {x: 42.5, y: -25.25, z: 0}
+    - {x: 42.5, y: -20.5, z: 0}
+    - {x: 44, y: -17.5, z: 0}
+    - {x: 47.5, y: -17.5, z: 0}
+    startTime: 5
+  - activityName: Pulang
+    waypoints:
+    - {x: 47.5, y: -17.5, z: 0}
+    - {x: 44, y: -17.5, z: 0}
+    - {x: 42.5, y: -20.5, z: 0}
+    - {x: 42.5, y: -25.25, z: 0}
+    - {x: 29.5, y: -25.25, z: 0}
+    - {x: 26.6, y: -25.25, z: 0}
+    - {x: 26.6, y: -21, z: 0}
+    startTime: 5
   frendship:
     favoriteValue: 0
     likesValue: 0
