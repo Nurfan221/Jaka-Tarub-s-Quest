@@ -23,27 +23,27 @@ MonoBehaviour:
   schedules:
   - activityName: MenjagaToko
     waypoints:
-    - {x: 54.5, y: -19, z: 0}
+    - {x: 54.32, y: -19, z: 0}
     startTime: 5
   - activityName: BekerjaMenempa
     waypoints:
-    - {x: 54.5, y: -19, z: 0}
-    - {x: 54.5, y: -22, z: 0}
-    - {x: 58.5, y: -22, z: 0}
-    - {x: 58.5, y: -19.5, z: 0}
-    - {x: 58.6, y: -19.5, z: 0}
+    - {x: 54.32, y: -19, z: 0}
+    - {x: 54.32, y: -22, z: 0}
+    - {x: 58, y: -22, z: 0}
+    - {x: 58, y: -19.5, z: 0}
+    - {x: 58.2, y: -19.5, z: 0}
     startTime: 12
   - activityName: Mengobrol
     waypoints:
-    - {x: 58.6, y: -19.5, z: 0}
-    - {x: 58.6, y: -20.5, z: 0}
+    - {x: 58.2, y: -19.5, z: 0}
+    - {x: 58.2, y: -20.5, z: 0}
     startTime: 15
   - activityName: Pulang
     waypoints:
-    - {x: 59.5, y: -20.5, z: 0}
-    - {x: 59.5, y: -22, z: 0}
-    - {x: 54.5, y: -22, z: 0}
-    - {x: 54.5, y: -19, z: 0}
+    - {x: 58.2, y: -20.5, z: 0}
+    - {x: 58, y: -22, z: 0}
+    - {x: 54.32, y: -22, z: 0}
+    - {x: 54.32, y: -19, z: 0}
     startTime: 18
   frendship:
     favoriteValue: 0

@@ -19,7 +19,7 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 0}
+  prefab: {fileID: 3632186851480370098, guid: 6b196e13f3372cc44aadd2429f88ce61, type: 3}
   schedules:
   - activityName: Membuka Toko
     waypoints:
@@ -28,7 +28,29 @@ MonoBehaviour:
   - activityName: Kewarung
     waypoints:
     - {x: 24.5, y: -14, z: 0}
-    startTime: 8
+    - {x: 24.5, y: -16, z: 0}
+    - {x: 29.5, y: -16, z: 0}
+    - {x: 29.5, y: -8.5, z: 0}
+    - {x: 39.5, y: -8.5, z: 0}
+    - {x: 39.5, y: 0, z: 0}
+    startTime: 12
+  - activityName: Di Pusat Kota
+    waypoints:
+    - {x: 39.5, y: 0, z: 0}
+    - {x: 39.5, y: -11, z: 0}
+    - {x: 41.5, y: -14.5, z: 0}
+    - {x: 37, y: -14.5, z: 0}
+    - {x: 37, y: -17, z: 0}
+    startTime: 15
+  - activityName: pulang
+    waypoints:
+    - {x: 37, y: -17, z: 0}
+    - {x: 37, y: -14.5, z: 0}
+    - {x: 29.5, y: -14.5, z: 0}
+    - {x: 29.5, y: -16, z: 0}
+    - {x: 24.5, y: -16, z: 0}
+    - {x: 24.5, y: -14, z: 0}
+    startTime: 18
   frendship:
     favoriteValue: 0
     likesValue: 0

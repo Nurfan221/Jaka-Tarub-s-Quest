@@ -12,15 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
   m_Name: Sekar Arum
   m_EditorClassIdentifier: 
-  npcName: 
-  fullName: 
-  pekerjaan: 
+  npcName: Sekar Arum
+  fullName: Sekar Arum
+  pekerjaan: Pedagang
   hobi: 
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 0}
-  schedules: []
+  prefab: {fileID: 3632186851480370098, guid: 2378b3730e01701478e507faa422a7f1, type: 3}
+  schedules:
+  - activityName: Membuka Toko
+    waypoints:
+    - {x: 39.5, y: 0, z: 0}
+    startTime: 5
+  - activityName: Mengobrol Ibu Ibu
+    waypoints:
+    - {x: 39.5, y: 0, z: 0}
+    - {x: 38.5, y: -10, z: 0}
+    - {x: 41.5, y: -14, z: 0}
+    - {x: 47, y: -14, z: 0}
+    - {x: 47, y: -16, z: 0}
+    startTime: 14
+  - activityName: Pulang
+    waypoints:
+    - {x: 47, y: -16, z: 0}
+    - {x: 47, y: -14, z: 0}
+    - {x: 41.5, y: -14, z: 0}
+    - {x: 38.5, y: -10, z: 0}
+    - {x: 39.5, y: 0, z: 0}
+    startTime: 18
   frendship:
     favoriteValue: 0
     likesValue: 0

@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
+  m_Name: Bima Prasetya
+  m_EditorClassIdentifier: 
+  npcName: Bima Prasetya
+  fullName: Bima Prasetya
+  pekerjaan: Tukang Bangunan
+  hobi: 
+  tanggalUltah: 0
+  bulanUltah: 0
+  npcSprite: {fileID: 0}
+  prefab: {fileID: 3632186851480370098, guid: 97e920a0372082c4584287bf20ea3b08, type: 3}
+  schedules:
+  - activityName: 'Membuka Toko '
+    waypoints:
+    - {x: 44, y: -5, z: 0}
+    startTime: 8
+  - activityName: Berangkat Kerja
+    waypoints:
+    - {x: 44, y: -5, z: 0}
+    - {x: 44, y: -7.5, z: 0}
+    - {x: 76, y: -7.5, z: 0}
+    - {x: 76, y: -5.7, z: 0}
+    - {x: 75.67, y: -5.7, z: 0}
+    startTime: 14
+  - activityName: Pulang Kerja
+    waypoints:
+    - {x: 75.67, y: -5.7, z: 0}
+    - {x: 76, y: -5.7, z: 0}
+    - {x: 76, y: -7.5, z: 0}
+    - {x: 44, y: -7.5, z: 0}
+    - {x: 44, y: -5, z: 0}
+    startTime: 17
+  - activityName: Nongkrong
+    waypoints:
+    - {x: 44, y: -5, z: 0}
+    - {x: 44, y: -7.5, z: 0}
+    - {x: 29.25, y: -7.5, z: 0}
+    - {x: 29.25, y: -5, z: 0}
+    - {x: 29.25, y: -6, z: 0}
+    startTime: 20
+  - activityName: Nongkrong
+    waypoints:
+    - {x: 29.25, y: -6, z: 0}
+    - {x: 29.25, y: -7.5, z: 0}
+    - {x: 44, y: -7.5, z: 0}
+    - {x: 44, y: -5, z: 0}
+    startTime: 23
+  frendship:
+    favoriteValue: 0
+    likesValue: 0
+    normalValue: 0
+    hateValue: 0
+    favorites: []
+    like: []
+    normal: []
+    hate: []
