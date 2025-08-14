@@ -12,15 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
   m_Name: Brata Mahardika
   m_EditorClassIdentifier: 
-  npcName: 
-  fullName: 
-  pekerjaan: 
+  npcName: Brata Mahardika
+  fullName: Brata Mahardika
+  pekerjaan: Penjaga Kuburan
   hobi: 
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 0}
-  schedules: []
+  prefab: {fileID: 3632186851480370098, guid: fa00d50aa066e45438331bf8ca7085b0, type: 3}
+  schedules:
+  - activityName: Membersihkan Makam
+    waypoints:
+    - {x: 5.5, y: -49, z: 0}
+    - {x: 5.5, y: -52, z: 0}
+    - {x: 19.5, y: -42, z: 0}
+    - {x: 19.5, y: -35.5, z: 0}
+    - {x: 21, y: -35.5, z: 0}
+    startTime: 5
+  - activityName: Pulang
+    waypoints:
+    - {x: 21, y: -35.5, z: 0}
+    - {x: 19.5, y: -35.5, z: 0}
+    - {x: 19.5, y: -42, z: 0}
+    - {x: 5.5, y: -52, z: 0}
+    - {x: 5.5, y: -49, z: 0}
+    startTime: 10
+  - activityName: Memotong Kayu
+    waypoints:
+    - {x: 5.5, y: -49, z: 0}
+    - {x: 5.5, y: -52, z: 0}
+    - {x: 0, y: -52, z: 0}
+    startTime: 15
+  - activityName: Ketepi Sungai
+    waypoints:
+    - {x: 0, y: -52, z: 0}
+    - {x: 0, y: -56, z: 0}
+    - {x: -24.5, y: -56, z: 0}
+    - {x: -24.5, y: -62.5, z: 0}
+    startTime: 18
+  - activityName: Pulang
+    waypoints:
+    - {x: -24.5, y: -62.5, z: 0}
+    - {x: -24.5, y: -56, z: 0}
+    - {x: 0, y: -56, z: 0}
+    - {x: 0, y: -52, z: 0}
+    - {x: 5.5, y: -52, z: 0}
+    - {x: 5.5, y: -49, z: 0}
+    startTime: 23
   frendship:
     favoriteValue: 0
     likesValue: 0
