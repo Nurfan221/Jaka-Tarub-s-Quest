@@ -23,17 +23,17 @@ MonoBehaviour:
   schedules:
   - activityName: Berangkat Bekerja
     waypoints:
-    - {x: 26.6, y: -21, z: 0}
-    - {x: 26.6, y: -23, z: 0}
-    - {x: 29.5, y: -23, z: 0}
-    - {x: 29.5, y: -25.25, z: 0}
-    - {x: 42.5, y: -25.25, z: 0}
+    - {x: 25, y: -21, z: 0}
+    - {x: 25, y: -23.5, z: 0}
+    - {x: 29.5, y: -23.5, z: 0}
+    - {x: 29.5, y: -26, z: 0}
+    - {x: 42.5, y: -26, z: 0}
     - {x: 44, y: -25.25, z: 0}
     - {x: 65.5, y: -25.25, z: 0}
     - {x: 65.5, y: -36.5, z: 0}
     - {x: 74.5, y: -36.5, z: 0}
     - {x: 74.5, y: -29, z: 0}
-    startTime: 5
+    startTime: 6
   - activityName: Mengobrol ibu ibu
     waypoints:
     - {x: 74.5, y: -29, z: 0}
