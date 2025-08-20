@@ -539,6 +539,14 @@ public class InventoryUI : MonoBehaviour
                 //    npcListUI.CloseUI();
                 //}
                 break;
+            case "QuestInfo":
+                 QuestInfoUI questInfoUI = menuPanels[menu].panelInventory.GetComponent<QuestInfoUI>();
+                foreach (var quest in QuestManager.Instance.questLog)
+                {
+                    questInfoUI.DisplayActiveQuest(quest.Quest);
+                }
+                questInfoUI.RefreshActiveQuest();
+                break;
 
             default:
                 // Logika default jika tidak ada panel yang cocok

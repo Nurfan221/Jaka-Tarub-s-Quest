@@ -71,6 +71,7 @@ public class PlantSeed : MonoBehaviour
         {
             growthSpeed = growthTime / growthImages.Length;
         }
+        UpdateParticleEffect();
     }
     public void Initialize()
     {
@@ -145,10 +146,8 @@ public class PlantSeed : MonoBehaviour
             waterEffect.Play();
         }
     }
+    // Logika harian untuk tanaman yang terinfeksi. Jika lebih dari 2 hari, tanaman mati.
 
-    /// <summary>
-    /// Logika harian untuk tanaman yang terinfeksi. Jika lebih dari 2 hari, tanaman mati.
-    /// </summary>
     public void UpdateInfection()
     {
         if (!isInfected) return;

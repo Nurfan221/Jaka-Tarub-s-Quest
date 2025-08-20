@@ -79,7 +79,7 @@ public class GameController : MonoBehaviour
         PlayCurrentSceneBGM();
         InitializePlayer(); // Fungsi ini akan menemukan GameObject Player yang baru
 
-        // --- INI BAGIAN BARUNYA: PANGGIL SEMUA FUNGSI REINITIALIZE ---
+        //INI BAGIAN BARUNYA: PANGGIL SEMUA FUNGSI REINITIALIZE 
         if (playerUI != null)
         {
             playerUI.Reinitialize();
@@ -289,16 +289,16 @@ public class GameController : MonoBehaviour
     }
 
 
-    // --- COROUTINE YANG MENANGANI SELURUH PROSES ---
+    //COROUTINE YANG MENANGANI SELURUH PROSES 
     private IEnumerator ProsesLoadingDanPindahScene(string namaScene)
     {
-        // --- LANGKAH 1: Tampilkan UI Loading dan jeda game ---
+        // Tampilkan UI Loading dan jeda game 
         LoadingScreenUI.Instance.ShowLoading(); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
 
         // Beri waktu agar animasi fade-in atau tampilan loading screen terlihat mulus
         yield return new WaitForSecondsRealtime(0.5f);
 
-        // --- LANGKAH 2: Muat scene baru secara asynchronous ---
+        // Muat scene baru secara asynchronous 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(namaScene);
 
         // Hentikan agar scene tidak langsung aktif saat selesai dimuat
@@ -313,13 +313,14 @@ public class GameController : MonoBehaviour
             yield return null;
         }
 
-        // --- LANGKAH 3: Beri waktu tunggu minimal untuk pengalaman pengguna yang baik ---
+        // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik 
         yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
 
-        // --- LANGKAH 4: Aktifkan scene baru dan sembunyikan UI loading ---
+        // Aktifkan scene baru dan sembunyikan UI loading 
         asyncLoad.allowSceneActivation = true;
         // Tunggu sampai scene benar-benar aktif
         yield return new WaitUntil(() => asyncLoad.isDone);
+        TimeManager.Instance.UpdateDay(); // Memastikan waktu diperbarui saat pindah scene
 
         LoadingScreenUI.Instance.HideLoading(); // Ini akan memanggil ResumeGame()
     }

@@ -90,6 +90,21 @@ public class NPCManager : MonoBehaviour
         }
     }
 
+    public void AddDialogueForNPCQuest(string npcName, Dialogues newDialogue)
+    {
+        NPCBehavior npc = GetActiveNpcByName(npcName);
+        if (npc != null)
+        {
+            npc.questOverrideDialogue = newDialogue;
+            npc.isLockedForQuest = true; // Kunci NPC untuk quest
+            Debug.Log($"NPC {npcName} dikunci untuk quest dengan dialog baru.");
+        }
+        else
+        {
+            Debug.LogWarning($"NPC dengan nama {npcName} tidak ditemukan.");
+        }
+    }
+
 
 }
 

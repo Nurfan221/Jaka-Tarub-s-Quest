@@ -115,6 +115,11 @@ public class FarmTile : MonoBehaviour
             HoedTileData newHoedTile = new HoedTileData(tileToHoe, timeManager.timeData_SO.date);
             farmData.hoedTilesList.Add(newHoedTile);
         }
+
+        if (TimeManager.Instance.timeData_SO.isRain)
+        {
+            WaterTile(playerPosition, faceDirection);
+        }
     }
 
     public void WaterTile(Vector3 playerPosition, Vector3 faceDirection)

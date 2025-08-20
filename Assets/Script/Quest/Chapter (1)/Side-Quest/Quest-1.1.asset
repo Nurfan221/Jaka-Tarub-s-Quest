@@ -23,7 +23,7 @@ MonoBehaviour:
   questProgress: 1
   dateToActivate: 1
   MonthToActivate: 1
-  npcName: Jhorgeo Wicaksana
+  npcName: Rini Jayanti
   itemRequirements:
   - itemName: Padi
     count: 10
@@ -40,4 +40,5 @@ MonoBehaviour:
   finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
   isMainQuest: 0
   isInGrief: 0
-  spawnerToActivate: {fileID: 0}
+  isSpawner: 0
+  spawnerToActivate: 

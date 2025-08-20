@@ -333,7 +333,7 @@ public class AnimalBehavior : MonoBehaviour
         tipeHewan = animalType;
         if (tipeHewan == AnimalType.isQuest)
         {
-            Debug.Log("Animal type changed to isQuest. Stopping current coroutines.");
+            //Debug.Log("Animal type changed to isQuest. Stopping current coroutines.");
             StopAllCoroutines(); // Hentikan semua coroutine sebelumnya
 
             // Set target ke player secara langsung saat diubah menjadi isQuest
@@ -346,11 +346,11 @@ public class AnimalBehavior : MonoBehaviour
             {
                 currentTarget = playerTransform;
                 currentState = "Mengejar"; // Mulai mengejar player
-                Debug.Log($"{namaHewan} (Quest) mulai mengikuti Player setelah diubah tipe.");
+                //Debug.Log($"{namaHewan} (Quest) mulai mengikuti Player setelah diubah tipe.");
             }
             else
             {
-                Debug.LogWarning("Player Transform not found for isQuest animal.");
+                //Debug.LogWarning("Player Transform not found for isQuest animal.");
                 currentState = "Idle";
                 animalAnimator.Play("Idle");
                 StartCoroutine(PlayRandomAnimationPeriodically());
@@ -380,7 +380,7 @@ public class AnimalBehavior : MonoBehaviour
         if (state != null && state.availableStates.Length > 0)
         {
             int randomIndex = UnityEngine.Random.Range(0, state.availableStates.Length);
-            Debug.Log("Sekarang sedang menjalankan animasi: " + state.availableStates[randomIndex]);
+            //Debug.Log("Sekarang sedang menjalankan animasi: " + state.availableStates[randomIndex]);
             return state.availableStates[randomIndex];
         }
         return "Idle";
@@ -394,7 +394,7 @@ public class AnimalBehavior : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Animator tidak ditemukan!");
+            //Debug.LogWarning("Animator tidak ditemukan!");
         }
     }
 

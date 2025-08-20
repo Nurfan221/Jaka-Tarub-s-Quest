@@ -30,7 +30,8 @@ public class QuestManager : MonoBehaviour
 
 
     // Event ini akan memberitahu UI atau sistem lain jika ada pembaruan pada log quest.
-    public static event System.Action OnQuestLogUpdated;
+    //public static event System.Action OnQuestLogUpdated;
+
 
 
     private void Awake()
@@ -118,9 +119,11 @@ public class QuestManager : MonoBehaviour
             Debug.Log("mengaktifkan spawner SpawnerQuest1_6");
             SpawnerManager.Instance.HandleSpawnerActive(questToActivate.spawnerToActivate);
         }
+        NPCManager.Instance.AddDialogueForNPCQuest(newQuestStatus.Quest.npcName, newQuestStatus.Quest.startDialogue);
         // Siarkan event agar UI bisa memperbarui tampilannya
         //OnQuestLogUpdated?.Invoke();
         CreateTemplateQuest();
+
     }
     // Fungsi helper untuk mengecek apakah sebuah quest sudah ada di log.
 

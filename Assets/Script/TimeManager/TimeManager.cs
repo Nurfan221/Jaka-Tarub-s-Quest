@@ -128,30 +128,14 @@ public class TimeManager : MonoBehaviour
         OnTimeChanged?.Invoke();
     }
 
-   private void UpdateDay()
-    {
+   public void UpdateDay()
+   {
         hour = 4;
         timeData_SO.currentDay = (Days)((timeData_SO.totalHari % 7 == 0) ? 7 : timeData_SO.totalHari % 7);
 
         // Tentukan probabilitas hujan berdasarkan musim
 
-
-        //questManager.CheckQuest();
-        //shopUI.RestockDaily(currentSeason);
-
-        //PlayerController.Instance.HandleReverseHealthandStamina();
         GetLuck();
-        //spawnerManager.SetSpawnerActive(timeData_SO.dailyLuck);
-
-
-
-
-        //environmentManagerTrees.SpawnFromEnvironmentList(timeData_SO.dailyLuck);
-        //environmentManagerJamur.SpawnFromEnvironmentList(timeData_SO.dailyLuck);
-        //environmentManagerBunga.SpawnFromEnvironmentList(timeData_SO.dailyLuck);
-        //environmentManagerKuburan.UpdateKondisiKuburan();
-
-
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
         Debug.Log($"Hari telah berganti: {timeData_SO.totalHari}");
 
@@ -165,6 +149,8 @@ public class TimeManager : MonoBehaviour
         // Debug jumlah listener yang terdaftar
         Debug.Log($"Jumlah pohon yang menerima event: {registeredTrees.Count}");
    }
+
+
     public void GetCurrentDate()
     {
         var date = DateTime.Now;

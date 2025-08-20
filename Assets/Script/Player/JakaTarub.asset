@@ -38,13 +38,13 @@ MonoBehaviour:
     count: 1
     quality: 0
   - itemName: Padi
-    count: 49
+    count: 39
     quality: 0
   - itemName: DagingDombaSpesial
     count: 11
     quality: 0
   - itemName: BenihPadi
-    count: 15
+    count: 16
     quality: 0
   - itemName: Sword
     count: 1
@@ -70,6 +70,9 @@ MonoBehaviour:
   - itemName: Ranting
     count: 10
     quality: 0
+  - itemName: Cangkul
+    count: 1
+    quality: 0
   maxItem: 18
   emptyItemTemplate:
     itemName: Empty
@@ -80,14 +83,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedItemData:
-  - itemName: Sword
+  - itemName: PenyiramTanaman
     count: 1
     quality: 0
   - itemName: Cangkul
     count: 1
     quality: 0
   equippedWeaponTemplate:
-    itemName: Sword
+    itemName: Cangkul
     count: 1
     quality: 0
   equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
@@ -106,7 +109,7 @@ MonoBehaviour:
   - itemName: Empty
     count: 1
     quality: 0
-  equipped1: 1
+  equipped1: 0
   itemUse1: 0
   currentFatiguePenalty: 0
   maxFatiguePenalty: 50

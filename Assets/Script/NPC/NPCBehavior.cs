@@ -33,7 +33,7 @@ public class NPCBehavior : MonoBehaviour
     private void Update()
     {
         // Jangan lakukan apa-apa jika sedang dikunci oleh quest
-        if (isLockedForQuest) return;
+        //if (isLockedForQuest) return;
 
         // Jika tidak sedang bergerak, periksa jadwal
         if (!isMoving)
@@ -133,7 +133,7 @@ public class NPCBehavior : MonoBehaviour
         movementCoroutine = StartCoroutine(MoveToTargetPosition(preQuestPosition, false));
     }
 
-    // --- FUNGSI BANTUAN UNTUK PERGERAKAN HALUS (COROUTINE) ---
+    // FUNGSI BANTUAN UNTUK PERGERAKAN HALUS (COROUTINE) 
     private IEnumerator MoveToTargetPosition(Vector3 targetPosition, bool isQuestMove)
     {
         while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
