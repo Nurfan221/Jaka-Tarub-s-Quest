@@ -107,7 +107,7 @@ public class QuestInfoUI : MonoBehaviour
 
             //Set teks quest
             questDetail.GetChild(1).GetComponent<TMP_Text>().text = questData.questName;
-            questInfo.GetChild(1).GetComponent<TMP_Text>().text = $"{questData.DeskripsiAwal} {questData.DeskripsiAkhir} ";
+            questInfo.GetChild(1).GetComponent<TMP_Text>().text = questData.npcName;
 
             //Mengatur itemID berdasarkan indeks
             ItemDragandDrop itemDragAndDrop = questDetail.GetComponent<ItemDragandDrop>();

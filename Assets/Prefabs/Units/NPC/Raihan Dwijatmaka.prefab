@@ -354,11 +354,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useEvents: 0
-  promptMessage: 'Sekar Arum '
-  questManager: {fileID: 0}
-  npcManager: {fileID: 0}
+  promptMessage: Raihan Dwijatmaka
   npcBehavior: {fileID: 0}
-  dialogueSystem: {fileID: 0}
 --- !u!114 &1522165594464081912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,6 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLockedForQuest: 0
+  isQuestLocation: 0
   questOverrideDialogue: {fileID: 0}
   normalDialogue: {fileID: 0}
   movementSpeed: 2

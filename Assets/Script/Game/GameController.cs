@@ -293,7 +293,7 @@ public class GameController : MonoBehaviour
     private IEnumerator ProsesLoadingDanPindahScene(string namaScene)
     {
         // Tampilkan UI Loading dan jeda game 
-        LoadingScreenUI.Instance.ShowLoading(); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
+        LoadingScreenUI.Instance.ShowLoading(true); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
 
         // Beri waktu agar animasi fade-in atau tampilan loading screen terlihat mulus
         yield return new WaitForSecondsRealtime(0.5f);
@@ -315,6 +315,7 @@ public class GameController : MonoBehaviour
 
         // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik 
         yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
+
 
         // Aktifkan scene baru dan sembunyikan UI loading 
         asyncLoad.allowSceneActivation = true;

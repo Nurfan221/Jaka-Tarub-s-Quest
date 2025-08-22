@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using System.Collections;
 public class PintuManager : MonoBehaviour
 {
     public static PintuManager Instance { get; private set; }
@@ -42,7 +42,7 @@ public class PintuManager : MonoBehaviour
 
     }
 
-    public void EnterArea(string pintu)
+    public IEnumerator EnterArea(string pintu)
     {
         Debug.Log("Nama pintu: " + pintu);
 
@@ -56,12 +56,23 @@ public class PintuManager : MonoBehaviour
                 Debug.Log("Posisi Pintu Masuk (pintuOut): " + posisiPintu);
 
                 player.transform.position = posisiPintu;
-            }else if (pintuTujuan.pintuOut.name == pintu)
+                LoadingScreenUI.Instance.ShowLoading(false); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
+                                                        // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik 
+                yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
+                LoadingScreenUI.Instance.HideLoading(); // Ini akan memanggil ResumeGame()
+
+            }
+            else if (pintuTujuan.pintuOut.name == pintu)
             {
                 // Mengambil posisi pintuIn
                 Vector3 posisiPintu = pintuTujuan.pintuIn.transform.position;
                 Debug.Log("Posisi Pintu Masuk (pintuIn): " + posisiPintu);
                 player.transform.position = posisiPintu;
+
+                LoadingScreenUI.Instance.ShowLoading(false); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
+                                                        // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik 
+                yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
+                LoadingScreenUI.Instance.HideLoading(); // Ini akan memanggil ResumeGame()
             }
         }
     }

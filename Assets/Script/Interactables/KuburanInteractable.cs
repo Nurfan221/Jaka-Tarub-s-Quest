@@ -90,7 +90,7 @@ public class KuburanInteractable : Interactable
         if (PlayerController.Instance.playerData.stamina > 0)
         {
             // Tampilkan loading screen sementara proses pembersihan
-            LoadingScreenUI.Instance.ShowLoading();
+            LoadingScreenUI.Instance.ShowLoading(false);
             yield return new WaitForSeconds(jedaMembersihkanKuburan);
 
             // Sembunyikan loading screen setelah pembersihan selesai

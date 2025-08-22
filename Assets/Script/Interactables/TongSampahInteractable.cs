@@ -12,7 +12,7 @@ public class TongSampahInteractable : Interactable
     void Start()
     {
         isFull = false;
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        //spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = spriteKosong;
 
     }

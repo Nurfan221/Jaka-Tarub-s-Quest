@@ -11,6 +11,7 @@ public class LoadingScreenUI : MonoBehaviour
     [SerializeField] TMP_Text loadingText;
     [SerializeField] TMP_Text tipsText;
     public Sprite[] loadingImages;
+
     public Transform loadingImageTransform;
     public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
     private int currentFrame = 0; // Indeks frame saat ini
@@ -41,7 +42,7 @@ public class LoadingScreenUI : MonoBehaviour
 
 
     }
-    public void ShowLoading()
+    public void ShowLoading(bool achievement)
     {
         // Hentikan coroutine lama jika ada sebelum memulai yang baru
         if (animationCoroutine != null)
@@ -55,7 +56,8 @@ public class LoadingScreenUI : MonoBehaviour
         GameController.Instance.PauseGame();
 
         // Mulai coroutine yang baru
-        animationCoroutine = StartCoroutine(PlayLoadingAnimation());
+
+        animationCoroutine = StartCoroutine(PlayLoadingAnimation(achievement));
     }
 
 
@@ -100,9 +102,13 @@ public class LoadingScreenUI : MonoBehaviour
     //    Debug.Log("DONE");
     //}
 
-    private IEnumerator PlayLoadingAnimation()
+    private IEnumerator PlayLoadingAnimation(bool achievement)
     {
-        StartAnimation();
+        if (achievement)
+        {
+            StartAnimation();
+        }
+
         while (true) // Loop tanpa batas (animasi berulang)
         {
             if (loadingImages.Length > 0) // Pastikan array sprite tidak kosong
