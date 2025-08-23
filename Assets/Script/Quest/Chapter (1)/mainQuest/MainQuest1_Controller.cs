@@ -254,13 +254,28 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 HandleSpriteAndDialogue(MainQuest1State.KabarKesedihan);
                 PlayerController.Instance.HandlePlayerIsGreaf();
                 break;
+            case MainQuest1State.Selesai:
+                Debug.Log("Main Quest Selesai! Berikan hadiah dan bersihkan.");
+                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.Selesai)?.objectiveInfoForUI ?? "";
+                QuestManager.Instance.CreateTemplateQuest();
+                HandleSpriteAndDialogue(MainQuest1State.Selesai);
+                isQuestComplete = true;
+                //questManager.CompleteCurrentMainQuest(); // Panggil metode di QuestManager untuk menyelesaikan quest
+                HandleDestroySpawnedAnimals();
+                break;
 
-         
+
         }
         StartCoroutine(FinishStateChange());
     }
 
-
+    public IEnumerator UseLoadingScreenUI(bool achievement)
+    {
+        LoadingScreenUI.Instance.ShowLoading(achievement); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
+                                                           // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik
+        yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
+        LoadingScreenUI.Instance.HideLoading();
+    }
 
     private IEnumerator FinishStateChange()
     {
@@ -302,6 +317,9 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             case MainQuest1State.PergiKeHutan:
 
                 ChangeState(MainQuest1State.CariRusa);
+                break;
+            case MainQuest1State.Selesai:
+                StartCoroutine(UseLoadingScreenUI(true));
                 break;
 
                 //case MainQuest1State.CariRusa:
@@ -489,7 +507,12 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 HandleSpriteAndDialogue(MainQuest1State.PamitUntukBerburu);
 
                 break;
-            
+            case MainQuest1State.KabarKesedihan:
+                // Misalnya, spawn hewan baru atau ubah kondisi lingkungan
+                ChangeState(MainQuest1State.Selesai);
+                break;
+
+
         }
 
         // Misalnya, spawn hewan baru atau ubah kondisi lingkungan
