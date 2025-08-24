@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
+  m_Name: Quest 2.1
+  m_EditorClassIdentifier: 
+  questName: Berburu dan lupakan kesedihan atau kesendirianmu
+  questInfo: Bicara Dengan mas Jhorgeo
+  DeskripsiAwal: Setelah kepergian sang ibu, Jaka Tarub larut dalam kesedihan dan
+    kesendirian. Jhorgeo, seorang pemburu dan teman baiknya, melihat kondisi Jaka
+    Tarub dan mengajaknya berburu ke hutan. Jhorgeo berharap, dengan berburu, Jaka
+    Tarub dapat mengalihkan pikirannya dan melupakan sejenak rasa hampa yang ia rasakan.
+    Jhorgeo berjanji akan memberikan hasil buruan Jaka Tarub kepada istrinya untuk
+    dimasak. Berikan
+  DeskripsiAkhir: 'untuk menyelesaikan quest ini '
+  locateNpcQuest: {x: 0, y: 0, z: 0}
+  questType: 0
+  questProgress: 1
+  dateToActivate: 0
+  MonthToActivate: 0
+  npcName: Jhorgeo Wicaksana
+  itemRequirements:
+  - itemName: DagingSapi
+    count: 3
+    quality: 0
+  - itemName: DagingDomba
+    count: 3
+    quality: 0
+  - itemName: DagingAyam
+    count: 3
+    quality: 0
+  goldReward: 500
+  itemRewards:
+  - itemName: DagingSapiPanggang
+    count: 1
+    quality: 0
+  - itemName: DagingDombaPanggang
+    count: 1
+    quality: 0
+  - itemName: DagingAyamPanggang
+    count: 1
+    quality: 0
+  startDialogue: {fileID: 11400000, guid: ce3458b0d0a312744b7c5ac591d162b2, type: 2}
+  finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
+  isMainQuest: 0
+  isInGrief: 0
+  isSpawner: 0
+  spawnerToActivate: 

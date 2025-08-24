@@ -23,6 +23,7 @@ public class QuestManager : MonoBehaviour
     public MainQuestSO pendingMainQuest; // Quest yang menunggu untuk diaktifkan
     public MainQuestController activeMainQuestController; // Controller yang sedang berjalan
     public PlayerMainQuestStatus activePlayerMainQuestStatus;
+    public int currentSideQuestIndex = 1;
 
     [Header("Status Quest Pemain")]
     // List ini akan melacak semua quest (side quest) yang sedang aktif atau sudah selesai.
@@ -81,14 +82,18 @@ public class QuestManager : MonoBehaviour
         // --- Cek Side Quest (Logika Anda sudah benar) ---
         foreach (var chapterAsset in allChapters)
         {
-            foreach (var questAsset in chapterAsset.sideQuests)
+            if (chapterAsset.chapterID == currentSideQuestIndex)
             {
-                if (IsQuestInLog(questAsset.questName)) continue;
-                if (TimeManager.Instance.timeData_SO.date == questAsset.dateToActivate && TimeManager.Instance.timeData_SO.bulan == questAsset.MonthToActivate)
+                foreach (var questAsset in chapterAsset.sideQuests)
                 {
-                    ActivateQuest(questAsset);
+                    if (IsQuestInLog(questAsset.questName)) continue;
+                    if (TimeManager.Instance.timeData_SO.date == questAsset.dateToActivate && TimeManager.Instance.timeData_SO.bulan == questAsset.MonthToActivate)
+                    {
+                        ActivateQuest(questAsset);
+                    }
                 }
             }
+           
         }
 
         // --- Cek Main Quest yang Tertunda ---
