@@ -261,7 +261,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 HandleSpriteAndDialogue(MainQuest1State.Selesai);
                 isQuestComplete = true;
                 //questManager.CompleteCurrentMainQuest(); // Panggil metode di QuestManager untuk menyelesaikan quest
-                HandleDestroySpawnedAnimals();
+                //HandleDestroySpawnedAnimals();
                 break;
 
 

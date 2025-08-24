@@ -18,42 +18,27 @@ MonoBehaviour:
   dashForce: 20
   playerPosition: {x: 0, y: 0}
   maxHealth: 100
-  health: 100
-  currentHealthCap: 100
+  health: 50
+  currentHealthCap: 50
   maxStamina: 100
-  stamina: 100
+  stamina: 50
   staminaRegenRate: 5
-  currentStaminaCap: 100
+  currentStaminaCap: 50
   initialGriefPenalty: 50
-  isInGrief: 0
+  isInGrief: 1
   currentGriefPenalty: 50
   healingQuestsCompleted: 0
   totalHealingQuests: 5
   itemList: []
   inventory:
-  - itemName: PickAxe
-    count: 1
-    quality: 0
-  - itemName: Sabit
-    count: 1
-    quality: 0
   - itemName: Padi
     count: 39
     quality: 0
-  - itemName: DagingDombaSpesial
-    count: 11
+  - itemName: DagingDomba
+    count: 24
     quality: 0
-  - itemName: BenihPadi
-    count: 16
-    quality: 0
-  - itemName: Sword
-    count: 1
-    quality: 0
-  - itemName: Sword
-    count: 1
-    quality: 0
-  - itemName: Sabit
-    count: 1
+  - itemName: Ranting
+    count: 10
     quality: 0
   - itemName: Kayu
     count: 15
@@ -64,13 +49,28 @@ MonoBehaviour:
   - itemName: Cangkul
     count: 1
     quality: 0
-  - itemName: DagingDomba
-    count: 25
-    quality: 0
-  - itemName: Ranting
+  - itemName: DagingDombaSpesial
     count: 10
     quality: 0
+  - itemName: BenihPadi
+    count: 16
+    quality: 0
   - itemName: Cangkul
+    count: 1
+    quality: 0
+  - itemName: Cangkul
+    count: 1
+    quality: 0
+  - itemName: Cangkul
+    count: 1
+    quality: 0
+  - itemName: Cangkul
+    count: 1
+    quality: 0
+  - itemName: Sword
+    count: 1
+    quality: 0
+  - itemName: Sword
     count: 1
     quality: 0
   maxItem: 18
@@ -83,14 +83,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedItemData:
-  - itemName: PenyiramTanaman
-    count: 1
-    quality: 0
   - itemName: Cangkul
     count: 1
     quality: 0
+  - itemName: Sword
+    count: 1
+    quality: 0
   equippedWeaponTemplate:
-    itemName: Cangkul
+    itemName: Sword
     count: 1
     quality: 0
   equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
