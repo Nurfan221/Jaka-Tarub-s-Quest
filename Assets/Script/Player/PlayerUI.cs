@@ -46,6 +46,7 @@ public class PlayerUI : MonoBehaviour
     public Image itemUseUI;
     public Button weaponSlider;  // Slider untuk memilih senjata
     public Button itemSlider; // slider untuk mengganti item 
+   
 
     public TMP_Text promptText;
     public Button promptButton; // Tambahkan ini, Button untuk membungkus promptText
@@ -64,6 +65,17 @@ public class PlayerUI : MonoBehaviour
 
     // Kecepatan animasi bar
     public float barAnimationSpeed = 2f;
+
+    [Header("References to quest UI")]
+    // Komponen UI yang diperlukan
+    public RectTransform questUI;
+    public Button questButton;
+    // Variabel untuk animasi
+    public float animationDuration = 0.5f; // Durasi animasi dalam detik
+    public float targetHeight = 300f; // Ketinggian akhir UI
+    public float startHeight = 0f; // Ketinggian awal UI
+
+    private bool isUIActive = false;
 
     public void Start()
     {
@@ -134,7 +146,11 @@ public class PlayerUI : MonoBehaviour
             Button buttonSpesialAttack = specialAttackUI.GetComponent<Button>();
             buttonSpesialAttack.onClick.AddListener(PlayerController.Instance.HandleSpesialAttackButton);
         }
-      
+
+        if (questButton != null)
+        {
+            questButton.onClick.AddListener(ToggleQuestUI);
+        }
     }
 
    
@@ -350,5 +366,87 @@ public class PlayerUI : MonoBehaviour
 
         // Pastikan nilai akhirnya presisi
         barImage.fillAmount = targetValue;
+    }
+    public void ToggleQuestUI()
+    {
+        if (isUIActive)
+        {
+            // Jika UI aktif, sembunyikan
+            // Anda bisa membuat coroutine kebalikan dari AnimateShowUI
+            StopAllCoroutines();
+            StartCoroutine(AnimateHideUI());
+        }
+        else
+        {
+            // Jika UI tidak aktif, tampilkan
+            StopAllCoroutines(); // Hentikan jika sedang beranimasi
+            StartCoroutine(AnimateShowUI());
+        }
+
+        isUIActive = !isUIActive;
+    }
+
+    // Coroutine untuk menyembunyikan UI (kebalikan dari AnimateShowUI)
+    private IEnumerator AnimateHideUI()
+    {
+        float timer = 0f;
+        Vector2 startSize = new Vector2(questUI.sizeDelta.x, targetHeight);
+        Vector2 targetSize = new Vector2(questUI.sizeDelta.x, startHeight);
+        float startPosY = -40;
+        float targetPosY = 0f;
+
+        while (timer < animationDuration)
+        {
+            timer += Time.deltaTime;
+            float progress = timer / animationDuration;
+
+            float newHeight = Mathf.Lerp(startHeight, targetHeight, 1 - progress); // 1-progress untuk efek terbalik
+            float newPosY = Mathf.Lerp(startPosY, targetPosY, progress);
+
+            questUI.sizeDelta = new Vector2(questUI.sizeDelta.x, newHeight);
+            questUI.anchoredPosition = new Vector2(questUI.anchoredPosition.x, newPosY);
+
+            yield return null;
+        }
+
+        questUI.sizeDelta = targetSize;
+        questUI.anchoredPosition = new Vector2(questUI.anchoredPosition.x, targetPosY);
+        questUI.gameObject.SetActive(false);
+    }
+    private IEnumerator AnimateShowUI()
+    {
+        questUI.gameObject.SetActive(true);
+        float timer = 0f;
+        Vector2 startSize = new Vector2(questUI.sizeDelta.x, startHeight);
+        Vector2 targetSize = new Vector2(questUI.sizeDelta.x, targetHeight);
+        float startPosY = 0f;
+        float targetPosY = -40; // Posisi Y agar terlihat 'menggulung' dari atas
+
+        // Ubah posisi jangkar (anchor) ke bagian atas
+        questUI.pivot = new Vector2(0.5f, 1f);
+        questUI.anchorMin = new Vector2(0.5f, 1f);
+        questUI.anchorMax = new Vector2(0.5f, 1f);
+        questUI.sizeDelta = startSize;
+        questUI.anchoredPosition = new Vector2(questUI.anchoredPosition.x, startPosY);
+
+        // Loop untuk menggerakkan dan mengubah ukuran UI
+        while (timer < animationDuration)
+        {
+            timer += Time.deltaTime;
+            float progress = timer / animationDuration;
+
+            // Perbarui ukuran dan posisi Y
+            float newHeight = Mathf.Lerp(startHeight, targetHeight, progress);
+            float newPosY = Mathf.Lerp(startPosY, targetPosY, progress);
+
+            questUI.sizeDelta = new Vector2(questUI.sizeDelta.x, newHeight);
+            questUI.anchoredPosition = new Vector2(questUI.anchoredPosition.x, newPosY);
+
+            yield return null;
+        }
+
+        // Pastikan posisi dan ukuran akhir sudah tepat
+        questUI.sizeDelta = targetSize;
+        questUI.anchoredPosition = new Vector2(questUI.anchoredPosition.x, targetPosY);
     }
 }

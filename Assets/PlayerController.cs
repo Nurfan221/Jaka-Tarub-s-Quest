@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
+
         }
         else
         {
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
     public void RegisterPlayer(Player player)
     {
         this.ActivePlayer = player;
+        HandlePositionPlayer(playerData.lastPosition);
         Debug.Log($"PlayerController: Paket Player '{player.gameObject.name}' telah terdaftar.");
     }
 
@@ -265,5 +267,10 @@ public class PlayerController : MonoBehaviour
     public void HandlePlayAnimation(string nameAnimation)
     {
         ActivePlayer.Player_Anim.PlayAnimation(nameAnimation);
+    }
+
+    public void HandlePositionPlayer(Vector2 position)
+    {
+        ActivePlayer.transform.position = position;
     }
 }

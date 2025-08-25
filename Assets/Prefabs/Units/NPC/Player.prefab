@@ -15699,7 +15699,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8129610806355446646}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -15781,7 +15781,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.005645752, y: -0.20282173}
+  m_Offset: {x: -0.005645752, y: -0.51939684}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -15791,7 +15791,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.73550415, y: 1.2186775}
+  m_Size: {x: 0.73550415, y: 0.5855273}
   m_EdgeRadius: 0
 --- !u!50 &2696770339627116132
 Rigidbody2D:
@@ -15833,13 +15833,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  controller: {fileID: 0}
   facePlayer: {fileID: 0}
   dashParticle: {fileID: 3862012485650969772}
   face: {fileID: 3446040036883624188}
   jarakOffsetSerang: 1
   movementDirection: {x: 0, y: 0}
-  lastDirection: {x: 0, y: 0}
+  lastDirection: {x: -10, y: 5}
   isDashing: 0
 --- !u!114 &5684611985928635090
 MonoBehaviour:
@@ -15864,7 +15863,6 @@ MonoBehaviour:
   canSpecialAttack: 1
   buffParticle: {fileID: 6111915780568683359}
   quickSlotCD: 2
-  farmTile: {fileID: 0}
   face: {fileID: 3446040036883624188}
 --- !u!114 &4187796554494207513
 MonoBehaviour:

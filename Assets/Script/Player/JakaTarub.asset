@@ -16,7 +16,7 @@ MonoBehaviour:
   dashStamina: 30
   dashDistance: 20
   dashForce: 20
-  playerPosition: {x: 0, y: 0}
+  lastPosition: {x: 0, y: 0}
   maxHealth: 100
   health: 100
   currentHealthCap: 100
@@ -64,22 +64,19 @@ MonoBehaviour:
   - itemName: Cangkul
     count: 1
     quality: 0
-  - itemName: Cangkul
-    count: 1
-    quality: 0
   - itemName: Sword
-    count: 1
-    quality: 0
-  - itemName: Sword
-    count: 1
-    quality: 0
-  - itemName: DagingSapiPanggang
     count: 1
     quality: 0
   - itemName: PakaianBandit
     count: 1
     quality: 0
   - itemName: PakaianBandit
+    count: 1
+    quality: 0
+  - itemName: Sword
+    count: 1
+    quality: 0
+  - itemName: Sword
     count: 1
     quality: 0
   maxItem: 18
@@ -99,7 +96,7 @@ MonoBehaviour:
     count: 1
     quality: 0
   equippedWeaponTemplate:
-    itemName: Sword
+    itemName: Cangkul
     count: 1
     quality: 0
   equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
@@ -112,13 +109,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   itemUseData:
-  - itemName: Empty
-    count: 0
+  - itemName: DagingSapiPanggang
+    count: 1
     quality: 0
   - itemName: Empty
     count: 1
     quality: 0
-  equipped1: 0
+  equipped1: 1
   itemUse1: 0
   currentFatiguePenalty: 0
   maxFatiguePenalty: 50

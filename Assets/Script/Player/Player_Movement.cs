@@ -7,7 +7,7 @@ public class Player_Movement : MonoBehaviour
 {
     // Referensi Komponen Inti
     public Rigidbody2D rb;
-    public PlayerController controller; // Referensi ke "Otak"
+    //public PlayerController controller; // Referensi ke "Otak"
     public Transform facePlayer;
     [SerializeField] private ParticleSystem dashParticle;
     [SerializeField] public Transform face; // Untuk arah dash
@@ -31,7 +31,7 @@ public class Player_Movement : MonoBehaviour
    
     private void Awake()
     {
-        controller = GetComponent<PlayerController>();
+        //controller = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody2D>();
 
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.

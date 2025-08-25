@@ -105,11 +105,19 @@ public class CraftUI : MonoBehaviour
             bool canCraft = IsRecipeCraftable(localRecipe);
 
             // Dapatkan komponen Image dari slot resep
-            Image slotImage = recipeSlotGO.GetComponent<Image>();
+            //Image slotImage = recipeSlotGO.GetComponent<Image>();
             Image itemImage = recipeSlotGO.transform.Find("ItemImage").GetComponent<Image>();
-            itemImage.sprite = itemUse.sprite; // Pastikan sprite hasil ditampilkan
+            if (itemImage == null)
+            {
+                Debug.Log("Item Image tidak ditemukan");
+            }else
+            {
+                Debug.Log("Item Image ditemukan");
+                itemImage.sprite = itemUse.sprite; // Pastikan sprite hasil ditampilkan
+            }
 
-            // 3. Atur warnanya berdasarkan ketersediaan
+
+            //Atur warnanya berdasarkan ketersediaan
             if (canCraft)
             {
                 // Warna normal jika bisa dibuat
@@ -118,8 +126,8 @@ public class CraftUI : MonoBehaviour
             else
             {
                 // Warna redup/abu-abu jika tidak bisa
-               recipeSlotGO.GetComponent<Button>().interactable = false; // Nonaktifkan interaksi
-               //recipeSlotGO.interactab
+                recipeSlotGO.GetComponent<Button>().interactable = false; // Nonaktifkan interaksi
+                                                                          //recipeSlotGO.interactab
             }
 
             // ... (sisa kode untuk menampilkan sprite dan listener) ...

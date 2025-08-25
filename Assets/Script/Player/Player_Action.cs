@@ -55,7 +55,7 @@ public class Player_Action : MonoBehaviour
     #region INTERACTS
     [Header("INTERACTS")]
 
-    [SerializeField] private FarmTile farmTile;
+
     // [SerializeField] private plantSeed plantSeed;
 
 
@@ -483,7 +483,7 @@ public class Player_Action : MonoBehaviour
                         faceDirection = face.localPosition.normalized;
                         PlayActionAnimation(itemToAttack.itemName);
                        
-                        farmTile.HoeTile(playerPosition, faceDirection);
+                        FarmTile.Instance.HoeTile(playerPosition, faceDirection);
                     }
                     else
                     {

@@ -11,7 +11,7 @@ public class PlayerData_SO : ScriptableObject
     public float dashStamina = 40f;
     public float dashDistance = 5;
     public float dashForce = 5;
-    public Vector2 playerPosition;
+    public Vector2 lastPosition;
 
     [Header("Player Health")]
 
