@@ -10,7 +10,8 @@ public class Enemy_Spawner : MonoBehaviour
     [SerializeField] float spawnCD = 2f;
     float spawnTimer;
 
-    public int spawnCount = 2;
+    public int spawnCount;
+    public int maxSpawnCount = 5;
     [SerializeField] GameObject enemyPrefab;
     public List<GameObject> enemies;
     Queue<GameObject> objectPool = new Queue<GameObject>();
@@ -28,13 +29,14 @@ public class Enemy_Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemies.Count < spawnCount && CanSpawn)
+        if (maxSpawnCount < spawnCount && CanSpawn)
         {
             spawnTimer += Time.deltaTime;
             if (spawnTimer > spawnCD)
             {
                 spawnTimer = 0;
                 SpawnEnemy();
+                spawnCount++;
             }
         }
     }
@@ -59,6 +61,21 @@ public class Enemy_Spawner : MonoBehaviour
         return spawnPosition;
     }
 
+    public void RemoveEnemyFromList(GameObject enemy)
+    {
+        if (enemies.Contains(enemy))
+            enemies.Remove(enemy);
+
+        Item itemDrop = ItemPool.Instance.GetItemWithQuality("PakaianBandit", ItemQuality.Normal);
+            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+        if (enemies.Count == 0)
+        {
+            ItemPool.Instance.DropItem(itemDrop.name, transform.position + offset, itemDrop.prefabItem);
+            spawnCount = 0;
+            gameObject.SetActive(false);
+        }
+
+    }
 #if UNITY_EDITOR
     #region DEBUG
     private void OnDrawGizmos()

@@ -261,4 +261,9 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("Tidak ada Player aktif untuk mengatur status grief.");
         }
     }
+
+    public void HandlePlayAnimation(string nameAnimation)
+    {
+        ActivePlayer.Player_Anim.PlayAnimation(nameAnimation);
+    }
 }

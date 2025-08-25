@@ -5,7 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Enemy_Bandit : MonoBehaviour
 {
-    // ===================== [ MOVEMENT SETTINGS ] ===================== //
+    //[ MOVEMENT SETTINGS ]//
     [Header("Movement Settings")]
     public float moveSpeed = 2f;
     private float moveDistance = 3f; // Jarak yang ditempuh setiap kali bergerak
@@ -15,7 +15,7 @@ public class Enemy_Bandit : MonoBehaviour
     private bool isReturning = false; // Status untuk mencegah bandit keluar terus-menerus
     private int currentStep = 0; // Langkah saat ini dalam jalur NPC
 
-    // ===================== [ COMPONENT REFERENCES ] ===================== //
+    //[ COMPONENT REFERENCES ]//
     [Header("Component References")]
     public Rigidbody2D rb; // Rigidbody2D untuk physics-based movement
     public SpriteRenderer spriteRenderer;
@@ -24,12 +24,14 @@ public class Enemy_Bandit : MonoBehaviour
     private Collider2D spawnerCollider; // Collider dari Spawner
     public Transform hitboxTransform;
     public Transform target;
+    
 
-    // ===================== [ STATE VARIABLES ] ===================== //
+    //[ STATE VARIABLES ]//
     [Header("State Variables")]
     public bool isStory;
     public bool isAttacking;
     public bool isDead;
+    public bool isEnemyQuest;
     public Vector2 lastDirection = Vector2.down; // Default menghadap bawah
     private Vector2 previousPosition;
     public Vector2 targetPosition;
@@ -37,7 +39,7 @@ public class Enemy_Bandit : MonoBehaviour
     private Coroutine currentCoroutine;
     private Coroutine chaseCoroutine;
 
-    // ===================== [ DROP ITEM SETTINGS ] ===================== //
+    //[ DROP ITEM SETTINGS ]//
     [Header("Drop Item Settings")]
     public GameObject[] dropitems; // Array item yang bisa dijatuhkan
                                    //element 0 harus selalu di isi dengan prefab item normal
@@ -56,7 +58,7 @@ public class Enemy_Bandit : MonoBehaviour
     // Drop rates untuk masing-masing item (0 = 70%, 1 = 50%, dst.)
     private float[] dropRates = { 0.7f, 0.5f, 0.3f, 0.1f, 0.05f };
 
-    // ===================== [ MOVEMENT LOGIC ] ===================== //
+    //[ MOVEMENT LOGIC ]//
     [Header("Movement Logic")]
     // Array arah pergerakan utama
     private Vector2[] moveDirections = new Vector2[]
@@ -518,26 +520,31 @@ public class Enemy_Bandit : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < itemCount; i++)
+        if (!isEnemyQuest)
         {
-            int randomIndex = Random.Range(startIndex, endIndex);
-            GameObject itemToDrop = dropitems[randomIndex];
-
-            // Periksa apakah item ini lolos drop rate
-            if (Random.value <= dropRates[randomIndex]) // Random.value menghasilkan angka antara 0-1
+            for (int i = 0; i < itemCount; i++)
             {
-                if (itemToDrop != null)
+                int randomIndex = Random.Range(startIndex, endIndex);
+                GameObject itemToDrop = dropitems[randomIndex];
+
+                // Periksa apakah item ini lolos drop rate
+                if (Random.value <= dropRates[randomIndex]) // Random.value menghasilkan angka antara 0-1
                 {
-                    //Debug.Log("Item yang dijatuhkan: " + itemToDrop.name);
-                    Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-                    ItemPool.Instance.DropItem(itemToDrop.name, transform.position + offset, itemToDrop);
+                    if (itemToDrop != null)
+                    {
+                        //Debug.Log("Item yang dijatuhkan: " + itemToDrop.name);
+                        Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+                        ItemPool.Instance.DropItem(itemToDrop.name, transform.position + offset, itemToDrop);
+                    }
+                }
+                else
+                {
+                    Debug.Log("Item " + itemToDrop.name + " tidak jatuh karena gagal drop rate.");
                 }
             }
-            else
-            {
-                Debug.Log("Item " + itemToDrop.name + " tidak jatuh karena gagal drop rate.");
-            }
         }
+        Enemy_Spawner enemy_Spawner = spawner.GetComponent<Enemy_Spawner>();
+        enemy_Spawner.RemoveEnemyFromList(gameObject);
         Destroy(gameObject);
     }
 

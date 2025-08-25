@@ -7,8 +7,8 @@ public class Player_Health : MonoBehaviour
 {
     //public static Player_Health Instance;
 
-    [SerializeField] Player_Anim player_Anim;
-    [SerializeField] BuffScrollController buffScrollController;
+    //[SerializeField] Player_Anim player_Anim;
+    //[SerializeField] BuffScrollController buffScrollController;
 
     public static event Action Sekarat;
 
@@ -127,11 +127,12 @@ public class Player_Health : MonoBehaviour
 
     public void TakeDamage(int damage, Vector2 attackerPosition)
     {
-        if (buffScrollController.isBuffProtection) damage -= buffScrollController.jumlahBuffProtection;
+        if (BuffScrollController.Instance.isBuffProtection) damage -= BuffScrollController.Instance.jumlahBuffProtection;
         damage = Mathf.Max(0, damage);
         stats.health -= damage;
         PlayerUI.Instance.UpdateHealthDisplay(stats.health, stats.maxHealth);
-        if (player_Anim != null) player_Anim.PlayTakeDamageAnimation();
+        //if (player_Anim != null) player_Anim.PlayTakeDamageAnimation();
+        PlayerController.Instance.HandlePlayAnimation("TakeDamage");
         StartCoroutine(ApplyKnockback(attackerPosition));
         StartCoroutine(TakeDamageVisual());
         if (stats.health <= 0) Die();

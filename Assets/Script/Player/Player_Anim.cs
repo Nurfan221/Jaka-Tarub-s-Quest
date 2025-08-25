@@ -63,12 +63,12 @@ public class Player_Anim : MonoBehaviour
         StartCoroutine(ResetAttackState());
     }
 
-    public void PlayTakeDamageAnimation()
+    public void PlayAnimation(string nameAnimation)
     {
         if (animator == null) return;
 
         isTakingDamage = true;
-        animator.SetTrigger("TakeDamage");
+        animator.SetTrigger(nameAnimation);
 
         // Pastikan animasi take damage berjalan, lalu kembali ke idle
         StartCoroutine(ResetTakeDamageState());
