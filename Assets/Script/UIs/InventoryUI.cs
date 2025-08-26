@@ -500,14 +500,14 @@ public class InventoryUI : MonoBehaviour
             return;
         }
 
-        //Langkah 1: Nonaktifkan semua panel 
+        //Langkah Nonaktifkan semua panel 
         for (int i = 0; i < menuPanels.Length; i++)
         {
             menuPanels[i].panelInventory.SetActive(false);
             menuPanels[i].panelMenu.SetActive(false);
         }
 
-        //Langkah 2: Aktifkan panel yang benar dan jalankan logika spesifik 
+        //Langkah Aktifkan panel yang benar dan jalankan logika spesifik 
         bool isActive = true;
         menuPanels[menu].panelInventory.SetActive(isActive);
         menuPanels[menu].panelMenu.SetActive(isActive);

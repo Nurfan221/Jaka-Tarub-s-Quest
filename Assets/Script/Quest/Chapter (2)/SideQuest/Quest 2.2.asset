@@ -13,20 +13,36 @@ MonoBehaviour:
   m_Name: Quest 2.2
   m_EditorClassIdentifier: 
   questName: 
-  questInfo: 
-  DeskripsiAwal: 
-  DeskripsiAkhir: 
+  questInfo: Bicara Dengan Mas Bima
+  DeskripsiAwal: Setelah kepergian Mbok Milah, Jaka Tarub merasa sedih dan mencari
+    cara untuk mengalihkan pikirannya. Ia bertemu dengan Mas Bima, yang melihat kondisinya
+    dan mengajaknya untuk membantu memperbaiki papan pengumuman desa yang rusak.
+    Mas Bima berharap kegiatan ini bisa menjadi pengalihan positif bagi Jaka Tarub,
+    sekaligus mempererat hubungan pertemanan mereka. Bawakan
+  DeskripsiAkhir: Untuk menyelesaikan quest ini.
   locateNpcQuest: {x: 0, y: 0, z: 0}
   questType: 0
   questProgress: 1
   dateToActivate: 0
   MonthToActivate: 0
-  npcName: 
-  itemRequirements: []
-  goldReward: 0
-  itemRewards: []
-  startDialogue: {fileID: 0}
-  finishDialogue: {fileID: 0}
+  npcName: Bima Prasetya
+  itemRequirements:
+  - itemName: KayuPotong
+    count: 10
+    quality: 0
+  - itemName: KayuBulat
+    count: 5
+    quality: 0
+  - itemName: Paku Besi
+    count: 10
+    quality: 0
+  goldReward: 250
+  itemRewards:
+  - itemName: Kursi
+    count: 0
+    quality: 0
+  startDialogue: {fileID: 11400000, guid: 8747b07d1b920044bbe02e7b40405191, type: 2}
+  finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0

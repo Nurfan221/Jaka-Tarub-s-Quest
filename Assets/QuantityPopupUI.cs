@@ -69,6 +69,7 @@ public class QuantityPopupUI : MonoBehaviour
 
     public void Show(Sprite sprite, int initialAmount, int maxPossibleAmount)
     {
+        gameObject.transform.SetAsLastSibling();
         Debug.Log("Showing QuantityPopupUI with sprite: " + sprite.name + ", initialAmount: " + initialAmount + ", maxPossibleAmount: " + maxPossibleAmount);
         gameObject.SetActive(true);
         itemImage.sprite = sprite;

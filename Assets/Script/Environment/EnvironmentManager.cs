@@ -24,8 +24,11 @@ public class EnvironmentManager : MonoBehaviour
     public List<EnvironmentList> environmentList = new List<EnvironmentList>();
     public List<GameObject> gameObjectsList = new List<GameObject>();
     public bool isGameObjectManager;
+    public bool isJanganAcak;
     public int countKuburanKotor;
     public int jumlahdiBersihkan;
+
+    public GameObject kuburanMbokRini;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void OnEnable()
@@ -57,7 +60,13 @@ public class EnvironmentManager : MonoBehaviour
     public void HandleNewDay()
     {
         float dayLuck = TimeManager.Instance.GetDayLuck();
-        SpawnFromEnvironmentList(dayLuck);
+        if(isJanganAcak)
+        {
+            return;
+        }else
+        {
+            SpawnFromEnvironmentList(dayLuck);
+        }
     }
     public void RegisterAllObject()
     {

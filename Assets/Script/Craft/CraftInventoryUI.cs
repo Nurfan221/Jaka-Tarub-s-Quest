@@ -44,11 +44,11 @@ public class CraftInventoryUI : MonoBehaviour
     }
     private void Start()
     {
-        if (playerData == null)
-        {
-            // ... (logika null check playerData Anda sudah benar) ...
-            return;
-        }
+        //if (playerData == null)
+        //{
+        //    // ... (logika null check playerData Anda sudah benar) ...
+        //    return;
+        //}
 
         closeButton.onClick.AddListener(CloseUI);
         craftButton.onClick.AddListener(ExecuteCraft);
@@ -106,11 +106,18 @@ public class CraftInventoryUI : MonoBehaviour
             bool canCraft = IsRecipeCraftable(localRecipe);
 
             // Dapatkan komponen Image dari slot resep
-            Image slotImage = recipeSlotGO.GetComponent<Image>();
             Image itemImage = recipeSlotGO.transform.Find("ItemImage").GetComponent<Image>();
-            itemImage.sprite = itemUse.sprite; // Pastikan sprite hasil ditampilkan
+            if (itemImage == null)
+            {
+                Debug.Log("Item Image tidak ditemukan");
+            }
+            else
+            {
+                Debug.Log("Item Image ditemukan");
+                itemImage.sprite = itemUse.sprite; // Pastikan sprite hasil ditampilkan
+            }
 
-            // 3. Atur warnanya berdasarkan ketersediaan
+            //Atur warnanya berdasarkan ketersediaan
             if (canCraft)
             {
                 // Warna normal jika bisa dibuat
