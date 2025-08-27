@@ -1,13 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using System;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class KuburanInteractable : Interactable
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] EnvironmentManager environmentKuburanManager;
 
 
     public Sprite[] spritesKuburan;
@@ -19,7 +19,7 @@ public class KuburanInteractable : Interactable
     public GameObject notifikasi;
     public float frameRate = 0.3f; // Waktu per frame (kecepatan animasi)
     private int currentFrame = 0; // Indeks frame saat ini
-    private int useStamina = 10;
+
 
     //Logika kuburan kotor
     public bool isKotor;
@@ -50,25 +50,14 @@ public class KuburanInteractable : Interactable
     }
 
 
+    // Di dalam skrip KuburanInteractable.cs
     public void kondisiKuburanKotor()
     {
-        if (!isKotor)
-        {
-            countDayKotor++;
-            
-        }
 
-        if (currentDayKotor == countDayKotor)
-        {
-            isKotor = true;
-            notifikasi.SetActive(true);
-            spriteRenderer.sprite = spritesKuburan[1];
-            StartCoroutine(PlayNotifikationAnimation()); // Mulai animasi
-            environmentKuburanManager.UpdateStatusJob();
-            countDayKotor = 0;
-        }
-
-
+        isKotor = true;
+        notifikasi.SetActive(true);
+        spriteRenderer.sprite = spritesKuburan[1]; // Ganti ke sprite kotor
+        StartCoroutine(PlayNotifikationAnimation()); // Mulai animasi notifikasi
     }
 
     private IEnumerator PlayNotifikationAnimation()
@@ -90,10 +79,9 @@ public class KuburanInteractable : Interactable
         if (PlayerController.Instance.playerData.stamina > 0)
         {
             // Tampilkan loading screen sementara proses pembersihan
-            LoadingScreenUI.Instance.ShowLoading(false);
-            yield return new WaitForSeconds(jedaMembersihkanKuburan);
-
-            // Sembunyikan loading screen setelah pembersihan selesai
+            LoadingScreenUI.Instance.ShowLoading(false); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
+                                                               // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik
+            yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
             LoadingScreenUI.Instance.HideLoading();
 
             // Ubah status kuburan menjadi bersih
@@ -105,12 +93,13 @@ public class KuburanInteractable : Interactable
             RandomCurrentDayKotor();
 
             // Update jumlah kuburan yang dibersihkan
-            environmentKuburanManager.jumlahdiBersihkan++;
+            //environmentKuburanManager.jumlahdiBersihkan++;
+            MainEnvironmentManager.Instance.kuburanManager.UpdateStatusJob();
         }
             
 
-        environmentKuburanManager.player_Health.SpendStamina(useStamina);
-        environmentKuburanManager.player_Health.ApplyFatigue(useStamina);
+        //environmentKuburanManager.player_Health.SpendStamina(useStamina);
+        //environmentKuburanManager.player_Health.ApplyFatigue(useStamina);
     }
 
 

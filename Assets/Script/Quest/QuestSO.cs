@@ -38,5 +38,9 @@ public class QuestSO : ScriptableObject
     public bool isInGrief;
     public bool isSpawner;
     public string spawnerToActivate;
+    public bool isTheCleanupQuest;
+    public int cleanupQuestIndex;
+    public string objectToClean;
+    public int cleanupQuestTotal;
     //public GameObject nameSpawnerToActive; // Ganti referensi GameObject
 }

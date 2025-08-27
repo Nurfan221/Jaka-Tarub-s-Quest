@@ -47,6 +47,7 @@ public class InventoryUI : MonoBehaviour
     public TMP_Text itemName;
     public TMP_Text itemDesc;
     public Button itemAction;
+    public Animator panelAnimator;
 
     [Header("Six Item Display")]
     public Transform ContentGO6; // New UI Content for 6 items
@@ -570,7 +571,8 @@ public class InventoryUI : MonoBehaviour
     {
         btnHapus.gameObject.SetActive(true);
         btnHapus.onClick.RemoveAllListeners();
-        btnHapus.onClick.AddListener(() => {
+        btnHapus.onClick.AddListener(() =>
+        {
             resetAction();
             btnHapus.gameObject.SetActive(false); // Sembunyikan tombol setelah reset
         });
@@ -788,5 +790,12 @@ public class InventoryUI : MonoBehaviour
         MechanicController.Instance.HandleUpdateInventory();
     }
 
+    //kumpulan animasi button 
+    // Fungsi publik yang akan dipanggil oleh tombol
+    public void AnimateSaveButton()
+    {
+        Debug.Log("AnimateSaveButton method called.");
+        panelAnimator.Play("TriggerSaveButton");
+    }
 
 }

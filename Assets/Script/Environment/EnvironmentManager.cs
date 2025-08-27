@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using System.Linq;
 
 [Serializable]
 public class EnvironmentList
@@ -25,8 +28,10 @@ public class EnvironmentManager : MonoBehaviour
     public List<GameObject> gameObjectsList = new List<GameObject>();
     public bool isGameObjectManager;
     public bool isJanganAcak;
+    public bool isKuburanManager;
     public int countKuburanKotor;
     public int jumlahdiBersihkan;
+    public int useStamina = 10;
 
     public GameObject kuburanMbokRini;
 
@@ -62,10 +67,15 @@ public class EnvironmentManager : MonoBehaviour
         float dayLuck = TimeManager.Instance.GetDayLuck();
         if(isJanganAcak)
         {
-            return;
+            //return;
         }else
         {
             SpawnFromEnvironmentList(dayLuck);
+        }
+
+        if (isKuburanManager)
+        {
+            UpdateKondisiKuburan();
         }
     }
     public void RegisterAllObject()
@@ -219,24 +229,54 @@ public class EnvironmentManager : MonoBehaviour
 
     public void UpdateKondisiKuburan()
     {
-        foreach (var item in gameObjectsList)
+        // Reset jumlah kuburan yang kotor di awal hari
+        countKuburanKotor = 0;
+
+        // Tentukan secara acak berapa banyak kuburan yang akan dikotori hari ini
+        // Range (6, 11) akan menghasilkan angka 6 sampai 10.
+        int jumlahKuburanYangAkanKotor = UnityEngine.Random.Range(6, 11);
+
+        // Ambil salinan daftar gameObjectsList untuk menghindari duplikasi
+        List<GameObject> tempKuburanList = new List<GameObject>(gameObjectsList);
+
+        for (int i = 0; i < jumlahKuburanYangAkanKotor; i++)
         {
-            KuburanInteractable kuburanInteractable = item.GetComponent<KuburanInteractable>();
-            kuburanInteractable.kondisiKuburanKotor();
-            if (kuburanInteractable.isKotor)
+            // Pastikan masih ada kuburan yang bisa dikotori
+            if (tempKuburanList.Count == 0)
             {
-                countKuburanKotor++;
+                Debug.LogWarning("Tidak ada lagi kuburan yang bisa dikotori.");
+                break;
             }
+
+            // Dapatkan indeks acak dan objek dari list sementara
+            int randomIndex = UnityEngine.Random.Range(0, tempKuburanList.Count);
+            GameObject kuburan = tempKuburanList[randomIndex];
+
+            // Dapatkan komponen KuburanInteractable
+            KuburanInteractable kuburanInteractable = kuburan.GetComponent<KuburanInteractable>();
+
+            if (kuburanInteractable != null)
+            {
+                // Set kuburan menjadi kotor
+                kuburanInteractable.kondisiKuburanKotor();
+            }
+
+            // Hapus kuburan yang sudah dipilih dari list sementara
+            tempKuburanList.RemoveAt(randomIndex);
         }
-
-
     }
 
     public void UpdateStatusJob()
     {
-        Debug.Log("oiiii ada kerjaan");
-        NPCBehavior npcQuest = npcJob.GetComponent<NPCBehavior>();
-        npcQuest.isLockedForQuest = true;
+        // Tambahkan 1 ke jumlahdiBersihkan setiap kali event dipicu
+        jumlahdiBersihkan++;
+
+        // Tampilkan log untuk memverifikasi
+        Debug.Log($"Kuburan berhasil dibersihkan! Total: {jumlahdiBersihkan}");
+
+
+        // Logika tambahan untuk stamina, dll.
+        PlayerController.Instance.HandleDrainStamina(useStamina);
     }
 
 

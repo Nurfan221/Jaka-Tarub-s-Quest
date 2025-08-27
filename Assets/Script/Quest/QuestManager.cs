@@ -23,7 +23,7 @@ public class QuestManager : MonoBehaviour
     public MainQuestSO pendingMainQuest; // Quest yang menunggu untuk diaktifkan
     public MainQuestController activeMainQuestController; // Controller yang sedang berjalan
     public PlayerMainQuestStatus activePlayerMainQuestStatus;
-    public int currentSideQuestIndex = 1;
+    public int currentChapterQuestIndex = 1;
 
     [Header("Status Quest Pemain")]
     // List ini akan melacak semua quest (side quest) yang sedang aktif atau sudah selesai.
@@ -82,7 +82,7 @@ public class QuestManager : MonoBehaviour
         // --- Cek Side Quest (Logika Anda sudah benar) ---
         foreach (var chapterAsset in allChapters)
         {
-            if (chapterAsset.chapterID == currentSideQuestIndex)
+            if (chapterAsset.chapterID == currentChapterQuestIndex)
             {
                 foreach (var questAsset in chapterAsset.sideQuests)
                 {
@@ -432,26 +432,27 @@ public class QuestManager : MonoBehaviour
 
     public void SaveQuests()
     {
-        // Buat list baru yang berisi data yang siap disimpan
+        // Kumpulkan data side quest
         List<QuestSaveData> saveDataList = new List<QuestSaveData>();
         foreach (var questStatus in questLog)
         {
             saveDataList.Add(new QuestSaveData(questStatus));
         }
 
-        // Ubah list tersebut menjadi format teks JSON
-        string json = JsonUtility.ToJson(new Serialization<QuestSaveData>(saveDataList), true);
+        // Buat objek save data yang lengkap
+        QuestManagerSaveData managerSaveData = new QuestManagerSaveData();
+        managerSaveData.currentChapterQuestIndex = this.currentChapterQuestIndex;
+        managerSaveData.sideQuests = saveDataList;
 
-        // Tulis teks JSON tersebut ke dalam sebuah file
+        // Ubah objek menjadi JSON
+        string json = JsonUtility.ToJson(managerSaveData, true);
+
+        // Tulis ke file
         File.WriteAllText(GetSavePath(), json);
-        Debug.Log("Progres quest berhasil disimpan ke: " + GetSavePath());
-
-
-        //buat logika save main quest
-        //MainQuestSaveData mainQuestSaveData = new 
+        Debug.Log("Progres quest berhasil disimpan!");
     }
 
-  
+
 
     // Di dalam QuestManager.cs
     public void LoadQuests()
@@ -460,33 +461,36 @@ public class QuestManager : MonoBehaviour
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            List<QuestSaveData> saveDataList = JsonUtility.FromJson<Serialization<QuestSaveData>>(json).ToList();
+            QuestManagerSaveData loadedData = JsonUtility.FromJson<QuestManagerSaveData>(json);
 
-            questLog.Clear();
-            foreach (var saveData in saveDataList)
+            if (loadedData != null)
             {
-                QuestSO questSO = FindQuestSOByName(saveData.questName);
-                if (questSO != null)
+                // Muat nilai currentChapterQuestIndex
+                this.currentChapterQuestIndex = loadedData.currentChapterQuestIndex;
+
+                // Muat kembali questLog
+                questLog.Clear();
+                foreach (var saveData in loadedData.sideQuests)
                 {
-                    PlayerQuestStatus status = new PlayerQuestStatus(questSO);
-                    status.Progress = saveData.progress;
-
-
-                    // Bangun kembali Dictionary dari dua list
-                    status.itemProgress = new Dictionary<string, int>();
-                    for (int i = 0; i < saveData.itemProgressKeys.Count; i++)
+                    QuestSO questSO = FindQuestSOByName(saveData.questName);
+                    if (questSO != null)
                     {
-                        string key = saveData.itemProgressKeys[i];
-                        int value = saveData.itemProgressValues[i];
-                        status.itemProgress[key] = value;
+                        PlayerQuestStatus status = new PlayerQuestStatus(questSO);
+                        status.Progress = saveData.progress;
+                        status.itemProgress = new Dictionary<string, int>();
+
+                        for (int i = 0; i < saveData.itemProgressKeys.Count; i++)
+                        {
+                            string key = saveData.itemProgressKeys[i];
+                            int value = saveData.itemProgressValues[i];
+                            status.itemProgress[key] = value;
+                        }
+                        questLog.Add(status);
                     }
-
-                    questLog.Add(status);
                 }
+                Debug.Log($"Progres quest berhasil dimuat! Chapter saat ini: {this.currentChapterQuestIndex}");
             }
-            Debug.Log("Progres quest berhasil dimuat!");
         }
-
         CreateTemplateQuest();
     }
 

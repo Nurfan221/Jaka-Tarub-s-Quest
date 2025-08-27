@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -101,6 +102,7 @@ public class PlayerController : MonoBehaviour
 
     public bool HandleDrainStamina(float useStamina)
     {
+        Debug.Log("HandleDrainStamina called with useStamina: " + useStamina);
         if (ActivePlayer.Health.DrainStamina(useStamina))
         {
             return true;

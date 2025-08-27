@@ -179,19 +179,21 @@ public class Player_Inventory : MonoBehaviour
             // Logika untuk Quick Slot mungkin berbeda, misalnya hanya ada 2 slot
             if (quickSlotList[0].itemName == "Empty")
             {
+                //Debug.Log($"Memasang '{itemToEquip.itemName}' ke slot 0.");
                 quickSlotList[0] = itemToEquip;
                 stats.inventory.Remove(itemToEquip);
             }
             else if (quickSlotList[1].itemName == "Empty")
             {
+                //Debug.Log($"Memasang '{itemToEquip.itemName}' ke slot 1.");
                 quickSlotList[1] = itemToEquip;
                 stats.inventory.Remove(itemToEquip);
             }
             else
             {
-
+                //Debug.Log($"Memasang gagal Quick slots penuh. Mengganti item di slot 0 dengan '{itemToEquip.itemName}'.");
                 // Kembalikan item lama di slot 0 ke inventaris
-                ItemPool.Instance.AddItem(quickSlotList[1]);
+                ItemPool.Instance.AddItem(quickSlotList[0]);
                 // Pasang item baru di slot 0
                 quickSlotList[0] = itemToEquip;
                 stats.inventory.Remove(itemToEquip);
@@ -219,7 +221,7 @@ public class Player_Inventory : MonoBehaviour
             else
             {
                 // Kembalikan item lama di slot 0 ke inventaris
-                ItemPool.Instance.AddItem(equipmentList[1]);
+                ItemPool.Instance.AddItem(equipmentList[0]);
                 // Pasang item baru di slot 0
                 equipmentList[0] = itemToEquip;
                 stats.inventory.Remove(itemToEquip);
