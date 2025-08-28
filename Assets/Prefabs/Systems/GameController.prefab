@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1546531876476482124}
   - component: {fileID: 5449077394803582238}
   - component: {fileID: 2986323977070010781}
+  - component: {fileID: 1547110158433872543}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -47,7 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be3ba8015043f24fa8603963cd423c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Money: 0
+  moneyText: {fileID: 0}
+  money: 500
 --- !u!114 &1546531876476482124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,14 +62,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c02650208d9d2540b46ac7e6195d097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Ryn
+  player_Movement: {fileID: 0}
+  playerInventory: {fileID: 0}
+  playerUI: {fileID: 2986323977070010781}
+  questManager: {fileID: 0}
+  isNewGame: 1
+  playerName: Jaka Tarub
   enablePlayerInput: 0
   player: {fileID: 0}
+  fromPortal: 0
+  supposedRaid: 0
   persistentUI:
   - {fileID: 0}
   - {fileID: 0}
+  playeyDiedUI: {fileID: 0}
+  canPause: 1
   gamePaused: 0
   pauseUI: {fileID: 0}
+  sunlight: {fileID: 0}
 --- !u!114 &5449077394803582238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,21 +94,110 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
-  - {fileID: 11400000, guid: 1ebe7bd27dadd9846881d3f800460ce5, type: 2}
-  - {fileID: 11400000, guid: 2aed1d8e4dd753742aa837c1a52433e4, type: 2}
-  - {fileID: 11400000, guid: 124bb59f573d69c498c9e644c327ab91, type: 2}
-  - {fileID: 11400000, guid: de5ba7ded5bd3eb4b89229d8816f79fe, type: 2}
-  - {fileID: 11400000, guid: 3bd66d80fb23e764f9744b7e7fcfaa76, type: 2}
-  - {fileID: 11400000, guid: ad11c4550ca1cba429c788830f9eac28, type: 2}
-  - {fileID: 11400000, guid: 4baf81910ecdd224b980c7d945a20266, type: 2}
+  - {fileID: 11400000, guid: c97ab26964bea1949a42ce360268b5a8, type: 2}
+  - {fileID: 11400000, guid: 5f4d9ba1068ebe944bcb5409cd19935f, type: 2}
+  - {fileID: 11400000, guid: 65bf877db21d0364e8c339b75ce96890, type: 2}
+  - {fileID: 11400000, guid: a36d22af9db83bd4da88777dacc97c7a, type: 2}
+  - {fileID: 11400000, guid: 386572f095fac1e46be99bc66a965f28, type: 2}
+  - {fileID: 11400000, guid: 372f935570e231b469b3dac267da8b82, type: 2}
+  - {fileID: 11400000, guid: f5199a04a34743146a028cf8094e6f52, type: 2}
+  - {fileID: 11400000, guid: d1cbce2469cbe9945b944f5cb60c796f, type: 2}
+  - {fileID: 11400000, guid: d2ec1969707a8ea4fb39ca3ed9222a39, type: 2}
+  - {fileID: 11400000, guid: 29a9b4513ec6bf94786185499b4fd529, type: 2}
+  - {fileID: 11400000, guid: a69a771a3c071314e9d94fed1f3c6723, type: 2}
+  - {fileID: 11400000, guid: 2941fc26ac8594047b9f4619cd60dd1c, type: 2}
+  - {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+  - {fileID: 11400000, guid: 931f1f29725eff04398aed154a485235, type: 2}
+  - {fileID: 11400000, guid: 3bdccdbc978dc72449ddb3c026ee244a, type: 2}
+  - {fileID: 11400000, guid: bf427c522df7e8d4da49a0cb4f70a5c4, type: 2}
+  - {fileID: 11400000, guid: 41ae895a8b82d684da645b0532a73b89, type: 2}
+  - {fileID: 11400000, guid: f348b715609209e44bae6f7cc5e5b13a, type: 2}
+  - {fileID: 11400000, guid: 2a95114ba92e4124b91d7c8ab4a836ed, type: 2}
+  - {fileID: 11400000, guid: 305da3101fdd354408a64ae9c8467845, type: 2}
+  - {fileID: 11400000, guid: 72e03e6b791f8e448ae40dc7e06bf4dd, type: 2}
+  - {fileID: 11400000, guid: db817a042aa4a5f41ab51712cf4cfdf7, type: 2}
+  - {fileID: 11400000, guid: 7c19e781c4904e9439ab3aace0c5857d, type: 2}
+  - {fileID: 11400000, guid: a35098307cd2e97479c7bc682d66c508, type: 2}
+  - {fileID: 11400000, guid: 2dbbee85eda01ca48ad3fbbc29189684, type: 2}
+  - {fileID: 11400000, guid: 61ad2419316cf194f956dc498b1b5332, type: 2}
   - {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
-  - {fileID: 11400000, guid: 2fb9dd8e5b608d445967137840ac801b, type: 2}
-  - {fileID: 11400000, guid: e7295591444813c4ca6f0e5c700b7b9c, type: 2}
-  - {fileID: 11400000, guid: 48ef919ca5346b84d9e6eed1d76038b4, type: 2}
-  - {fileID: 11400000, guid: 3af936a8fceaf694db4686a262caf9f4, type: 2}
+  - {fileID: 11400000, guid: c9290670a9d9a44429086ade2743ef8b, type: 2}
+  - {fileID: 11400000, guid: 8fdb94ff32de14d4da4a8e242e804f0b, type: 2}
+  - {fileID: 11400000, guid: a35098307cd2e97479c7bc682d66c508, type: 2}
+  - {fileID: 11400000, guid: 61ad2419316cf194f956dc498b1b5332, type: 2}
+  - {fileID: 11400000, guid: eb0e7eb89ca05ee4d86b2cedf4570114, type: 2}
+  - {fileID: 11400000, guid: 5fd754cdb47ba6e43b5061e0ce65f4ff, type: 2}
+  - {fileID: 11400000, guid: b39c74a7ad46f304196411e11926e49f, type: 2}
+  - {fileID: 11400000, guid: 865fe2aa832d2b147ab5f27171532bb2, type: 2}
+  - {fileID: 11400000, guid: 98c8e48ad99efd243a6560a6b87624e6, type: 2}
+  - {fileID: 11400000, guid: 283b07bae4d92ff4d9d5418e793eca28, type: 2}
+  - {fileID: 11400000, guid: 5d39f9aafcce956418b488d06b221122, type: 2}
+  - {fileID: 11400000, guid: cc5c22d7422278143b69a6da77e3d381, type: 2}
+  - {fileID: 11400000, guid: b2afd192f68f7c0409b076e15c62c405, type: 2}
+  - {fileID: 11400000, guid: be4a13e273645364c9af7545ac02f048, type: 2}
+  - {fileID: 11400000, guid: 16c336a800e62b64494af8c2012d5956, type: 2}
+  - {fileID: 11400000, guid: f81f0f4680ff90d40bbf5ff8a6d21c02, type: 2}
+  - {fileID: 11400000, guid: fbdf2c85b189a2e42aefa92b3fa09046, type: 2}
+  - {fileID: 11400000, guid: 7e4611946c6eea94cbd1596c4e603976, type: 2}
+  - {fileID: 11400000, guid: 5ea4325b64294ef44952ed669d71bc0e, type: 2}
+  - {fileID: 11400000, guid: 48848d5233774ea48b3a9e2c7d3dbeb4, type: 2}
+  - {fileID: 11400000, guid: 9e53d18d3a2d309468928c03cb5af710, type: 2}
+  - {fileID: 11400000, guid: 124bb59f573d69c498c9e644c327ab91, type: 2}
+  - {fileID: 11400000, guid: 5957d9a95df37d048a60d7a16b1a83e7, type: 2}
+  - {fileID: 11400000, guid: 3bd66d80fb23e764f9744b7e7fcfaa76, type: 2}
+  - {fileID: 11400000, guid: 5474076ed89f0d54e9aeabd000b45a95, type: 2}
+  - {fileID: 11400000, guid: 08a121126761b3b47ae07f3e3dbb063a, type: 2}
+  - {fileID: 11400000, guid: 97ccb08f4b11fac46976671993611afe, type: 2}
+  - {fileID: 11400000, guid: 752e6e761a8aa7a4f80876bbc7712552, type: 2}
+  - {fileID: 11400000, guid: 6ff527dff56cee444a4c0c57eb3e0b2c, type: 2}
+  - {fileID: 11400000, guid: eff3e0063443bce4eaa37f9d07e80ad2, type: 2}
+  - {fileID: 11400000, guid: a18cead96c51a5745b465cfae2a6b1f2, type: 2}
+  - {fileID: 11400000, guid: b941d40d9b0435748a3683a9a8932cb4, type: 2}
+  - {fileID: 11400000, guid: bc0f9b8dceee0e347bcb64f17dfb14d5, type: 2}
+  - {fileID: 11400000, guid: 18f96584fab74fc49bfb429497344463, type: 2}
+  - {fileID: 11400000, guid: b3cb91ff09011d64b8fc253e91bb6261, type: 2}
+  - {fileID: 11400000, guid: 9b2f7e6eea7cee04d814cc7d29a3f90d, type: 2}
+  - {fileID: 11400000, guid: 11a4469810b359c4b88b5e5538a34231, type: 2}
+  - {fileID: 11400000, guid: 83553be7a73aa4040952f25ae2378b8f, type: 2}
+  - {fileID: 11400000, guid: 2bf35211b6f7a6c43af4fae3c94bc609, type: 2}
+  - {fileID: 11400000, guid: 83c6f7564346de341af7059256c30558, type: 2}
+  - {fileID: 11400000, guid: 58c6ae1101fe58545adb7882038fb1de, type: 2}
+  - {fileID: 11400000, guid: 4f790cdde4417744cae5ed453854c505, type: 2}
+  - {fileID: 11400000, guid: 7ca4d0a0e1f81e64c927ebc3b7e67dd0, type: 2}
+  - {fileID: 11400000, guid: dfb180732fc66da498d67be887f28437, type: 2}
+  - {fileID: 11400000, guid: 87f2ecda738ce1149bbc867585eaaa1d, type: 2}
+  - {fileID: 11400000, guid: 39d34c9949025174bb77573a3e2829f1, type: 2}
+  - {fileID: 11400000, guid: c35c9229d440ac1479776887736c88e2, type: 2}
+  - {fileID: 11400000, guid: 785cbdf7f049dc841b1bfc5ea05dfe0e, type: 2}
+  - {fileID: 11400000, guid: a54467d12e2b08247a334429d967e370, type: 2}
+  - {fileID: 11400000, guid: cc00b0edcace063488b5c71d236d891c, type: 2}
+  - {fileID: 11400000, guid: 968fe862a126e86478b3640b384d1ec3, type: 2}
+  - {fileID: 11400000, guid: 4d7aacc03a6cdda44a7282c015f03223, type: 2}
+  - {fileID: 11400000, guid: 75a9536a46f3ad14a837305010c04468, type: 2}
+  - {fileID: 11400000, guid: 406efed334de6764cbf04e9be6ad995a, type: 2}
+  - {fileID: 11400000, guid: dbc2f0d718acd6b41a610c0a59066cce, type: 2}
+  - {fileID: 11400000, guid: 106ade9bd06b241409e46985efb5b34e, type: 2}
+  - {fileID: 11400000, guid: 8e5934840ba99884a97c5122d1e24a20, type: 2}
+  - {fileID: 11400000, guid: aba5470497747d840af6e61174a9a8f7, type: 2}
+  - {fileID: 11400000, guid: 7734943f0b8be454c9bae3fe1314c0f4, type: 2}
+  - {fileID: 11400000, guid: 88276d41723949341be7363298f1e5ca, type: 2}
+  - {fileID: 11400000, guid: 589ea5886ae3f3145993ad8d7af74bfb, type: 2}
+  - {fileID: 11400000, guid: 89e00e0c54b34164cb03b392d7714a78, type: 2}
+  - {fileID: 11400000, guid: 54c4a31eb50249f4da760dc7479db3f3, type: 2}
   - {fileID: 11400000, guid: 692483cde051eb24a98a89d414f63270, type: 2}
-  - {fileID: 11400000, guid: db44f540d5ad1824bbf06e69aeca994b, type: 2}
-  - {fileID: 11400000, guid: b6f7491557836d04b979c05e535782e2, type: 2}
+  - {fileID: 11400000, guid: 17879e46153e76142bc6005180323b56, type: 2}
+  - {fileID: 11400000, guid: fdbf063211273e240843e31a4465d4b2, type: 2}
+  - {fileID: 11400000, guid: 3af936a8fceaf694db4686a262caf9f4, type: 2}
+  - {fileID: 11400000, guid: 6f34cae93e4590e42b8acaf469896f96, type: 2}
+  - {fileID: 11400000, guid: 13e8e0b6a29e8b04c9bc989d1d560b81, type: 2}
+  - {fileID: 11400000, guid: 38edefcf53dbc7646a3f9f223a40b894, type: 2}
+  - {fileID: 11400000, guid: d176e391de84df34f8fc7fa8a3d5365a, type: 2}
+  - {fileID: 11400000, guid: 36d2ddb112a350d4da05b5a3bb31952f, type: 2}
+  - {fileID: 11400000, guid: 8750ba94bab26ec48baa37d182da9441, type: 2}
+  - {fileID: 11400000, guid: 758610d83385a9f4d8aeb8d7d13c965a, type: 2}
+  - {fileID: 11400000, guid: 7df6be613d652884b9b5162c3229108a, type: 2}
+  - {fileID: 11400000, guid: 6b17b502a0a0b174da3731f6f86ee83e, type: 2}
+  itemCategoryGroups: []
 --- !u!114 &2986323977070010781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,16 +210,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682e09eed9b63554f8059dde86afde0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashUI: {fileID: 0}
+  dashButton: {fileID: 0}
   specialAttackUI: {fileID: 0}
-  quickSlotsUI_HUD:
-  - {fileID: 0}
-  - {fileID: 0}
-  promptText: {fileID: 0}
   healthUI: {fileID: 0}
   staminaUI: {fileID: 0}
   equippedUI: {fileID: 0}
-  quickSlotsUI_Inventory:
-  - {fileID: 0}
-  - {fileID: 0}
-  inventoryUI: {fileID: 0}
+  actionInputButton: {fileID: 0}
+  itemUseUI: {fileID: 0}
+  weaponSlider: {fileID: 0}
+  itemSlider: {fileID: 0}
+  promptText: {fileID: 0}
+  promptButton: {fileID: 0}
+  capacityUseItem: {fileID: 0}
+  switchWeaponImage: {fileID: 0}
+  switchUseItemImage: {fileID: 0}
+  inventoryButton: {fileID: 0}
+  closeInventoryButton: {fileID: 0}
+  barAnimationSpeed: 2
+  questUI: {fileID: 0}
+  questButton: {fileID: 0}
+  animationDuration: 0.5
+  targetHeight: 256
+  startHeight: 0
+--- !u!114 &1547110158433872543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089621543159706998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00125c951dc18ea46b415441be41022f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftRecipes:
+  - ingredients:
+    - itemName: Kayu
+      count: 3
+      quality: 0
+    - itemName: Ranting
+      count: 5
+      quality: 0
+    result:
+      itemName: MejaCamp
+      count: 1
+      quality: 0
+  - ingredients:
+    - itemName: Kayu
+      count: 3
+      quality: 0
+    - itemName: Ranting
+      count: 5
+      quality: 0
+    - itemName: IronIngot
+      count: 2
+      quality: 0
+    result:
+      itemName: Chest
+      count: 1
+      quality: 0
+  cookRecipes:
+  - recipeName: DagingSapiPanggang
+    ingredient: {fileID: 11400000, guid: be4a13e273645364c9af7545ac02f048, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 8750ba94bab26ec48baa37d182da9441, type: 2}
+  - recipeName: DagingDombaPanggang
+    ingredient: {fileID: 11400000, guid: 16c336a800e62b64494af8c2012d5956, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 36d2ddb112a350d4da05b5a3bb31952f, type: 2}
+  - recipeName: TelurGoreng
+    ingredient: {fileID: 11400000, guid: b2afd192f68f7c0409b076e15c62c405, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 758610d83385a9f4d8aeb8d7d13c965a, type: 2}
+  - recipeName: DagingBabiPanggang
+    ingredient: {fileID: 11400000, guid: f81f0f4680ff90d40bbf5ff8a6d21c02, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: d176e391de84df34f8fc7fa8a3d5365a, type: 2}
+  - recipeName: DagingAyamPanggang
+    ingredient: {fileID: 11400000, guid: fbdf2c85b189a2e42aefa92b3fa09046, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 38edefcf53dbc7646a3f9f223a40b894, type: 2}
+  specialRecipes: []

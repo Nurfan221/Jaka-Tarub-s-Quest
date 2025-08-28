@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using NUnit.Framework.Interfaces;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
@@ -47,7 +48,6 @@ public class InventoryUI : MonoBehaviour
     public TMP_Text itemName;
     public TMP_Text itemDesc;
     public Button itemAction;
-    public Animator panelAnimator;
 
     [Header("Six Item Display")]
     public Transform ContentGO6; // New UI Content for 6 items
@@ -471,7 +471,9 @@ public class InventoryUI : MonoBehaviour
         itemAction.onClick.AddListener(() =>
         {
             Debug.Log("itemAction clicked");
+         
             PlayerController.Instance.HandleEquipItem(item);
+
 
             ShowDescription();
         });
@@ -792,10 +794,6 @@ public class InventoryUI : MonoBehaviour
 
     //kumpulan animasi button 
     // Fungsi publik yang akan dipanggil oleh tombol
-    public void AnimateSaveButton()
-    {
-        Debug.Log("AnimateSaveButton method called.");
-        panelAnimator.Play("TriggerSaveButton");
-    }
+
 
 }
