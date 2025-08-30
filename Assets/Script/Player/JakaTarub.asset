@@ -20,10 +20,10 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   currentHealthCap: 100
-  maxStamina: 100
-  stamina: 100
+  maxStamina: 1000
+  stamina: 880
   staminaRegenRate: 5
-  currentStaminaCap: 100
+  currentStaminaCap: 880
   initialGriefPenalty: 50
   isInGrief: 0
   currentGriefPenalty: 50
@@ -40,7 +40,7 @@ MonoBehaviour:
   - itemName: Ranting
     count: 10
     quality: 0
-  - itemName: Kayu
+  - itemName: BenihPadi
     count: 16
     quality: 0
   - itemName: MejaCamp
@@ -49,11 +49,35 @@ MonoBehaviour:
   - itemName: DagingDombaSpesial
     count: 10
     quality: 0
-  - itemName: BenihPadi
-    count: 16
+  - itemName: Kayu
+    count: 32
     quality: 0
   - itemName: Sword
     count: 1
+    quality: 0
+  - itemName: Padi
+    count: 32
+    quality: 0
+  - itemName: Padi
+    count: 27
+    quality: 0
+  - itemName: Cangkul
+    count: 1
+    quality: 0
+  - itemName: Getah
+    count: 10
+    quality: 0
+  - itemName: Benih
+    count: 3
+    quality: 0
+  - itemName: DaunCemara
+    count: 3
+    quality: 0
+  - itemName: BenihOak
+    count: 8
+    quality: 0
+  - itemName: DaunJati
+    count: 7
     quality: 0
   maxItem: 18
   emptyItemTemplate:
@@ -65,14 +89,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedItemData:
-  - itemName: Cangkul
+  - itemName: Kapak
     count: 1
     quality: 0
   - itemName: Sword
     count: 1
     quality: 0
   equippedWeaponTemplate:
-    itemName: Cangkul
+    itemName: Kapak
     count: 1
     quality: 0
   equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}

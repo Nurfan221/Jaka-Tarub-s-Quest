@@ -85,6 +85,6 @@ public class ItemGetAnimator : MonoBehaviour
         }
 
         // Matikan objek setelah animasi selesai
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

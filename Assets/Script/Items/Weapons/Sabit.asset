@@ -12,14 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Sabit
   m_EditorClassIdentifier: 
-  itemID: 25
+  itemID: 94
   itemName: Sabit
-  type: 0
+  quality: 0
+  types: 0
   categories: 256
-  sprite: {fileID: 21300000, guid: 788444225b33e5242b8bae32e72e2bb3, type: 3}
-  itemDescription: mari mencangkul dunia
+  sprite: {fileID: -2760005961147629764, guid: d8227a64b59d6e94aad06794d1ae2b64, type: 3}
+  itemDescription: Alat untuk memotong rumput dan memanen tanaman
   QuantityFuel: 0
+  maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
   Level: 1
   MaxLevel: 1
   Damage: 10
@@ -28,9 +38,8 @@ MonoBehaviour:
   SpecialAttackStamina: 10
   UpgradeCost: 500
   UseStamina: 3
-  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  RangedWeapon_ProjectilePrefab: {fileID: 4459120725376062254, guid: c8beb21a91d27d44ea2f9587581bb574, type: 3}
   isStackable: 0
-  stackCount: 1
   maxStackCount: 1
   BuyValue: 500
   SellValue: 500
@@ -39,4 +48,5 @@ MonoBehaviour:
   prefabItem: {fileID: 0}
   growthTime: 0
   growthImages: []
-  dropItem: {fileID: 0}
+  growthObject: []
+  dropItem: {fileID: 4459120725376062254, guid: c8beb21a91d27d44ea2f9587581bb574, type: 3}
