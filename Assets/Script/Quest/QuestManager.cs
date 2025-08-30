@@ -276,6 +276,30 @@ public class QuestManager : MonoBehaviour
         Debug.Log($"QuestManager: Item '{givenItemData.itemName}' tidak diproses oleh quest manapun.");
         return false; // Tidak ada quest yang memproses item ini
     }
+
+    public void UpdateCleanupQuest(string nameObject, EnvironmentType environmentType)
+    {
+        foreach(var quest in questLog)
+        {
+            if (quest.Quest.isTheCleanupQuest && quest.Quest.tipeCleanObject == environmentType)
+            {
+                quest.Quest.cleanupQuestIndex++;
+                Debug.Log("Jumlah yang sudah di bersihkan" + quest.Quest.cleanupQuestIndex);
+
+                if (quest.Quest.objectToClean == nameObject)
+                {
+                    quest.Quest.isTheCleanupObjectDone = true;
+                    Debug.Log("Object sudah di bersihkan" + quest.Quest.isTheCleanupObjectDone);
+                }
+
+                if (quest.Quest.cleanupQuestIndex == quest.Quest.cleanupQuestTotal)
+                {
+                    Debug.Log("Quest membersihkan sudah selesai");
+                }
+            }
+        }
+    }
+
     public void CreateTemplateQuest()
     {
         Debug.Log("Membuat template quest...");

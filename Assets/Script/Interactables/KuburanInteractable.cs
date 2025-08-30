@@ -95,6 +95,8 @@ public class KuburanInteractable : Interactable
             // Update jumlah kuburan yang dibersihkan
             //environmentKuburanManager.jumlahdiBersihkan++;
             MainEnvironmentManager.Instance.kuburanManager.UpdateStatusJob();
+            EnvironmentBehavior environmentBehavior = GetComponent<EnvironmentBehavior>();
+            QuestManager.Instance.UpdateCleanupQuest(environmentBehavior.nameEnvironment, EnvironmentType.Kuburan);
         }
             
 

@@ -226,6 +226,7 @@ public class MechanicController : MonoBehaviour
 
     public void HandleDropItemFromInventory(int itemIndex, int quantityToRemove)
     {
+        Debug.Log("HandleDropItemFromInventory called with itemIndex: " + itemIndex + " and quantityToRemove: " + quantityToRemove);
         InventoryUI.DropItemFromInventory(itemIndex, quantityToRemove);
     }
 

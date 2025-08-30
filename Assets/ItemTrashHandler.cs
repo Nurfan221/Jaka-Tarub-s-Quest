@@ -24,10 +24,11 @@ public class ItemTrashHandler : MonoBehaviour, IDropHandler
         }
     }
 
-    /// Metode ini dipanggil oleh Unity Event System saat item dilepaskan di atas objek ini.
+    //Metode ini dipanggil oleh Unity Event System saat item dilepaskan di atas objek ini.
 
     public void OnDrop(PointerEventData eventData)
     {
+        Debug.Log("OnDropSampah dipanggil pada Trash Area");
         // Dapatkan item yang sedang diseret dari manajer UI
         ItemInteraction draggedItem = MechanicController.Instance.HandleGetHeldItem();
 
@@ -49,7 +50,7 @@ public class ItemTrashHandler : MonoBehaviour, IDropHandler
         }
     }
 
-    /// Metode ini akan dipanggil secara otomatis saat pemain menekan "Confirm" di popup.
+    //Metode ini akan dipanggil secara otomatis saat pemain menekan "Confirm" di popup.
 
     private void HandleTrashConfirmation(int quantityToTrash)
     {

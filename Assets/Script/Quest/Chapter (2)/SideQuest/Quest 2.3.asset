@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Quest 2.3
   m_EditorClassIdentifier: 
   questName: 
-  questInfo: Bicara Dengan Mas Bima
+  questInfo: Bicara Dengan Rahmat
   DeskripsiAwal: Jaka Tarub masih larut dalam kesedihan atas kepergian ibunya, Mbok
     Milah, dan merasa tidak sanggup mengunjungi makamnya. Mamat, teman Jaka, melihat
     kondisi ini dan menyarankan Jaka untuk membersihkan makam Mbok Milah yang kotor
@@ -23,24 +23,12 @@ MonoBehaviour:
   locateNpcQuest: {x: 0, y: 0, z: 0}
   questType: 0
   questProgress: 1
-  dateToActivate: 0
-  MonthToActivate: 0
-  npcName: Bima Prasetya
-  itemRequirements:
-  - itemName: KayuPotong
-    count: 10
-    quality: 0
-  - itemName: KayuBulat
-    count: 5
-    quality: 0
-  - itemName: Paku Besi
-    count: 10
-    quality: 0
-  goldReward: 250
-  itemRewards:
-  - itemName: Kursi
-    count: 0
-    quality: 0
+  dateToActivate: 1
+  MonthToActivate: 1
+  npcName: Mamat Wirasena
+  itemRequirements: []
+  goldReward: 500
+  itemRewards: []
   startDialogue: {fileID: 11400000, guid: 8747b07d1b920044bbe02e7b40405191, type: 2}
   finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
   isMainQuest: 0
@@ -48,6 +36,8 @@ MonoBehaviour:
   isSpawner: 0
   spawnerToActivate: 
   isTheCleanupQuest: 1
-  cleanupQuestIndex: 0
+  cleanupQuestIndex: 3
   objectToClean: Kuburan Mbok Milah
-  cleanupQuestTotal: 10
+  isTheCleanupObjectDone: 0
+  cleanupQuestTotal: 3
+  tipeCleanObject: 6

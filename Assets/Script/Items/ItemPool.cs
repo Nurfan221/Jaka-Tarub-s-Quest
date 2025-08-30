@@ -240,6 +240,7 @@ public class ItemPool : MonoBehaviour
 
         //// Siarkan berita bahwa inventory telah berubah!
         //OnInventoryUpdated?.Invoke();
+        //ItemGetPanelManager.Instance.ShowItems(itemDataToAdd);
     }
 
     public void RemoveItemsFromInventory(ItemData itemDataToRemove)

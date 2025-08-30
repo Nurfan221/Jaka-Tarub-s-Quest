@@ -7,5 +7,9 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ButtonSaveOvverride
-  m_Controller: {fileID: 0}
-  m_Clips: []
+  m_Controller: {fileID: 9100000, guid: eb71ab89b4f10f749832b07294845684, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: b8ec7d66c0230ff4bb3b1569577534f1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b8ec7d66c0230ff4bb3b1569577534f1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 991520aab3040554aa4130b95069acfe, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 991520aab3040554aa4130b95069acfe, type: 2}

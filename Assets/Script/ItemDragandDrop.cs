@@ -32,34 +32,7 @@ public class ItemDragandDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
-    /// <summary>
-    /// Metode publik untuk mengatur tampilan visual item ini berdasarkan data.
-    /// Dipanggil oleh UI Manager saat me-refresh inventaris.
-    /// </summary>
-    //public void UpdateDisplay(ItemData data)
-    //{
-    //    if (data != null)
-    //    {
-    //        Item item = ItemPool.Instance.GetItemWithQuality(data.itemName, data.quality);
-    //        itemIcon.sprite = item.sprite;
-    //        itemIcon.enabled = true;
-    //        countText.text = data.count > 1 ? data.count.ToString() : "";
-    //        countText.enabled = data.count > 1;
-    //    }
-    //    else // Jika slot ini seharusnya kosong
-    //    {
-    //        itemIcon.sprite = null;
-    //        itemIcon.enabled = false;
-    //        countText.text = "";
-    //        countText.enabled = false;
-    //    }
-    //}
-
-    // --- Implementasi Interface Drag & Drop ---
-
-    // Di dalam ItemDragandDrop.cs
-    // Di dalam ItemDragandDrop.cs
-    // Di dalam ItemDragandDrop.cs
+  
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -104,6 +77,7 @@ public class ItemDragandDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         // Metode ini sekarang akan terpanggil dengan benar!
         ItemDragandDrop draggedItem = ItemDragandDrop.itemBeingDragged;
+        Debug.Log($"OnDrop dipanggil pada item index {this.index}. Item yang diseret adalah: {(draggedItem != null ? draggedItem.index.ToString() : "null")}");
 
         if (draggedItem != null && draggedItem != this)
         {

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6795827232747759320}
+  - component: {fileID: 8807868267569101047}
   m_Layer: 0
   m_Name: GameEvent
   m_TagString: Untagged
@@ -31,3 +32,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8807868267569101047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2746689244674089585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 973cc21b1d1aced49a448e5b292a9b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  templateQuest: {fileID: 0}
+  contentTemplate: {fileID: 0}
+  contentStory: {fileID: 0}
+  allChapters:
+  - {fileID: 11400000, guid: 22502d8d1bd91604a8eb5d4a3774d33c, type: 2}
+  - {fileID: 11400000, guid: a69fa153f8a776744b83c7098f7a1dc3, type: 2}
+  pendingMainQuest: {fileID: 11400000, guid: 5e079712a97a8f34fabc15b1de8b3c56, type: 2}
+  activeMainQuestController: {fileID: 0}
+  currentChapterQuestIndex: 1
+  questLog: []

@@ -18,7 +18,7 @@ public class InventoryUI : MonoBehaviour
     [Header("Komponen untuk Interaksi Mobile")]
     public Image dragIcon; // Ikon yang mengikuti sentuhan
     public ItemInteraction heldItem; // Ganti state dari bool menjadi referensi skrip
-    public Item contohItem;
+    //public Item contohItem;
 
 
 
@@ -751,7 +751,7 @@ public class InventoryUI : MonoBehaviour
         if (itemData == null) return;
 
         Item itemUse = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
-        contohItem = itemUse; // Simpan contoh item untuk referensi
+        //contohItem = itemUse; // Simpan contoh item untuk referensi
         if (itemUse == null)
         {
             if(itemUse.dropItem == null)

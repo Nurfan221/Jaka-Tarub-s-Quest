@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
     public void MoveItem(List<ItemData> sourceList, List<ItemData> targetList, ItemData itemToMove, int amountToMove)
     {
         // Dapatkan data template dari database
-        Item itemTemplate = ItemPool.Instance.GetItemWithQuality(itemToMove.itemName, itemToMove.quality); ; ;
+        Item itemTemplate = ItemPool.Instance.GetItemWithQuality(itemToMove.itemName, itemToMove.quality);
         if (itemTemplate == null || amountToMove <= 0) return;
 
         // Pastikan kita tidak memindahkan lebih dari yang kita miliki

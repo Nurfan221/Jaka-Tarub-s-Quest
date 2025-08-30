@@ -277,6 +277,7 @@ public class EnvironmentManager : MonoBehaviour
 
         // Logika tambahan untuk stamina, dll.
         PlayerController.Instance.HandleDrainStamina(useStamina);
+
     }
 
 

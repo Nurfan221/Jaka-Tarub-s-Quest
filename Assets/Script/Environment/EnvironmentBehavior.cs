@@ -14,7 +14,7 @@ public class EnvironmentBehavior : MonoBehaviour
     public string nameEnvironment;
     public Item itemDrop;
     public Transform plantsContainer;
-
+    public EnvironmentType environmentType;
     public void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>(); // Ambil komponen SpriteRenderer
@@ -33,4 +33,16 @@ public class EnvironmentBehavior : MonoBehaviour
             yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
         }
     }
+}
+
+public enum EnvironmentType
+{
+    none,
+    Rumput,
+    Pohon,
+    Batu,
+    Semak,
+    Sampah,
+    Kuburan,
+    Lainnya
 }
