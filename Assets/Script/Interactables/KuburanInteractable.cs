@@ -79,7 +79,7 @@ public class KuburanInteractable : Interactable
         if (PlayerController.Instance.playerData.stamina > 0)
         {
             // Tampilkan loading screen sementara proses pembersihan
-            LoadingScreenUI.Instance.ShowLoading(false); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
+            StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false)); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
                                                                // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik
             yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
             LoadingScreenUI.Instance.HideLoading();

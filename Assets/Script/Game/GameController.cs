@@ -7,14 +7,12 @@ public class GameController : MonoBehaviour
 {
     public static GameObject persistent;
     public static GameController Instance;
-    [SerializeField] Player_Movement player_Movement;
-    public Player_Inventory playerInventory;
-    public PlayerUI playerUI;
-    public QuestManager questManager;
+
 
     public bool isNewGame = true; // Gunakan nama yang berbeda untuk menghindari kebingungan
     public static int LatestMap = 1;
-    Vector2 latestPlayerPos;
+    public string LatestMapName;
+    public Vector2 latestPlayerPos;
     public static int QuestItemCount = 0;
     public static bool CanFinishStory = false;
 
@@ -23,8 +21,7 @@ public class GameController : MonoBehaviour
 
     public Transform player;
 
-    public bool fromPortal = true;
-    public bool supposedRaid = false;
+
 
     [SerializeField] GameObject[] persistentUI;
     [SerializeField] GameObject playeyDiedUI;
@@ -35,6 +32,7 @@ public class GameController : MonoBehaviour
 
     [Header("Environment penting dalam game")]
     public Light sunlight;
+
     private void Awake()
     {
         if (persistent != null)
@@ -80,15 +78,7 @@ public class GameController : MonoBehaviour
         InitializePlayer(); // Fungsi ini akan menemukan GameObject Player yang baru
 
         //INI BAGIAN BARUNYA: PANGGIL SEMUA FUNGSI REINITIALIZE 
-        if (playerUI != null)
-        {
-            playerUI.Reinitialize();
-        }
-
-        if (questManager != null)
-        {
-            // questManager.Reinitialize(); // Jika QuestManager juga perlu di-reset
-        }
+        PlayerUI.Instance.Reinitialize();
 
     }
 
@@ -285,44 +275,45 @@ public class GameController : MonoBehaviour
 
     public void PindahKeScene(string namaScene)
     {
-        StartCoroutine(ProsesLoadingDanPindahScene(namaScene));
-    }
-
-
-    //COROUTINE YANG MENANGANI SELURUH PROSES 
-    private IEnumerator ProsesLoadingDanPindahScene(string namaScene)
-    {
-        // Tampilkan UI Loading dan jeda game 
-        LoadingScreenUI.Instance.ShowLoading(true); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
-
-        // Beri waktu agar animasi fade-in atau tampilan loading screen terlihat mulus
-        yield return new WaitForSecondsRealtime(0.5f);
-
-        // Muat scene baru secara asynchronous 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(namaScene);
-
-        // Hentikan agar scene tidak langsung aktif saat selesai dimuat
-        asyncLoad.allowSceneActivation = false;
-
-        // Tampilkan progres loading jika Anda ingin
-        while (asyncLoad.progress < 0.9f) // progress 0.9f adalah ketika scene hampir selesai dimuat
-        {
-            // Di sini Anda bisa mengupdate loading bar jika ada
-            // float progress = asyncLoad.progress / 0.9f;
-            // loadingSlider.value = progress;
-            yield return null;
-        }
-
-        // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik 
-        yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
-
-
-        // Aktifkan scene baru dan sembunyikan UI loading 
-        asyncLoad.allowSceneActivation = true;
-        // Tunggu sampai scene benar-benar aktif
-        yield return new WaitUntil(() => asyncLoad.isDone);
-        TimeManager.Instance.UpdateDay(); // Memastikan waktu diperbarui saat pindah scene
-
-        LoadingScreenUI.Instance.HideLoading(); // Ini akan memanggil ResumeGame()
+        //LoadingScreenUI.Instance.Show(asyncLoad);
     }
+
+
+    ////COROUTINE YANG MENANGANI SELURUH PROSES 
+    //private IEnumerator ProsesLoadingDanPindahScene(string namaScene)
+    //{
+    //    // Tampilkan UI Loading dan jeda game 
+    //    LoadingScreenUI.Instance.ShowLoading(true, 1.5f); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
+
+    //    // Beri waktu agar animasi fade-in atau tampilan loading screen terlihat mulus
+    //    yield return new WaitForSecondsRealtime(0.5f);
+
+    //    // Muat scene baru secara asynchronous 
+    //    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(namaScene);
+
+    //    // Hentikan agar scene tidak langsung aktif saat selesai dimuat
+    //    asyncLoad.allowSceneActivation = false;
+
+    //    // Tampilkan progres loading jika Anda ingin
+    //    while (asyncLoad.progress < 0.9f) // progress 0.9f adalah ketika scene hampir selesai dimuat
+    //    {
+    //        // Di sini Anda bisa mengupdate loading bar jika ada
+    //        // float progress = asyncLoad.progress / 0.9f;
+    //        // loadingSlider.value = progress;
+    //        yield return null;
+    //    }
+
+    //    // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik 
+    //    yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
+
+
+    //    // Aktifkan scene baru dan sembunyikan UI loading 
+    //    asyncLoad.allowSceneActivation = true;
+    //    // Tunggu sampai scene benar-benar aktif
+    //    yield return new WaitUntil(() => asyncLoad.isDone);
+    //    TimeManager.Instance.UpdateDay(); // Memastikan waktu diperbarui saat pindah scene
+
+    //    LoadingScreenUI.Instance.HideLoading(); // Ini akan memanggil ResumeGame()
+    //}
 }

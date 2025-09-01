@@ -11,7 +11,8 @@ public class PintuInteractable : Interactable
     }
     protected override void Interact()
     {
-        StartCoroutine(PintuManager.Instance.EnterArea(pintuName));
+        //StartCoroutine(PintuManager.Instance.EnterArea(pintuName));
+        PintuManager.Instance.EnterArea(pintuName);
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
    

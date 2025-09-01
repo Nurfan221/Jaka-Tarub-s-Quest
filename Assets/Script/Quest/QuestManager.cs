@@ -119,10 +119,37 @@ public class QuestManager : MonoBehaviour
         // Buat data status baru untuk quest ini
         PlayerQuestStatus newQuestStatus = new PlayerQuestStatus(questToActivate);
         questLog.Add(newQuestStatus);
-        if (questToActivate.isSpawner)
+        if (newQuestStatus.Quest.isSpawner)
         {
             Debug.Log("mengaktifkan spawner SpawnerQuest1_6");
-            SpawnerManager.Instance.HandleSpawnerActive(questToActivate.spawnerToActivate);
+            SpawnerManager.Instance.HandleSpawnerActive(newQuestStatus.Quest.spawnerToActivate);
+        }
+        if (newQuestStatus.Quest.isNPCItem)
+        {
+            Debug.Log("mengaktifkan NPCItem");
+            //Panggil fungsi dari NPCManager untuk mencari Jhorgeo di daftar NPC aktif.
+            NPCBehavior npcTargetQuest = NPCManager.Instance.GetActiveNpcByName(newQuestStatus.Quest.npcName);
+
+            // SELALU periksa apakah hasilnya null. Ini penting untuk menghindari error
+            //    jika karena suatu alasan NPC tidak ditemukan.
+            if (npcTargetQuest != null)
+            {
+                // Jika ditemukan, Anda sekarang memiliki akses penuh ke komponen NPCBehavior-nya
+                //    dan bisa memanggil semua metode publiknya.
+                Debug.Log("NPC Jhorgeo ditemukan! Memberi perintah untuk pindah...");
+
+
+                npcTargetQuest.transform.position = newQuestStatus.Quest.startLocateNpcQuest;
+                // Panggil metode yang sudah kita siapkan di NPCBehavior
+                npcTargetQuest.OverrideForQuest(newQuestStatus.Quest.startLocateNpcQuest, newQuestStatus.Quest.finishLocateNpcQuest, newQuestStatus.Quest.startDialogue, newQuestStatus.Quest.questEmoticon.emoticonName);
+                npcTargetQuest.itemQuestToGive = newQuestStatus.Quest.NPCItem;
+                npcTargetQuest.isGivenItemForQuest = true;
+                Debug.Log("itemQuestToGive" + npcTargetQuest.itemQuestToGive.itemName + "jumlah item : " + npcTargetQuest.itemQuestToGive.count.ToString());
+            }
+            else
+            {
+                Debug.LogError($"Gagal memberi perintah: NPC aktif bernama {newQuestStatus.Quest.npcName} tidak ditemukan!");
+            }
         }
         NPCManager.Instance.AddDialogueForNPCQuest(newQuestStatus.Quest.npcName, newQuestStatus.Quest.startDialogue);
         // Siarkan event agar UI bisa memperbarui tampilannya

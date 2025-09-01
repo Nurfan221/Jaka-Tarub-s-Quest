@@ -20,6 +20,49 @@ public class NPCBehavior : MonoBehaviour
     private Schedule currentActivity;
     private Coroutine movementCoroutine; // Tambahkan ini untuk mengelola coroutine
 
+    [Header("variabel for quest")]
+    public ItemData itemQuestToGive; // Item yang dimiliki NPC untuk quest ini
+    public bool isGivenItemForQuest = false; // Apakah NPC sudah memberikan item quest
+    Vector2[] questWaypoint;
+
+    [Tooltip("Seberapa jauh emoticon akan miring (dalam derajat).")]
+    public float rotationAngle;
+    public Transform emoticonTransform; // Transform dari emoticon
+
+    [Tooltip("Seberapa cepat emoticon akan berganti arah (dalam detik).")]
+    public float wiggleSpeed;
+
+    private void OnEnable()
+    {
+        // Mulai Coroutine saat emoticon ditampilkan.
+        StartCoroutine(WiggleRoutine());
+    }
+
+    // OnDisable dipanggil saat GameObject dinonaktifkan.
+    private void OnDisable()
+    {
+        // Hentikan Coroutine saat emoticon disembunyikan untuk mencegah error.
+        StopAllCoroutines();
+    }
+
+    private void Awake()
+    {
+        emoticonTransform = transform.Find("Emoticon");
+
+        // Lakukan pengecekan SETELAH mencoba mencari.
+        if (emoticonTransform != null)
+        {
+            // Jika berhasil ditemukan...
+            Debug.Log("Objek Emoticon berhasil ditemukan!", this.gameObject);
+            // Sembunyikan emoticon pada awalnya.
+            emoticonTransform.gameObject.SetActive(false);
+        }
+        else
+        {
+            // Jika tidak ditemukan, beri peringatan agar mudah di-debug.
+            Debug.LogWarning("Tidak bisa menemukan GameObject anak dengan nama 'Emoticon' pada NPC ini!", this.gameObject);
+        }
+    }
 
 
     public void Initialize(NpcSO data)
@@ -33,10 +76,9 @@ public class NPCBehavior : MonoBehaviour
     private void Update()
     {
         // Jangan lakukan apa-apa jika sedang dikunci oleh quest
-        //if (isLockedForQuest) return;
 
         // Jika tidak sedang bergerak, periksa jadwal
-        if (!isMoving)
+        if (!isMoving && !isLockedForQuest)
         {
             CheckSchedule();
         }
@@ -49,7 +91,8 @@ public class NPCBehavior : MonoBehaviour
     {
         Debug.Log($"NPC {this.name} kembali ke jadwal normal.");
         isLockedForQuest = false;
-        questOverrideDialogue = null;
+
+        //questOverrideDialogue = null;
         // NPC akan otomatis melanjutkan jadwalnya di frame Update berikutnya.
     }
     // NPC memeriksa jadwalnya sendiri berdasarkan waktu saat ini.
@@ -79,6 +122,8 @@ public class NPCBehavior : MonoBehaviour
             StopCoroutine(movementCoroutine);
         }
 
+        gameObject.transform.position = newSchedule.waypoints[0];
+
         currentActivity = newSchedule;
         currentWaypointIndex = 0;
         isMoving = true;
@@ -89,7 +134,7 @@ public class NPCBehavior : MonoBehaviour
         movementCoroutine = StartCoroutine(FollowWaypoints(currentActivity.waypoints));
     }
 
-    private IEnumerator FollowWaypoints(Vector3[] waypoints)
+    private IEnumerator FollowWaypoints(Vector2[] waypoints)
     {
         if (waypoints == null || waypoints.Length == 0)
         {
@@ -97,29 +142,35 @@ public class NPCBehavior : MonoBehaviour
             yield break;
         }
 
-        foreach (Vector3 targetPosition in waypoints)
+        foreach (Vector2 targetPosition in waypoints)
         {
-            while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+            while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
+                //Debug.Log($"NPC '{npcName}' bergerak ke {targetPosition}");
                 yield return null; // Tunggu satu frame
             }
         }
 
         // Setelah selesai, hentikan pergerakan
         isMoving = false;
-        Debug.Log($"NPC '{npcName}' telah sampai di tujuan terakhir.");
+        Debug.Log($"NPC '{npcName}' telah sampai di tujuan terakhir. ");
     }
-    public void OverrideForQuest(Vector3 newPosition, Dialogues newDialogue)
+    public void OverrideForQuest(Vector2 startPosition, Vector2 finishLocation, Dialogues newDialogue, string nameEmoticon)
     {
         isLockedForQuest = true;
         isQuestLocation = true;
         preQuestPosition = transform.position;
         questOverrideDialogue = newDialogue;
 
+        //ShowEmoticon()
+
+        questWaypoint = new Vector2[] { startPosition, finishLocation };
+        ShowEmoticon(nameEmoticon);
+
         // Pindah ke posisi quest dengan pergerakan halus (Coroutines)
         if (movementCoroutine != null) StopCoroutine(movementCoroutine);
-        movementCoroutine = StartCoroutine(MoveToTargetPosition(newPosition, true));
+        movementCoroutine = StartCoroutine(FollowWaypoints(questWaypoint));
 
         // Pastikan NPC terlihat
         gameObject.SetActive(true);
@@ -128,9 +179,15 @@ public class NPCBehavior : MonoBehaviour
     public void ReturnToPreQuestPosition()
     {
         if (!isLockedForQuest) return;
-
+        isLockedForQuest = false;
         if (movementCoroutine != null) StopCoroutine(movementCoroutine);
-        movementCoroutine = StartCoroutine(MoveToTargetPosition(preQuestPosition, false));
+        Vector2 questWaypointZero = questWaypoint[0];
+        questWaypoint[0] = questWaypoint[1];
+        questWaypoint[1] = questWaypointZero;
+        movementCoroutine = StartCoroutine(FollowWaypoints(questWaypoint));
+
+        CheckSchedule();
+
     }
 
     // FUNGSI BANTUAN UNTUK PERGERAKAN HALUS (COROUTINE) 
@@ -174,13 +231,13 @@ public class NPCBehavior : MonoBehaviour
 
     // Perintahkan NPC untuk pindah ke lokasi quest.
 
-    public void MoveToQuestLocation(Vector3 position)
-    {
-        isLockedForQuest = true; // Kunci jadwal normal
-        isMoving = false; // Hentikan pergerakan saat ini
-        transform.position = position; // Pindahkan langsung ke lokasi quest
-        Debug.Log($"NPC {npcName} dipindahkan ke lokasi quest.");
-    }
+    //public void MoveToQuestLocation(Vector3 position)
+    //{
+    //    isLockedForQuest = true; // Kunci jadwal normal
+    //    isMoving = false; // Hentikan pergerakan saat ini
+    //    transform.position = position; // Pindahkan langsung ke lokasi quest
+    //    Debug.Log($"NPC {npcName} dipindahkan ke lokasi quest.");
+    //}
 
 
 
@@ -207,7 +264,36 @@ public class NPCBehavior : MonoBehaviour
         }
     }
 
+    private IEnumerator WiggleRoutine()
+    {
+        // Loop ini akan berjalan selamanya selama objek aktif.
+        while (true)
+        {
+            // Miringkan ke satu sisi (misal, 1 derajat pada sumbu Z).
+            // Kita menggunakan 'localRotation' karena ini adalah objek anak (child).
+            emoticonTransform.localRotation = Quaternion.Euler(0, 0, rotationAngle);
 
+            // Jeda sejenak.
+            yield return new WaitForSeconds(wiggleSpeed);
+
+            // Miringkan ke sisi berlawanan (misal, -1 derajat pada sumbu Z).
+            emoticonTransform.localRotation = Quaternion.Euler(0, 0, -rotationAngle);
+
+            //  Jeda sejenak lagi, lalu loop akan kembali ke awal.
+            yield return new WaitForSeconds(wiggleSpeed);
+        }
+    }
+
+    public void ShowEmoticon(string nameEmote)
+    {
+        if (emoticonTransform != null)
+        {
+            emoticonTransform.gameObject.SetActive(true);
+            SpriteRenderer sr = emoticonTransform.GetComponent<SpriteRenderer>();
+            sr.sprite = RecipeDatabase.Instance.emoticonDatabase.Find(e => e.emoticonName == nameEmote)?.emoticonSprite;
+            StartCoroutine(WiggleRoutine()); // Mulai gerakan wiggle
+        }
+    }
 
 
 }

@@ -271,8 +271,8 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
     public IEnumerator UseLoadingScreenUI(bool achievement)
     {
-        LoadingScreenUI.Instance.ShowLoading(achievement); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
-                                                           // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik
+        StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+        // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik
         yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
         LoadingScreenUI.Instance.HideLoading();
     }

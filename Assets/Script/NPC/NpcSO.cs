@@ -5,7 +5,7 @@ using UnityEngine;
 public class Schedule
 {
     public string activityName;
-    public Vector3[] waypoints;
+    public Vector2[] waypoints;
     public float startTime;
     // Hapus 'hasStarted' dan 'isOngoing' dari sini, karena itu adalah data runtime
 }

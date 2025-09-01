@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class NPCInteractable : Interactable
 {
-
-    [SerializeField] NPCBehavior npcBehavior;
+    public NPCBehavior npcBehavior;
     //[SerializeField] protected DialogueSystem dialogueSystem;
 
+    private void OnEnable()
+    {
+        DialogueSystem.OnDialogueEnded += DialogueSystem_OnDialogueEnded;
+    }
 
+    private void OnDisable()
+    {
+        DialogueSystem.OnDialogueEnded -= DialogueSystem_OnDialogueEnded;
+    }
+    private void DialogueSystem_OnDialogueEnded()
+    {
+        if (npcBehavior.isLockedForQuest)
+        {
+            npcBehavior.ReturnToPreQuestPosition();
+        }
+    }
 
     void Start()
     {
@@ -25,6 +39,13 @@ public class NPCInteractable : Interactable
         if (npcBehavior.isLockedForQuest)
         {
             DialogueSystem.Instance.HandlePlayDialogue(npcBehavior.questOverrideDialogue);
+            if (npcBehavior && npcBehavior.isGivenItemForQuest)
+            {
+                Debug.Log($" NPC {npcBehavior.npcName} sudah diberikan item untuk quest.");
+                ItemPool.Instance.AddItem(npcBehavior.itemQuestToGive);
+                npcBehavior.isGivenItemForQuest = true;
+                //StartCoroutine(NPCGiveItemCoroutine());
+            }
         }
         else
         {
@@ -34,6 +55,7 @@ public class NPCInteractable : Interactable
 
 
    }
+
 
 
 

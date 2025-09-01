@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+
 public class PintuManager : MonoBehaviour
 {
     public static PintuManager Instance { get; private set; }
@@ -20,6 +21,12 @@ public class PintuManager : MonoBehaviour
 
     private void Awake()
     {
+        player = GameObject.FindGameObjectWithTag("Player")?.gameObject;
+        if (player == null)
+        {
+            Debug.LogError("Player not found in the scene!");
+            return;
+        }
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
@@ -42,7 +49,7 @@ public class PintuManager : MonoBehaviour
 
     }
 
-    public IEnumerator EnterArea(string pintu)
+    public void EnterArea(string pintu)
     {
         Debug.Log("Nama pintu: " + pintu);
 
@@ -56,10 +63,8 @@ public class PintuManager : MonoBehaviour
                 Debug.Log("Posisi Pintu Masuk (pintuOut): " + posisiPintu);
 
                 player.transform.position = posisiPintu;
-                LoadingScreenUI.Instance.ShowLoading(false); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
-                                                        // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik 
-                yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
-                LoadingScreenUI.Instance.HideLoading(); // Ini akan memanggil ResumeGame()
+                StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+
 
             }
             else if (pintuTujuan.pintuOut.name == pintu)
@@ -69,10 +74,8 @@ public class PintuManager : MonoBehaviour
                 Debug.Log("Posisi Pintu Masuk (pintuIn): " + posisiPintu);
                 player.transform.position = posisiPintu;
 
-                LoadingScreenUI.Instance.ShowLoading(false); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
-                                                        // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik 
-                yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
-                LoadingScreenUI.Instance.HideLoading(); // Ini akan memanggil ResumeGame()
+                StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+
             }
         }
     }

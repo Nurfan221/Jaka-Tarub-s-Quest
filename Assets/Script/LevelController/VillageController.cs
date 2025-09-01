@@ -30,8 +30,8 @@ public class VillageController : MonoBehaviour
         GameController.Instance.ResumeGame();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        if (GameController.Instance.fromPortal)
-            player.position = playerSpawnSpot.position;
+        //if (GameController.Instance.fromPortal)
+        //    player.position = playerSpawnSpot.position;
 
         //if (!GameController.NewGame)
         //    GameController.Instance.LoadGame();

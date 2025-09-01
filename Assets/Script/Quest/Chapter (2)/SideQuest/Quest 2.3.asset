@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest 2.3
   m_EditorClassIdentifier: 
-  questName: 
+  questName: Membersihkan Makam
   questInfo: Bicara Dengan Rahmat
   DeskripsiAwal: Jaka Tarub masih larut dalam kesedihan atas kepergian ibunya, Mbok
     Milah, dan merasa tidak sanggup mengunjungi makamnya. Mamat, teman Jaka, melihat
@@ -20,20 +20,29 @@ MonoBehaviour:
     akibat daun-daun kering. Mamat percaya, merawat makam akan membantu Jaka Tarub
     berdamai dengan kesedihannya dan menunjukkan rasa sayangnya.
   DeskripsiAkhir: Untuk menyelesaikan quest ini.
-  locateNpcQuest: {x: 0, y: 0, z: 0}
+  startLocateNpcQuest: {x: -14, y: -5}
+  finishLocateNpcQuest: {x: -14, y: 6}
   questType: 0
   questProgress: 1
   dateToActivate: 1
   MonthToActivate: 1
   npcName: Mamat Wirasena
-  itemRequirements: []
+  itemRequirements:
+  - itemName: Sabit
+    count: 1
+    quality: 0
   goldReward: 500
   itemRewards: []
+  NPCItem:
+    itemName: Sabit
+    count: 0
+    quality: 0
   startDialogue: {fileID: 11400000, guid: 8747b07d1b920044bbe02e7b40405191, type: 2}
   finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0
+  isNPCItem: 1
   spawnerToActivate: 
   isTheCleanupQuest: 1
   cleanupQuestIndex: 3

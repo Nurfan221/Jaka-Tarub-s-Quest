@@ -13,9 +13,11 @@ public class QuestSO : ScriptableObject
     public string DeskripsiAwal; // Deskripsi awal
     [TextArea(3, 10)]
     public string DeskripsiAkhir; // Deskripsi akhir
-    public Vector3 locateNpcQuest; // Lokasi NPC yang memberikan quest, bisa diubah menjadi Vector3 atau string ID
+    public Vector2 startLocateNpcQuest; // Lokasi NPC yang memberikan quest, bisa diubah menjadi Vector3 atau string ID
+    public Vector2 finishLocateNpcQuest; // Lokasi NPC yang menyelesaikan quest, bisa diubah menjadi Vector3 atau string ID
     public QuestType questType; // Tipe quest, bisa MainQuest atau SideQuest
     public QuestProgress questProgress = QuestProgress.Accepted; // Progres quest, bisa NotAccepted, Accepted, atau Completed
+    public EmoticonSO questEmoticon; // Emoticon yang muncul di atas kepala NPC
 
     [Header("Kondisi Aktivasi")]
     public int dateToActivate; // Tanggal quest akan menjadi tersedia

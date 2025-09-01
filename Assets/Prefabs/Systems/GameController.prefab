@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2162460952719231218}
-  - component: {fileID: 2686643974254583594}
   - component: {fileID: 1546531876476482124}
   - component: {fileID: 5449077394803582238}
   - component: {fileID: 2986323977070010781}
@@ -36,20 +35,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2686643974254583594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089621543159706998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be3ba8015043f24fa8603963cd423c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyText: {fileID: 0}
-  money: 500
 --- !u!114 &1546531876476482124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,10 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c02650208d9d2540b46ac7e6195d097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_Movement: {fileID: 0}
-  playerInventory: {fileID: 0}
-  playerUI: {fileID: 2986323977070010781}
-  questManager: {fileID: 0}
   isNewGame: 1
   playerName: Jaka Tarub
   enablePlayerInput: 0
@@ -183,6 +164,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 88276d41723949341be7363298f1e5ca, type: 2}
   - {fileID: 11400000, guid: 589ea5886ae3f3145993ad8d7af74bfb, type: 2}
   - {fileID: 11400000, guid: 89e00e0c54b34164cb03b392d7714a78, type: 2}
+  - {fileID: 11400000, guid: fdbf063211273e240843e31a4465d4b2, type: 2}
   - {fileID: 11400000, guid: 54c4a31eb50249f4da760dc7479db3f3, type: 2}
   - {fileID: 11400000, guid: 692483cde051eb24a98a89d414f63270, type: 2}
   - {fileID: 11400000, guid: 17879e46153e76142bc6005180323b56, type: 2}

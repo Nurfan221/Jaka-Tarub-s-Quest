@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -58,8 +59,15 @@ public class LoadingScreenUI : MonoBehaviour
         // Mulai coroutine yang baru
 
         animationCoroutine = StartCoroutine(PlayLoadingAnimation(achievement));
+
     }
 
+    public IEnumerator SetLoadingandTimer(bool achievement)
+    {
+        ShowLoading(achievement);
+        yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
+        LoadingScreenUI.Instance.HideLoading();
+    }
 
     public void HideLoading()
     {

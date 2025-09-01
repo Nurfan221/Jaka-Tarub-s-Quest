@@ -30,12 +30,6 @@ public class RecipeDatabase : MonoBehaviour
     [System.Serializable]
     public class CraftRecipe
     {
-        // --- SEBELUMNYA ---
-        // public List<Item> ingredients;
-        // public List<int> ingredientsCount;
-        // public Item result;
-
-        // +++ MENJADI +++
         public List<ItemData> ingredients; // Satu list untuk bahan dan jumlahnya
         public ItemData result;            // Satu object untuk hasil dan jumlahnya
     }
@@ -45,12 +39,15 @@ public class RecipeDatabase : MonoBehaviour
 
 
 
-
     [Header("Daftar Resep Makanan")]
     public Recipe[] cookRecipes; // Array yang menyimpan semua resep makanan
 
     [Header("Daftar Resep Khusus (Opsional)")]
     public Recipe[] specialRecipes; // Resep khusus atau lainnya
 
- 
+    [Header("Daftar Emoticon")]
+    public List<EmoticonSO> emoticonDatabase;
+
+
+
 }

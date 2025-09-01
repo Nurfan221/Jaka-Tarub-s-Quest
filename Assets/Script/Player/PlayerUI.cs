@@ -392,7 +392,7 @@ public class PlayerUI : MonoBehaviour
         float timer = 0f;
         Vector2 startSize = new Vector2(questUI.sizeDelta.x, targetHeight);
         Vector2 targetSize = new Vector2(questUI.sizeDelta.x, startHeight);
-        float startPosY = -40;
+        float startPosY = -75;
         float targetPosY = 0f;
 
         while (timer < animationDuration)
@@ -420,7 +420,7 @@ public class PlayerUI : MonoBehaviour
         Vector2 startSize = new Vector2(questUI.sizeDelta.x, startHeight);
         Vector2 targetSize = new Vector2(questUI.sizeDelta.x, targetHeight);
         float startPosY = 0f;
-        float targetPosY = -40; // Posisi Y agar terlihat 'menggulung' dari atas
+        float targetPosY = -75; // Posisi Y agar terlihat 'menggulung' dari atas
 
         // Ubah posisi jangkar (anchor) ke bagian atas
         questUI.pivot = new Vector2(0.5f, 1f);
