@@ -24,6 +24,7 @@ MonoBehaviour:
   finishLocateNpcQuest: {x: -14, y: 6}
   questType: 0
   questProgress: 1
+  questEmoticon: {fileID: 11400000, guid: 1153e22dc0c328b41b9bf270a81a4220, type: 2}
   dateToActivate: 1
   MonthToActivate: 1
   npcName: Mamat Wirasena
@@ -35,7 +36,7 @@ MonoBehaviour:
   itemRewards: []
   NPCItem:
     itemName: Sabit
-    count: 0
+    count: 1
     quality: 0
   startDialogue: {fileID: 11400000, guid: 8747b07d1b920044bbe02e7b40405191, type: 2}
   finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
