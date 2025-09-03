@@ -8,7 +8,6 @@ using TMPro;
 public class CookIngredient : MonoBehaviour
 {
 
-    [SerializeField] private RecipeDatabase recipeDatabaseInstance;
     [SerializeField] Transform ContentGO;
     [SerializeField] Transform SlotTemplate; // Parent untuk menempatkan hasil resep
     public bool checkRecipes = false;
@@ -34,7 +33,7 @@ public class CookIngredient : MonoBehaviour
         }
 
         // Perulangan untuk setiap resep di database
-        foreach (Recipe recipe in recipeDatabaseInstance.cookRecipes)
+        foreach (Recipe recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
         {
             // Instansiasi SlotTemplate untuk setiap resep
             Transform recipeSlot = Instantiate(SlotTemplate, ContentGO);
@@ -79,7 +78,7 @@ public class CookIngredient : MonoBehaviour
     private void CheckIngredients(string nameResult)
     {
         // Iterasi melalui semua resep
-        foreach (Recipe recipe in recipeDatabaseInstance.cookRecipes)
+        foreach (Recipe recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
         {
             // Pastikan resep yang dimaksud adalah resep yang sesuai dengan nameResult
             if (recipe.result.name == nameResult)

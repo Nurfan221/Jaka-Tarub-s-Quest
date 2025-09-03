@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9c1635293cae6b47b1e1bf34f2d4900, type: 3}
-  m_Name: SenyumGenit
+  m_Script: {fileID: 11500000, guid: 3fe9157c7e53aa74abba06b798fb768f, type: 3}
+  m_Name: EmoticonDatabase
   m_EditorClassIdentifier: 
-  emoticonName: SenyumGenit
-  emoticonSprite: {fileID: 9143627737181569042, guid: b2edb288fe7fa5c4a98bdaa3fcde357e, type: 3}
+  emoticonDatabase:
+  - emoticonName: 
+    emoticonSprite: {fileID: 0}

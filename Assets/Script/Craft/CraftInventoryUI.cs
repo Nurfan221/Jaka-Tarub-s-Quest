@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static RecipeDatabase;
+using static DatabaseManager;
 
 public class CraftInventoryUI : MonoBehaviour
 {
@@ -95,7 +95,7 @@ public class CraftInventoryUI : MonoBehaviour
         }
         recipeSlotTemplate.SetActive(false);
 
-        foreach (CraftRecipe recipe in RecipeDatabase.Instance.craftRecipes)
+        foreach (CraftRecipe recipe in DatabaseManager.Instance.craftingDatabase.craftRecipes)
         {
             CraftRecipe localRecipe = recipe;
             Item itemUse = ItemPool.Instance.GetItemWithQuality(localRecipe.result.itemName, localRecipe.result.quality);

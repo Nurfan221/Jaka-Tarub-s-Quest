@@ -290,7 +290,7 @@ public class NPCBehavior : MonoBehaviour
         {
             emoticonTransform.gameObject.SetActive(true);
             SpriteRenderer sr = emoticonTransform.GetComponent<SpriteRenderer>();
-            sr.sprite = RecipeDatabase.Instance.emoticonDatabase.Find(e => e.emoticonName == nameEmote)?.emoticonSprite;
+            sr.sprite = DatabaseManager.Instance.emoticonDatabase.emoticonDatabase.Find(e => e.emoticonName == nameEmote)?.emoticonSprite;
             StartCoroutine(WiggleRoutine()); // Mulai gerakan wiggle
         }
     }

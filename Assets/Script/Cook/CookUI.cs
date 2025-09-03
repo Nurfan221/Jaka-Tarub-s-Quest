@@ -10,7 +10,6 @@ public class CookUI : MonoBehaviour
     //[SerializeField] CookIngredient cookIngredient;
 
     [Header("Database Crafting")]
-    [SerializeField] private RecipeDatabase recipeDatabaseInstance;
     [SerializeField] private CookInteractable interactableInstance;
 
     // public GameObject inventorySlots;
@@ -204,7 +203,7 @@ public class CookUI : MonoBehaviour
         {
             // Cek apakah resultInCook memiliki hasil masakan dari item yang sama
             bool hasMatchingResult = false;
-            foreach (var recipe in recipeDatabaseInstance.cookRecipes)
+            foreach (var recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
             {
                 if (recipe.ingredient.itemName == item.itemName)
                 {
@@ -478,7 +477,7 @@ public class CookUI : MonoBehaviour
 
 
             // Mencari resep yang cocok
-            foreach (Recipe recipe in recipeDatabaseInstance.cookRecipes)
+            foreach (Recipe recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
             {
                 if (recipe.ingredientCount == 1 && itemName == recipe.ingredient.itemName)
                 {

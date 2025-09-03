@@ -12,10 +12,7 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class ShopUI : MonoBehaviour
 {
-    [Header("Daftar Hubungan")]
-    //public Player_Inventory player_Inventory;
-    public GameEconomy gameEconomy;
-    public InventoryUI inventoryUI;
+
 
     [Header("Daftar item list")]
     public List<Item> rainSeasonShop = new();
@@ -413,7 +410,7 @@ public class ShopUI : MonoBehaviour
     {
         int remainingToBuy = itemCounts[selectedItem.itemName]; // Jumlah item yang ingin dibeli
 
-        //if (gameEconomy.SpendMoney(remainingToBuy * selectedItem.BuyValue)&& remainingToBuy <= selectedItem.stackCount)
+        //if (gameEconomy.SpendMoney(remainingToBuy * selectedItem.BuyValue) && remainingToBuy <= selectedItem.stackCount)
         //{
         //    // Cek apakah item sudah ada di inventory
         //    Item inventoryItem = stats.itemList.Find(x => x.itemName == selectedItem.itemName);
@@ -462,8 +459,8 @@ public class ShopUI : MonoBehaviour
         //    StartCoroutine(StartUIGagal());
         //}
 
-        inventoryUI.RefreshInventoryItems();
-        inventoryUI.UpdateSixItemDisplay();
+        MechanicController.Instance.HandleUpdateInventory();
+        //inventoryUI.UpdateSixItemDisplay();
     }
 
 
@@ -487,7 +484,7 @@ public class ShopUI : MonoBehaviour
         //    ItemToSell.Add(newItem);
         //}
 
-        gameEconomy.GainMoney((selectedItem.SellValue * remainingToStore));
+        GameEconomy.Instance.GainMoney((selectedItem.SellValue * remainingToStore));
         DeleteItemFromInventory(selectedItem, remainingToStore);
         RefreshShopUI(currentSeasonItems);
     }
