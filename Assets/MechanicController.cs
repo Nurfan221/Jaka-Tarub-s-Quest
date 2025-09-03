@@ -164,9 +164,9 @@ public class MechanicController : MonoBehaviour
     public void HandleOpenStorage(StorageInteractable storage)
     {
         Debug.Log("membuka storage");
-        GameController.Instance.PindahKeScene("Village");
-        QuestManager.Instance.DeleteSaveData();
-        //StorageUI.OpenStorage(storage);
+        //GameController.Instance.PindahKeScene("Village");
+        //QuestManager.Instance.DeleteSaveData();
+        StorageUI.OpenStorage(storage);
     }
 
     public void HandleUpdateInventory()

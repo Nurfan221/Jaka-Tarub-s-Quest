@@ -7,7 +7,6 @@ using static QuestManager;
 
 public class DialogueSystem : MonoBehaviour
 {   
-    [SerializeField] QuestManager questManager;
     public static DialogueSystem Instance;
     string playerName;
 
@@ -15,14 +14,14 @@ public class DialogueSystem : MonoBehaviour
     Dialogues currentDialogues;
     Queue<Dialogues.Dialogue> dialogues = new();
 
-    [SerializeField] float dialogueSpd = 2;
+    public float dialogueSpd = 2;
     public GameObject dialogueUI;
-    [SerializeField] TMP_Text[] speakersText;
-    string firstSpeaker;
-    [SerializeField] TMP_Text dialogueText;
-    [SerializeField] TMP_Text narrationText;
+    public TMP_Text[] speakersText;
+    public string firstSpeaker;
+    public TMP_Text dialogueText;
+    public TMP_Text narrationText;
 
-    [SerializeField] Button NextButton;
+    public Button NextButton;
     public Button endButton; // Tombol untuk mengakhiri dialog
 
 
@@ -112,7 +111,7 @@ public class DialogueSystem : MonoBehaviour
             dialogueText.gameObject.SetActive(true);
             narrationText.gameObject.SetActive(false);
 
-            if (dialogue.name == firstSpeaker || dialogue.name == playerName)
+            if (dialogue.name == firstSpeaker)
             {
                 speakersText[0].text = dialogue.name;
                 speakersText[0].gameObject.SetActive(true);

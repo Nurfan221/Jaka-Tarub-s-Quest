@@ -152,17 +152,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 2.44561, y: 0.15379524}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.5, y: 0.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 25.178745, y: 29.761711}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!114 &1245937808901146366
 MonoBehaviour:
@@ -178,9 +178,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: PenyiramTanaman
-  item: {fileID: 11400000, guid: 692483cde051eb24a98a89d414f63270, type: 2}
+  itemdata:
+    itemName: 
+    count: 0
+    quality: 0
   itemName: PenyiramTanaman
   gravityDuration: 1
+  isPickable: 1
+  pickupDelay: 5
 --- !u!114 &-4621152900407630557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,5 +199,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  namePrefab: PenyiramTanaman
   itemDrop: {fileID: 4459120725376062254}
+  particleSystem: {fileID: 0}
