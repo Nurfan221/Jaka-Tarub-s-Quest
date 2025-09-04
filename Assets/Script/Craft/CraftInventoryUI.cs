@@ -202,7 +202,7 @@ public class CraftInventoryUI : MonoBehaviour
             {
                 ItemData ingredientData = selectedRecipe.ingredients[i];
                 Item itemObject = ItemPool.Instance.GetItem(ingredientData.itemName);
-                // --- PERBAIKAN --- Menggunakan selectedCraftAmount
+                // Menggunakan selectedCraftAmount
                 int requiredCount = ingredientData.count * selectedCraftAmount;
                 UpdateSlotUI(ingredientSlots[i], itemObject, requiredCount);
             }
@@ -213,7 +213,7 @@ public class CraftInventoryUI : MonoBehaviour
         }
 
         // Tampilkan hasil
-        // --- PERBAIKAN --- Menggunakan selectedCraftAmount
+        // Menggunakan selectedCraftAmount
         int resultCount = selectedRecipe.result.count * selectedCraftAmount;
         UpdateSlotUI(resultSlot, selectedResultItem, resultCount);
         CheckIngredientAvailability();
@@ -258,7 +258,7 @@ public class CraftInventoryUI : MonoBehaviour
         {
             // --- PERBAIKAN --- Menggunakan selectedCraftAmount
             int countToRemove = ingredient.count * selectedCraftAmount;
-            ItemData itemToRemove = new ItemData(ingredient.itemName, countToRemove, ingredient.quality);
+            ItemData itemToRemove = new ItemData(ingredient.itemName, countToRemove, ingredient.quality, ingredient.itemHealth);
             ItemPool.Instance.RemoveItemsFromInventory(itemToRemove);
         }
 
@@ -266,7 +266,8 @@ public class CraftInventoryUI : MonoBehaviour
         ItemData resultData = new ItemData(
             selectedResultItem.itemName,
             selectedRecipe.result.count * selectedCraftAmount,
-            selectedResultItem.quality
+            selectedResultItem.quality,
+            selectedResultItem.health
         );
         ItemPool.Instance.AddItem(resultData);
 
@@ -287,8 +288,6 @@ public class CraftInventoryUI : MonoBehaviour
         imageTransform.gameObject.SetActive(true);
         imageTransform.GetComponent<Image>().sprite = item.sprite;
 
-        // --- Menampilkan Jumlah (Baik untuk Hasil maupun Bahan) ---
-        // Mari kita gunakan satu nama yang konsisten, misalnya "IngridientCount"
         Transform countTextTransform = slot.transform.Find("IngridientCount");
         if (countTextTransform != null)
         {
@@ -303,23 +302,22 @@ public class CraftInventoryUI : MonoBehaviour
             }
         }
 
-        // --- LOGIKA KHUSUS UNTUK SLOT BAHAN (TIDAK BERJALAN UNTUK RESULT SLOT) ---
         if (slot != resultSlot)
         {
-            // 1. Hitung jumlah yang dimiliki
+            // Hitung jumlah yang dimiliki
             int ownedCount = CountItemsInInventory(item);
 
-            // 2. Tentukan warna berdasarkan kecukupan
-            Color availabilityColor = (ownedCount >= requiredCount) ? Color.white : Color.red;
+            // Tentukan warna berdasarkan kecukupan
+            //Color availabilityColor = (ownedCount >= requiredCount) ? Color.green : Color.red;
 
-            // 3. Cari dan perbarui teks jumlah yang dimiliki
+            // Cari dan perbarui teks jumlah yang dimiliki
             Transform ownedTextTransform = slot.transform.Find("ItemInInventory"); // Ganti "ItemInInventory" dengan nama child Anda, misal "ItemInInventory"
             if (ownedTextTransform != null)
             {
                 TMP_Text ownedText = ownedTextTransform.GetComponent<TMP_Text>();
                 ownedText.gameObject.SetActive(true);
                 ownedText.text = ownedCount.ToString(); // Formatnya menjadi (10)
-                ownedText.color = availabilityColor;
+                //ownedText.color = availabilityColor;
             }
         }
     }

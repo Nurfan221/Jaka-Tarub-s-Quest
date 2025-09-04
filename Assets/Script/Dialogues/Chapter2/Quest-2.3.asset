@@ -37,26 +37,21 @@ MonoBehaviour:
   - name: Jaka Tarub
     sentence: Bener juga ya... Aku nggak boleh biarin makam Mbok Milah kotor.
   - name: Mamat
-    sentence: Nah, gitu dong! Oh iya, nanti mampir ke toko dulu, ya.
+    sentence: Nah, gitu dong! Ini, pakai saja alatku. Saya sengaja bawakan, karena
+      sudah menduga kamu akan setuju.
   - name: Jaka Tarub
-    sentence: Lho, katanya suruh bersihin makam, kok malah disuruh ke toko?
+    sentence: Wah... terima kasih banyak ya, Mat! Saya berangkat sekarang!
   - name: Mamat
-    sentence: Lah, emangnya mau bersihin pakai tangan doang? Mau pungutin satu-satu
-      tuh daun? Keburu imsak, Jaka! Hahahaha!"
+    sentence: Nah, gitu! Hati-hati, ya!
+  - name: Mamat
+    sentence: oiyaa kayaknya Sabitku ketinggalan di makam deh nanti sekalian ambilin
+      yaa
+  - name: jaka Tarub
+    sentence: iya deh iya, tu sendal kalo ga di pake juga pasti ketinggalan gatau
+      di mana
+  - name: 'Mamat '
+    sentence: haha nggak mungkin lahh
   - name: Jaka Tarub
-    sentence: Eh... Iya juga, ya... Terus harus gimana, Mat?
-  - name: Mamat
-    sentence: Tenang, saya ada alat buat bersihin makam. Tapi kelupaan, masih di
-      toko. Hahaha.
-  - name: Jaka Tarub
-    sentence: Hadehh... Masih muda kok pikun, Mat.
-  - name: Mamat
-    sentence: Nah, mulai pedes nih omongan. Berarti udah mulai baikan. Yaudah, nanti
-      mampir ke toko aja!"
-  - name: Jaka Tarub
-    sentence: Hahaha, iya deh. Oke, nanti saya mampir."
-  - name: Mamat
-    sentence: "Mamat : \u201Coiyaa kayaknya Sabitku ketinggalan di makam deh nanti
-      sekalian ambilin yaa\u201D"
+    sentence: nanti sekalian aku mampir balikin ini yaa
   mainSpeaker: Mamat
   promptAfterDialogue: ' Membersihkan Makam Mbok Milah'

@@ -14,6 +14,7 @@ public class InventoryUI : MonoBehaviour
     [Header("Daftar hubungan Script")]
     [SerializeField] NPCListUI npcListUI;
     [SerializeField] CraftInventoryUI craftInventoryUI;
+    public SpriteImageTemplate spriteImageTemplate;
     public bool isInventoryOpen;
     [Header("Komponen untuk Interaksi Mobile")]
     public Image dragIcon; // Ikon yang mengikuti sentuhan
@@ -130,6 +131,8 @@ public class InventoryUI : MonoBehaviour
             quickSlotButtons[i].onClick.RemoveAllListeners();
             quickSlotButtons[i].onClick.AddListener(() => ShowDeleteButton(() => RisetQuickSlot(index)));
         }
+
+        spriteImageTemplate = DatabaseManager.Instance.GetSpriteTempalte("HealthItemUI");
         UpdateSixItemDisplay();
         CloseInventory();
 
@@ -381,6 +384,46 @@ public class InventoryUI : MonoBehaviour
             {
                 Debug.LogWarning("Button component not found on itemInInventory");
             }
+
+            itemInInventory.GetChild(1).GetComponent<TMP_Text>().text = stats.inventory[i].count.ToString();
+            Image healthIndicatorImage = itemInInventory.GetChild(2).GetComponent<Image>();
+            if (item.isItemCombat)
+            {
+                Debug.Log($"Item adalah item combat Checking health for item: {item.itemName} with health {stats.inventory[i].itemHealth}/{item.maxhealth}");
+                float percentage = ((float)stats.inventory[i].itemHealth / item.maxhealth) * 100f;
+
+
+                // Gunakan if-else if untuk rentang nilai
+                if (percentage > 75) // Termasuk 100%
+                {
+                    healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[0].sprites; // Set sprite indikator kesehatan
+                    Debug.Log($"Item health is high: {percentage}%");
+                }
+                else if (percentage > 50) // Rentang 51% - 75%
+                {
+                    healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[1].sprites; // Set sprite indikator kesehatan
+                    Debug.Log($"Item health is medium: {percentage}%");
+                }
+                else if (percentage > 25) // Rentang 26% - 50%
+                {
+                    healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[2].sprites; // Set sprite indikator kesehatan
+                    Debug.Log($"Item health is low: {percentage}%");
+                }
+                else if (percentage > 10) // Rentang 11% - 25%
+                {
+                    healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[3].sprites; // Set sprite indikator kesehatan   
+                }
+                else // Rentang 0% - 25%
+                {
+                    healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[4].sprites; // Set sprite indikator kesehatan
+                    Debug.Log($"Item health is critical: {percentage}%");
+                }
+            }
+            else
+            {
+                healthIndicatorImage.gameObject.SetActive(false);
+            }
+
         }
     }
 
@@ -451,6 +494,45 @@ public class InventoryUI : MonoBehaviour
 
                 // Cek jika stackCount tidak null
                 itemInDisplay.GetChild(1).GetComponent<TMP_Text>().text = stats.inventory[i].count.ToString();
+                Image healthIndicatorImage = itemInDisplay.GetChild(2).GetComponent<Image>();
+                Debug.Log($"Item isItemCombat: {item.isItemCombat} for item {item.itemName}");
+
+                if (item.isItemCombat)
+                {
+                    Debug.Log($"Item adalah item combat Checking health for item: {item.itemName} with health {stats.inventory[i].itemHealth}/{item.maxhealth}");
+                    float percentage = ((float)stats.inventory[i].itemHealth / item.maxhealth) * 100f;
+                    
+
+                    // Gunakan if-else if untuk rentang nilai
+                    if (percentage > 75) // Termasuk 100%
+                    {
+                        healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[0].sprites; // Set sprite indikator kesehatan
+                        Debug.Log($"Item health is high: {percentage}%");
+                    }
+                    else if (percentage > 50) // Rentang 51% - 75%
+                    {
+                        healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[1].sprites; // Set sprite indikator kesehatan
+                         Debug.Log($"Item health is medium: {percentage}%");
+                    }
+                    else if (percentage > 25) // Rentang 26% - 50%
+                    {
+                        healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[2].sprites; // Set sprite indikator kesehatan
+                        Debug.Log($"Item health is low: {percentage}%");
+                    }
+                    else if (percentage > 10) // Rentang 11% - 25%
+                    {
+                        healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[3].sprites; // Set sprite indikator kesehatan   
+                    }
+                    else // Rentang 0% - 25%
+                    {
+                        healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[4].sprites; // Set sprite indikator kesehatan
+                        Debug.Log($"Item health is critical: {percentage}%");
+                    }
+                }else
+                {
+                    healthIndicatorImage.gameObject.SetActive(false);
+                }
+
 
 
             }

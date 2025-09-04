@@ -24,18 +24,20 @@ MonoBehaviour:
   finishLocateNpcQuest: {x: -14, y: 6}
   questType: 0
   questProgress: 1
-  questEmoticon: {fileID: 11400000, guid: 1153e22dc0c328b41b9bf270a81a4220, type: 2}
+  questEmoticon:
+    emoticonName: 
+    emoticonSprite: {fileID: 0}
   dateToActivate: 1
   MonthToActivate: 1
   npcName: Mamat Wirasena
   itemRequirements:
-  - itemName: Sabit
+  - itemName: PenggarukSampah
     count: 1
     quality: 0
   goldReward: 500
   itemRewards: []
   NPCItem:
-    itemName: Sabit
+    itemName: PenggarukSampah
     count: 1
     quality: 0
   startDialogue: {fileID: 11400000, guid: 2939a7ec0e97bcf4488af1dd3a583c6b, type: 2}

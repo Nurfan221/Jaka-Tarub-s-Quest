@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour
         while (remainingToAdd > 0 && targetList.Count < maxSlots)
         {
             int amountForNewSlot = Mathf.Min(remainingToAdd, itemTemplate.maxStackCount);
-            ItemData newSlot = new ItemData(itemTemplate.itemName, amountForNewSlot, itemToMove.quality);
+            ItemData newSlot = new ItemData(itemTemplate.itemName, amountForNewSlot, itemToMove.quality, itemToMove.itemHealth);
             targetList.Add(newSlot);
 
             amountSuccessfullyMoved += amountForNewSlot;

@@ -151,6 +151,15 @@ public class PlayerUI : MonoBehaviour
         {
             questButton.onClick.AddListener(ToggleQuestUI);
         }
+
+        if (itemUseUI != null)
+        {
+            Button buttonItemUse = itemUseUI.GetComponent<Button>();
+            buttonItemUse.onClick.AddListener(() =>
+            {
+                Debug.Log("Item Use Button Clicked");
+            });
+        }
     }
 
    

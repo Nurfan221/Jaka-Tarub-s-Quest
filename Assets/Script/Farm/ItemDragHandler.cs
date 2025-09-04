@@ -23,14 +23,15 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public GameObject plantPrefab; // Prefab tanaman yang akan ditanam
     public Transform plantsContainer; // Referensi ke GameObject kosong yang menampung tanaman
     public Transform prefabContainer; // referansi ke gameobject kosont yang menampung prefab game objek 
+    //public string nameSpriteBar; // Untuk menyimpan nama sprite bar yang di gunakan
 
 
-     private string itemInDrag;// Ambil nama objek yang di-drag
+    private string itemInDrag;// Ambil nama objek yang di-drag
 
     [SerializeField] GiveCountContainer giveCountContainer;
     public int itemCount; // Index item yang di berikan
      
-     [SerializeField] InventoryUI inventoryUI;
+
     [SerializeField] FenceBehavior fenceBehavior;
     [SerializeField] PlantContainer plantContainer;
 
@@ -120,8 +121,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 }
 
                 // Refresh UI
-                inventoryUI.RefreshInventoryItems();
-                inventoryUI.UpdateSixItemDisplay();
+                MechanicController.Instance.HandleUpdateInventory();
                 break;
             }
         }
@@ -187,8 +187,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
 
                 // Refresh UI setelah perubahan
-                inventoryUI.RefreshInventoryItems();
-                inventoryUI.UpdateSixItemDisplay();
+                MechanicController.Instance.HandleUpdateInventory();
                 break; // Keluar dari loop setelah menemukan item
             }
             
@@ -275,8 +274,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // Tanam benih pada tile yang valid
             CekSeed(cellPosition); // Menjalankan logika menanam benih
 
-            inventoryUI.UpdateSixItemDisplay();
-            inventoryUI.RefreshInventoryItems();
+            MechanicController.Instance.HandleUpdateInventory();
         }
         //else if (currentTile == farmTile.grassTile)
         //{
@@ -326,13 +324,11 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     }
                     else
                     {
-                        inventoryUI.RefreshInventoryItems();
-                        inventoryUI.UpdateSixItemDisplay();
+                        MechanicController.Instance.HandleUpdateInventory();
                         // Debug.Log("Gagal membasmi serangga, item dikembalikan.");
                         rectTransform.SetParent(originalParent); // Baru kembalikan kalau gagal
                     }
-                    inventoryUI.RefreshInventoryItems();
-                    inventoryUI.UpdateSixItemDisplay();
+                    MechanicController.Instance.HandleUpdateInventory();
                     rectTransform.SetParent(originalParent); // Baru kembalikan kalau gagal
                     return;
                 }
@@ -346,15 +342,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         else
         {
-            inventoryUI.RefreshInventoryItems();
-            inventoryUI.UpdateSixItemDisplay();
+            MechanicController.Instance.HandleUpdateInventory();
             // Debug.Log("Item tidak berada di posisi yang valid.");
             rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal jika tidak valid
         }
 
         DroppedOnValidTile();
-        inventoryUI.RefreshInventoryItems();
-        inventoryUI.UpdateSixItemDisplay();
+        MechanicController.Instance.HandleUpdateInventory();
     }
 
 
@@ -542,11 +536,10 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
 
         // Selalu refresh UI di akhir untuk menampilkan perubahan
-        inventoryUI.RefreshInventoryItems();
-        inventoryUI.UpdateSixItemDisplay();
+        MechanicController.Instance.HandleUpdateInventory();
     }
 
-    private void PlacePrefab(Vector3Int cellPosition, string namaItem, GameObject prefabItem, float health)
+    private void PlacePrefab(Vector3Int cellPosition, string namaItem, GameObject prefabItem, int health)
     {
 
         // Debug.Log("Menambahkan Game Object...");
@@ -619,8 +612,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                         plantSeed.isWatered = false;
                         plantSeed.UpdateParticleEffect();
 
-                        inventoryUI.RefreshInventoryItems();
-                        inventoryUI.UpdateSixItemDisplay();
+                        MechanicController.Instance.HandleUpdateInventory();
 
                         Debug.Log("Serangga berhasil dibasmi di tanaman: " + tanaman.name);
                         return true;
@@ -646,7 +638,6 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         return false;
     }
-
 
 
 

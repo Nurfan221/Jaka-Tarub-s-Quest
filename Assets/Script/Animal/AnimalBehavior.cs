@@ -311,7 +311,7 @@ public class AnimalBehavior : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero; // Hentikan gerakan saat tabrakan
             isMoving = false; // Set isMoving ke false saat tabrakan
-            Debug.Log($"{namaHewan}      {collision.gameObject.name}");
+            //Debug.Log($"{namaHewan}      {collision.gameObject.name}");
             StartCoroutine(PlayRandomAnimationPeriodically()); // Mulai animasi acak setelah tabrakan
 
         }    

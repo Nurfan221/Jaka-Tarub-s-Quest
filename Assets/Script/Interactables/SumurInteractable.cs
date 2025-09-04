@@ -36,9 +36,10 @@ public class SumurInteractable : Interactable
     protected override void Interact()
     {
         Debug.Log("mengisi penyiram tanaman");
-       if(playerInventory != null && stats.equippedCombat[0].itemName == itemInteractable.itemName)
+       if(playerInventory != null && stats.equippedItemData[0].itemName == itemInteractable.itemName)
        {
-            stats.equippedCombat[0].health = stats.equippedCombat[0].maxhealth;
+            Item itemTemplate = ItemPool.Instance.GetItemWithQuality(stats.equippedItemData[0].itemName, stats.equippedItemData[0].quality);
+            stats.equippedItemData[0].itemHealth = itemTemplate.maxhealth;
             playerUI.UpdateCapacityBar(stats.equippedItemData[0]);
        }
     }

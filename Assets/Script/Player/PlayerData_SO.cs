@@ -42,7 +42,7 @@ public class PlayerData_SO : ScriptableObject
 
     public ItemData emptyItemTemplate;
     public Item emptyItem;
-    public List<Item> equippedCombat = new List<Item>(2);
+    //public List<Item> equippedCombat = new List<Item>(2);
     public List<ItemData> equippedItemData = new List<ItemData>(2);
     public ItemData equippedWeaponTemplate;
     public Item equippedWeapon;

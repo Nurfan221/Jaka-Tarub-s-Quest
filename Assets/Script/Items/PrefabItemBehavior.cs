@@ -4,7 +4,7 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class PrefabItemBehavior : MonoBehaviour
 {
-    public float health;
+    public int health;
     private string namePrefab;
 
     public GameObject itemDrop;

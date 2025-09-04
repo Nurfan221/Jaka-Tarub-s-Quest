@@ -258,7 +258,7 @@ public class CraftUI : MonoBehaviour
         {
             // --- PERBAIKAN --- Menggunakan selectedCraftAmount
             int countToRemove = ingredient.count * selectedCraftAmount;
-            ItemData itemToRemove = new ItemData(ingredient.itemName, countToRemove, ingredient.quality);
+            ItemData itemToRemove = new ItemData(ingredient.itemName, countToRemove, ingredient.quality, ingredient.itemHealth);
             ItemPool.Instance.RemoveItemsFromInventory(itemToRemove);
         }
 
@@ -266,7 +266,8 @@ public class CraftUI : MonoBehaviour
         ItemData resultData = new ItemData(
             selectedResultItem.itemName,
             selectedRecipe.result.count * selectedCraftAmount,
-            selectedResultItem.quality
+            selectedResultItem.quality,
+            selectedResultItem.health
         );
         ItemPool.Instance.AddItem(resultData);
 

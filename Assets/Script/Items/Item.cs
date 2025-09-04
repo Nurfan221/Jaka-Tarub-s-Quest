@@ -58,8 +58,9 @@ public class Item : ScriptableObject
     [TextArea]
     public string itemDescription;
     public int QuantityFuel;
-    public float maxhealth;
-    public float health; //deklarasikan health untuk menentukan berapa kali item di gunakan
+
+    public int maxhealth;
+    public int health; //deklarasikan health untuk menentukan berapa kali item di gunakan
     public float waktuBuffDamage;
     public int buffDamage;
     public float waktuBuffSprint;
@@ -72,6 +73,7 @@ public class Item : ScriptableObject
 
     // Combat Item
     [Header("COMBAT")]
+    public bool isItemCombat;
     public int Level;
     public int MaxLevel;
     public int Damage;

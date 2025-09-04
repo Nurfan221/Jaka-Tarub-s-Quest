@@ -113,48 +113,14 @@ public class Player_Inventory : MonoBehaviour
             //AnimalBehavior animalBehavior = other.GetComponent<AnimalBehavior>();
             //animalBehavior.DropItem();
         }
-        //else if(other.CompareTag("Pintu"))
-        //{
-        //    foreach (var pintuLokasi in pintuManager.pintuArray)
-        //    {
-        //        if(pintuLokasi.pintuIn.name == other.name)
-        //        {
-        //            GameObject pintu = pintuLokasi.pintuIn;
-        //            pintuManager.EnterArea(pintu);
-        //        }else if (pintuLokasi.pintuOut.name == other.name)
-        //        {
-        //            GameObject pintu = pintuLokasi.pintuOut;
-        //            pintuManager.EnterArea(pintu);
-        //        }
-        //    }
-        //}    
+       
     }
 
 
 
 
 
-    public void RemoveItem(Item item)
-    {
-        item = Instantiate(item);
-        if (item.isStackable)
-        {
-            //stats.itemList.Find(x => x.itemName == item.itemName).stackCount--;
-            //if (stats.itemList.Find(x => x.itemName == item.itemName).stackCount <= 0)
-            //    stats.itemList.Remove(stats.itemList.Find(x => x.itemName == item.itemName));
-        }
-        else
-            stats.itemList.Remove(stats.itemList.Find(x => x.itemName == item.itemName));
-    }
-
-    public Item FindItemInInventory(string name)
-    {
-        if (stats.itemList.Exists(x => x.itemName == name))
-        {
-            return stats.itemList.Find(x => x.itemName == name);
-        }
-        return ItemPool.Instance.GetItem("Empty");
-    }
+  
 
     public void EquipItem(ItemData itemToEquip)
     {
@@ -243,35 +209,7 @@ public class Player_Inventory : MonoBehaviour
     }
 
 
-    // Add item to quick slot according index (0,1)
-    //public void AddQuickSlot(Item item, int index)
-    //{
-    //    // Memastikan item ada dalam stats.itemList dan bukan "Empty"
-    //    if (!stats.itemList.Exists(x => x.itemName == item.itemName) && item.itemName != "Empty")
-    //        return;
-
-    //    // Jika slot yang dipilih sudah terisi, kembalikan item sebelumnya ke stats.itemList
-    //    //if (stats.quickSlots[index] != null && stats.quickSlots[index] != stats.emptyItem && stats.quickSlots[index].itemName != "Empty" && stats.quickSlots[index].stackCount > 0)
-    //    {
-    //        stats.itemList.Add(stats.quickSlots[index]);
-    //        Debug.Log("menambahkan item ke inventory");
-    //    }
-
-
-    //    // Menambahkan item baru ke stats.quickSlots pada index yang sesuai
-    //    stats.quickSlots[index] = item;
-
-    //    // Menghapus item yang baru ditambahkan dari stats.itemList
-    //    stats.itemList.Remove(item);
-
-    //    // Refresh UI inventory dan memperbarui tampilan item
-    //    inventoryUI.RefreshInventoryItems();
-    //    inventoryUI.UpdateSixItemDisplay();
-
-    //    // Memperbarui UI dengan item baru di slot yang sesuai
-    //    //inventoryUI.SetActiveItem(index + 2, item); // Menyesuaikan indeks untuk tampilan UI
-    //    print(item.itemName + " equipped");
-    //}
+  
 
 
     // Use which quick slot (1,2)
@@ -288,8 +226,8 @@ public class Player_Inventory : MonoBehaviour
         // Using them from inventory
         print("using quick slot " + (which));
         //item.stackCount--;
-        
-        
+
+
 
         // Have its effect
         switch (item.types)

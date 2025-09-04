@@ -143,6 +143,7 @@ public class ItemPool : MonoBehaviour
         newItem.waktuBuffDamage = itemTemplate.waktuBuffDamage;
         newItem.waktuBuffProtection = itemTemplate.waktuBuffProtection;
         newItem.waktuBuffSprint = itemTemplate.waktuBuffSprint;
+        newItem.isItemCombat = itemTemplate.isItemCombat;
 
         // Salinan untuk array agar tidak menggunakan referensi yang sama
         newItem.growthImages = (Sprite[])itemTemplate.growthImages.Clone();
@@ -230,7 +231,7 @@ public class ItemPool : MonoBehaviour
             int amountForNewSlot = Mathf.Min(amountToAdd, itemTemplate.maxStackCount);
 
             // Buat "Catatan Stok" (ItemData) baru dari data yang diterima
-            ItemData newSlot = new ItemData(itemDataToAdd.itemName, amountForNewSlot, itemDataToAdd.quality);
+            ItemData newSlot = new ItemData(itemDataToAdd.itemName, amountForNewSlot, itemDataToAdd.quality, itemDataToAdd.itemHealth);
             PlayerController.Instance.playerData.inventory.Add(newSlot);
 
             amountToAdd -= amountForNewSlot;

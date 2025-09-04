@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 [System.Serializable]
 public class Recipe
 {
@@ -23,6 +24,19 @@ public class CraftRecipe
     public ItemData result;            // Satu object untuk hasil dan jumlahnya
 }
 
+[System.Serializable]
+public class  SpriteImageTemplate
+{
+    public string nameImage;
+    public List<imagePersen> imagePersens;
+}
+
+[System.Serializable]
+public class  imagePersen
+{
+    public int persen;
+    public Sprite sprites;
+}
 
 public class DatabaseManager : MonoBehaviour
 {
@@ -32,6 +46,7 @@ public class DatabaseManager : MonoBehaviour
     public CraftingDatabaseSO craftingDatabase;
     public CookingDatabaseSO cookingDatabase;
     public EmoticonDatabaseSO emoticonDatabase;
+    public SpriteDatabaseSO spriteDatabase;
 
     private void Awake()
     {
@@ -44,5 +59,21 @@ public class DatabaseManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+    }
+
+    public SpriteImageTemplate GetSpriteTempalte(string nameImage)
+    {
+        SpriteImageTemplate foundTemplate = spriteDatabase.spriteImageTemplates.FirstOrDefault(template =>
+            template.nameImage.Equals(nameImage, System.StringComparison.OrdinalIgnoreCase)
+        );
+
+        // Jika template tidak ditemukan (hasilnya null), beri peringatan.
+        if (foundTemplate == null)
+        {
+            Debug.LogWarning($"DatabaseManager: Tidak dapat menemukan SpriteImageTemplate dengan nama '{nameImage}'");
+        }
+
+        // Kembalikan hasilnya, baik itu template yang ditemukan atau null.
+        return foundTemplate;
     }
 }

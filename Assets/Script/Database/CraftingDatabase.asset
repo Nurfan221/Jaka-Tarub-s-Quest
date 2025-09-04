@@ -12,4 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704a5f8994943ab4f9c32d80f24e2359, type: 3}
   m_Name: CraftingDatabase
   m_EditorClassIdentifier: 
-  craftRecipes: []
+  craftRecipes:
+  - ingredients:
+    - itemName: Kayu
+      count: 3
+      quality: 0
+    - itemName: Ranting
+      count: 5
+      quality: 0
+    result:
+      itemName: MejaCamp
+      count: 1
+      quality: 0
