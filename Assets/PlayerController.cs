@@ -132,10 +132,7 @@ public class PlayerController : MonoBehaviour
     {
         MechanicController.Instance.InventoryUI.SetActiveItem(slot, item);
     }
-    public void HandleUpdateCapacityBar(ItemData item)
-    {
-        PlayerUI.Instance.UpdateCapacityBar(item);
-    }
+
 
    
     public void MoveItem(List<ItemData> sourceList, List<ItemData> targetList, ItemData itemToMove, int amountToMove)
@@ -275,4 +272,16 @@ public class PlayerController : MonoBehaviour
     {
         ActivePlayer.transform.position = position;
     }
+
+    public void HandleButtonUseItem()
+    {
+        ActivePlayer.Inventory.UseQuickSlot();
+    }
+
+    public void HandleHealPlayer(int healthAmount, int staminaAmount)
+    {
+        ActivePlayer.Health.Heal(healthAmount, staminaAmount);
+    }
+
+
 }

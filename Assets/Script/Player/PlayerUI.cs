@@ -5,6 +5,7 @@ using static UnityEditor.Progress;
 using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -42,17 +43,20 @@ public class PlayerUI : MonoBehaviour
     public Image healthUI;
     public Image staminaUI;
     public Image equippedUI;
+    public Image imageEquippedUI;
     public Button actionInputButton;
     public Image itemUseUI;
+    public Image imageItemUse;
     public Button weaponSlider;  // Slider untuk memilih senjata
     public Button itemSlider; // slider untuk mengganti item 
    
 
     public TMP_Text promptText;
     public Button promptButton; // Tambahkan ini, Button untuk membungkus promptText
-    public Transform capacityUseItem;
+    //public Transform capacityUseItem;
     public Button switchWeaponImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     public Button switchUseItemImage; // Referensi ke Image yang digunakan untuk mengganti senjata
+    public SpriteImageTemplate spriteImageTemplate;
 
     [Header("Inventory UI")]
     public Button inventoryButton;  // Drag and drop the button in the inspector
@@ -79,7 +83,11 @@ public class PlayerUI : MonoBehaviour
 
     public void Start()
     {
+        spriteImageTemplate = DatabaseManager.Instance.GetSpriteTempalte("HealthItemUI");
+        imageItemUse = itemUseUI.transform.Find("UseButton").GetComponent<Image>();
+        imageEquippedUI = equippedUI.transform.Find("AttackButton").GetComponent<Image>();
         UpdateEquippedWeaponUI();
+        UpdateItemUseUI();
         // Setup listener untuk tombol-tombol
         if (inventoryButton != null)
         {
@@ -154,10 +162,12 @@ public class PlayerUI : MonoBehaviour
 
         if (itemUseUI != null)
         {
+
             Button buttonItemUse = itemUseUI.GetComponent<Button>();
             buttonItemUse.onClick.AddListener(() =>
             {
                 Debug.Log("Item Use Button Clicked");
+                PlayerController.Instance.HandleButtonUseItem();
             });
         }
     }
@@ -182,20 +192,12 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    public void UpdateCapacityBar(ItemData item)
-    {
-        capacityUseItem.gameObject.SetActive(true);
-        Image capacityBarImage = capacityUseItem.Find("KapacityBar").GetComponent<Image>();
-        //if (capacityBarImage != null && stats.equippedCombat != null)
-        //{
-        //    //Debug.Log("Target Image: " + capacityBarImage.name);
-        //    if (item.itemName == playerInventory.equippedWeapon.itemName)
-        //    {
-        //        capacityBarImage.fillAmount = playerInventory.equippedWeapon.health / playerInventory.equippedWeapon.maxhealth;
-        //        //Debug.Log("sisa health sekarang : " + playerInventory.equippedWeapon.health);
-        //    }
-        //}
-    }
+    //public void UpdateCapacityBar(ItemData item)
+    //{
+    //    capacityUseItem.gameObject.SetActive(true);
+    //    Image capacityBarImage = capacityUseItem.Find("KapacityBar").GetComponent<Image>();
+       
+    //}
 
     public void TakeCapacityBar(Item item)
     {
@@ -239,7 +241,37 @@ public class PlayerUI : MonoBehaviour
         // Simpan data ini ke "Papan Pengumuman" agar sistem lain tahu
         stats.equippedWeaponTemplate = activeWeaponData;
 
-        UpdateSingleIcon(equippedUI, activeWeaponData);
+        UpdateSingleIcon(imageEquippedUI, activeWeaponData);
+        Image capacityBarImage = equippedUI.transform.Find("capacityBarItem").GetComponent<Image>();
+        Item itemWeaponActive = ItemPool.Instance.GetItemWithQuality(activeWeaponData.itemName, activeWeaponData.quality);
+        float percentage = ((float)activeWeaponData.itemHealth / itemWeaponActive.maxhealth) * 100f;
+
+
+        // Gunakan if-else if untuk rentang nilai
+        if (percentage > 75) // Termasuk 100%
+        {
+            capacityBarImage.sprite = spriteImageTemplate.imagePersens[0].sprites; // Set sprite indikator kesehatan
+            Debug.Log($"Item health is high: {percentage}%");
+        }
+        else if (percentage > 50) // Rentang 51% - 75%
+        {
+            capacityBarImage.sprite = spriteImageTemplate.imagePersens[1].sprites; // Set sprite indikator kesehatan
+            Debug.Log($"Item health is medium: {percentage}%");
+        }
+        else if (percentage > 25) // Rentang 26% - 50%
+        {
+            capacityBarImage.sprite = spriteImageTemplate.imagePersens[2].sprites; // Set sprite indikator kesehatan
+            Debug.Log($"Item health is low: {percentage}%");
+        }
+        else if (percentage > 10) // Rentang 11% - 25%
+        {
+            capacityBarImage.sprite = spriteImageTemplate.imagePersens[3].sprites; // Set sprite indikator kesehatan   
+        }
+        else // Rentang 0% - 25%
+        {
+            capacityBarImage.sprite = spriteImageTemplate.imagePersens[4].sprites; // Set sprite indikator kesehatan
+            Debug.Log($"Item health is critical: {percentage}%");
+        }
     }
 
    
@@ -258,7 +290,10 @@ public class PlayerUI : MonoBehaviour
         // Simpan data ini ke "Papan Pengumuman"
         stats.equippedItemTemplate = activeItemData;
 
-        UpdateSingleIcon(itemUseUI, activeItemData);
+        UpdateSingleIcon(imageItemUse, activeItemData);
+        TMP_Text capacityBarImage = itemUseUI.transform.Find("ItemCount").GetComponent<TMP_Text>();
+        capacityBarImage.text = activeItemData.count.ToString();
+
     }
 
 
@@ -290,7 +325,11 @@ public class PlayerUI : MonoBehaviour
                 targetImage.gameObject.SetActive(false);
             }
         }
+
+       
+
     }
+    
     public void ToggleWeapon()
 
     {
@@ -458,4 +497,6 @@ public class PlayerUI : MonoBehaviour
         questUI.sizeDelta = targetSize;
         questUI.anchoredPosition = new Vector2(questUI.anchoredPosition.x, targetPosY);
     }
+
+
 }

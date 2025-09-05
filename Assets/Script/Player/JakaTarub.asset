@@ -21,9 +21,9 @@ MonoBehaviour:
   health: 100
   currentHealthCap: 100
   maxStamina: 1000
-  stamina: 880
+  stamina: 1000
   staminaRegenRate: 5
-  currentStaminaCap: 880
+  currentStaminaCap: 1000
   initialGriefPenalty: 50
   isInGrief: 0
   currentGriefPenalty: 50
@@ -34,76 +34,98 @@ MonoBehaviour:
   - itemName: Padi
     count: 39
     quality: 0
-  - itemName: DagingDomba
-    count: 24
-    quality: 0
-  - itemName: Ranting
-    count: 10
-    quality: 0
-  - itemName: BenihPadi
-    count: 16
-    quality: 0
-  - itemName: MejaCamp
-    count: 17
-    quality: 0
-  - itemName: DagingDombaSpesial
-    count: 10
-    quality: 0
-  - itemName: Kayu
-    count: 32
-    quality: 0
-  - itemName: Sword
+    itemHealth: 0
+  - itemName: Kapak
     count: 1
     quality: 0
-  - itemName: Padi
-    count: 32
-    quality: 0
-  - itemName: Padi
-    count: 27
-    quality: 0
+    itemHealth: 0
   - itemName: Cangkul
     count: 1
     quality: 0
+    itemHealth: 30
+  - itemName: Padi
+    count: 32
+    quality: 0
+    itemHealth: 0
+  - itemName: MejaCamp
+    count: 17
+    quality: 0
+    itemHealth: 0
+  - itemName: DagingDombaSpesial
+    count: 10
+    quality: 0
+    itemHealth: 0
+  - itemName: Kayu
+    count: 32
+    quality: 0
+    itemHealth: 0
+  - itemName: Ranting
+    count: 10
+    quality: 0
+    itemHealth: 0
+  - itemName: BenihPadi
+    count: 16
+    quality: 0
+    itemHealth: 0
+  - itemName: Padi
+    count: 27
+    quality: 0
+    itemHealth: 0
+  - itemName: Sword
+    count: 1
+    quality: 0
+    itemHealth: 0
   - itemName: Getah
     count: 10
     quality: 0
+    itemHealth: 0
   - itemName: Benih
     count: 3
     quality: 0
+    itemHealth: 0
   - itemName: DaunCemara
     count: 3
     quality: 0
+    itemHealth: 0
   - itemName: BenihOak
     count: 8
     quality: 0
+    itemHealth: 0
   - itemName: DaunJati
     count: 7
     quality: 0
+    itemHealth: 0
+  - itemName: DagingDomba
+    count: 24
+    quality: 0
+    itemHealth: 0
   maxItem: 18
   emptyItemTemplate:
     itemName: Empty
     count: 0
     quality: 0
+    itemHealth: 0
   emptyItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
-  equippedCombat:
-  - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
-  - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedItemData:
-  - itemName: Kapak
-    count: 1
+  - itemName: Empty
+    count: 0
     quality: 0
+    itemHealth: 0
   - itemName: Sword
     count: 1
     quality: 0
+    itemHealth: 0
   equippedWeaponTemplate:
-    itemName: Kapak
-    count: 1
+    itemName: Empty
+    count: 0
     quality: 0
+    itemHealth: 0
   equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedItemTemplate:
     itemName: Empty
     count: 1
     quality: 0
+    itemHealth: 0
   equippedItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   quickSlots:
   - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
@@ -112,9 +134,11 @@ MonoBehaviour:
   - itemName: DagingSapiPanggang
     count: 1
     quality: 0
+    itemHealth: 0
   - itemName: Empty
     count: 1
     quality: 0
+    itemHealth: 0
   equipped1: 1
   itemUse1: 0
   currentFatiguePenalty: 0

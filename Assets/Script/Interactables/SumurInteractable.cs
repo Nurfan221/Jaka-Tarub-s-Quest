@@ -40,7 +40,7 @@ public class SumurInteractable : Interactable
        {
             Item itemTemplate = ItemPool.Instance.GetItemWithQuality(stats.equippedItemData[0].itemName, stats.equippedItemData[0].quality);
             stats.equippedItemData[0].itemHealth = itemTemplate.maxhealth;
-            playerUI.UpdateCapacityBar(stats.equippedItemData[0]);
+
        }
     }
 }

@@ -41,14 +41,13 @@ public class PlayerData_SO : ScriptableObject
     public int maxItem = 18;
 
     public ItemData emptyItemTemplate;
-    public Item emptyItem;
     //public List<Item> equippedCombat = new List<Item>(2);
     public List<ItemData> equippedItemData = new List<ItemData>(2);
     public ItemData equippedWeaponTemplate;
     public Item equippedWeapon;
     public ItemData equippedItemTemplate;
     public Item equippedItem;
-    public List<Item> quickSlots = new List<Item>(2);
+    //public List<Item> quickSlots = new List<Item>(2);
     public List<ItemData> itemUseData = new List<ItemData>(2);
     public bool equipped1 = true;
     public bool itemUse1 = true;

@@ -213,54 +213,49 @@ public class Player_Inventory : MonoBehaviour
 
 
     // Use which quick slot (1,2)
-    public void UseQuickSlot(int which)
+    public void UseQuickSlot()
     {
+        int which;
+        if (stats.itemUse1)
+        {
+             which= 0;
+        }else
+        {
+            which = 1;
+        }
         // Making sure there is an item in the quick slot
-        Item item = stats.quickSlots[which];
-        if (item == null || item.itemName == "Empty")
+        ItemData item = stats.itemUseData[which];
+        if (item == null || item.itemName == "Empty" )
         {
             print("No item bish");
-            return;
+            return; 
         }
 
         // Using them from inventory
         print("using quick slot " + (which));
-        //item.stackCount--;
+        stats.itemUseData[which].count--;
+        MechanicController.Instance.HandleUpdateInventory();
 
-
+        Item itemUseTemplate = ItemPool.Instance.GetItemWithQuality(item.itemName, item.quality);
 
         // Have its effect
-        switch (item.types)
+        BuffScrollController.Instance.GetBuff(itemUseTemplate);
+
+        if (stats.itemUseData[which].count == 0)
         {
-            //case ItemType.Heal:
-            //    // Heal Player
-            //    print("HEALED");
-            //    healParticle.Play();
-            //    inventoryUI.jumlahQuickItem1.text = item.stackCount.ToString();
-            //    buffScrollController.GetBuff(item);
-            //    break;
-
-            //case ItemType.Buff:
-            //    // Buff player
-            //    inventoryUI.jumlahQuickItem2.text = item.stackCount.ToString();
-            //    buffScrollController.GetBuff(item);
-            //    break;
-
-            default: break;
+            stats.itemUseData[which] = stats.emptyItemTemplate;
         }
 
-        //if (item.stackCount <= 0)
-        //{
-            
-        //    AddQuickSlot(stats.emptyItem, which);
-        //}
+        MechanicController.Instance.InventoryUI.RefreshInventoryItems();
+        PlayerUI.Instance.UpdateItemUseUI();
     }
+
+   
+}
 
     
 
-      // Fungsi untuk mengganti senjata
    
 
     
 
-}

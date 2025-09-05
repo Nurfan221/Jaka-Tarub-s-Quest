@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Cangkul
   m_EditorClassIdentifier: 
-  itemID: 10
+  itemID: 89
   itemName: Cangkul
+  quality: 0
   types: 0
   categories: 256
   sprite: {fileID: 231085999161962332, guid: d566de0f6bdec3f48bd0b58bab4a43c1, type: 3}
@@ -21,6 +22,15 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 30
   health: 30
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
+  isItemCombat: 1
   Level: 1
   MaxLevel: 1
   Damage: 3
@@ -31,7 +41,6 @@ MonoBehaviour:
   UseStamina: 3
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 0
-  stackCount: 1
   maxStackCount: 1
   BuyValue: 500
   SellValue: 500
@@ -40,4 +49,5 @@ MonoBehaviour:
   prefabItem: {fileID: 4459120725376062254, guid: 8d6605f3ade6173439b400eefc489033, type: 3}
   growthTime: 0
   growthImages: []
+  growthObject: []
   dropItem: {fileID: 4459120725376062254, guid: 8d6605f3ade6173439b400eefc489033, type: 3}

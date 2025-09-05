@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e95641018a621f4e858809e9f79378e, type: 3}
   m_Name: SpriteDatabaseSO
   m_EditorClassIdentifier: 
-  spriteImageTemplates: []
+  spriteImageTemplates:
+  - nameImage: HealthItemUI
+    imagePersens:
+    - persen: 100
+      sprites: {fileID: -6844913924078335846, guid: c61f020ebe7e9314e9a215cdc61ed5d2, type: 3}
+    - persen: 75
+      sprites: {fileID: -2818527216096843119, guid: c61f020ebe7e9314e9a215cdc61ed5d2, type: 3}
+    - persen: 50
+      sprites: {fileID: 7607210294130395402, guid: c61f020ebe7e9314e9a215cdc61ed5d2, type: 3}
+    - persen: 25
+      sprites: {fileID: 8834966309712142247, guid: c61f020ebe7e9314e9a215cdc61ed5d2, type: 3}
+    - persen: 0
+      sprites: {fileID: -1720446584756610369, guid: c61f020ebe7e9314e9a215cdc61ed5d2, type: 3}

@@ -36,8 +36,6 @@ public class BuffScrollController : MonoBehaviour
     public bool isBuffSprint;
 
 
-    [Header("Daftar Hubungan")]
-    [SerializeField] Player_Health player_Health;
 
     private void Awake()
     {
@@ -151,8 +149,8 @@ public class BuffScrollController : MonoBehaviour
         // Mengecek dan menerapkan efek Heal
         if (item.countHeal > 0 || item.countStamina > 0)
         {
-            Debug.Log("Heal effect triggered");
-            player_Health.Heal(item.countHeal, item.countStamina);
+            Debug.Log("buff Heal effect triggered");
+            PlayerController.Instance.HandleHealPlayer(item.countHeal, item.countStamina);
         }
     }
 

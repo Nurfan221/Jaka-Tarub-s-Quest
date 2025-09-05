@@ -138,10 +138,18 @@ public class Player_Health : MonoBehaviour
         if (stats.health <= 0) Die();
     }
 
-    public void Heal(int healthAmount, int staminaAmount)
+    public void Heal(int healthAmount, int staminaAmount )
     {
+        // Simpan nilai lama untuk perbandingan
+        int oldHealth = stats.health;
+        float oldStamina = stats.currentStaminaCap;
+
+        // Lakukan proses penyembuhan
         stats.health = Mathf.Clamp(stats.health + healthAmount, 0, stats.currentHealthCap);
-        stats.stamina = Mathf.Clamp(stats.stamina + staminaAmount, 0, stats.currentStaminaCap);
+        stats.currentStaminaCap = Mathf.Clamp(stats.currentStaminaCap + staminaAmount, 0, stats.maxStamina);
+
+
+      
     }
 
 
