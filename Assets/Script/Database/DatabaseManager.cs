@@ -47,6 +47,7 @@ public class DatabaseManager : MonoBehaviour
     public CookingDatabaseSO cookingDatabase;
     public EmoticonDatabaseSO emoticonDatabase;
     public SpriteDatabaseSO spriteDatabase;
+    public GameObject itemWorldPrefab; // Prefab untuk item di dunia
 
     private void Awake()
     {
@@ -75,5 +76,27 @@ public class DatabaseManager : MonoBehaviour
 
         // Kembalikan hasilnya, baik itu template yang ditemukan atau null.
         return foundTemplate;
+    }
+
+    public GameObject GetItemWorldPrefab(string prefabName, ItemQuality itemQuality, int itemHealth)
+    {
+        if (itemWorldPrefab == null)
+        {
+            Debug.LogWarning("DatabaseManager: itemWorldPrefab belum diatur di Inspector!");
+            ItemDropInteractable itemDropInteractable = itemWorldPrefab.GetComponent<ItemDropInteractable>();
+            Item item = ItemPool.Instance.GetItemWithQuality(prefabName, itemQuality);
+            if (itemDropInteractable != null && item != null)
+            {
+                itemDropInteractable.itemdata.itemName = item.itemName;
+                itemDropInteractable.itemdata.count = 1; // Set jumlah awal ke 1
+                itemDropInteractable.itemdata.quality = itemQuality;
+                itemDropInteractable.itemdata.itemHealth = itemHealth;
+            }
+            else
+            {
+                Debug.LogWarning("DatabaseManager: Gagal mengatur itemdata pada itemWorldPrefab.");
+            }
+        }
+        return itemWorldPrefab;
     }
 }

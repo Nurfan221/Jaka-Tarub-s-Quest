@@ -16,7 +16,7 @@ public class MiniGameHewanUI : MonoBehaviour
     }
 
     public Rintangan[] rintangan;
-    public GameObject[] dropitems;
+    public ItemData[] dropitems;
     [SerializeField] MiniGameHewanUI miniGameHewanUI;
     [SerializeField] Player_Inventory playerInventory;
     [SerializeField] QuestManager questManager;
@@ -150,7 +150,7 @@ public class MiniGameHewanUI : MonoBehaviour
         isEvent = animalBehavior.isAnimalEvent;
         if (animalBehavior != null)
         {
-            dropitems = new GameObject[animalBehavior.dropitems.Length];
+            dropitems = new ItemData[animalBehavior.dropitems.Length];
             // Simpan item ke dalam dropitems milik MiniGameHewanUI
             for (int i = 0; i < animalBehavior.dropitems.Length; i++)
             {
@@ -311,13 +311,10 @@ public class MiniGameHewanUI : MonoBehaviour
                         // Tampilkan semua item drop dari dropitems
                         foreach (var item in dropitems)
                         {
-                            SpriteRenderer spriteRenderer = item.GetComponent<SpriteRenderer>();
-                            if (spriteRenderer != null)
-                            {
-                                Sprite itemImage = spriteRenderer.sprite;
-                                string itemName = item.name;
-                                CreateItemPrefab(itemImage, itemName);
-                            }
+                            Item itemDrop = ItemPool.Instance.GetItemWithQuality(item.itemName, item.quality);
+                            Sprite itemImage = itemDrop.sprite;
+                            string itemName = item.itemName;
+                            CreateItemPrefab(itemImage, itemName);
                         }
 
                         // Panggil DropItem() dari AnimalBehavior untuk menjatuhkan item

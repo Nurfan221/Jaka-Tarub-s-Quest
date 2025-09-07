@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class StoneBehavior : MonoBehaviour
     public class ItemDropMine
     {
         public string namaStone;
-        public GameObject[] hasilTambang;
+        public ItemData[] hasilTambang;
         public int minHasil;
         public int maxHasil;
         
@@ -80,7 +81,7 @@ public class StoneBehavior : MonoBehaviour
             int randomCount = UnityEngine.Random.Range(itemDropMines.minHasil, itemDropMines.maxHasil + 1);
 
             // Pilih hasil tambang berdasarkan dayLuck
-            List<GameObject> results = new List<GameObject>();  // Menyimpan hasil tambang yang dipilih
+            List<ItemData> results = new List<ItemData>();  // Menyimpan hasil tambang yang dipilih
             if (dayLuck == 3)
             {
                  isLucky = true; // Variabel untuk memastikan variasi antara pilih awal dan akhir
@@ -131,7 +132,7 @@ public class StoneBehavior : MonoBehaviour
             // Menampilkan hasil yang dipilih (untuk debug)
             foreach (var result in results)
             {
-                Debug.Log("Item yang didapat: " + result.name);
+                Debug.Log("Item yang didapat: " + result.itemName);
             }
 
             // Jatuhkan batu sebagai stack item tunggal
@@ -140,7 +141,7 @@ public class StoneBehavior : MonoBehaviour
                 Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
                 for (int j = 0; j < results.Count; j++)
                 {
-                    ItemPool.Instance.DropItem(results[j].name, transform.position + offset, results[j], 1);
+                    ItemPool.Instance.DropItem(results[j].itemName, results[j].itemHealth, results[j].quality, transform.position + offset, 1);
                 }
             }
         }

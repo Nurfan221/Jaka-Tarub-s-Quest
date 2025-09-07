@@ -34,12 +34,14 @@ MonoBehaviour:
   - itemName: PenggarukSampah
     count: 1
     quality: 0
+    itemHealth: 0
   goldReward: 500
   itemRewards: []
   NPCItem:
     itemName: PenggarukSampah
     count: 1
     quality: 0
+    itemHealth: 0
   startDialogue: {fileID: 11400000, guid: 2939a7ec0e97bcf4488af1dd3a583c6b, type: 2}
   finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
   isMainQuest: 0
@@ -48,7 +50,7 @@ MonoBehaviour:
   isNPCItem: 1
   spawnerToActivate: 
   isTheCleanupQuest: 1
-  cleanupQuestIndex: 3
+  cleanupQuestIndex: 1
   objectToClean: Kuburan Mbok Milah
   isTheCleanupObjectDone: 0
   cleanupQuestTotal: 3

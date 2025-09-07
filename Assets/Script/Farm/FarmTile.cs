@@ -290,17 +290,18 @@ public class FarmTile : MonoBehaviour
             if (tileData.isPlanted && !string.IsNullOrEmpty(tileData.plantedItemName))
             {
                 Item itemTemplate = ItemPool.Instance.GetItem(tileData.plantedItemName);
-                if (itemTemplate != null && itemTemplate.prefabItem != null)
+                if (itemTemplate != null && itemTemplate.namePrefab != null)
                 {
                     Vector3 spawnPosition = tilemap.GetCellCenterWorld(tileData.tilePosition);
-                    GameObject plantObject = Instantiate(itemTemplate.prefabItem, spawnPosition, Quaternion.identity, plantsContainer);
+                    GameObject prefabItem = DatabaseManager.Instance.GetItemWorldPrefab(itemTemplate.itemName, itemTemplate.quality, itemTemplate.health);
+                    GameObject plantObject = Instantiate(prefabItem, spawnPosition, Quaternion.identity, plantsContainer);
 
                     PlantSeed seedComponent = plantObject.GetComponent<PlantSeed>();
                     if (seedComponent != null)
                     {
                         // Setup data tanaman
                         seedComponent.namaSeed = tileData.plantedItemName;
-                        seedComponent.dropItem = itemTemplate.dropItem;
+                        seedComponent.itemDropName = itemTemplate.itemDropName;
                         seedComponent.growthImages = itemTemplate.growthImages;
                         seedComponent.growthTime = itemTemplate.growthTime;
                         seedComponent.plantLocation = spawnPosition;

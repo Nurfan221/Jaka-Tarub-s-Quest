@@ -70,7 +70,7 @@ public class Enemy_Spawner : MonoBehaviour
             Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
         if (enemies.Count == 0)
         {
-            ItemPool.Instance.DropItem(itemDrop.name, transform.position + offset, itemDrop.prefabItem);
+            ItemPool.Instance.DropItem(itemDrop.itemName,itemDrop.health, itemDrop.quality, transform.position + offset);
             spawnCount = 0;
             gameObject.SetActive(false);
         }

@@ -44,7 +44,6 @@ public class PlayerData_SO : ScriptableObject
     //public List<Item> equippedCombat = new List<Item>(2);
     public List<ItemData> equippedItemData = new List<ItemData>(2);
     public ItemData equippedWeaponTemplate;
-    public Item equippedWeapon;
     public ItemData equippedItemTemplate;
     public Item equippedItem;
     //public List<Item> quickSlots = new List<Item>(2);

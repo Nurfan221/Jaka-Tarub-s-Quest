@@ -165,7 +165,7 @@ public class MechanicController : MonoBehaviour
     {
         Debug.Log("membuka storage");
         //GameController.Instance.PindahKeScene("Village");
-        //QuestManager.Instance.DeleteSaveData();
+        QuestManager.Instance.DeleteSaveData();
         StorageUI.OpenStorage(storage);
     }
 

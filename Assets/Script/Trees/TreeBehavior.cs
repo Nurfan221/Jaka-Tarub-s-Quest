@@ -14,10 +14,10 @@ public class TreeBehavior : MonoBehaviour
 {
     [Header("Statistik Pohon")]
     public float health = 100f;
-    public GameObject kayu;
-    public GameObject daun;
-    public GameObject getah;
-    public GameObject benih;
+    public ItemData kayu;
+    public ItemData daun;
+    public ItemData getah;
+    public ItemData benih;
 
     [Header("Logika Tanam Pohon")]
     public GrowthTree currentStage = GrowthTree.Seed;
@@ -276,7 +276,7 @@ public class TreeBehavior : MonoBehaviour
             Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
             if (kayu != null)
             {
-                ItemPool.Instance.DropItem(kayu.name, posisi + offset, kayu);
+                ItemPool.Instance.DropItem(kayu.itemName,kayu.itemHealth, kayu.quality, posisi + offset   );
             }
         }
 
@@ -286,7 +286,7 @@ public class TreeBehavior : MonoBehaviour
             Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
             if (getah != null)
             {
-                ItemPool.Instance.DropItem(getah.name, posisi + offset, getah);
+                ItemPool.Instance.DropItem(getah.itemName, getah.itemHealth, getah.quality, posisi + offset);
             }
         }
 
@@ -296,7 +296,7 @@ public class TreeBehavior : MonoBehaviour
             Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
             if (daun != null)
             {
-                ItemPool.Instance.DropItem(daun.name, posisi + offset, daun);
+                ItemPool.Instance.DropItem(daun.itemName, daun.itemHealth, daun.quality, posisi + offset);
             }
         }
 
@@ -306,7 +306,7 @@ public class TreeBehavior : MonoBehaviour
             Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
             if (benih != null)
             {
-                ItemPool.Instance.DropItem(benih.name, posisi + offset, benih);
+                ItemPool.Instance.DropItem(benih.itemName, benih.itemHealth, benih.quality, posisi + offset);
             }
         }
 

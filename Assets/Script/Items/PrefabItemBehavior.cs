@@ -7,7 +7,7 @@ public class PrefabItemBehavior : MonoBehaviour
     public int health;
     private string namePrefab;
 
-    public GameObject itemDrop;
+    public ItemData itemDrop;
     private int minItemDrop = 2;
     private int maxItemDrop = 4;
     public ParticleSystem particleSystem;
@@ -51,7 +51,7 @@ public class PrefabItemBehavior : MonoBehaviour
         {
             Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
             if (itemDrop != null)
-                ItemPool.Instance.DropItem(itemDrop.name, transform.position + offset, itemDrop);
+                ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.itemHealth,itemDrop.quality, transform.position + offset);
         }
 
 

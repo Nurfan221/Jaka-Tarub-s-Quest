@@ -52,13 +52,28 @@ public class ItemDropInteractable : Interactable
         Destroy(gameObject);
     }
 
-    public IEnumerator StopGravity(Rigidbody2D rb, float delay)
+    public IEnumerator FreezeAfterDelay(float delay)
     {
-        Debug.Log("ItemDropInteractable: StopGravity coroutine started.");
+        // Tunggu selama 'delay' detik
         yield return new WaitForSeconds(delay);
-        rb.gravityScale = 0;
-        rb.linearVelocity = Vector2.zero;
-        Debug.Log("ItemDropInteractable: Gravity set to 0.");
+
+        // Setelah menunggu, dapatkan komponen Rigidbody2D
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            // Hentikan semua gerakan dan putaran
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+
+            // (Opsional tapi direkomendasikan) Matikan gravitasi agar tidak turun lagi
+            // Jika Anda menggunakan logika top-down, gravitasi seharusnya sudah 0.
+            rb.gravityScale = 0f;
+
+            Debug.Log($"Item {this.name} telah berhenti bergerak.");
+        }
+
+        // Sekarang item aman untuk diambil
+        isPickable = true;
     }
 
     private IEnumerator ActivatePickupAfterDelay()

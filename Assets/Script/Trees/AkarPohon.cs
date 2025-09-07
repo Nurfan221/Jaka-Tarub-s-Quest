@@ -3,7 +3,7 @@ using UnityEngine;
 public class AkarPohon : MonoBehaviour
 {
     public int health;
-    public GameObject kayu;
+    public ItemData kayu;
     public int minKayu;
     public int maxKayu;
     void Start()
@@ -31,7 +31,7 @@ public class AkarPohon : MonoBehaviour
                 if (kayu != null)
                 {
                     Vector3 posisi = transform.position;
-                    ItemPool.Instance.DropItem(kayu.name, posisi + offset, kayu);
+                    ItemPool.Instance.DropItem(kayu.itemName, kayu.itemHealth, kayu.quality, posisi + offset);
                 }
             }
             Destroy(gameObject);

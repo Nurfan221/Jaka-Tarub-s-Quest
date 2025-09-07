@@ -93,7 +93,9 @@ public class Item : ScriptableObject
     public int SellValue;
     public int BurningTime;
     public int CookTime;
-    public GameObject prefabItem;
+    public string itemDropName; // nama item yang dijatuhkan au dihasilkan
+    public string namePrefab; // nama prefab yang akan ditanam khusus untuk seed atau tanaman 
+
 
 
     // Seed Properties (khusus untuk benih)
@@ -102,7 +104,7 @@ public class Item : ScriptableObject
     public Sprite[] growthImages; // Gambar untuk tiap tahap pertumbuhan
     public GameObject[] growthObject; // objek untuk setiap tahapan pertumbuhan pohon # khusus pohon
     //public GameObject plantPrefab; // Prefab tanaman yang akan tumbuh dari benih
-    public GameObject dropItem; //prefab untuk buah yang akan di hasilkan
+
 
     public bool IsInCategory(ItemCategory category)
     {

@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class SumurInteractable : Interactable
 {
-    [Header("Daftar hubungan")]
-    [SerializeField] Player_Inventory playerInventory;
-    [SerializeField] PlayerUI playerUI;
+
     public Item itemInteractable;
     private PlayerData_SO stats;
     private void Awake()
@@ -35,12 +33,36 @@ public class SumurInteractable : Interactable
 
     protected override void Interact()
     {
-        Debug.Log("mengisi penyiram tanaman");
-       if(playerInventory != null && stats.equippedItemData[0].itemName == itemInteractable.itemName)
-       {
-            Item itemTemplate = ItemPool.Instance.GetItemWithQuality(stats.equippedItemData[0].itemName, stats.equippedItemData[0].quality);
-            stats.equippedItemData[0].itemHealth = itemTemplate.maxhealth;
+        Debug.Log("Mengisi ulang alat...");
 
-       }
+
+        // Cek apakah item yang dipegang pemain adalah item yang benar (misal: Penyiram Tanaman)
+        if (stats.equipped1 == true)
+        {
+            // Jika ya, fokus pada item di slot pertama [0]
+            ItemData itemDiSlotPertama = stats.equippedItemData[0];
+
+            // Cek apakah namanya cocok
+            if (itemDiSlotPertama.itemName == itemInteractable.itemName)
+            {
+                // Lakukan aksi untuk slot pertama...
+                Debug.Log("Item di slot pertama cocok! Mengisi ulang...");
+                Item item = ItemPool.Instance.GetItemWithQuality(itemDiSlotPertama.itemName, itemDiSlotPertama.quality);
+                stats.equippedItemData[0].itemHealth = item.maxhealth;
+            }
+        }
+        else 
+        {
+            // Fokus pada item di slot kedua [1]
+            ItemData itemDiSlotKedua = stats.equippedItemData[1];
+
+            // Cek apakah namanya cocok
+            if (itemDiSlotKedua.itemName == itemInteractable.itemName)
+            {
+                Debug.Log("Item di slot pertama cocok! Mengisi ulang...");
+                Item item = ItemPool.Instance.GetItemWithQuality(itemDiSlotKedua.itemName, itemDiSlotKedua.quality);
+                stats.equippedItemData[0].itemHealth = item.maxhealth;
+            }
+        }
     }
 }

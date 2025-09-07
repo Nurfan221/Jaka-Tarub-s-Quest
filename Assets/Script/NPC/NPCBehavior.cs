@@ -254,7 +254,6 @@ public class NPCBehavior : MonoBehaviour
 
             Debug.Log($"NPC {this.npcName}: Item '{inventoryItemData.itemName}' telah diproses oleh sistem quest.");
             // Panggil fungsi untuk memperbarui UI Inventaris pemain
-            // MechanicController.Instance.HandleUpdateInventory(); // Contoh
             return true; // Item berhasil diberikan dan diproses
         }
         else

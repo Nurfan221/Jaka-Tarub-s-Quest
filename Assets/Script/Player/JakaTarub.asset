@@ -20,10 +20,10 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   currentHealthCap: 100
-  maxStamina: 1000
-  stamina: 1000
+  maxStamina: 100
+  stamina: 50.335976
   staminaRegenRate: 5
-  currentStaminaCap: 1000
+  currentStaminaCap: 100
   initialGriefPenalty: 50
   isInGrief: 0
   currentGriefPenalty: 50
@@ -39,10 +39,6 @@ MonoBehaviour:
     count: 1
     quality: 0
     itemHealth: 0
-  - itemName: Cangkul
-    count: 1
-    quality: 0
-    itemHealth: 30
   - itemName: Padi
     count: 32
     quality: 0
@@ -105,41 +101,37 @@ MonoBehaviour:
     count: 0
     quality: 0
     itemHealth: 0
-  emptyItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedItemData:
-  - itemName: Empty
-    count: 0
+  - itemName: Cangkul
+    count: 1
     quality: 0
-    itemHealth: 0
+    itemHealth: 30
   - itemName: Sword
     count: 1
     quality: 0
     itemHealth: 0
   equippedWeaponTemplate:
-    itemName: Empty
-    count: 0
+    itemName: Sword
+    count: 1
     quality: 0
     itemHealth: 0
   equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   equippedItemTemplate:
-    itemName: Empty
-    count: 1
+    itemName: DagingSapiPanggang
+    count: 15
     quality: 0
     itemHealth: 0
   equippedItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
-  quickSlots:
-  - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
-  - {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
   itemUseData:
   - itemName: DagingSapiPanggang
-    count: 1
+    count: 15
     quality: 0
     itemHealth: 0
-  - itemName: Empty
-    count: 1
+  - itemName: DagingAyamPanggang
+    count: 30
     quality: 0
     itemHealth: 0
-  equipped1: 1
-  itemUse1: 0
+  equipped1: 0
+  itemUse1: 1
   currentFatiguePenalty: 0
   maxFatiguePenalty: 50

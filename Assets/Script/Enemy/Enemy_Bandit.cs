@@ -41,7 +41,7 @@ public class Enemy_Bandit : MonoBehaviour
 
     //[ DROP ITEM SETTINGS ]//
     [Header("Drop Item Settings")]
-    public GameObject[] dropitems; // Array item yang bisa dijatuhkan
+    public ItemData[] dropitems; // Array item yang bisa dijatuhkan
                                    //element 0 harus selalu di isi dengan prefab item normal
                                    //element 1 harus selalu di isi dengan prefab item normal
                                    //element 3 harus selalu di isi dengan prefab item normal
@@ -525,7 +525,7 @@ public class Enemy_Bandit : MonoBehaviour
             for (int i = 0; i < itemCount; i++)
             {
                 int randomIndex = Random.Range(startIndex, endIndex);
-                GameObject itemToDrop = dropitems[randomIndex];
+                ItemData itemToDrop = dropitems[randomIndex];
 
                 // Periksa apakah item ini lolos drop rate
                 if (Random.value <= dropRates[randomIndex]) // Random.value menghasilkan angka antara 0-1
@@ -534,12 +534,12 @@ public class Enemy_Bandit : MonoBehaviour
                     {
                         //Debug.Log("Item yang dijatuhkan: " + itemToDrop.name);
                         Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-                        ItemPool.Instance.DropItem(itemToDrop.name, transform.position + offset, itemToDrop);
+                        ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset);
                     }
                 }
                 else
                 {
-                    Debug.Log("Item " + itemToDrop.name + " tidak jatuh karena gagal drop rate.");
+                    Debug.Log("Item " + itemToDrop.itemName + " tidak jatuh karena gagal drop rate.");
                 }
             }
         }

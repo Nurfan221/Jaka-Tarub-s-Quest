@@ -27,7 +27,8 @@ public class PlantSeed : MonoBehaviour
     public float growthTime; // Total hari untuk tumbuh maksimal
     public float growthSpeed; // Jeda hari antar tahap pertumbuhan
     public string namaSeed;
-    public GameObject dropItem;
+    public string itemDropName;
+
 
     // Data Internal
     public float growthTimer = 0; // Menghitung progres pertumbuhan (dalam hari)
@@ -165,8 +166,8 @@ public class PlantSeed : MonoBehaviour
         if (isReadyToHarvest)
         {
             Debug.Log("Biji dipanen!");
-
-            ItemPool.Instance.DropItem(dropItem.name, transform.position + new Vector3(0, 0.5f, 0), dropItem);
+            Item itemHarvest = ItemPool.Instance.GetItemWithQuality(itemDropName, ItemQuality.Normal);
+            ItemPool.Instance.DropItem(itemDropName, itemHarvest.health, ItemQuality.Normal, transform.position + new Vector3(0, 0.5f, 0));
 
             FarmTile.Instance.OnPlantHarvested(this.tilePosition);
 

@@ -12,7 +12,7 @@ public class Seed : MonoBehaviour
     private float growthTime = 10f; // Waktu pertumbuhan dalam detik
 
     public string namaSeed;
-    public GameObject dropItem;
+    public ItemData dropItem;
 
     private SpriteRenderer spriteRenderer;
 
@@ -25,11 +25,11 @@ public class Seed : MonoBehaviour
     }
 
       // Fungsi untuk inisialisasi properti Seed berdasarkan Item
-    public void InitializeSeed(string itemName, GameObject itemDropPrefab)
-    {
-        namaSeed = itemName;
-        dropItem = itemDropPrefab;
-    }
+    //public void InitializeSeed(string itemName, GameObject itemDropPrefab)
+    //{
+    //    namaSeed = itemName;
+    //    dropItem = itemDropPrefab;
+    //}
 
     private IEnumerator Grow()
     {
@@ -73,7 +73,7 @@ public class Seed : MonoBehaviour
                 SoundManager.Instance.PlaySound("Pick");
             Debug.Log("Biji dipanen!");
             // Drop item menggunakan ItemPool
-            ItemPool.Instance.DropItem(dropItem.name, transform.position + new Vector3(0, 0.5f, 0), dropItem);
+            ItemPool.Instance.DropItem(dropItem.itemName,dropItem.itemHealth, dropItem.quality, transform.position + new Vector3(0, 0.5f, 0));
             // Atur ulang fase pertumbuhan ke awal dan lain-lain...
 
             growthCount = 0;

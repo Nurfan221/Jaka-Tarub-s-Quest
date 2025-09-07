@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public class ItemCategoryGroup
@@ -18,6 +19,7 @@ public class ItemPool : MonoBehaviour
 
     [SerializeField] public List<Item> items; // Ini adalah list TEMPLATE
     public List<ItemCategoryGroup> itemCategoryGroups = new List<ItemCategoryGroup>();
+    
 
     private void Awake()
     {
@@ -57,49 +59,59 @@ public class ItemPool : MonoBehaviour
     }
 
 
-    public void DropItem(string itemName, Vector2 pos, GameObject itemDrop, int count = 1, int level = 1)
+    // Asumsi fungsi ini ada di dalam ItemPool.cs
+    public void DropItem(string itemName, int healthItem, ItemQuality itemQuality, Vector2 pos, int count = 1, int level = 1)
     {
-        if (itemDrop == null)
+        // 1. Dapatkan DATA DEFINISI item dari database
+        Item itemDefinition = GetItemWithQuality(itemName, itemQuality);
+        if (itemDefinition == null)
         {
-            Debug.LogError($"Item drop prefab untuk {itemName} tidak valid.");
+            Debug.LogError($"Definisi untuk item '{itemName}' tidak ditemukan di ItemPool.");
             return;
         }
 
-        GameObject droppedItem = Instantiate(itemDrop, pos, Quaternion.identity);
-
-
-        // Jika item memiliki komponen visual (misalnya SpriteRenderer)
-        SpriteRenderer spriteRenderer = droppedItem.GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
+        // 2. Ambil PREFAB GENERIC ("Cetak Biru")
+        GameObject itemPrefab = DatabaseManager.Instance.itemWorldPrefab;
+        if (itemPrefab == null)
         {
-            Item itemData = ItemPool.Instance.items.Find(item => item.itemName == itemName);
-
-            if (itemData != null)
-            {
-                spriteRenderer.sprite = itemData.sprite; // Ganti sprite sesuai dengan item
-            }
+            Debug.LogError("itemWorldPrefab belum diatur di DatabaseManager!");
+            return;
         }
 
-        // Menambahkan Rigidbody2D dan force untuk efek jatuh
-        Rigidbody2D rb = droppedItem.GetComponent<Rigidbody2D>();
-        if (rb == null)
-        {
-            rb = droppedItem.AddComponent<Rigidbody2D>();
-        }
-        rb.gravityScale = 0.5f;
-        rb.AddForce(new Vector2(UnityEngine.Random.Range(-0.5f, 0.5f), -1f), ForceMode2D.Impulse);
+        // 3. Buat KLONINGAN ("Produk Jadi")
+        GameObject droppedItemGO = Instantiate(itemPrefab, pos, Quaternion.identity);
+        droppedItemGO.name = $"{itemDefinition.itemName}_Dropped";
 
-        // Panggil StopGravity dari komponen ItemDropInteractable
-        ItemDropInteractable interactable = droppedItem.GetComponent<ItemDropInteractable>();
-        interactable.isPickable = false; // Pastikan item bisa diambil
-
+        // 4. Atur DATA & VISUAL pada kloningan
+        ItemDropInteractable interactable = droppedItemGO.GetComponent<ItemDropInteractable>();
         if (interactable != null)
         {
-            Debug.Log("item berhenti");
-            interactable.StartCoroutine(interactable.StopGravity(rb, 0.8f));
+            interactable.itemdata = new ItemData(itemName, count, itemQuality, healthItem);
+            interactable.isPickable = false;
         }
 
-        //droppedItem.GetComponent<ItemDropInteractable>().item = GetItem(itemName, count, level);
+        SpriteRenderer spriteRenderer = droppedItemGO.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = itemDefinition.sprite;
+        }
+
+        Rigidbody2D rb = droppedItemGO.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            // Berikan "tendangan" awal seperti biasa
+            float force = 2.5f;
+            Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
+            rb.AddForce(randomDirection * force, ForceMode2D.Impulse);
+
+            // --- INI KUNCINYA ---
+            // Panggil Coroutine "pembeku" dari skrip item yang baru dibuat
+            // dan suruh ia berhenti setelah 1.0 detik.
+            if (interactable != null)
+            {
+                interactable.StartCoroutine(interactable.FreezeAfterDelay(0.4f));
+            }
+        }
     }
 
     // Membuat kloningan (deep copy) dari sebuah item template dengan jumlah dan kualitas tertentu.
@@ -132,9 +144,7 @@ public class ItemPool : MonoBehaviour
         newItem.SellValue = itemTemplate.SellValue; // Ini adalah harga jual dasar
         newItem.BurningTime = itemTemplate.BurningTime;
         newItem.CookTime = itemTemplate.CookTime;
-        newItem.prefabItem = itemTemplate.prefabItem;
         newItem.growthTime = itemTemplate.growthTime;
-        newItem.dropItem = itemTemplate.dropItem;
         newItem.buffSprint = itemTemplate.buffSprint;
         newItem.buffDamage = itemTemplate.buffDamage;
         newItem.buffProtection = itemTemplate.buffProtection;
@@ -144,6 +154,8 @@ public class ItemPool : MonoBehaviour
         newItem.waktuBuffProtection = itemTemplate.waktuBuffProtection;
         newItem.waktuBuffSprint = itemTemplate.waktuBuffSprint;
         newItem.isItemCombat = itemTemplate.isItemCombat;
+        newItem.itemDropName = itemTemplate.itemDropName;
+        newItem.namePrefab = itemTemplate.namePrefab;
 
         // Salinan untuk array agar tidak menggunakan referensi yang sama
         newItem.growthImages = (Sprite[])itemTemplate.growthImages.Clone();

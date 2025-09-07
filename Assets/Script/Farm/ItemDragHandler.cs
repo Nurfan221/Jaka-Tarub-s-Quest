@@ -20,7 +20,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private Transform originalParent; // Untuk menyimpan parent asli item
     public Transform dragLayer; // Assign ini ke layer khusus di canvas untuk menempatkan item yang di-drag
-    public GameObject plantPrefab; // Prefab tanaman yang akan ditanam
+    public string plantPrefab; // Prefab tanaman yang akan ditanam
+    public GameObject templatePrefabObject;
     public Transform plantsContainer; // Referensi ke GameObject kosong yang menampung tanaman
     public Transform prefabContainer; // referansi ke gameobject kosont yang menampung prefab game objek 
     //public string nameSpriteBar; // Untuk menyimpan nama sprite bar yang di gunakan
@@ -49,8 +50,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>(); // Mendapatkan Canvas induk
+        templatePrefabObject = DatabaseManager.Instance.itemWorldPrefab;    
 
-       
 
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
@@ -102,12 +103,12 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             if (item.itemName == itemInDrag && item.IsInCategory(ItemCategory.PlantSeed))
             {
                 itemFound = true;
-                plantPrefab = item.prefabItem;
+                plantPrefab = item.namePrefab;
 
                 // Debug.Log("Item ditemukan: " + item.itemName);
 
                 // Menanam benih
-                PlantSeed(cellPosition, item.itemName, item.dropItem, item.growthImages, item.growthTime);
+                PlantSeed(cellPosition, item.itemName, item.itemDropName, item.growthImages, item.growthTime);
 
                 // Panggil fungsi untuk menyimpan status tile
                 SaveTileStatus(cellPosition, true);
@@ -150,22 +151,21 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 // Debug.Log("nama item.itemname " + item.itemName);
                 itemFound = true; // Tandai bahwa item ditemukan
                 //int stackItem = item.stackCount; // Ambil jumlah item yang ada
-                plantPrefab = item.prefabItem; // Set plantPrefab sesuai item
+                plantPrefab = item.namePrefab; // Set plantPrefab sesuai item
 
-                // Debug.Log("Item ditemukan: " + item.itemName + ", Kategori: " + item.categories);
-
+                
 
 
                 // Panggil fungsi untuk menanam benih dengan menambahkan parameter growthImages dari item
                 if (item.IsInCategory(ItemCategory.TreeSeed))
                 {
 
-                    plantPrefab = item.growthObject[0]; // Set plantPrefab sesuai item
+                    templatePrefabObject = item.growthObject[0]; // Set plantPrefab sesuai item
 
                     PlantTree(cellPosition, item.itemName, item.growthObject, item.growthTime);
                 }else
                 {
-                    PlacePrefab(cellPosition, item.itemName, item.prefabItem, item.health);
+                    PlacePrefab(cellPosition, item.itemName, templatePrefabObject, item.health);
                 }
 
                 // Kurangi stack item setelah menanam
@@ -417,7 +417,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 
     // Fungsi untuk menanam benih
-    private void PlantSeed(Vector3Int cellPosition, string namaSeed, GameObject dropItem, Sprite[] growthImages, float growthTime)
+    private void PlantSeed(Vector3Int cellPosition, string namaSeed, string dropItem, Sprite[] growthImages, float growthTime)
     {
         // Konversi posisi tile ke World Space
         Vector3 spawnPosition = FarmTile.Instance.tilemap.GetCellCenterWorld(cellPosition);
@@ -426,7 +426,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Vector3Int spawnPositionInt = new Vector3Int(Mathf.FloorToInt(spawnPosition.x), Mathf.FloorToInt(spawnPosition.y), Mathf.FloorToInt(spawnPosition.z));
 
         // Inisiasi prefab tanaman di posisi world yang sesuai dengan tile
-        GameObject plant = Instantiate(plantPrefab, spawnPosition, Quaternion.identity);
+        GameObject plant = Instantiate(templatePrefabObject, spawnPosition, Quaternion.identity);
 
         // Set parent prefab tanaman ke plantsContainer
         plant.transform.SetParent(plantsContainer);
@@ -437,10 +437,10 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             // Mengatur nilai namaSeed, dropItem, dan growthImages
             seedComponent.namaSeed = namaSeed;
-            seedComponent.dropItem = dropItem;
             seedComponent.growthImages = growthImages; // Simpan growthImages ke komponen Seed
             seedComponent.growthTime = growthTime; // Simpan growthTime ke komponen Seed
             seedComponent.isWatered = TimeManager.Instance.timeData_SO.isRain;
+            seedComponent.itemDropName = dropItem;
             //seedComponent.plantLocation = spawnPosition;
         }
 
@@ -467,7 +467,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Vector3 spawnPosition = FarmTile.Instance.tilemap.GetCellCenterWorld(cellPosition);
 
         // Inisiasi prefab tanaman di posisi world yang sesuai dengan tile
-        GameObject plant = Instantiate(plantPrefab, spawnPosition, Quaternion.identity);
+        GameObject plant = Instantiate(templatePrefabObject, spawnPosition, Quaternion.identity);
 
         
 

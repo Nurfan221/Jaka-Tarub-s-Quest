@@ -111,6 +111,8 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+
+
     // Mengaktifkan sebuah quest dan menambahkannya ke log pemain.
     public void ActivateQuest(QuestSO questToActivate)
     {
@@ -308,7 +310,7 @@ public class QuestManager : MonoBehaviour
     {
         foreach(var quest in questLog)
         {
-            if (quest.Quest.isTheCleanupQuest && quest.Quest.tipeCleanObject == environmentType)
+            if (quest.Quest.isTheCleanupQuest && quest.Quest.tipeCleanObject == environmentType && !quest.Quest.isTheCleanupObjectDone)
             {
                 quest.Quest.cleanupQuestIndex++;
                 Debug.Log("Jumlah yang sudah di bersihkan" + quest.Quest.cleanupQuestIndex);
@@ -319,7 +321,7 @@ public class QuestManager : MonoBehaviour
                     Debug.Log("Object sudah di bersihkan" + quest.Quest.isTheCleanupObjectDone);
                 }
 
-                if (quest.Quest.cleanupQuestIndex == quest.Quest.cleanupQuestTotal)
+                if (quest.Quest.cleanupQuestIndex == quest.Quest.cleanupQuestTotal && quest.Quest.isTheCleanupObjectDone)
                 {
                     Debug.Log("Quest membersihkan sudah selesai");
                 }

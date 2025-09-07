@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: DagingAyamPanggang
   m_EditorClassIdentifier: 
-  itemID: 97
+  itemID: 100
   itemName: DagingAyamPanggang
+  quality: 0
   types: 6
   categories: 16
   sprite: {fileID: 7801308808990622549, guid: 22ca46a4b54c021448c2f2ff9de9c5aa, type: 3}
@@ -28,8 +29,9 @@ MonoBehaviour:
   buffSprint: 0
   waktuBuffProtection: 0
   buffProtection: 0
-  countHeal: 0
-  countStamina: 0
+  countHeal: 10
+  countStamina: 10
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -40,7 +42,6 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0

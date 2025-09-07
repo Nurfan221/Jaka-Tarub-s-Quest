@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -19,12 +20,29 @@ public class KuburanInteractable : Interactable
     public GameObject notifikasi;
     public float frameRate = 0.3f; // Waktu per frame (kecepatan animasi)
     private int currentFrame = 0; // Indeks frame saat ini
+    public ItemData itemInteractable;
 
 
     //Logika kuburan kotor
     public bool isKotor;
     public int currentDayKotor;
     public int countDayKotor;
+
+    private PlayerData_SO stats;
+    private void Awake()
+    {
+
+
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        if (PlayerController.Instance != null)
+        {
+            stats = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
+    }
     void Start()
     {
         RandomCurrentDayKotor();
@@ -43,10 +61,33 @@ public class KuburanInteractable : Interactable
         //// Mulai animasi
         //StartAnimationOpen();
         // Panggil OpenStorage setelah animasi selesai
-        if (isKotor)
+        if (stats.equipped1 == true )
         {
-            StartCoroutine(MembersihkanMakam());
+            // Jika ya, fokus pada item di slot pertama [0]
+            ItemData itemDiSlotPertama = stats.equippedItemData[0];
+
+            // Cek apakah namanya cocok
+            if (itemDiSlotPertama.itemName == itemInteractable.itemName && isKotor)
+            {
+                // Lakukan aksi untuk slot pertama...
+                Debug.Log("Item di slot pertama cocok! Membersihkan Makam ...");
+                StartCoroutine(MembersihkanMakam());
+            }
         }
+        else
+        {
+            // Fokus pada item di slot kedua [1]
+            ItemData itemDiSlotKedua = stats.equippedItemData[1];
+
+            // Cek apakah namanya cocok
+            if (itemDiSlotKedua.itemName == itemInteractable.itemName && isKotor)
+            {
+                Debug.Log("Item di slot pertama cocok! Mengisi ulang...");
+                StartCoroutine(MembersihkanMakam());
+
+            }
+        }
+       
     }
 
 
@@ -58,6 +99,8 @@ public class KuburanInteractable : Interactable
         notifikasi.SetActive(true);
         spriteRenderer.sprite = spritesKuburan[1]; // Ganti ke sprite kotor
         StartCoroutine(PlayNotifikationAnimation()); // Mulai animasi notifikasi
+
+        promptMessage = "Bersihkan Kuburan";
     }
 
     private IEnumerator PlayNotifikationAnimation()
@@ -76,6 +119,8 @@ public class KuburanInteractable : Interactable
 
     public IEnumerator MembersihkanMakam()
     {
+        EnvironmentBehavior environmentBehavior = GetComponent<EnvironmentBehavior>();
+
         if (PlayerController.Instance.playerData.stamina > 0)
         {
             // Tampilkan loading screen sementara proses pembersihan
@@ -95,10 +140,11 @@ public class KuburanInteractable : Interactable
             // Update jumlah kuburan yang dibersihkan
             //environmentKuburanManager.jumlahdiBersihkan++;
             MainEnvironmentManager.Instance.kuburanManager.UpdateStatusJob();
-            EnvironmentBehavior environmentBehavior = GetComponent<EnvironmentBehavior>();
             QuestManager.Instance.UpdateCleanupQuest(environmentBehavior.nameEnvironment, EnvironmentType.Kuburan);
         }
-            
+
+
+        promptMessage = "Kuburan";
 
         //environmentKuburanManager.player_Health.SpendStamina(useStamina);
         //environmentKuburanManager.player_Health.ApplyFatigue(useStamina);
