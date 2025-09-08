@@ -128,7 +128,7 @@ public class NPCBehavior : MonoBehaviour
         currentWaypointIndex = 0;
         isMoving = true;
 
-        Debug.Log($"NPC '{npcName}' memulai aktivitas: {currentActivity.activityName}");
+        //Debug.Log($"NPC '{npcName}' memulai aktivitas: {currentActivity.activityName}");
 
         // Mulai coroutine pergerakan baru
         movementCoroutine = StartCoroutine(FollowWaypoints(currentActivity.waypoints));
@@ -154,7 +154,7 @@ public class NPCBehavior : MonoBehaviour
 
         // Setelah selesai, hentikan pergerakan
         isMoving = false;
-        Debug.Log($"NPC '{npcName}' telah sampai di tujuan terakhir. ");
+        //Debug.Log($"NPC '{npcName}' telah sampai di tujuan terakhir. ");
     }
     public void OverrideForQuest(Vector2 startPosition, Vector2 finishLocation, Dialogues newDialogue, string nameEmoticon)
     {

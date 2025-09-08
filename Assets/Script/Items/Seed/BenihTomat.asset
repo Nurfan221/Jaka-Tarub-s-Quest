@@ -32,6 +32,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -47,7 +48,8 @@ MonoBehaviour:
   SellValue: 20
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 2120680195082938319, guid: 9d3a3fa739eaf7e46bfc4bd17fcd837b, type: 3}
+  itemDropName: Tomat
+  namePrefab: 
   growthTime: 4
   growthImages:
   - {fileID: -2102183881200134885, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
@@ -55,4 +57,3 @@ MonoBehaviour:
   - {fileID: 6146132421909557075, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: 1084098971225987194, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: ab9997e3c5b3a5941a52372aed467371, type: 3}

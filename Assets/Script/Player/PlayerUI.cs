@@ -143,10 +143,15 @@ public class PlayerUI : MonoBehaviour
             Debug.LogError("switchUseItemImage is not assigned.");
         }
 
-        if(equippedUI != null)
+        if(imageEquippedUI != null)
         {
-            Button buttonAttack = equippedUI.GetComponent<Button>();
-            buttonAttack.onClick.AddListener(PlayerController.Instance.HandleAttackButton);
+            Button buttonAttack = imageEquippedUI.GetComponent<Button>();
+            buttonAttack.onClick.AddListener(() =>
+            {
+                Debug.Log("Button Attack Clicked");
+                PlayerController.Instance.HandleAttackButton();
+            });
+            Debug.Log("Button Attack Ditemukan");
         }
 
         if (specialAttackUI != null)
@@ -160,10 +165,10 @@ public class PlayerUI : MonoBehaviour
             questButton.onClick.AddListener(ToggleQuestUI);
         }
 
-        if (itemUseUI != null)
+        if (imageItemUse != null)
         {
 
-            Button buttonItemUse = itemUseUI.GetComponent<Button>();
+            Button buttonItemUse = imageItemUse.GetComponent<Button>();
             buttonItemUse.onClick.AddListener(() =>
             {
                 Debug.Log("Item Use Button Clicked");

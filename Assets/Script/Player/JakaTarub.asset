@@ -21,7 +21,7 @@ MonoBehaviour:
   health: 100
   currentHealthCap: 100
   maxStamina: 100
-  stamina: 50.335976
+  stamina: 100
   staminaRegenRate: 5
   currentStaminaCap: 100
   initialGriefPenalty: 50
@@ -35,36 +35,28 @@ MonoBehaviour:
     count: 39
     quality: 0
     itemHealth: 0
-  - itemName: Kapak
-    count: 1
+  - itemName: Insectisida
+    count: 29
     quality: 0
     itemHealth: 0
-  - itemName: Padi
-    count: 32
-    quality: 0
-    itemHealth: 0
-  - itemName: MejaCamp
-    count: 17
+  - itemName: BenihPadi
+    count: 5
     quality: 0
     itemHealth: 0
   - itemName: DagingDombaSpesial
     count: 10
     quality: 0
     itemHealth: 0
-  - itemName: Kayu
-    count: 32
+  - itemName: BenihApel
+    count: 8
     quality: 0
     itemHealth: 0
   - itemName: Ranting
     count: 10
     quality: 0
     itemHealth: 0
-  - itemName: BenihPadi
-    count: 16
-    quality: 0
-    itemHealth: 0
-  - itemName: Padi
-    count: 27
+  - itemName: MejaCamp
+    count: 17
     quality: 0
     itemHealth: 0
   - itemName: Sword
@@ -73,10 +65,6 @@ MonoBehaviour:
     itemHealth: 0
   - itemName: Getah
     count: 10
-    quality: 0
-    itemHealth: 0
-  - itemName: Benih
-    count: 3
     quality: 0
     itemHealth: 0
   - itemName: DaunCemara
@@ -95,6 +83,18 @@ MonoBehaviour:
     count: 24
     quality: 0
     itemHealth: 0
+  - itemName: Sword
+    count: 1
+    quality: 0
+    itemHealth: 0
+  - itemName: Kapak
+    count: 1
+    quality: 0
+    itemHealth: 0
+  - itemName: Kayu
+    count: 32
+    quality: 0
+    itemHealth: 0
   maxItem: 18
   emptyItemTemplate:
     itemName: Empty
@@ -102,23 +102,22 @@ MonoBehaviour:
     quality: 0
     itemHealth: 0
   equippedItemData:
+  - itemName: PenyiramTanaman
+    count: 1
+    quality: 0
+    itemHealth: 0
   - itemName: Cangkul
     count: 1
     quality: 0
     itemHealth: 30
-  - itemName: Sword
-    count: 1
-    quality: 0
-    itemHealth: 0
   equippedWeaponTemplate:
-    itemName: Sword
+    itemName: Cangkul
     count: 1
     quality: 0
-    itemHealth: 0
-  equippedWeapon: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
+    itemHealth: 30
   equippedItemTemplate:
-    itemName: DagingSapiPanggang
-    count: 15
+    itemName: DagingAyamPanggang
+    count: 23
     quality: 0
     itemHealth: 0
   equippedItem: {fileID: 11400000, guid: e8ec75dbb62360e4dbf851e29c1e4062, type: 2}
@@ -128,10 +127,10 @@ MonoBehaviour:
     quality: 0
     itemHealth: 0
   - itemName: DagingAyamPanggang
-    count: 30
+    count: 23
     quality: 0
     itemHealth: 0
   equipped1: 0
-  itemUse1: 1
+  itemUse1: 0
   currentFatiguePenalty: 0
   maxFatiguePenalty: 50

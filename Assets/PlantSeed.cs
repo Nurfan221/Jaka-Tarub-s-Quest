@@ -27,15 +27,14 @@ public class PlantSeed : MonoBehaviour
     public float growthTime; // Total hari untuk tumbuh maksimal
     public float growthSpeed; // Jeda hari antar tahap pertumbuhan
     public string namaSeed;
-    public string itemDropName;
-
+    public string dropItem;
 
     // Data Internal
     public float growthTimer = 0; // Menghitung progres pertumbuhan (dalam hari)
     public int insectTime = 0; // Menghitung berapa lama tanaman terinfeksi
 
     public Vector3 plantLocation;
-    public Vector3Int tilePosition; 
+    public Vector3Int tilePosition;
 
     private void Start()
     {
@@ -78,7 +77,7 @@ public class PlantSeed : MonoBehaviour
     {
         //timeSaatIni = timeManager.date; // Jika masih diperlukan
 
-       
+
 
         UpdateParticleEffect();
         UpdateSprite();
@@ -114,7 +113,7 @@ public class PlantSeed : MonoBehaviour
         }
     }
 
-  
+
     public void UpdateParticleEffect()
     {
         // Pastikan semua particle system ada
@@ -132,7 +131,7 @@ public class PlantSeed : MonoBehaviour
             //waterEffect.Play();
             harvestParticle.Play();
         }
-        
+
         else if (isInfected)
         {
             insectEffect.Play();
@@ -163,11 +162,12 @@ public class PlantSeed : MonoBehaviour
 
     public void Harvest()
     {
+        Item itemDrop = ItemPool.Instance.GetItem(dropItem);
         if (isReadyToHarvest)
         {
             Debug.Log("Biji dipanen!");
-            Item itemHarvest = ItemPool.Instance.GetItemWithQuality(itemDropName, ItemQuality.Normal);
-            ItemPool.Instance.DropItem(itemDropName, itemHarvest.health, ItemQuality.Normal, transform.position + new Vector3(0, 0.5f, 0));
+
+            ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.health, itemDrop.quality, transform.position + new Vector3(0, 0.5f, 0));
 
             FarmTile.Instance.OnPlantHarvested(this.tilePosition);
 

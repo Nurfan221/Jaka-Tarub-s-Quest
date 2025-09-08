@@ -159,7 +159,6 @@ public class ItemPool : MonoBehaviour
 
         // Salinan untuk array agar tidak menggunakan referensi yang sama
         newItem.growthImages = (Sprite[])itemTemplate.growthImages.Clone();
-        newItem.growthObject = (GameObject[])itemTemplate.growthObject.Clone();
 
         //menetapkan data unik untuk setiap instance
         //newItem.stackCount = stackCount;

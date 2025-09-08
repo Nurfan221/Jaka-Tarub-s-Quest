@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Cabai
   m_EditorClassIdentifier: 
-  itemID: 64
+  itemID: 65
   itemName: Cabai
   quality: 0
   types: 2
@@ -32,6 +32,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -47,8 +48,8 @@ MonoBehaviour:
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 2792997999344615050, guid: 54e0845c786008e4b9751fc62ae84691, type: 3}
+  itemDropName: Cabai
+  namePrefab: Cabai
   growthTime: 0
   growthImages: []
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: 54e0845c786008e4b9751fc62ae84691, type: 3}

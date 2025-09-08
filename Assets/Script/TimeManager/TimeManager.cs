@@ -23,21 +23,7 @@ public class TimeManager : MonoBehaviour
 
 
 
-    //[SerializeField] private WeatherManager weatherManager;
-    //[SerializeField] private NPCManager npcManager;
-    //[SerializeField] private QuestManager questManager;
-    //[SerializeField] private DialogueSystem dialogueSystem;
-    //[SerializeField] public Player_Health player_Health;
-    //[SerializeField] private ShopUI shopUI;
-    //[SerializeField] private SpawnerManager spawnerManager;
-    //[SerializeField] private TrashManager trashManager;
-    //[SerializeField] private BatuManager batuManager;
-    //[SerializeField] PlantContainer plantContainer;
-    //[SerializeField] EnvironmentManager environmentManagerTrees;
-    //[SerializeField] EnvironmentManager environmentManagerJamur;
-    //[SerializeField] EnvironmentManager environmentManagerKuburan;
-    //[SerializeField] EnvironmentManager environmentManagerBunga;
-    //[SerializeField] BuffScrollController buffScrollController;
+
    
 
     [Header("Logika Waktu")]
@@ -122,6 +108,7 @@ public class TimeManager : MonoBehaviour
             {
                 UpdateSeason();
             }
+            AdvanceAllTreeGrowth(); // Memanggil logika pertumbuhan pohon
             OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
         }
 
@@ -148,7 +135,8 @@ public class TimeManager : MonoBehaviour
 
         // Debug jumlah listener yang terdaftar
         Debug.Log($"Jumlah pohon yang menerima event: {registeredTrees.Count}");
-   }
+
+    }
 
 
     public void GetCurrentDate()
@@ -282,11 +270,39 @@ public class TimeManager : MonoBehaviour
             Debug.Log("Perangkap dihapus: " + trap.name);
         }
     }
+    public void AdvanceAllTreeGrowth()
+    {
+        Debug.Log("Hari baru! Memeriksa semua pohon untuk pertumbuhan...");
 
-  
+        // Temukan SEMUA pohon yang ada di scene saat ini.
+        TreeBehavior[] allTreesInScene = FindObjectsOfType<TreeBehavior>();
+
+        // Buat list baru untuk menampung pohon yang masih bisa tumbuh.
+        List<TreeBehavior> growingTrees = new List<TreeBehavior>();
+
+        // Saring pohon-pohon tersebut.
+        foreach (TreeBehavior tree in allTreesInScene)
+        {
+            // Cek apakah tahapnya BUKAN tahap terakhir.
+            if (tree.currentStage != GrowthTree.MaturePlant)
+            {
+                growingTrees.Add(tree);
+            }
+        }
+
+        Debug.Log($"Ditemukan {growingTrees.Count} pohon yang masih bisa tumbuh.");
+
+        // Jalankan logika pertumbuhan pada pohon yang sudah disaring.
+        foreach (TreeBehavior treeToGrow in growingTrees)
+        {
+            // Panggil fungsi di dalam skrip TreeBehavior untuk menumbuhkannya
+            treeToGrow.PertumbuhanPohon();
+        }
+    }
+
 
     //[Header("logika reset sesuatu setiap hari")]
 
-    
+
 
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: BawangPutih
   m_EditorClassIdentifier: 
-  itemID: 62
+  itemID: 63
   itemName: BawangPutih
   quality: 0
   types: 2
@@ -31,6 +31,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -46,8 +47,8 @@ MonoBehaviour:
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 2792997999344615050, guid: 3ba6acdab57a94c46ad1f08d53afcb52, type: 3}
+  itemDropName: BawangPutih
+  namePrefab: BawangPutih
   growthTime: 0
   growthImages: []
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: 3ba6acdab57a94c46ad1f08d53afcb52, type: 3}

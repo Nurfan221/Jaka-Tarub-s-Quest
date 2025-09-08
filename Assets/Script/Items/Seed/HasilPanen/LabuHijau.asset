@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: LabuHijau
   m_EditorClassIdentifier: 
-  itemID: 70
+  itemID: 71
   itemName: LabuHijau
   quality: 0
   types: 2
@@ -32,6 +32,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -47,8 +48,8 @@ MonoBehaviour:
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 2792997999344615050, guid: 333355865f2bd8e49b208ec049e86a6c, type: 3}
+  itemDropName: LabuHijau
+  namePrefab: LabuHijau
   growthTime: 0
   growthImages: []
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: 333355865f2bd8e49b208ec049e86a6c, type: 3}

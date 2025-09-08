@@ -31,6 +31,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -46,7 +47,8 @@ MonoBehaviour:
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 2120680195082938319, guid: b821ff32b858b26489763e1c6375d4ec, type: 3}
+  itemDropName: Cabai
+  namePrefab: 
   growthTime: 4
   growthImages:
   - {fileID: -8196019274189321588, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
@@ -54,4 +56,3 @@ MonoBehaviour:
   - {fileID: 1827391116, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: -1600057134, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: 54e0845c786008e4b9751fc62ae84691, type: 3}

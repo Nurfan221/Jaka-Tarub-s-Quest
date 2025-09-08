@@ -31,6 +31,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -46,7 +47,8 @@ MonoBehaviour:
   SellValue: 20
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 2120680195082938319, guid: 9067f2d25f778ce46aca38f50ab19cab, type: 3}
+  itemDropName: Labu
+  namePrefab: 
   growthTime: 4
   growthImages:
   - {fileID: -2091771526141317569, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
@@ -54,4 +56,3 @@ MonoBehaviour:
   - {fileID: 13447525, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: 2128704226, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: 51837b9b42cea29448ca4f50c234fe1f, type: 3}

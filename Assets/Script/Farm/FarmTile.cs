@@ -10,6 +10,7 @@ public class FarmTile : MonoBehaviour
     public Tilemap tilemap;
     public Transform plantsContainer;
     [SerializeField] private TimeManager timeManager;
+    public GameObject plantPrefab;
 
     [Header("Data Ladang (Aset)")]
     public FarmData_SO farmData;
@@ -31,6 +32,8 @@ public class FarmTile : MonoBehaviour
 
     private void Start()
     {
+        plantPrefab = DatabaseManager.Instance.plantWorldPrefab;
+
         RestoreFarmStateFromData();
     }
 
@@ -102,7 +105,7 @@ public class FarmTile : MonoBehaviour
             TrySpawningPests();
         }
     }
-  
+
 
     public void HoeTile(Vector3 playerPosition, Vector3 faceDirection)
     {
@@ -204,7 +207,7 @@ public class FarmTile : MonoBehaviour
         }
     }
 
- 
+
     private void ProcessPlantGrowth(HoedTileData tileData, PlantSeed plant)
     {
         // Hanya tumbuh jika disiram
@@ -290,22 +293,22 @@ public class FarmTile : MonoBehaviour
             if (tileData.isPlanted && !string.IsNullOrEmpty(tileData.plantedItemName))
             {
                 Item itemTemplate = ItemPool.Instance.GetItem(tileData.plantedItemName);
-                if (itemTemplate != null && itemTemplate.namePrefab != null)
+                if (itemTemplate != null && plantPrefab != null)
                 {
                     Vector3 spawnPosition = tilemap.GetCellCenterWorld(tileData.tilePosition);
-                    GameObject prefabItem = DatabaseManager.Instance.GetItemWorldPrefab(itemTemplate.itemName, itemTemplate.quality, itemTemplate.health);
-                    GameObject plantObject = Instantiate(prefabItem, spawnPosition, Quaternion.identity, plantsContainer);
+                    GameObject plantObject = Instantiate(plantPrefab, spawnPosition, Quaternion.identity, plantsContainer);
+                    plantObject.name = "Tanaman " + itemTemplate.itemDropName; // Memberi nama pada objek tanaman yang diinst
 
                     PlantSeed seedComponent = plantObject.GetComponent<PlantSeed>();
                     if (seedComponent != null)
                     {
                         // Setup data tanaman
                         seedComponent.namaSeed = tileData.plantedItemName;
-                        seedComponent.itemDropName = itemTemplate.itemDropName;
+                        seedComponent.dropItem = itemTemplate.itemDropName;
                         seedComponent.growthImages = itemTemplate.growthImages;
                         seedComponent.growthTime = itemTemplate.growthTime;
                         seedComponent.plantLocation = spawnPosition;
-                        seedComponent.tilePosition = tileData.tilePosition; 
+                        seedComponent.tilePosition = tileData.tilePosition;
                         seedComponent.isWatered = tileData.watered;
                         seedComponent.growthTimer = tileData.growthProgress;
                         seedComponent.currentStage = tileData.currentStage;

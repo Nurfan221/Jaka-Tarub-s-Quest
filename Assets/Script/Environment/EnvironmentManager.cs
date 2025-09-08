@@ -13,6 +13,7 @@ public class EnvironmentList
 {
     public string prefabName;             // Nama prefab atau ID unik
     public Vector3 objectPosition;        // Posisi saat spawn
+    public GrowthTree initialStage; // Tahap tumbuh saat pertama kali muncul
     public bool isGrowing;
 }
 
@@ -20,9 +21,9 @@ public class EnvironmentList
 public class EnvironmentManager : MonoBehaviour
 {
     [Header("Daftar Hubungan")]
-    [SerializeField] NPCManager npcManager;
-    [SerializeField] public Player_Health player_Health;
-    public GameObject npcJob;
+    public WorldTreeDatabaseSO targetTreeDatabase;
+    public List<TreeBehavior> allActiveTrees = new List<TreeBehavior>();
+
     public Transform parentEnvironment;
     public List<EnvironmentList> environmentList = new List<EnvironmentList>();
     public List<GameObject> gameObjectsList = new List<GameObject>();
@@ -44,6 +45,8 @@ public class EnvironmentManager : MonoBehaviour
     {
         TimeManager.OnDayChanged -= HandleNewDay;
     }
+
+
     void Start()
     {
 
@@ -54,6 +57,10 @@ public class EnvironmentManager : MonoBehaviour
         {
             RegisterAllObject();
         }
+
+        parentEnvironment = gameObject.transform;
+        targetTreeDatabase = DatabaseManager.Instance.worldTreeDatabase;
+
     }
 
     // Update is called once per frame
@@ -101,6 +108,7 @@ public class EnvironmentManager : MonoBehaviour
                 {
                     prefabName = prefabName,
                     objectPosition = child.position,
+                    initialStage = treeBehavior.currentStage,
                     isGrowing = true
                 };
 
@@ -280,5 +288,70 @@ public class EnvironmentManager : MonoBehaviour
 
     }
 
+    
 
+    // TOMBOL BARU: Untuk mengisi 'environmentList' di dalam Editor
+    [ContextMenu("Langkah 1: Daftarkan Semua Objek Anak ke List")]
+    public void RegisterAllObjectsInEditor()
+    {
+        // Pastikan parentEnvironment diatur ke transform dari GameObject ini
+        parentEnvironment = this.transform;
+
+        // Panggil fungsi pendaftaran yang sudah ada
+        RegisterAllObject();
+
+        Debug.Log($"Proses pendaftaran di Editor selesai. {environmentList.Count} objek terdaftar di environmentList.");
+    }
+
+    [ContextMenu("Langkah 2: Pindahkan Data Pohon ke Database SO")]
+    public void MigrateTreeDataToSO()
+    {
+        // Pengecekan Keamanan
+        if (targetTreeDatabase == null)
+        {
+            Debug.LogError("Target WorldTreeDatabaseSO belum diatur! Harap seret asetnya ke Inspector.");
+            return;
+        }
+
+        // Pastikan environmentList sudah diisi dengan data
+        if (environmentList.Count == 0)
+        {
+            Debug.LogWarning("environmentList masih kosong. Jalankan RegisterAllObject terlebih dahulu jika perlu.");
+            return;
+        }
+
+        // Kosongkan list di SO untuk menghindari data duplikat
+        targetTreeDatabase.initialTreePlacements.Clear();
+
+        Debug.Log($"Memulai migrasi {environmentList.Count} data pohon ke {targetTreeDatabase.name}...");
+
+        // Loop melalui setiap entri di environmentList
+        foreach (EnvironmentList treeData in environmentList)
+        {
+            // Hanya proses jika objek adalah pohon (berdasarkan komponen atau nama)
+            // Anda mungkin perlu menyesuaikan kondisi ini
+            if (treeData.prefabName.Contains("Pohon") || treeData.prefabName.Contains("Tree"))
+            {
+                // Buat entri TreePlacementData baru
+                TreePlacementData newPlacementData = new TreePlacementData
+                {
+                    treeName = treeData.prefabName,
+                    position = treeData.objectPosition,
+                    // Asumsi semua pohon yang terdaftar dimulai dari tahap Seed
+                    initialStage = treeData.initialStage,
+                };
+
+                // Tambahkan data baru ke dalam list di ScriptableObject
+                targetTreeDatabase.initialTreePlacements.Add(newPlacementData);
+            }
+        }
+
+        // Tandai aset ScriptableObject sebagai "kotor" agar Unity menyimpan perubahan
+#if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(targetTreeDatabase);
+        UnityEditor.AssetDatabase.SaveAssets();
+#endif
+
+        Debug.Log($"Migrasi selesai! {targetTreeDatabase.initialTreePlacements.Count} data pohon berhasil dipindahkan.");
+    }
 }

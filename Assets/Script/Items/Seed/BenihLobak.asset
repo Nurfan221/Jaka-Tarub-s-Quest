@@ -31,6 +31,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -46,7 +47,8 @@ MonoBehaviour:
   SellValue: 20
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 2120680195082938319, guid: 72d1e7d3d3530b642833b286c3101731, type: 3}
+  itemDropName: Lobak
+  namePrefab: 
   growthTime: 4
   growthImages:
   - {fileID: 3009418962734956380, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
@@ -54,4 +56,3 @@ MonoBehaviour:
   - {fileID: -4898284958070484869, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -3460137552963467502, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: bb8c70527cc361c42b4f61875439a2fd, type: 3}

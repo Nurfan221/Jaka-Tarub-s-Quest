@@ -32,6 +32,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -47,7 +48,8 @@ MonoBehaviour:
   SellValue: 20
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 2120680195082938319, guid: f647220e38789d840b54cba116756df8, type: 3}
+  itemDropName: Strawberry
+  namePrefab: 
   growthTime: 4
   growthImages:
   - {fileID: -889635872, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
@@ -55,4 +57,3 @@ MonoBehaviour:
   - {fileID: -1669885176, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -675960394, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: 57b3e15ffe2a97e458ac17bbdac5e257, type: 3}

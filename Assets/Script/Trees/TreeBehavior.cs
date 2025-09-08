@@ -21,12 +21,13 @@ public class TreeBehavior : MonoBehaviour
 
     [Header("Logika Tanam Pohon")]
     public GrowthTree currentStage = GrowthTree.Seed;
-    public GameObject[] growthObject; // Gambar untuk tiap tahap pertumbuhan
+    public GameObject growthObject; // Gambar untuk tiap tahap pertumbuhan
     public float growthTime; // Waktu total untuk mencapai tahap akhir
     public string nameEnvironment;
-    public GameObject tumbangSprite;
-    public GameObject akarPohonPrefab;
+    public string namaPohon;
     public bool isRubuh;
+    public GameObject tumbangSprite; // Gambar batang pohon yang tumbang
+    public GameObject akarPohonPrefab; // Prefab akar pohon yang muncul setelah pohon tumbang
 
     public float growthSpeed; // Waktu jeda antar tahap pertumbuhan
     public int daysSincePlanting = 1; // Hari sejak pohon ditanam
@@ -44,15 +45,45 @@ public class TreeBehavior : MonoBehaviour
 
     [Header("Keperluan")]
     public Transform plantsContainer;
-    
+
 
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        plantsContainer = MainEnvironmentManager.Instance.pohonManager.transform;
+        OnTreeChoppedDown();
 
 
+    }
 
+    // Fungsi untuk mengemas data pohon ini
+    public object CaptureState()
+    {
+        // Buat sebuah objek data save baru, isi dengan nilai saat ini, lalu kembalikan.
+        return new TreeSaveData
+        {
+            treeName = this.nameEnvironment,
+            position = transform.position,
+            currentGrowthStage = this.currentStage,
+            sudahTumbang = this.isRubuh
+        };
+    }
+
+    // FUNGSI UNTUK MEMUAT DATA (MEMBACA FORMULIR)
+    public void RestoreState(object state)
+    {
+        // Terima data 'state', ubah kembali ke tipe data yang benar
+        TreeSaveData savedData = (TreeSaveData)state;
+
+        // Terapkan nilai dari data yang di-load ke komponen ini
+        this.nameEnvironment = savedData.treeName;
+        transform.position = savedData.position;
+        this.currentStage = savedData.currentGrowthStage;
+        this.isRubuh = savedData.sudahTumbang;
+        // PENTING: Setelah me-restore state, Anda mungkin perlu memperbarui visual pohon
+        // agar cocok dengan `currentStage` yang baru.
+        // UpdateVisuals(); 
     }
 
 
@@ -89,7 +120,7 @@ public class TreeBehavior : MonoBehaviour
         // Tingkatkan tahap pertumbuhan ke tahap berikutnya jika belum mencapai akhir
         if (currentStage < GrowthTree.MaturePlant)
         {
-            currentStage++;
+
             UpdateSprite();
             Debug.Log("Tahap pertumbuhan: " + currentStage);
         }
@@ -97,41 +128,70 @@ public class TreeBehavior : MonoBehaviour
 
     private void UpdateSprite()
     {
-        PlantContainer plantContainerScript = plantsContainer.GetComponent<PlantContainer>();
-        int stageIndex = (int)currentStage;
-        if (stageIndex >= 0 && stageIndex < growthObject.Length)
+        // Cek apakah sudah tahap terakhir
+        if (currentStage >= GrowthTree.MaturePlant) return; // Gunakan >= untuk keamanan
+
+        // Gunakan nama pohon yang benar untuk mencari prefab berikutnya
+        GameObject nextStagePrefab = DatabaseManager.Instance.GetNextStagePrefab(this.namaPohon, this.currentStage);
+
+        // Pastikan prefab berikutnya ada sebelum melanjutkan
+        if (nextStagePrefab != null)
         {
             Vector2 posisiPohon = transform.position;
 
-            GameObject objectPohon = growthObject[stageIndex];
-            GameObject pohonBaru = Instantiate(objectPohon, posisiPohon, Quaternion.identity);
-            TreeBehavior treeBehavior = pohonBaru.GetComponent<TreeBehavior>();
+            // Instantiate prefab TAHAP BERIKUTNYA
+            GameObject pohonBaru = Instantiate(nextStagePrefab, posisiPohon, Quaternion.identity);
+            TreeBehavior treeBehaviorBaru = pohonBaru.GetComponent<TreeBehavior>();
 
-            //masukan nilai yang di butukan ke pohon baru 
-            treeBehavior.plantsContainer = plantsContainer;
-            treeBehavior.growthSpeed = growthSpeed;
-            treeBehavior.growthObject = growthObject;
+            treeBehaviorBaru.namaPohon = this.namaPohon; 
+            treeBehaviorBaru.nameEnvironment = this.nameEnvironment; // Jika ini juga digunakan
+            treeBehaviorBaru.plantsContainer = this.plantsContainer;
+            treeBehaviorBaru.growthSpeed = this.growthSpeed;
+            treeBehaviorBaru.daysSincePlanting = this.daysSincePlanting; // Lanjutkan hitungan hari
+
+            // Atur tahap baru pada pohon baru
+            treeBehaviorBaru.currentStage = (GrowthTree)((int)this.currentStage + 1);
+
             pohonBaru.transform.SetParent(plantsContainer);
 
-            // Cari dan ganti objek ini di dalam list plantObject
-            
-            for (int i = 0; i < plantContainerScript.plantObject.Count; i++)
-            {
-                if (plantContainerScript.plantObject[i] == this.gameObject)
-                {
-                    plantContainerScript.plantObject[i] = pohonBaru;
-                    break;
-                }
-            }
+            // Perbarui referensi di manajer-manajer terkait (PlantContainer, GrowthManager)
+            UpdateReferencesInManagers(this.gameObject, pohonBaru);
 
+            // Hancurkan objek pohon yang lama
             Destroy(gameObject);
-
-            Debug.Log("Sprite diperbarui ke tahap: " + currentStage);
+            Debug.Log($"Pohon '{this.namaPohon}' tumbuh ke tahap: {treeBehaviorBaru.currentStage}");
         }
         else
         {
-            Debug.LogError($"Gambar untuk tahap {currentStage} tidak ditemukan!");
+            Debug.Log($"Pohon '{this.namaPohon}' sudah mencapai tahap pertumbuhan terakhir atau data tidak ditemukan.");
         }
+
+        currentStage++;
+    }
+
+    // Fungsi bantu untuk merapikan kode
+    private void UpdateReferencesInManagers(GameObject pohonLama, GameObject pohonBaru)
+    {
+        // Perbarui referensi di GrowthManager
+        if (MainEnvironmentManager.Instance.pohonManager != null)
+        {
+            int index = MainEnvironmentManager.Instance.pohonManager.allActiveTrees.IndexOf(this);
+            if (index != -1)
+            {
+                MainEnvironmentManager.Instance.pohonManager.allActiveTrees[index] = pohonBaru.GetComponent<TreeBehavior>();
+            }
+        }
+
+        //// Perbarui referensi di PlantContainer
+        //PlantContainer plantContainerScript = plantsContainer.GetComponent<PlantContainer>();
+        //if (plantContainerScript != null)
+        //{
+        //    int index = plantContainerScript.plantObject.IndexOf(pohonLama);
+        //    if (index != -1)
+        //    {
+        //        plantContainerScript.plantObject[index] = pohonBaru;
+        //    }
+        //}
     }
 
 
@@ -198,7 +258,27 @@ public class TreeBehavior : MonoBehaviour
         Destroy(pohonAsli);
     }
 
+    // Contoh di dalam skrip TreeBehavior.cs atau sejenisnya
 
+    public void OnTreeChoppedDown()
+    {
+        // Panggil fungsi untuk mendapatkan "paket" data untuk tahap saat ini.
+        GrowthStageTrees stageData = DatabaseManager.Instance.GetGrowthStageData(this.namaPohon, this.currentStage);
+
+        //  Lakukan pengecekan untuk memastikan data ditemukan.
+        if (stageData != null)
+        {
+            // Gunakan datanya. Anda sekarang bisa mengakses semua prefab dari "paket" tersebut.
+            tumbangSprite = stageData.batangPrefab;
+            akarPohonPrefab = stageData.AkarPrefab;
+
+            
+        }
+        else
+        {
+            Debug.LogError("Gagal mendapatkan data tahap pertumbuhan untuk pohon ini!");
+        }
+    }
 
 
     private IEnumerator FellTree()

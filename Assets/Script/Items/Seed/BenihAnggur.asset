@@ -32,6 +32,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -47,7 +48,8 @@ MonoBehaviour:
   SellValue: 20
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 2120680195082938319, guid: 6ada1ea8abd783742999d3fd9fcfd2d8, type: 3}
+  itemDropName: Anggur
+  namePrefab: 
   growthTime: 4
   growthImages:
   - {fileID: 1457773431, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
@@ -55,4 +57,3 @@ MonoBehaviour:
   - {fileID: -1220373368, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   - {fileID: 1165859878, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}
   growthObject: []
-  dropItem: {fileID: 2792997999344615050, guid: ead78283e60f44b43b9ebaa62bdfa9c3, type: 3}
