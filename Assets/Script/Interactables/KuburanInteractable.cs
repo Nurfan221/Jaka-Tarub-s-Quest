@@ -28,7 +28,7 @@ public class KuburanInteractable : Interactable
     public int currentDayKotor;
     public int countDayKotor;
 
-    private PlayerData_SO stats;
+    private PlayerController stats;
     private void Awake()
     {
 
@@ -36,7 +36,7 @@ public class KuburanInteractable : Interactable
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
         }
         else
         {
@@ -121,7 +121,7 @@ public class KuburanInteractable : Interactable
     {
         EnvironmentBehavior environmentBehavior = GetComponent<EnvironmentBehavior>();
 
-        if (PlayerController.Instance.playerData.stamina > 0)
+        if (PlayerController.Instance.stamina > 0)
         {
             // Tampilkan loading screen sementara proses pembersihan
             StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false)); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()

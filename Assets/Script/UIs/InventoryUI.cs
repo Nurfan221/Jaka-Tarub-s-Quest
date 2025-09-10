@@ -73,7 +73,9 @@ public class InventoryUI : MonoBehaviour
 
 
     
-    private PlayerData_SO stats;
+    private PlayerController stats;
+    private PlayerData_SO playerData;
+
 
     private void Awake()
     {
@@ -83,7 +85,8 @@ public class InventoryUI : MonoBehaviour
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
+            playerData = PlayerController.Instance.playerData;
         }
         else
         {
@@ -248,7 +251,7 @@ public class InventoryUI : MonoBehaviour
         }
         else
         {
-            SetDescription(stats.emptyItemTemplate);
+            SetDescription(playerData.emptyItemTemplate);
         }
         Debug.Log("Inventory has running");
     }
@@ -666,10 +669,10 @@ public class InventoryUI : MonoBehaviour
     public void RisetEquippedUse(int index)
     {
         Debug.Log("Equipped item di-reset: " + index);
-        if (stats.equippedItemData[index].itemName != stats.emptyItemTemplate.itemName)
+        if (stats.equippedItemData[index].itemName != playerData.emptyItemTemplate.itemName)
         {
             ItemPool.Instance.AddItem(stats.equippedItemData[index]);
-            stats.equippedItemData[index] = stats.emptyItemTemplate;
+            stats.equippedItemData[index] = playerData.emptyItemTemplate;
         }
         //player_Inventory.equippedCombat[index] = stats.emptyItem;
 
@@ -689,7 +692,7 @@ public class InventoryUI : MonoBehaviour
     {
         Debug.Log("Quick Slot di-reset: " + index);
         ItemPool.Instance.AddItem(stats.itemUseData[index]);
-        stats.itemUseData[index] = stats.emptyItemTemplate;
+        stats.itemUseData[index] = playerData.emptyItemTemplate;
         //stats.equippedItemData[index].count = 0;
 
         Image itemImage = (index == 0) ?

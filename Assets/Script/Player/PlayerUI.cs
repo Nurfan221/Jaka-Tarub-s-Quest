@@ -12,8 +12,9 @@ public class PlayerUI : MonoBehaviour
     public static PlayerUI Instance { get; private set; }
 
     //public InventoryUI inventoryUI {  get; private set; }
-    private PlayerData_SO stats;
-   
+    private PlayerController stats;
+    private PlayerData_SO playerData;
+
     private void Awake()
     {
         // Logika Singleton lengkap
@@ -30,7 +31,8 @@ public class PlayerUI : MonoBehaviour
          // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
+            playerData = PlayerController.Instance.playerData;
         }
         else
         {
@@ -222,8 +224,8 @@ public class PlayerUI : MonoBehaviour
     {
         Debug.Log("PlayerUI: Melakukan inisialisasi ulang referensi...");
 
-        // 1. Dapatkan koneksi ke manajer lain melalui GameController
-        //this.playerInventory = GameController.Instance.playerInventory;
+        // Dapatkan koneksi ke manajer lain melalui GameController
+        // this.playerInventory = GameController.Instance.playerInventory;
     }
 
    
@@ -244,7 +246,7 @@ public class PlayerUI : MonoBehaviour
         }
 
         // Simpan data ini ke "Papan Pengumuman" agar sistem lain tahu
-        stats.equippedWeaponTemplate = activeWeaponData;
+        playerData.equippedWeaponTemplate = activeWeaponData;
 
         UpdateSingleIcon(imageEquippedUI, activeWeaponData);
         Image capacityBarImage = equippedUI.transform.Find("capacityBarItem").GetComponent<Image>();
@@ -293,7 +295,7 @@ public class PlayerUI : MonoBehaviour
         }
 
         // Simpan data ini ke "Papan Pengumuman"
-        stats.equippedItemTemplate = activeItemData;
+        playerData.equippedItemTemplate = activeItemData;
 
         UpdateSingleIcon(imageItemUse, activeItemData);
         TMP_Text capacityBarImage = itemUseUI.transform.Find("ItemCount").GetComponent<TMP_Text>();

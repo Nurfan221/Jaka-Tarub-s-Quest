@@ -51,12 +51,7 @@ public class SaveDataManager : MonoBehaviour
         }
     }
 
-    private void SaveToFile(GameSaveData saveData)
-    {
-        string json = JsonUtility.ToJson(saveData, true);
-        File.WriteAllText(saveFilePath, json);
-        Debug.Log("Game berhasil disimpan ke: " + saveFilePath);
-    }
+   
 
     private GameSaveData LoadFromFile()
     {
@@ -73,43 +68,61 @@ public class SaveDataManager : MonoBehaviour
     // "Manajer Sensus" mengumpulkan data (SUDAH DIPERBAIKI)
     private void CaptureAllSaveableStates(GameSaveData saveData)
     {
-        // Cari semua komponen yang mengimplementasikan ISaveable
         foreach (ISaveable saveable in FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>())
         {
-            // PERBAIKAN: Ubah 'saveable' (Interface) menjadi MonoBehaviour
-            var monoBehaviour = saveable as MonoBehaviour;
-            if (monoBehaviour == null) continue;
-
-            var uniqueID = monoBehaviour.GetComponent<UniqueID>();
-            if (uniqueID == null)
+            // Pengecekan pertama: Apakah ini sebuah pohon?
+            if (saveable is TreeBehavior tree)
             {
-                Debug.LogWarning($"Objek {monoBehaviour.name} bisa disimpan tapi tidak punya UniqueID!", monoBehaviour.gameObject);
-                continue;
-            }
-
-                // Buat entri data baru dan tambahkan ke list
-                saveData.savedEntities.Add(new SaveableEntityData
+                if (tree.CaptureState() is TreeSaveData treeData)
                 {
-                    id = uniqueID.ID,
-                    state = saveable.CaptureState()
-                });
-        }
-    }
-
-    public void RestoreAllSaveableStates(GameSaveData saveData)
-    {
-        // Buat dictionary dari objek yang bisa di-save untuk pencarian cepat
-        var saveableEntities = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>()
-            .ToDictionary(e => (e as MonoBehaviour).GetComponent<UniqueID>()?.ID);
-
-        foreach (var savedEntity in saveData.savedEntities)
-        {
-            // Cari objek di scene yang memiliki ID yang cocok
-            if (saveableEntities.TryGetValue(savedEntity.id, out ISaveable saveable))
-            {
-                // Minta objek tersebut untuk me-restore datanya
-                saveable.RestoreState(savedEntity.state);
+                    treeData.id = tree.GetComponent<UniqueID>().ID;
+                    saveData.savedTrees.Add(treeData);
+                }
             }
+            // Pengecekan kedua: Apakah ini pemain?
+            else if (saveable is PlayerController player)
+            {
+                    Debug.Log("[SAVE] Ditemukan PlayerController. Memanggil CaptureState...");
+                if (player.CaptureState() is PlayerSaveData playerData)
+                {
+                    // Anda mungkin tidak perlu ID untuk pemain jika hanya ada satu,
+                    // tapi ini adalah praktik yang baik.
+                    // playerData.id = player.GetComponent<UniqueID>().ID; 
+                    saveData.savedPlayerData.Add(playerData);
+                    Debug.Log("Data pemain telah ditangkap untuk penyimpanan." + playerData.inventory.Count);
+                }
+            }
+            // Tambahkan 'else if' lain untuk Chest, Bunga, dll. di masa depan.
         }
     }
+
+    private void SaveToFile(GameSaveData saveData)
+    {
+        string json = JsonUtility.ToJson(saveData, true);
+
+        // --- DEBUG LOG KUNCI #3 ---
+        // Lihat seperti apa isi file JSON yang akan disimpan
+        Debug.Log("[Save Process] Konten JSON yang akan disimpan:\n" + json);
+        // -------------------------
+
+        File.WriteAllText(saveFilePath, json);
+        Debug.Log("Game berhasil disimpan ke: " + saveFilePath);
+    }
+
+    //public void RestoreAllSaveableStates(GameSaveData saveData)
+    //{
+    //    // Buat dictionary dari objek yang bisa di-save untuk pencarian cepat
+    //    var saveableEntities = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>()
+    //        .ToDictionary(e => (e as MonoBehaviour).GetComponent<UniqueID>()?.ID);
+
+    //    foreach (var savedEntity in saveData.savedEntities)
+    //    {
+    //        // Cari objek di scene yang memiliki ID yang cocok
+    //        if (saveableEntities.TryGetValue(savedEntity.id, out ISaveable saveable))
+    //        {
+    //            // Minta objek tersebut untuk me-restore datanya
+    //            saveable.RestoreState(savedEntity.state);
+    //        }
+    //    }
+    //}
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6970880180782701511}
   - component: {fileID: 9102546473150981427}
   - component: {fileID: -285715893815699087}
+  - component: {fileID: 3047755583388821169}
   m_Layer: 0
   m_Name: AkarCemaraBesar
   m_TagString: AkarPohon
@@ -148,6 +149,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 15
-  kayu: {fileID: 4459120725376062254, guid: 02a41b6e3057e434dbdda20dc4f9d697, type: 3}
+  kayu:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
   minKayu: 3
   maxKayu: 5
+--- !u!114 &3047755583388821169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599877733878797977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e118c337523d6174fa9eb81b8eb8eac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 7bcc3612-c239-44b6-bade-35f0bf95887a

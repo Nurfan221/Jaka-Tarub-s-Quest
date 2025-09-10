@@ -6,11 +6,38 @@ using System.Collections.Generic;
 [System.Serializable]
 public class TreeSaveData
 {
+    public string id; // Kita pindahkan ID ke sini agar lebih rapi
     public string treeName;
     public Vector3 position;
     public GrowthTree currentGrowthStage;
     public float growthTimer;
-    public bool sudahTumbang;
+    public bool isRubuh;
+}
+
+[System.Serializable]
+public class PlayerSaveData
+{
+    // Data Posisi
+    public Vector2 position;
+
+    // Data Health & Stamina
+    public int health;
+    public int currentHealthCap;
+    public float stamina;
+    public float currentStaminaCap;
+
+    // Data Status Emosional
+    public bool isInGrief;
+    public float currentGriefPenalty;
+    public int healingQuestsCompleted;
+    public float currentFatiguePenalty;
+
+    // Data Inventory & Equipment (menjawab pertanyaan Anda)
+    public List<ItemData> inventory;
+    public List<ItemData> equippedItemData;
+    public List<ItemData> itemUseData;
+    public bool equipped1;
+    public bool itemUse1;
 }
 
 // Anda bisa menambahkan class data save lain di file yang sama untuk kerapian
@@ -26,7 +53,8 @@ public class TreeSaveData
 public class GameSaveData
 {
     // Wadah utama kita sekarang adalah sebuah LIST, bukan Dictionary
-    public List<SaveableEntityData> savedEntities = new List<SaveableEntityData>();
+    public List<TreeSaveData> savedTrees = new List<TreeSaveData>();
+    public List<PlayerSaveData> savedPlayerData = new List<PlayerSaveData>();
 }
 
 [System.Serializable]

@@ -12,7 +12,7 @@ public class PerangkapBehavior : MonoBehaviour
     [SerializeField] private PrefabItemBehavior prefabItemBehavior;
     [SerializeField] private Player_Inventory player_Inventory;
 
-    private PlayerData_SO stats;
+    private PlayerController stats;
     private void Awake()
     {
 
@@ -20,7 +20,7 @@ public class PerangkapBehavior : MonoBehaviour
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
         }
         else
         {
@@ -135,13 +135,14 @@ public class PerangkapBehavior : MonoBehaviour
         ItemDropInteractable itemDropInteractable = gameObject.GetComponent<ItemDropInteractable>();
         ItemData itemDataPerangkap = itemDropInteractable.itemdata;
         Item itemPerangkap = ItemPool.Instance.GetItemWithQuality(itemDataPerangkap.itemName, itemDataPerangkap.quality);
+
         itemPerangkap.health = prefabItemBehavior.health;
 
         bool itemFound = false; // Menyimpan status apakah item sudah ditemukan
 
-        for (int i = 0; i < stats.itemList.Count; i++)
+        for (int i = 0; i < stats.inventory.Count; i++)
         {
-            if (stats.itemList[i].itemName == itemPerangkap.itemName)
+            if (stats.inventory[i].itemName == itemPerangkap.itemName)
             {
                 //stats.itemList[i].stackCount += 1; // Menambahkan jumlah stack
                 itemFound = true;
@@ -152,7 +153,7 @@ public class PerangkapBehavior : MonoBehaviour
         // Jika item tidak ditemukan, tambahkan item baru ke dalam inventory
         if (!itemFound)
         {
-            stats.itemList.Add(itemPerangkap);
+            //stats.inventory.Add(itemPerangkap);
         }
 
         Destroy(gameObject);

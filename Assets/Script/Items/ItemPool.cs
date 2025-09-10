@@ -221,7 +221,7 @@ public class ItemPool : MonoBehaviour
         if (itemTemplate.isStackable)
         {
             // Cari slot di inventaris yang itemnya sama, kualitasnya sama, dan belum penuh
-            foreach (ItemData slot in PlayerController.Instance.playerData.inventory)
+            foreach (ItemData slot in PlayerController.Instance.inventory)
             {
                 if (slot.itemName == itemDataToAdd.itemName && slot.quality == itemDataToAdd.quality && slot.count < itemTemplate.maxStackCount)
                 {
@@ -237,13 +237,13 @@ public class ItemPool : MonoBehaviour
         }
 
         // FASE MEMBUAT SLOT BARU
-        while (amountToAdd > 0 && PlayerController.Instance.playerData.inventory.Count < PlayerController.Instance.playerData.maxItem)
+        while (amountToAdd > 0 && PlayerController.Instance.inventory.Count < PlayerController.Instance.playerData.maxItem)
         {
             int amountForNewSlot = Mathf.Min(amountToAdd, itemTemplate.maxStackCount);
 
             // Buat "Catatan Stok" (ItemData) baru dari data yang diterima
             ItemData newSlot = new ItemData(itemDataToAdd.itemName, amountForNewSlot, itemDataToAdd.quality, itemDataToAdd.itemHealth);
-            PlayerController.Instance.playerData.inventory.Add(newSlot);
+            PlayerController.Instance.inventory.Add(newSlot);
 
             amountToAdd -= amountForNewSlot;
         }
@@ -265,9 +265,9 @@ public class ItemPool : MonoBehaviour
 
         // Loop dari BELAKANG ke depan. Ini wajib dilakukan agar aman saat
         // menghapus elemen dari sebuah list di tengah-tengah perulangan.
-        for (int i = PlayerController.Instance.playerData.inventory.Count - 1; i >= 0; i--)
+        for (int i = PlayerController.Instance.inventory.Count - 1; i >= 0; i--)
         {
-            ItemData slot = PlayerController.Instance.playerData.inventory[i];
+            ItemData slot = PlayerController.Instance.inventory[i];
 
             // Jika nama item di slot ini cocok
             if (slot.itemName == itemNameToRemove)
@@ -287,7 +287,7 @@ public class ItemPool : MonoBehaviour
                     // Kurangi sisa yang perlu dihapus dengan seluruh isi slot ini
                     remainingToRemove -= amountInSlot;
                     // Hapus seluruh slot dari inventory karena isinya diambil semua.
-                    PlayerController.Instance.playerData.inventory.RemoveAt(i);
+                    PlayerController.Instance.inventory.RemoveAt(i);
                 }
             }
 

@@ -66,7 +66,7 @@ public class TreeBehavior : MonoBehaviour, ISaveable
             treeName = this.nameEnvironment,
             position = transform.position,
             currentGrowthStage = this.currentStage,
-            sudahTumbang = this.isRubuh
+            isRubuh = this.isRubuh
         };
     }
 
@@ -80,7 +80,7 @@ public class TreeBehavior : MonoBehaviour, ISaveable
         this.nameEnvironment = savedData.treeName;
         transform.position = savedData.position;
         this.currentStage = savedData.currentGrowthStage;
-        this.isRubuh = savedData.sudahTumbang;
+        this.isRubuh = savedData.isRubuh;
         // PENTING: Setelah me-restore state, Anda mungkin perlu memperbarui visual pohon
         // agar cocok dengan `currentStage` yang baru.
         // UpdateVisuals(); 

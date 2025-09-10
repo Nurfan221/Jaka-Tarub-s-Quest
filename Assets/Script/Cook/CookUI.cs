@@ -59,7 +59,7 @@ public class CookUI : MonoBehaviour
     [Header("button")]
     public Button closeButton;
 
-    private PlayerData_SO stats;
+    private PlayerController stats;
     private void Awake()
     {
 
@@ -67,7 +67,7 @@ public class CookUI : MonoBehaviour
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
         }
         else
         {
@@ -153,8 +153,9 @@ public class CookUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (Item item in stats.itemList)
+        foreach (ItemData itemData in stats.inventory)
         {
+            Item item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
             Transform theItem = Instantiate(itemSlotTemplate, itemSlotContainer);
             theItem.name = item.itemName;
             theItem.gameObject.SetActive(true);

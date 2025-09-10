@@ -42,7 +42,7 @@ public class ShopUI : MonoBehaviour
     private Dictionary<string, int> itemSellCounts = new(); // Menyimpan jumlah item yang akan dibeli
     private Dictionary<string , int> itemBuyCounts = new();
 
-    private PlayerData_SO stats;
+    private PlayerController stats;
     private void Awake()
     {
 
@@ -50,7 +50,7 @@ public class ShopUI : MonoBehaviour
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
         }
         else
         {
@@ -196,8 +196,9 @@ public class ShopUI : MonoBehaviour
 
 
         //Tampilkan item di inventory untuk dijual
-        foreach (Item item in stats.itemList)
+        foreach (ItemData itemData in stats.inventory)
         {
+            Item item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
             Transform itemSlot = Instantiate(templateSellUI, contentSellUI);
             itemSlot.gameObject.SetActive(true);
             itemSlot.name = item.itemName;
@@ -493,9 +494,9 @@ public class ShopUI : MonoBehaviour
     {
         int remainingToRemove = selectedItemCount; // Jumlah yang ingin dihapus
 
-        for (int i = stats.itemList.Count - 1; i >= 0; i--)
+        for (int i = stats.inventory.Count - 1; i >= 0; i--)
         {
-            Item item = stats.itemList[i];
+            ItemData item = stats.inventory[i];
 
             if (selectedItem.itemName == item.itemName)
             {
@@ -576,11 +577,11 @@ public class ShopUI : MonoBehaviour
         countText.text = itemCounts[itemName].ToString();
     }
 
-    private void SellItem(Item itemToSell)
+    private void SellItem(ItemData itemToSell)
     {
-        if (stats.itemList.Contains(itemToSell))
+        if (stats.inventory.Contains(itemToSell))
         {
-            stats.itemList.Remove(itemToSell);
+            stats.inventory.Remove(itemToSell);
             RefreshShopUI(currentSeasonItems);
         }
     }

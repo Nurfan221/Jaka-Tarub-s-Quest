@@ -16,7 +16,8 @@ public class Player_Health : MonoBehaviour
 
 
     public SpriteRenderer sr;
-    private PlayerData_SO stats;
+    private PlayerController stats;
+    private PlayerData_SO playerData;
 
     private void Awake()
     {
@@ -28,11 +29,20 @@ public class Player_Health : MonoBehaviour
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
         }
         else
         {
             Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
+        }
+
+        if (PlayerController.Instance != null)
+        {
+            playerData = PlayerController.Instance.playerData;
+        }
+        else
+        {
+            Debug.LogError("PlayerData_SO.Instance tidak ditemukan saat Awake!");
         }
     }
     private void Start()
@@ -47,15 +57,15 @@ public class Player_Health : MonoBehaviour
          stats.health = (int)Mathf.Clamp(stats.health, 0, stats.currentHealthCap);
          stats.stamina = Mathf.Clamp(stats.stamina, 0, stats.currentStaminaCap);
 
-        PlayerUI.Instance.healthUI.fillAmount = (float)stats.health /  stats.maxHealth;
-        PlayerUI.Instance.staminaUI.fillAmount =  stats.stamina / stats.maxStamina;
+        PlayerUI.Instance.healthUI.fillAmount = (float)stats.health / playerData.maxHealth;
+        PlayerUI.Instance.staminaUI.fillAmount =  stats.stamina / playerData.maxStamina;
 
-        float regenRate =  stats.isInGrief ? stats.staminaRegenRate * 0.7f : stats.staminaRegenRate;
+        float regenRate =  stats.isInGrief ? playerData.staminaRegenRate * 0.7f : playerData.staminaRegenRate;
 
         if (stats.stamina <  stats.currentStaminaCap)
         {
              stats.stamina += regenRate * Time.deltaTime;
-            PlayerUI.Instance.UpdateStaminaDisplay(stats.stamina, stats.maxStamina);
+            PlayerUI.Instance.UpdateStaminaDisplay(stats.stamina, playerData.maxStamina);
         }
     }
 
@@ -64,11 +74,11 @@ public class Player_Health : MonoBehaviour
     {
         // Penalti untuk health HANYA berasal dari 'grief'.
         float healthPenalty = stats.isInGrief ?  stats.currentGriefPenalty : 0;
-         stats.currentHealthCap = Mathf.RoundToInt(stats.maxHealth * (1f - healthPenalty / 100f));
+         stats.currentHealthCap = Mathf.RoundToInt(playerData.maxHealth * (1f - healthPenalty / 100f));
 
         // Penalti untuk stamina bisa berasal dari 'grief' DAN 'fatigue'.
         float staminaPenalty = (stats.isInGrief ?  stats.currentGriefPenalty : 0) + stats.currentFatiguePenalty;
-        stats.currentStaminaCap =  stats.maxStamina * (1f - staminaPenalty / 100f);
+        stats.currentStaminaCap =  playerData.maxStamina * (1f - staminaPenalty / 100f);
 
         // Pastikan cap tidak di bawah nilai minimum (misal 10) untuk mencegah bug.
          stats.currentHealthCap = Mathf.Max(stats.currentHealthCap, 10);
@@ -81,7 +91,7 @@ public class Player_Health : MonoBehaviour
     public void StartGrief()
     {
         stats.isInGrief = true;
-        stats.currentGriefPenalty = stats.initialGriefPenalty;
+        stats.currentGriefPenalty = playerData.initialGriefPenalty;
         stats.healingQuestsCompleted = 0;
         UpdateCaps();
         Debug.Log($"Jaka mulai berduka. Batas HP/Stamina turun sebesar {stats.currentGriefPenalty}%.");
@@ -94,11 +104,11 @@ public class Player_Health : MonoBehaviour
         stats.healingQuestsCompleted++;
 
         // Hitung berapa persen pemulihan untuk satu quest ini
-        float recoveryPercentagePerQuest = stats.initialGriefPenalty / stats.totalHealingQuests;
+        float recoveryPercentagePerQuest = playerData.initialGriefPenalty / playerData.totalHealingQuests;
 
         // Hitung berapa POIN HP dan Stamina yang akan ditambahkan sebagai reward
-        int healthToRestore = Mathf.RoundToInt(stats.maxHealth * (recoveryPercentagePerQuest / 100f));
-        float staminaToRestore = stats.maxStamina * (recoveryPercentagePerQuest / 100f);
+        int healthToRestore = Mathf.RoundToInt(playerData.maxHealth * (recoveryPercentagePerQuest / 100f));
+        float staminaToRestore = playerData.maxStamina * (recoveryPercentagePerQuest / 100f);
 
         // Kurangi penalti untuk menaikkan batas maksimum (cap)
         stats.currentGriefPenalty -= recoveryPercentagePerQuest;
@@ -113,7 +123,7 @@ public class Player_Health : MonoBehaviour
         Debug.Log($"Quest healed! Added {healthToRestore} HP. New HP: {stats.health}/{stats.currentHealthCap}");
 
         // Cek jika sudah pulih sepenuhnya
-        if (stats.healingQuestsCompleted >= stats.totalHealingQuests)
+        if (stats.healingQuestsCompleted >= playerData.totalHealingQuests)
         {
             stats.isInGrief = false;
             stats.currentGriefPenalty = 0;
@@ -130,7 +140,7 @@ public class Player_Health : MonoBehaviour
         if (BuffScrollController.Instance.isBuffProtection) damage -= BuffScrollController.Instance.jumlahBuffProtection;
         damage = Mathf.Max(0, damage);
         stats.health -= damage;
-        PlayerUI.Instance.UpdateHealthDisplay(stats.health, stats.maxHealth);
+        PlayerUI.Instance.UpdateHealthDisplay(stats.health, playerData.maxHealth);
         //if (player_Anim != null) player_Anim.PlayTakeDamageAnimation();
         PlayerController.Instance.HandlePlayAnimation("TakeDamage");
         StartCoroutine(ApplyKnockback(attackerPosition));
@@ -146,7 +156,7 @@ public class Player_Health : MonoBehaviour
 
         // Lakukan proses penyembuhan
         stats.health = Mathf.Clamp(stats.health + healthAmount, 0, stats.currentHealthCap);
-        stats.currentStaminaCap = Mathf.Clamp(stats.currentStaminaCap + staminaAmount, 0, stats.maxStamina);
+        stats.currentStaminaCap = Mathf.Clamp(stats.currentStaminaCap + staminaAmount, 0, playerData.maxStamina);
 
 
       
@@ -173,7 +183,7 @@ public class Player_Health : MonoBehaviour
         {
             // Kurangi BATAS STAMINA berdasarkan waktu.
             stats.currentStaminaCap -= drainPerSecond;
-            PlayerUI.Instance.UpdateStaminaDisplay(stats.currentStaminaCap, stats.maxStamina);
+            PlayerUI.Instance.UpdateStaminaDisplay(stats.currentStaminaCap, playerData.maxStamina);
 
 
             //    Gunakan 'stats.currentStaminaCap' lagi di dalam Mathf.Max.
@@ -199,7 +209,7 @@ public class Player_Health : MonoBehaviour
     public void ApplyFatigue(float fatigueAmount)
     {
         stats.currentFatiguePenalty += fatigueAmount;
-        stats.currentFatiguePenalty = Mathf.Clamp(stats.currentFatiguePenalty, 0, stats.maxFatiguePenalty);
+        stats.currentFatiguePenalty = Mathf.Clamp(stats.currentFatiguePenalty, 0, playerData.maxFatiguePenalty);
         UpdateCaps(); // Segera update batas maksimum stamina
         stats.stamina = Mathf.Min(stats.stamina, stats.currentStaminaCap); // Pastikan stamina saat ini tidak melebihi batas baru
         Debug.Log($"Player lelah! Penalti stamina sekarang: {stats.currentFatiguePenalty}%");
@@ -256,7 +266,7 @@ public class Player_Health : MonoBehaviour
         Debug.Log("Mengecek kondisi sekarat..."); // Tambahkan ini untuk tahu fungsi dipanggil
 
         // Pastikan perbandingannya benar. Gunakan (float) untuk pembagian yang akurat.
-        if ((float)stats.health / stats.maxHealth <= 0.3f)
+        if ((float)stats.health / playerData.maxHealth <= 0.3f)
         {
             // Tambahkan ini untuk tahu kondisi terpenuhi
             Debug.Log("KONDISI SEKARAT TERPENUHI! MENYIARKAN EVENT...");

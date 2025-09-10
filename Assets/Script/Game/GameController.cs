@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
     [Header("Environment penting dalam game")]
     public Light sunlight;
 
+
     private void Awake()
     {
         if (persistent != null)
@@ -53,17 +54,29 @@ public class GameController : MonoBehaviour
         GameSaveData saveData = SaveDataManager.Instance.LoadGame();
 
         // Cek apakah ada data yang berhasil di-load
-        if (saveData != null && saveData.savedEntities.Count > 0)
+        if (saveData != null)
         {
-            Debug.Log("GameController: Membangun dunia dari file save...");
-            // Panggil fungsi untuk membangun dari save (sekarang ada di skrip ini)
-            BuildWorldFromSave(saveData);
+            // Cek apakah ada data pemain yang tersimpan
+            if (saveData.savedPlayerData != null && saveData.savedPlayerData.Count > 0)
+            {
+                Debug.Log("GameController: Menemukan data pemain. Memulai proses restore...");
+
+                // Panggil fungsi khusus untuk me-restore pemain
+                RestorePlayerData(saveData.savedPlayerData[0]); // Ambil data pemain pertama
+            }
+
+            // Cek apakah ada data pohon yang tersimpan
+            if (saveData.savedTrees != null && saveData.savedTrees.Count > 0)
+            {
+                Debug.Log("GameController: Membangun dunia dari file save...");
+                BuildWorldFromSave(saveData.savedTrees);
+            }
         }
         else
         {
             Debug.Log("GameController: Membangun dunia baru dari Peta Awal...");
-            // Jika tidak ada save, bangun dari SO (sekarang ada di skrip ini)
             GenerateDefaultWorld();
+            FindObjectOfType<PlayerController>()?.InitializeForNewGame();
         }
 
         InitializePlayer();
@@ -103,6 +116,21 @@ public class GameController : MonoBehaviour
         if (PlayerPrefs.GetInt("HaveSaved") == 99)
         {
             player.position = latestPlayerPos;
+        }
+    }
+
+    private void RestorePlayerData(PlayerSaveData playerData)
+    {
+        // Cari objek pemain di scene
+        PlayerController player = FindObjectOfType<PlayerController>();
+        if (player != null)
+        {
+            // Panggil fungsi RestoreState-nya dan berikan data yang sudah di-load
+            player.RestoreState(playerData);
+        }
+        else
+        {
+            Debug.LogError("Gagal me-restore data: PlayerController tidak ditemukan di scene!");
         }
     }
 
@@ -252,15 +280,15 @@ public class GameController : MonoBehaviour
     }
 
     // Membangun kembali dunia dari data save yang sudah dimuat.
-    public void BuildWorldFromSave(GameSaveData saveData)
+    public void BuildWorldFromSave(List<TreeSaveData> savedTrees)
     {
         // Bersihkan daftar pohon aktif yang lama sebelum memuat yang baru
         MainEnvironmentManager.Instance.pohonManager.allActiveTrees.Clear();
 
-        foreach (var savedEntity in saveData.savedEntities)
+        foreach (var savedEntity in savedTrees)
         {
             // Pastikan ini adalah data pohon
-            if (savedEntity.state is TreeSaveData treeData)
+            if (savedEntity is TreeSaveData treeData)
             {
                 // Dapatkan prefab yang benar berdasarkan NAMA dan TAHAP YANG TERSIMPAN.
                 GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(treeData.treeName, treeData.currentGrowthStage);

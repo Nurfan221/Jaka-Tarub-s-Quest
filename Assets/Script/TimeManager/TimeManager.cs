@@ -52,8 +52,8 @@ public class TimeManager : MonoBehaviour
     {
         //shopUI.UpdateShopBySeason(timeData_SO.currentSeason);
         AdvanceTime();
-        OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
-        UpdateDay();
+        //OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
+        //UpdateDay();
 
     }
 
@@ -134,7 +134,7 @@ public class TimeManager : MonoBehaviour
         }
 
         // Debug jumlah listener yang terdaftar
-        Debug.Log($"Jumlah pohon yang menerima event: {registeredTrees.Count}");
+        //Debug.Log($"Jumlah pohon yang menerima event: {registeredTrees.Count}");
 
     }
 

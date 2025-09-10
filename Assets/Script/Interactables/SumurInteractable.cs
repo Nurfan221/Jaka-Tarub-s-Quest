@@ -4,7 +4,7 @@ public class SumurInteractable : Interactable
 {
 
     public Item itemInteractable;
-    private PlayerData_SO stats;
+    private PlayerController stats;
     private void Awake()
     {
 
@@ -12,7 +12,7 @@ public class SumurInteractable : Interactable
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
         }
         else
         {

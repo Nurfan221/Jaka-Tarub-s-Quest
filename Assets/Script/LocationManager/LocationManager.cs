@@ -146,10 +146,10 @@ public class LocationManager : MonoBehaviour
     {
         while (inDanau)
         {
-            if (PlayerController.Instance.playerData.health < PlayerController.Instance.playerData.maxHealth) // Cek biar nggak over-heal
+            if (PlayerController.Instance.health < PlayerController.Instance.playerData.maxHealth) // Cek biar nggak over-heal
             {
-                PlayerController.Instance.playerData.health += 3;
-                Debug.Log("Healing... HP sekarang: " + PlayerController.Instance.playerData.health);
+                PlayerController.Instance.health += 3;
+                Debug.Log("Healing... HP sekarang: " + PlayerController.Instance.health);
             }
 
             yield return new WaitForSeconds(delayHealing); // Tunggu sebelum heal lagi

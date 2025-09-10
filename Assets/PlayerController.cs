@@ -3,8 +3,23 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ISaveable
 {
+    [Header("Player State (Runtime)")]
+    public Vector2 lastPosition;
+    public int health;
+    public int currentHealthCap;
+    public float stamina;
+    public float currentStaminaCap;
+    public bool isInGrief;
+    public bool equipped1;
+    public bool itemUse1;
+    public float currentGriefPenalty;
+    public int healingQuestsCompleted;
+    public List<ItemData> inventory = new List<ItemData>();
+    public List<ItemData> equippedItemData = new List<ItemData>(2);
+    public List<ItemData> itemUseData = new List<ItemData>(2);
+    public float currentFatiguePenalty;
     // Singleton "Otak"
     public static PlayerController Instance { get; private set; }
 
@@ -50,7 +65,7 @@ public class PlayerController : MonoBehaviour
     public void RegisterPlayer(Player player)
     {
         this.ActivePlayer = player;
-        HandlePositionPlayer(playerData.lastPosition);
+        HandlePositionPlayer(lastPosition);
         Debug.Log($"PlayerController: Paket Player '{player.gameObject.name}' telah terdaftar.");
     }
 
@@ -63,7 +78,103 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public object CaptureState()
+    {
+        Debug.Log($"[SAVE-CAPTURE] PlayerController menangkap {inventory.Count} item di inventaris.");
+        // Buat "formulir" baru
+        return new PlayerSaveData
+        {
+            // Isi semua data dari kondisi saat ini
+            position = this.lastPosition,
+            health = this.health,
+            currentHealthCap = this.currentHealthCap,
+            stamina = this.stamina,
+            currentStaminaCap = this.currentStaminaCap,
+            isInGrief = this.isInGrief,
+            currentGriefPenalty = this.currentGriefPenalty,
+            healingQuestsCompleted = this.healingQuestsCompleted,
+            currentFatiguePenalty = this.currentFatiguePenalty,
+
+            // Isi semua list inventory dan equipment
+            inventory = this.inventory,
+            equippedItemData = this.equippedItemData,
+            itemUseData = this.itemUseData,
+            equipped1 = this.equipped1,
+            itemUse1 = this.itemUse1
+        };
+    }
+
+    public void RestoreState(object state)
+    {
+        // Terima "formulir" dan ubah ke tipe yang benar
+        PlayerSaveData data = (PlayerSaveData)state;
+
+        // Terapkan semua data kembali ke pemain
+        lastPosition = data.position;
+        this.health = data.health;
+        this.currentHealthCap = data.currentHealthCap;
+        this.stamina = data.stamina;
+        this.currentStaminaCap = data.currentStaminaCap;
+        this.isInGrief = data.isInGrief;
+        this.currentGriefPenalty = data.currentGriefPenalty;
+        this.healingQuestsCompleted = data.healingQuestsCompleted;
+        this.currentFatiguePenalty = data.currentFatiguePenalty;
+
+        // Kembalikan semua list inventory dan equipment
+        this.inventory = data.inventory;
+        this.equippedItemData = data.equippedItemData;
+        this.itemUseData = data.itemUseData;
+        this.equipped1 = data.equipped1;
+        this.itemUse1 = data.itemUse1;
+
+        Debug.Log($"[LOAD-RESTORE] PlayerController me-restore {this.inventory.Count} item ke inventaris.");
+
+        // PENTING: Setelah me-restore data, perbarui UI
+        // PlayerUI.Instance.UpdateAllUI();
+    }
+
+    public void InitializeForNewGame()
+    {
+        Debug.Log("Menginisialisasi Player untuk game baru dari PlayerData_SO...");
+
+        if (playerData == null)
+        {
+            Debug.LogError("PlayerData_SO belum diatur di Inspector PlayerController!", this.gameObject);
+            return;
+        }
+
+        // Atur semua nilai progres ke nilai awal/default dari blueprint
+        this.health = playerData.maxHealth;
+        this.currentHealthCap = playerData.maxHealth;
+        this.stamina = playerData.maxStamina;
+        this.currentStaminaCap = playerData.maxStamina;
+
+        // Atur status-status lain ke kondisi awal
+        this.isInGrief = false; // Contoh, duka dimulai dari false
+        this.currentGriefPenalty = 0;
+        this.healingQuestsCompleted = 0;
+        this.currentFatiguePenalty = 0;
+
+        //  Kosongkan semua list
+        this.inventory.Clear();
+        this.equippedItemData.Clear();
+        this.itemUseData.Clear();
+
+        //  (Opsional) Isi slot equipment dengan item kosong jika diperlukan
+        //    Ini memastikan list memiliki 2 elemen 'kosong' daripada benar-benar kosong.
+        for (int i = 0; i < 2; i++)
+        {
+            if (playerData.emptyItemTemplate != null)
+            {
+                equippedItemData.Add(playerData.emptyItemTemplate);
+                itemUseData.Add(playerData.emptyItemTemplate);
+            }
+        }
+
+        Debug.Log("Inisialisasi Pemain Selesai.");
+    }
     // CONTOH FUNGSI PERINTAH
+
 
     public void HandleMovement(Vector2 direction)
     {
@@ -222,7 +333,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 1. Validasi: Pastikan indeks yang diminta berada dalam jangkauan list inventory.
-        if (index < 0 || index >= playerData.inventory.Count)
+        if (index < 0 || index >= inventory.Count)
         {
             Debug.LogWarning($"Percobaan mengambil item pada indeks di luar jangkauan: {index}");
             return null; // Kembalikan null karena indeks tidak valid
@@ -230,7 +341,7 @@ public class PlayerController : MonoBehaviour
 
         // 2. Langsung ambil dan kembalikan ItemData pada indeks yang benar.
         // Tidak perlu menggunakan loop.
-        ItemData itemData = playerData.inventory[index];
+        ItemData itemData = inventory[index];
         return itemData;
     }
 

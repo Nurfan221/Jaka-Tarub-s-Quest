@@ -23,19 +23,22 @@ public class Player_Inventory : MonoBehaviour
     [SerializeField] ParticleSystem healParticle;
 
 
-    private PlayerData_SO stats;
+    private PlayerController stats;
+    private PlayerData_SO playerData;
 
     private void Awake()
     {
 
         if (PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
+            playerData = PlayerController.Instance.playerData;
         }
         else
         {
             Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
         }
+
         //Instance = this;
         //pA = GetComponent<Player_Action>();
 
@@ -243,7 +246,7 @@ public class Player_Inventory : MonoBehaviour
 
         if (stats.itemUseData[which].count == 0)
         {
-            stats.itemUseData[which] = stats.emptyItemTemplate;
+            stats.itemUseData[which] = playerData.emptyItemTemplate;
         }
 
         MechanicController.Instance.InventoryUI.RefreshInventoryItems();

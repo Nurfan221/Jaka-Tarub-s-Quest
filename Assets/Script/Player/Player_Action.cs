@@ -69,7 +69,8 @@ public class Player_Action : MonoBehaviour
 
     #endregion
 
-    private PlayerData_SO stats;
+    private PlayerController stats;
+    private PlayerData_SO playerData;
     private void Awake()
     {
 
@@ -77,7 +78,8 @@ public class Player_Action : MonoBehaviour
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
+            playerData = PlayerController.Instance.playerData;
         }
         else
         {
@@ -363,7 +365,7 @@ public class Player_Action : MonoBehaviour
     public void Attack()
     {
         Debug.Log("tombol attack di tekan");
-        Item itemToAttack = ItemPool.Instance.GetItemWithQuality(stats.equippedWeaponTemplate.itemName, stats.equippedWeaponTemplate.quality);
+        Item itemToAttack = ItemPool.Instance.GetItemWithQuality(playerData.equippedWeaponTemplate.itemName, playerData.equippedWeaponTemplate.quality);
         if (itemToAttack.itemName == "Empty")
             return;
 
@@ -539,7 +541,7 @@ public class Player_Action : MonoBehaviour
         else if (itemToAttack.types == ItemType.Ranged_Combat)
         {
             // Check for arrow first
-            if (stats.itemList.Exists(x => x.itemName == "Anak Panah"))
+            if (stats.inventory.Exists(x => x.itemName == "Anak Panah"))
             {
                 print("shooting arrow");
                 // Shoot arrow if possible

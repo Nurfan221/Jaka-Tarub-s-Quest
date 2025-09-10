@@ -8,7 +8,7 @@ public class CraftInventoryUI : MonoBehaviour
 {
     #region UI References & Dependencies
     [Header("Dependencies")]
-    public PlayerData_SO playerData;
+    public PlayerController playerData;
 
     [Header("Panel Utama")]
     public Button closeButton;
@@ -39,7 +39,7 @@ public class CraftInventoryUI : MonoBehaviour
 
         if (playerData == null && PlayerController.Instance != null)
         {
-            playerData = PlayerController.Instance.playerData;
+            playerData = PlayerController.Instance;
         }
     }
     private void Start()

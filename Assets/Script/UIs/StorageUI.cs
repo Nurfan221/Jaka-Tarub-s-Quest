@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class StorageUI : MonoBehaviour
 {
     [Header("Referensi UI & Data")]
-    [SerializeField] private PlayerData_SO stats;
+    [SerializeField] private PlayerController stats;
     [SerializeField] private StorageInteractable theStorage;
     [SerializeField] private Transform StorageContainer;
     [SerializeField] private Transform InventoryContainer;
@@ -33,7 +33,7 @@ public class StorageUI : MonoBehaviour
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
         }
         else
         {
@@ -45,7 +45,7 @@ public class StorageUI : MonoBehaviour
     {
         if (stats == null && PlayerController.Instance != null)
         {
-            stats = PlayerController.Instance.playerData;
+            stats = PlayerController.Instance;
         }
 
         if (stats == null)
