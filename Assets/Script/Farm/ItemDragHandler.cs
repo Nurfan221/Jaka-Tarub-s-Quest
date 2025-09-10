@@ -504,7 +504,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             treeComponent.growthTime = growthTime;
             treeComponent.plantsContainer = plantsContainer;
             treeComponent.growthSpeed = itemTree.growthTime / totalGrowthStages;
-            treeComponent.OnTreeChoppedDown();
+            //treeComponent.OnTreeChoppedDown();
 
 
 
@@ -520,7 +520,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         };
 
         // Tambahkan data baru ke dalam list di ScriptableObject
-        DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements.Add(newPlacementData);
+        //DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements.Add(newPlacementData);
 
         //Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
     }

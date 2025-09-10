@@ -254,29 +254,31 @@ public class GameController : MonoBehaviour
     // Membangun kembali dunia dari data save yang sudah dimuat.
     public void BuildWorldFromSave(GameSaveData saveData)
     {
-        // Kita juga perlu me-restore objek lain seperti pohon
+        // Bersihkan daftar pohon aktif yang lama sebelum memuat yang baru
+        MainEnvironmentManager.Instance.pohonManager.allActiveTrees.Clear();
+
         foreach (var savedEntity in saveData.savedEntities)
         {
-            // Di sini kita perlu tahu tipe objek apa yang akan dibuat.
-            // Anda bisa menambahkan 'type' field di SaveableEntityData,
-            // tapi untuk sekarang, kita asumsikan semuanya pohon.
-            if (savedEntity.state is TreeSaveData treeData) // Cek apakah data ini adalah data pohon
+            // Pastikan ini adalah data pohon
+            if (savedEntity.state is TreeSaveData treeData)
             {
+                // Dapatkan prefab yang benar berdasarkan NAMA dan TAHAP YANG TERSIMPAN.
                 GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(treeData.treeName, treeData.currentGrowthStage);
+
                 if (treePrefab != null)
                 {
+                    // Munculkan prefab yang benar (misal: prefab MaturePlant) di posisi yang tersimpan
                     GameObject newTree = Instantiate(treePrefab, treeData.position, Quaternion.identity);
+                    TreeBehavior treeBehavior = newTree.GetComponent<TreeBehavior>();
 
-                    // Kembalikan progresnya
-                    newTree.GetComponent<ISaveable>().RestoreState(treeData);
+                    // PENTING: Panggil RestoreState untuk memuat data lain seperti growthTimer, dll.
+                    // Ini akan memastikan semua data kembali seperti semula.
+                    treeBehavior.RestoreState(treeData);
 
-                    // Daftarkan ke daftar pohon aktif
-                    MainEnvironmentManager.Instance.pohonManager.allActiveTrees.Add(newTree.GetComponent<TreeBehavior>());
+                    // Daftarkan pohon yang sudah di-load ke daftar pohon aktif
+                    MainEnvironmentManager.Instance.pohonManager.allActiveTrees.Add(treeBehavior);
                 }
             }
         }
-
-        // Panggil fungsi Restore dari SaveDataManager untuk data komponen lain (jika ada)
-        SaveDataManager.Instance.RestoreAllSaveableStates(saveData);
     }
 }

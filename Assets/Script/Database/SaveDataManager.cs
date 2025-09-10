@@ -8,6 +8,15 @@ public class SaveDataManager : MonoBehaviour
     public static SaveDataManager Instance;
     private string saveFilePath;
 
+    private void OnEnable()
+    {
+        TimeManager.OnDayChanged += SaveGame;
+    }
+    private void OnDisable()
+    {
+        TimeManager.OnDayChanged -= SaveGame;
+    }
+
     private void Awake()
     {
         if (Instance != null) { Destroy(gameObject); return; }
@@ -19,6 +28,7 @@ public class SaveDataManager : MonoBehaviour
 
     public void SaveGame()
     {
+        Debug.Log("Menyimpan data ke: " + saveFilePath);
         GameSaveData saveData = new GameSaveData();
         CaptureAllSaveableStates(saveData);
         SaveToFile(saveData);
@@ -77,12 +87,12 @@ public class SaveDataManager : MonoBehaviour
                 continue;
             }
 
-            // Buat entri data baru dan tambahkan ke list
-            saveData.savedEntities.Add(new SaveableEntityData
-            {
-                id = uniqueID.ID,
-                state = saveable.CaptureState()
-            });
+                // Buat entri data baru dan tambahkan ke list
+                saveData.savedEntities.Add(new SaveableEntityData
+                {
+                    id = uniqueID.ID,
+                    state = saveable.CaptureState()
+                });
         }
     }
 

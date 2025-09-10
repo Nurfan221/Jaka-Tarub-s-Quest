@@ -10,7 +10,7 @@ public enum GrowthTree
     MaturePlant
 }
 
-public class TreeBehavior : MonoBehaviour
+public class TreeBehavior : MonoBehaviour, ISaveable
 {
     [Header("Statistik Pohon")]
     public float health = 100f;
@@ -52,7 +52,7 @@ public class TreeBehavior : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         plantsContainer = MainEnvironmentManager.Instance.pohonManager.transform;
-        OnTreeChoppedDown();
+        //OnTreeChoppedDown();
 
 
     }
@@ -260,25 +260,25 @@ public class TreeBehavior : MonoBehaviour
 
     // Contoh di dalam skrip TreeBehavior.cs atau sejenisnya
 
-    public void OnTreeChoppedDown()
-    {
-        // Panggil fungsi untuk mendapatkan "paket" data untuk tahap saat ini.
-        GrowthStageTrees stageData = DatabaseManager.Instance.GetGrowthStageData(this.namaPohon, this.currentStage);
+    //public void OnTreeChoppedDown()
+    //{
+    //    // Panggil fungsi untuk mendapatkan "paket" data untuk tahap saat ini.
+    //    GrowthStageTrees stageData = DatabaseManager.Instance.GetGrowthStageData(this.namaPohon, this.currentStage);
 
-        //  Lakukan pengecekan untuk memastikan data ditemukan.
-        if (stageData != null)
-        {
-            // Gunakan datanya. Anda sekarang bisa mengakses semua prefab dari "paket" tersebut.
-            tumbangSprite = stageData.batangPrefab;
-            akarPohonPrefab = stageData.AkarPrefab;
+    //    //  Lakukan pengecekan untuk memastikan data ditemukan.
+    //    if (stageData != null)
+    //    {
+    //        // Gunakan datanya. Anda sekarang bisa mengakses semua prefab dari "paket" tersebut.
+    //        tumbangSprite = stageData.batangPrefab;
+    //        akarPohonPrefab = stageData.AkarPrefab;
 
             
-        }
-        else
-        {
-            Debug.LogError("Gagal mendapatkan data tahap pertumbuhan untuk pohon ini!");
-        }
-    }
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Gagal mendapatkan data tahap pertumbuhan untuk pohon ini!");
+    //    }
+    //}
 
 
     private IEnumerator FellTree()

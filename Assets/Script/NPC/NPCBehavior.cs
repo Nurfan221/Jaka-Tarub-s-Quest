@@ -53,7 +53,7 @@ public class NPCBehavior : MonoBehaviour
         if (emoticonTransform != null)
         {
             // Jika berhasil ditemukan...
-            Debug.Log("Objek Emoticon berhasil ditemukan!", this.gameObject);
+            //Debug.Log("Objek Emoticon berhasil ditemukan!", this.gameObject);
             // Sembunyikan emoticon pada awalnya.
             emoticonTransform.gameObject.SetActive(false);
         }
