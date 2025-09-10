@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 549079658707127487}
   - component: {fileID: 7918664341146998191}
   - component: {fileID: 8624639361531654598}
+  - component: {fileID: -1160600338219792829}
   m_Layer: 8
   m_Name: Storage
   m_TagString: Untagged
@@ -48,14 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Buka Storage
-  Items:
-  - {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
-  - {fileID: 11400000, guid: 3af936a8fceaf694db4686a262caf9f4, type: 2}
-  - {fileID: 11400000, guid: 589ea5886ae3f3145993ad8d7af74bfb, type: 2}
-  - {fileID: 11400000, guid: fdbf063211273e240843e31a4465d4b2, type: 2}
-  - {fileID: 11400000, guid: 89e00e0c54b34164cb03b392d7714a78, type: 2}
-  - {fileID: 11400000, guid: 17879e46153e76142bc6005180323b56, type: 2}
-  - {fileID: 11400000, guid: 692483cde051eb24a98a89d414f63270, type: 2}
+  storage: []
   maxItem: 11
   Chest:
   - {fileID: 7581501900090389138, guid: 9ba25c85609e7444bbf3c70f8e783ccd, type: 3}
@@ -167,3 +161,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.92832375, y: 0.84452534}
   m_EdgeRadius: 0
+--- !u!114 &-1160600338219792829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454017072709228803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e118c337523d6174fa9eb81b8eb8eac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 8a5f110a-157c-463d-9be3-1b8202f53675

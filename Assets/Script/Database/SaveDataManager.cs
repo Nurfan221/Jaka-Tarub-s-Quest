@@ -91,6 +91,13 @@ public class SaveDataManager : MonoBehaviour
                     saveData.savedPlayerData.Add(playerData);
                     Debug.Log("Data pemain telah ditangkap untuk penyimpanan." + playerData.inventory.Count);
                 }
+            }else if (saveable is StorageInteractable storage)
+            {
+                if (storage.CaptureState() is StorageSaveData storageData)
+                {
+                    storageData.id = storage.GetComponent<UniqueID>().ID;
+                    saveData.savedStorages.Add(storageData);
+                }
             }
             // Tambahkan 'else if' lain untuk Chest, Bunga, dll. di masa depan.
         }

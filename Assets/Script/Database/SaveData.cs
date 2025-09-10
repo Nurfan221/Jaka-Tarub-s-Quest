@@ -8,7 +8,7 @@ public class TreeSaveData
 {
     public string id; // Kita pindahkan ID ke sini agar lebih rapi
     public string treeName;
-    public Vector3 position;
+    public Vector2 position;
     public GrowthTree currentGrowthStage;
     public float growthTimer;
     public bool isRubuh;
@@ -40,6 +40,14 @@ public class PlayerSaveData
     public bool itemUse1;
 }
 
+[System.Serializable]
+public class StorageSaveData
+{
+    public string id; // ID unik dari peti ini
+    public Vector2 storagePosition;
+    public List<ItemData> itemsInStorage; // Daftar item di dalamnya
+}
+
 // Anda bisa menambahkan class data save lain di file yang sama untuk kerapian
 // [System.Serializable]
 // public class ChestSaveData 
@@ -55,6 +63,7 @@ public class GameSaveData
     // Wadah utama kita sekarang adalah sebuah LIST, bukan Dictionary
     public List<TreeSaveData> savedTrees = new List<TreeSaveData>();
     public List<PlayerSaveData> savedPlayerData = new List<PlayerSaveData>();
+    public List<StorageSaveData> savedStorages = new List<StorageSaveData>();
 }
 
 [System.Serializable]

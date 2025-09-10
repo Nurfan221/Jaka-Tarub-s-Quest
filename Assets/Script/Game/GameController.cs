@@ -71,6 +71,12 @@ public class GameController : MonoBehaviour
                 Debug.Log("GameController: Membangun dunia dari file save...");
                 BuildWorldFromSave(saveData.savedTrees);
             }
+
+            if(saveData.savedStorages != null && saveData.savedStorages.Count > 0)
+            {
+                Debug.Log("GameController: Membangun Storage dari file save");
+                RestoreAllStorages(saveData.savedStorages);
+            }    
         }
         else
         {
@@ -132,6 +138,44 @@ public class GameController : MonoBehaviour
         {
             Debug.LogError("Gagal me-restore data: PlayerController tidak ditemukan di scene!");
         }
+    }
+
+    public void RestoreAllStorages(List<StorageSaveData> savedStorages)
+    {
+        // Hapus semua storage lama dari daftar aktif SEBELUM memuat yang baru.
+        // Ini penting agar tidak ada data ganda jika fungsi ini dipanggil lebih dari sekali.
+        if (StorageSystem.Instance != null)
+        {
+            StorageSystem.Instance.storages.Clear();
+            Debug.Log("Daftar storage lama di StorageSystem telah dibersihkan.");
+        }
+
+        Debug.Log($"Memulai proses restore untuk {savedStorages.Count} storage...");
+
+        // Loop melalui setiap data storage yang ada di file save
+        foreach (StorageSaveData storageData in savedStorages)
+        {
+            //    (Diasumsikan Anda punya satu prefab generik untuk semua peti)
+            GameObject storagePrefab = DatabaseManager.Instance.storageWorldPrefab;
+
+            if (storagePrefab != null)
+            {
+                //    Pastikan di StorageSaveData Anda ada variabel Vector3 position.
+                Vector3 spawnPosition = storageData.storagePosition;
+
+                // Buat objek storage baru di posisi yang benar.
+                GameObject newStorageGO = Instantiate(storagePrefab, spawnPosition, Quaternion.identity);
+                StorageInteractable storageInteractable = newStorageGO.GetComponent<StorageInteractable>();
+
+                if (storageInteractable != null)
+                {
+                    storageInteractable.RestoreState(storageData);
+
+                    StorageSystem.Instance.storages.Add(storageInteractable);
+                }
+            }
+        }
+        Debug.Log("Restore semua storage selesai.");
     }
 
     private void PlayCurrentSceneBGM()
@@ -200,7 +244,7 @@ public class GameController : MonoBehaviour
     {
         gamePaused = true;
         Time.timeScale = 0;
-       //player_Movement.movement = Vector2.zero;
+        //player_Movement.movement = Vector2.zero;
     }
 
     public void ResumeGame()
@@ -221,7 +265,7 @@ public class GameController : MonoBehaviour
     }
 
     [ContextMenu("Load Game")]
-    
+
 
     public void GoToMainMenu()
     {

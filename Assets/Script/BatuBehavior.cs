@@ -6,9 +6,9 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
+
 public class StoneBehavior : MonoBehaviour
 {
-    [SerializeField] TimeManager timeManager;
     [Serializable]
     public class ItemDropMine
     {
@@ -22,6 +22,7 @@ public class StoneBehavior : MonoBehaviour
     public ItemDropMine itemDropMines;
     //Animation idle 
     public string nameStone;
+    public TypeStone stoneType;
     public Sprite[] stoneAnimation;
     public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
 

@@ -7,9 +7,9 @@ public class StorageSystem : MonoBehaviour
 
     
     public static StorageSystem Instance { get; private set; }
-    public StorageUI StorageUI { get; private set; }
+    //public StorageUI StorageUI { get; private set; }
 
-    public List<StorageInteractable> storages;
+    public List<StorageInteractable> storages = new List<StorageInteractable>();
 
     private void Awake()
     {
@@ -24,37 +24,18 @@ public class StorageSystem : MonoBehaviour
         }
     }
 
-    public List<StorageInteractable> GetStorages()
+
+    private void Start()
     {
-        return storages;
     }
 
-    public void RegisterStorage(StorageUI storage)
+    [ContextMenu("Kosongkan Daftar Storage (Clear List)")]
+    public void ClearStoragesList()
     {
-        this.StorageUI = storage;
-        Debug.Log($"StorageController: Paket Storage '{storage.gameObject.name}' telah terdaftar.");
-    }
-
-    // Fungsi Unregister juga diubah
-    public void UnregisterStorage(StorageUI storage)
-    {
-        if (this.StorageUI == storage)
+        if (storages != null)
         {
-            this.StorageUI = null;
-        }
-    }
-
-    public void OpenStorage(StorageInteractable storageToOpen)
-    {
-        // Cek apakah StorageUI sudah siap
-        if (StorageUI != null)
-        {
-            // Perintahkan StorageUI untuk membuka dan menampilkan isi dari peti yang diklik.
-            StorageUI.OpenStorage(storageToOpen);
-        }
-        else
-        {
-            Debug.LogError("StorageUI.Instance tidak ditemukan!");
+            storages.Clear(); // Perintah ini akan menghapus semua isi dari list.
+            Debug.Log("List 'storages' telah dikosongkan secara manual.");
         }
     }
 }

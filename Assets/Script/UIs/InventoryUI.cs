@@ -136,7 +136,7 @@ public class InventoryUI : MonoBehaviour
         }
 
         spriteImageTemplate = DatabaseManager.Instance.GetSpriteTempalte("HealthItemUI");
-        UpdateSixItemDisplay();
+
         CloseInventory();
 
     }

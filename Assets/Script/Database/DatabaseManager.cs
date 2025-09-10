@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 [System.Serializable]
 public class Recipe
 {
@@ -66,6 +67,50 @@ public class TreePlacementData
     // Anda bisa tambahkan variabel lain jika perlu, misal: float initialGrowthTimer;
 }
 
+[System.Serializable]
+public class TemplateStoneObject
+{
+    public string nameStone;
+    public TypeStone typeStone;
+    public EnvironmentHardnessLevel hardnessLevel;
+    public GameObject stoneObject;
+    public ItemData[] hasilTambang;
+}
+[Serializable]
+public class ResourceData
+{
+    public string nameResource;
+    public TypeStone typeStone;
+    public Resource[] resources;
+}
+
+[Serializable]
+public class Resource
+{
+    public GameObject resourceObject;
+    public Vector2 location;
+    public bool isHarvested;
+}
+
+public enum TypeStone
+{
+    None,
+    Stone,
+    Copper,
+    Iron,
+    Gold
+}
+
+public enum EnvironmentHardnessLevel
+{
+    Soft = 1,     // misalnya tanah liat
+    Medium = 2,   // misalnya batu biasa
+    Hard = 3,     // misalnya besi
+    VeryHard = 4, // misalnya emas
+    Extreme = 5   // misalnya berlian
+}
+
+
 public class DatabaseManager : MonoBehaviour
 {
     public static DatabaseManager Instance { get; private set; }
@@ -77,8 +122,13 @@ public class DatabaseManager : MonoBehaviour
     public SpriteDatabaseSO spriteDatabase;
     public GrowthTreesDatabase templateTreesObject;
     public WorldTreeDatabaseSO worldTreeDatabase;
+    public WorldStoneDatabaseSO worldStoneDatabase;
     public GameObject itemWorldPrefab; // Prefab untuk item di dunia
     public GameObject plantWorldPrefab; // Prefab untuk tanaman di dunia
+    public GameObject storageWorldPrefab;
+
+
+
 
     private void Awake()
     {
