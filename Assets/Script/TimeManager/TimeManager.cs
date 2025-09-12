@@ -109,7 +109,6 @@ public class TimeManager : MonoBehaviour
                 UpdateSeason();
             }
             AdvanceAllTreeGrowth(); // Memanggil logika pertumbuhan pohon
-            OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
         }
 
         OnTimeChanged?.Invoke();
@@ -135,6 +134,8 @@ public class TimeManager : MonoBehaviour
 
         // Debug jumlah listener yang terdaftar
         //Debug.Log($"Jumlah pohon yang menerima event: {registeredTrees.Count}");
+        OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
+
 
     }
 

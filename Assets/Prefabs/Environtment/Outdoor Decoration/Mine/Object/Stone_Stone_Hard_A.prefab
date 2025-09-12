@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7057871296556573875}
   - component: {fileID: 648529286410309539}
   m_Layer: 0
-  m_Name: BatuPrefab 1
+  m_Name: Stone_Stone_Hard_A
   m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 3550236991686688401, guid: 909521df1f0797a47a3c7b85a867afa5, type: 3}
+  m_Sprite: {fileID: 8634735989486108777, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,25 +101,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ab928ba216bc542909e8f87657c559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeManager: {fileID: 0}
   itemDropMines:
-    namaStone: Batu Kecil
+    namaStone: Batu Sedang
     hasilTambang:
-    - {fileID: 7562009284141931606, guid: d4cee6a55e1fb82438aa6521e6a8e45c, type: 3}
-    minHasil: 0
-    maxHasil: 1
-  nameStone: Batu Kecil
+    - itemName: 
+      count: 0
+      quality: 0
+      itemHealth: 0
+    - itemName: 
+      count: 0
+      quality: 0
+      itemHealth: 0
+    minHasil: 2
+    maxHasil: 3
+  nameStone: Batu Sedang
+  stoneType: 1
+  environmentHardnessLevel: 3
   stoneAnimation:
-  - {fileID: 3550236991686688401, guid: 909521df1f0797a47a3c7b85a867afa5, type: 3}
-  - {fileID: 2065842287636336265, guid: 909521df1f0797a47a3c7b85a867afa5, type: 3}
-  - {fileID: -5511812605847060224, guid: 909521df1f0797a47a3c7b85a867afa5, type: 3}
-  - {fileID: 2423963003259021196, guid: 909521df1f0797a47a3c7b85a867afa5, type: 3}
-  - {fileID: 430001368851919618, guid: 909521df1f0797a47a3c7b85a867afa5, type: 3}
-  - {fileID: -7649184553541388565, guid: 909521df1f0797a47a3c7b85a867afa5, type: 3}
-  - {fileID: 2765974265576989265, guid: 909521df1f0797a47a3c7b85a867afa5, type: 3}
-  - {fileID: 7349401641330790506, guid: 909521df1f0797a47a3c7b85a867afa5, type: 3}
+  - {fileID: 8634735989486108777, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: -1285751726934154449, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: 8394446161846293014, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: -7548031542147728232, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: 6161726829266164557, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: -1566700280, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: 788949051, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  - {fileID: -86480837, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
   frameRate: 0.1
-  health: 50
+  health: 100
   dayLuck: 0
   isLucky: 0
 --- !u!61 &648529286410309539
@@ -156,7 +164,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.025184631, y: -0.036872864}
+  m_Offset: {x: 0.022711754, y: 0.031964123}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -166,5 +174,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5031891, y: 0.39461136}
+  m_Size: {x: 0.8406594, y: 0.8349701}
   m_EdgeRadius: 0

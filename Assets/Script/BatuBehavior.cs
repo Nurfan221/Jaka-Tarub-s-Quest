@@ -9,25 +9,19 @@ using UnityEngine;
 
 public class StoneBehavior : MonoBehaviour
 {
-    [Serializable]
-    public class ItemDropMine
-    {
-        public string namaStone;
-        public ItemData[] hasilTambang;
-        public int minHasil;
-        public int maxHasil;
-        
-    }
 
-    public ItemDropMine itemDropMines;
+    public ItemData[] itemDropMines; // Array hasil tambang yang mungkin dijatuhkan
     //Animation idle 
     public string nameStone;
     public TypeStone stoneType;
+    public EnvironmentHardnessLevel environmentHardnessLevel;
     public Sprite[] stoneAnimation;
     public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
 
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
     private int currentFrame = 0; // Indeks frame saat ini
+    public int minHasil;
+    public int maxHasil;
 
     public float health; // Kesehatan batu
     public float dayLuck;
@@ -41,6 +35,13 @@ public class StoneBehavior : MonoBehaviour
         StartCoroutine(PlayStoneAnimation()); // Mulai animasi
         
     }
+
+    public void PushHasilTambang()
+    {
+        itemDropMines = null; // kosongkan dulu
+        itemDropMines = DatabaseManager.Instance.GetHasilTambang(stoneType, environmentHardnessLevel);
+    }
+
     private IEnumerator PlayStoneAnimation()
     {
         while (true) // Loop tanpa batas (animasi berulang)
@@ -69,9 +70,9 @@ public class StoneBehavior : MonoBehaviour
     {
         Debug.Log("Batu dihancurkan!");
 
-        if (itemDropMines.hasilTambang.Length > 0)  // Pastikan array hasil tambang tidak kosong
+        if (itemDropMines.Length > 0)  // Pastikan array hasil tambang tidak kosong
         {
-            int countHasilTambang = itemDropMines.hasilTambang.Length;
+            int countHasilTambang = itemDropMines.Length;
 
             // Menentukan persentase berdasarkan dayLuck
             float percentage = 0.3f; // default 30%
@@ -79,7 +80,7 @@ public class StoneBehavior : MonoBehaviour
             else if (dayLuck == 3) percentage = 0.7f;
 
             // Tentukan jumlah hasil tambang yang akan dimunculkan (min dan max)
-            int randomCount = UnityEngine.Random.Range(itemDropMines.minHasil, itemDropMines.maxHasil + 1);
+            int randomCount = UnityEngine.Random.Range(minHasil, maxHasil + 1);
 
             // Pilih hasil tambang berdasarkan dayLuck
             List<ItemData> results = new List<ItemData>();  // Menyimpan hasil tambang yang dipilih
@@ -127,7 +128,7 @@ public class StoneBehavior : MonoBehaviour
                 }
 
                 // Tambahkan hasil tambang yang dipilih ke list hasil
-                results.Add(itemDropMines.hasilTambang[index]);
+                results.Add(itemDropMines[index]);
             }
 
             // Menampilkan hasil yang dipilih (untuk debug)

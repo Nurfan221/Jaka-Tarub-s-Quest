@@ -13,627 +13,819 @@ MonoBehaviour:
   m_Name: WorldStoneDatabaseSO
   m_EditorClassIdentifier: 
   stoneBehaviors:
-  - nameResource: None
-    typeStone: 0
+  - nameResource: Stone
+    typeStone: 1
     resources:
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 57.895115, y: 35.672348}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 109.778046, y: 52.019783}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 72.7775, y: 29.304167}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 90.298035, y: 36.90049}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 67.87664, y: 38.738308}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 88.2, y: 63.1}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 90.543076, y: 55.401207}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 54.889374, y: 29.181644}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -9.28444, y: -18.562807}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -12.425191, y: -12.821525}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -18.14, y: 2.25}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 2.77, y: 9.09}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 7.43, y: 5.49}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 5.15444, y: 8.442808}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 0.9554939, y: 2.5101023}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 3.041422, y: -0.30725527}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 6.0754986, y: 1.1285133}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 4.78, y: 4.72}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 0.49444008, y: 12.042809}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -3.704506, y: 6.1101027}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -1.618578, y: 3.292745}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 1.4154987, y: 4.7285137}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 1.2536888, y: 6.191373}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -22.338945, y: -3.6827059}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -14.68, y: -12.2}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -13.779693, y: -17.18301}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -13.941503, y: -15.720152}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -11.56, y: -15.61}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -19.198195, y: -9.423988}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -17.112267, y: -12.241346}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -10.63894, y: -22.924294}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -10.800752, y: -21.461433}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -30.045502, y: -12.778513}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -32.32106, y: -9.825705}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -36.520004, y: -15.75841}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -34.43408, y: -18.575768}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -31.4, y: -17.14}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -27.37, y: -24.01}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -17.041424, y: -17.492744}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -19.316982, y: -14.539937}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -23.515928, y: -20.472643}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -21.43, y: -23.29}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -3.8544407, y: -22.15281}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -6.13, y: -19.2}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -13.28, y: -31.02}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 87.67556, y: 7.5471916}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 85.4, y: 10.5}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 99.64, y: 14.22}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 35.9282, y: 40.98127}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 36.09001, y: 39.518414}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 33.05593, y: 38.08264}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 30.97, y: 40.9}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -2.411419, y: 35.097256}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -4.6869774, y: 38.050068}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -8.885931, y: 32.11736}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -6.8, y: 29.3}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -34.72773, y: 27.698627}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -34.565918, y: 26.235771}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -37.6, y: 24.8}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -72.78369, y: -43.90137}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -75.05925, y: -40.94856}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -79.2582, y: -46.881268}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -77.17227, y: -49.698627}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -74.13819, y: -48.262856}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -74.3, y: -46.8}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -39.68593, y: 27.61736}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -35.486977, y: 33.550068}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -33.21142, y: 30.597256}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -3.7659187, y: 30.735771}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -3.9277306, y: 32.198627}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 35.168953, y: 46.83271}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 37.44451, y: 43.879898}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 99.80181, y: 12.757141}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 96.76773, y: 11.321371}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 94.6818, y: 14.13873}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 98.88075, y: 20.071436}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 101.15631, y: 17.118628}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 81.20105, y: 4.567294}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 83.28698, y: 1.7499352}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 86.32106, y: 3.1857052}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 86.15925, y: 4.6485643}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -15.555559, y: -28.067192}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -19.754505, y: -33.9999}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -17.668577, y: -36.817257}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -14.6345, y: -35.38149}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -14.79631, y: -33.91863}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -10.328946, y: -25.132706}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -8.243018, y: -27.950066}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -5.2089405, y: -26.514296}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -5.3707514, y: -25.051437}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -18.395924, y: -21.854233}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -18.557734, y: -20.391373}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -29.645561, y: -21.057194}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -33.844505, y: -26.989899}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -31.75858, y: -29.807257}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -28.7245, y: -28.371487}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -28.88631, y: -26.908628}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -31.561811, y: -15.67714}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -12.374295, y: -19.317226}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -45.08, y: -23.01}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -69.69, y: -21.23}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -64.19, y: -2.29}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 10.07, y: -2.88}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 30.45, y: 5.49}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 59.46, y: -28.85}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 43.48, y: -31.64}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 49.15, y: 3.46}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 61.25, y: -13.38}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 4.6, y: -39.6}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 23.86, y: -41.47}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 2.63, y: -14.68}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 5.75, y: 12.83}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 23.34, y: 14.57}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 82.3, y: 16.31}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 73.02, y: 36.26}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 45.01, y: 38.3}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -0.43, y: 51.17}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -22.74, y: 51.41}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -65.41, y: 35.86}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: -39.09, y: -7.35}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 36.031677, y: -11.089676}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 32.85589, y: -13.901649}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 31.033968, y: -5.9790406}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 29.722725, y: -3.218552}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 36.982822, y: -4.9438577}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 48.380135, y: -8.9823885}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 51.768642, y: -6.1959267}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 63.688507, y: -9.429592}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 56.63635, y: -13.609279}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 42.20515, y: -29.812042}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 89.86, y: -25.78}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 87.73416, y: -24.374775}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 92.73098, y: -29.137661}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 104.31022, y: -30.290005}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 100.35136, y: -30.605968}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 101.55947, y: -26.9073}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 110.12773, y: -25.959394}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 108.67801, y: -24.230875}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 110.30196, y: -28.94521}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 93.6, y: -34.35}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 88.95, y: -39.87}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 83.940384, y: -40.955524}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 91.82, y: -41.02}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 82.65454, y: -44.596092}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 84.748886, y: -43.130054}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 67.392586, y: -40.216263}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 70.820335, y: -41.414707}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 78.3101, y: -41.818}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 76.716125, y: -39.551865}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 71.377266, y: -39.897545}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 63.983513, y: -42.125275}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 77.71, y: -45.01}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 70.39783, y: -44.25696}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 90.19345, y: -35.02042}
+      isHarvested: 0
+    - stoneID: 
+      location: {x: 92.8398, y: -39.243797}
       isHarvested: 0
   - nameResource: Iron
     typeStone: 3
     resources:
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 36.80227, y: 28.479702}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -8.91, y: -9.07}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -72.7, y: 44.60375}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -77.21001, y: -28.036251}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -59.989174, y: -50.9871}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -77.29303, y: -43.220028}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 2.119522, y: 34.57538}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 56.03724, y: 25.098278}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 38.733383, y: 32.86535}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -55.47917, y: 21.6529}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -72.78303, y: 29.419971}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -51.3, y: -10.7}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -59.9, y: -36.9}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -53.3, y: -44.86}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -29.53865, y: 50.306187}
       isHarvested: 0
   - nameResource: Gold
     typeStone: 4
     resources:
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 46.80167, y: 46.323845}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -41.300594, y: 7.144145}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 29.649109, y: 30.823593}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 95.443054, y: 57.53324}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -70.5, y: 35.7}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -51, y: -52.9}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 102.8, y: 18.3}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 10.414139, y: 34.205017}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -68.7, y: 67.7}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 10.5, y: 55}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 76.208084, y: 60.914665}
-      isHarvested: 0
-  - nameResource: Stone
-    typeStone: 1
-    resources:
-    - resourceObject: {fileID: 0}
-      location: {x: 109.778046, y: 52.019783}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 72.7775, y: 29.304167}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 90.298035, y: 36.90049}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 67.87664, y: 38.738308}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 88.2, y: 63.1}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 90.543076, y: 55.401207}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 54.889374, y: 29.181644}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -9.28444, y: -18.562807}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -12.425191, y: -12.821525}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -18.14, y: 2.25}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 2.77, y: 9.09}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 7.43, y: 5.49}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 5.15444, y: 8.442808}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 0.9554939, y: 2.5101023}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 3.041422, y: -0.30725527}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 6.0754986, y: 1.1285133}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 4.78, y: 4.72}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 0.49444008, y: 12.042809}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -3.704506, y: 6.1101027}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -1.618578, y: 3.292745}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 1.4154987, y: 4.7285137}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 1.2536888, y: 6.191373}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -22.338945, y: -3.6827059}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -14.68, y: -12.2}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -13.779693, y: -17.18301}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -13.941503, y: -15.720152}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -11.56, y: -15.61}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -19.198195, y: -9.423988}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -17.112267, y: -12.241346}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -10.63894, y: -22.924294}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -10.800752, y: -21.461433}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -30.045502, y: -12.778513}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -32.32106, y: -9.825705}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -36.520004, y: -15.75841}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -34.43408, y: -18.575768}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -31.4, y: -17.14}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -27.37, y: -24.01}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -17.041424, y: -17.492744}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -19.316982, y: -14.539937}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -23.515928, y: -20.472643}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -21.43, y: -23.29}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -3.8544407, y: -22.15281}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -6.13, y: -19.2}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -13.28, y: -31.02}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 87.67556, y: 7.5471916}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 85.4, y: 10.5}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 99.64, y: 14.22}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 35.9282, y: 40.98127}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 36.09001, y: 39.518414}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 33.05593, y: 38.08264}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 30.97, y: 40.9}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -2.411419, y: 35.097256}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -4.6869774, y: 38.050068}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -8.885931, y: 32.11736}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -6.8, y: 29.3}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -34.72773, y: 27.698627}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -34.565918, y: 26.235771}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -37.6, y: 24.8}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -72.78369, y: -43.90137}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -75.05925, y: -40.94856}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -79.2582, y: -46.881268}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -77.17227, y: -49.698627}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -74.13819, y: -48.262856}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -74.3, y: -46.8}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -39.68593, y: 27.61736}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -35.486977, y: 33.550068}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -33.21142, y: 30.597256}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -3.7659187, y: 30.735771}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -3.9277306, y: 32.198627}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 35.168953, y: 46.83271}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 37.44451, y: 43.879898}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 99.80181, y: 12.757141}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 96.76773, y: 11.321371}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 94.6818, y: 14.13873}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 98.88075, y: 20.071436}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 101.15631, y: 17.118628}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 81.20105, y: 4.567294}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 83.28698, y: 1.7499352}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 86.32106, y: 3.1857052}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 86.15925, y: 4.6485643}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -15.555559, y: -28.067192}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -19.754505, y: -33.9999}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -17.668577, y: -36.817257}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -14.6345, y: -35.38149}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -14.79631, y: -33.91863}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -10.328946, y: -25.132706}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -8.243018, y: -27.950066}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -5.2089405, y: -26.514296}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -5.3707514, y: -25.051437}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -18.395924, y: -21.854233}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -18.557734, y: -20.391373}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -29.645561, y: -21.057194}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -33.844505, y: -26.989899}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -31.75858, y: -29.807257}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -28.7245, y: -28.371487}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -28.88631, y: -26.908628}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -31.561811, y: -15.67714}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -12.374295, y: -19.317226}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -45.08, y: -23.01}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -69.69, y: -21.23}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -64.19, y: -2.29}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 10.07, y: -2.88}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 30.45, y: 5.49}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 59.46, y: -28.85}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 43.48, y: -31.64}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 49.15, y: 3.46}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 61.25, y: -13.38}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 4.6, y: -39.6}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 23.86, y: -41.47}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 2.63, y: -14.68}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 5.75, y: 12.83}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 23.34, y: 14.57}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 82.3, y: 16.31}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 73.02, y: 36.26}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 45.01, y: 38.3}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -0.43, y: 51.17}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -22.74, y: 51.41}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -65.41, y: 35.86}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: -39.09, y: -7.35}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 36.031677, y: -11.089676}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 32.85589, y: -13.901649}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 31.033968, y: -5.9790406}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 29.722725, y: -3.218552}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 36.982822, y: -4.9438577}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 48.380135, y: -8.9823885}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 51.768642, y: -6.1959267}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 63.688507, y: -9.429592}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 56.63635, y: -13.609279}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 42.20515, y: -29.812042}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 89.86, y: -25.78}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 87.73416, y: -24.374775}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 92.73098, y: -29.137661}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 104.31022, y: -30.290005}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 100.35136, y: -30.605968}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 101.55947, y: -26.9073}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 110.12773, y: -25.959394}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 108.67801, y: -24.230875}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 110.30196, y: -28.94521}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 93.6, y: -34.35}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 88.95, y: -39.87}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 83.940384, y: -40.955524}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 91.82, y: -41.02}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 82.65454, y: -44.596092}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 84.748886, y: -43.130054}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 67.392586, y: -40.216263}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 70.820335, y: -41.414707}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 78.3101, y: -41.818}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 76.716125, y: -39.551865}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 71.377266, y: -39.897545}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 63.983513, y: -42.125275}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 77.71, y: -45.01}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 70.39783, y: -44.25696}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 90.19345, y: -35.02042}
-      isHarvested: 0
-    - resourceObject: {fileID: 0}
-      location: {x: 92.8398, y: -39.243797}
       isHarvested: 0
   - nameResource: Copper
     typeStone: 2
     resources:
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 42.529095, y: 57.873356}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 35.144928, y: 47.56099}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 78.49585, y: 41.78353}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -9.087021, y: 55.586037}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -70.600555, y: 59.49855}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -63.536278, y: 26.242115}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -42.23477, y: 55.259987}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -2.4574661, y: 26.133434}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -37.4528, y: 24.285852}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -63.62242, y: -1.7047272}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -62.556446, y: -34.03945}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -52.962624, y: -43.277943}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 22.36662, y: -43.751713}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 40.206974, y: -48.044647}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 101.38, y: -37.14}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 65.08516, y: -37.64778}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 104.81601, y: -11.284322}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 71.27378, y: -10.17037}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 87.85924, y: 10.870889}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: 51.08036, y: 12.990486}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -50.69, y: -4.55}
       isHarvested: 0
-    - resourceObject: {fileID: 0}
+    - stoneID: 
       location: {x: -40.8943, y: 6.697253}
       isHarvested: 0
+  templateStoneObject:
+  - stoneID: Stone_Stone_Soft_A
+    typeStone: 1
+    hardnessLevel: 1
+    healthStone: 20
+    stoneObject: {fileID: 7562009284141931606, guid: a442f0971df64334e91b8d8921c86ce4, type: 3}
+    hasilTambang:
+    - itemName: Batu
+      count: 1
+      quality: 0
+      itemHealth: 0
+  - stoneID: Stone_Stone_Soft_B
+    typeStone: 1
+    hardnessLevel: 1
+    healthStone: 20
+    stoneObject: {fileID: 7562009284141931606, guid: 95c78f4b12bedc140a3192047f83c5e9, type: 3}
+    hasilTambang:
+    - itemName: Batu
+      count: 1
+      quality: 0
+      itemHealth: 0
+  - stoneID: Stone_Stone_Medium_A
+    typeStone: 1
+    hardnessLevel: 2
+    healthStone: 40
+    stoneObject: {fileID: 7562009284141931606, guid: 0f29eb5bc7b86cc41abe435c8ee3b27c, type: 3}
+    hasilTambang:
+    - itemName: Batu
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: Coal
+      count: 1
+      quality: 0
+      itemHealth: 0
+  - stoneID: Stone_Stone_Medium_B
+    typeStone: 1
+    hardnessLevel: 2
+    healthStone: 40
+    stoneObject: {fileID: 7562009284141931606, guid: 2cd310ddecba59d419e12895ec546d8f, type: 3}
+    hasilTambang:
+    - itemName: Batu
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: Coal
+      count: 1
+      quality: 0
+      itemHealth: 0
+  - stoneID: Stone_Stone_Medium_C
+    typeStone: 1
+    hardnessLevel: 2
+    healthStone: 40
+    stoneObject: {fileID: 7562009284141931606, guid: d05580c193bb5f54a94e2da48c5904b7, type: 3}
+    hasilTambang:
+    - itemName: Batu
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: Coal
+      count: 1
+      quality: 0
+      itemHealth: 0
+  - stoneID: Stone_Stone_Hard_A
+    typeStone: 1
+    hardnessLevel: 3
+    healthStone: 80
+    stoneObject: {fileID: 7562009284141931606, guid: 57157725d11060949a25bd746a72203f, type: 3}
+    hasilTambang:
+    - itemName: Batu
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: Coal
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: CopperOre
+      count: 1
+      quality: 0
+      itemHealth: 0
+  - stoneID: Stone_Stone_VerryHard_A
+    typeStone: 1
+    hardnessLevel: 4
+    healthStone: 160
+    stoneObject: {fileID: 7562009284141931606, guid: 984c0daf19d17374c808cf90b832a263, type: 3}
+    hasilTambang:
+    - itemName: Batu
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: Coal
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: CopperOre
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: IronOre
+      count: 1
+      quality: 0
+      itemHealth: 0
+  - stoneID: Stone_Stone_Extreme_A
+    typeStone: 1
+    hardnessLevel: 5
+    healthStone: 320
+    stoneObject: {fileID: 7562009284141931606, guid: 879bf215b27638e4ca46a8361e35fb93, type: 3}
+    hasilTambang:
+    - itemName: Batu
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: Coal
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: CopperOre
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: IronOre
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: GoldOre
+      count: 1
+      quality: 0
+      itemHealth: 0
+  - stoneID: Copper_Copper_Hard_A
+    typeStone: 2
+    hardnessLevel: 3
+    healthStone: 80
+    stoneObject: {fileID: 7562009284141931606, guid: 879bf215b27638e4ca46a8361e35fb93, type: 3}
+    hasilTambang:
+    - itemName: Batu
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: Coal
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: CopperOre
+      count: 1
+      quality: 0
+      itemHealth: 0
+  - stoneID: Iron_Iron_VeryHard_A
+    typeStone: 3
+    hardnessLevel: 4
+    healthStone: 160
+    stoneObject: {fileID: 7562009284141931606, guid: 879bf215b27638e4ca46a8361e35fb93, type: 3}
+    hasilTambang:
+    - itemName: Batu
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: Coal
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: CopperOre
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: IronOre
+      count: 1
+      quality: 0
+      itemHealth: 0
+  - stoneID: Gold_Gold_Extrene_A
+    typeStone: 4
+    hardnessLevel: 5
+    healthStone: 320
+    stoneObject: {fileID: 7562009284141931606, guid: 879bf215b27638e4ca46a8361e35fb93, type: 3}
+    hasilTambang:
+    - itemName: Batu
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: Coal
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: CopperOre
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: IronOre
+      count: 1
+      quality: 0
+      itemHealth: 0
+    - itemName: GoldOre
+      count: 1
+      quality: 0
+      itemHealth: 0

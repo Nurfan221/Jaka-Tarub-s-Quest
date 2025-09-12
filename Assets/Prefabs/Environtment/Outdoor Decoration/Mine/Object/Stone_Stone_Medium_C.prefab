@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7057871296556573875}
   - component: {fileID: 648529286410309539}
   m_Layer: 0
-  m_Name: BatuPrefab 4
+  m_Name: Stone_Stone_Medium_C
   m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,14 +101,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ab928ba216bc542909e8f87657c559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeManager: {fileID: 0}
   itemDropMines:
     namaStone: Batu Kecil
     hasilTambang:
-    - {fileID: 7562009284141931606, guid: d4cee6a55e1fb82438aa6521e6a8e45c, type: 3}
+    - itemName: 
+      count: 0
+      quality: 0
+      itemHealth: 0
     minHasil: 0
     maxHasil: 1
   nameStone: Batu Kecil
+  stoneType: 1
+  environmentHardnessLevel: 2
   stoneAnimation:
   - {fileID: 3999223160555860742, guid: 4dd3792eea6e0f441a02534e195ecbe0, type: 3}
   - {fileID: 378201519417443261, guid: 4dd3792eea6e0f441a02534e195ecbe0, type: 3}
@@ -156,7 +160,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.020332336, y: -0.0037641525}
+  m_Offset: {x: -0.028966904, y: 0.026754856}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -166,5 +170,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5337677, y: 0.48639107}
+  m_Size: {x: 0.8201752, y: 0.7352371}
   m_EdgeRadius: 0

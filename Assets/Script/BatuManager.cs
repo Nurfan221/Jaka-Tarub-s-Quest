@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.Rendering;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -13,192 +14,106 @@ using UnityEditor;
 
 public class BatuManager : MonoBehaviour
 {
+    [Header("Referensi Database")]
+    public WorldStoneDatabaseSO stoneDatabase;
 
 
-    public List<ResourceData> minerResource;
-    [Header("Target Database (ScriptableObject)")]
-    public WorldStoneDatabaseSO worldStoneDatabase;
-    // Start is called before the first frame update
+    [Header("Pengaturan Spawning")]
+    [Tooltip("Daftar semua kemungkinan lokasi spawn batu.")]
+    public List<Transform> spawnPoints;
+
+    [Tooltip("Jumlah maksimal batu yang akan muncul dalam satu siklus.")]
+    public int maxStonesToSpawn = 30;
+
+    private void Start()
+    {
+        stoneDatabase = DatabaseManager.Instance.worldStoneDatabase;
+    }
 
     private void OnEnable()
     {
-        TimeManager.OnDayChanged += HandleNewDay;
+        TimeManager.OnDayChanged += NewDay;
     }
+
     private void OnDisable()
     {
-        TimeManager.OnDayChanged -= HandleNewDay;
-    }
-    void Start()
-    {
-        RegisterAllStones();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void HandleNewDay()
-    {
-        float dailyLuck = TimeManager.Instance.GetDayLuck();
-        CheckLocationResource();
-        UpdatePositionMiner(dailyLuck);
-
+        TimeManager.OnDayChanged += NewDay;
 
     }
-    public void CheckLocationResource()
+    // Fungsi utama yang dipanggil untuk memulai proses spawning
+    // Anda bisa memanggil ini dari GameManager setiap pagi, misalnya.
+
+    public void NewDay()
     {
-        foreach (var item in minerResource)
+        float luck = TimeManager.Instance.GetDayLuck();
+        SpawnStonesBasedOnLuck(luck);
+    }
+    public void SpawnStonesBasedOnLuck(float playerLuck)
+    {
+        Debug.Log("hari yang baru ayoo kita munculkan batu");
+        if (stoneDatabase == null || spawnPoints.Count == 0)
         {
-            foreach (var itemObject in item.resources)
-            {
-                if (itemObject.resourceObject != null)
-                {
-                    itemObject.location = (Vector2)itemObject.resourceObject.transform.position;
-
-                }
-            }
-        }
-    }
-
-
-    public void UpdatePositionMiner(float luckValue)
-    {
-        if (minerResource == null) return;
-
-        foreach (var itemObject in minerResource)
-        {
-            int totalItems = itemObject.resources.Length;
-
-            // Menentukan berapa persen item yang akan dimunculkan
-            float percentage = 0.3f; // default 30%
-            if (luckValue == 2) percentage = 0.5f;
-            else if (luckValue == 3) percentage = 0.7f;
-
-            // Hitung jumlah item yang ingin dimunculkan berdasarkan luck
-            int itemsToShow = Mathf.CeilToInt(totalItems * percentage);
-
-            // Buat list acak dari resource
-            List<Resource> shuffledList = new List<Resource>(itemObject.resources);
-            ShuffleList(shuffledList); // Kita acak urutannya
-
-
-            // Tampilkan hanya sejumlah itemToShow
-            for (int i = 0; i < shuffledList.Count; i++)
-            {
-                var item = shuffledList[i];
-                bool show = i < itemsToShow;
-                item.resourceObject.SetActive(show);
-
-                StoneBehavior stoneBehavior = item.resourceObject.GetComponent<StoneBehavior>();
-                stoneBehavior.dayLuck = luckValue;
-            }
-        }
-    }
-
-
-    private void ShuffleList<T>(List<T> list)
-    {
-        for (int i = 0; i < list.Count; i++)
-        {
-            int rnd = UnityEngine.Random.Range(i, list.Count);
-            T temp = list[i];
-            list[i] = list[rnd];
-            list[rnd] = temp;
-        }
-    }
-
-    public void RegisterAllStones()
-    {
-        // Bersihkan dulu supaya tidak dobel
-        minerResource.Clear();
-
-        // Cari semua StoneBehavior di child objek
-        StoneBehavior[] allStones = GetComponentsInChildren<StoneBehavior>(true);
-
-        // Buat dictionary sementara untuk grouping berdasarkan TypeStone
-        Dictionary<TypeStone, List<Resource>> groupedResources = new Dictionary<TypeStone, List<Resource>>();
-
-        foreach (var stone in allStones)
-        {
-            if (stone == null) continue;
-
-            // Buat Resource untuk setiap batu
-            Resource res = new Resource
-            {
-                resourceObject = stone.gameObject,
-                location = stone.transform.position,
-                isHarvested = false
-            };
-
-            // Tambahkan ke group sesuai typeStone
-            if (!groupedResources.ContainsKey(stone.stoneType))
-            {
-                groupedResources[stone.stoneType] = new List<Resource>();
-            }
-            groupedResources[stone.stoneType].Add(res);
-        }
-
-        // Konversi dictionary ke dalam minerResource
-        foreach (var kvp in groupedResources)
-        {
-            ResourceData data = new ResourceData
-            {
-                nameResource = kvp.Key.ToString(),
-                typeStone = kvp.Key,
-                resources = kvp.Value.ToArray()
-            };
-            minerResource.Add(data);
-        }
-
-        Debug.Log($"RegisterAllStones: {allStones.Length} StoneBehavior berhasil dimasukkan ke minerResource.");
-    }
-
-
-    [ContextMenu("Langkah 2: Pindahkan Data Stone ke Database SO")]
-    public void MigrateTreeDataToSO()
-    {
-        if (worldStoneDatabase == null)
-        {
-            Debug.LogError("[BatuManager] WorldStoneDatabaseSO belum di-assign di Inspector.");
+            Debug.LogError("Database atau Spawn Points belum di-set di StoneManager!");
             return;
         }
 
-        if (minerResource == null)
+        List<TemplateStoneObject> eligibleStones = GetEligibleStones(playerLuck);
+
+        if (eligibleStones.Count == 0)
         {
-            Debug.LogWarning("[BatuManager] minerResource null. Tidak ada yang dipindahkan.");
+            Debug.LogWarning("Tidak ada batu yang memenuhi syarat untuk spawn dengan luck: " + playerLuck);
             return;
         }
 
-        // Pastikan list di SO siap dipakai
-        if (worldStoneDatabase.stoneBehaviors == null)
-            worldStoneDatabase.stoneBehaviors = new List<ResourceData>();
+        // Gunakan lokasi spawn yang tersedia untuk siklus ini
+        List<Transform> availableSpawnPoints = new List<Transform>(spawnPoints);
 
-        // Hapus isi lama agar hasil migrasi bersih/terkini
-        worldStoneDatabase.stoneBehaviors.Clear();
+        // Jumlah batu yang akan di-spawn adalah nilai terkecil dari:
+        // maxStones, jumlah batu yang valid, atau jumlah lokasi yang ada.
+        int amountToSpawn = Mathf.Min(maxStonesToSpawn, eligibleStones.Count, availableSpawnPoints.Count);
 
-        // Copy data (shallow copy sudah cukup: referensi GameObject & array tetap sama)
-        foreach (var src in minerResource)
+        for (int i = 0; i < amountToSpawn; i++)
         {
-            if (src == null) continue;
+            // Pilih batu acak dari kolam yang valid
+            TemplateStoneObject chosenStoneTemplate = eligibleStones[UnityEngine.Random.Range(0, eligibleStones.Count)];
 
-            var copied = new ResourceData
-            {
-                nameResource = src.nameResource,
-                typeStone = src.typeStone,
-                resources = src.resources    // shallow copy referensi array sudah memadai
-            };
+            // Pilih lokasi acak dari yang masih tersedia
+            int spawnPointIndex = UnityEngine.Random.Range(0, availableSpawnPoints.Count);
+            Transform spawnLocation = availableSpawnPoints[spawnPointIndex];
 
-            worldStoneDatabase.stoneBehaviors.Add(copied);
+            // Hapus lokasi agar tidak dipakai lagi
+            availableSpawnPoints.RemoveAt(spawnPointIndex);
+
+            // Ciptakan objek batu di dunia game!
+            Instantiate(chosenStoneTemplate.stoneObject, spawnLocation.position, spawnLocation.rotation);
         }
 
-#if UNITY_EDITOR
-        EditorUtility.SetDirty(worldStoneDatabase);
-        AssetDatabase.SaveAssets();
-#endif
-
-        Debug.Log($"[BatuManager] Migrasi selesai. Total group: {worldStoneDatabase.stoneBehaviors.Count}");
+        Debug.Log($"Spawning selesai. Total {amountToSpawn} batu telah dimunculkan.");
     }
+
+    // Fungsi helper untuk memfilter batu berdasarkan luck
+    private List<TemplateStoneObject> GetEligibleStones(float luck)
+    {
+        // Menggunakan LINQ agar kode lebih bersih dan singkat
+        switch (luck)
+        {
+            case 1:
+                return stoneDatabase.templateStoneObject
+                    .Where(s => s.hardnessLevel == EnvironmentHardnessLevel.Soft).ToList();
+            case 2:
+                return stoneDatabase.templateStoneObject
+                    .Where(s => s.hardnessLevel == EnvironmentHardnessLevel.Soft ||
+                                s.hardnessLevel == EnvironmentHardnessLevel.Medium).ToList();
+            case 3:
+                return stoneDatabase.templateStoneObject
+                    .Where(s => s.hardnessLevel == EnvironmentHardnessLevel.Soft ||
+                                s.hardnessLevel == EnvironmentHardnessLevel.Medium ||
+                                s.hardnessLevel == EnvironmentHardnessLevel.Hard).ToList();
+            default:
+                return new List<TemplateStoneObject>(stoneDatabase.templateStoneObject);
+        }
+    }
+
+
 
 }

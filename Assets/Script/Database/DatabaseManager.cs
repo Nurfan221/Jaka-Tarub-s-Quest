@@ -70,9 +70,10 @@ public class TreePlacementData
 [System.Serializable]
 public class TemplateStoneObject
 {
-    public string nameStone;
+    public string stoneID;
     public TypeStone typeStone;
     public EnvironmentHardnessLevel hardnessLevel;
+    public int healthStone;
     public GameObject stoneObject;
     public ItemData[] hasilTambang;
 }
@@ -87,7 +88,7 @@ public class ResourceData
 [Serializable]
 public class Resource
 {
-    public GameObject resourceObject;
+    public string stoneID;
     public Vector2 location;
     public bool isHarvested;
 }
@@ -304,5 +305,31 @@ public class DatabaseManager : MonoBehaviour
         return foundStage.stagePrefab;
     }
 
+    public ItemData[] GetHasilTambang(TypeStone typeStone, EnvironmentHardnessLevel environmentHardnessLevel)
+    {
+        foreach (var item in worldStoneDatabase.templateStoneObject)
+        {
+            if (item.typeStone == typeStone && item.hardnessLevel == environmentHardnessLevel)
+            {
+                return item.hasilTambang; // langsung keluar, hanya entri pertama
+            }
+        }
+
+        return null; // jika tidak ada match
+    }
+
+    public GameObject GetObjectTambang(string id)
+    {
+        foreach (var item in worldStoneDatabase.templateStoneObject)
+        {
+            if (item.stoneID == id)
+            {
+                return item.stoneObject; // langsung keluar, hanya entri pertama
+            }
+        }
+        return null; // jika tidak ada match
+    }
+
+    
 
 }

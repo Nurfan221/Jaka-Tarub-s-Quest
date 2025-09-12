@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7057871296556573875}
   - component: {fileID: 648529286410309539}
   m_Layer: 0
-  m_Name: CopperObject
+  m_Name: Stone_Stone_Soft_A
   m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -6170116869426518973, guid: 60d6a1634e129174f890c75ce69ff4f2, type: 3}
+  m_Sprite: {fileID: 7085373414561553270, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,19 +101,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ab928ba216bc542909e8f87657c559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeManager: {fileID: 0}
   itemDropMines:
-    namaStone: Copper Stone
-    hasilTambang:
-    - {fileID: 7562009284141931606, guid: d4cee6a55e1fb82438aa6521e6a8e45c, type: 3}
-    - {fileID: 4459120725376062254, guid: 00a13d42590718e4c9987564ffd1b612, type: 3}
-    - {fileID: 4459120725376062254, guid: f86b05e5916a77348833bf951d3be7fb, type: 3}
-    minHasil: 3
-    maxHasil: 4
-  nameStone: Copper Stone
-  stoneAnimation: []
+  - itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
+  - itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
+  - itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
+  - itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
+  nameStone: BatuKecil-1
+  stoneType: 1
+  environmentHardnessLevel: 1
+  stoneAnimation:
+  - {fileID: 7085373414561553270, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
+  - {fileID: -3368599866885658243, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
+  - {fileID: 264344192652459479, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
+  - {fileID: 647862033156548908, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
+  - {fileID: -1498781986197995284, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
+  - {fileID: -8283183934735017102, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
+  - {fileID: -1303689804267094122, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
+  - {fileID: -8646749081693069554, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
   frameRate: 0.1
-  health: 80
+  minHasil: 0
+  maxHasil: 0
+  health: 100
   dayLuck: 0
   isLucky: 0
 --- !u!61 &648529286410309539
@@ -150,7 +170,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.103806496, y: -0.06334448}
+  m_Offset: {x: 0.0001411438, y: 0.011331201}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -160,5 +180,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.79426384, y: 0.75238514}
+  m_Size: {x: 0.692009, y: 0.5367086}
   m_EdgeRadius: 0
