@@ -8,7 +8,14 @@ using UnityEngine.Rendering;
 using UnityEditor;
 #endif
 
-
+[System.Serializable]
+public class TemplateStoneActive
+{
+    public string stoneName;
+    public GameObject stoneObject;
+    public Vector2 position;
+    public bool isActive;
+}
 
 
 
@@ -16,6 +23,8 @@ public class BatuManager : MonoBehaviour
 {
     [Header("Referensi Database")]
     public WorldStoneDatabaseSO stoneDatabase;
+    public TemplateStoneActive[] templateStoneActives;
+
 
 
     [Header("Pengaturan Spawning")]
@@ -47,6 +56,11 @@ public class BatuManager : MonoBehaviour
     {
         float luck = TimeManager.Instance.GetDayLuck();
         SpawnStonesBasedOnLuck(luck);
+    }
+
+    public void RegisterStone()
+    {
+       
     }
     public void SpawnStonesBasedOnLuck(float playerLuck)
     {
@@ -114,6 +128,42 @@ public class BatuManager : MonoBehaviour
         }
     }
 
+
+    [ContextMenu("Langkah 1: Cari & Daftarkan Semua Batu Child")]
+    public void FindAndRegisterChildStones()
+    {
+        // Fungsi ini akan mencari di objek ini DAN semua child-nya secara rekursif.
+        StoneBehavior[] childStones = GetComponentsInChildren<StoneBehavior>();
+
+        // Jika tidak ada yang ditemukan, beri pesan dan hentikan fungsi.
+        if (childStones.Length == 0)
+        {
+            Debug.LogWarning("Tidak ada child object dengan script StoneBehavior yang ditemukan di bawah BatuManager.");
+            return;
+        }
+
+        List<TemplateStoneActive> foundStonesList = new List<TemplateStoneActive>();
+
+        foreach (var stone in childStones)
+        {
+            // Buat entri TemplateStoneActive baru untuk setiap batu
+            TemplateStoneActive newActiveTemplate = new TemplateStoneActive
+            {
+                // Isi datanya dari komponen dan GameObject yang ditemukan
+                stoneName = stone.gameObject.name,
+                stoneObject = stone.gameObject,
+                position = stone.transform.position,
+                isActive = stone.gameObject.activeInHierarchy
+            };
+
+            // Tambahkan entri baru ke list sementara
+            foundStonesList.Add(newActiveTemplate);
+        }
+
+        templateStoneActives = foundStonesList.ToArray();
+
+        Debug.Log($"Proses selesai. Menemukan dan mendaftarkan {templateStoneActives.Length} batu ke dalam list.");
+    }
 
 
 }

@@ -11,6 +11,7 @@ public class StoneBehavior : MonoBehaviour
 {
 
     public ItemData[] itemDropMines; // Array hasil tambang yang mungkin dijatuhkan
+    public ParticleSystem hitEffectPrefab; // Variabel untuk Prefab partikel
     //Animation idle 
     public string nameStone;
     public TypeStone stoneType;
@@ -31,6 +32,7 @@ public class StoneBehavior : MonoBehaviour
 
     public void Start()
     {
+        hitEffectPrefab = gameObject.GetComponentInChildren<ParticleSystem>();
         spriteRenderer = GetComponent<SpriteRenderer>(); // Ambil komponen SpriteRenderer
         StartCoroutine(PlayStoneAnimation()); // Mulai animasi
         
@@ -57,6 +59,12 @@ public class StoneBehavior : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (hitEffectPrefab != null)
+        {
+            Debug.Log("Menampilkan efek pukulan pada posisi: " + gameObject.transform.position);
+            // Buat instance dari prefab efek di lokasi pukulan dengan rotasi yang sesuai
+            hitEffectPrefab.Play();
+        }
         health -= Mathf.Min(damage, health);
         Debug.Log($"Batu terkena damage. Sisa HP: {health}");
 

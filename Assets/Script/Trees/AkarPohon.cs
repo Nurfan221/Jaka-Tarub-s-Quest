@@ -6,9 +6,11 @@ public class AkarPohon : MonoBehaviour
     public ItemData kayu;
     public int minKayu;
     public int maxKayu;
+
+    public ParticleSystem hitEffectPrefab; // Variabel untuk Prefab partikel
     void Start()
     {
-        
+        hitEffectPrefab = gameObject.GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -18,6 +20,12 @@ public class AkarPohon : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        if (hitEffectPrefab != null)
+        {
+            Debug.Log("Menampilkan efek pukulan pada posisi: " + gameObject.transform.position);
+            // Buat instance dari prefab efek di lokasi pukulan dengan rotasi yang sesuai
+            hitEffectPrefab.Play();
+        }
         health -= Mathf.Min(damage, health);
         Debug.Log($"Pohon terkena damage. Sisa HP: {health}");
 

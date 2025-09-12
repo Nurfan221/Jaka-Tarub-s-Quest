@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
-  itemID: 92
+  itemID: 95
   itemName: PickAxe
+  quality: 0
   types: 0
   categories: 256
   sprite: {fileID: 647237584345857744, guid: d566de0f6bdec3f48bd0b58bab4a43c1, type: 3}
@@ -29,9 +30,10 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 3
-  Damage: 15
+  Damage: 10
   AreaOfEffect: 3
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
@@ -39,14 +41,12 @@ MonoBehaviour:
   UseStamina: 3
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 0
-  stackCount: 1
   maxStackCount: 1
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 4459120725376062254, guid: 9e47070f59b53454aad14029fa59b892, type: 3}
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 4459120725376062254, guid: 9e47070f59b53454aad14029fa59b892, type: 3}

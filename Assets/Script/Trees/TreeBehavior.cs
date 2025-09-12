@@ -20,6 +20,7 @@ public class TreeBehavior : MonoBehaviour, ISaveable
     public ItemData benih;
 
     [Header("Logika Tanam Pohon")]
+    public ParticleSystem plantEffectPrefab; // Efek partikel saat menanam
     public GrowthTree currentStage = GrowthTree.Seed;
     public GameObject growthObject; // Gambar untuk tiap tahap pertumbuhan
     public float growthTime; // Waktu total untuk mencapai tahap akhir
@@ -53,6 +54,7 @@ public class TreeBehavior : MonoBehaviour, ISaveable
         spriteRenderer = GetComponent<SpriteRenderer>();
         plantsContainer = MainEnvironmentManager.Instance.pohonManager.transform;
         //OnTreeChoppedDown();
+        plantEffectPrefab= gameObject.GetComponentInChildren<ParticleSystem>();
 
 
     }
@@ -197,6 +199,12 @@ public class TreeBehavior : MonoBehaviour, ISaveable
 
     public void TakeDamage(int damage)
     {
+        if (plantEffectPrefab != null)
+        {
+            Debug.Log("Menampilkan efek pukulan pada posisi: " + gameObject.transform.position);
+            // Buat instance dari prefab efek di lokasi pukulan dengan rotasi yang sesuai
+            plantEffectPrefab.Play();
+        }
         if (!isRubuh)
         {
             health -= Mathf.Min(damage, health);

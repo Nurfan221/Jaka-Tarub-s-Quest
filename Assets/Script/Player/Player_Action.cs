@@ -189,7 +189,7 @@ public class Player_Action : MonoBehaviour
             //StartCoroutine(HandleUICD(PlayerUI.Instance.specialAttackUI, Player_Inventory.Instance.equippedWeapon.SpecialAttackCD));
         }
     }
-   
+
 
     //private void OnUseButtonClick()
     //{
@@ -229,34 +229,36 @@ public class Player_Action : MonoBehaviour
     //}
 
 
-   
 
 
 
-    public void ActivateHitboxAndPlayAction(string actionType, int damage, float howLong = 1f, bool AOE = false)
+
+    private IEnumerator ActionSequence_Coroutine(string actionType, int damage, float howLong = 1f, bool AOE = false)
     {
-        // 🔹 Pastikan animasi dipanggil lebih dulu
-        PlayActionAnimation(actionType);
+        // Bagian ini bisa berjalan seperti biasa
+        PlayActionAnimation_NoWait(actionType); // Ganti nama fungsi agar jelas
 
         GameObject activeHitbox = AOE ? specialAttackHitArea : normalAttackHitArea;
         activeHitbox.transform.position = face.position;
         activeHitbox.name = damage.ToString();
-
         activeHitbox.SetActive(true);
-        StartCoroutine(DeactivateHitboxAfterAnimation(activeHitbox, howLong));
-
-        //logika menambahkan damage buff ke dalaam damage senjata
-        //if (buffScrollController.isBuffDamage)
-        //{
-        //    damage += buffScrollController.jumlahBuffDamage;
-        //}
+        StartCoroutine(DeactivateHitboxAfterAnimation(activeHitbox, howLong)); // Nonaktifkan hitbox tetap asinkron
 
         Debug.Log("Damage berjumlah : " + damage);
 
+        // Ini adalah bagian kuncinya. Kita menunggu Coroutine animasi selesai.
+        yield return StartCoroutine(WaitForAnimation(actionType));
+
+        // Kode ini dijamin baru akan berjalan setelah WaitForAnimation selesai.
+        Debug.Log("Animasi selesai, menjalankan deteksi damage!");
         DetectAndDamageObjects(actionType, damage);
     }
 
-
+    public void ActivateHitboxAndPlayAction(string actionType, int damage, float howLong = 1f, bool AOE = false)
+    {
+        // Fungsi ini hanya bertugas untuk memulai Coroutine utama
+        StartCoroutine(ActionSequence_Coroutine(actionType, damage, howLong, AOE));
+    }
 
     // Coroutine untuk menonaktifkan hitbox setelah animasi selesai
     private IEnumerator DeactivateHitboxAfterAnimation(GameObject hitbox, float duration)
@@ -268,34 +270,38 @@ public class Player_Action : MonoBehaviour
 
     private void DetectAndDamageObjects(string actionType, int damage)
     {
+        Debug.Log($"Mendeteksi objek di sekitar dengan actionType: {actionType} dan damage: {damage}");
         // Define the damage actions for each attack type
         Dictionary<string, List<System.Action<GameObject>>> damageActions = new Dictionary<string, List<System.Action<GameObject>>>()
-    {
-        { "Kapak", new List<System.Action<GameObject>>
-            {
-                obj => obj.GetComponent<TreeBehavior>()?.TakeDamage(damage),
-                obj => obj.GetComponent<AkarPohon>()?.TakeDamage(damage)
-            } },
-        { "PickAxe", new List<System.Action<GameObject>> { obj => obj.GetComponent<StoneBehavior>()?.TakeDamage(damage) } },
-        { "Sabit", new List<System.Action<GameObject>> { obj => obj.GetComponent<PlantSeed>()?.Harvest() } },
-        { "Sword", new List<System.Action<GameObject>>
-            {
-                obj => obj.GetComponent<Enemy_Health>()?.TakeDamage(damage),
-                obj => obj.GetComponent<AnimalBehavior>()?.TakeDamage(damage)
+        {
+            { "Menebang", new List<System.Action<GameObject>>
+                {
+                    obj => obj.GetComponent<TreeBehavior>()?.TakeDamage(damage),
+                    obj => obj.GetComponent<AkarPohon>()?.TakeDamage(damage)
+                } },
+            { "Menambang", new List<System.Action<GameObject>> { obj => obj.GetComponent<StoneBehavior>()?.TakeDamage(damage) } },
+            { "Sabit", new List<System.Action<GameObject>> { obj => obj.GetComponent<PlantSeed>()?.Harvest() } },
+            { "Sword", new List<System.Action<GameObject>>
+                {
+                    obj => obj.GetComponent<Enemy_Health>()?.TakeDamage(damage),
+                    obj => obj.GetComponent<AnimalBehavior>()?.TakeDamage(damage)
+                }
             }
-        }
-    };
+        };
 
         // Find objects within the hitbox radius
         Collider2D[] hitObjects = Physics2D.OverlapCircleAll(face.position, 0.5f);
+        Debug.Log($"OverlapCircle menemukan {hitObjects.Length} objek.");
         foreach (Collider2D obj in hitObjects)
         {
+            Debug.Log($"Objek terdeteksi: {obj.name}");
             // Get the tags associated with the current actionType
             List<string> targetTags = GetTargetTags(actionType);
 
             // Check if the object's tag matches any of the actionType's tags
             foreach (string targetTag in targetTags)
             {
+
                 if (obj.CompareTag(targetTag))
                 {
                     Debug.Log($"{obj.name} terkena {actionType} dengan damage: {damage}");
@@ -316,8 +322,8 @@ public class Player_Action : MonoBehaviour
     private List<string> GetTargetTags(string actionType)
     {
         // Return the appropriate tags based on actionType
-        if (actionType == "Kapak") return new List<string> { "Tree", "AkarPohon" };
-        if (actionType == "PickAxe") return new List<string> { "Stone" };
+        if (actionType == "Menebang") return new List<string> { "Tree", "AkarPohon" };
+        if (actionType == "Menambang") return new List<string> { "Stone" };
         if (actionType == "Sabit") return new List<string> { "Plant" };
         if (actionType == "Sword") return new List<string> { "Bandit", "Animal" }; // Multiple tags for Sword
 
@@ -340,22 +346,47 @@ public class Player_Action : MonoBehaviour
         StartCoroutine(WaitForAnimation(actionType));
     }
 
-    private IEnumerator WaitForAnimation(string actionType)
+    public void PlayActionAnimation_NoWait(string actionType)
     {
-        // Tentukan arah berdasarkan posisi face
-        string triggerName = actionType;
+        if (animator == null) return;
 
+        string triggerName = actionType;
         if (faceDirection.y > 0.5f) triggerName += "Atas";
         else if (faceDirection.y < -0.5f) triggerName += "Bawah";
         else if (faceDirection.x > 0.5f) triggerName += "Kanan";
         else if (faceDirection.x < -0.5f) triggerName += "Kiri";
 
         animator.SetTrigger(triggerName);
+    }
 
-        // Tunggu sampai animasi selesai sebelum mengubah state ke Idle
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+    private IEnumerator WaitForAnimation(string actionType)
+    {
+        string stateName = actionType;
+        if (faceDirection.y > 0.5f) stateName += "Atas";
+        else if (faceDirection.y < -0.5f) stateName += "Bawah";
+        else if (faceDirection.x > 0.5f) stateName += "Kanan";
+        else if (faceDirection.x < -0.5f) stateName += "Kiri";
 
-        animator.ResetTrigger(triggerName); // Reset Trigger setelah animasi selesai
+        Debug.Log($"[1] WaitForAnimation dimulai. Mencoba menunggu state: '{stateName}'");
+
+        // Tunggu satu frame agar transisi dimulai
+        yield return null;
+
+        // Ambil info state saat ini SETELAH satu frame berlalu
+        var currentStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        Debug.Log($"[2] Setelah 1 frame, state yang aktif adalah: ??? (Nama asli akan sulit didapat, tapi kita cek kondisi loop)");
+        Debug.Log($"[3] Mengecek kondisi loop: IsName('{stateName}') = {currentStateInfo.IsName(stateName)}, normalizedTime = {currentStateInfo.normalizedTime}");
+
+        // Loop penunggu
+        while (currentStateInfo.IsName(stateName) && currentStateInfo.normalizedTime < 1.0f)
+        {
+            Debug.Log($"[4] Di dalam loop. normalizedTime: {currentStateInfo.normalizedTime}");
+            yield return null;
+            currentStateInfo = animator.GetCurrentAnimatorStateInfo(0); // Update info setiap frame
+        }
+
+        Debug.Log($"[5] Keluar dari loop. Animasi dianggap selesai. Menjalankan DetectAndDamageObjects...");
     }
 
 
@@ -402,7 +433,7 @@ public class Player_Action : MonoBehaviour
                         // Ambil arah dari posisi face
                         faceDirection = face.localPosition.normalized;
                         // Memanggil ActivateHitbox tanpa parameter area
-                        ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
+                        ActivateHitboxAndPlayAction("Menebang", itemToAttack.Damage, 0.5f);
                        
                         //PlayActionAnimation(itemToAttack.itemName);
 
@@ -425,7 +456,7 @@ public class Player_Action : MonoBehaviour
 
                         //Debug.Log($"Damage: {itemToAttack.Damage}");
                         // Memanggil ActivateHitbox tanpa parameter area
-                        ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
+                        ActivateHitboxAndPlayAction("Menambang", itemToAttack.Damage, 0.5f);
                        
                         //Debug.Log("PickAxe dijalankan dengan hitbox.");
                     }
