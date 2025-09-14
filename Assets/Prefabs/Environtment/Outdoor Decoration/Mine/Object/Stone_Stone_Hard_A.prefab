@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5755219114831489250}
   - component: {fileID: 7057871296556573875}
   - component: {fileID: 648529286410309539}
-  - component: {fileID: -984891606359853568}
   m_Layer: 0
   m_Name: Stone_Stone_Hard_A
   m_TagString: Stone
@@ -103,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ab928ba216bc542909e8f87657c559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
   itemDropMines:
   - itemName: 
     count: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
     itemHealth: 0
   hitEffectPrefab: {fileID: 0}
   nameStone: Stone_Stone_Hard_A
-  stoneType: 1
+  stoneType: 2
   environmentHardnessLevel: 3
   stoneAnimation:
   - {fileID: 8634735989486108777, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
@@ -186,19 +186,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8406594, y: 0.8349701}
   m_EdgeRadius: 0
---- !u!114 &-984891606359853568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7562009284141931606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e118c337523d6174fa9eb81b8eb8eac4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: aa2e755f-c732-42ad-9854-ee3111eefb65
 --- !u!1001 &7142512488000063680
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6970880180782701511}
   - component: {fileID: 9102546473150981427}
   - component: {fileID: -285715893815699087}
-  - component: {fileID: 8813978394845418652}
   m_Layer: 0
   m_Name: AkarBirchKecil
   m_TagString: AkarPohon
@@ -156,16 +155,4 @@ MonoBehaviour:
     itemHealth: 0
   minKayu: 2
   maxKayu: 3
---- !u!114 &8813978394845418652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599877733878797977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e118c337523d6174fa9eb81b8eb8eac4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: da0c2d94-45cf-4b07-9bea-2e60671bdcab
+  hitEffectPrefab: {fileID: 0}

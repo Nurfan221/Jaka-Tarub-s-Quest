@@ -51,7 +51,9 @@ public class StorageSaveData
 [System.Serializable]
 public class StoneRespawnSaveData
 {
-    public TemplateStoneActive stoneToRespawn; // Referensi ke data blueprint
+    public string id; // ID unik dari batu ini
+    public Vector2 stonePosition;
+    public int dayToRespawn;
 }
 
 // Anda bisa menambahkan class data save lain di file yang sama untuk kerapian

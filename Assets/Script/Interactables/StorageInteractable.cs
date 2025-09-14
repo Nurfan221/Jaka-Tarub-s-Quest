@@ -3,9 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class StorageInteractable : Interactable, ISaveable
+public class StorageInteractable : Interactable, ISaveable, IUniqueIdentifiable
 {
+    [Header("ID Unik")]
+    [SerializeField] private string uniqueID;
+    public string UniqueID { get => uniqueID; set => uniqueID = value; }
 
+    [Header("Data Pohon")]
+    public TypeObject typeObject;
+    public EnvironmentHardnessLevel hardnessLevel;
+
+    // --- Implementasi dari Kontrak IUniqueIdentifiable ---
+    public string GetBaseName() => typeObject.ToString();
+    public string GetObjectType() => typeObject.ToString(); // Menggunakan nama dari enum TypeTree
+    public EnvironmentHardnessLevel GetHardness() => hardnessLevel;
 
     [Header("Deklarasi Variabel Item")]
     public List<ItemData> storage = new List<ItemData>();
@@ -32,6 +43,7 @@ public class StorageInteractable : Interactable, ISaveable
 
     public void RestoreState(object state)
     {
+        Debug.Log("Restoring Storage State...");
         StorageSaveData data = (StorageSaveData)state;
         storage = data.itemsInStorage;
         gameObject.transform.position = data.storagePosition;

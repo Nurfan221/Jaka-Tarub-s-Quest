@@ -50,7 +50,7 @@ public class TemplateTreesObject
 [System.Serializable]
 public class GrowthStageTrees
 {
-    public string stageName; // Nama tahap pertumbuhan
+    public string TreeID; // Nama tahap pertumbuhan
     public GrowthTree growthTree; // Data pertumbuhan untuk tahap ini
     public GameObject stagePrefab; // Prefab untuk tahap ini
     public GameObject batangPrefab; // Prefab untuk batang pohon
@@ -60,7 +60,7 @@ public class GrowthStageTrees
 [System.Serializable]
 public class TreePlacementData
 {
-    public string treeName; // Jenis pohon (misal: "Pohon Apel")
+    public string TreeID; // Jenis pohon (misal: "Pohon Apel")
     public Vector2 position; // Posisi di dunia
     public GrowthTree initialStage; // Tahap tumbuh saat pertama kali muncul
     public bool sudahTumbang; // Apakah pohon sudah ditumbangkan
@@ -71,7 +71,7 @@ public class TreePlacementData
 public class TemplateStoneObject
 {
     public string stoneID;
-    public TypeStone typeStone;
+    public TypeObject typeStone;
     public EnvironmentHardnessLevel hardnessLevel;
     public int healthStone;
     public GameObject stoneObject;
@@ -83,22 +83,22 @@ public class TemplateStoneActive
     public string stoneID;
     public GameObject stoneObject;
     public Vector2 position;
-    public bool isActive;
-    public int dayToRespawn;
 }
 
 [System.Serializable]
 public class ListBatuManager
 {
     public string listName;
-    public TypeStone typeStone;
+    public TypeObject typeStone;
     public List<TemplateStoneActive> listActive;
 }
 
-public enum TypeStone
+public enum TypeObject
 {
     None,
+    Tree,
     Stone,
+    Storage,
     Copper,
     Iron,
     Gold
@@ -275,7 +275,7 @@ public class DatabaseManager : MonoBehaviour
         }
 
         GrowthStageTrees nextStage = foundTree.growthStages[currentIndex + 1];
-        Debug.Log($"Next stage for {treeName} after {currentStageEnum} is {nextStage.stageName}");
+        Debug.Log($"Next stage for {treeName} after {currentStageEnum} is {nextStage.TreeID}");
         return nextStage.stagePrefab;
     }
 
@@ -307,7 +307,7 @@ public class DatabaseManager : MonoBehaviour
         return foundStage.stagePrefab;
     }
 
-    public ItemData[] GetHasilTambang(TypeStone typeStone, EnvironmentHardnessLevel environmentHardnessLevel)
+    public ItemData[] GetHasilTambang(TypeObject typeStone, EnvironmentHardnessLevel environmentHardnessLevel)
     {
         foreach (var item in worldStoneDatabase.templateStoneObject)
         {

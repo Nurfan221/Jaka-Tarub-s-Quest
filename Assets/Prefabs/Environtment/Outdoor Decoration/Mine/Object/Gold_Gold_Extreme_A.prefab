@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5755219114831489250}
   - component: {fileID: 7057871296556573875}
   - component: {fileID: 648529286410309539}
-  - component: {fileID: -1724096840303585505}
   m_Layer: 0
   m_Name: Gold_Gold_Extreme_A
   m_TagString: Stone
@@ -103,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ab928ba216bc542909e8f87657c559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
   itemDropMines:
   - itemName: 
     count: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
     itemHealth: 0
   hitEffectPrefab: {fileID: 0}
   nameStone: Gold_Gold_Extreme_A
-  stoneType: 4
+  stoneType: 6
   environmentHardnessLevel: 5
   stoneAnimation: []
   frameRate: 0.1
@@ -178,19 +178,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.9216919, y: 0.89800835}
   m_EdgeRadius: 0
---- !u!114 &-1724096840303585505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7562009284141931606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e118c337523d6174fa9eb81b8eb8eac4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 4d860a90-d4a1-4b66-9278-a4cc2798f117
 --- !u!1001 &5262809751954073407
 PrefabInstance:
   m_ObjectHideFlags: 0

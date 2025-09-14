@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6970880180782701511}
   - component: {fileID: 9102546473150981427}
   - component: {fileID: -285715893815699087}
-  - component: {fileID: 1583050063969981023}
   m_Layer: 0
   m_Name: AkarCemaraKecil
   m_TagString: AkarPohon
@@ -158,19 +157,6 @@ MonoBehaviour:
   minKayu: 2
   maxKayu: 3
   hitEffectPrefab: {fileID: 0}
---- !u!114 &1583050063969981023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599877733878797977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e118c337523d6174fa9eb81b8eb8eac4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: a876b49a-c283-45f5-9516-2cec0ea0ac5c
 --- !u!1001 &2725676867366879113
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -76,7 +76,13 @@ public class GameController : MonoBehaviour
             {
                 Debug.Log("GameController: Membangun Storage dari file save");
                 RestoreAllStorages(saveData.savedStorages);
-            }    
+            }
+
+            if (saveData.queueRespownStone !=  null  && saveData.queueRespownStone.Count >0)
+            {
+                Debug.Log("GameController: Membangun Stone dari file save");
+                ReturnQueueStoneActive(saveData.queueRespownStone);
+            }
         }
         else
         {
@@ -298,7 +304,7 @@ public class GameController : MonoBehaviour
         foreach (TreePlacementData treeData in DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements)
         {
             // Dapatkan prefab yang benar dari DatabaseManager
-            GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(treeData.treeName, treeData.initialStage);
+            GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(treeData.TreeID, treeData.initialStage);
             if (treePrefab != null)
             {
                 // Munculkan pohon dan konfigurasikan
@@ -307,7 +313,7 @@ public class GameController : MonoBehaviour
                 TreeBehavior treeBehavior = newTree.GetComponent<TreeBehavior>();
                 if (treeBehavior != null)
                 {
-                    treeBehavior.nameEnvironment = treeData.treeName;
+                    treeBehavior.UniqueID = treeData.TreeID;
                     treeBehavior.currentStage = treeData.initialStage;
 
 
@@ -354,5 +360,52 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void ReturnQueueStoneActive(List<StoneRespawnSaveData> savedStone)
+    {
+        BatuManager batuManager = BatuManager.Instance;
+        if (batuManager == null) return;
+
+        Debug.Log($"[LOAD] Merestorasi state untuk {savedStone.Count} batu...");
+
+        // 1. Reset: Aktifkan semua batu.
+        // Kita tetap butuh loop ini untuk memastikan semua batu dalam kondisi default (aktif).
+        // Cara ini masih lebih aman daripada mengasumsikan semuanya nonaktif.
+        foreach (var group in batuManager.listBatuManager)
+        {
+            foreach (var stoneData in group.listActive)
+            {
+                Transform stoneTransform = batuManager.transform.Find(stoneData.stoneID);
+                if (stoneTransform != null)
+                {
+                    stoneTransform.gameObject.SetActive(true);
+                }
+            }
+        }
+
+        batuManager.respawnQueue.Clear();
+
+        foreach (var savedItem in savedStone)
+        {
+            batuManager.RestoreState(savedItem);
+            // CARI CHILD DENGAN NAMA YANG SESUAI DENGAN ID
+            Transform stoneTransform = batuManager.transform.Find(savedItem.id);
+            if (stoneTransform != null && TimeManager.Instance.date < savedItem.dayToRespawn)
+            {
+                Debug.Log($"[LOAD] Menemukan batu dengan nama/ID: '{savedItem.id}'. Nonaktifkan karena sudah waktunya respawn.");
+                // Jika ditemukan, nonaktifkan GameObject-nya
+                stoneTransform.gameObject.SetActive(false);
+
+                
+            }
+            else
+            {
+                Debug.LogWarning($"[LOAD] Gagal menemukan child object dengan nama/ID: '{savedItem.id}'.");
+            }
+
+            
+
+        }
+        Debug.Log("[LOAD] Restorasi state batu selesai.");
+    }
    
 }

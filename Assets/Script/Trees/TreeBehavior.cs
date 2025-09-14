@@ -10,14 +10,29 @@ public enum GrowthTree
     MaturePlant
 }
 
-public class TreeBehavior : MonoBehaviour, ISaveable
+public class TreeBehavior : MonoBehaviour, ISaveable, IUniqueIdentifiable
 {
+
+    [Header("ID Unik")]
+    [SerializeField] private string uniqueID;
+    public string UniqueID { get => uniqueID; set => uniqueID = value; }
+    // --- Implementasi dari Kontrak IUniqueIdentifiable ---
+    public EnvironmentHardnessLevel hardnessLevel;
+    public TypeObject typeObject;
+
+    // --- Implementasi dari Kontrak IUniqueIdentifiable ---
+    public string GetBaseName() => currentStage.ToString();
+    public string GetObjectType() => typeObject.ToString(); // Menggunakan nama dari enum TypeTree
+    public EnvironmentHardnessLevel GetHardness() => hardnessLevel;
+
+
     [Header("Statistik Pohon")]
     public float health = 100f;
     public ItemData kayu;
     public ItemData daun;
     public ItemData getah;
     public ItemData benih;
+    
 
     [Header("Logika Tanam Pohon")]
     public ParticleSystem plantEffectPrefab; // Efek partikel saat menanam

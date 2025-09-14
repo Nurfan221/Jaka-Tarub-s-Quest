@@ -1,7 +1,8 @@
-using UnityEngine;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveDataManager : MonoBehaviour
 {
@@ -75,7 +76,7 @@ public class SaveDataManager : MonoBehaviour
             {
                 if (tree.CaptureState() is TreeSaveData treeData)
                 {
-                    treeData.id = tree.GetComponent<UniqueID>().ID;
+                    treeData.id = tree.UniqueID;
                     saveData.savedTrees.Add(treeData);
                 }
             }
@@ -95,8 +96,17 @@ public class SaveDataManager : MonoBehaviour
             {
                 if (storage.CaptureState() is StorageSaveData storageData)
                 {
-                    storageData.id = storage.GetComponent<UniqueID>().ID;
+                    storageData.id = storage.UniqueID;
                     saveData.savedStorages.Add(storageData);
+                }
+            }else if (saveable is BatuManager stone)
+            {
+                Debug.Log("[SAVE] Ditemukan BatuManager. Memanggil CaptureState...");
+                if (stone.CaptureState() is List<StoneRespawnSaveData> queueData)
+                {
+                    
+                    saveData.queueRespownStone = stone.respawnQueue;
+                    Debug.Log("Data pemain telah ditangkap untuk StoneManager." + stone.respawnQueue.Count);
                 }
             }
             // Tambahkan 'else if' lain untuk Chest, Bunga, dll. di masa depan.

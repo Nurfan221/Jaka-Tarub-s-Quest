@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1819801410045294692}
   - component: {fileID: 4970061946016936437}
   - component: {fileID: 6640129321017476615}
-  - component: {fileID: -2837575912912581509}
   m_Layer: 0
   m_Name: PohonOakKecil
   m_TagString: Tree
@@ -210,6 +209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29471c14139b64e4d97ac92590082502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 2
+  typeObject: 1
   health: 10
   kayu:
     itemName: Kayu
@@ -249,19 +251,6 @@ MonoBehaviour:
   minLeaf: 3
   maxLeaf: 4
   plantsContainer: {fileID: 0}
---- !u!114 &-2837575912912581509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5090815853600988913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e118c337523d6174fa9eb81b8eb8eac4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 9fc0be9c-0353-4c4b-9048-3cbad805dcd7
 --- !u!1001 &1855609611868827501
 PrefabInstance:
   m_ObjectHideFlags: 0

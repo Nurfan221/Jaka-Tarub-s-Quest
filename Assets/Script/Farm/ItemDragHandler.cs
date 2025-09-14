@@ -513,7 +513,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         TreePlacementData newPlacementData = new TreePlacementData
         {
-            treeName = treeComponent.nameEnvironment,
+            TreeID = treeComponent.UniqueID,
             position = treeComponent.transform.position,
             // Asumsi semua pohon yang terdaftar dimulai dari tahap Seed
             initialStage = treeComponent.currentStage,

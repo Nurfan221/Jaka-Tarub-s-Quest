@@ -95,29 +95,17 @@ public class EnvironmentManager : MonoBehaviour
             EnvironmentBehavior envBehavior = child.GetComponent<EnvironmentBehavior>();
             TreeBehavior treeBehavior = child.GetComponent<TreeBehavior>();
 
-            string prefabName = "";
 
-            if (treeBehavior != null)
-                prefabName = treeBehavior.nameEnvironment;
-            else if (envBehavior != null)
-                prefabName = envBehavior.nameEnvironment;
 
-            if (!string.IsNullOrEmpty(prefabName))
+            EnvironmentList data = new EnvironmentList
             {
-                EnvironmentList data = new EnvironmentList
-                {
-                    prefabName = prefabName,
-                    objectPosition = child.position,
-                    initialStage = treeBehavior.currentStage,
-                    isGrowing = true
-                };
+                prefabName = treeBehavior.UniqueID,
+                objectPosition = child.position,
+                initialStage = treeBehavior.currentStage,
+                isGrowing = true
+            };
 
-                environmentList.Add(data);
-            }
-            else
-            {
-                Debug.Log("Objek tidak memiliki komponen EnvironmentBehavior atau TreeBehavior: " + child.name);
-            }
+            environmentList.Add(data);
         }
 
         Debug.Log($"Total environment terdaftar: {environmentList.Count}");
@@ -332,13 +320,17 @@ public class EnvironmentManager : MonoBehaviour
             // Anda mungkin perlu menyesuaikan kondisi ini
             if (treeData.prefabName.Contains("Pohon") || treeData.prefabName.Contains("Tree"))
             {
+               
+
                 // Buat entri TreePlacementData baru
                 TreePlacementData newPlacementData = new TreePlacementData
                 {
-                    treeName = treeData.prefabName,
+                    
+                    TreeID = treeData.prefabName,
                     position = treeData.objectPosition,
                     // Asumsi semua pohon yang terdaftar dimulai dari tahap Seed
                     initialStage = treeData.initialStage,
+
                 };
 
                 // Tambahkan data baru ke dalam list di ScriptableObject
