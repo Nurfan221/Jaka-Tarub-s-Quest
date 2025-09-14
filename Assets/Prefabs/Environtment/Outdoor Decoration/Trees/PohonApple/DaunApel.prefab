@@ -131,10 +131,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useEvents: 0
-  promptMessage: DaunJati
-  item: {fileID: 11400000, guid: 8fdb94ff32de14d4da4a8e242e804f0b, type: 2}
+  promptMessage: DaunApel
+  itemdata:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
   itemName: DaunJati
   gravityDuration: 1
+  isPickable: 0
+  pickupDelay: 5
 --- !u!61 &3946596619460777457
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -194,5 +200,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  namePrefab: DaunJati
-  itemDrop: {fileID: 4459120725376062254}
+  itemDrop:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
+  particleSystem: {fileID: 0}

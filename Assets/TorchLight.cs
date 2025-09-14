@@ -17,7 +17,7 @@ public class TorchLight : MonoBehaviour
     private void Update()
     {
         float hour = TimeManager.Instance.hour;
-        bool isRain = TimeManager.Instance.timeData_SO.isRain;
+        bool isRain = TimeManager.Instance.isRain;
 
         // Hidupkan lampu obor hanya di malam hari
         if (hour >= nightStart || hour < nightEnd || isRain)

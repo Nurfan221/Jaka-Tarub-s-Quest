@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Kapak
   m_EditorClassIdentifier: 
-  itemID: 89
+  itemID: 90
   itemName: Kapak
   quality: 0
   types: 0
@@ -30,6 +30,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 3
   Damage: 3
@@ -37,7 +38,7 @@ MonoBehaviour:
   SpecialAttackCD: 4
   SpecialAttackStamina: 4
   UpgradeCost: 500
-  UseStamina: 10
+  UseStamina: 30
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 0
   maxStackCount: 1
@@ -45,8 +46,7 @@ MonoBehaviour:
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 4459120725376062254, guid: b7a75a57d7a965a498f922d1269878f5, type: 3}
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 4459120725376062254, guid: b7a75a57d7a965a498f922d1269878f5, type: 3}

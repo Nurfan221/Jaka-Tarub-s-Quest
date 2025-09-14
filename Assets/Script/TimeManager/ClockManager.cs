@@ -49,7 +49,7 @@ public class ClockManager : MonoBehaviour
 
         float t = hour / 24f;
         float dayNightT = dayNightCurve.Evaluate(t);
-        bool isRaining = TimeManager.Instance.timeData_SO.isRain;
+        bool isRaining = TimeManager.Instance.isRain;
         // CEK DULU: Kalau hujan, pakai nightColor terus!
         if (isRaining)
         {

@@ -48,6 +48,12 @@ public class StorageSaveData
     public List<ItemData> itemsInStorage; // Daftar item di dalamnya
 }
 
+[System.Serializable]
+public class StoneRespawnSaveData
+{
+    public TemplateStoneActive stoneToRespawn; // Referensi ke data blueprint
+}
+
 // Anda bisa menambahkan class data save lain di file yang sama untuk kerapian
 // [System.Serializable]
 // public class ChestSaveData 
@@ -64,6 +70,7 @@ public class GameSaveData
     public List<TreeSaveData> savedTrees = new List<TreeSaveData>();
     public List<PlayerSaveData> savedPlayerData = new List<PlayerSaveData>();
     public List<StorageSaveData> savedStorages = new List<StorageSaveData>();
+    public List<StoneRespawnSaveData> queueRespownStone = new List<StoneRespawnSaveData>();
 }
 
 [System.Serializable]

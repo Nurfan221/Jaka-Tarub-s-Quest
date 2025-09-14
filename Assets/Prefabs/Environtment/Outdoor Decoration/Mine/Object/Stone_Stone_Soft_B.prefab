@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5755219114831489250}
   - component: {fileID: 7057871296556573875}
   - component: {fileID: 648529286410309539}
+  - component: {fileID: 6688170891249991982}
   m_Layer: 0
   m_Name: Stone_Stone_Soft_B
   m_TagString: Stone
@@ -138,6 +139,7 @@ MonoBehaviour:
   health: 300
   dayLuck: 0
   isLucky: 0
+  dayToRespawn: 0
 --- !u!61 &648529286410309539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -184,6 +186,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.73262787, y: 0.5451807}
   m_EdgeRadius: 0
+--- !u!114 &6688170891249991982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562009284141931606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e118c337523d6174fa9eb81b8eb8eac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: cc351b67-b0fb-434e-bfe4-8fa8705b4366
 --- !u!1001 &3524477940854642664
 PrefabInstance:
   m_ObjectHideFlags: 0

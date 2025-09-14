@@ -3,6 +3,25 @@ using UnityEngine.Events;
 using System;
 using System.Collections.Generic;
 
+public enum Days
+{
+    Null = 0,
+    Mon = 1,
+    Tue = 2,
+    Wed = 3,
+    Thu = 4,
+    Fri = 5,
+    Sat = 6,
+    Sun = 7
+}
+
+[Serializable]
+public enum Season
+{
+
+    Rain = 0,
+    Dry = 1
+}
 public class TimeManager : MonoBehaviour
 {
     // Menambahkan properti Singleton
@@ -33,6 +52,19 @@ public class TimeManager : MonoBehaviour
     public int minutes;// Ubah menjadi properti agar lebih aman
     public int hour;    // Ubah menjadi properti agar lebih aman
 
+    [Header("Date & Time Settings")]
+    public int totalHari = 1;
+    public int hari = 1;
+    public int date = 1;
+    public int minggu = 1;
+    public int bulan = 1;
+    public int tahun = 1;
+    public Days currentDay = Days.Mon;
+    public Season currentSeason = Season.Rain;
+    public float dailyLuck;
+    public bool isRain;
+
+
 
     public static event UnityAction OnTimeChanged;
 
@@ -50,9 +82,9 @@ public class TimeManager : MonoBehaviour
 
     private void Start()
     {
-        //shopUI.UpdateShopBySeason(timeData_SO.currentSeason);
+        //shopUI.UpdateShopBySeason(currentSeason);
         AdvanceTime();
-        //OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
+        //OnDayChanged?.Invoke(); // Mengirim totalHari ke semua pohon
         //UpdateDay();
 
     }
@@ -99,12 +131,12 @@ public class TimeManager : MonoBehaviour
         if (hour >= 24)
         {
             hour = 0;
-            timeData_SO.totalHari++;
+            totalHari++;
             UpdateDay();
-            HitungWaktu(timeData_SO.totalHari);
+            HitungWaktu(totalHari);
 
             // Update musim setiap 28 hari
-            if (timeData_SO.totalHari % 29 == 0)
+            if (totalHari % 29 == 0)
             {
                 UpdateSeason();
             }
@@ -117,13 +149,13 @@ public class TimeManager : MonoBehaviour
    public void UpdateDay()
    {
         hour = 4;
-        timeData_SO.currentDay = (Days)((timeData_SO.totalHari % 7 == 0) ? 7 : timeData_SO.totalHari % 7);
+        currentDay = (Days)((totalHari % 7 == 0) ? 7 : totalHari % 7);
 
         // Tentukan probabilitas hujan berdasarkan musim
 
         GetLuck();
         // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
-        Debug.Log($"Hari telah berganti: {timeData_SO.totalHari}");
+        Debug.Log($"Hari telah berganti: {totalHari}");
 
 
         //Update semua perangkap
@@ -134,7 +166,7 @@ public class TimeManager : MonoBehaviour
 
         // Debug jumlah listener yang terdaftar
         //Debug.Log($"Jumlah pohon yang menerima event: {registeredTrees.Count}");
-        OnDayChanged?.Invoke(); // Mengirim timeData_SO.totalHari ke semua pohon
+        OnDayChanged?.Invoke(); // Mengirim totalHari ke semua pohon
 
 
     }
@@ -150,22 +182,22 @@ public class TimeManager : MonoBehaviour
         // Pembobotan lebih besar pada angka 1
         if (randomValue < 0.4f)  // 60% peluang untuk mendapatkan angka lebih dekat ke 1
         {
-            timeData_SO.dailyLuck = 0f;
+            dailyLuck = 0f;
         }
         else if (randomValue < 0.7f)  // 40% peluang untuk mendapatkan angka antara 1 dan 3
         {
-            timeData_SO.dailyLuck = UnityEngine.Random.Range(1f, 2f);  // Nilai acak antara 1 dan 2
+            dailyLuck = UnityEngine.Random.Range(1f, 2f);  // Nilai acak antara 1 dan 2
         }
         else  // 30% peluang untuk mendapatkan 3
         {
-            timeData_SO.dailyLuck = 3f;
+            dailyLuck = 3f;
         }
 
     }
 
     public float GetDayLuck()
     {
-        return timeData_SO.dailyLuck;
+        return dailyLuck;
     }
 
 
@@ -173,8 +205,8 @@ public class TimeManager : MonoBehaviour
     private void UpdateSeason()
     {
         // Mengganti musim secara berurutan setiap kali fungsi ini dipanggil
-        timeData_SO.currentSeason = (Season)(((int)timeData_SO.currentSeason + 1) % Enum.GetValues(typeof(Season)).Length);
-        Debug.Log("Season updated to: " + timeData_SO.currentSeason);
+        currentSeason = (Season)(((int)currentSeason + 1) % Enum.GetValues(typeof(Season)).Length);
+        Debug.Log("Season updated to: " + currentSeason);
         OnSeasonChanged?.Invoke();
 
     }
@@ -186,38 +218,38 @@ public class TimeManager : MonoBehaviour
         int hariDalamTahun = 336;
 
         // Tahun ke-berapa (mulai dari 1)
-        timeData_SO.tahun = (totalHari / hariDalamTahun) + 1;
+        tahun = (totalHari / hariDalamTahun) + 1;
 
         // Sisa hari setelah dihitung tahun
         int sisaHari = totalHari % hariDalamTahun;
 
         // Bulan ke-berapa (mulai dari 1)
-        timeData_SO.tahun = (sisaHari / hariDalamBulan) + 1;
+        tahun = (sisaHari / hariDalamBulan) + 1;
 
         sisaHari %= hariDalamBulan;
 
         // Minggu ke-berapa (mulai dari 1)
-        timeData_SO.minggu = (sisaHari / hariDalamMinggu) + 1;
+        minggu = (sisaHari / hariDalamMinggu) + 1;
 
         sisaHari %= hariDalamMinggu;
 
         // Hari ke-berapa dalam minggu (1–7)
-        timeData_SO.hari = (sisaHari == 0 && totalHari > 0) ? 7 : (sisaHari == 0 ? 1 : sisaHari);
+        hari = (sisaHari == 0 && totalHari > 0) ? 7 : (sisaHari == 0 ? 1 : sisaHari);
 
         // Tanggal (1–28)
-        timeData_SO.date = ((totalHari - 1) % 28) + 1;
+        date = ((totalHari - 1) % 28) + 1;
 
-        Debug.Log($"Tanggal: {timeData_SO.date}, Hari: {timeData_SO.hari}, Minggu: {timeData_SO.minggu}, Bulan: {timeData_SO.bulan}, Tahun: {timeData_SO.tahun}, TotalHari: {totalHari}");
+        Debug.Log($"Tanggal: {date}, Hari: {hari}, Minggu: {minggu}, Bulan: {bulan}, Tahun: {tahun}, TotalHari: {totalHari}");
     }
 
     public override string ToString()
     {
-        return $"Time: {hour:D2}:{minutes:D2}, Hari: {timeData_SO.currentDay}, Musim: {timeData_SO.currentSeason}";
+        return $"Time: {hour:D2}:{minutes:D2}, Hari: {currentDay}, Musim: {currentSeason}";
     }
 
     public string GetFormattedDate()
     {
-        return $"{timeData_SO.currentDay} - {timeData_SO.date}";
+        return $"{currentDay} - {date}";
     }
 
     public string GetFormattedTime()
@@ -227,12 +259,12 @@ public class TimeManager : MonoBehaviour
 
     public Season GetCurrentSeason()
     {
-        return timeData_SO.currentSeason;
+        return currentSeason;
     }
 
     public string GetCurrentWeek()
     {
-        return $"Minggu ke-{timeData_SO.minggu}";
+        return $"Minggu ke-{minggu}";
     }
 
     public void RegisterTree(TreeBehavior tree)

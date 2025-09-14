@@ -33,7 +33,7 @@ public class WeatherManager : MonoBehaviour
         Debug.Log("WeatherManager menerima sinyal hari baru!");
 
         // Pastikan timeData_SO di TimeManager bersifat public atau memiliki getter.
-        Season currentSeason = TimeManager.Instance.timeData_SO.currentSeason;
+        Season currentSeason = TimeManager.Instance.currentSeason;
 
         SetRainChance(currentSeason);
     }
@@ -65,13 +65,13 @@ public class WeatherManager : MonoBehaviour
 
         if (randomValue <= rainChance)
         {
-            TimeManager.Instance.timeData_SO.isRain = true;
+            TimeManager.Instance.isRain = true;
             Debug.Log("Hujan turun bang");
             rainParticle.Play();
         }
         else
         {
-            TimeManager.Instance.timeData_SO.isRain = false;
+            TimeManager.Instance.isRain = false;
             rainParticle.Stop();
             Debug.Log("Tidak turun hujan");
         }

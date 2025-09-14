@@ -77,20 +77,22 @@ public class TemplateStoneObject
     public GameObject stoneObject;
     public ItemData[] hasilTambang;
 }
-[Serializable]
-public class ResourceData
-{
-    public string nameResource;
-    public TypeStone typeStone;
-    public Resource[] resources;
-}
-
-[Serializable]
-public class Resource
+[System.Serializable]
+public class TemplateStoneActive
 {
     public string stoneID;
-    public Vector2 location;
-    public bool isHarvested;
+    public GameObject stoneObject;
+    public Vector2 position;
+    public bool isActive;
+    public int dayToRespawn;
+}
+
+[System.Serializable]
+public class ListBatuManager
+{
+    public string listName;
+    public TypeStone typeStone;
+    public List<TemplateStoneActive> listActive;
 }
 
 public enum TypeStone

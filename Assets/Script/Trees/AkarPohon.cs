@@ -1,5 +1,6 @@
 using UnityEngine;
-
+using System.Collections;
+using System.Collections.Generic;
 public class AkarPohon : MonoBehaviour
 {
     public int health;
@@ -42,9 +43,15 @@ public class AkarPohon : MonoBehaviour
                     ItemPool.Instance.DropItem(kayu.itemName, kayu.itemHealth, kayu.quality, posisi + offset);
                 }
             }
-            Destroy(gameObject);
+            StartCoroutine(PlayDelay());
         }
 
+    }
+
+   public IEnumerator PlayDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 
 }

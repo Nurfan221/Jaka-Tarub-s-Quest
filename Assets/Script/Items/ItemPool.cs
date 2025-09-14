@@ -62,7 +62,6 @@ public class ItemPool : MonoBehaviour
     // Asumsi fungsi ini ada di dalam ItemPool.cs
     public void DropItem(string itemName, int healthItem, ItemQuality itemQuality, Vector2 pos, int count = 1, int level = 1)
     {
-        // 1. Dapatkan DATA DEFINISI item dari database
         Item itemDefinition = GetItemWithQuality(itemName, itemQuality);
         if (itemDefinition == null)
         {
@@ -70,7 +69,6 @@ public class ItemPool : MonoBehaviour
             return;
         }
 
-        // 2. Ambil PREFAB GENERIC ("Cetak Biru")
         GameObject itemPrefab = DatabaseManager.Instance.itemWorldPrefab;
         if (itemPrefab == null)
         {
@@ -78,17 +76,19 @@ public class ItemPool : MonoBehaviour
             return;
         }
 
-        // 3. Buat KLONINGAN ("Produk Jadi")
         GameObject droppedItemGO = Instantiate(itemPrefab, pos, Quaternion.identity);
         droppedItemGO.name = $"{itemDefinition.itemName}_Dropped";
 
-        // 4. Atur DATA & VISUAL pada kloningan
         ItemDropInteractable interactable = droppedItemGO.GetComponent<ItemDropInteractable>();
+
         if (interactable != null)
         {
             interactable.itemdata = new ItemData(itemName, count, itemQuality, healthItem);
             interactable.isPickable = false;
+
+            Debug.Log($"data item yang di drop : nama item {itemName}, jumlah item {count}, item quality {itemQuality}, health item {healthItem}");
         }
+
 
         SpriteRenderer spriteRenderer = droppedItemGO.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
@@ -104,8 +104,7 @@ public class ItemPool : MonoBehaviour
             Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
             rb.AddForce(randomDirection * force, ForceMode2D.Impulse);
 
-            // --- INI KUNCINYA ---
-            // Panggil Coroutine "pembeku" dari skrip item yang baru dibuat
+
             // dan suruh ia berhenti setelah 1.0 detik.
             if (interactable != null)
             {

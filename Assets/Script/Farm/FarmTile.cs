@@ -55,7 +55,7 @@ public class FarmTile : MonoBehaviour
         Debug.Log("WeatherManager menerima sinyal hari baru!");
 
         // Pastikan timeData_SO di TimeManager bersifat public atau memiliki getter.
-        bool isRaining = TimeManager.Instance.timeData_SO.isRain;
+        bool isRaining = TimeManager.Instance.isRain;
         AdvanceDay(isRaining);
     }
 
@@ -93,7 +93,7 @@ public class FarmTile : MonoBehaviour
             }
 
             // Reset Tanah Cangkulan yang Terlantar (jika tidak ditanami)
-            if (!tileData.isPlanted && timeManager.timeData_SO.date >= tileData.hoedTime + 3)
+            if (!tileData.isPlanted && timeManager.date >= tileData.hoedTime + 3)
             {
                 RevertTileToSoil(tileData.tilePosition);
             }
@@ -115,11 +115,11 @@ public class FarmTile : MonoBehaviour
         if (currentTile == farmData.emptySoilTile)
         {
             tilemap.SetTile(tileToHoe, farmData.hoeedTile);
-            HoedTileData newHoedTile = new HoedTileData(tileToHoe, timeManager.timeData_SO.date);
+            HoedTileData newHoedTile = new HoedTileData(tileToHoe, timeManager.date);
             farmData.hoedTilesList.Add(newHoedTile);
         }
 
-        if (TimeManager.Instance.timeData_SO.isRain)
+        if (TimeManager.Instance.isRain)
         {
             WaterTile(playerPosition, faceDirection);
         }
@@ -150,7 +150,7 @@ public class FarmTile : MonoBehaviour
             tilemap.SetTile(tileToWater, farmData.wateredTile);
             hoedTile.watered = true;
             // Catat kapan terakhir disiram
-            hoedTile.hoedTime = timeManager.timeData_SO.date;
+            hoedTile.hoedTime = timeManager.date;
 
             if (plant != null)
             {
@@ -171,7 +171,7 @@ public class FarmTile : MonoBehaviour
     private void DryOutWateredTile(HoedTileData tileData, PlantSeed plant)
     {
         // Jika tile basah dan sudah lewat satu hari sejak disiram
-        if (tileData.watered && timeManager.timeData_SO.date + 1 > tileData.hoedTime)
+        if (tileData.watered && timeManager.date + 1 > tileData.hoedTime)
         {
             tileData.watered = false;
             tilemap.SetTile(tileData.tilePosition, farmData.hoeedTile);
@@ -195,7 +195,7 @@ public class FarmTile : MonoBehaviour
             {
                 tilemap.SetTile(tileData.tilePosition, farmData.wateredTile);
                 tileData.watered = true;
-                tileData.hoedTime = timeManager.timeData_SO.date; // Update waktu siram
+                tileData.hoedTime = timeManager.date; // Update waktu siram
 
                 PlantSeed plant = GetPlantAtPosition(tileData.tilePosition)?.GetComponent<PlantSeed>();
                 if (plant != null && !plant.isInfected && !plant.isReadyToHarvest)

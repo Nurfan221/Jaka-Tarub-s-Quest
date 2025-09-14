@@ -87,7 +87,7 @@ public class QuestManager : MonoBehaviour
                 foreach (var questAsset in chapterAsset.sideQuests)
                 {
                     if (IsQuestInLog(questAsset.questName)) continue;
-                    if (TimeManager.Instance.timeData_SO.date == questAsset.dateToActivate && TimeManager.Instance.timeData_SO.bulan == questAsset.MonthToActivate)
+                    if (TimeManager.Instance.date == questAsset.dateToActivate && TimeManager.Instance.bulan == questAsset.MonthToActivate)
                     {
                         ActivateQuest(questAsset);
                     }
@@ -99,14 +99,14 @@ public class QuestManager : MonoBehaviour
         // --- Cek Main Quest yang Tertunda ---
         if (pendingMainQuest != null && activeMainQuestController == null)
         {
-            if (TimeManager.Instance.timeData_SO.date == pendingMainQuest.dateToActivate && TimeManager.Instance.timeData_SO.bulan == pendingMainQuest.monthToActivate)
+            if (TimeManager.Instance.date == pendingMainQuest.dateToActivate && TimeManager.Instance.bulan == pendingMainQuest.monthToActivate)
             {
                 Debug.Log($"Memulai Main Quest yang tertunda: {pendingMainQuest.questName}");
                 StartMainQuest(pendingMainQuest);
             }
             else
             {
-                Debug.LogError($"Main Quest '{pendingMainQuest.questName}' belum bisa dimulai. Tanggal saat ini: {TimeManager.Instance.timeData_SO.date}, Bulan: {TimeManager.Instance.timeData_SO.bulan}. Tanggal aktivasi: {pendingMainQuest.dateToActivate}, Bulan: {pendingMainQuest.monthToActivate}");
+                Debug.LogError($"Main Quest '{pendingMainQuest.questName}' belum bisa dimulai. Tanggal saat ini: {TimeManager.Instance.date}, Bulan: {TimeManager.Instance.bulan}. Tanggal aktivasi: {pendingMainQuest.dateToActivate}, Bulan: {pendingMainQuest.monthToActivate}");
             }
         }
     }
@@ -146,7 +146,7 @@ public class QuestManager : MonoBehaviour
                 npcTargetQuest.OverrideForQuest(newQuestStatus.Quest.startLocateNpcQuest, newQuestStatus.Quest.finishLocateNpcQuest, newQuestStatus.Quest.startDialogue, newQuestStatus.Quest.questEmoticon.emoticonName);
                 npcTargetQuest.itemQuestToGive = newQuestStatus.Quest.NPCItem;
                 npcTargetQuest.isGivenItemForQuest = true;
-                Debug.Log("itemQuestToGive" + npcTargetQuest.itemQuestToGive.itemName + "jumlah item : " + npcTargetQuest.itemQuestToGive.count.ToString());
+                Debug.Log("itemQuestToGive" + npcTargetQuest.itemQuestToGive.itemName + "jumlah item : " + npcTargetQuest.itemQuestToGive.ToString());
             }
             else
             {
@@ -706,8 +706,8 @@ public class QuestManager : MonoBehaviour
         if (pendingMainQuest == null && activeMainQuestController == null)
         {
             pendingMainQuest = mainQuest;
-            pendingMainQuest.dateToActivate = TimeManager.Instance.timeData_SO.date + 1;
-            pendingMainQuest.monthToActivate = TimeManager.Instance.timeData_SO.bulan;
+            pendingMainQuest.dateToActivate = TimeManager.Instance.date + 1;
+            pendingMainQuest.monthToActivate = TimeManager.Instance.bulan;
             Debug.Log($"Main Quest '{mainQuest.questName}' disiapkan untuk dimulai pada tanggal {mainQuest.dateToActivate}.");
         }
     }

@@ -8,31 +8,44 @@ using UnityEngine.Rendering;
 using UnityEditor;
 #endif
 
-[System.Serializable]
-public class TemplateStoneActive
-{
-    public string stoneName;
-    public GameObject stoneObject;
-    public Vector2 position;
-    public bool isActive;
-}
+
+
+
+
+
 
 
 
 public class BatuManager : MonoBehaviour
 {
+    public static BatuManager Instance { get; private set; }
     [Header("Referensi Database")]
     public WorldStoneDatabaseSO stoneDatabase;
-    public TemplateStoneActive[] templateStoneActives;
+    public List<ListBatuManager> listBatuManager = new List<ListBatuManager>();
+    public List<TemplateStoneActive> listStoneActivePerDay = new List<TemplateStoneActive>();
 
 
 
     [Header("Pengaturan Spawning")]
     [Tooltip("Daftar semua kemungkinan lokasi spawn batu.")]
-    public List<Transform> spawnPoints;
+    public List<StoneRespawnSaveData> respawnQueue = new List<StoneRespawnSaveData>();
 
     [Tooltip("Jumlah maksimal batu yang akan muncul dalam satu siklus.")]
     public int maxStonesToSpawn = 30;
+
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -55,114 +68,230 @@ public class BatuManager : MonoBehaviour
     public void NewDay()
     {
         float luck = TimeManager.Instance.GetDayLuck();
-        SpawnStonesBasedOnLuck(luck);
+        SpawnStonesForDay(luck);
     }
 
-    public void RegisterStone()
+    // Fungsi untuk membersihkan batu dari hari sebelumnya
+    public void ClearExistingStones()
     {
-       
+        Debug.Log($"Membersihkan {listStoneActivePerDay.Count} batu dari hari sebelumnya.");
+        foreach (var stone in listStoneActivePerDay)
+        {
+            if (stone.stoneObject != null)
+            {
+                // Nonaktifkan GameObject-nya
+                stone.stoneObject.SetActive(false);
+                // Set statusnya menjadi tidak aktif
+                stone.isActive = false;
+            }
+        }
+        // Kosongkan list pelacak setelah selesai
+        listStoneActivePerDay.Clear();
     }
-    public void SpawnStonesBasedOnLuck(float playerLuck)
+
+
+
+    // Fungsi utama yang baru
+    public void SpawnStonesForDay(float dailyLuck)
     {
-        Debug.Log("hari yang baru ayoo kita munculkan batu");
-        if (stoneDatabase == null || spawnPoints.Count == 0)
+        NonActiveGameObject();
+        // PANGGIL FUNGSI PEMBERSIH DI AWAL
+        ClearExistingStones();
+
+        List<TemplateStoneActive> candidatePool = new List<TemplateStoneActive>();
+
+        if (dailyLuck < 1) // HARI TIDAK BERUNTUNG
         {
-            Debug.LogError("Database atau Spawn Points belum di-set di StoneManager!");
-            return;
+            // Hanya bisa muncul Copper
+            var copperGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Copper);
+            if (copperGroup != null) candidatePool.AddRange(copperGroup.listActive);
+        }
+        else if (dailyLuck < 3) // HARI NORMAL (luck antara 1 dan 2.99)
+        {
+            // Bisa muncul Copper dan Iron
+            var copperGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Copper);
+            var ironGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Iron);
+            if (copperGroup != null) candidatePool.AddRange(copperGroup.listActive);
+            if (ironGroup != null) candidatePool.AddRange(ironGroup.listActive);
+        }
+        else // HARI SANGAT BERUNTUNG (luck >= 3)
+        {
+            // Bisa muncul Copper, Iron, dan Gold
+            var copperGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Copper);
+            var ironGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Iron);
+            var goldGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Gold);
+            if (copperGroup != null) candidatePool.AddRange(copperGroup.listActive);
+            if (ironGroup != null) candidatePool.AddRange(ironGroup.listActive);
+            if (goldGroup != null) candidatePool.AddRange(goldGroup.listActive);
         }
 
-        List<TemplateStoneObject> eligibleStones = GetEligibleStones(playerLuck);
+        int maxSpawns = 0;
+        if (dailyLuck < 1) maxSpawns = 5;
+        else if (dailyLuck < 3) maxSpawns = 15;
+        else maxSpawns = 20;
+        int finalSpawnCount = Mathf.Min(maxSpawns, candidatePool.Count);
 
-        if (eligibleStones.Count == 0)
+        var shuffledPool = candidatePool.OrderBy(x => UnityEngine.Random.value).ToList();
+
+        for (int i = 0; i < finalSpawnCount; i++)
         {
-            Debug.LogWarning("Tidak ada batu yang memenuhi syarat untuk spawn dengan luck: " + playerLuck);
-            return;
+            TemplateStoneActive stoneDataToSpawn = shuffledPool[i];
+
+            if (stoneDataToSpawn.stoneObject != null)
+            {
+                // Aktifkan objek batu di scene
+                stoneDataToSpawn.stoneObject.SetActive(true);
+                stoneDataToSpawn.isActive = true;
+
+                // Tambahkan batu yang baru aktif ini ke dalam list pelacak
+                listStoneActivePerDay.Add(stoneDataToSpawn);
+            }
         }
 
-        // Gunakan lokasi spawn yang tersedia untuk siklus ini
-        List<Transform> availableSpawnPoints = new List<Transform>(spawnPoints);
 
-        // Jumlah batu yang akan di-spawn adalah nilai terkecil dari:
-        // maxStones, jumlah batu yang valid, atau jumlah lokasi yang ada.
-        int amountToSpawn = Mathf.Min(maxStonesToSpawn, eligibleStones.Count, availableSpawnPoints.Count);
-
-        for (int i = 0; i < amountToSpawn; i++)
-        {
-            // Pilih batu acak dari kolam yang valid
-            TemplateStoneObject chosenStoneTemplate = eligibleStones[UnityEngine.Random.Range(0, eligibleStones.Count)];
-
-            // Pilih lokasi acak dari yang masih tersedia
-            int spawnPointIndex = UnityEngine.Random.Range(0, availableSpawnPoints.Count);
-            Transform spawnLocation = availableSpawnPoints[spawnPointIndex];
-
-            // Hapus lokasi agar tidak dipakai lagi
-            availableSpawnPoints.RemoveAt(spawnPointIndex);
-
-            // Ciptakan objek batu di dunia game!
-            Instantiate(chosenStoneTemplate.stoneObject, spawnLocation.position, spawnLocation.rotation);
-        }
-
-        Debug.Log($"Spawning selesai. Total {amountToSpawn} batu telah dimunculkan.");
+        Debug.Log($"Hari ini (luck: {dailyLuck}), sebanyak {finalSpawnCount} batu telah dimunculkan.");
     }
 
-    // Fungsi helper untuk memfilter batu berdasarkan luck
-    private List<TemplateStoneObject> GetEligibleStones(float luck)
+    // Kode helper untuk mengisi candidate pool (agar lebih rapi)
+    private void FillCandidatePool(float dailyLuck, List<TemplateStoneActive> pool)
     {
-        // Menggunakan LINQ agar kode lebih bersih dan singkat
-        switch (luck)
+        pool.Clear();
+        if (dailyLuck < 1)
         {
-            case 1:
-                return stoneDatabase.templateStoneObject
-                    .Where(s => s.hardnessLevel == EnvironmentHardnessLevel.Soft).ToList();
-            case 2:
-                return stoneDatabase.templateStoneObject
-                    .Where(s => s.hardnessLevel == EnvironmentHardnessLevel.Soft ||
-                                s.hardnessLevel == EnvironmentHardnessLevel.Medium).ToList();
-            case 3:
-                return stoneDatabase.templateStoneObject
-                    .Where(s => s.hardnessLevel == EnvironmentHardnessLevel.Soft ||
-                                s.hardnessLevel == EnvironmentHardnessLevel.Medium ||
-                                s.hardnessLevel == EnvironmentHardnessLevel.Hard).ToList();
-            default:
-                return new List<TemplateStoneObject>(stoneDatabase.templateStoneObject);
+            var copperGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Copper);
+            if (copperGroup != null) pool.AddRange(copperGroup.listActive);
+        }
+        else if (dailyLuck < 3)
+        {
+            var copperGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Copper);
+            var ironGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Iron);
+            if (copperGroup != null) pool.AddRange(copperGroup.listActive);
+            if (ironGroup != null) pool.AddRange(ironGroup.listActive);
+        }
+        else
+        {
+            var copperGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Copper);
+            var ironGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Iron);
+            var goldGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeStone.Gold);
+            if (copperGroup != null) pool.AddRange(copperGroup.listActive);
+            if (ironGroup != null) pool.AddRange(ironGroup.listActive);
+            if (goldGroup != null) pool.AddRange(goldGroup.listActive);
+        }
+    }
+
+    // FUNGSI ANDA UNTUK ME-RESET SEMUA BATU
+    public void NonActiveGameObject()
+    {
+        Debug.Log("Menonaktifkan semua batu sumber daya (Copper, Iron, Gold)...");
+        foreach (var group in listBatuManager)
+        {
+            // Kita hanya menonaktifkan yang bisa di-spawn (bukan batu biasa)
+            if (group.typeStone != TypeStone.Stone)
+            {
+                foreach (var stoneData in group.listActive)
+                {
+                    if (stoneData.stoneObject != null)
+                    {
+                        stoneData.stoneObject.SetActive(false);
+                        stoneData.isActive = false;
+                    }
+                }
+            }
         }
     }
 
 
-    [ContextMenu("Langkah 1: Cari & Daftarkan Semua Batu Child")]
+    [ContextMenu("Langkah 1: Cari & Kelompokkan Semua Batu Child")]
     public void FindAndRegisterChildStones()
     {
-        // Fungsi ini akan mencari di objek ini DAN semua child-nya secara rekursif.
         StoneBehavior[] childStones = GetComponentsInChildren<StoneBehavior>();
 
-        // Jika tidak ada yang ditemukan, beri pesan dan hentikan fungsi.
         if (childStones.Length == 0)
         {
-            Debug.LogWarning("Tidak ada child object dengan script StoneBehavior yang ditemukan di bawah BatuManager.");
+            Debug.LogWarning("Tidak ada child object dengan script StoneBehavior yang ditemukan.");
             return;
         }
 
-        List<TemplateStoneActive> foundStonesList = new List<TemplateStoneActive>();
+        // Kuncinya adalah TypeStone, nilainya adalah grup list-nya.
+        var groups = new Dictionary<TypeStone, ListBatuManager>();
 
         foreach (var stone in childStones)
         {
-            // Buat entri TemplateStoneActive baru untuk setiap batu
+            // Ambil tipe batu dari komponen StoneBehavior
+            // Asumsi: Anda memiliki variabel public TypeStone typeStone di dalam StoneBehavior.cs
+            TypeStone stoneType = stone.stoneType;
+            UniqueID idStoneTemplate = stone.GetComponent<UniqueID>();
+            // Cek apakah grup untuk tipe ini sudah ada di 'organizer' kita
+            if (!groups.ContainsKey(stoneType))
+            {
+                // Jika belum ada, buat grup baru
+                groups[stoneType] = new ListBatuManager
+                {
+                    // Beri nama grup berdasarkan nama enum-nya
+                    listName = stoneType.ToString() + " Stones",
+                    typeStone = stoneType,
+                    listActive = new List<TemplateStoneActive>()
+                };
+            }
+
+            // Buat entri TemplateStoneActive baru untuk batu ini
             TemplateStoneActive newActiveTemplate = new TemplateStoneActive
             {
-                // Isi datanya dari komponen dan GameObject yang ditemukan
-                stoneName = stone.gameObject.name,
+                stoneID = idStoneTemplate.ID,
                 stoneObject = stone.gameObject,
                 position = stone.transform.position,
                 isActive = stone.gameObject.activeInHierarchy
             };
 
-            // Tambahkan entri baru ke list sementara
-            foundStonesList.Add(newActiveTemplate);
+            // Tambahkan batu ini ke dalam grup yang sesuai di 'organizer'
+            groups[stoneType].listActive.Add(newActiveTemplate);
         }
 
-        templateStoneActives = foundStonesList.ToArray();
+        // Langkah 4: Setelah semua batu dikelompokkan, pindahkan hasilnya ke list utama Anda
+        listBatuManager = groups.Values.ToList();
 
-        Debug.Log($"Proses selesai. Menemukan dan mendaftarkan {templateStoneActives.Length} batu ke dalam list.");
+        Debug.Log($"Proses selesai. Menemukan {childStones.Length} batu dan mengelompokkannya ke dalam {listBatuManager.Count} grup.");
+    }
+
+    public void ScheduleRespawn(string stoneID, int currentDay)
+    {
+        Debug.Log($"Mencoba menjadwalkan respawn untuk ID: '{stoneID}'");
+        TemplateStoneActive stoneDataFromBlueprint = FindStoneDataByID(stoneID);
+
+        // --- TAMBAHKAN PENGECEKAN INI ---
+        if (stoneDataFromBlueprint != null)
+        {
+            // Kode ini HANYA akan berjalan jika batu berhasil ditemukan
+            Debug.Log("Data ditemukan: " + stoneDataFromBlueprint.stoneID);
+
+
+
+            respawnQueue.Add(new StoneRespawnSaveData
+            {
+                stoneToRespawn = stoneDataFromBlueprint,
+
+                
+                //dayToRespawn = respawnDay
+            });
+            stoneDataFromBlueprint.dayToRespawn = currentDay;
+            
+            
+            stoneDataFromBlueprint.stoneObject.SetActive(false);
+        }
+        else
+        {
+            // Kode ini akan berjalan jika batu TIDAK ditemukan
+            Debug.LogError($"GAGAL: Tidak dapat menemukan batu dengan ID: '{stoneID}' di dalam listBatuManager!");
+        }
+    }
+    // Fungsi pencarian Anda sudah benar, tidak perlu diubah
+    public TemplateStoneActive FindStoneDataByID(string idToFind)
+    {
+        var foundStone = listBatuManager
+                         .SelectMany(group => group.listActive)
+                         .FirstOrDefault(stoneData => stoneData.stoneID == idToFind);
+
+        return foundStone;
     }
 
 

@@ -457,7 +457,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             seedComponent.dropItem = dropItem;
             seedComponent.growthImages = growthImages; // Simpan growthImages ke komponen Seed
             seedComponent.growthTime = growthTime; // Simpan growthTime ke komponen Seed
-            seedComponent.isWatered = TimeManager.Instance.timeData_SO.isRain;
+            seedComponent.isWatered = TimeManager.Instance.isRain;
             seedComponent.dropItem = dropItem;
             //seedComponent.plantLocation = spawnPosition;
         }
