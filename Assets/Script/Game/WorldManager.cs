@@ -22,10 +22,7 @@ public class WorldManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        GenerateAllUniqueIDs();
-    }
+
     [ContextMenu("Generate Unique IDs For All Identifiable Objects")]
     [ContextMenu("Generate Unique IDs For All Identifiable Objects")]
     private void GenerateAllUniqueIDs()

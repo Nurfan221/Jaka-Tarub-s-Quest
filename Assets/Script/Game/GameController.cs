@@ -367,7 +367,6 @@ public class GameController : MonoBehaviour
 
         Debug.Log($"[LOAD] Merestorasi state untuk {savedStone.Count} batu...");
 
-        // 1. Reset: Aktifkan semua batu.
         // Kita tetap butuh loop ini untuk memastikan semua batu dalam kondisi default (aktif).
         // Cara ini masih lebih aman daripada mengasumsikan semuanya nonaktif.
         foreach (var group in batuManager.listBatuManager)
@@ -386,10 +385,10 @@ public class GameController : MonoBehaviour
 
         foreach (var savedItem in savedStone)
         {
-            batuManager.RestoreState(savedItem);
             // CARI CHILD DENGAN NAMA YANG SESUAI DENGAN ID
             Transform stoneTransform = batuManager.transform.Find(savedItem.id);
-            if (stoneTransform != null && TimeManager.Instance.date < savedItem.dayToRespawn)
+            Debug.Log($"[LOAD] nama stoneTransform" + stoneTransform.gameObject.name);
+            if (stoneTransform != null )
             {
                 Debug.Log($"[LOAD] Menemukan batu dengan nama/ID: '{savedItem.id}'. Nonaktifkan karena sudah waktunya respawn.");
                 // Jika ditemukan, nonaktifkan GameObject-nya
@@ -401,8 +400,9 @@ public class GameController : MonoBehaviour
             {
                 Debug.LogWarning($"[LOAD] Gagal menemukan child object dengan nama/ID: '{savedItem.id}'.");
             }
+            batuManager.RestoreState(savedItem);
 
-            
+
 
         }
         Debug.Log("[LOAD] Restorasi state batu selesai.");

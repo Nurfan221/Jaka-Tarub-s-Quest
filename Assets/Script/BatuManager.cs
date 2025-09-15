@@ -48,6 +48,11 @@ public class BatuManager : MonoBehaviour, ISaveable
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+
+        if (listBatuManager == null)
+        {
+            listBatuManager = new List<ListBatuManager>();
+        }
     }
 
     private void Start()
@@ -74,6 +79,7 @@ public class BatuManager : MonoBehaviour, ISaveable
     {
         float luck = TimeManager.Instance.GetDayLuck();
         SpawnStonesForDay(luck);
+        ProcessRespawnQueue();
     }
 
     // Fungsi untuk membersihkan batu dari hari sebelumnya
@@ -283,25 +289,38 @@ public class BatuManager : MonoBehaviour, ISaveable
     }
 
 
-    public void ProcessRespawnQueue(string id)
+
+    public void ProcessRespawnQueue()
     {
-        var itemsToRespawn = respawnQueue.Where(item => item.id == id).ToList();
-        foreach (var item in itemsToRespawn)
+        // Gunakan FOR loop yang berjalan MUNDUR untuk keamanan saat menghapus item
+        for (int i = respawnQueue.Count - 1; i >= 0; i--)
         {
-            Transform stoneTransform = gameObject.transform.Find(id);
-            if (stoneTransform != null && TimeManager.Instance.date >= item.dayToRespawn)
-            {
-                Debug.Log($"[LOAD] Menemukan batu dengan nama/ID: '{id}'. Nonaktifkan karena sudah waktunya respawn.");
-                // Jika ditemukan, nonaktifkan GameObject-nya
-                stoneTransform.gameObject.SetActive(true);
+            // Ambil item saat ini dari antrian
+            var item = respawnQueue[i];
 
-
-            }
-            else
+            // Cek dulu apakah waktunya sudah tiba untuk respawn
+            if (TimeManager.Instance.date >= item.dayToRespawn)
             {
-                Debug.LogWarning($"[LOAD] Gagal menemukan child object dengan nama/ID: '{id}'.");
+                // Jika sudah waktunya, baru kita cari GameObject-nya
+                Transform stoneTransform = transform.Find(item.id);
+
+                if (stoneTransform != null)
+                {
+                    Debug.Log($"Batu '{item.id}' telah respawn pada hari ke-{TimeManager.Instance.date}.");
+
+                    // Aktifkan kembali GameObject-nya
+                    stoneTransform.gameObject.SetActive(true);
+
+                    // Hapus item dari antrian karena tugasnya sudah selesai
+                    respawnQueue.RemoveAt(i);
+                }
+                else
+                {
+                    // Kasus langka: objeknya hilang dari scene, mungkin lebih baik dihapus dari antrian
+                    Debug.LogWarning($"Gagal respawn: Child object dengan nama/ID '{item.id}' tidak ditemukan. Menghapus dari antrian.");
+                    respawnQueue.RemoveAt(i);
+                }
             }
-            respawnQueue.Remove(item);
         }
     }
 
