@@ -72,12 +72,13 @@ public class SaveDataManager : MonoBehaviour
         foreach (ISaveable saveable in FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>())
         {
             // Pengecekan pertama: Apakah ini sebuah pohon?
-            if (saveable is TreeBehavior tree)
+            if (saveable is TreesManager tree)
             {
-                if (tree.CaptureState() is TreeSaveData treeData)
+                Debug.Log("[SAVE] Ditemukan EnvironmentManager. Memanggil CaptureState...");
+                if (tree.CaptureState() is List<TreePlacementData> treeData)
                 {
-                    treeData.id = tree.UniqueID;
-                    saveData.savedTrees.Add(treeData);
+                    saveData.savedTrees = tree.secondListTrees;
+                    Debug.Log("Data pohon telah ditangkap untuk penyimpanan." + saveData.savedTrees.Count);
                 }
             }
             // Pengecekan kedua: Apakah ini pemain?
@@ -117,7 +118,6 @@ public class SaveDataManager : MonoBehaviour
     {
         string json = JsonUtility.ToJson(saveData, true);
 
-        // --- DEBUG LOG KUNCI #3 ---
         // Lihat seperti apa isi file JSON yang akan disimpan
         Debug.Log("[Save Process] Konten JSON yang akan disimpan:\n" + json);
         // -------------------------

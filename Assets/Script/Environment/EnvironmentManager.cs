@@ -8,24 +8,20 @@ using UnityEditor.Tilemaps;
 using UnityEngine;
 using System.Linq;
 
-[Serializable]
-public class EnvironmentList
-{
-    public string prefabName;             // Nama prefab atau ID unik
-    public Vector3 objectPosition;        // Posisi saat spawn
-    public GrowthTree initialStage; // Tahap tumbuh saat pertama kali muncul
-    public bool isGrowing;
-}
 
 
-public class EnvironmentManager : MonoBehaviour
+
+public class EnvironmentManager : MonoBehaviour, ISaveable
 {
     [Header("Daftar Hubungan")]
     public WorldTreeDatabaseSO targetTreeDatabase;
-    public List<TreeBehavior> allActiveTrees = new List<TreeBehavior>();
+    public List<TreePlacementData> secondListTrees = new List<TreePlacementData>();
+
+    [Header("Daftar list Antrian kemunculan Pohon/Environment")]
+    public List<TreePlacementData> treeRespawnQueue = new List<TreePlacementData>();
 
     public Transform parentEnvironment;
-    public List<EnvironmentList> environmentList = new List<EnvironmentList>();
+    public List<TreePlacementData> environmentList = new List<TreePlacementData>();
     public List<GameObject> gameObjectsList = new List<GameObject>();
     public bool isGameObjectManager;
     public bool isJanganAcak;
@@ -63,6 +59,47 @@ public class EnvironmentManager : MonoBehaviour
 
     }
 
+    public object CaptureState()
+    {
+        Debug.Log("[SAVE] Menangkap data antrian respawn pohon...");
+
+        // Buat list baru dengan format yang siap disimpan
+        var saveQueue = new List<TreePlacementData>();
+
+        // Konversi setiap item di antrian runtime ke format save
+        foreach (var respawnItem in secondListTrees)
+        {
+            saveQueue.Add(new TreePlacementData
+            {
+                TreeID = respawnItem.TreeID,
+                dayToRespawn = respawnItem.dayToRespawn,
+                position = respawnItem.position,
+                typePlant = respawnItem.typePlant,
+                sudahTumbang = respawnItem.sudahTumbang,
+                initialStage = respawnItem.initialStage
+            });
+        }
+
+        // Kembalikan SELURUH LIST yang sudah siap disimpan
+        return saveQueue;
+    }
+
+    public void RestoreState(object state)
+    {
+        Debug.Log("[LOAD] Merestorasi data antrian respawn batu...");
+        TreePlacementData data = (TreePlacementData)state;
+        secondListTrees.Add(new TreePlacementData
+        {
+            TreeID = data.TreeID,
+            dayToRespawn = data.dayToRespawn,
+            position = data.position,
+            typePlant = data.typePlant,
+            sudahTumbang = data.sudahTumbang,
+            initialStage = data.initialStage
+        });
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -97,12 +134,12 @@ public class EnvironmentManager : MonoBehaviour
 
 
 
-            EnvironmentList data = new EnvironmentList
+            TreePlacementData data = new TreePlacementData
             {
-                prefabName = treeBehavior.UniqueID,
-                objectPosition = child.position,
+                TreeID = treeBehavior.UniqueID,
+                position = child.position,
+                typePlant = treeBehavior.typePlant,
                 initialStage = treeBehavior.currentStage,
-                isGrowing = true
             };
 
             environmentList.Add(data);
@@ -157,37 +194,36 @@ public class EnvironmentManager : MonoBehaviour
 
         foreach (var environment in environmentList)
         {
-            if (!environment.isGrowing)
+            if (environment.initialStage != GrowthTree.MaturePlant)
             {
                 float randomCountSpawn = UnityEngine.Random.Range(0f, 1f);
                 if (randomCountSpawn > 0.5f)
                 {
                     // Cek apakah posisi sudah terisi
-                    if (!IsPositionOccupied(environment.objectPosition))
+                    if (!IsPositionOccupied(environment.position))
                     {
-                        GameObject prefab = GetPrefabByName(environment.prefabName);
+                        GameObject prefab = GetPrefabByName(environment.TreeID);
                         if (prefab != null)
                         {
-                            GameObject obj = Instantiate(prefab, environment.objectPosition, Quaternion.identity, parentEnvironment);
+                            GameObject obj = Instantiate(prefab, environment.position, Quaternion.identity, parentEnvironment);
                             TreeBehavior treeBehavior = obj.GetComponent<TreeBehavior>();
-                            EnvironmentBehavior environmentBehavior = obj.GetComponent<EnvironmentBehavior>();
-                            if (environmentBehavior != null)
-                            {
-                                environmentBehavior.plantsContainer = parentEnvironment;
-                            }
-                            else if (treeBehavior != null)
-                            {
-                                treeBehavior.plantsContainer = parentEnvironment;
-                            }
+                            //EnvironmentBehavior environmentBehavior = obj.GetComponent<EnvironmentBehavior>();
+                            //if (environmentBehavior != null)
+                            //{
+                            //    environmentBehavior.plantsContainer = parentEnvironment;
+                            //}
+                            //else if (treeBehavior != null)
+                            //{
+                            //    treeBehavior.plantsContainer = parentEnvironment;
+                            //}
 
 
                             obj.name = prefab.name;
-                            environment.isGrowing = true;
                         }
                     }
                     else
                     {
-                        Debug.Log("Posisi terisi, tidak jadi spawn: " + environment.objectPosition);
+                        Debug.Log("Posisi terisi, tidak jadi spawn: " + environment.position);
                     }
                 }
             }
@@ -276,8 +312,11 @@ public class EnvironmentManager : MonoBehaviour
 
     }
 
-    
 
+    public void AddSecondListTrees(TreePlacementData data)
+    {
+        secondListTrees.Add(data);
+    }
     // TOMBOL BARU: Untuk mengisi 'environmentList' di dalam Editor
     [ContextMenu("Langkah 1: Daftarkan Semua Objek Anak ke List")]
     public void RegisterAllObjectsInEditor()
@@ -314,28 +353,24 @@ public class EnvironmentManager : MonoBehaviour
         Debug.Log($"Memulai migrasi {environmentList.Count} data pohon ke {targetTreeDatabase.name}...");
 
         // Loop melalui setiap entri di environmentList
-        foreach (EnvironmentList treeData in environmentList)
+        foreach (TreePlacementData treeData in environmentList)
         {
             // Hanya proses jika objek adalah pohon (berdasarkan komponen atau nama)
             // Anda mungkin perlu menyesuaikan kondisi ini
-            if (treeData.prefabName.Contains("Pohon") || treeData.prefabName.Contains("Tree"))
+            // Buat entri TreePlacementData baru
+            TreePlacementData newPlacementData = new TreePlacementData
             {
-               
 
-                // Buat entri TreePlacementData baru
-                TreePlacementData newPlacementData = new TreePlacementData
-                {
-                    
-                    TreeID = treeData.prefabName,
-                    position = treeData.objectPosition,
-                    // Asumsi semua pohon yang terdaftar dimulai dari tahap Seed
-                    initialStage = treeData.initialStage,
+                TreeID = treeData.TreeID,
+                position = treeData.position,
+                typePlant = treeData.typePlant,
+                // Asumsi semua pohon yang terdaftar dimulai dari tahap Seed
+                initialStage = treeData.initialStage,
 
-                };
+            };
 
-                // Tambahkan data baru ke dalam list di ScriptableObject
-                targetTreeDatabase.initialTreePlacements.Add(newPlacementData);
-            }
+            // Tambahkan data baru ke dalam list di ScriptableObject
+            targetTreeDatabase.initialTreePlacements.Add(newPlacementData);
         }
 
         // Tandai aset ScriptableObject sebagai "kotor" agar Unity menyimpan perubahan
@@ -346,4 +381,6 @@ public class EnvironmentManager : MonoBehaviour
 
         Debug.Log($"Migrasi selesai! {targetTreeDatabase.initialTreePlacements.Count} data pohon berhasil dipindahkan.");
     }
+
+
 }

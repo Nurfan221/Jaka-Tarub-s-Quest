@@ -235,6 +235,7 @@ MonoBehaviour:
     itemHealth: 0
   plantEffectPrefab: {fileID: 0}
   currentStage: 0
+  typePlant: 3
   growthObject: {fileID: 0}
   growthTime: 4
   nameEnvironment: 
@@ -250,7 +251,6 @@ MonoBehaviour:
   maxSap: 0
   minLeaf: 0
   maxLeaf: 1
-  plantsContainer: {fileID: 0}
 --- !u!1001 &8524513777706577044
 PrefabInstance:
   m_ObjectHideFlags: 0

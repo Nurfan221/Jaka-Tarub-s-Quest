@@ -235,6 +235,7 @@ MonoBehaviour:
     itemHealth: 0
   plantEffectPrefab: {fileID: 0}
   currentStage: 2
+  typePlant: 2
   growthObject: {fileID: 0}
   growthTime: 4
   nameEnvironment: PohonOakSedang
@@ -250,7 +251,6 @@ MonoBehaviour:
   maxSap: 5
   minLeaf: 3
   maxLeaf: 4
-  plantsContainer: {fileID: 0}
 --- !u!1001 &4197011672354394444
 PrefabInstance:
   m_ObjectHideFlags: 0

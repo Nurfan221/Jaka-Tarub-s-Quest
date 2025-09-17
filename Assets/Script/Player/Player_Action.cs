@@ -367,7 +367,7 @@ public class Player_Action : MonoBehaviour
         else if (faceDirection.x > 0.5f) stateName += "Kanan";
         else if (faceDirection.x < -0.5f) stateName += "Kiri";
 
-        Debug.Log($"[1] WaitForAnimation dimulai. Mencoba menunggu state: '{stateName}'");
+        //Debug.Log($"[1] WaitForAnimation dimulai. Mencoba menunggu state: '{stateName}'");
 
         // Tunggu satu frame agar transisi dimulai
         yield return null;
@@ -375,18 +375,18 @@ public class Player_Action : MonoBehaviour
         // Ambil info state saat ini SETELAH satu frame berlalu
         var currentStateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        Debug.Log($"[2] Setelah 1 frame, state yang aktif adalah: ??? (Nama asli akan sulit didapat, tapi kita cek kondisi loop)");
-        Debug.Log($"[3] Mengecek kondisi loop: IsName('{stateName}') = {currentStateInfo.IsName(stateName)}, normalizedTime = {currentStateInfo.normalizedTime}");
+        //Debug.Log($"[2] Setelah 1 frame, state yang aktif adalah: ??? (Nama asli akan sulit didapat, tapi kita cek kondisi loop)");
+        //Debug.Log($"[3] Mengecek kondisi loop: IsName('{stateName}') = {currentStateInfo.IsName(stateName)}, normalizedTime = {currentStateInfo.normalizedTime}");
 
         // Loop penunggu
         while (currentStateInfo.IsName(stateName) && currentStateInfo.normalizedTime < 1.0f)
         {
-            Debug.Log($"[4] Di dalam loop. normalizedTime: {currentStateInfo.normalizedTime}");
+            //Debug.Log($"[4] Di dalam loop. normalizedTime: {currentStateInfo.normalizedTime}");
             yield return null;
             currentStateInfo = animator.GetCurrentAnimatorStateInfo(0); // Update info setiap frame
         }
 
-        Debug.Log($"[5] Keluar dari loop. Animasi dianggap selesai. Menjalankan DetectAndDamageObjects...");
+        //Debug.Log($"[5] Keluar dari loop. Animasi dianggap selesai. Menjalankan DetectAndDamageObjects...");
     }
 
 

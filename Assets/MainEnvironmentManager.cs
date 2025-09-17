@@ -7,7 +7,7 @@ public class MainEnvironmentManager : MonoBehaviour
     // Referensi ke manajer spesifik (ini adalah "radio" Anda)
     // Anda bisa menyeret skrip EnvironmentManager dari objek lain ke sini di Inspector
     public EnvironmentManager batuManager;
-    public EnvironmentManager pohonManager;
+    public TreesManager pohonManager;
     public EnvironmentManager kuburanManager;
     public EnvironmentManager tumbuhanManager;
 

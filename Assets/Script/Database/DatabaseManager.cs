@@ -43,6 +43,7 @@ public class  imagePersen
 public class TemplateTreesObject
 {
     public string treeName;
+    public TypePlant plantType;
     public List<GrowthStageTrees> growthStages; // Daftar tahap pertumbuhan
 
 }
@@ -52,6 +53,7 @@ public class GrowthStageTrees
 {
     public string TreeID; // Nama tahap pertumbuhan
     public GrowthTree growthTree; // Data pertumbuhan untuk tahap ini
+
     public GameObject stagePrefab; // Prefab untuk tahap ini
     public GameObject batangPrefab; // Prefab untuk batang pohon
     public GameObject AkarPrefab; // Prefab untuk akar pohon
@@ -62,8 +64,11 @@ public class TreePlacementData
 {
     public string TreeID; // Jenis pohon (misal: "Pohon Apel")
     public Vector2 position; // Posisi di dunia
+    public TypePlant typePlant;
     public GrowthTree initialStage; // Tahap tumbuh saat pertama kali muncul
     public bool sudahTumbang; // Apakah pohon sudah ditumbangkan
+    public bool isGrow; // apakah pohon sedang tumbuh
+    public int dayToRespawn; // Hari ke berapa pohon akan respawn
     // Anda bisa tambahkan variabel lain jika perlu, misal: float initialGrowthTimer;
 }
 
@@ -102,6 +107,14 @@ public enum TypeObject
     Copper,
     Iron,
     Gold
+}
+public enum TypePlant
+{
+    None,
+    Apple,
+    Oak,
+    Cemara,
+    Birch
 }
 
 public enum EnvironmentHardnessLevel
@@ -279,11 +292,15 @@ public class DatabaseManager : MonoBehaviour
         return nextStage.stagePrefab;
     }
 
-    public GameObject GetPrefabForTreeStage(string treeName, GrowthTree stageToFind)
+    public GameObject GetPrefabForTreeStage(TypePlant treeName, GrowthTree stageToFind)
     {
-        //    Kita gunakan FirstOrDefault agar aman jika tidak ditemukan.
+        // Ambil nama pohon yang dicari sebagai string.
+        string treeNameString = treeName.ToString();
+
         TemplateTreesObject foundTree = templateTreesObject.growthTrees.FirstOrDefault(tree =>
-            tree.treeName.Equals(treeName, System.StringComparison.OrdinalIgnoreCase));
+
+            tree.plantType.ToString().Equals(treeNameString, System.StringComparison.OrdinalIgnoreCase)
+        );
 
         // Jika template pohonnya tidak ditemukan, hentikan proses dan kembalikan null.
         if (foundTree == null)

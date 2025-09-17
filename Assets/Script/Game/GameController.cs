@@ -304,7 +304,7 @@ public class GameController : MonoBehaviour
         foreach (TreePlacementData treeData in DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements)
         {
             // Dapatkan prefab yang benar dari DatabaseManager
-            GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(treeData.TreeID, treeData.initialStage);
+            GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(treeData.typePlant, treeData.initialStage);
             if (treePrefab != null)
             {
                 // Munculkan pohon dan konfigurasikan
@@ -323,41 +323,38 @@ public class GameController : MonoBehaviour
 
 
                     // Daftarkan ke daftar pohon aktif
-                    MainEnvironmentManager.Instance.pohonManager.allActiveTrees.Add(treeBehavior);
+                    MainEnvironmentManager.Instance.pohonManager.environmentList.Add(treeData);
                 }
             }
         }
     }
 
     // Membangun kembali dunia dari data save yang sudah dimuat.
-    public void BuildWorldFromSave(List<TreeSaveData> savedTrees)
+    public void BuildWorldFromSave(List<TreePlacementData> savedTrees)
     {
-        // Bersihkan daftar pohon aktif yang lama sebelum memuat yang baru
-        MainEnvironmentManager.Instance.pohonManager.allActiveTrees.Clear();
+        TreesManager treesManager = MainEnvironmentManager.Instance.pohonManager;
+        if (treesManager == null) return;
 
-        foreach (var savedEntity in savedTrees)
+        Debug.Log($"[LOAD] Merestorasi state untuk {savedTrees.Count} batu...");
+
+
+
+        treesManager.secondListTrees.Clear();
+
+        foreach (var savedItem in savedTrees)
         {
-            // Pastikan ini adalah data pohon
-            if (savedEntity is TreeSaveData treeData)
-            {
-                // Dapatkan prefab yang benar berdasarkan NAMA dan TAHAP YANG TERSIMPAN.
-                GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(treeData.treeName, treeData.currentGrowthStage);
+            GameObject objectPohon = DatabaseManager.Instance.GetPrefabForTreeStage(savedItem.typePlant, savedItem.initialStage);
 
-                if (treePrefab != null)
-                {
-                    // Munculkan prefab yang benar (misal: prefab MaturePlant) di posisi yang tersimpan
-                    GameObject newTree = Instantiate(treePrefab, treeData.position, Quaternion.identity);
-                    TreeBehavior treeBehavior = newTree.GetComponent<TreeBehavior>();
+            Vector3 spawnPosition = new Vector3(savedItem.position.x, savedItem.position.y, 0);
 
-                    // PENTING: Panggil RestoreState untuk memuat data lain seperti growthTimer, dll.
-                    // Ini akan memastikan semua data kembali seperti semula.
-                    treeBehavior.RestoreState(treeData);
+            GameObject plant = Instantiate(objectPohon, spawnPosition, Quaternion.identity);
 
-                    // Daftarkan pohon yang sudah di-load ke daftar pohon aktif
-                    MainEnvironmentManager.Instance.pohonManager.allActiveTrees.Add(treeBehavior);
-                }
-            }
+            // Panggil ForceGenerateUniqueID untuk memastikan pohon yang di-load punya ID yang benar
+            plant.GetComponent<UniqueIdentifiableObject>()?.ForceGenerateUniqueID();
+
+            treesManager.RestoreState(savedItem);
         }
+        Debug.Log("[LOAD] Restorasi state batu selesai.");
     }
 
     public void ReturnQueueStoneActive(List<StoneRespawnSaveData> savedStone)

@@ -3,16 +3,7 @@ using System.Collections.Generic;
 
 // Atribut ini PENTING! Ia memberitahu Unity bahwa class ini bisa diubah
 // menjadi format lain (seperti JSON) untuk disimpan.
-[System.Serializable]
-public class TreeSaveData
-{
-    public string id; // Kita pindahkan ID ke sini agar lebih rapi
-    public string treeName;
-    public Vector2 position;
-    public GrowthTree currentGrowthStage;
-    public float growthTimer;
-    public bool isRubuh;
-}
+
 
 [System.Serializable]
 public class PlayerSaveData
@@ -69,7 +60,7 @@ public class StoneRespawnSaveData
 public class GameSaveData
 {
     // Wadah utama kita sekarang adalah sebuah LIST, bukan Dictionary
-    public List<TreeSaveData> savedTrees = new List<TreeSaveData>();
+    public List<TreePlacementData> savedTrees = new List<TreePlacementData>();
     public List<PlayerSaveData> savedPlayerData = new List<PlayerSaveData>();
     public List<StorageSaveData> savedStorages = new List<StorageSaveData>();
     public List<StoneRespawnSaveData> queueRespownStone = new List<StoneRespawnSaveData>();

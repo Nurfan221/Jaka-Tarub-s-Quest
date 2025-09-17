@@ -9,14 +9,9 @@ using UnityEngine.SceneManagement;
 
 
 
-public class StoneBehavior : MonoBehaviour, IUniqueIdentifiable
+public class StoneBehavior : UniqueIdentifiableObject
 {
-    [Header("ID Unik")]
-    [SerializeField] private string uniqueID; // Gunakan SerializeField agar bisa dilihat tapi tidak mudah diubah
-    public string UniqueID { get => uniqueID; set => uniqueID = value; }
-    public string GetBaseName() => stoneType.ToString();
-    public string GetObjectType() => stoneType.ToString(); // Menggunakan nama dari enum TypeStone
-    public EnvironmentHardnessLevel GetHardness() => environmentHardnessLevel;
+
 
     public ItemData[] itemDropMines; // Array hasil tambang yang mungkin dijatuhkan
     public ParticleSystem hitEffectPrefab; // Variabel untuk Prefab partikel
@@ -37,7 +32,32 @@ public class StoneBehavior : MonoBehaviour, IUniqueIdentifiable
     public bool isLucky;
     public int dayToRespawn;
 
+    #region Unique ID Implementation
 
+    public override string GetObjectType()
+    {
+        // Berikan kategori umum untuk objek ini.
+        return stoneType.ToString();
+    }
+
+    public override EnvironmentHardnessLevel GetHardness()
+    {
+        // Ambil nilai dari variabel yang bisa diatur di Inspector.
+        return environmentHardnessLevel;
+    }
+
+    public override string GetBaseName()
+    {
+        // Ambil nama dasar dari variabel yang bisa diatur di Inspector.
+        return stoneType.ToString();
+    }
+
+    public override string GetVariantName()
+    {
+        return "";
+    }
+
+    #endregion
 
     public void Start()
     {
@@ -158,10 +178,10 @@ public class StoneBehavior : MonoBehaviour, IUniqueIdentifiable
                 }
             }
         }
-        Debug.Log("ubah Data untuk batu nonActive dengan id : " + uniqueID);
+        Debug.Log("ubah Data untuk batu nonActive dengan id : " + UniqueID);
         int daysToWait = UnityEngine.Random.Range(2, 6); // Menunggu 2 sampai 5 hari
         dayToRespawn = TimeManager.Instance.date + daysToWait; // Asumsi Anda punya data hari saat ini
-        BatuManager.Instance.ScheduleRespawn(uniqueID, dayToRespawn);
+        BatuManager.Instance.ScheduleRespawn(UniqueID, dayToRespawn);
 
         // Hancurkan Batu setelah menjatuhkan item
         gameObject.SetActive(false);  // Atau Destroy(gameObject);

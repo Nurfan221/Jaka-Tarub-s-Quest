@@ -235,6 +235,7 @@ MonoBehaviour:
     itemHealth: 0
   plantEffectPrefab: {fileID: 0}
   currentStage: 3
+  typePlant: 3
   growthObject: {fileID: 0}
   growthTime: 4
   nameEnvironment: PohonCemaraBesar
@@ -250,7 +251,6 @@ MonoBehaviour:
   maxSap: 3
   minLeaf: 3
   maxLeaf: 4
-  plantsContainer: {fileID: 0}
 --- !u!1001 &6659524423590721248
 PrefabInstance:
   m_ObjectHideFlags: 0

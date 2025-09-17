@@ -78,7 +78,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private void Start()
     {
-        EnvironmentManager environmentManager = MainEnvironmentManager.Instance.pohonManager;
+        TreesManager environmentManager = MainEnvironmentManager.Instance.pohonManager;
         if (environmentManager != null)
         {
             treeContainer = environmentManager.parentEnvironment; // Atur parent tanaman ke parentEnvironment dari EnvironmentManager
@@ -502,11 +502,10 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             treeComponent.nameEnvironment = namaSeed;
             treeComponent.currentStage = GrowthTree.Seed;
             treeComponent.growthTime = growthTime;
-            treeComponent.plantsContainer = plantsContainer;
             treeComponent.growthSpeed = itemTree.growthTime / totalGrowthStages;
             //treeComponent.OnTreeChoppedDown();
 
-
+            treeComponent.ForceGenerateUniqueID();
 
 
         }
@@ -515,13 +514,14 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             TreeID = treeComponent.UniqueID,
             position = treeComponent.transform.position,
-            // Asumsi semua pohon yang terdaftar dimulai dari tahap Seed
+            typePlant = treeComponent.typePlant,
+            isGrow = true,
             initialStage = treeComponent.currentStage,
+            sudahTumbang = treeComponent.isRubuh,
         };
 
         // Tambahkan data baru ke dalam list di ScriptableObject
-        //DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements.Add(newPlacementData);
-
+        MainEnvironmentManager.Instance.pohonManager.secondListTrees.Add(newPlacementData);
         //Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
     }
 

@@ -17,7 +17,7 @@ MonoBehaviour:
   dashDistance: 20
   dashForce: 20
   maxHealth: 100
-  maxStamina: 100
+  maxStamina: 1000
   staminaRegenRate: 5
   initialGriefPenalty: 50
   totalHealingQuests: 5
@@ -28,12 +28,12 @@ MonoBehaviour:
     quality: 0
     itemHealth: 0
   equippedWeaponTemplate:
-    itemName: Empty
-    count: 0
+    itemName: Kapak
+    count: 1
     quality: 0
     itemHealth: 0
   equippedItemTemplate:
-    itemName: 
+    itemName: Empty
     count: 0
     quality: 0
     itemHealth: 0

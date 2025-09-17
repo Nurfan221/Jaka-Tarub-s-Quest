@@ -10,20 +10,15 @@ public enum GrowthTree
     MaturePlant
 }
 
-public class TreeBehavior : MonoBehaviour, ISaveable, IUniqueIdentifiable
+public class TreeBehavior : UniqueIdentifiableObject
 {
 
-    [Header("ID Unik")]
-    [SerializeField] private string uniqueID;
-    public string UniqueID { get => uniqueID; set => uniqueID = value; }
-    // --- Implementasi dari Kontrak IUniqueIdentifiable ---
+
+    //  Implementasi dari Kontrak IUniqueIdentifiable 
     public EnvironmentHardnessLevel hardnessLevel;
     public TypeObject typeObject;
 
-    // --- Implementasi dari Kontrak IUniqueIdentifiable ---
-    public string GetBaseName() => currentStage.ToString();
-    public string GetObjectType() => typeObject.ToString(); // Menggunakan nama dari enum TypeTree
-    public EnvironmentHardnessLevel GetHardness() => hardnessLevel;
+
 
 
     [Header("Statistik Pohon")]
@@ -37,6 +32,7 @@ public class TreeBehavior : MonoBehaviour, ISaveable, IUniqueIdentifiable
     [Header("Logika Tanam Pohon")]
     public ParticleSystem plantEffectPrefab; // Efek partikel saat menanam
     public GrowthTree currentStage = GrowthTree.Seed;
+    public TypePlant typePlant; 
     public GameObject growthObject; // Gambar untuk tiap tahap pertumbuhan
     public float growthTime; // Waktu total untuk mencapai tahap akhir
     public string nameEnvironment;
@@ -59,49 +55,72 @@ public class TreeBehavior : MonoBehaviour, ISaveable, IUniqueIdentifiable
 
     
 
-    [Header("Keperluan")]
-    public Transform plantsContainer;
 
 
+    #region Unique ID Implementation
 
+    public override string GetObjectType()
+    {
+        // Berikan kategori umum untuk objek ini.
+        return typeObject.ToString();
+    }
+
+    public override EnvironmentHardnessLevel GetHardness()
+    {
+        // Ambil nilai dari variabel yang bisa diatur di Inspector.
+        return hardnessLevel;
+    }
+
+    public override string GetBaseName()
+    {
+        // Ambil nama dasar dari variabel yang bisa diatur di Inspector.
+        return typePlant.ToString();
+    }
+
+    public override string GetVariantName()
+    {
+        return currentStage.ToString();
+    }
+
+    #endregion
+
+      
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        plantsContainer = MainEnvironmentManager.Instance.pohonManager.transform;
+
         //OnTreeChoppedDown();
         plantEffectPrefab= gameObject.GetComponentInChildren<ParticleSystem>();
-
 
     }
 
     // Fungsi untuk mengemas data pohon ini
-    public object CaptureState()
-    {
-        // Buat sebuah objek data save baru, isi dengan nilai saat ini, lalu kembalikan.
-        return new TreeSaveData
-        {
-            treeName = this.nameEnvironment,
-            position = transform.position,
-            currentGrowthStage = this.currentStage,
-            isRubuh = this.isRubuh
-        };
-    }
+    //public object CaptureState()
+    //{
+    //    // Buat sebuah objek data save baru, isi dengan nilai saat ini, lalu kembalikan.
+    //    return new TreePlacementData
+    //    {
+    //        TreeID = this.uniqueID,
+    //        position = transform.position,
+    //        initialStage = this.currentStage,
+    //        sudahTumbang = this.isRubuh,
+    //    };
+    //}
 
-    // FUNGSI UNTUK MEMUAT DATA (MEMBACA FORMULIR)
-    public void RestoreState(object state)
-    {
-        // Terima data 'state', ubah kembali ke tipe data yang benar
-        TreeSaveData savedData = (TreeSaveData)state;
-
-        // Terapkan nilai dari data yang di-load ke komponen ini
-        this.nameEnvironment = savedData.treeName;
-        transform.position = savedData.position;
-        this.currentStage = savedData.currentGrowthStage;
-        this.isRubuh = savedData.isRubuh;
-        // PENTING: Setelah me-restore state, Anda mungkin perlu memperbarui visual pohon
-        // agar cocok dengan `currentStage` yang baru.
-        // UpdateVisuals(); 
-    }
+    //// FUNGSI UNTUK MEMUAT DATA (MEMBACA FORMULIR)
+    //public void RestoreState(object state)
+    //{
+    //    // Terima data 'state', ubah kembali ke tipe data yang benar
+    //    TreePlacementData savedData = (TreePlacementData)state;
+    //    // Terapkan nilai dari data yang di-load ke komponen ini
+    //    this.uniqueID = savedData.TreeID;
+    //    transform.position = savedData.position;
+    //    this.currentStage = savedData.initialStage;
+    //    this.isRubuh = savedData.sudahTumbang;
+    //    // PENTING: Setelah me-restore state, Anda mungkin perlu memperbarui visual pohon
+    //    // agar cocok dengan `currentStage` yang baru.
+    //    // UpdateVisuals(); 
+    //}
 
 
 
@@ -146,58 +165,59 @@ public class TreeBehavior : MonoBehaviour, ISaveable, IUniqueIdentifiable
     private void UpdateSprite()
     {
         // Cek apakah sudah tahap terakhir
-        if (currentStage >= GrowthTree.MaturePlant) return; // Gunakan >= untuk keamanan
+        if (currentStage >= GrowthTree.MaturePlant) return;
 
-        // Gunakan nama pohon yang benar untuk mencari prefab berikutnya
         GameObject nextStagePrefab = DatabaseManager.Instance.GetNextStagePrefab(this.namaPohon, this.currentStage);
 
-        // Pastikan prefab berikutnya ada sebelum melanjutkan
         if (nextStagePrefab != null)
         {
             Vector2 posisiPohon = transform.position;
 
-            // Instantiate prefab TAHAP BERIKUTNYA
+            // --- PERBAIKAN KUNCI 1: Simpan ID lama sebelum hancur ---
+            string oldUniqueID = this.UniqueID;
+
             GameObject pohonBaru = Instantiate(nextStagePrefab, posisiPohon, Quaternion.identity);
             TreeBehavior treeBehaviorBaru = pohonBaru.GetComponent<TreeBehavior>();
 
-            treeBehaviorBaru.namaPohon = this.namaPohon; 
-            treeBehaviorBaru.nameEnvironment = this.nameEnvironment; // Jika ini juga digunakan
-            treeBehaviorBaru.plantsContainer = this.plantsContainer;
+            treeBehaviorBaru.namaPohon = this.namaPohon;
+            treeBehaviorBaru.nameEnvironment = this.nameEnvironment;
             treeBehaviorBaru.growthSpeed = this.growthSpeed;
-            treeBehaviorBaru.daysSincePlanting = this.daysSincePlanting; // Lanjutkan hitungan hari
-
-            // Atur tahap baru pada pohon baru
+            treeBehaviorBaru.daysSincePlanting = this.daysSincePlanting;
             treeBehaviorBaru.currentStage = (GrowthTree)((int)this.currentStage + 1);
 
-            pohonBaru.transform.SetParent(plantsContainer);
+            // --- PERBAIKAN KUNCI 2: Wariskan ID lama ke pohon baru ---
+            treeBehaviorBaru.UniqueID = oldUniqueID;
+            // Ganti juga nama GameObject agar konsisten di Hierarchy
+            pohonBaru.name = oldUniqueID;
 
-            // Perbarui referensi di manajer-manajer terkait (PlantContainer, GrowthManager)
+            pohonBaru.transform.SetParent(MainEnvironmentManager.Instance.pohonManager.transform);
+
             UpdateReferencesInManagers(this.gameObject, pohonBaru);
+            MainEnvironmentManager.Instance.pohonManager.TumbuhkanPohonDalamAntrian(treeBehaviorBaru);
 
-            // Hancurkan objek pohon yang lama
             Destroy(gameObject);
-            Debug.Log($"Pohon '{this.namaPohon}' tumbuh ke tahap: {treeBehaviorBaru.currentStage}");
+            Debug.Log($"Pohon '{this.namaPohon}' (ID: {oldUniqueID}) tumbuh ke tahap: {treeBehaviorBaru.currentStage}");
         }
         else
         {
             Debug.Log($"Pohon '{this.namaPohon}' sudah mencapai tahap pertumbuhan terakhir atau data tidak ditemukan.");
         }
-
-        currentStage++;
+        // Baris ini sepertinya tidak diperlukan lagi karena logika stage diurus oleh pohon baru
+        // currentStage++; 
     }
 
     // Fungsi bantu untuk merapikan kode
     private void UpdateReferencesInManagers(GameObject pohonLama, GameObject pohonBaru)
     {
         // Perbarui referensi di GrowthManager
-        if (MainEnvironmentManager.Instance.pohonManager != null)
-        {
-            int index = MainEnvironmentManager.Instance.pohonManager.allActiveTrees.IndexOf(this);
-            if (index != -1)
-            {
-                MainEnvironmentManager.Instance.pohonManager.allActiveTrees[index] = pohonBaru.GetComponent<TreeBehavior>();
-            }
-        }
+        //if (MainEnvironmentManager.Instance.pohonManager != null)
+        //{
+        //    int index = MainEnvironmentManager.Instance.pohonManager.allActiveTrees.IndexOf(this);
+        //    if (index != -1)
+        //    {
+        //        MainEnvironmentManager.Instance.pohonManager.allActiveTrees[index] = pohonBaru.GetComponent<TreeBehavior>();
+        //    }
+        //}
 
         //// Perbarui referensi di PlantContainer
         //PlantContainer plantContainerScript = plantsContainer.GetComponent<PlantContainer>();
@@ -312,7 +332,7 @@ public class TreeBehavior : MonoBehaviour, ISaveable, IUniqueIdentifiable
         //Spawn akar di posisi pohon
         if (akarPohonPrefab != null)
         {
-            GameObject akar = Instantiate(akarPohonPrefab, posisiPohon, Quaternion.identity, plantsContainer);
+            GameObject akar = Instantiate(akarPohonPrefab, posisiPohon, Quaternion.identity, MainEnvironmentManager.Instance.pohonManager.transform);
             //GameObject akar = Instantiate(batangPohon, posisiPohon, Quaternion.identity);
             SpriteRenderer akarSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             akarSpriteRenderer.sprite = null;
@@ -326,18 +346,33 @@ public class TreeBehavior : MonoBehaviour, ISaveable, IUniqueIdentifiable
             yield return StartCoroutine(RotateFalling(batang.transform));
         }
 
-        EnvironmentManager environmentManager = plantsContainer.gameObject.GetComponent<EnvironmentManager>();
+        //EnvironmentManager environmentManager = plantsContainer.gameObject.GetComponent<EnvironmentManager>();
 
-        if (environmentManager != null)
+        //if (environmentManager != null)
+        //{
+        //    Vector2 posisiPohon2D = new Vector2(transform.position.x, transform.position.y);
+        //    //foreach (var cekLokasiObjek in environmentManager.environmentList)
+        //    //{
+        //    //    Vector2 posisiCek2D = new Vector2(cekLokasiObjek.position.x, cekLokasiObjek.position.y);
+        //    //    if (Vector2.Distance(posisiPohon2D, posisiCek2D) < 0.1f && nameEnvironment == cekLokasiObjek.TreeID)
+        //    //    {
+        //    //        cekLokasiObjek.isGrowing = false;
+        //    //    }
+        //    //}
+        //}
+        int daysToWait = UnityEngine.Random.Range(2, 6); // Menunggu 2 sampai 5 hari
+        int respawn = TimeManager.Instance.date + daysToWait; // Asumsi Anda punya data hari saat ini
+        Debug.Log(" total hari respawn : " + respawn);
+        TreePlacementData treePlacementData = new TreePlacementData
         {
-            foreach (var cekLokasiObjek in environmentManager.environmentList)
-            {
-                if (gameObject.transform.position == cekLokasiObjek.objectPosition && nameEnvironment == cekLokasiObjek.prefabName)
-                {
-                    cekLokasiObjek.isGrowing = false;
-                }
-            }
-        }
+            TreeID = this.UniqueID,
+            dayToRespawn = respawn,
+            position = this.gameObject.transform.position,
+            typePlant = this.typePlant,
+            sudahTumbang = this.isRubuh,
+            initialStage = this.currentStage
+        };
+        MainEnvironmentManager.Instance.pohonManager.AddSecondListTrees(treePlacementData);
         //Hancurkan pohon asli
         Destroy(gameObject);
 

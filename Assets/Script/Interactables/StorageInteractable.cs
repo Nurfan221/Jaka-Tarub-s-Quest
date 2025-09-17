@@ -17,6 +17,7 @@ public class StorageInteractable : Interactable, ISaveable, IUniqueIdentifiable
     public string GetBaseName() => typeObject.ToString();
     public string GetObjectType() => typeObject.ToString(); // Menggunakan nama dari enum TypeTree
     public EnvironmentHardnessLevel GetHardness() => hardnessLevel;
+    public string GetVariantName() => typeObject.ToString();
 
     [Header("Deklarasi Variabel Item")]
     public List<ItemData> storage = new List<ItemData>();

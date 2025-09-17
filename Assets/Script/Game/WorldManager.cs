@@ -1,69 +1,70 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class WorldManager : MonoBehaviour
 {
+    [Header("Pengaturan")]
+    [Tooltip("Jika true, akan mencoba menjalankan fungsi ini secara otomatis saat scene disimpan.")]
+    public bool generateIDsOnSave = true;
 
-    public static WorldManager Instance { get; private set; }
-
-    private void Awake()
-    {
-        // Pola Singleton sederhana
-        if (Instance != null && Instance != this)
-        {
-            // Jika sudah ada instance lain, hancurkan yang ini
-            Destroy(gameObject);
-        }
-        else
-        {
-            // Jika belum ada, jadikan ini sebagai instance utama
-            Instance = this;
-        }
-    }
-
-
-    [ContextMenu("Generate Unique IDs For All Identifiable Objects")]
-    [ContextMenu("Generate Unique IDs For All Identifiable Objects")]
-    private void GenerateAllUniqueIDs()
+    // --- Tombol Utama di Inspector ---
+    [ContextMenu("Generate Unique IDs For ALL Identifiable Objects")]
+    public void GenerateIDsForAllObjects()
     {
         // Temukan SEMUA objek di scene yang punya kontrak IUniqueIdentifiable
         var allIdentifiables = FindObjectsOfType<MonoBehaviour>().OfType<IUniqueIdentifiable>();
 
-        // Gunakan Dictionary untuk melacak hitungan untuk setiap nama dasar
-        var nameCounter = new Dictionary<string, int>();
+        if (allIdentifiables.Count() == 0)
+        {
+            Debug.Log("Tidak ada objek yang mengimplementasikan IUniqueIdentifiable ditemukan di scene.");
+            return;
+        }
 
+        int count = 0;
         // Loop melalui setiap objek yang ditemukan
         foreach (var item in allIdentifiables)
         {
-            // Buat ID dasar dari informasi yang disediakan oleh objek
-            string baseID = $"{item.GetObjectType()}_{item.GetHardness()}_{item.GetBaseName()}";
-
-            // Cek sudah ada berapa objek dengan ID dasar yang sama
-            if (!nameCounter.ContainsKey(baseID))
-            {
-                nameCounter[baseID] = 1; // Jika ini yang pertama, hitungannya 1
-            }
-            else
-            {
-                nameCounter[baseID]++; // Jika sudah ada, naikkan hitungannya
-            }
-
-            // Gabungkan ID dasar dengan hitungan uniknya
-            string finalID = $"{baseID}_{nameCounter[baseID]}";
-
-            // Set ID unik kembali ke objeknya
-            item.UniqueID = finalID;
-
-            // --- TAMBAHAN BARU: Ubah nama GameObject agar sama dengan ID ---
-            (item as MonoBehaviour).gameObject.name = finalID;
-
-            // Tandai objek agar perubahan tersimpan di scene
-#if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(item as MonoBehaviour);
-#endif
+            // Panggil fungsi "Force" yang sudah kita buat sebelumnya di setiap objek.
+            // Ini akan memaksa setiap objek untuk membuat ulang ID-nya.
+            (item as UniqueIdentifiableObject)?.ForceGenerateUniqueID();
+            count++;
         }
 
-        Debug.Log($"Selesai! {allIdentifiables.Count()} objek telah diberi ID unik dan nama GameObject telah diubah.");
+        Debug.Log($"PROSES SELESAI: {count} objek telah diperiksa dan diberi ID unik. Jangan lupa save scene (Ctrl+S).");
     }
+
+#if UNITY_EDITOR
+    // --- Fitur Tambahan (Opsional tapi Berguna) ---
+    // Kode ini akan mencoba menjalankan pembuatan ID secara otomatis setiap kali Anda menyimpan scene.
+    private void OnEnable()
+    {
+        EditorApplication.quitting += OnEditorQuit;
+        UnityEditor.SceneManagement.EditorSceneManager.sceneSaving += OnSceneSaving;
+    }
+
+    private void OnDisable()
+    {
+        EditorApplication.quitting -= OnEditorQuit;
+        UnityEditor.SceneManagement.EditorSceneManager.sceneSaving -= OnSceneSaving;
+    }
+
+    private void OnSceneSaving(UnityEngine.SceneManagement.Scene scene, string path)
+    {
+        if (generateIDsOnSave)
+        {
+            Debug.Log("Menyimpan scene, menjalankan pengecekan ID otomatis...");
+            GenerateIDsForAllObjects();
+        }
+    }
+
+    private void OnEditorQuit()
+    {
+        // Pastikan event listener dilepas saat editor ditutup
+        OnDisable();
+    }
+#endif
 }

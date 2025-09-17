@@ -26,16 +26,16 @@ public class EnvironmentInteractable : Interactable
 
             EnvironmentManager environmentManager = environmentBehavior.plantsContainer.gameObject.GetComponent<EnvironmentManager>();
 
-            if (environmentManager != null)
-            {
-                foreach (var cekLokasiObjek in environmentManager.environmentList)
-                {
-                    if (gameObject.transform.position == cekLokasiObjek.objectPosition && environmentBehavior.nameEnvironment == cekLokasiObjek.prefabName)
-                    {
-                        cekLokasiObjek.isGrowing = false;
-                    }
-                }
-            }
+            //if (environmentManager != null)
+            //{
+            //    foreach (var cekLokasiObjek in environmentManager.environmentList)
+            //    {
+            //        if (gameObject.transform.position == cekLokasiObjek.position && environmentBehavior.nameEnvironment == cekLokasiObjek.prefabName)
+            //        {
+            //            cekLokasiObjek.isGrowing = false;
+            //        }
+            //    }
+            //}
             Destroy(gameObject);
         }
     }

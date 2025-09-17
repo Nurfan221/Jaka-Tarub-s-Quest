@@ -7,4 +7,5 @@ public interface IUniqueIdentifiable
     string GetBaseName(); // Misal: "PohonApelBesar", "BatuTembagaKecil"
     string GetObjectType(); // Misal: "PohonApel", "BatuTembaga"
     EnvironmentHardnessLevel GetHardness();
+    string GetVariantName();
 }
