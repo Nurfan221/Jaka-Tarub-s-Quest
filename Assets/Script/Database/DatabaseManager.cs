@@ -106,7 +106,8 @@ public enum TypeObject
     Storage,
     Copper,
     Iron,
-    Gold
+    Gold,
+    AkarPohon
 }
 public enum TypePlant
 {

@@ -14,89 +14,93 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   growthTrees:
   - treeName: BenihApel
+    plantType: 1
     growthStages:
-    - stageName: SeedApel
+    - TreeID: 
       growthTree: 0
       stagePrefab: {fileID: 5090815853600988913, guid: c08f67ee3f4b96340a595788a50811c3, type: 3}
       batangPrefab: {fileID: 0}
       AkarPrefab: {fileID: 0}
-    - stageName: PohonApelKecil
+    - TreeID: 
       growthTree: 1
       stagePrefab: {fileID: 5090815853600988913, guid: 4750d7d6cc78a8d43ae94b22a7c03972, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: 14a86df2ed3bda34f838c5d3eacb953b, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: b99b2100648002e44971f645b48477bf, type: 3}
-    - stageName: PohonApelSedang
+    - TreeID: 
       growthTree: 2
       stagePrefab: {fileID: 5090815853600988913, guid: d79fec40f012a87499f286a8288135d6, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: d85bb78978d86aa40b8a2bfee8fd58f0, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: 0db8cb69d51b0fa4e9bca67e8d882e64, type: 3}
-    - stageName: PohonApelBesar
+    - TreeID: 
       growthTree: 3
       stagePrefab: {fileID: 5090815853600988913, guid: 6773ce559afe3ff40ab2860a335cbaa4, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: 1e8161a80b7df014ca484828fcdcce1e, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: d4e0a205463f84e44b86b557703ccbf5, type: 3}
   - treeName: BenihOak
+    plantType: 2
     growthStages:
-    - stageName: SeedOak
+    - TreeID: 
       growthTree: 0
       stagePrefab: {fileID: 5090815853600988913, guid: 9e0106a3365f9c04390591e9d5dc3bc1, type: 3}
       batangPrefab: {fileID: 0}
       AkarPrefab: {fileID: 0}
-    - stageName: PohonOakKecil
+    - TreeID: 
       growthTree: 1
       stagePrefab: {fileID: 5090815853600988913, guid: 46fe6bf07f49a3643bac2afb837a6820, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: ca742268af725344d86ac045dd671496, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: ce29f164063fcf74588b018fb3839753, type: 3}
-    - stageName: PohonOakSedang
+    - TreeID: 
       growthTree: 2
       stagePrefab: {fileID: 5090815853600988913, guid: e6ddfdbc7ef7bd8448e3e6f2a40afe75, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: 3b1652ea73776b84a8dc1a7189cba891, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: bab1e45e45a49c7498f7645b04241138, type: 3}
-    - stageName: PohonOakBesar
+    - TreeID: 
       growthTree: 3
       stagePrefab: {fileID: 5090815853600988913, guid: f7ee8f3f1bbd93e45900fef8c31722ec, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: f28722949a0698940acb6a4cd0fc936b, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: df5dd69d0d0b541429988a9cf7b86ef3, type: 3}
   - treeName: BenihCemara
+    plantType: 3
     growthStages:
-    - stageName: SeedCemara
+    - TreeID: 
       growthTree: 0
       stagePrefab: {fileID: 5090815853600988913, guid: c4e1486909f30254c977e0b67e0faf9e, type: 3}
       batangPrefab: {fileID: 0}
       AkarPrefab: {fileID: 0}
-    - stageName: PohonCemaraKecil
+    - TreeID: 
       growthTree: 1
       stagePrefab: {fileID: 5090815853600988913, guid: 8f440ccbfa916ee4a9ca8c6a34da722e, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: aa872a9d2bf90e244bb5bc44cdfdacad, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: 89073734bbf4a264cbffc576d3bf2118, type: 3}
-    - stageName: PohonCemaraSedang
+    - TreeID: 
       growthTree: 2
       stagePrefab: {fileID: 5090815853600988913, guid: 024da220ab3fc124dac92970640c8a99, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: bdc97678ad271294aa1d7b56b9158aae, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: 2412f31d72a4e1b4ab0c678de5b20f8a, type: 3}
-    - stageName: PohonCemaraBesar
+    - TreeID: 
       growthTree: 3
       stagePrefab: {fileID: 5090815853600988913, guid: 1b3af91a00af8bd4b92bb9db3786cc79, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: a47b5e913b6ef6f41a1fc5a97d3c4526, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: 19e51cf2380fad5418aa0b55499e2737, type: 3}
   - treeName: BenihBirch
+    plantType: 4
     growthStages:
-    - stageName: SeedBirch
+    - TreeID: 
       growthTree: 0
       stagePrefab: {fileID: 5090815853600988913, guid: 4bca18a569925224a8833b7c854485ad, type: 3}
       batangPrefab: {fileID: 0}
       AkarPrefab: {fileID: 0}
-    - stageName: PohonBirchKecil
+    - TreeID: 
       growthTree: 1
       stagePrefab: {fileID: 5090815853600988913, guid: 9701b13b21ad1474eb593f249d55c5eb, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: bb5fe6b0848cbc349b5af6a0644e668d, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: 62fe7037ecdb03141b5d6c9b2fc0f95b, type: 3}
-    - stageName: PohonBirchSedang
+    - TreeID: 
       growthTree: 2
       stagePrefab: {fileID: 5090815853600988913, guid: 480bfb458a941c145bdbe9ccc8d57160, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: 97e71887643ce7e47aae8395acfba38f, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: 92ce558003c2a994c9213b2c4a315fb9, type: 3}
-    - stageName: PohonBirchBesar
+    - TreeID: 
       growthTree: 3
       stagePrefab: {fileID: 5090815853600988913, guid: 1b404b02b6613f046a960852ff8067c0, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: 237886413889caf4089480dfb37669ce, type: 3}

@@ -233,7 +233,7 @@ MonoBehaviour:
     count: 0
     quality: 0
     itemHealth: 0
-  plantEffectPrefab: {fileID: 0}
+  plantEffectPrefab: {fileID: 156610179971563486}
   currentStage: 3
   typePlant: 4
   growthObject: {fileID: 0}
@@ -368,6 +368,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}
+--- !u!198 &156610179971563486 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5469221150697445964, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}
+  m_PrefabInstance: {fileID: 5317334481272956306}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9118766182968246970 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3983057899602519848, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}

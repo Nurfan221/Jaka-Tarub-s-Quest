@@ -1,12 +1,45 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class AkarPohon : MonoBehaviour
+public class AkarPohon : UniqueIdentifiableObject
 {
+    //  Implementasi dari Kontrak IUniqueIdentifiable 
+    public string IdObjectUtama;
+    public EnvironmentHardnessLevel hardnessLevel;
+    public TypeObject typeObject;
+    public TypePlant typePlant;
+    public GrowthTree currentStage;
     public int health;
     public ItemData kayu;
     public int minKayu;
     public int maxKayu;
+
+    #region Unique ID Implementation
+
+    public override string GetObjectType()
+    {
+        // Berikan kategori umum untuk objek ini.
+        return typeObject.ToString();
+    }
+
+    public override EnvironmentHardnessLevel GetHardness()
+    {
+        // Ambil nilai dari variabel yang bisa diatur di Inspector.
+        return hardnessLevel;
+    }
+
+    public override string GetBaseName()
+    {
+        // Ambil nama dasar dari variabel yang bisa diatur di Inspector.
+        return typePlant.ToString();
+    }
+
+    public override string GetVariantName()
+    {
+        return currentStage.ToString();
+    }
+
+    #endregion
 
     public ParticleSystem hitEffectPrefab; // Variabel untuk Prefab partikel
     void Start()
@@ -43,6 +76,7 @@ public class AkarPohon : MonoBehaviour
                     ItemPool.Instance.DropItem(kayu.itemName, kayu.itemHealth, kayu.quality, posisi + offset);
                 }
             }
+            MainEnvironmentManager.Instance.pohonManager.CheckTreefromSecondList(IdObjectUtama);
             StartCoroutine(PlayDelay());
         }
 

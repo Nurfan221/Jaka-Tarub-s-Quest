@@ -112,6 +112,8 @@ public class TreesManager : MonoBehaviour, ISaveable
 
     public void HandleNewDay()
     {
+        //ProsesPenanamanUlangPohon();
+
         float dayLuck = TimeManager.Instance.GetDayLuck();
         if (isJanganAcak)
         {
@@ -126,6 +128,7 @@ public class TreesManager : MonoBehaviour, ISaveable
         {
             UpdateKondisiKuburan();
         }
+
     }
     public void RegisterAllObject()
     {
@@ -336,10 +339,41 @@ public class TreesManager : MonoBehaviour, ISaveable
         }
     }
 
-
+    public void CheckTreefromSecondList(string id)
+    {
+        foreach (var item in secondListTrees)
+        {
+            if (item.TreeID == id)
+            {
+                item.isGrow = true;
+                item.initialStage = GrowthTree.Seed;
+            }
+        }
+    }
     public void AddSecondListTrees(TreePlacementData data)
     {
         secondListTrees.Add(data);
+    }
+
+    public void ProsesPenanamanUlangPohon()
+    {
+        Debug.Log("memanggil fungsi menanam ulang pohon");
+        foreach (var item in secondListTrees)
+        {
+            if (item.isGrow == true && TimeManager.Instance.date >= item.dayToRespawn)
+            {
+                Debug.Log($"[RESPAWN POHON] Menanam ulang pohon ID: {item.TreeID} di posisi {item.position} pada hari ke-{TimeManager.Instance.date} (target hari: {item.dayToRespawn} munculkan {item.initialStage}) ");
+                GameObject objectPohon = DatabaseManager.Instance.GetPrefabForTreeStage(item.typePlant, item.initialStage);
+
+                Vector3 spawnPosition = new Vector3(item.position.x, item.position.y, 0);
+
+                GameObject plant = Instantiate(objectPohon, spawnPosition, Quaternion.identity);
+
+                // Panggil ForceGenerateUniqueID untuk memastikan pohon yang di-load punya ID yang benar
+                plant.GetComponent<UniqueIdentifiableObject>()?.ForceGenerateUniqueID();
+                plant.transform.SetParent(parentEnvironment);
+            }
+        }
     }
     // TOMBOL BARU: Untuk mengisi 'environmentList' di dalam Editor
     [ContextMenu("Langkah 1: Daftarkan Semua Objek Anak ke List")]

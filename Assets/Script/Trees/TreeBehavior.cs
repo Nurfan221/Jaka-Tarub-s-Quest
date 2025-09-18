@@ -333,6 +333,8 @@ public class TreeBehavior : UniqueIdentifiableObject
         if (akarPohonPrefab != null)
         {
             GameObject akar = Instantiate(akarPohonPrefab, posisiPohon, Quaternion.identity, MainEnvironmentManager.Instance.pohonManager.transform);
+            AkarPohon akarPohon = akar.GetComponent<AkarPohon>();
+            akarPohon.IdObjectUtama = this.UniqueID;
             //GameObject akar = Instantiate(batangPohon, posisiPohon, Quaternion.identity);
             SpriteRenderer akarSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
             akarSpriteRenderer.sprite = null;

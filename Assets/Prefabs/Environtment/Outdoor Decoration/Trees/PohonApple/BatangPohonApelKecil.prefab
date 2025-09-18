@@ -148,10 +148,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5f951ea0917784ea1444ccccf5d49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 2
+  typeObject: 7
+  typePlant: 1
+  currentStage: 2
   health: 6
   kayu:
-    itemName: 
-    count: 0
+    itemName: Kayu
+    count: 1
     quality: 0
     itemHealth: 0
   minKayu: 2

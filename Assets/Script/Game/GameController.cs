@@ -343,16 +343,19 @@ public class GameController : MonoBehaviour
 
         foreach (var savedItem in savedTrees)
         {
-            GameObject objectPohon = DatabaseManager.Instance.GetPrefabForTreeStage(savedItem.typePlant, savedItem.initialStage);
+            if (savedItem.isGrow)
+            {
+                GameObject objectPohon = DatabaseManager.Instance.GetPrefabForTreeStage(savedItem.typePlant, savedItem.initialStage);
 
-            Vector3 spawnPosition = new Vector3(savedItem.position.x, savedItem.position.y, 0);
+                Vector3 spawnPosition = new Vector3(savedItem.position.x, savedItem.position.y, 0);
 
-            GameObject plant = Instantiate(objectPohon, spawnPosition, Quaternion.identity);
+                GameObject plant = Instantiate(objectPohon, spawnPosition, Quaternion.identity);
 
-            // Panggil ForceGenerateUniqueID untuk memastikan pohon yang di-load punya ID yang benar
-            plant.GetComponent<UniqueIdentifiableObject>()?.ForceGenerateUniqueID();
+                // Panggil ForceGenerateUniqueID untuk memastikan pohon yang di-load punya ID yang benar
+                plant.GetComponent<UniqueIdentifiableObject>()?.ForceGenerateUniqueID();
 
-            treesManager.RestoreState(savedItem);
+                treesManager.RestoreState(savedItem);
+            }
         }
         Debug.Log("[LOAD] Restorasi state batu selesai.");
     }
