@@ -157,6 +157,7 @@ public class TreeBehavior : UniqueIdentifiableObject
         if (currentStage < GrowthTree.MaturePlant)
         {
 
+            MainEnvironmentManager.Instance.pohonManager.CheckDataInSecondList(UniqueID);
             UpdateSprite();
             Debug.Log("Tahap pertumbuhan: " + currentStage);
         }

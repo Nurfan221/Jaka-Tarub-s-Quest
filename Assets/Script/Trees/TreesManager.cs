@@ -58,6 +58,8 @@ public class TreesManager : MonoBehaviour, ISaveable
 
         parentEnvironment = gameObject.transform;
         targetTreeDatabase = DatabaseManager.Instance.worldTreeDatabase;
+        ProsesPenanamanUlangPohon();
+
 
     }
 
@@ -78,7 +80,9 @@ public class TreesManager : MonoBehaviour, ISaveable
                 position = respawnItem.position,
                 typePlant = respawnItem.typePlant,
                 sudahTumbang = respawnItem.sudahTumbang,
-                initialStage = respawnItem.initialStage
+                initialStage = respawnItem.initialStage,
+                isGrow = respawnItem.isGrow,
+                
             });
         }
 
@@ -99,7 +103,9 @@ public class TreesManager : MonoBehaviour, ISaveable
             position = data.position,
             typePlant = data.typePlant,
             sudahTumbang = data.sudahTumbang,
-            initialStage = data.initialStage
+            initialStage = data.initialStage,
+            isGrow = data.isGrow
+            
         });
 
     }
@@ -112,7 +118,6 @@ public class TreesManager : MonoBehaviour, ISaveable
 
     public void HandleNewDay()
     {
-        //ProsesPenanamanUlangPohon();
 
         float dayLuck = TimeManager.Instance.GetDayLuck();
         if (isJanganAcak)
@@ -370,8 +375,26 @@ public class TreesManager : MonoBehaviour, ISaveable
                 GameObject plant = Instantiate(objectPohon, spawnPosition, Quaternion.identity);
 
                 // Panggil ForceGenerateUniqueID untuk memastikan pohon yang di-load punya ID yang benar
-                plant.GetComponent<UniqueIdentifiableObject>()?.ForceGenerateUniqueID();
+                plant.GetComponent<UniqueIdentifiableObject>().UniqueID = item.TreeID;
+                plant.name = item.TreeID.ToString();
                 plant.transform.SetParent(parentEnvironment);
+            }
+
+
+        }
+
+        
+    }
+
+    public void CheckDataInSecondList(string id)
+    {
+        foreach (var item in secondListTrees)
+        {
+            if (item.TreeID == id)
+            {
+                Debug.Log("pohon saat ini : " + item.initialStage);
+                item.initialStage++;
+                Debug.Log("pohon saat ini : " + item.initialStage);
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 public class GameController : MonoBehaviour
 {
@@ -303,29 +304,34 @@ public class GameController : MonoBehaviour
 
         foreach (TreePlacementData treeData in DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements)
         {
+            TreesManager treesManager = MainEnvironmentManager.Instance.pohonManager;
+            if (treesManager == null) return;
+
+            treesManager.environmentList.Clear();
+            treesManager.environmentList = DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements;
             // Dapatkan prefab yang benar dari DatabaseManager
-            GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(treeData.typePlant, treeData.initialStage);
-            if (treePrefab != null)
-            {
-                // Munculkan pohon dan konfigurasikan
+            //GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(treeData.typePlant, treeData.initialStage);
+            //if (treePrefab != null)
+            //{
+            //    // Munculkan pohon dan konfigurasikan
 
-                GameObject newTree = Instantiate(treePrefab, treeData.position, Quaternion.identity);
-                TreeBehavior treeBehavior = newTree.GetComponent<TreeBehavior>();
-                if (treeBehavior != null)
-                {
-                    treeBehavior.UniqueID = treeData.TreeID;
-                    treeBehavior.currentStage = treeData.initialStage;
-
-
-
-                    treeBehavior.isRubuh = treeData.sudahTumbang;
+            //    GameObject newTree = Instantiate(treePrefab, treeData.position, Quaternion.identity);
+            //    TreeBehavior treeBehavior = newTree.GetComponent<TreeBehavior>();
+            //    if (treeBehavior != null)
+            //    {
+            //        treeBehavior.UniqueID = treeData.TreeID;
+            //        treeBehavior.currentStage = treeData.initialStage;
 
 
 
-                    // Daftarkan ke daftar pohon aktif
-                    MainEnvironmentManager.Instance.pohonManager.environmentList.Add(treeData);
-                }
-            }
+            //        treeBehavior.isRubuh = treeData.sudahTumbang;
+
+
+
+            //        // Daftarkan ke daftar pohon aktif
+            //        MainEnvironmentManager.Instance.pohonManager.environmentList.Add(treeData);
+            //    }
+            //}
         }
     }
 
@@ -345,14 +351,7 @@ public class GameController : MonoBehaviour
         {
             if (savedItem.isGrow)
             {
-                GameObject objectPohon = DatabaseManager.Instance.GetPrefabForTreeStage(savedItem.typePlant, savedItem.initialStage);
-
-                Vector3 spawnPosition = new Vector3(savedItem.position.x, savedItem.position.y, 0);
-
-                GameObject plant = Instantiate(objectPohon, spawnPosition, Quaternion.identity);
-
-                // Panggil ForceGenerateUniqueID untuk memastikan pohon yang di-load punya ID yang benar
-                plant.GetComponent<UniqueIdentifiableObject>()?.ForceGenerateUniqueID();
+               
 
                 treesManager.RestoreState(savedItem);
             }
