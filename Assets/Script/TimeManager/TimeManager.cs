@@ -22,7 +22,7 @@ public enum Season
     Rain = 0,
     Dry = 1
 }
-public class TimeManager : MonoBehaviour
+public class TimeManager : MonoBehaviour, ISaveable
 {
     // Menambahkan properti Singleton
     public static TimeManager Instance { get; private set; }
@@ -53,12 +53,12 @@ public class TimeManager : MonoBehaviour
     public int hour;    // Ubah menjadi properti agar lebih aman
 
     [Header("Date & Time Settings")]
-    public int totalHari = 1;
-    public int hari = 1;
-    public int date = 1;
-    public int minggu = 1;
-    public int bulan = 1;
-    public int tahun = 1;
+    public int totalHari;
+    public int hari;
+    public int date;
+    public int minggu;
+    public int bulan;
+    public int tahun;
     public Days currentDay = Days.Mon;
     public Season currentSeason = Season.Rain;
     public float dailyLuck;
@@ -76,8 +76,7 @@ public class TimeManager : MonoBehaviour
     public static event System.Action OnDayChanged;
     public static event System.Action OnSeasonChanged;
 
-    [Header("Data Waktu")]
-    public TimeData_SO timeData_SO;
+    
 
 
     private void Start()
@@ -89,7 +88,43 @@ public class TimeManager : MonoBehaviour
 
     }
 
-  
+    public object CaptureState()
+    {
+        Debug.Log("[SAVE] Menangkap data waktu (TimeManager)...");
+
+        // Buat SATU objek data baru
+        var saveData = new TimeSaveData
+        {
+            // Isi objek tersebut dengan nilai saat ini dari TimeManager
+            totalHari = this.totalHari,
+            hari = this.hari,
+            date = this.date,
+            minggu = this.minggu,
+            bulan = this.bulan,
+            tahun = this.tahun
+        };
+
+        // Kembalikan SATU objek data tersebut.
+        return saveData;
+    }
+
+    public void RestoreState(object state)
+    {
+        Debug.Log("[LOAD] Merestorasi data waktu (TimeManager)...");
+
+        // Ubah (cast) object 'state' menjadi tipe data yang benar
+        var loadedData = (TimeSaveData)state;
+
+        // Kembalikan nilai dari data yang di-load ke TimeManager
+        totalHari = loadedData.totalHari;
+        hari = loadedData.hari;
+        date = loadedData.date;
+        minggu = loadedData.minggu;
+        bulan = loadedData.bulan;
+        tahun = loadedData.tahun;
+
+        Debug.Log($"Waktu berhasil direstorasi ke hari ke-{totalHari}");
+    }
 
     private void Update()
     {
@@ -131,7 +166,6 @@ public class TimeManager : MonoBehaviour
         if (hour >= 24)
         {
             hour = 0;
-            totalHari++;
             UpdateDay();
             HitungWaktu(totalHari);
 
@@ -149,6 +183,7 @@ public class TimeManager : MonoBehaviour
    public void UpdateDay()
    {
         hour = 4;
+        totalHari += 1;
         currentDay = (Days)((totalHari % 7 == 0) ? 7 : totalHari % 7);
 
         // Tentukan probabilitas hujan berdasarkan musim

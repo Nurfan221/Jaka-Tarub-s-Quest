@@ -84,6 +84,12 @@ public class GameController : MonoBehaviour
                 Debug.Log("GameController: Membangun Stone dari file save");
                 ReturnQueueStoneActive(saveData.queueRespownStone);
             }
+
+            if (saveData.timeSaveData != null && saveData.timeSaveData.totalHari > 0)
+            {
+                Debug.Log("GameController: Membangun Time dari file save");
+                TimeManager.Instance.RestoreState(saveData.timeSaveData);
+            }
         }
         else
         {
@@ -301,38 +307,14 @@ public class GameController : MonoBehaviour
 
     public void GenerateDefaultWorld()
     {
+        Debug.Log("Membangun tree dunia default dari DatabaseManager... : " + DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements.Count);
 
-        foreach (TreePlacementData treeData in DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements)
-        {
-            TreesManager treesManager = MainEnvironmentManager.Instance.pohonManager;
-            if (treesManager == null) return;
+        TreesManager treesManager = MainEnvironmentManager.Instance.pohonManager;
+        if (treesManager == null) return;
 
-            treesManager.environmentList.Clear();
-            treesManager.environmentList = DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements;
-            // Dapatkan prefab yang benar dari DatabaseManager
-            //GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(treeData.typePlant, treeData.initialStage);
-            //if (treePrefab != null)
-            //{
-            //    // Munculkan pohon dan konfigurasikan
-
-            //    GameObject newTree = Instantiate(treePrefab, treeData.position, Quaternion.identity);
-            //    TreeBehavior treeBehavior = newTree.GetComponent<TreeBehavior>();
-            //    if (treeBehavior != null)
-            //    {
-            //        treeBehavior.UniqueID = treeData.TreeID;
-            //        treeBehavior.currentStage = treeData.initialStage;
-
-
-
-            //        treeBehavior.isRubuh = treeData.sudahTumbang;
-
-
-
-            //        // Daftarkan ke daftar pohon aktif
-            //        MainEnvironmentManager.Instance.pohonManager.environmentList.Add(treeData);
-            //    }
-            //}
-        }
+        treesManager.environmentList.Clear();
+        treesManager.environmentList = DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements;
+        treesManager.HandleAddTreesObject();
     }
 
     // Membangun kembali dunia dari data save yang sudah dimuat.
@@ -356,6 +338,8 @@ public class GameController : MonoBehaviour
                 treesManager.RestoreState(savedItem);
             }
         }
+        GenerateDefaultWorld();
+
         Debug.Log("[LOAD] Restorasi state batu selesai.");
     }
 

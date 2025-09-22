@@ -98,6 +98,17 @@ public class ListBatuManager
     public List<TemplateStoneActive> listActive;
 }
 
+[System.Serializable]
+public class TimeSaveData
+{
+    public int totalHari;
+    public int hari;
+    public int date;
+    public int minggu;
+    public int bulan;
+    public int tahun;
+}
+
 public enum TypeObject
 {
     None,
@@ -140,6 +151,7 @@ public class DatabaseManager : MonoBehaviour
     public GrowthTreesDatabase templateTreesObject;
     public WorldTreeDatabaseSO worldTreeDatabase;
     public WorldStoneDatabaseSO worldStoneDatabase;
+    public TimeSaveData timeManagerDatabase;
     public GameObject itemWorldPrefab; // Prefab untuk item di dunia
     public GameObject plantWorldPrefab; // Prefab untuk tanaman di dunia
     public GameObject storageWorldPrefab;

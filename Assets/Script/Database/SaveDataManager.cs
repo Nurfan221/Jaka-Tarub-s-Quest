@@ -109,6 +109,14 @@ public class SaveDataManager : MonoBehaviour
                     saveData.queueRespownStone = stone.respawnQueue;
                     Debug.Log("Data pemain telah ditangkap untuk StoneManager." + stone.respawnQueue.Count);
                 }
+            } else if (saveable is TimeManager time)
+            {
+                Debug.Log("[SAVE] Ditemukan TimeManager. Memanggil CaptureState...");
+                if (time.CaptureState() is TimeSaveData timeData)
+                {
+                    saveData.timeSaveData = timeData;
+                    Debug.Log("Data waktu telah ditangkap untuk penyimpanan." + saveData.timeSaveData.totalHari);
+                }
             }
             // Tambahkan 'else if' lain untuk Chest, Bunga, dll. di masa depan.
         }

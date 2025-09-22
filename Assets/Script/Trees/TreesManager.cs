@@ -8,6 +8,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 
 
@@ -53,7 +54,7 @@ public class TreesManager : MonoBehaviour, ISaveable
         }
         else
         {
-            RegisterAllObject();
+            //RegisterAllObject();
         }
 
         parentEnvironment = gameObject.transform;
@@ -398,6 +399,48 @@ public class TreesManager : MonoBehaviour, ISaveable
             }
         }
     }
+
+    public void HandleAddTreesObject()
+    {
+        
+        // yang ada di dalam secondListTrees (data save/perubahan).
+        var idsInSecondList = new HashSet<string>(secondListTrees.Select(data => data.TreeID));
+
+        foreach (var item in environmentList)
+        {
+            // Cek apakah ID dari pohon template ini TIDAK ADA di dalam daftar pelacak.
+            if (!idsInSecondList.Contains(item.TreeID))
+            {
+                // Aman untuk memunculkan versi default-nya.
+
+                Debug.Log($"[SPAWN] Pohon ID: {item.TreeID} tidak ada di secondListTrees. Memunculkan versi default...");
+                GameObject objectPohon = DatabaseManager.Instance.GetPrefabForTreeStage(item.typePlant, item.initialStage);
+
+                // Tambahkan pengecekan null untuk keamanan
+                if (objectPohon != null)
+                {
+                    Vector3 spawnPosition = new Vector3(item.position.x, item.position.y, 0);
+                    GameObject plant = Instantiate(objectPohon, spawnPosition, Quaternion.identity);
+
+                    // Atur ID dan nama pohon yang baru dibuat
+                    plant.GetComponent<UniqueIdentifiableObject>().UniqueID = item.TreeID;
+                    plant.name = item.TreeID; // .ToString() tidak perlu karena sudah string
+                    plant.transform.SetParent(parentEnvironment);
+                }
+            }
+            else
+            {
+               
+                // Kita tidak melakukan apa-apa dan melewatkannya.
+                Debug.Log($"[SKIP] Melewatkan pohon default '{item.TreeID}' karena datanya sudah ada di secondListTrees.");
+            }
+        }
+
+
+       
+    }
+
+
     // TOMBOL BARU: Untuk mengisi 'environmentList' di dalam Editor
     [ContextMenu("Langkah 1: Daftarkan Semua Objek Anak ke List")]
     public void RegisterAllObjectsInEditor()
@@ -463,5 +506,66 @@ public class TreesManager : MonoBehaviour, ISaveable
         Debug.Log($"Migrasi selesai! {targetTreeDatabase.initialTreePlacements.Count} data pohon berhasil dipindahkan.");
     }
 
+    [ContextMenu("Langkah 3: Bangun Dunia di Editor (Untuk Desain)")]
+    public void SpawnTreesInEditor()
+    {
+        // Pengecekan keamanan
+        if (targetTreeDatabase == null)
+        {
+            Debug.LogError("Database Pohon (targetTreeDatabase) belum diatur di WorldManager!");
+            return;
+        }
+        if (parentEnvironment == null)
+        {
+            Debug.LogError("Kontainer Pohon Editor (editorTreeContainer) belum diatur! Buat GameObject kosong dan seret ke sini.");
+            return;
+        }
 
+        // Hapus dulu pohon lama agar tidak duplikat jika tombol ini ditekan lagi
+        ClearSpawnedTreesInEditor();
+
+        Debug.Log($"Memulai pembangunan dunia di Editor dari '{targetTreeDatabase.name}'...");
+        foreach (var treeData in targetTreeDatabase.initialTreePlacements)
+        {
+            GameObject objectPohon = DatabaseManager.Instance.GetPrefabForTreeStage(treeData.typePlant, treeData.initialStage);
+            if (objectPohon != null)
+            {
+                // Munculkan pohon dan jadikan anak dari kontainer editor
+                GameObject treeInstance = Instantiate(objectPohon, treeData.position, Quaternion.identity);
+
+                
+
+                // Transfer data penting agar pohonnya "tahu" siapa dirinya
+                TreeBehavior behavior = treeInstance.GetComponent<TreeBehavior>();
+                if (behavior != null)
+                {
+                    behavior.UniqueID = treeData.TreeID;
+                    treeInstance.name = treeData.TreeID;
+                    behavior.currentStage = treeData.initialStage;
+                }
+                treeInstance.gameObject.name = treeData.TreeID;
+                treeInstance.transform.SetParent(parentEnvironment);
+            }
+        }
+        Debug.Log("Pembangunan dunia di Editor selesai.");
+    }
+
+    [ContextMenu("Langkah 4: Hapus Semua Pohon Editor (Bersihkan Scene)")]
+    public void ClearSpawnedTreesInEditor()
+    {
+        if (parentEnvironment == null)
+        {
+            Debug.LogError("Kontainer Pohon Editor (editorTreeContainer) belum diatur!");
+            return;
+        }
+
+        Debug.Log($"Membersihkan semua pohon di dalam '{parentEnvironment.name}'...");
+        // Kita loop dari belakang agar tidak merusak indeks saat menghapus objek
+        for (int i = parentEnvironment.childCount - 1; i >= 0; i--)
+        {
+            // Gunakan DestroyImmediate karena ini adalah script editor, bukan runtime
+            DestroyImmediate(parentEnvironment.GetChild(i).gameObject);
+        }
+        Debug.Log("Pembersihan selesai. Scene sekarang bersih dari pohon yang dibuat oleh tool ini.");
+    }
 }
