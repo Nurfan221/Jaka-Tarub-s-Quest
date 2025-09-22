@@ -46,12 +46,14 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private PlayerController stats;
     public FarmData_SO statsFarm;
+    private FarmTile farmTile;
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>(); // Mendapatkan Canvas induk
         plantPrefab = DatabaseManager.Instance.plantWorldPrefab; // Ambil prefab tanaman dari DatabaseManager
+        farmTile = FarmTile.Instance; // Ambil instance FarmTile
 
 
 
@@ -65,9 +67,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
         }
 
-        if (FarmTile.Instance != null)
+        if (DatabaseManager.Instance != null)
         {
-            statsFarm = FarmTile.Instance.farmData;
+            statsFarm = DatabaseManager.Instance.farmData_SO;
         }
         else
         {
@@ -101,7 +103,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void CekSeed(Vector3Int cellPosition)
     {
         // Cek apakah tile sudah tertanami
-        foreach (var lokasihoedTile in statsFarm.hoedTilesList)
+        foreach (var lokasihoedTile in farmTile.hoedTilesList)
         {
             if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.isPlanted == true)  // Membandingkan dengan Vector3Int
             {
@@ -278,7 +280,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if ((currentTile == statsFarm.hoeedTile || currentTile == statsFarm.wateredTile))
         {
             // Cek apakah tile sudah tertanami
-            foreach (var lokasihoedTile in statsFarm.hoedTilesList)
+            foreach (var lokasihoedTile in farmTile.hoedTilesList)
             {
                 if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.isPlanted == true)  // Membandingkan dengan Vector3Int
                 {
@@ -328,7 +330,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if ((currentTile == statsFarm.hoeedTile || currentTile == statsFarm.wateredTile))
         {
             // Cek apakah tile sudah tertanami
-            foreach (var lokasihoedTile in statsFarm.hoedTilesList)
+            foreach (var lokasihoedTile in farmTile.hoedTilesList)
             {
                 if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.isPlanted == true)  // Membandingkan dengan Vector3Int
                 {
@@ -444,9 +446,11 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // Inisiasi prefab tanaman di posisi world yang sesuai dengan tile
         GameObject plant = Instantiate(plantPrefab, spawnPosition, Quaternion.identity);
         plant.name = "Tanaman " + namaSeed; // Memberi nama pada objek tanaman yang diinst
+        PlantInteractable plantInteractable = plant.GetComponent<PlantInteractable>();
+        plantInteractable.promptMessage = "Tanaman " + namaSeed;
 
         // Set parent prefab tanaman ke plantsContainer
-        plant.transform.SetParent(plantsContainer);
+        plant.transform.SetParent(MainEnvironmentManager.Instance.plantContainer.transform);
         FarmTile.Instance.activePlants.Add(cellPosition, plant);
         // Mendapatkan komponen Seed dari prefab tanaman
         PlantSeed seedComponent = plant.GetComponent<PlantSeed>();
@@ -463,7 +467,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
 
         // Memeriksa apakah ada tile yang dicangkul dan menambahkan plantStatus
-        foreach (var lokasihoedTile in statsFarm.hoedTilesList)
+        foreach (var lokasihoedTile in farmTile.hoedTilesList)
         {
             if (lokasihoedTile.tilePosition == spawnPositionInt)  // Membandingkan dengan Vector3Int
             {

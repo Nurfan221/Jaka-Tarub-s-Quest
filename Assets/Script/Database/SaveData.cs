@@ -64,6 +64,7 @@ public class GameSaveData
     public List<PlayerSaveData> savedPlayerData = new List<PlayerSaveData>();
     public List<StorageSaveData> savedStorages = new List<StorageSaveData>();
     public List<StoneRespawnSaveData> queueRespownStone = new List<StoneRespawnSaveData>();
+    public List<HoedTileData> savedHoedTilesList = new List<HoedTileData>();
     public TimeSaveData timeSaveData;
 }
 

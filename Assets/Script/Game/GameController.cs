@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 using static UnityEditor.Progress;
 
 public class GameController : MonoBehaviour
@@ -22,6 +23,8 @@ public class GameController : MonoBehaviour
     public bool enablePlayerInput;
 
     public Transform player;
+    public FarmData_SO databaseManager;
+    public FarmTile tilemap;
 
 
 
@@ -46,6 +49,18 @@ public class GameController : MonoBehaviour
         persistent = transform.root.gameObject;
         DontDestroyOnLoad(persistent);
         Instance = this;
+        if (DatabaseManager.Instance != null)
+        {
+            databaseManager = DatabaseManager.Instance.farmData_SO;
+        }else
+        {
+            Debug.LogError("DatabaseManager Instance is null in GameController Awake");
+        }
+
+        if (FarmTile.Instance != null)
+        {
+            tilemap = FarmTile.Instance;
+        }
     }
 
     private void Start()
@@ -89,6 +104,10 @@ public class GameController : MonoBehaviour
             {
                 Debug.Log("GameController: Membangun Time dari file save");
                 TimeManager.Instance.RestoreState(saveData.timeSaveData);
+            }
+            if (saveData.savedHoedTilesList != null && saveData.savedHoedTilesList.Count > 0)
+            {
+                RestoreFarmStateFromData(saveData.savedHoedTilesList);
             }
         }
         else
@@ -390,5 +409,22 @@ public class GameController : MonoBehaviour
         }
         Debug.Log("[LOAD] Restorasi state batu selesai.");
     }
-   
+
+    public void RestoreFarmStateFromData(List<HoedTileData> hoedTilesList)
+    {
+        if (tilemap == null)
+        {
+            Debug.LogError("FarmTile Instance is null in RestoreFarmStateFromData");
+            return;
+        }
+
+        tilemap.hoedTilesList.Clear();
+        foreach (var item in hoedTilesList)
+        {
+            tilemap.RestoreState(item);
+        }
+
+        tilemap.RestoreFarmStateList();
+    }
+
 }

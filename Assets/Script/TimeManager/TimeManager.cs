@@ -136,11 +136,6 @@ public class TimeManager : MonoBehaviour, ISaveable
             AdvanceTime();
         }
 
-        if (hour >= 6 && hour <= 24)
-        {
-            //npcManager.StartSchedule();
-            
-        }
     }
 
    
@@ -165,8 +160,10 @@ public class TimeManager : MonoBehaviour, ISaveable
 
         if (hour >= 24)
         {
-            hour = 0;
+            //hour = 0;
             UpdateDay();
+            totalHari += 1;
+
             HitungWaktu(totalHari);
 
             // Update musim setiap 28 hari
@@ -183,7 +180,6 @@ public class TimeManager : MonoBehaviour, ISaveable
    public void UpdateDay()
    {
         hour = 4;
-        totalHari += 1;
         currentDay = (Days)((totalHari % 7 == 0) ? 7 : totalHari % 7);
 
         // Tentukan probabilitas hujan berdasarkan musim

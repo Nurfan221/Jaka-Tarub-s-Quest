@@ -115,7 +115,15 @@ public class SaveDataManager : MonoBehaviour
                 if (time.CaptureState() is TimeSaveData timeData)
                 {
                     saveData.timeSaveData = timeData;
-                    Debug.Log("Data waktu telah ditangkap untuk penyimpanan." + saveData.timeSaveData.totalHari);
+                    Debug.Log($"Data waktu telah ditangkap untuk penyimpanan. total hari = {saveData.timeSaveData.totalHari} hari ke-{saveData.timeSaveData.hari} tanggal ke-{saveData.timeSaveData.date} minggu ke-{saveData.timeSaveData.minggu} ");
+                }
+            } else if (saveable is FarmTile hoedTile)
+            {
+                Debug.Log("[SAVE] Ditemukan TiledHoedManager. Memanggil CaptureState...");
+                if (hoedTile.CaptureState() is List<HoedTileData> hoedTiles)
+                {
+                    saveData.savedHoedTilesList = hoedTile.hoedTilesList;
+                    Debug.Log("Data Hoed Tile telah ditangkap untuk penyimpanan." + saveData.savedHoedTilesList.Count);
                 }
             }
             // Tambahkan 'else if' lain untuk Chest, Bunga, dll. di masa depan.

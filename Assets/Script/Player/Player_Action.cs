@@ -514,6 +514,7 @@ public class Player_Action : MonoBehaviour
 
                         // Ambil arah dari posisi face
                         faceDirection = face.localPosition.normalized;
+                        ActivateHitboxAndPlayAction("Mencangkul", itemToAttack.Damage, 0.5f);
                         PlayActionAnimation(itemToAttack.itemName);
                        
                         FarmTile.Instance.HoeTile(playerPosition, faceDirection);

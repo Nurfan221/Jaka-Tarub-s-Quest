@@ -10,6 +10,7 @@ public class MainEnvironmentManager : MonoBehaviour
     public TreesManager pohonManager;
     public EnvironmentManager kuburanManager;
     public EnvironmentManager tumbuhanManager;
+    public PlantContainer plantContainer;
 
     private void Awake()
     {

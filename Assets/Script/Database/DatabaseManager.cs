@@ -99,6 +99,31 @@ public class ListBatuManager
 }
 
 [System.Serializable]
+public class HoedTileData
+{
+    public string plantedItemName;
+    public Vector3Int tilePosition;
+    public int hoedTime;
+    public bool watered;
+    public bool isPlanted;
+    public int growthProgress;
+    public GrowthStage currentStage;
+    public bool isReadyToHarvest;
+
+    //public HoedTileData(Vector3Int pos, int time)
+    //{
+    //    tilePosition = pos;
+    //    hoedTime = time;
+    //    watered = false;
+    //    isPlanted = false;
+    //    growthProgress = 0;
+    //    plantedItemName = null;
+    //    currentStage = GrowthStage.Seed; // Inisialisasi dengan tahap awal
+    //    isReadyToHarvest = false;
+    //}
+}
+
+[System.Serializable]
 public class TimeSaveData
 {
     public int totalHari;
@@ -152,6 +177,7 @@ public class DatabaseManager : MonoBehaviour
     public WorldTreeDatabaseSO worldTreeDatabase;
     public WorldStoneDatabaseSO worldStoneDatabase;
     public TimeSaveData timeManagerDatabase;
+    public FarmData_SO farmData_SO;
     public GameObject itemWorldPrefab; // Prefab untuk item di dunia
     public GameObject plantWorldPrefab; // Prefab untuk tanaman di dunia
     public GameObject storageWorldPrefab;
