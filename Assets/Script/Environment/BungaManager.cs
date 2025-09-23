@@ -25,24 +25,7 @@ public class BungaManager : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private void OnEnable()
-    {
-        TimeManager.OnDayChanged += HandleNewDay;
-    }
-    private void OnDisable()
-    {
-        TimeManager.OnDayChanged -= HandleNewDay;
-    }
-
-
-    private void Start()
-    {
-        //RandomSpawnFlower();
-    }
-    public void HandleNewDay()
-    {
-        RandomSpawnFlower();
-    }
+   
     public void RegisterAllObject()
     {
         environmentList.Clear();

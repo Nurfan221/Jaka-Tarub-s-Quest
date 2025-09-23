@@ -334,6 +334,21 @@ public class GameController : MonoBehaviour
         treesManager.environmentList.Clear();
         treesManager.environmentList = DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements;
         treesManager.HandleAddTreesObject();
+        GenerateDefaultEnvirontment();
+    }
+
+    public void GenerateDefaultEnvirontment()
+    {
+        BungaManager bungaManager = MainEnvironmentManager.Instance.bungaManager;
+        JamurManager jamurManager = MainEnvironmentManager.Instance.jamurManager;
+
+        bungaManager.environmentList.Clear();
+        jamurManager.environmentList.Clear();
+        bungaManager.environmentList = DatabaseManager.Instance.environmentDatabase.FlowerSaveData;
+        jamurManager.environmentList = DatabaseManager.Instance.environmentDatabase.jamurSaveData;
+
+        bungaManager.RandomSpawnFlower();
+        jamurManager.RandomSpawnJamur();
     }
 
     // Membangun kembali dunia dari data save yang sudah dimuat.

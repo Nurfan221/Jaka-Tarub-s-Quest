@@ -25,24 +25,13 @@ public class JamurManager : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private void OnEnable()
-    {
-        TimeManager.OnDayChanged += HandleNewDay;
-    }
-    private void OnDisable()
-    {
-        TimeManager.OnDayChanged -= HandleNewDay;
-    }
 
 
     private void Start()
     {
         //RandomSpawnFlower();
     }
-    public void HandleNewDay()
-    {
-        RandomSpawnFlower();
-    }
+
     public void RegisterAllObject()
     {
         environmentList.Clear();
@@ -68,7 +57,7 @@ public class JamurManager : MonoBehaviour
         Debug.Log($"Total environment terdaftar: {environmentList.Count}");
     }
 
-    public void RandomSpawnFlower()
+    public void RandomSpawnJamur()
     {
         if (parentEnvironment == null)
         {
@@ -90,7 +79,7 @@ public class JamurManager : MonoBehaviour
             int randomIndex = UnityEngine.Random.Range(0, environmentList.Count);
             EnvironmentSaveData jamurData = environmentList[randomIndex];
             GameObject flowerObject = DatabaseManager.Instance.GetJamur(jamurData.typePlant);
-
+            Debug.Log("Cari apakah jamur ditemukan: " + (flowerObject != null));
 
             // Cek apakah prefab ditemukan
             if (flowerObject != null)
