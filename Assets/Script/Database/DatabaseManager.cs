@@ -134,6 +134,25 @@ public class TimeSaveData
     public int tahun;
 }
 
+[System.Serializable]
+public class EnvironmentSaveData
+{
+    public string environmentId;
+    public TypeObject typeObject;
+    public TypePlant typePlant;
+    public Vector2 environmentPosition;
+
+}
+
+[System.Serializable]
+public class EnvironmentDatabase
+{
+    public TypePlant typePlant;
+    public TypeObject typeObject;
+    public GameObject environmentObject;
+}
+
+
 public enum TypeObject
 {
     None,
@@ -143,7 +162,9 @@ public enum TypeObject
     Copper,
     Iron,
     Gold,
-    AkarPohon
+    AkarPohon,
+    Bunga,
+    Jamur
 }
 public enum TypePlant
 {
@@ -151,16 +172,42 @@ public enum TypePlant
     Apple,
     Oak,
     Cemara,
-    Birch
+    Birch,
+    BungaAir,
+    BungaAurelisa,
+    BungaLangit,
+    BungaMalam,
+    BungaMentari,
+    BungaRimba,
+    BungaSenja,
+    JamurApiTerang,
+    JamurBulanBiru,
+    JamurHutanLegenda,
+    JamurKeceriaan,
+    JamurMimpiBuruk,
+    JamurPelindungBumi
 }
 
 public enum EnvironmentHardnessLevel
 {
+    None = 0,     // misalnya pasir
     Soft = 1,     // misalnya tanah liat
     Medium = 2,   // misalnya batu biasa
     Hard = 3,     // misalnya besi
     VeryHard = 4, // misalnya emas
     Extreme = 5   // misalnya berlian
+}
+
+public enum EnvironmentType
+{
+    none,
+    Rumput,
+    Pohon,
+    Batu,
+    Semak,
+    Sampah,
+    Kuburan,
+    Lainnya
 }
 
 
@@ -176,9 +223,10 @@ public class DatabaseManager : MonoBehaviour
     public GrowthTreesDatabase templateTreesObject;
     public WorldTreeDatabaseSO worldTreeDatabase;
     public WorldStoneDatabaseSO worldStoneDatabase;
-    public TimeSaveData timeManagerDatabase;
     public FarmData_SO farmData_SO;
     public GameObject itemWorldPrefab; // Prefab untuk item di dunia
+    public EnvironmentDatabaseSO environmentDatabase;
+    public TimeSaveData timeManagerDatabase;
     public GameObject plantWorldPrefab; // Prefab untuk tanaman di dunia
     public GameObject storageWorldPrefab;
 
@@ -388,6 +436,31 @@ public class DatabaseManager : MonoBehaviour
         return null; // jika tidak ada match
     }
 
-    
+    public GameObject GetFlower(TypePlant typePlant)
+    {
+        foreach (var item in environmentDatabase.flowerDatabases)
+        {
+            if (item.typePlant == typePlant)
+            {
+                Debug.Log($"Menemukan prefab bunga untuk {typePlant}: {item.environmentObject.name}");
+                return item.environmentObject;
+            }
+        }
+        return null;
+    }
+
+    public GameObject GetJamur(TypePlant typePlant)
+    {
+        foreach (var item in environmentDatabase.jamurDatabases)
+        {
+            if (item.typePlant == typePlant)
+            {
+                Debug.Log($"Menemukan prefab jamur untuk {typePlant}: {item.environmentObject.name}");
+                return item.environmentObject;
+            }
+        }
+        return null;
+    }
+
 
 }

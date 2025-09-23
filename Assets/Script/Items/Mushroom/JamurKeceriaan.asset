@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: JamurKeceriaan
   m_EditorClassIdentifier: 
-  itemID: 56
+  itemID: 57
   itemName: JamurKeceriaan
+  quality: 0
   types: 32
   categories: 528
   sprite: {fileID: 5854087196701661308, guid: 7112c987a8fcfbd49aece7b67d11086c, type: 3}
@@ -23,6 +24,15 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -33,14 +43,12 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
-  maxStackCount: 0
+  maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 8486291666243436108, guid: 35fb5c9bfaf845c48b05d535525d8feb, type: 3}
+  itemDropName: JamurKeceriaan
+  namePrefab: JamurKeceriaan
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 8486291666243436108, guid: 35fb5c9bfaf845c48b05d535525d8feb, type: 3}

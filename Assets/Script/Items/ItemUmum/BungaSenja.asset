@@ -30,6 +30,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 0
   MaxLevel: 0
   Damage: 0
@@ -45,8 +46,7 @@ MonoBehaviour:
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 4459120725376062254, guid: 62bf2317f135e5f43992ae0638d1dce7, type: 3}
+  itemDropName: BungaSenja
+  namePrefab: BungaSenja
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 4459120725376062254, guid: 62bf2317f135e5f43992ae0638d1dce7, type: 3}

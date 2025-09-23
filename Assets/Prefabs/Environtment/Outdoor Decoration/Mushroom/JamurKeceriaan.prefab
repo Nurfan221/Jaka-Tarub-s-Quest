@@ -102,6 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 0
+  typeObject: 9
+  typePlant: 15
   rumputAnimation:
   - {fileID: 5854087196701661308, guid: 7112c987a8fcfbd49aece7b67d11086c, type: 3}
   - {fileID: -6512693537387535413, guid: 7112c987a8fcfbd49aece7b67d11086c, type: 3}
@@ -112,7 +116,7 @@ MonoBehaviour:
   frameRate: 0.2
   nameEnvironment: JamurKeceriaan
   itemDrop: {fileID: 11400000, guid: 6ff527dff56cee444a4c0c57eb3e0b2c, type: 2}
-  plantsContainer: {fileID: 0}
+  environmentType: 0
 --- !u!114 &2979534788765671443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Jamur Keceriaan
+  envBehavior: {fileID: 1864868281198516365}
 --- !u!61 &9090757336621329339
 BoxCollider2D:
   m_ObjectHideFlags: 0

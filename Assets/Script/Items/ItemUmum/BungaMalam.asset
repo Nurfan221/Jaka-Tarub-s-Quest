@@ -30,6 +30,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 0
   MaxLevel: 0
   Damage: 0
@@ -45,8 +46,7 @@ MonoBehaviour:
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 4459120725376062254, guid: 139a964c67d608b4eae5b6562eb7d069, type: 3}
+  itemDropName: BungaMalam
+  namePrefab: BungaMalam
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 4459120725376062254, guid: 139a964c67d608b4eae5b6562eb7d069, type: 3}

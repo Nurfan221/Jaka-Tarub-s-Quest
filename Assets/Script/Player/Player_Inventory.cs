@@ -93,15 +93,22 @@ public class Player_Inventory : MonoBehaviour
         // Cek apakah objek yang disentuh memiliki tag "ItemDrop"
         if (other.CompareTag("ItemDrop"))
         {
-            Debug.Log("terdeteksi item drop");
-            // Ambil data dari PrefabItemBehavior jika ada
-            ItemDropInteractable itemDropInteractable = other.GetComponent<ItemDropInteractable>();
-            ItemData itemData = itemDropInteractable.itemdata;
+            if (stats.inventory.Count < stats.playerData.maxItem)
+            {
+                Debug.Log("terdeteksi item drop");
+                // Ambil data dari PrefabItemBehavior jika ada
+                ItemDropInteractable itemDropInteractable = other.GetComponent<ItemDropInteractable>();
+                ItemData itemData = itemDropInteractable.itemdata;
 
-            ItemPool.Instance.AddItem(itemData);
-            MechanicController.Instance.HandleUpdateInventory();
-            Destroy(other.gameObject);
-            
+                ItemPool.Instance.AddItem(itemData);
+                MechanicController.Instance.HandleUpdateInventory();
+                Destroy(other.gameObject);
+            }
+            else
+            {
+                return;
+            }
+
         }
         else if(other.CompareTag("Animal"))
         {

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: JamurHutanLegenda
   m_EditorClassIdentifier: 
-  itemID: 57
+  itemID: 58
   itemName: JamurHutanLegenda
+  quality: 0
   types: 32
   categories: 528
   sprite: {fileID: 2669348960057063661, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
@@ -24,6 +25,15 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -34,14 +44,12 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
-  maxStackCount: 0
+  maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 8486291666243436108, guid: 8382bdca49f157b49af21e7e333c9cec, type: 3}
+  itemDropName: JamurHutanLegenda
+  namePrefab: JamurHutanLegenda
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 8486291666243436108, guid: 8382bdca49f157b49af21e7e333c9cec, type: 3}

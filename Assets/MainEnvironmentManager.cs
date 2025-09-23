@@ -11,6 +11,7 @@ public class MainEnvironmentManager : MonoBehaviour
     public EnvironmentManager kuburanManager;
     public EnvironmentManager tumbuhanManager;
     public PlantContainer plantContainer;
+    public BungaManager bungaManager;
 
     private void Awake()
     {

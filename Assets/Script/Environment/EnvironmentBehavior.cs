@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
 
-public class EnvironmentBehavior : MonoBehaviour
-{
+public class EnvironmentBehavior : UniqueIdentifiableObject
+{ 
+    //  Implementasi dari Kontrak IUniqueIdentifiable 
+    public EnvironmentHardnessLevel hardnessLevel;
+    public TypeObject typeObject;
+    public TypePlant typePlant;
+
     //Animation idle 
     public Sprite[] rumputAnimation;
     public float frameRate = 0.3f; // Waktu per frame (kecepatan animasi)
@@ -13,8 +19,34 @@ public class EnvironmentBehavior : MonoBehaviour
     private int currentFrame = 0; // Indeks frame saat ini
     public string nameEnvironment;
     public Item itemDrop;
-    public Transform plantsContainer;
     public EnvironmentType environmentType;
+
+    #region Unique ID Implementation
+
+    public override string GetObjectType()
+    {
+        // Berikan kategori umum untuk objek ini.
+        return typeObject.ToString();
+    }
+
+    public override EnvironmentHardnessLevel GetHardness()
+    {
+        // Ambil nilai dari variabel yang bisa diatur di Inspector.
+        return hardnessLevel;
+    }
+
+    public override string GetBaseName()
+    {
+        // Ambil nama dasar dari variabel yang bisa diatur di Inspector.
+        return typePlant.ToString();
+    }
+
+    public override string GetVariantName()
+    {
+        return environmentType.ToString();
+    }
+
+    #endregion
     public void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>(); // Ambil komponen SpriteRenderer
@@ -33,16 +65,12 @@ public class EnvironmentBehavior : MonoBehaviour
             yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
         }
     }
+
+    public void GetItemDrop()
+    {
+
+        ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.health, itemDrop.quality, transform.position + new Vector3(0, 0.5f, 0));
+        Destroy(gameObject);
+    }
 }
 
-public enum EnvironmentType
-{
-    none,
-    Rumput,
-    Pohon,
-    Batu,
-    Semak,
-    Sampah,
-    Kuburan,
-    Lainnya
-}

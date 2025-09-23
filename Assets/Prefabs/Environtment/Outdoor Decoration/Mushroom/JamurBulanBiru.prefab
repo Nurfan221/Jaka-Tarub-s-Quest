@@ -102,6 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 0
+  typeObject: 9
+  typePlant: 13
   rumputAnimation:
   - {fileID: -7758524535556295958, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
   - {fileID: 8032385547397731467, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
@@ -112,7 +116,7 @@ MonoBehaviour:
   frameRate: 0.2
   nameEnvironment: JamurBulanBiru
   itemDrop: {fileID: 11400000, guid: a18cead96c51a5745b465cfae2a6b1f2, type: 2}
-  plantsContainer: {fileID: 0}
+  environmentType: 0
 --- !u!114 &843619207050050708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Jamur Bulan Biru
+  envBehavior: {fileID: 1864868281198516365}
 --- !u!61 &6617662295542718227
 BoxCollider2D:
   m_ObjectHideFlags: 0

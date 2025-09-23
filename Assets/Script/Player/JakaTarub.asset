@@ -21,14 +21,14 @@ MonoBehaviour:
   staminaRegenRate: 5
   initialGriefPenalty: 50
   totalHealingQuests: 5
-  maxItem: 18
+  maxItem: 25
   emptyItemTemplate:
     itemName: Empty
     count: 0
     quality: 0
     itemHealth: 0
   equippedWeaponTemplate:
-    itemName: Kapak
+    itemName: PenyiramTanaman
     count: 1
     quality: 0
     itemHealth: 0

@@ -102,6 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 0
+  typeObject: 9
+  typePlant: 12
   rumputAnimation:
   - {fileID: 3313693444761022075, guid: 9445d83ef8c9d0a409a7decd81469d64, type: 3}
   - {fileID: -7293368386204218276, guid: 9445d83ef8c9d0a409a7decd81469d64, type: 3}
@@ -112,7 +116,7 @@ MonoBehaviour:
   frameRate: 0.2
   nameEnvironment: JamurApiTerang
   itemDrop: {fileID: 11400000, guid: b941d40d9b0435748a3683a9a8932cb4, type: 2}
-  plantsContainer: {fileID: 0}
+  environmentType: 0
 --- !u!114 &4205646796327641393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Jamur Api Terang
+  envBehavior: {fileID: 1864868281198516365}
 --- !u!61 &8882591686323634400
 BoxCollider2D:
   m_ObjectHideFlags: 0

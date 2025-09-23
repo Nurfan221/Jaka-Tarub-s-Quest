@@ -1,0 +1,589 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1505405990f71dd4580b5f94164fd993, type: 3}
+  m_Name: EnvironmentDatabaseSO
+  m_EditorClassIdentifier: 
+  FlowerSaveData:
+  - environmentId: Bunga_None_BungaAurelisa_none_3
+    typeObject: 8
+    typePlant: 6
+    environmentPosition: {x: -76.106415, y: -69.10416}
+  - environmentId: Bunga_None_BungaAir_none_3
+    typeObject: 8
+    typePlant: 5
+    environmentPosition: {x: -60.59832, y: -64.5523}
+  - environmentId: Bunga_None_BungaAurelisa_none_4
+    typeObject: 8
+    typePlant: 6
+    environmentPosition: {x: 3.5, y: 44.24}
+  - environmentId: Bunga_None_BungaAir_none_8
+    typeObject: 8
+    typePlant: 5
+    environmentPosition: {x: -15.44, y: 38.61}
+  - environmentId: Bunga_None_BungaLangit_none_8
+    typeObject: 8
+    typePlant: 7
+    environmentPosition: {x: -74.52, y: 52.7}
+  - environmentId: Bunga_None_BungaMalam_none_1
+    typeObject: 8
+    typePlant: 8
+    environmentPosition: {x: -63.119003, y: 59.594677}
+  - environmentId: Bunga_None_BungaAir_none_10
+    typeObject: 8
+    typePlant: 5
+    environmentPosition: {x: 10.65, y: 60.26}
+  - environmentId: Bunga_None_BungaLangit_none_5
+    typeObject: 8
+    typePlant: 7
+    environmentPosition: {x: -78.71373, y: -54.232826}
+  - environmentId: Bunga_None_BungaMalam_none_3
+    typeObject: 8
+    typePlant: 8
+    environmentPosition: {x: -67.31274, y: -47.338154}
+  - environmentId: Bunga_None_BungaMentari_none_1
+    typeObject: 8
+    typePlant: 9
+    environmentPosition: {x: -79.307625, y: -38.17401}
+  - environmentId: Bunga_None_BungaSenja_none_9
+    typeObject: 8
+    typePlant: 11
+    environmentPosition: {x: -80.77858, y: -25.06331}
+  - environmentId: Bunga_None_BungaRimba_none_3
+    typeObject: 8
+    typePlant: 10
+    environmentPosition: {x: -41.12671, y: -53.07544}
+  - environmentId: Bunga_None_BungaAurelisa_none_2
+    typeObject: 8
+    typePlant: 6
+    environmentPosition: {x: -60.497, y: -38.072655}
+  - environmentId: Bunga_None_BungaSenja_none_2
+    typeObject: 8
+    typePlant: 11
+    environmentPosition: {x: -67.061966, y: -32.83465}
+  - environmentId: Bunga_None_BungaAir_none_1
+    typeObject: 8
+    typePlant: 5
+    environmentPosition: {x: -59.30972, y: -48.89786}
+  - environmentId: Bunga_None_BungaMentari_none_4
+    typeObject: 8
+    typePlant: 9
+    environmentPosition: {x: -10.290997, y: -42.101017}
+  - environmentId: Bunga_None_BungaSenja_none_4
+    typeObject: 8
+    typePlant: 11
+    environmentPosition: {x: -9.707988, y: -58.258423}
+  - environmentId: Bunga_None_BungaRimba_none_4
+    typeObject: 8
+    typePlant: 10
+    environmentPosition: {x: 17.776247, y: -41.60131}
+  - environmentId: Bunga_None_BungaMentari_none_5
+    typeObject: 8
+    typePlant: 9
+    environmentPosition: {x: 14.74, y: -32.08}
+  - environmentId: Bunga_None_BungaAir_none_7
+    typeObject: 8
+    typePlant: 5
+    environmentPosition: {x: 9.864119, y: -31.273903}
+  - environmentId: Bunga_None_BungaMalam_none_2
+    typeObject: 8
+    typePlant: 8
+    environmentPosition: {x: 23.99, y: -33.53}
+  - environmentId: Bunga_None_BungaSenja_none_1
+    typeObject: 8
+    typePlant: 11
+    environmentPosition: {x: -72.227005, y: -1.0525808}
+  - environmentId: Bunga_None_BungaLangit_none_3
+    typeObject: 8
+    typePlant: 7
+    environmentPosition: {x: -33.438328, y: -41.24481}
+  - environmentId: Bunga_None_BungaAurelisa_none_6
+    typeObject: 8
+    typePlant: 6
+    environmentPosition: {x: 55.481888, y: -45.59185}
+  - environmentId: Bunga_None_BungaAurelisa_none_7
+    typeObject: 8
+    typePlant: 6
+    environmentPosition: {x: 32.34, y: -50.58}
+  - environmentId: Bunga_None_BungaAir_none_2
+    typeObject: 8
+    typePlant: 5
+    environmentPosition: {x: 66.569984, y: -45.069996}
+  - environmentId: Bunga_None_BungaAir_none_9
+    typeObject: 8
+    typePlant: 5
+    environmentPosition: {x: 43.52, y: -29.4}
+  - environmentId: Bunga_None_BungaLangit_none_2
+    typeObject: 8
+    typePlant: 7
+    environmentPosition: {x: 78.81, y: -8.72}
+  - environmentId: Bunga_None_BungaLangit_none_7
+    typeObject: 8
+    typePlant: 7
+    environmentPosition: {x: 115.12, y: -26.852509}
+  - environmentId: Bunga_None_BungaLangit_none_6
+    typeObject: 8
+    typePlant: 7
+    environmentPosition: {x: 78.81, y: -8.72}
+  - environmentId: Bunga_None_BungaAurelisa_none_1
+    typeObject: 8
+    typePlant: 6
+    environmentPosition: {x: 88.00132, y: -5.1203537}
+  - environmentId: Bunga_None_BungaMentari_none_6
+    typeObject: 8
+    typePlant: 9
+    environmentPosition: {x: 86.4, y: 46.3}
+  - environmentId: Bunga_None_BungaMalam_none_4
+    typeObject: 8
+    typePlant: 8
+    environmentPosition: {x: 81.185585, y: -14.385853}
+  - environmentId: Bunga_None_BungaMentari_none_7
+    typeObject: 8
+    typePlant: 9
+    environmentPosition: {x: 69.1907, y: -5.22171}
+  - environmentId: Bunga_None_BungaSenja_none_10
+    typeObject: 8
+    typePlant: 11
+    environmentPosition: {x: 67.71974, y: 7.8889904}
+  - environmentId: Bunga_None_BungaRimba_none_2
+    typeObject: 8
+    typePlant: 10
+    environmentPosition: {x: 107.37161, y: -20.123138}
+  - environmentId: Bunga_None_BungaAurelisa_none_5
+    typeObject: 8
+    typePlant: 6
+    environmentPosition: {x: 88.00132, y: -5.1203537}
+  - environmentId: Bunga_None_BungaSenja_none_6
+    typeObject: 8
+    typePlant: 11
+    environmentPosition: {x: 62.2, y: 55.5}
+  - environmentId: Bunga_None_BungaAir_none_6
+    typeObject: 8
+    typePlant: 5
+    environmentPosition: {x: 69.95224, y: 39.436787}
+  - environmentId: Bunga_None_BungaMentari_none_9
+    typeObject: 8
+    typePlant: 9
+    environmentPosition: {x: 54.123646, y: 52.702347}
+  - environmentId: Bunga_None_BungaSenja_none_7
+    typeObject: 8
+    typePlant: 11
+    environmentPosition: {x: 44.326653, y: 25.694939}
+  - environmentId: Bunga_None_BungaSenja_none_5
+    typeObject: 8
+    typePlant: 11
+    environmentPosition: {x: 17.673645, y: 14.552345}
+  - environmentId: Bunga_None_BungaRimba_none_1
+    typeObject: 8
+    typePlant: 10
+    environmentPosition: {x: 36.8, y: 6.8}
+  - environmentId: Bunga_None_BungaMentari_none_2
+    typeObject: 8
+    typePlant: 9
+    environmentPosition: {x: 33.635147, y: 10.131421}
+  - environmentId: Bunga_None_BungaAir_none_5
+    typeObject: 8
+    typePlant: 5
+    environmentPosition: {x: 28.887878, y: 17.127407}
+  - environmentId: Bunga_None_BungaMalam_none_5
+    typeObject: 8
+    typePlant: 8
+    environmentPosition: {x: 40.381287, y: 20.29226}
+  - environmentId: Bunga_None_BungaSenja_none_3
+    typeObject: 8
+    typePlant: 11
+    environmentPosition: {x: 76.27132, y: 31.89972}
+  - environmentId: Bunga_None_BungaLangit_none_4
+    typeObject: 8
+    typePlant: 7
+    environmentPosition: {x: 115.06, y: -8.292507}
+  - environmentId: Bunga_None_BungaAir_none_4
+    typeObject: 8
+    typePlant: 5
+    environmentPosition: {x: -59.26185, y: 45.252403}
+  - environmentId: Bunga_None_BungaMentari_none_8
+    typeObject: 8
+    typePlant: 9
+    environmentPosition: {x: -17.363966, y: 45.252403}
+  - environmentId: Bunga_None_BungaSenja_none_8
+    typeObject: 8
+    typePlant: 11
+    environmentPosition: {x: -15.579254, y: 28.39917}
+  - environmentId: Bunga_None_BungaLangit_none_1
+    typeObject: 8
+    typePlant: 7
+    environmentPosition: {x: -58.17701, y: 33.855362}
+  - environmentId: Bunga_None_BungaMentari_none_3
+    typeObject: 8
+    typePlant: 9
+    environmentPosition: {x: -76.97787, y: 34.447}
+  - environmentId: Bunga_None_BungaRimba_none_5
+    typeObject: 8
+    typePlant: 10
+    environmentPosition: {x: -34.182903, y: 45.490864}
+  flowerDatabases:
+  - typePlant: 5
+    typeObject: 0
+    environmentObject: {fileID: 0}
+  - typePlant: 6
+    typeObject: 0
+    environmentObject: {fileID: 0}
+  - typePlant: 7
+    typeObject: 0
+    environmentObject: {fileID: 0}
+  - typePlant: 8
+    typeObject: 0
+    environmentObject: {fileID: 0}
+  - typePlant: 9
+    typeObject: 0
+    environmentObject: {fileID: 0}
+  - typePlant: 10
+    typeObject: 0
+    environmentObject: {fileID: 0}
+  - typePlant: 11
+    typeObject: 0
+    environmentObject: {fileID: 0}
+  jamurSaveData:
+  - environmentId: Jamur_None_JamurKeceriaan_none_5
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: 8.63, y: 22.37}
+  - environmentId: Jamur_None_JamurBulanBiru_none_5
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: -71.89226, y: 67.37717}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_4
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: 3.9909248, y: 55.92486}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_2
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: 6.132416, y: 45.496742}
+  - environmentId: Jamur_None_JamurBulanBiru_none_6
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: -5.293627, y: 38.64137}
+  - environmentId: Jamur_None_JamurBulanBiru_none_3
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: -22.04, y: 57.23}
+  - environmentId: Jamur_None_JamurKeceriaan_none_1
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: 12.915699, y: 45.0569}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_7
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: 10.784798, y: 31.583195}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_1
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: 18.807175, y: 21.406523}
+  - environmentId: Jamur_None_JamurApiTerang_none_2
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: 4.85, y: 29.96}
+  - environmentId: Jamur_None_JamurHutanLegenda_none_7
+    typeObject: 9
+    typePlant: 14
+    environmentPosition: {x: -1.6946373, y: 51.713562}
+  - environmentId: Jamur_None_JamurHutanLegenda_none_8
+    typeObject: 9
+    typePlant: 14
+    environmentPosition: {x: 8.6831875, y: 46.610523}
+  - environmentId: Jamur_None_JamurHutanLegenda_none_4
+    typeObject: 9
+    typePlant: 14
+    environmentPosition: {x: -24.135048, y: 29.73397}
+  - environmentId: Jamur_None_JamurApiTerang_none_6
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: -74.77859, y: 25.01294}
+  - environmentId: Jamur_None_JamurApiTerang_none_7
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: -33.829445, y: 58.692547}
+  - environmentId: Jamur_None_JamurApiTerang_none_8
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: 41.29, y: 55.8}
+  - environmentId: Jamur_None_JamurBulanBiru_none_7
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: 22.66, y: 33.48}
+  - environmentId: Jamur_None_JamurHutanLegenda_none_3
+    typeObject: 9
+    typePlant: 14
+    environmentPosition: {x: 56.18, y: 28.22}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_5
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: 107.61, y: 61.56}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_2
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: 50.52, y: 48.09}
+  - environmentId: Jamur_None_JamurKeceriaan_none_7
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: 104.55, y: 34.21}
+  - environmentId: Jamur_None_JamurApiTerang_none_3
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: 57.0082, y: 60.1776}
+  - environmentId: Jamur_None_JamurBulanBiru_none_4
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: 42.9709, y: 34.6}
+  - environmentId: Jamur_None_JamurKeceriaan_none_2
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: -8.148598, y: 29.054302}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_7
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: -41.480797, y: 52.8636}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_4
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: -13.000999, y: 60.017902}
+  - environmentId: Jamur_None_JamurHutanLegenda_none_1
+    typeObject: 9
+    typePlant: 14
+    environmentPosition: {x: -36.6, y: 28}
+  - environmentId: Jamur_None_JamurBulanBiru_none_8
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: -69.851, y: 28.2178}
+  - environmentId: Jamur_None_JamurApiTerang_none_4
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: -55.813698, y: 53.795403}
+  - environmentId: Jamur_None_JamurHutanLegenda_none_6
+    typeObject: 9
+    typePlant: 14
+    environmentPosition: {x: 76.2219, y: 34.3822}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_1
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: 99.8209, y: 66.4001}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_5
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: 71.3411, y: 59.2458}
+  - environmentId: Jamur_None_JamurKeceriaan_none_4
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: 100.93, y: 47.78}
+  - environmentId: Jamur_None_JamurApiTerang_none_1
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: -82.64, y: 6.99}
+  - environmentId: Jamur_None_JamurBulanBiru_none_1
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: -81.91607, y: 6.972763}
+  - environmentId: Jamur_None_JamurHutanLegenda_none_2
+    typeObject: 9
+    typePlant: 14
+    environmentPosition: {x: -80.88188, y: 6.989999}
+  - environmentId: Jamur_None_JamurKeceriaan_none_3
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: -82.67447, y: 7.7742586}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_6
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: -81.81265, y: 7.739786}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_3
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: -80.87326, y: 7.782878}
+  - environmentId: Jamur_None_JamurApiTerang_none_5
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: -38.7, y: -43.99}
+  - environmentId: Jamur_None_JamurBulanBiru_none_2
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: -48.15, y: -51.99}
+  - environmentId: Jamur_None_JamurHutanLegenda_none_5
+    typeObject: 9
+    typePlant: 14
+    environmentPosition: {x: -32.94, y: -55.42}
+  - environmentId: Jamur_None_JamurKeceriaan_none_6
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: -23.82, y: -39.4}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_3
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: -26.18, y: -44.7}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_6
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: -44.44, y: -36.09}
+  - environmentId: Jamur_None_JamurApiTerang_none_9
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: 43.021355, y: -46.221603}
+  - environmentId: Jamur_None_JamurKeceriaan_none_8
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: 39.107544, y: -50.33275}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_8
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: 56.177013, y: -48.885624}
+  - environmentId: Jamur_None_JamurKeceriaan_none_9
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: 61.209045, y: -55.627903}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_8
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: 70.253555, y: -47.93184}
+  - environmentId: Jamur_None_JamurKeceriaan_none_10
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: 77.6865, y: -43.32735}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_9
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: 82.55409, y: -41.41978}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_9
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: 86.43723, y: -42.465424}
+  - environmentId: Jamur_None_JamurApiTerang_none_10
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: 77.53003, y: -47.2808}
+  - environmentId: Jamur_None_JamurBulanBiru_none_9
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: 79.451195, y: -48.528305}
+  - environmentId: Jamur_None_JamurHutanLegenda_none_9
+    typeObject: 9
+    typePlant: 14
+    environmentPosition: {x: 77.57993, y: -40.319714}
+  - environmentId: Jamur_None_JamurKeceriaan_none_11
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: 98.56299, y: -36.327686}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_10
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: 103.40331, y: -34.381577}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_10
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: 107.370384, y: -35.454433}
+  - environmentId: Jamur_None_JamurKeceriaan_none_12
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: 108.61798, y: -27.420502}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_11
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: 103.4533, y: -27.24585}
+  - environmentId: Jamur_None_JamurBulanBiru_none_10
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: 101.40739, y: -24.351635}
+  - environmentId: Jamur_None_JamurApiTerang_none_11
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: 105.54911, y: -24.176983}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_11
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: 89.431335, y: -28.468412}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_12
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: 92.4503, y: -25.349646}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_13
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: 92.59058, y: -16.242296}
+  - environmentId: Jamur_None_JamurApiTerang_none_12
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: 84.63093, y: -16.055742}
+  - environmentId: Jamur_None_JamurBulanBiru_none_11
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: 90.56958, y: -8.842304}
+  - environmentId: Jamur_None_JamurHutanLegenda_none_10
+    typeObject: 9
+    typePlant: 14
+    environmentPosition: {x: 76.76455, y: -10.521294}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_12
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: -3.9, y: -50.9}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_14
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: -6.760504, y: -46.205048}
+  - environmentId: Jamur_None_JamurBulanBiru_none_12
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: -10.211752, y: -55.47058}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_13
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: 76.015625, y: 2.6022863}
+  - environmentId: Jamur_None_JamurMimpiBuruk_none_15
+    typeObject: 9
+    typePlant: 16
+    environmentPosition: {x: 88.80095, y: -1.1223998}
+  - environmentId: Jamur_None_JamurKeceriaan_none_13
+    typeObject: 9
+    typePlant: 15
+    environmentPosition: {x: 82.347176, y: -2.3972182}
+  - environmentId: Jamur_None_JamurBulanBiru_none_13
+    typeObject: 9
+    typePlant: 13
+    environmentPosition: {x: 63.344406, y: 5.052506}
+  - environmentId: Jamur_None_JamurApiTerang_none_13
+    typeObject: 9
+    typePlant: 12
+    environmentPosition: {x: 71.43153, y: -5.7436194}
+  - environmentId: Jamur_None_JamurHutanLegenda_none_11
+    typeObject: 9
+    typePlant: 14
+    environmentPosition: {x: 77.88531, y: -5.624105}
+  - environmentId: Jamur_None_JamurPelindungBumi_none_14
+    typeObject: 9
+    typePlant: 17
+    environmentPosition: {x: 75.65437, y: -0.84353304}
+  jamurDatabases:
+  - typePlant: 12
+    typeObject: 9
+    environmentObject: {fileID: 8486291666243436108, guid: 57bd6f2bfe24d8844b9d75260f3fa575, type: 3}
+  - typePlant: 13
+    typeObject: 9
+    environmentObject: {fileID: 8486291666243436108, guid: 04c7133ae722a864687940f53520f9b8, type: 3}
+  - typePlant: 14
+    typeObject: 9
+    environmentObject: {fileID: 8486291666243436108, guid: 8382bdca49f157b49af21e7e333c9cec, type: 3}
+  - typePlant: 15
+    typeObject: 9
+    environmentObject: {fileID: 8486291666243436108, guid: 35fb5c9bfaf845c48b05d535525d8feb, type: 3}
+  - typePlant: 16
+    typeObject: 9
+    environmentObject: {fileID: 8486291666243436108, guid: 00e62afdde4320a438b450feb98ab99f, type: 3}
+  - typePlant: 17
+    typeObject: 9
+    environmentObject: {fileID: 8486291666243436108, guid: 5e34f9bb7e97b574da31528795875510, type: 3}

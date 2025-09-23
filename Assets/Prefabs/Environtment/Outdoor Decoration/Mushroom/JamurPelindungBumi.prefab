@@ -102,6 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 0
+  typeObject: 9
+  typePlant: 17
   rumputAnimation:
   - {fileID: 6617450515365276744, guid: b873905d00cfcfb418014699d5445926, type: 3}
   - {fileID: 1352697169429651771, guid: b873905d00cfcfb418014699d5445926, type: 3}
@@ -114,7 +118,7 @@ MonoBehaviour:
   frameRate: 0.2
   nameEnvironment: JamurPelindungBumi
   itemDrop: {fileID: 11400000, guid: 97ccb08f4b11fac46976671993611afe, type: 2}
-  plantsContainer: {fileID: 0}
+  environmentType: 0
 --- !u!114 &1154968315638469766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +133,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Jamur Pelindung Bumi
+  envBehavior: {fileID: 1864868281198516365}
+  typeObject: 9
 --- !u!61 &7449528778455557394
 BoxCollider2D:
   m_ObjectHideFlags: 0

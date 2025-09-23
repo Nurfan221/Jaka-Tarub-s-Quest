@@ -130,10 +130,7 @@ public class TreesManager : MonoBehaviour, ISaveable
             SpawnFromEnvironmentList(dayLuck);
         }
 
-        if (isKuburanManager)
-        {
-            UpdateKondisiKuburan();
-        }
+       
 
     }
     public void RegisterAllObject()
@@ -273,44 +270,7 @@ public class TreesManager : MonoBehaviour, ISaveable
         }
     }
 
-    public void UpdateKondisiKuburan()
-    {
-        // Reset jumlah kuburan yang kotor di awal hari
-        countKuburanKotor = 0;
-
-        // Tentukan secara acak berapa banyak kuburan yang akan dikotori hari ini
-        // Range (6, 11) akan menghasilkan angka 6 sampai 10.
-        int jumlahKuburanYangAkanKotor = UnityEngine.Random.Range(6, 11);
-
-        // Ambil salinan daftar gameObjectsList untuk menghindari duplikasi
-        List<GameObject> tempKuburanList = new List<GameObject>(gameObjectsList);
-
-        for (int i = 0; i < jumlahKuburanYangAkanKotor; i++)
-        {
-            // Pastikan masih ada kuburan yang bisa dikotori
-            if (tempKuburanList.Count == 0)
-            {
-                Debug.LogWarning("Tidak ada lagi kuburan yang bisa dikotori.");
-                break;
-            }
-
-            // Dapatkan indeks acak dan objek dari list sementara
-            int randomIndex = UnityEngine.Random.Range(0, tempKuburanList.Count);
-            GameObject kuburan = tempKuburanList[randomIndex];
-
-            // Dapatkan komponen KuburanInteractable
-            KuburanInteractable kuburanInteractable = kuburan.GetComponent<KuburanInteractable>();
-
-            if (kuburanInteractable != null)
-            {
-                // Set kuburan menjadi kotor
-                kuburanInteractable.kondisiKuburanKotor();
-            }
-
-            // Hapus kuburan yang sudah dipilih dari list sementara
-            tempKuburanList.RemoveAt(randomIndex);
-        }
-    }
+    
 
     public void UpdateStatusJob()
     {

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: JamurApiTerang
   m_EditorClassIdentifier: 
-  itemID: 59
+  itemID: 60
   itemName: JamurApiTerang
+  quality: 0
   types: 32
   categories: 528
   sprite: {fileID: -4296686907146779548, guid: 9445d83ef8c9d0a409a7decd81469d64, type: 3}
@@ -22,6 +23,15 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -32,14 +42,12 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
-  maxStackCount: 0
+  maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 8486291666243436108, guid: 57bd6f2bfe24d8844b9d75260f3fa575, type: 3}
+  itemDropName: JamurApiTerang
+  namePrefab: JamurApiTerang
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 8486291666243436108, guid: 57bd6f2bfe24d8844b9d75260f3fa575, type: 3}
