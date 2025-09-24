@@ -178,7 +178,7 @@ public class GameController : MonoBehaviour
         // Ini penting agar tidak ada data ganda jika fungsi ini dipanggil lebih dari sekali.
         if (StorageSystem.Instance != null)
         {
-            StorageSystem.Instance.storages.Clear();
+            StorageSystem.Instance.environmentList.Clear();
             Debug.Log("Daftar storage lama di StorageSystem telah dibersihkan.");
         }
 
@@ -187,26 +187,13 @@ public class GameController : MonoBehaviour
         // Loop melalui setiap data storage yang ada di file save
         foreach (StorageSaveData storageData in savedStorages)
         {
-            //    (Diasumsikan Anda punya satu prefab generik untuk semua peti)
-            GameObject storagePrefab = DatabaseManager.Instance.storageWorldPrefab;
 
-            if (storagePrefab != null)
-            {
-                //    Pastikan di StorageSaveData Anda ada variabel Vector3 position.
-                Vector3 spawnPosition = storageData.storagePosition;
+            StorageSystem.Instance.environmentList.Add(storageData); // Tambahkan data ke daftar di StorageSystem
 
-                // Buat objek storage baru di posisi yang benar.
-                GameObject newStorageGO = Instantiate(storagePrefab, spawnPosition, Quaternion.identity);
-                StorageInteractable storageInteractable = newStorageGO.GetComponent<StorageInteractable>();
-
-                if (storageInteractable != null)
-                {
-                    storageInteractable.RestoreState(storageData);
-
-                    StorageSystem.Instance.storages.Add(storageInteractable);
-                }
-            }
+           
         }
+
+        StorageSystem.Instance.AddStorageFromEnvironmentList();
         Debug.Log("Restore semua storage selesai.");
     }
 

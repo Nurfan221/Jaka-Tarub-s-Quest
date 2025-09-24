@@ -123,6 +123,60 @@ public class HoedTileData
     //}
 }
 
+
+
+[System.Serializable]
+public class PlayerSaveData
+{
+    // Data Posisi
+    public Vector2 position;
+
+    // Data Health & Stamina
+    public int health;
+    public int currentHealthCap;
+    public float stamina;
+    public float currentStaminaCap;
+
+    // Data Status Emosional
+    public bool isInGrief;
+    public float currentGriefPenalty;
+    public int healingQuestsCompleted;
+    public float currentFatiguePenalty;
+
+    // Data Inventory & Equipment (menjawab pertanyaan Anda)
+    public List<ItemData> inventory;
+    public List<ItemData> equippedItemData;
+    public List<ItemData> itemUseData;
+    public bool equipped1;
+    public bool itemUse1;
+}
+
+[System.Serializable]
+public class StorageSaveData
+{
+    public string id; // ID unik dari peti ini
+    public Vector2 storagePosition;
+    public List<ItemData> itemsInStorage; // Daftar item di dalamnya
+}
+
+[System.Serializable]
+public class PerangkapSaveData
+{
+    public string id; // ID unik dari peti ini
+    public Vector2 perangkapPosition;
+    public bool isActive; // Apakah perangkap aktif atau tidak
+    public int healthPerangkap; // Kesehatan perangkap
+    public string hasilTangkap; // Hasil tangkapan
+}
+
+[System.Serializable]
+public class StoneRespawnSaveData
+{
+    public string id; // ID unik dari batu ini
+    public Vector2 stonePosition;
+    public int dayToRespawn;
+}
+
 [System.Serializable]
 public class TimeSaveData
 {
@@ -164,7 +218,7 @@ public enum TypeObject
     Gold,
     AkarPohon,
     Bunga,
-    Jamur
+    Jamur,
 }
 public enum TypePlant
 {
@@ -226,6 +280,7 @@ public class DatabaseManager : MonoBehaviour
     public FarmData_SO farmData_SO;
     public GameObject itemWorldPrefab; // Prefab untuk item di dunia
     public EnvironmentDatabaseSO environmentDatabase;
+    public StorageDatabaseSO storageDatabase;
     public TimeSaveData timeManagerDatabase;
     public GameObject plantWorldPrefab; // Prefab untuk tanaman di dunia
     public GameObject storageWorldPrefab;

@@ -98,7 +98,7 @@ public class SaveDataManager : MonoBehaviour
                 Debug.Log("[SAVE] Ditemukan StorageInteractable. Memanggil CaptureState...");
                 if (storage.CaptureState() is StorageSaveData storageData)
                 {
-                    storageData.id = storage.UniqueID;
+                    storageData.id = storage.uniqueID;
                     saveData.savedStorages.Add(storageData);
                 }
             }else if (saveable is BatuManager stone)

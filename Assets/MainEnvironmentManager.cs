@@ -13,6 +13,7 @@ public class MainEnvironmentManager : MonoBehaviour
     public PlantContainer plantContainer;
     public BungaManager bungaManager;
     public JamurManager jamurManager;
+    public StorageSystem storageManager;
 
     private void Awake()
     {

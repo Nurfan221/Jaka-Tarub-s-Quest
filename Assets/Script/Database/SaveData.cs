@@ -5,48 +5,6 @@ using System.Collections.Generic;
 // menjadi format lain (seperti JSON) untuk disimpan.
 
 
-[System.Serializable]
-public class PlayerSaveData
-{
-    // Data Posisi
-    public Vector2 position;
-
-    // Data Health & Stamina
-    public int health;
-    public int currentHealthCap;
-    public float stamina;
-    public float currentStaminaCap;
-
-    // Data Status Emosional
-    public bool isInGrief;
-    public float currentGriefPenalty;
-    public int healingQuestsCompleted;
-    public float currentFatiguePenalty;
-
-    // Data Inventory & Equipment (menjawab pertanyaan Anda)
-    public List<ItemData> inventory;
-    public List<ItemData> equippedItemData;
-    public List<ItemData> itemUseData;
-    public bool equipped1;
-    public bool itemUse1;
-}
-
-[System.Serializable]
-public class StorageSaveData
-{
-    public string id; // ID unik dari peti ini
-    public Vector2 storagePosition;
-    public List<ItemData> itemsInStorage; // Daftar item di dalamnya
-}
-
-[System.Serializable]
-public class StoneRespawnSaveData
-{
-    public string id; // ID unik dari batu ini
-    public Vector2 stonePosition;
-    public int dayToRespawn;
-}
-
 // Anda bisa menambahkan class data save lain di file yang sama untuk kerapian
 // [System.Serializable]
 // public class ChestSaveData 
