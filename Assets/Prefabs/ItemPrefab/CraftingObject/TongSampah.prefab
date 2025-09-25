@@ -4858,6 +4858,8 @@ GameObject:
   - component: {fileID: 7918664341146998191}
   - component: {fileID: 8624639361531654598}
   - component: {fileID: 8322885891473917973}
+  - component: {fileID: -6908410645558361750}
+  - component: {fileID: 5955235709826840995}
   m_Layer: 8
   m_Name: TongSampah
   m_TagString: Environment
@@ -5002,3 +5004,53 @@ MonoBehaviour:
   sampahItem: {fileID: 0}
   spriteRenderer: {fileID: 7918664341146998191}
   glowEffect: {fileID: 4703779917972532033}
+--- !u!114 &-6908410645558361750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454017072709228803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14b53db7d19e334da74b59ac196662f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startYOffset: -1
+  animationDuration: 0.5
+  popUpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &5955235709826840995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454017072709228803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

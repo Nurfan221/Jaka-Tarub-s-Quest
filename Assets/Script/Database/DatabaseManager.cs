@@ -76,17 +76,18 @@ public class TreePlacementData
 public class TemplateStoneObject
 {
     public string stoneID;
+    public GameObject stoneObject;
     public TypeObject typeStone;
     public EnvironmentHardnessLevel hardnessLevel;
     public int healthStone;
-    public GameObject stoneObject;
     public ItemData[] hasilTambang;
 }
 [System.Serializable]
 public class TemplateStoneActive
 {
     public string stoneID;
-    public GameObject stoneObject;
+    public TypeObject typeStone;
+    public EnvironmentHardnessLevel hardnessLevel;
     public Vector2 position;
 }
 
@@ -206,6 +207,27 @@ public class EnvironmentDatabase
     public GameObject environmentObject;
 }
 
+[System.Serializable]
+public class SampahDatabase
+{
+    public string keberuntungan;
+    public LuckLevel luckLevel;
+    public ItemData[] itemDropSampah;
+
+}
+
+//[System.Serializable]
+//public class KategoriSampah
+//{
+//}
+
+public enum LuckLevel
+{
+    None,
+    Low,
+    Medium,
+    High
+}
 
 public enum TypeObject
 {
@@ -280,6 +302,7 @@ public class DatabaseManager : MonoBehaviour
     public FarmData_SO farmData_SO;
     public GameObject itemWorldPrefab; // Prefab untuk item di dunia
     public EnvironmentDatabaseSO environmentDatabase;
+    public SampahDatabaseSO sampahDatabase;
     public StorageDatabaseSO storageDatabase;
     public TimeSaveData timeManagerDatabase;
     public GameObject plantWorldPrefab; // Prefab untuk tanaman di dunia
@@ -479,17 +502,7 @@ public class DatabaseManager : MonoBehaviour
         return null; // jika tidak ada match
     }
 
-    public GameObject GetObjectTambang(string id)
-    {
-        foreach (var item in worldStoneDatabase.templateStoneObject)
-        {
-            if (item.stoneID == id)
-            {
-                return item.stoneObject; // langsung keluar, hanya entri pertama
-            }
-        }
-        return null; // jika tidak ada match
-    }
+   
 
     public GameObject GetFlower(TypePlant typePlant)
     {
@@ -517,5 +530,17 @@ public class DatabaseManager : MonoBehaviour
         return null;
     }
 
+    public GameObject GetStone(TypeObject typeObject, EnvironmentHardnessLevel environmentHardnessLevel)
+    {
+        foreach (var stone in worldStoneDatabase.templateStoneObject)
+        {
+            if (stone.typeStone == typeObject && stone.hardnessLevel == environmentHardnessLevel)
+            {
+                return stone.stoneObject;
+            }
+        }
+
+        return null;
+    }
 
 }
