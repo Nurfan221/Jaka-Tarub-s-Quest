@@ -352,7 +352,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
     public override void UpdateQuest() { /* Dibiarkan kosong karena berbasis event */ }
     private void HandlePlayerSekarat()
     {
-        // --- TAMBAHKAN PENGECEKAN INI ---
+
         // Hanya bereaksi jika kita sedang dalam adegan melawan harimau.
         if (currentState == MainQuest1State.MunculkanHarimau)
         {

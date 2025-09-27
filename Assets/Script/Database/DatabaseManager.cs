@@ -286,27 +286,72 @@ public enum EnvironmentType
     Lainnya
 }
 
+[System.Serializable]
+public class ItemShopDatabase
+{
+    public string seasonName;
+    public Season season;
+    public List<Item> itemsForSale;
+}
 
+
+
+[Serializable]
+public class  ItemShopSaveData
+{
+    public Season currentSeason;
+    public List<ItemData> itemsSoldThisSeason;
+}
 public class DatabaseManager : MonoBehaviour
 {
     public static DatabaseManager Instance { get; private set; }
 
     // Seret aset-aset database Anda ke sini di Inspector
+    [Header("Core Gameplay Databases")]
+    [Tooltip("Database untuk semua resep crafting.")]
     public CraftingDatabaseSO craftingDatabase;
+    [Tooltip("Database untuk semua resep masakan.")]
     public CookingDatabaseSO cookingDatabase;
-    public EmoticonDatabaseSO emoticonDatabase;
-    public SpriteDatabaseSO spriteDatabase;
-    public GrowthTreesDatabase templateTreesObject;
-    public WorldTreeDatabaseSO worldTreeDatabase;
-    public WorldStoneDatabaseSO worldStoneDatabase;
-    public FarmData_SO farmData_SO;
-    public GameObject itemWorldPrefab; // Prefab untuk item di dunia
-    public EnvironmentDatabaseSO environmentDatabase;
-    public SampahDatabaseSO sampahDatabase;
+    [Tooltip("Database untuk semua item yang dijual di toko.")]
+    public ItemShopDatabaseSO itemShopDatabase;
+    [Tooltip("Database untuk item-item yang bisa disimpan.")]
     public StorageDatabaseSO storageDatabase;
-    public TimeSaveData timeManagerDatabase;
-    public GameObject plantWorldPrefab; // Prefab untuk tanaman di dunia
+
+    [Space(10)]
+    [Header("World & Environment Databases")]
+    [Tooltip("Database untuk data penempatan pohon default di dunia.")]
+    public WorldTreeDatabaseSO worldTreeDatabase;
+    [Tooltip("Database untuk data penempatan batu default di dunia.")]
+    public WorldStoneDatabaseSO worldStoneDatabase;
+    [Tooltip("Database untuk data lingkungan umum (bunga liar, dll).")]
+    public EnvironmentDatabaseSO environmentDatabase;
+    [Tooltip("Database untuk item sampah yang bisa didapat dari memancing/menggali.")]
+    public SampahDatabaseSO sampahDatabase;
+    [Tooltip("Database untuk data lahan pertanian.")]
+    public FarmData_SO farmData_SO;
+
+    [Space(10)]
+    [Header("Visual & Template Databases")]
+    [Tooltip("Database untuk semua sprite yang digunakan secara dinamis (misal: ikon UI).")]
+    public SpriteDatabaseSO spriteDatabase;
+    [Tooltip("Database untuk semua emoticon karakter.")]
+    public EmoticonDatabaseSO emoticonDatabase;
+    [Tooltip("Database template untuk tahap-tahap pertumbuhan pohon.")]
+    public GrowthTreesDatabase templateTreesObject;
+
+    [Space(10)]
+    [Header("World Prefabs")]
+    [Tooltip("Prefab default untuk item yang dijatuhkan di dunia.")]
+    public GameObject itemWorldPrefab;
+    [Tooltip("Prefab default untuk tanaman (bukan hasil tani) yang tumbuh di dunia.")]
+    public GameObject plantWorldPrefab;
+    [Tooltip("Prefab untuk objek penyimpanan (peti, dll) di dunia.")]
     public GameObject storageWorldPrefab;
+
+    [Space(10)]
+    [Header("System & Save Data")]
+    [Tooltip("Referensi ke data waktu yang bisa disimpan.")]
+    public TimeSaveData timeManagerDatabase;
 
 
 
@@ -543,4 +588,8 @@ public class DatabaseManager : MonoBehaviour
         return null;
     }
 
+    public ItemShopDatabase GetCurrentItemShopDatabase(Season season)
+    {
+        return itemShopDatabase.itemShopDatabases.FirstOrDefault(db => db.season == season);
+    }
 }

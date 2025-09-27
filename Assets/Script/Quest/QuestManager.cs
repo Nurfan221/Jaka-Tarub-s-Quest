@@ -68,6 +68,7 @@ public class QuestManager : MonoBehaviour
     private void Start()
     {
         //StartMainQuest(pendingMainQuest);
+        CheckForNewQuests();
 
     }
 
@@ -79,7 +80,7 @@ public class QuestManager : MonoBehaviour
     // Dipanggil setiap hari baru untuk memeriksa apakah ada quest baru yang harus diaktifkan.
     public void CheckForNewQuests()
     {
-        // --- Cek Side Quest (Logika Anda sudah benar) ---
+        Debug.Log("Memeriksa quest baru pada tanggal " + TimeManager.Instance.date + ", bulan " + TimeManager.Instance.bulan);
         foreach (var chapterAsset in allChapters)
         {
             if (chapterAsset.chapterID == currentChapterQuestIndex)
@@ -96,7 +97,6 @@ public class QuestManager : MonoBehaviour
            
         }
 
-        // --- Cek Main Quest yang Tertunda ---
         if (pendingMainQuest != null && activeMainQuestController == null)
         {
             if (TimeManager.Instance.date == pendingMainQuest.dateToActivate && TimeManager.Instance.bulan == pendingMainQuest.monthToActivate)
@@ -120,6 +120,7 @@ public class QuestManager : MonoBehaviour
 
         // Buat data status baru untuk quest ini
         PlayerQuestStatus newQuestStatus = new PlayerQuestStatus(questToActivate);
+        NPCBehavior npcTargetQuest = NPCManager.Instance.GetActiveNpcByName(newQuestStatus.Quest.npcName);
         questLog.Add(newQuestStatus);
         if (newQuestStatus.Quest.isSpawner)
         {
@@ -130,7 +131,7 @@ public class QuestManager : MonoBehaviour
         {
             Debug.Log("mengaktifkan NPCItem");
             //Panggil fungsi dari NPCManager untuk mencari Jhorgeo di daftar NPC aktif.
-            NPCBehavior npcTargetQuest = NPCManager.Instance.GetActiveNpcByName(newQuestStatus.Quest.npcName);
+
 
             // SELALU periksa apakah hasilnya null. Ini penting untuk menghindari error
             //    jika karena suatu alasan NPC tidak ditemukan.
@@ -138,12 +139,12 @@ public class QuestManager : MonoBehaviour
             {
                 // Jika ditemukan, Anda sekarang memiliki akses penuh ke komponen NPCBehavior-nya
                 //    dan bisa memanggil semua metode publiknya.
-                Debug.Log("NPC Jhorgeo ditemukan! Memberi perintah untuk pindah...");
+                Debug.Log($"NPC {newQuestStatus.Quest.npcName} ditemukan! Memberi perintah untuk pindah...");
 
 
                 npcTargetQuest.transform.position = newQuestStatus.Quest.startLocateNpcQuest;
                 // Panggil metode yang sudah kita siapkan di NPCBehavior
-                npcTargetQuest.OverrideForQuest(newQuestStatus.Quest.startLocateNpcQuest, newQuestStatus.Quest.finishLocateNpcQuest, newQuestStatus.Quest.startDialogue, newQuestStatus.Quest.questEmoticon.emoticonName);
+                npcTargetQuest.OverrideForQuest(newQuestStatus.Quest.startLocateNpcQuest, newQuestStatus.Quest.finishLocateNpcQuest, newQuestStatus.Quest.startDialogue, "Peringatan");
                 npcTargetQuest.itemQuestToGive = newQuestStatus.Quest.NPCItem;
                 npcTargetQuest.isGivenItemForQuest = true;
                 Debug.Log("itemQuestToGive" + npcTargetQuest.itemQuestToGive.itemName + "jumlah item : " + npcTargetQuest.itemQuestToGive.ToString());
@@ -293,7 +294,6 @@ public class QuestManager : MonoBehaviour
 
                         Debug.Log($"QuestManager: Item '{givenItemData.itemName}' berhasil diproses oleh Side Quest.");
 
-                        // <<< PANGGIL FUNGSI INI DI SINI UNTUK SIDE QUEST >>>
                         CheckIfQuestIsComplete(activeSideQuestStatus);
 
                         return true; // Side Quest berhasil memprosesnya
@@ -410,19 +410,27 @@ public class QuestManager : MonoBehaviour
         Debug.Log($"Quest '{questStatus.Quest.questName}' telah selesai!");
 
         GameEconomy.Instance.GainMoney(questStatus.Quest.goldReward);
-        CreateTemplateQuest();
+        foreach (var item in questStatus.Quest.itemRewards)
+        {
+            ItemPool.Instance.AddItem(item);
+        }
+
+        NPCBehavior behavior = NPCManager.Instance.GetActiveNpcByName(questStatus.Quest.npcName);
+        behavior.emoticonTransform.gameObject.SetActive(false);
         // (Tambahkan logika untuk memberi item reward di sini jika ada)
 
         // Pastikan referensi DialogueSystem ada dan benar
         if (questStatus.Quest.finishDialogue != null)
         {
+            DialogueSystem.Instance.npcName = questStatus.Quest.npcName;
             DialogueSystem.Instance.theDialogues = questStatus.Quest.finishDialogue;
             DialogueSystem.Instance.StartDialogue();
         }
 
+
         CreateTemplateQuest();
 
-        SaveQuests();
+        //SaveQuests();
 
         ChapterSO parentChapter = FindChapterForQuest(questStatus.Quest);
         if (parentChapter != null && AreAllSideQuestsComplete(parentChapter))
@@ -450,6 +458,7 @@ public class QuestManager : MonoBehaviour
         // Pastikan referensi DialogueSystem ada dan benar
         if (mainQuestStatus.MainQuestDefinition.finishDialogue != null)
         {
+            DialogueSystem.Instance.npcName = mainQuestStatus.MainQuestDefinition.namaNpcQuest;
             DialogueSystem.Instance.theDialogues = mainQuestStatus.MainQuestDefinition.finishDialogue;
             DialogueSystem.Instance.StartDialogue();
         }
@@ -639,6 +648,7 @@ public class QuestManager : MonoBehaviour
 
     public void DeleteSaveData()
     {
+        Debug.Log("Menghapus file save quest...");
         string path = GetSavePath();
 
         if (File.Exists(path))

@@ -8,7 +8,7 @@ using static QuestManager;
 public class DialogueSystem : MonoBehaviour
 {   
     public static DialogueSystem Instance;
-    string playerName;
+    public string npcName;
 
     public Dialogues theDialogues;
     Dialogues currentDialogues;
@@ -138,6 +138,7 @@ public class DialogueSystem : MonoBehaviour
         dialogueUI.SetActive(false);
         GameController.Instance.ResumeGame();
         StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+        npcName = "";
         // Siarkan pengumuman bahwa dialog telah berakhir!
 
     }

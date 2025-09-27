@@ -150,11 +150,11 @@ public class GameController : MonoBehaviour
             Debug.LogError("Player not found in the scene!");
             return;
         }
-
-        if (PlayerPrefs.GetInt("HaveSaved") == 99)
-        {
-            player.position = latestPlayerPos;
-        }
+        Debug.Log("Player found: " + player.name + "posisi playar : " + player.transform.position);
+        //if (PlayerPrefs.GetInt("HaveSaved") == 99)
+        //{
+        //    player.position = latestPlayerPos;
+        //}
     }
 
     private void RestorePlayerData(PlayerSaveData playerData)
@@ -307,6 +307,8 @@ public class GameController : MonoBehaviour
     public void PindahKeScene(string namaScene)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(namaScene);
+        ResumeGame();
+        ShowPersistentUI(true);
         //LoadingScreenUI.Instance.Show(asyncLoad);
     }
 

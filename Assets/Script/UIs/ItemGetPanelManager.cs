@@ -16,8 +16,8 @@ public class ItemGetPanelManager : MonoBehaviour
 
     [Header("Component Animation")]
     // Komponen UI yang diperlukan
-    public RectTransform questUI;
-    public Button questButton;
+    //public RectTransform questUI;
+    //public Button questButton;
     // Variabel untuk animasi
     public float animationDuration = 0.5f; // Durasi animasi dalam detik
     public float targetPosY = 300f; // Ketinggian akhir UI
@@ -52,8 +52,9 @@ public class ItemGetPanelManager : MonoBehaviour
         Item itemTemplate = ItemPool.Instance.GetItemWithQuality(itemToShow.itemName, itemToShow.quality);
 
         // Atur data item
-        Image templateImage = newSlot.transform.Find("ItemImage").GetComponent<Image>();
-        templateImage.sprite = itemTemplate.sprite;
+        Image templateImage = newSlot.transform.Find("Image").GetComponent<Image>();
+        Image image = templateImage.transform.Find("ItemImage").GetComponent<Image>();
+        image.sprite = itemTemplate.sprite;
         Image templateNameText = newSlot.transform.Find("NameItem").GetComponent<Image>();
         TMP_Text templateName = templateNameText.transform.Find("NameItemGet").GetComponent<TMP_Text>();
         templateName.text = itemToShow.itemName + " x" + itemToShow.count;

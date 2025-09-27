@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NUnit.Framework.Interfaces;
 using TMPro;
 using Unity.VisualScripting;
@@ -15,13 +16,13 @@ public class ShopUI : MonoBehaviour
 
 
     [Header("Daftar item list")]
-    public List<Item> rainSeasonShop = new();
-    public List<Item> drySeasonShop = new();
-    public List<Item> currentSeasonItems; // List yang sedang aktif
-    public List<Item> ItemToSell;
-    public int itemCountInShop;
 
-   
+    public List<ItemData> currentSeasonItems; // List yang sedang aktif
+    public List<ItemData> ItemToSell;
+    public int minItemShop;
+    public int maxItemShop;
+
+
 
     [Header("Logika Shop")]
     public Transform contentSellUI;
@@ -56,6 +57,7 @@ public class ShopUI : MonoBehaviour
         {
             Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
         }
+
     }
 
     private void OnEnable()
@@ -76,14 +78,13 @@ public class ShopUI : MonoBehaviour
     {
         //RestockDaily(currentSeason)
         currenSeason = TimeManager.Instance.GetCurrentSeason();
-        UpdateShopBySeason(currenSeason);
+        UpdateItemInShop(currenSeason);
     }
 
     public void HandleNewSeason()
     {
         currenSeason = TimeManager.Instance.GetCurrentSeason();
-        UpdateShopBySeason(currenSeason);
-
+        UpdateItemInShop(currenSeason);
     }
 
     private void Start()
@@ -114,6 +115,8 @@ public class ShopUI : MonoBehaviour
 
         btnClose.onClick.RemoveAllListeners();
         btnClose.onClick.AddListener(CloseShop);
+
+        HandleNewDay();
     }
 
     public void OpenShop()
@@ -137,59 +140,45 @@ public class ShopUI : MonoBehaviour
         gameObject.SetActive(false);
         gagalUI.gameObject.SetActive(false); // Sembunyikan UI
     }
-    public void UpdateShopBySeason(Season season)
-    {
-        switch (season)
-        {
-            case Season.Rain:
-                UpdateItemInShop(Season.Rain);
-                break;
-            case Season.Dry:
-                UpdateItemInShop(Season.Dry);
-                break;
-        }
 
-        
-    }
     public void AddItemToList(List<Item> Items)
     {
         // Membuat salinan dari item yang ada di quest.itemQuests sebelum menghapus item lama
-        List<Item> newItemList = new List<Item>();
 
-        // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
-        for (int i = 0; i < Items.Count; i++)
+       foreach (var item in Items)
         {
-            // Memanggil AddNewItem untuk membuat item baru dan menambahkannya ke dalam newItemList
-            Item newItem = ItemPool.Instance.GetItemWithQuality(Items[i].name, Items[i].quality);
+            //Debug.Log($"Sebelum Clear Item: {item.itemName}, Jumlah: {item.stackCount}");
+            ItemData itemData = new ItemData(item.itemName, 1, item.quality, item.health);
+            int randomCount = UnityEngine.Random.Range(minItemShop, maxItemShop + 1);
+            itemData.count = randomCount;
+            currentSeasonItems.Add(itemData);
 
-            // Menambahkan item salinan baru ke dalam newItemList
-            newItemList.Add(newItem);
         }
 
-        // Menambahkan item baru dari newItemList ke currentSeasonItems
-        foreach (var item in newItemList)
+        foreach (var item in DatabaseManager.Instance.itemShopDatabase.itemWajib)
         {
-            currentSeasonItems.Add(item);
-            //Debug.Log($"Item: {item.itemName}, Jumlah: {item.stackCount}");
+            ItemData itemData = new ItemData(item.itemName, 1, item.quality, item.health);
+            int randomCount = UnityEngine.Random.Range(minItemShop, maxItemShop + 1);
+            itemData.count = randomCount;
+            currentSeasonItems.Add(itemData);
         }
+
+
     }
 
 
 
     public void UpdateItemInShop(Season season)
     {
-        if (season == Season.Rain)
-        {
-            AddItemToList(rainSeasonShop);
-        }else if (season == Season.Dry)
-        {
-            AddItemToList(drySeasonShop);
-        }
+        ItemShopDatabase itemShopDatabase = DatabaseManager.Instance.GetCurrentItemShopDatabase(season);
+
+        AddItemToList(itemShopDatabase.itemsForSale);
+        RefreshShopUI(currentSeasonItems);
     }
 
    
 
-    private void RefreshShopUI(List<Item> items)
+    private void RefreshShopUI(List<ItemData> items)
     {
         ClearChildUI(contentBuyUI, templateBuyUI);
         ClearChildUI(contentSellUI, templateSellUI);
@@ -203,9 +192,13 @@ public class ShopUI : MonoBehaviour
             itemSlot.gameObject.SetActive(true);
             itemSlot.name = item.itemName;
 
-            itemSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
+            Image imageItem = itemSlot.GetChild(0).GetChild(0).GetComponent<Image>();
+            TMP_Text stackCountText = itemSlot.GetChild(0).GetChild(1).GetComponent<TMP_Text>();
+            stackCountText.gameObject.SetActive(true);
+            stackCountText.text = itemData.count.ToString();
+            imageItem.sprite = item.sprite;
+
             itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.itemName;
-            //itemSlot.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = item.stackCount.ToString();
             itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + item.SellValue;
 
             //Inisialisasi jumlah item yang akan dijual
@@ -223,11 +216,11 @@ public class ShopUI : MonoBehaviour
 
             btnPlus.onClick.AddListener(() =>
             {
-                //if (itemSellCounts[item.itemName] < item.stackCount)
-                //{
-                //    itemSellCounts[item.itemName]++;
-                //    UpdateCountText(item.itemName, countText, itemSellCounts);
-                //}
+                if (itemSellCounts[item.itemName] < itemData.count)
+                {
+                    itemSellCounts[item.itemName]++;
+                    UpdateCountText(item.itemName, countText, itemSellCounts);
+                }
             });
 
             btnMinus.onClick.AddListener(() =>
@@ -243,7 +236,7 @@ public class ShopUI : MonoBehaviour
             sell.onClick.RemoveAllListeners();
             sell.onClick.AddListener(() =>
             {
-                SellItem(item, countText, itemSellCounts);
+                SellItem(itemData, countText, itemSellCounts);
             });
 
             Button btnDeskripsi = templateSellUI.GetComponent<Button>();
@@ -265,15 +258,20 @@ public class ShopUI : MonoBehaviour
         }
 
         //Tampilkan item yang bisa dibeli dari shop
-        foreach (Item itemShop in currentSeasonItems)
+        foreach (ItemData itemShop in currentSeasonItems)
         {
             Transform itemSlot = Instantiate(templateBuyUI, contentBuyUI);
             itemSlot.gameObject.SetActive(true);
             itemSlot.name = itemShop.itemName;
 
-            itemSlot.GetChild(0).GetComponent<Image>().sprite = itemShop.sprite;
-            itemSlot.GetChild(1).GetComponent<TMP_Text>().text = itemShop.itemName;
-            itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + itemShop.BuyValue;
+            Item item = ItemPool.Instance.GetItemWithQuality(itemShop.itemName, itemShop.quality);
+            Image imageItem = itemSlot.GetChild(0).GetChild(0).GetComponent<Image>();
+            TMP_Text stackCountText = itemSlot.GetChild(0).GetChild(1).GetComponent<TMP_Text>();
+            stackCountText.gameObject.SetActive(true);
+            stackCountText.text = itemShop.count.ToString();
+            imageItem.sprite = item.sprite;
+            itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.itemName;
+            itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + item.BuyValue;
 
             //Inisialisasi jumlah item yang akan dibeli
             if (!itemBuyCounts.ContainsKey(itemShop.itemName))
@@ -293,11 +291,11 @@ public class ShopUI : MonoBehaviour
 
             btnPlus.onClick.AddListener(() =>
             {
-                //if (itemBuyCounts[itemShop.itemName] < itemShop.stackCount)
-                //{
-                //    itemBuyCounts[itemShop.itemName]++;
-                //    UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
-                //}
+                if (itemBuyCounts[itemShop.itemName] < itemShop.count)
+                {
+                    itemBuyCounts[itemShop.itemName]++;
+                    UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
+                }
             });
 
             btnMinus.onClick.AddListener(() =>
@@ -323,7 +321,7 @@ public class ShopUI : MonoBehaviour
                 Debug.Log("tampilkan deskripsi");
                 Image imageDeskripsi = deskripsiUI.GetChild(0).GetComponent<Image>();
                 imageDeskripsi.gameObject.SetActive(true);
-                imageDeskripsi.sprite = itemShop.sprite;
+                imageDeskripsi.sprite = item.sprite;
 
                 TMP_Text namaItem = deskripsiUI.GetChild(1).GetComponent<TMP_Text>();
                 namaItem.gameObject.SetActive(true);
@@ -331,22 +329,23 @@ public class ShopUI : MonoBehaviour
 
                 TMP_Text deskripsiItem = deskripsiUI.GetChild(2).GetComponent<TMP_Text>();
                 deskripsiItem.gameObject.SetActive(true);
-                deskripsiItem.text = itemShop.itemDescription;
+                deskripsiItem.text = item.itemDescription;
             });
         }
 
         //Item yang di beli npc 
-        foreach (Item itemShop in ItemToSell)
+        foreach (ItemData itemShop in ItemToSell)
         {
             Transform itemSlot = Instantiate(templateBuyUI, contentBuyUI);
             itemSlot.gameObject.SetActive(true);
             itemSlot.name = itemShop.itemName;
+            Item item = ItemPool.Instance.GetItemWithQuality(itemShop.itemName, itemShop.quality);
 
-            itemSlot.GetChild(0).GetComponent<Image>().sprite = itemShop.sprite;
-            itemSlot.GetChild(1).GetComponent<TMP_Text>().text = itemShop.itemName;
+            itemSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
+            itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.itemName;
             itemSlot.GetChild(0).GetChild(0).GetComponent<TMP_Text>().gameObject.SetActive(true);
             //itemSlot.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = itemShop.stackCount.ToString();
-            itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + itemShop.BuyValue;
+            itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + item.BuyValue;
 
             //Inisialisasi jumlah item yang akan dibeli
             if (!itemBuyCounts.ContainsKey(itemShop.itemName))
@@ -394,7 +393,7 @@ public class ShopUI : MonoBehaviour
                 Debug.Log("tampilkan deskripsi");
                 Image imageDeskripsi = deskripsiUI.GetChild(0).GetComponent<Image>();
                 imageDeskripsi.gameObject.SetActive(true);
-                imageDeskripsi.sprite = itemShop.sprite;
+                imageDeskripsi.sprite = item.sprite;
 
                 TMP_Text namaItem = deskripsiUI.GetChild(1).GetComponent<TMP_Text>();
                 namaItem.gameObject.SetActive(true);
@@ -402,63 +401,65 @@ public class ShopUI : MonoBehaviour
 
                 TMP_Text deskripsiItem = deskripsiUI.GetChild(2).GetComponent<TMP_Text>();
                 deskripsiItem.gameObject.SetActive(true);
-                deskripsiItem.text = itemShop.itemDescription;
+                deskripsiItem.text = item.itemDescription;
             });
         }
     }
 
-    private void BuyItem(Item selectedItem, TMP_Text countText, Dictionary<string, int> itemCounts)
+    private void BuyItem(ItemData selectedItem, TMP_Text countText, Dictionary<string, int> itemCounts)
     {
         int remainingToBuy = itemCounts[selectedItem.itemName]; // Jumlah item yang ingin dibeli
+        Item item = ItemPool.Instance.GetItemWithQuality(selectedItem.itemName, selectedItem.quality);
+        if (GameEconomy.Instance.SpendMoney(remainingToBuy * item.BuyValue) && remainingToBuy <= selectedItem.count)
+        {
+            // Cek apakah item sudah ada di inventory
+            ItemData inventoryItem = stats.inventory.Find(x => x.itemName == selectedItem.itemName);
 
-        //if (gameEconomy.SpendMoney(remainingToBuy * selectedItem.BuyValue) && remainingToBuy <= selectedItem.stackCount)
-        //{
-        //    // Cek apakah item sudah ada di inventory
-        //    Item inventoryItem = stats.itemList.Find(x => x.itemName == selectedItem.itemName);
+            if (inventoryItem != null && inventoryItem.count < item.maxStackCount)
+            {
+                int availableSpace = item.maxStackCount - inventoryItem.count;
+                int amountToAdd = Mathf.Min(availableSpace, remainingToBuy);
 
-        //    if (inventoryItem != null && inventoryItem.stackCount < inventoryItem.maxStackCount)
-        //    {
-        //        int availableSpace = inventoryItem.maxStackCount - inventoryItem.stackCount;
-        //        int amountToAdd = Mathf.Min(availableSpace, remainingToBuy);
+                inventoryItem.count += amountToAdd;
+                remainingToBuy -= amountToAdd;
+            }
 
-        //        inventoryItem.stackCount += amountToAdd;
-        //        remainingToBuy -= amountToAdd;
-        //    }
+            // Jika masih ada sisa item, buat stack baru di inventory
+            while (remainingToBuy > 0 && stats.inventory.Count < stats.playerData.maxItem)
+            {
+                //Item newItem = Instantiate(selectedItem);
+                ItemData newItem = new ItemData(selectedItem.itemName, 1, selectedItem.quality, selectedItem.itemHealth);
+                int amountToTake = Mathf.Min(remainingToBuy, item.maxStackCount);
+                newItem.count = amountToTake;
+                remainingToBuy -= amountToTake;
 
-        //    // Jika masih ada sisa item, buat stack baru di inventory
-        //    while (remainingToBuy > 0 && stats.itemList.Count < stats.maxItem)
-        //    {
-        //        Item newItem = Instantiate(selectedItem);
-        //        int amountToTake = Mathf.Min(remainingToBuy, newItem.maxStackCount);
-        //        newItem.stackCount = amountToTake;
-        //        remainingToBuy -= amountToTake;
+                item.isStackable = newItem.count < item.maxStackCount;
 
-        //        newItem.isStackable = newItem.stackCount < newItem.maxStackCount;
+                ItemPool.Instance.AddItem(newItem);
+                //stats.inventory.Add(newItem);
+            }
 
-        //        stats.itemList.Add(newItem);
-        //    }
+            Debug.Log("Nama item: " + selectedItem.itemName + " | Jumlah: " + itemCounts[selectedItem.itemName]);
+            Debug.Log("Total harga: " + (itemCounts[selectedItem.itemName] * item.BuyValue)); // Gunakan BuyValue!
 
-        //    Debug.Log("Nama item: " + selectedItem.itemName + " | Jumlah: " + itemCounts[selectedItem.itemName]);
-        //    Debug.Log("Total harga: " + (itemCounts[selectedItem.itemName] * selectedItem.BuyValue)); // Gunakan BuyValue!
+            //Pastikan item hanya dihapus jika ada yang tersisa untuk dihapus
+            if (itemCounts[selectedItem.itemName] > 0)
+            {
+                DeleteItemFromShop(selectedItem, itemCounts[selectedItem.itemName]);
+            }
 
-        //    //Pastikan item hanya dihapus jika ada yang tersisa untuk dihapus
-        //    if (itemCounts[selectedItem.itemName] > 0)
-        //    {
-        //        DeleteItemFromShop(selectedItem, itemCounts[selectedItem.itemName]);
-        //    }
-
-        //    itemBuyCounts[selectedItem.itemName] = 1;
-        //    UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
+            itemBuyCounts[selectedItem.itemName] = 1;
+            UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
 
 
-        //    RefreshShopUI(currentSeasonItems);
-        //}
-        //else
-        //{
-        //    itemBuyCounts[selectedItem.itemName] = 1;
-        //    UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
-        //    StartCoroutine(StartUIGagal());
-        //}
+            RefreshShopUI(currentSeasonItems);
+        }
+        else
+        {
+            itemBuyCounts[selectedItem.itemName] = 1;
+            UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
+            StartCoroutine(StartUIGagal());
+        }
 
         MechanicController.Instance.HandleUpdateInventory();
         //inventoryUI.UpdateSixItemDisplay();
@@ -466,12 +467,12 @@ public class ShopUI : MonoBehaviour
 
 
 
-    private void SellItem(Item selectedItem, TMP_Text countText, Dictionary<string, int> itemCounts)
+    private void SellItem(ItemData selectedItem, TMP_Text countText, Dictionary<string, int> itemCounts)
     {
         int remainingToStore = itemCounts[selectedItem.itemName]; // Jumlah item yang ingin dipindahkan
 
         // Cek apakah item sudah ada di currentSeasonItems
-        Item existingItem = ItemToSell.Find(x => x.itemName == selectedItem.itemName);
+        //Item existingItem = ItemToSell.Find(x => x.itemName == selectedItem.itemName);
 
         //if (existingItem != null)
         //{
@@ -485,8 +486,8 @@ public class ShopUI : MonoBehaviour
         //    ItemToSell.Add(newItem);
         //}
 
-        GameEconomy.Instance.GainMoney((selectedItem.SellValue * remainingToStore));
-        DeleteItemFromInventory(selectedItem, remainingToStore);
+        //GameEconomy.Instance.GainMoney((selectedItem.SellValue * remainingToStore));
+        //DeleteItemFromInventory(selectedItem, remainingToStore);
         RefreshShopUI(currentSeasonItems);
     }
 
@@ -518,7 +519,7 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    private void DeleteItemFromShop(Item selectedItem, int selectedItemCount)
+    private void DeleteItemFromShop(ItemData selectedItem, int selectedItemCount)
     {
         if (selectedItemCount <= 0) return; // **Cegah penghapusan jika jumlahnya 0 atau negatif**
 
@@ -526,30 +527,31 @@ public class ShopUI : MonoBehaviour
 
         for (int i = currentSeasonItems.Count - 1; i >= 0; i--)
         {
-            Item item = currentSeasonItems[i];
+            ItemData itemData = currentSeasonItems[i];
+            Item item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
 
-            if (selectedItem.itemName == item.itemName)
+            if (selectedItem.itemName == itemData.itemName)
             {
-                //if (item.stackCount > remainingToRemove)
-                //{
-                //    item.stackCount -= remainingToRemove;
-                //    item.isStackable = item.stackCount < item.maxStackCount;
-                //    return;
-                //}
-                //else
-                //{
-                //    remainingToRemove -= item.stackCount;
-                //    currentSeasonItems.RemoveAt(i);
+                if (itemData.count > remainingToRemove)
+                {
+                    itemData.count -= remainingToRemove;
+                    item.isStackable = itemData.count < item.maxStackCount;
+                    return;
+                }
+                else
+                {
+                    remainingToRemove -= itemData.count;
+                    currentSeasonItems.RemoveAt(i);
 
-                //    if (remainingToRemove <= 0)
-                //        return;
-                //}
+                    if (remainingToRemove <= 0)
+                        return;
+                }
             }
         }
 
         for (int i = ItemToSell.Count - 1; i >= 0; i--)
         {
-            Item item = ItemToSell[i];
+            ItemData item = ItemToSell[i];
 
             if (selectedItem.itemName == item.itemName)
             {

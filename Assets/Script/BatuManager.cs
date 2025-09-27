@@ -61,7 +61,7 @@ public class BatuManager : MonoBehaviour, ISaveable
     private void Start()
     {
         stoneDatabase = DatabaseManager.Instance.worldStoneDatabase;
-        //NewDay();
+        NewDay();
         parentEnvironment = this.transform;
 
     }
@@ -131,6 +131,7 @@ public class BatuManager : MonoBehaviour, ISaveable
     {
         Debug.Log($"Memulai proses spawn batu untuk hari ini dengan keberuntungan: {dailyLuck}");
         listStoneActivePerDay.Clear(); // Selalu kosongkan list di awal!
+        ClearContainer(parentEnvironment);
 
         //  Selalu tambahkan grup batu BIASA (Stone) ---
         var stoneGroupTemplate = listBatuManager.FirstOrDefault(g => g.typeStone == TypeObject.Stone);
@@ -204,6 +205,25 @@ public class BatuManager : MonoBehaviour, ISaveable
         SpawnStone();
     }
 
+    public void ClearContainer(Transform parent)
+    {
+        if (parent == null)
+        {
+            Debug.LogError("Parent transform belum diatur!");
+            return;
+        }
+
+        Debug.Log($"Membersihkan {parent.childCount} anak di dalam '{parent.name}'...");
+
+        // Loop dari anak TERAKHIR ke anak PERTAMA untuk menghindari masalah indeks.
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            // Hancurkan setiap GameObject anak.
+            Destroy(parent.GetChild(i).gameObject);
+        }
+
+        Debug.Log("Pembersihan selesai.");
+    }
     public void SpawnStone()
     {
         Debug.Log($"Memulai proses Instantiate untuk {listStoneActivePerDay.Sum(g => g.listActive.Count)} batu...");

@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, ISaveable
 {
     [Header("Player State (Runtime)")]
-    public Vector2 lastPosition;
     public int health;
     public int currentHealthCap;
     public float stamina;
@@ -65,7 +64,6 @@ public class PlayerController : MonoBehaviour, ISaveable
     public void RegisterPlayer(Player player)
     {
         this.ActivePlayer = player;
-        HandlePositionPlayer(lastPosition);
         Debug.Log($"PlayerController: Paket Player '{player.gameObject.name}' telah terdaftar.");
     }
 
@@ -85,7 +83,6 @@ public class PlayerController : MonoBehaviour, ISaveable
         return new PlayerSaveData
         {
             // Isi semua data dari kondisi saat ini
-            position = this.lastPosition,
             health = this.health,
             currentHealthCap = this.currentHealthCap,
             stamina = this.stamina,
@@ -110,7 +107,6 @@ public class PlayerController : MonoBehaviour, ISaveable
         PlayerSaveData data = (PlayerSaveData)state;
 
         // Terapkan semua data kembali ke pemain
-        lastPosition = data.position;
         this.health = data.health;
         this.currentHealthCap = data.currentHealthCap;
         this.stamina = data.stamina;
@@ -379,10 +375,7 @@ public class PlayerController : MonoBehaviour, ISaveable
         ActivePlayer.Player_Anim.PlayAnimation(nameAnimation);
     }
 
-    public void HandlePositionPlayer(Vector2 position)
-    {
-        ActivePlayer.transform.position = position;
-    }
+
 
     public void HandleButtonUseItem()
     {

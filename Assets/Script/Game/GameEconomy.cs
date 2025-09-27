@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class GameEconomy : MonoBehaviour // Attach this to a persistent game object like Game Controller
 {
-    public static GameEconomy Instance;
-    public TMP_Text moneyText; // Reference to a UI Text element to display money
+    public static GameEconomy Instance { get; private set; }
 
     private void OnEnable()
     {
@@ -20,12 +19,22 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
     }
 
     public int money;
-
     private void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
-
+    private void Start()
+    {
+        UpdateMoneyText();
+    }
     public bool SpendMoney(int price)
     {
         if (price > money)
@@ -53,9 +62,9 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
 
     public void UpdateMoneyText()
     {
-        if (moneyText != null)
+        if (PlayerUI.Instance.moneyText != null)
         {
-            moneyText.text = money.ToString();
+            PlayerUI.Instance.moneyText.text = money.ToString();
         }
         else
         {

@@ -82,7 +82,7 @@ public class TimeManager : MonoBehaviour, ISaveable
     private void Start()
     {
         //shopUI.UpdateShopBySeason(currentSeason);
-        AdvanceTime();
+        //AdvanceTime();
         //OnDayChanged?.Invoke(); // Mengirim totalHari ke semua pohon
         //UpdateDay();
 

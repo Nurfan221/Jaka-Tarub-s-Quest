@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Interfaces;
 using UnityEngine;
 
 public class NPCInteractable : Interactable
@@ -18,7 +19,7 @@ public class NPCInteractable : Interactable
     }
     private void DialogueSystem_OnDialogueEnded()
     {
-        if (npcBehavior.isLockedForQuest)
+        if (npcBehavior.isLockedForQuest && npcBehavior.islocked && DialogueSystem.Instance.npcName == npcBehavior.npcName)
         {
             npcBehavior.ReturnToPreQuestPosition();
         }
@@ -38,6 +39,7 @@ public class NPCInteractable : Interactable
    {
         if (npcBehavior.isLockedForQuest)
         {
+            DialogueSystem.Instance.npcName = npcBehavior.npcName;
             DialogueSystem.Instance.HandlePlayDialogue(npcBehavior.questOverrideDialogue);
             if (npcBehavior && npcBehavior.isGivenItemForQuest)
             {
@@ -50,6 +52,7 @@ public class NPCInteractable : Interactable
         else
         {
             // Jika NPC tidak terkunci, tampilkan dialog normal
+            DialogueSystem.Instance.npcName = npcBehavior.npcName;
             DialogueSystem.Instance.HandlePlayDialogue(npcBehavior.normalDialogue);
         }
 

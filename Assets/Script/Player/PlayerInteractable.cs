@@ -6,7 +6,7 @@ public class PlayerInteractable : MonoBehaviour
 {
     [SerializeField] private LayerMask interactablesLayer; // Layer objek interaktif
     [SerializeField] private float interactRadius = 1.5f;  // Radius interaksi
-    private Interactable currentInteractable; // Objek interaktif yang sedang didekati
+    public Interactable currentInteractable; // Objek interaktif yang sedang didekati
     public List<Interactable> interactableList = new List<Interactable>(); // Daftar semua interaksi dalam radius
 
     private void Start()

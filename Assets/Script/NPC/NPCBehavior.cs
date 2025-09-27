@@ -10,6 +10,7 @@ public class NPCBehavior : MonoBehaviour
 
     public string npcName { get; private set; }
     public bool isLockedForQuest = false;
+    public bool islocked; // Apakah NPC sedang dikunci oleh quest dan tidak mengikuti jadwal normal
     public bool isQuestLocation;
     public Dialogues questOverrideDialogue; // Dialog sementara dari quest
     public Dialogues normalDialogue; // Dialog normal NPC
@@ -78,7 +79,7 @@ public class NPCBehavior : MonoBehaviour
         // Jangan lakukan apa-apa jika sedang dikunci oleh quest
 
         // Jika tidak sedang bergerak, periksa jadwal
-        if (!isMoving && !isLockedForQuest)
+        if (!isMoving && !islocked)
         {
             CheckSchedule();
         }
@@ -158,6 +159,7 @@ public class NPCBehavior : MonoBehaviour
     }
     public void OverrideForQuest(Vector2 startPosition, Vector2 finishLocation, Dialogues newDialogue, string nameEmoticon)
     {
+        islocked = true;
         isLockedForQuest = true;
         isQuestLocation = true;
         preQuestPosition = transform.position;
@@ -178,8 +180,10 @@ public class NPCBehavior : MonoBehaviour
 
     public void ReturnToPreQuestPosition()
     {
+        Debug.Log($"NPC {this.npcName} kembali ke posisi sebelum quest.");
         if (!isLockedForQuest) return;
         isLockedForQuest = false;
+        islocked = false;
         if (movementCoroutine != null) StopCoroutine(movementCoroutine);
         Vector2 questWaypointZero = questWaypoint[0];
         questWaypoint[0] = questWaypoint[1];
@@ -285,6 +289,7 @@ public class NPCBehavior : MonoBehaviour
 
     public void ShowEmoticon(string nameEmote)
     {
+        Debug.Log ($"NPC {this.npcName}: Menampilkan emoticon '{nameEmote}'");
         if (emoticonTransform != null)
         {
             emoticonTransform.gameObject.SetActive(true);

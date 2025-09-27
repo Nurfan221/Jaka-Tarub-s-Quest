@@ -28,8 +28,8 @@ public class Player_Action : MonoBehaviour
     public bool canAttack = true;
     [SerializeField] GameObject normalAttackHitArea;
     [SerializeField] GameObject specialAttackHitArea;
-    public Vector3 faceDirection;
-    public Vector3 playerPosition;
+    public Vector2 faceDirection;
+    public Vector2 playerPosition;
 
     float specialAttackTimer;
     public bool canSpecialAttack = true;
