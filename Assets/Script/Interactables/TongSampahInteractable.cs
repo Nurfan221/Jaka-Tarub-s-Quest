@@ -5,7 +5,7 @@ public class TongSampahInteractable : Interactable
     public Sprite spriteFull;
     public Sprite spriteKosong;
     public bool isFull;
-    public Item sampahItem;
+    public ItemData sampahItem;
     public SpriteRenderer spriteRenderer;
     [SerializeField] GlowEffect glowEffect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -23,7 +23,7 @@ public class TongSampahInteractable : Interactable
         
     }
 
-    public void TongFull(Item sampah)
+    public void TongFull(ItemData sampah)
     {
         isFull = true;
         spriteRenderer.sprite = spriteFull;
@@ -44,8 +44,8 @@ public class TongSampahInteractable : Interactable
     {
        if (isFull)
         {
-            
-            //Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(sampahItem.itemName));
+
+            ItemPool.Instance.AddItem(sampahItem);
             isFull = false;
             TongKosong();
         }

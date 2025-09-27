@@ -39,11 +39,13 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
     {
         if (price > money)
         {
+            UpdateMoneyText();
             return false;
         }
         else
         {
             money -= price;
+            UpdateMoneyText();
             return true;
         }
     }
@@ -51,6 +53,7 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
     public void GainMoney(int riches)
     {
         money += riches;
+        UpdateMoneyText();
     }
 
     public void LostMoney(int lost)
@@ -58,6 +61,8 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
         money -= lost;
         if (money < 0)
             money = 0;
+
+        UpdateMoneyText();
     }
 
     public void UpdateMoneyText()

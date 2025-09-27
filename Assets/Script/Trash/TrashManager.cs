@@ -39,6 +39,7 @@ public class TrashManager : MonoBehaviour
     void Start()
     {
         sampahDatabaseSO = DatabaseManager.Instance.sampahDatabase;
+        HandleNewDay();
     }
 
     // Fungsi untuk memeriksa dan memunculkan sampah sesuai lokasi
@@ -66,8 +67,8 @@ public class TrashManager : MonoBehaviour
                 //logika memasukan sampah ke tong sampah 
                 TongSampahInteractable tongSampahInteractable = trashLocations[randomLocationTrash].GetComponent<TongSampahInteractable>();
                 tongSampahInteractable.isFull = true;
-                Item  item = ItemPool.Instance.GetItemWithQuality(sampahList[randomTrash].itemName, sampahList[randomTrash].quality);
-                tongSampahInteractable.TongFull(item);
+                //Item  item = ItemPool.Instance.GetItemWithQuality(sampahList[randomTrash].itemName, sampahList[randomTrash].quality);
+                tongSampahInteractable.TongFull(sampahList[randomTrash]);
 
 
 

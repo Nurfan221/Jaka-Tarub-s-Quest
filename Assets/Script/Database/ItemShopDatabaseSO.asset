@@ -12,5 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a7c06258180ec42aeb55b06afe51c6, type: 3}
   m_Name: ItemShopDatabaseSO
   m_EditorClassIdentifier: 
-  itemShopSaveData: []
-  itemShopDatabases: []
+  itemShopSaveData:
+  - currentSeason: 0
+    itemsSoldThisSeason: []
+  - currentSeason: 0
+    itemsSoldThisSeason: []
+  itemShopDatabases:
+  - seasonName: Dry
+    season: 1
+    itemsForSale:
+    - {fileID: 11400000, guid: 5f4d9ba1068ebe944bcb5409cd19935f, type: 2}
+    - {fileID: 11400000, guid: 65bf877db21d0364e8c339b75ce96890, type: 2}
+    - {fileID: 11400000, guid: a36d22af9db83bd4da88777dacc97c7a, type: 2}
+    - {fileID: 11400000, guid: f5199a04a34743146a028cf8094e6f52, type: 2}
+    - {fileID: 11400000, guid: d1cbce2469cbe9945b944f5cb60c796f, type: 2}
+    - {fileID: 11400000, guid: 29a9b4513ec6bf94786185499b4fd529, type: 2}
+    - {fileID: 11400000, guid: a69a771a3c071314e9d94fed1f3c6723, type: 2}
+    - {fileID: 11400000, guid: 931f1f29725eff04398aed154a485235, type: 2}
+    - {fileID: 11400000, guid: 3bdccdbc978dc72449ddb3c026ee244a, type: 2}
+    - {fileID: 11400000, guid: bf427c522df7e8d4da49a0cb4f70a5c4, type: 2}
+    - {fileID: 11400000, guid: 41ae895a8b82d684da645b0532a73b89, type: 2}
+    - {fileID: 11400000, guid: 2a95114ba92e4124b91d7c8ab4a836ed, type: 2}
+    - {fileID: 11400000, guid: 305da3101fdd354408a64ae9c8467845, type: 2}
+    - {fileID: 11400000, guid: 72e03e6b791f8e448ae40dc7e06bf4dd, type: 2}
+  - seasonName: Rain
+    season: 0
+    itemsForSale:
+    - {fileID: 11400000, guid: c97ab26964bea1949a42ce360268b5a8, type: 2}
+    - {fileID: 11400000, guid: 386572f095fac1e46be99bc66a965f28, type: 2}
+    - {fileID: 11400000, guid: 372f935570e231b469b3dac267da8b82, type: 2}
+    - {fileID: 11400000, guid: d2ec1969707a8ea4fb39ca3ed9222a39, type: 2}
+    - {fileID: 11400000, guid: 2941fc26ac8594047b9f4619cd60dd1c, type: 2}
+    - {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    - {fileID: 11400000, guid: f348b715609209e44bae6f7cc5e5b13a, type: 2}
+    - {fileID: 11400000, guid: db817a042aa4a5f41ab51712cf4cfdf7, type: 2}
+  itemWajib:
+  - {fileID: 11400000, guid: 6f34cae93e4590e42b8acaf469896f96, type: 2}

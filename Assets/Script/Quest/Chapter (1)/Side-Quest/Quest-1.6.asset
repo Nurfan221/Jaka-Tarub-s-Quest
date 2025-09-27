@@ -16,9 +16,13 @@ MonoBehaviour:
   questInfo: Bicara Dengan Pak Amru
   DeskripsiAwal: ' Mengusir hewan liar di lahan pak Amru. Berikan'
   DeskripsiAkhir: ' Untuk menyelesaikan quest ini .'
-  locateNpcQuest: {x: 0, y: 0, z: 0}
+  startLocateNpcQuest: {x: 0, y: 0}
+  finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
   questProgress: 1
+  questEmoticon:
+    emoticonName: Peringatan
+    emoticonSprite: {fileID: 0}
   dateToActivate: 25
   MonthToActivate: 1
   npcName: 
@@ -26,14 +30,28 @@ MonoBehaviour:
   - itemName: tanduk
     count: 1
     quality: 0
+    itemHealth: 0
   goldReward: 500
   itemRewards:
   - itemName: Anggur
     count: 3
     quality: 0
+    itemHealth: 0
+  NPCItem:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
   startDialogue: {fileID: 11400000, guid: cc9f422faa6995a46ab5db5ae39085a6, type: 2}
   finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 1
+  isNPCItem: 0
   spawnerToActivate: SpawnerQuest1_6
+  isTheCleanupQuest: 0
+  cleanupQuestIndex: 0
+  objectToClean: 
+  isTheCleanupObjectDone: 0
+  cleanupQuestTotal: 0
+  tipeCleanObject: 0

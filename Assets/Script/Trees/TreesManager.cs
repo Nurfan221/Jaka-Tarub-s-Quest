@@ -60,6 +60,7 @@ public class TreesManager : MonoBehaviour, ISaveable
         parentEnvironment = gameObject.transform;
         targetTreeDatabase = DatabaseManager.Instance.worldTreeDatabase;
         ProsesPenanamanUlangPohon();
+        HandleNewDay();
 
 
     }

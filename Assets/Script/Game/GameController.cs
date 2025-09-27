@@ -65,7 +65,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-
+        GenerateDefaultWorld();
         // Coba muat data dari SaveDataManager
         GameSaveData saveData = SaveDataManager.Instance.LoadGame();
 
