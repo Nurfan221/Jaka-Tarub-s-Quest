@@ -224,6 +224,7 @@ public class GameController : MonoBehaviour
     [ContextMenu("Load Game")]
     public void LoadGame()
     {
+        GenerateDefaultWorld();
         GameSaveData saveData = SaveDataManager.Instance.LoadGame();
 
         // Cek apakah ada data yang berhasil di-load
@@ -327,6 +328,7 @@ public class GameController : MonoBehaviour
 
     public void GenerateDefaultEnvirontment()
     {
+        Debug.Log("Membangun lingkungan default dari DatabaseManager...");
         BungaManager bungaManager = MainEnvironmentManager.Instance.bungaManager;
         JamurManager jamurManager = MainEnvironmentManager.Instance.jamurManager;
         BatuManager batuManager = MainEnvironmentManager.Instance.batuManager;
@@ -346,6 +348,7 @@ public class GameController : MonoBehaviour
     // Membangun kembali dunia dari data save yang sudah dimuat.
     public void BuildWorldFromSave(List<TreePlacementData> savedTrees)
     {
+
         TreesManager treesManager = MainEnvironmentManager.Instance.pohonManager;
         if (treesManager == null) return;
 
@@ -364,7 +367,7 @@ public class GameController : MonoBehaviour
                 treesManager.RestoreState(savedItem);
             }
         }
-        GenerateDefaultWorld();
+
 
         Debug.Log("[LOAD] Restorasi state batu selesai.");
     }

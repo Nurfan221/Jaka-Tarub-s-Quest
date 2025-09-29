@@ -150,6 +150,7 @@ public class PlayerSaveData
     public List<ItemData> itemUseData;
     public bool equipped1;
     public bool itemUse1;
+    public int coins;
 }
 
 [System.Serializable]

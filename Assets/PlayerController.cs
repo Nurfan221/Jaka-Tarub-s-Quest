@@ -97,7 +97,8 @@ public class PlayerController : MonoBehaviour, ISaveable
             equippedItemData = this.equippedItemData,
             itemUseData = this.itemUseData,
             equipped1 = this.equipped1,
-            itemUse1 = this.itemUse1
+            itemUse1 = this.itemUse1,
+            coins = GameEconomy.Instance.coins
         };
     }
 
@@ -122,6 +123,7 @@ public class PlayerController : MonoBehaviour, ISaveable
         this.itemUseData = data.itemUseData;
         this.equipped1 = data.equipped1;
         this.itemUse1 = data.itemUse1;
+        GameEconomy.Instance.coins = data.coins;
 
         Debug.Log($"[LOAD-RESTORE] PlayerController me-restore {this.inventory.Count} item ke inventaris.");
 

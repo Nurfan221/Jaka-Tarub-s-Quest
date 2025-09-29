@@ -63,6 +63,7 @@ public class PlayerUI : MonoBehaviour
     public Button weaponSlider;  // Slider untuk memilih senjata
     public Button itemSlider; // slider untuk mengganti item 
     public TMP_Text moneyText; // Reference to a UI Text element to display money
+    public Button buttonSetting;
 
 
 
@@ -188,6 +189,15 @@ public class PlayerUI : MonoBehaviour
             {
                 Debug.Log("Item Use Button Clicked");
                 PlayerController.Instance.HandleButtonUseItem();
+            });
+        }
+
+        if (buttonSetting != null)
+        {
+            buttonSetting.onClick.AddListener(() =>
+            {
+                Debug.Log("Button Setting Clicked");
+                GameController.Instance.PauseWithUI();
             });
         }
 

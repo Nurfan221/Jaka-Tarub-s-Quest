@@ -18,7 +18,7 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
         TimeManager.OnDayChanged -= UpdateMoneyText; // Unsubscribe to avoid memory leaks
     }
 
-    public int money;
+    public int coins;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,14 +37,14 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
     }
     public bool SpendMoney(int price)
     {
-        if (price > money)
+        if (price > coins)
         {
             UpdateMoneyText();
             return false;
         }
         else
         {
-            money -= price;
+            coins -= price;
             UpdateMoneyText();
             return true;
         }
@@ -52,15 +52,15 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
 
     public void GainMoney(int riches)
     {
-        money += riches;
+        coins += riches;
         UpdateMoneyText();
     }
 
     public void LostMoney(int lost)
     {
-        money -= lost;
-        if (money < 0)
-            money = 0;
+        coins -= lost;
+        if (coins < 0)
+            coins = 0;
 
         UpdateMoneyText();
     }
@@ -69,7 +69,7 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
     {
         if (PlayerUI.Instance.moneyText != null)
         {
-            PlayerUI.Instance.moneyText.text = money.ToString();
+            PlayerUI.Instance.moneyText.text = coins.ToString();
         }
         else
         {
