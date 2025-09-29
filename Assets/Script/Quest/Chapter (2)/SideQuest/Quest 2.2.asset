@@ -20,9 +20,13 @@ MonoBehaviour:
     Mas Bima berharap kegiatan ini bisa menjadi pengalihan positif bagi Jaka Tarub,
     sekaligus mempererat hubungan pertemanan mereka. Bawakan
   DeskripsiAkhir: Untuk menyelesaikan quest ini.
-  locateNpcQuest: {x: 0, y: 0, z: 0}
+  startLocateNpcQuest: {x: 34, y: -17}
+  finishLocateNpcQuest: {x: 34, y: -24}
   questType: 0
   questProgress: 1
+  questEmoticon:
+    emoticonName: 
+    emoticonSprite: {fileID: 0}
   dateToActivate: 0
   MonthToActivate: 0
   npcName: Bima Prasetya
@@ -30,20 +34,36 @@ MonoBehaviour:
   - itemName: KayuPotong
     count: 10
     quality: 0
+    itemHealth: 0
   - itemName: KayuBulat
     count: 5
     quality: 0
+    itemHealth: 0
   - itemName: Paku Besi
     count: 10
     quality: 0
+    itemHealth: 0
   goldReward: 250
   itemRewards:
   - itemName: Kursi
     count: 0
     quality: 0
+    itemHealth: 0
+  NPCItem:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
   startDialogue: {fileID: 11400000, guid: 8747b07d1b920044bbe02e7b40405191, type: 2}
   finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0
+  isNPCItem: 0
   spawnerToActivate: 
+  isTheCleanupQuest: 0
+  cleanupQuestIndex: 0
+  objectToClean: 
+  isTheCleanupObjectDone: 0
+  cleanupQuestTotal: 0
+  tipeCleanObject: 0

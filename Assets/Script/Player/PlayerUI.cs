@@ -39,6 +39,17 @@ public class PlayerUI : MonoBehaviour
             Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
         }
     }
+
+    [Header("References to other managers")]
+    public GameObject[] persistentUI;
+    public GameObject playeyDiedUI;
+    public GameObject pauseUI;
+
+    [Header("Environment penting dalam game")]
+    public Light sunlight;
+    public Transform player;
+
+
     [Header("Action Button")]
     public Button dashButton;
     public Image specialAttackUI;
@@ -179,10 +190,28 @@ public class PlayerUI : MonoBehaviour
                 PlayerController.Instance.HandleButtonUseItem();
             });
         }
+
+        InitializePlayer(); // Fungsi ini akan menemukan GameObject Player yang baru
+
+        //INI BAGIAN BARUNYA: PANGGIL SEMUA FUNGSI REINITIALIZE 
+        Reinitialize();
     }
 
-   
 
+    public void InitializePlayer()
+    {
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        if (player == null)
+        {
+            Debug.LogError("Player not found in the scene!");
+            return;
+        }
+        Debug.Log("Player found: " + player.name + "posisi playar : " + player.transform.position);
+        //if (PlayerPrefs.GetInt("HaveSaved") == 99)
+        //{
+        //    player.position = latestPlayerPos;
+        //}
+    }
     public void SetPromptText(string text)
     {
         if (promptText != null)

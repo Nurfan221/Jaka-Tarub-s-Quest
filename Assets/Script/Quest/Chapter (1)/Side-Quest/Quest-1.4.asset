@@ -17,9 +17,13 @@ MonoBehaviour:
   DeskripsiAwal: Mas Darmaji meminta beberapa bahan untuk membuat perangkap hewan.
     Berikan
   DeskripsiAkhir: ' Untuk menyelesaikan quest ini .'
-  locateNpcQuest: {x: 0, y: 0, z: 0}
+  startLocateNpcQuest: {x: 0, y: 0}
+  finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
   questProgress: 1
+  questEmoticon:
+    emoticonName: 
+    emoticonSprite: {fileID: 0}
   dateToActivate: 15
   MonthToActivate: 1
   npcName: 
@@ -27,17 +31,40 @@ MonoBehaviour:
   - itemName: Kayu
     count: 5
     quality: 0
+    itemHealth: 0
   - itemName: IronIngot
     count: 5
     quality: 0
+    itemHealth: 0
   - itemName: Wortel
     count: 5
     quality: 0
+    itemHealth: 0
   goldReward: 500
-  itemRewards: []
+  itemRewards:
+  - itemName: DaunBawang
+    count: 6
+    quality: 0
+    itemHealth: 0
+  - itemName: Mentimun
+    count: 5
+    quality: 0
+    itemHealth: 0
+  NPCItem:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
   startDialogue: {fileID: 11400000, guid: 17242be63b94ab748997b6850fdd669d, type: 2}
   finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0
+  isNPCItem: 0
   spawnerToActivate: 
+  isTheCleanupQuest: 0
+  cleanupQuestIndex: 0
+  objectToClean: 
+  isTheCleanupObjectDone: 0
+  cleanupQuestTotal: 0
+  tipeCleanObject: 0

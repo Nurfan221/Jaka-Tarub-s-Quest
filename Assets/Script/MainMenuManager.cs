@@ -5,18 +5,35 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField] Button LoadGameButton;
+    [Header("Tombol UI")]
+    public Button newGameButton;
+    public Button loadGameButton;
+    public Button quitGameButton;
 
-    private void Update()
+    void Start()
     {
-        if (PlayerPrefs.GetInt("HaveSaved") == 99)
+        // Pastikan semua tombol terhubung
+        if (newGameButton == null || loadGameButton == null || quitGameButton == null)
         {
-            LoadGameButton.interactable = true;
+            Debug.LogError("Satu atau lebih tombol belum diatur di MainMenuManager!");
+            return;
+        }
+
+        // Cek apakah file save ada untuk mengaktifkan/menonaktifkan tombol Load Game
+        // Ini aman dilakukan karena SaveDataManager dijamin sudah ada.
+        if (SaveDataManager.Instance.SaveFileExists())
+        {
+            loadGameButton.interactable = true;
         }
         else
         {
-            LoadGameButton.interactable = false;
+            loadGameButton.interactable = false;
         }
+
+        // Hubungkan fungsi ke event OnClick dari setiap tombol
+        newGameButton.onClick.AddListener(OnNewGameClicked);
+        loadGameButton.onClick.AddListener(OnLoadGameClicked);
+        quitGameButton.onClick.AddListener(OnQuitGameClicked);
     }
 
     public void PlayClickSound()
@@ -24,22 +41,26 @@ public class MainMenuManager : MonoBehaviour
         SoundManager.Instance.PlaySound("Click");
     }
 
-    public void StartGame(bool newGame)
+    private void OnNewGameClicked()
     {
-        Debug.Log("START GAME");
-        //GameController.isNewGame = newGame;
-        //LoadingScreenUI.Instance.LoadScene(newGame ? 1 : GameController.LatestMap);
-        //StopAllCoroutines();
-        //StartCoroutine(DelayedLoadScene(GameController.LatestMap, 0.5f)); // delay 0.5 detik
+        // Panggil fungsi StartNewGame dari SaveDataManager.
+        // Fungsi ini akan menghapus save lama dan memuat scene game.
+        Debug.Log("Tombol New Game ditekan.");
+        SaveDataManager.Instance.StartNewGame();
     }
 
-    private IEnumerator DelayedLoadScene(int sceneIndex, float delay)
+    private void OnLoadGameClicked()
     {
-        Debug.Log("DELAYED LOAD SCENE " + delay);
-        yield return new WaitForSeconds(delay);
-        Debug.Log("AFTER DELAY");
-        Debug.Log(LoadingScreenUI.Instance);
-        //LoadingScreenUI.Instance.LoadScene(sceneIndex);
+        // Cukup panggil fungsi untuk memuat scene.
+        // Nantinya, GameController di scene utama yang akan memuat datanya.
+        Debug.Log("Tombol Load Game ditekan.");
+        SaveDataManager.Instance.LoadGameScene();
+    }
+
+    private void OnQuitGameClicked()
+    {
+        Debug.Log("Tombol Quit Game ditekan.");
+        Application.Quit();
     }
 
     public void QuitGame()

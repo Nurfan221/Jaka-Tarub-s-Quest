@@ -6,56 +6,65 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using static UnityEditor.Progress;
 
+
 public class GameController : MonoBehaviour
 {
     public static GameObject persistent;
     public static GameController Instance;
 
 
-    public bool isNewGame = true; // Gunakan nama yang berbeda untuk menghindari kebingungan
+    public static bool IsNewGame = false;
     public static int LatestMap = 1;
-    public string LatestMapName;
+    //public string LatestMapName;
     public Vector2 latestPlayerPos;
-    public static int QuestItemCount = 0;
-    public static bool CanFinishStory = false;
+    //public static int QuestItemCount = 0;
+    //public static bool CanFinishStory = false;
 
     public string playerName;
     public bool enablePlayerInput;
 
-    public Transform player;
-    public FarmData_SO databaseManager;
+    //public FarmData_SO databaseManager;
     public FarmTile tilemap;
 
 
 
-    [SerializeField] GameObject[] persistentUI;
-    [SerializeField] GameObject playeyDiedUI;
 
-    [HideInInspector] public bool canPause = true;
+
+    public bool canPause = true;
     public bool gamePaused;
-    [SerializeField] GameObject pauseUI;
 
-    [Header("Environment penting dalam game")]
-    public Light sunlight;
 
+
+    // Berlangganan ke event saat GameController aktif
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    // Berhenti berlangganan saat GameController nonaktif untuk menghindari error
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
     private void Awake()
     {
-        if (persistent != null)
+        if (Instance != null && Instance != this)
         {
-            Destroy(transform.root.gameObject);
-            return;
+            Destroy(gameObject);
         }
-        persistent = transform.root.gameObject;
-        DontDestroyOnLoad(persistent);
-        Instance = this;
-        if (DatabaseManager.Instance != null)
+        else
         {
-            databaseManager = DatabaseManager.Instance.farmData_SO;
-        }else
-        {
-            Debug.LogError("DatabaseManager Instance is null in GameController Awake");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
+        //if (DatabaseManager.Instance != null)
+        //{
+        //    databaseManager = DatabaseManager.Instance.farmData_SO;
+        //}else
+        //{
+        //    Debug.LogError("DatabaseManager Instance is null in GameController Awake");
+        //}
 
         if (FarmTile.Instance != null)
         {
@@ -63,99 +72,36 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        GenerateDefaultWorld();
-        // Coba muat data dari SaveDataManager
-        GameSaveData saveData = SaveDataManager.Instance.LoadGame();
-
-        // Cek apakah ada data yang berhasil di-load
-        if (saveData != null)
-        {
-            // Cek apakah ada data pemain yang tersimpan
-            if (saveData.savedPlayerData != null && saveData.savedPlayerData.Count > 0)
-            {
-                Debug.Log("GameController: Menemukan data pemain. Memulai proses restore...");
-
-                // Panggil fungsi khusus untuk me-restore pemain
-                RestorePlayerData(saveData.savedPlayerData[0]); // Ambil data pemain pertama
-            }
-
-            // Cek apakah ada data pohon yang tersimpan
-            if (saveData.savedTrees != null && saveData.savedTrees.Count > 0)
-            {
-                Debug.Log("GameController: Membangun dunia dari file save...");
-                BuildWorldFromSave(saveData.savedTrees);
-            }
-
-            if(saveData.savedStorages != null && saveData.savedStorages.Count > 0)
-            {
-                Debug.Log("GameController: Membangun Storage dari file save");
-                RestoreAllStorages(saveData.savedStorages);
-            }
-
-            if (saveData.queueRespownStone !=  null  && saveData.queueRespownStone.Count >0)
-            {
-                Debug.Log("GameController: Membangun Stone dari file save");
-                ReturnQueueStoneActive(saveData.queueRespownStone);
-            }
-
-            if (saveData.timeSaveData != null && saveData.timeSaveData.totalHari > 0)
-            {
-                Debug.Log("GameController: Membangun Time dari file save");
-                TimeManager.Instance.RestoreState(saveData.timeSaveData);
-            }
-            if (saveData.savedHoedTilesList != null && saveData.savedHoedTilesList.Count > 0)
-            {
-                RestoreFarmStateFromData(saveData.savedHoedTilesList);
-            }
-        }
-        else
-        {
-            Debug.Log("GameController: Membangun dunia baru dari Peta Awal...");
-            GenerateDefaultWorld();
-            FindObjectOfType<PlayerController>()?.InitializeForNewGame();
-        }
-
-        InitializePlayer();
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        PlayCurrentSceneBGM();
-    }
-
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
+  
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // Ganti "MainGameScene" dengan nama scene utama Anda jika berbeda
+        string mainGameSceneName = "MainGameScene";
 
-        Debug.Log($"Scene '{scene.name}' telah dimuat. Memulai inisialisasi ulang.");
-
-        // Panggil fungsi-fungsi setup Anda yang sudah ada
-        PlayCurrentSceneBGM();
-        InitializePlayer(); // Fungsi ini akan menemukan GameObject Player yang baru
-
-        //INI BAGIAN BARUNYA: PANGGIL SEMUA FUNGSI REINITIALIZE 
-        PlayerUI.Instance.Reinitialize();
-
-    }
-
-    private void InitializePlayer()
-    {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        if (player == null)
+        // KITA HANYA BERTINDAK JIKA SCENE YANG DIMUAT ADALAH SCENE GAME UTAMA
+        if (scene.name == mainGameSceneName)
         {
-            Debug.LogError("Player not found in the scene!");
-            return;
+            // Pada titik ini, dijamin semua objek di MainGameScene (termasuk MainEnvironmentManager)
+            // sudah menjalankan Awake(). Jadi, sekarang aman untuk memanggil logika inisialisasi.
+
+            if (IsNewGame)
+            {
+                Debug.Log($"Scene '{mainGameSceneName}' dimuat. Memulai sebagai Game Baru...");
+                GenerateDefaultWorld();
+                IsNewGame = false; // Reset "catatan"
+            }
+            else
+            {
+                Debug.Log($"Scene '{mainGameSceneName}' dimuat. Melanjutkan dari Save File...");
+                LoadGame();
+            }
         }
-        Debug.Log("Player found: " + player.name + "posisi playar : " + player.transform.position);
-        //if (PlayerPrefs.GetInt("HaveSaved") == 99)
-        //{
-        //    player.position = latestPlayerPos;
-        //}
     }
+
+
+
+
 
     private void RestorePlayerData(PlayerSaveData playerData)
     {
@@ -231,7 +177,7 @@ public class GameController : MonoBehaviour
             {
                 ResumeGame();
                 ShowPersistentUI(true);
-                pauseUI.SetActive(false);
+                PlayerUI.Instance.pauseUI.SetActive(false);
             }
         }
 
@@ -246,7 +192,7 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("pause");
         canPause = show;
-        foreach (GameObject ui in persistentUI)
+        foreach (GameObject ui in PlayerUI.Instance.persistentUI)
         {
             ui.SetActive(show);
         }
@@ -256,7 +202,7 @@ public class GameController : MonoBehaviour
     {
         PauseGame();
         ShowPersistentUI(false);
-        pauseUI.SetActive(true);
+        PlayerUI.Instance.pauseUI.SetActive(true);
     }
 
     public void PauseGame()
@@ -273,22 +219,65 @@ public class GameController : MonoBehaviour
         ShowPersistentUI(true);
     }
 
-    [ContextMenu("Save Game")]
-    public void SaveGame()
-    {
-        Debug.Log("Saving Game");
-        PlayerPrefs.SetInt("HaveSaved", 99);
-        LatestMap = SceneManager.GetActiveScene().buildIndex;
-        SaveSystem.SaveData();
-        isNewGame = false;
-    }
+
 
     [ContextMenu("Load Game")]
+    public void LoadGame()
+    {
+        GameSaveData saveData = SaveDataManager.Instance.LoadGame();
+
+        // Cek apakah ada data yang berhasil di-load
+        if (saveData != null)
+        {
+            // Cek apakah ada data pemain yang tersimpan
+            if (saveData.savedPlayerData != null && saveData.savedPlayerData.Count > 0)
+            {
+                Debug.Log("GameController: Menemukan data pemain. Memulai proses restore...");
+
+                // Panggil fungsi khusus untuk me-restore pemain
+                RestorePlayerData(saveData.savedPlayerData[0]); // Ambil data pemain pertama
+            }
+
+            // Cek apakah ada data pohon yang tersimpan
+            if (saveData.savedTrees != null && saveData.savedTrees.Count > 0)
+            {
+                Debug.Log("GameController: Membangun dunia dari file save...");
+                BuildWorldFromSave(saveData.savedTrees);
+            }
+
+            if (saveData.savedStorages != null && saveData.savedStorages.Count > 0)
+            {
+                Debug.Log("GameController: Membangun Storage dari file save");
+                RestoreAllStorages(saveData.savedStorages);
+            }
+
+            if (saveData.queueRespownStone != null && saveData.queueRespownStone.Count > 0)
+            {
+                Debug.Log("GameController: Membangun Stone dari file save");
+                ReturnQueueStoneActive(saveData.queueRespownStone);
+            }
+
+            if (saveData.timeSaveData != null && saveData.timeSaveData.totalHari > 0)
+            {
+                Debug.Log("GameController: Membangun Time dari file save");
+                TimeManager.Instance.RestoreState(saveData.timeSaveData);
+            }
+            if (saveData.savedHoedTilesList != null && saveData.savedHoedTilesList.Count > 0)
+            {
+                RestoreFarmStateFromData(saveData.savedHoedTilesList);
+            }
+        }
+        else
+        {
+            Debug.Log("GameController: Membangun dunia baru dari Peta Awal...");
+            GenerateDefaultWorld();
+            FindObjectOfType<PlayerController>()?.InitializeForNewGame();
+        }
+    }
 
 
     public void GoToMainMenu()
     {
-        SaveGame();
         //LoadingScreenUI.Instance.LoadScene(0);
         Destroy(transform.root.gameObject);
     }
@@ -296,7 +285,7 @@ public class GameController : MonoBehaviour
     public void PlayerDied()
     {
         PauseGame();
-        playeyDiedUI.SetActive(true);
+        PlayerUI.Instance.playeyDiedUI.SetActive(true);
     }
 
     public void Restart()
@@ -315,14 +304,24 @@ public class GameController : MonoBehaviour
 
     public void GenerateDefaultWorld()
     {
-        Debug.Log("Membangun tree dunia default dari DatabaseManager... : " + DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements.Count);
+        Debug.Log("Membangun dunia default dari DatabaseManager...");
 
+        // Pengecekan keamanan untuk memastikan manajer sudah ada
+        if (MainEnvironmentManager.Instance == null)
+        {
+            Debug.LogError("GenerateDefaultWorld GAGAL: MainEnvironmentManager tidak ditemukan!");
+            return;
+        }
+
+        // Generate Pohon
         TreesManager treesManager = MainEnvironmentManager.Instance.pohonManager;
-        if (treesManager == null) return;
+        if (treesManager != null)
+        {
+            treesManager.environmentList = new List<TreePlacementData>(DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements);
+            treesManager.HandleAddTreesObject();
+        }
 
-        treesManager.environmentList.Clear();
-        treesManager.environmentList = DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements;
-        treesManager.HandleAddTreesObject();
+        // Generate Lingkungan Lain
         GenerateDefaultEnvirontment();
     }
 
@@ -330,14 +329,18 @@ public class GameController : MonoBehaviour
     {
         BungaManager bungaManager = MainEnvironmentManager.Instance.bungaManager;
         JamurManager jamurManager = MainEnvironmentManager.Instance.jamurManager;
+        BatuManager batuManager = MainEnvironmentManager.Instance.batuManager;
 
         bungaManager.environmentList.Clear();
         jamurManager.environmentList.Clear();
+        batuManager.listBatuManager.Clear();
         bungaManager.environmentList = DatabaseManager.Instance.environmentDatabase.FlowerSaveData;
         jamurManager.environmentList = DatabaseManager.Instance.environmentDatabase.jamurSaveData;
+        batuManager.listBatuManager = DatabaseManager.Instance.worldStoneDatabase.stoneBehaviors;
 
         bungaManager.RandomSpawnFlower();
         jamurManager.RandomSpawnJamur();
+
     }
 
     // Membangun kembali dunia dari data save yang sudah dimuat.

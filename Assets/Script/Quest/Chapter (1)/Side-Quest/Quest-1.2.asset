@@ -18,23 +18,42 @@ MonoBehaviour:
     karung padi dari ladang untuk mengisi persediaan padi desa yang hampir habis.
     Berikan
   DeskripsiAkhir: ' Untuk menyelesaikan quest ini .'
-  locateNpcQuest: {x: 0, y: 0, z: 0}
+  startLocateNpcQuest: {x: 0, y: 0}
+  finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
   questProgress: 1
+  questEmoticon:
+    emoticonName: 
+    emoticonSprite: {fileID: 0}
   dateToActivate: 3
   MonthToActivate: 1
-  npcName: 
+  npcName: Fahri Pranajaya
   itemRequirements:
   - itemName: Padi
     count: 10
     quality: 0
+    itemHealth: 0
   - itemName: Jagung
     count: 5
     quality: 0
+    itemHealth: 0
   goldReward: 500
   itemRewards: []
+  NPCItem:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
   startDialogue: {fileID: 11400000, guid: 7d2ed832501bd5b46981f34aae7c0eec, type: 2}
   finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
   isMainQuest: 0
   isInGrief: 0
-  spawnerToActivate: {fileID: 0}
+  isSpawner: 0
+  isNPCItem: 0
+  spawnerToActivate: 
+  isTheCleanupQuest: 0
+  cleanupQuestIndex: 0
+  objectToClean: 
+  isTheCleanupObjectDone: 0
+  cleanupQuestTotal: 0
+  tipeCleanObject: 0

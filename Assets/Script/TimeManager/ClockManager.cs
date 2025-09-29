@@ -84,8 +84,8 @@ public class ClockManager : MonoBehaviour
             }
         }
 
-        GameController.Instance.sunlight.intensity = Mathf.Lerp(nightIntensity, dayIntensity, dayNightT);
-        GameController.Instance.sunlight.color = currentColor;
+        PlayerUI.Instance.sunlight.intensity = Mathf.Lerp(nightIntensity, dayIntensity, dayNightT);
+        PlayerUI.Instance.sunlight.color = currentColor;
 
         RenderSettings.ambientLight = Color.Lerp(nightColor, currentColor, dayNightT);
         RenderSettings.fogColor = Color.Lerp(new Color(0.03f, 0.03f, 0.08f), currentColor, dayNightT);

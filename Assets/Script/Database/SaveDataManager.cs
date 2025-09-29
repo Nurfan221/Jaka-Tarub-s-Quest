@@ -8,6 +8,12 @@ public class SaveDataManager : MonoBehaviour
 {
     public static SaveDataManager Instance;
     private string saveFilePath;
+    [Header("Pengaturan Scene")]
+    [Tooltip("Nama scene utama yang akan dimuat.")]
+    [SerializeField] private string mainGameSceneName = "MainGameScene";
+
+    // Properti publik untuk mengakses nama scene secara aman (read-only dari luar)
+    public string MainGameSceneName => mainGameSceneName;
 
     private void OnEnable()
     {
@@ -34,7 +40,46 @@ public class SaveDataManager : MonoBehaviour
         CaptureAllSaveableStates(saveData);
         SaveToFile(saveData);
     }
+    [ContextMenu("Hapus Save File (Mulai Baru)")] // Tombol untuk testing di Editor
+    public void StartNewGame()
+    {
+        // Hapus file save yang ada jika ditemukan
+        if (File.Exists(saveFilePath))
+        {
+            try
+            {
+                File.Delete(saveFilePath);
+                Debug.Log("File save berhasil dihapus. Memulai game baru.");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Gagal menghapus file save: {e.Message}");
+                return;
+            }
+        }
+        else
+        {
+            Debug.Log("Tidak ada file save yang ditemukan. Langsung memulai game baru.");
+        }
 
+        // Beri "catatan" bahwa ini adalah game baru.
+        GameController.IsNewGame = true;
+
+        //  Cukup muat scene. Jangan panggil fungsi apa pun setelah ini.
+        SceneManager.LoadScene(mainGameSceneName);
+    }
+    // MEMUAT SCENE DARI MAIN MENU 
+    public void LoadGameScene()
+    {
+        Debug.Log($"Memuat scene game utama: {mainGameSceneName}");
+        SceneManager.LoadScene(mainGameSceneName);
+    }
+
+    // MENGECEK APAKAH SAVE FILE ADA 
+    public bool SaveFileExists()
+    {
+        return File.Exists(saveFilePath);
+    }
     public GameSaveData LoadGame()
     {
         // Cek apakah file save ada
@@ -137,11 +182,12 @@ public class SaveDataManager : MonoBehaviour
 
         // Lihat seperti apa isi file JSON yang akan disimpan
         Debug.Log("[Save Process] Konten JSON yang akan disimpan:\n" + json);
-        // -------------------------
 
         File.WriteAllText(saveFilePath, json);
         Debug.Log("Game berhasil disimpan ke: " + saveFilePath);
     }
+
+
 
     //public void RestoreAllSaveableStates(GameSaveData saveData)
     //{
