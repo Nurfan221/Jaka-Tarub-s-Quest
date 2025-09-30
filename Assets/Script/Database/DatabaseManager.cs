@@ -287,6 +287,24 @@ public enum EnvironmentType
     Lainnya
 }
 
+public enum TypeShop
+{
+    None,
+    ItemShop,
+    CakeShop,
+    StorageUpgrade,
+    SkillUpgrade,
+    FarmUpgrade
+}
+
+[System.Serializable]
+public class ShopTypeDatabase
+{
+    public string typeShopName;
+    public TypeShop shopType;
+    public List<ItemShopDatabase> itemShopDatabases;
+}
+
 [System.Serializable]
 public class ItemShopDatabase
 {
@@ -589,8 +607,13 @@ public class DatabaseManager : MonoBehaviour
         return null;
     }
 
-    public ItemShopDatabase GetCurrentItemShopDatabase(Season season)
+    public ItemShopDatabase GetCurrentItemShopDatabase(Season season, ShopTypeDatabase shopTypeDatabase)
     {
-        return itemShopDatabase.itemShopDatabases.FirstOrDefault(db => db.season == season);
+        return shopTypeDatabase.itemShopDatabases.FirstOrDefault(db => db.season == season);
+    }
+
+    public ShopTypeDatabase GetTypeShopDatabase(TypeShop typeShop)
+    {
+        return itemShopDatabase.shopTypeDatabases.FirstOrDefault(db => db.shopType == typeShop);
     }
 }

@@ -16,11 +16,9 @@ public class ShopUI : MonoBehaviour
 
 
     [Header("Daftar item list")]
-
     public List<ItemData> currentSeasonItems; // List yang sedang aktif
     public List<ItemData> ItemToSell;
-    public int minItemShop;
-    public int maxItemShop;
+
 
 
 
@@ -29,6 +27,8 @@ public class ShopUI : MonoBehaviour
     public Transform templateSellUI;
     public Transform contentBuyUI;
     public Transform templateBuyUI;
+    public TypeShop currentTypeShop;
+
 
     [Header("Daftar Button dan UI")]
     public Button btnSell;
@@ -38,7 +38,6 @@ public class ShopUI : MonoBehaviour
     public Button btnClose;
     public Button gagalUI;
     public Transform deskripsiUI;
-    private Season currenSeason;
 
     private Dictionary<string, int> itemSellCounts = new(); // Menyimpan jumlah item yang akan dibeli
     private Dictionary<string , int> itemBuyCounts = new();
@@ -60,32 +59,9 @@ public class ShopUI : MonoBehaviour
 
     }
 
-    private void OnEnable()
-    {
-        // Berlangganan ke event saat objek aktif
-        TimeManager.OnDayChanged += HandleNewDay;
-        TimeManager.OnSeasonChanged += HandleNewSeason;
-    }
 
-    private void OnDisable()
-    {
-        // Selalu berhenti berlangganan saat objek nonaktif untuk menghindari error
-        TimeManager.OnDayChanged -= HandleNewDay;
-        TimeManager.OnSeasonChanged -= HandleNewSeason;
-    }
 
-    public void HandleNewDay()
-    {
-        //RestockDaily(currentSeason)
-        currenSeason = TimeManager.Instance.GetCurrentSeason();
-        UpdateItemInShop(currenSeason);
-    }
 
-    public void HandleNewSeason()
-    {
-        currenSeason = TimeManager.Instance.GetCurrentSeason();
-        UpdateItemInShop(currenSeason);
-    }
 
     private void Start()
     {
@@ -116,11 +92,13 @@ public class ShopUI : MonoBehaviour
         btnClose.onClick.RemoveAllListeners();
         btnClose.onClick.AddListener(CloseShop);
 
-        HandleNewDay();
     }
 
-    public void OpenShop()
+    public void OpenShop(TypeShop typeShop, List<ItemData> itemsToDisplay)
     {
+        currentTypeShop = typeShop;
+        currentSeasonItems.Clear();
+        currentSeasonItems = new List<ItemData>(itemsToDisplay);
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Click");
 
@@ -141,41 +119,11 @@ public class ShopUI : MonoBehaviour
         gagalUI.gameObject.SetActive(false); // Sembunyikan UI
     }
 
-    public void AddItemToList(List<Item> Items)
-    {
-        // Membuat salinan dari item yang ada di quest.itemQuests sebelum menghapus item lama
-
-       foreach (var item in Items)
-        {
-            //Debug.Log($"Sebelum Clear Item: {item.itemName}, Jumlah: {item.stackCount}");
-            ItemData itemData = new ItemData(item.itemName, 1, item.quality, item.health);
-            int randomCount = UnityEngine.Random.Range(minItemShop, maxItemShop + 1);
-            itemData.count = randomCount;
-            currentSeasonItems.Add(itemData);
-
-        }
-
-        foreach (var item in DatabaseManager.Instance.itemShopDatabase.itemWajib)
-        {
-            ItemData itemData = new ItemData(item.itemName, 1, item.quality, item.health);
-            int randomCount = UnityEngine.Random.Range(minItemShop, maxItemShop + 1);
-            itemData.count = randomCount;
-            currentSeasonItems.Add(itemData);
-        }
-
-
-    }
+   
 
 
 
-    public void UpdateItemInShop(Season season)
-    {
-        ItemShopDatabase itemShopDatabase = DatabaseManager.Instance.GetCurrentItemShopDatabase(season);
 
-
-        AddItemToList(itemShopDatabase.itemsForSale);
-        RefreshShopUI(currentSeasonItems);
-    }
 
    
 

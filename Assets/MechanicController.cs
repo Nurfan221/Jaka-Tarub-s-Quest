@@ -10,6 +10,7 @@ public class MechanicController : MonoBehaviour
     private StorageUI _storageUI;
     private InventoryUI _inventoryUI;
     public CraftUI _craftingUI;
+    private ShopUI _shopUI;
     // --- Properti "Pintar" yang Bisa Mencari Sendiri ---
     public StorageUI StorageUI
     {
@@ -29,6 +30,22 @@ public class MechanicController : MonoBehaviour
         }
     }
 
+    public ShopUI ShopUI
+    {
+        get
+        {
+            // Lakukan hal yang sama untuk ShopUI
+            if (_shopUI == null)
+            {
+                _shopUI = FindObjectOfType<ShopUI>(true);
+                if (_shopUI == null)
+                {
+                    Debug.LogError("MechanicController tidak bisa menemukan [ShopUI] di scene!");
+                }
+            }
+            return _shopUI;
+        }
+    }
     public InventoryUI InventoryUI
     {
         get
@@ -235,4 +252,10 @@ public class MechanicController : MonoBehaviour
         InventoryUI.ChangeMenu(targetIndex);
     }
 
+    public void HandleOpenShop(TypeShop typeShop, List<ItemData> itemsForSale)
+    {
+        Debug.Log("membuka shop");
+        //GameController.Instance.PindahKeScene("Village");
+        ShopUI.OpenShop(typeShop, itemsForSale);
+    }
 }
