@@ -34,6 +34,7 @@ public class AnimalBehavior : MonoBehaviour
     [Header("Tipe Perilaku Hewan")]
     public AnimalType tipeHewan = AnimalType.Pasif;
     public Transform currentTarget;
+    public string itemTriggerName ;
 
     [Header("Logika Serangan")]
     public float attackRange = 1.5f;
@@ -599,7 +600,7 @@ public class AnimalBehavior : MonoBehaviour
             if (itemDrop != null && other.CompareTag("ItemDrop"))
             {
                 // Jika itemDrop ada dan tag-nya sesuai, cek apakah itemName-nya "DagingDomba"
-                if (itemDrop.itemName == "DagingDombaSpesial")
+                if (itemDrop.itemdata.itemName == itemTriggerName)
                 {
                     Debug.Log($"{namaHewan} (Quest) melihat item quest: {other.name}!");
                     currentTarget = other.transform; // Set target ke item drop
@@ -611,7 +612,7 @@ public class AnimalBehavior : MonoBehaviour
                 {
                     // ItemDropInteractable ada, tag-nya sesuai, tapi bukan "DagingDomba".
                     // Harimau harus diam atau kembali ke perilaku sebelumnya jika ada.
-                    Debug.Log($"{namaHewan} (Quest) mendeteksi item lain: {other.name}, tapi bukan 'DagingDomba'. Tetap diam.");
+                    Debug.Log($"{namaHewan} (Quest) mendeteksi item lain: {other.name}, tapi bukan 'DagingDombaSpesial'. Tetap diam.");
                     // Pastikan tidak ada target lain yang sedang dikejar jika ini terjadi
                     // Jika sebelumnya mengejar player, biarkan tetap mengejar player sampai daging domba muncul
                     // atau ubah currentTarget = null; currentState = "Idle"; jika ingin dia berhenti total.

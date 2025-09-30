@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using static UnityEditor.Progress;
 
-
+public enum GameState { Playing, Paused, InDialogue, Loading }
 public class GameController : MonoBehaviour
 {
     public static GameObject persistent;
@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour
 
     public bool canPause = true;
     public bool gamePaused;
+    public GameState currentState;
 
 
 
@@ -208,15 +209,27 @@ public class GameController : MonoBehaviour
     public void PauseGame()
     {
         gamePaused = true;
+        currentState = GameState.Paused;
         Time.timeScale = 0;
         //player_Movement.movement = Vector2.zero;
     }
 
     public void ResumeGame()
     {
-        gamePaused = false;
-        Time.timeScale = 1;
-        ShowPersistentUI(true);
+        if (currentState != GameState.InDialogue)
+        {
+            currentState = GameState.Playing;
+            Time.timeScale = 1f;
+            gamePaused = false;
+            ShowPersistentUI(true);
+        }
+
+    }
+
+    public void StartDialogue()
+    {
+        currentState = GameState.InDialogue;
+        Time.timeScale = 0f;
     }
 
 

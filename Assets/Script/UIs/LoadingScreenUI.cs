@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -30,6 +31,8 @@ public class LoadingScreenUI : MonoBehaviour
     public float startPosition_Y = 500f; // Posisi Y awal (di luar layar atas)
 
     public bool isAnimating = false;
+
+    public static event UnityAction OnFinishedLoadingScreen;
 
     private void Awake()
     {
@@ -64,6 +67,7 @@ public class LoadingScreenUI : MonoBehaviour
 
     public IEnumerator SetLoadingandTimer(bool achievement)
     {
+        isAnimating = true;
         ShowLoading(achievement);
         yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
         LoadingScreenUI.Instance.HideLoading();
@@ -78,21 +82,49 @@ public class LoadingScreenUI : MonoBehaviour
 
     private IEnumerator HideLoadingCoroutine()
     {
+        OnFinishedLoadingScreen?.Invoke();
+        isAnimating = false;
+
+        // --- DEBUGGING DIMULAI DI SINI ---
+        Debug.Log($"[Hide Coroutine] Memulai. Time.timeScale saat ini adalah: {Time.timeScale}");
+        Debug.Log($"[Hide Coroutine] Mengecek kondisi while: currentFrame ({currentFrame}) < loadingImages.Length - 1 ({loadingImages.Length - 1})");
+
         // Tunggu hingga frame terakhir tampil
+        int loopCounter = 0; // Pelacak untuk mencegah log spam tak terbatas
         while (currentFrame < loadingImages.Length - 1)
         {
+            // Log ini hanya akan muncul beberapa kali jika loop berjalan normal,
+            // tapi akan muncul TERUS MENERUS jika terjebak.
+            if (loopCounter < 100) // Batasi log agar tidak crash
+            {
+                Debug.LogWarning($"[Hide Coroutine] TERJEBAK di dalam while loop! Frame ke-{loopCounter}. currentFrame masih {currentFrame}. Menunggu frame berikutnya...");
+                loopCounter++;
+            }
+
+            // Periksa apakah game di-pause, ini adalah kemungkinan penyebabnya
+            if (Time.timeScale == 0f && loopCounter == 10)
+            {
+                Debug.LogError("[Hide Coroutine] FATAL: Time.timeScale adalah 0! Coroutine tidak akan pernah bisa melanjutkan dari sini.");
+            }
+
             yield return null;
         }
 
+        Debug.Log($"[Hide Coroutine] Berhasil keluar dari while loop. currentFrame sekarang {currentFrame}.");
+        // --- DEBUGGING SELESAI ---
+
         // Tunggu sedikit untuk memastikan frame terakhir tampil
-        yield return new WaitForSeconds(frameRate);
+        // Ganti ke WaitForSecondsRealtime agar tidak terpengaruh oleh Time.timeScale
+        yield return new WaitForSecondsRealtime(frameRate);
 
         if (animationCoroutine != null)
         {
+            Debug.Log("[Hide Coroutine] Menghentikan animationCoroutine...");
             StopCoroutine(animationCoroutine);
             animationCoroutine = null;
         }
 
+        Debug.Log("[Hide Coroutine] Hiding loading screen SEKARANG!");
         transform.GetChild(0).gameObject.SetActive(false);
     }
 

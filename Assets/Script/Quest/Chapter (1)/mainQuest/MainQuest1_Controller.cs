@@ -442,7 +442,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             switch (currentState)
             {
                 case MainQuest1State.AdeganMimpi:
-                    ChangeState(MainQuest1State.ApaArtiMimpiItu);
+                    StartCoroutine(ChangeStateAfterLoading(MainQuest1State.ApaArtiMimpiItu));
                     break;
                 case MainQuest1State.PerjodohanDenganLaraswati:
                     HandleSpriteAndDialogue(MainQuest1State.PerjodohanDenganLaraswati);
@@ -466,6 +466,20 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                     break;
             }
         }
+    }
+    private IEnumerator ChangeStateAfterLoading(MainQuest1State nextState)
+    {
+        // Tunggu sampai loading screen selesai (isAnimating menjadi false)
+        while (LoadingScreenUI.Instance.isAnimating)
+        {
+            yield return null; // Tunggu satu frame
+        }
+
+        // Tambahkan jeda sedikit untuk keamanan
+        yield return new WaitForSeconds(0.1f);
+
+        // Sekarang aman untuk mengubah state dan mem-pause game
+        ChangeState(nextState);
     }
 
     private void HandleAnimalDied(AnimalBehavior animalThatDied)
