@@ -23,6 +23,7 @@ public class GameSaveData
     public List<StorageSaveData> savedStorages = new List<StorageSaveData>();
     public List<StoneRespawnSaveData> queueRespownStone = new List<StoneRespawnSaveData>();
     public List<HoedTileData> savedHoedTilesList = new List<HoedTileData>();
+    public List<ItemShopSaveData> itemShopSaveData = new List<ItemShopSaveData>();
     public TimeSaveData timeSaveData;
 }
 

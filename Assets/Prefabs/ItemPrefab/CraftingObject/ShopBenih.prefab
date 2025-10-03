@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5850054699918957584}
   - component: {fileID: 7392120495020239127}
   - component: {fileID: 2691268064193096705}
+  - component: {fileID: 2676185331706526247}
   m_Layer: 9
   m_Name: ShopBenih
   m_TagString: Environment
@@ -177,4 +178,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Shop
-  shopUI: {fileID: 0}
+  currentSeasonItems: []
+  itemToSell: []
+  minItemShop: 0
+  maxItemShop: 0
+  typeShop: 3
+--- !u!114 &2676185331706526247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3768322494726522806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae40856a8f778714998143fb803f7257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 0
+  promptMessage: Shop
+  currentSeasonItems: []
+  itemToSell: []
+  minItemShop: 0
+  maxItemShop: 0
+  typeShop: 0

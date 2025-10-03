@@ -252,10 +252,10 @@ public class MechanicController : MonoBehaviour
         InventoryUI.ChangeMenu(targetIndex);
     }
 
-    public void HandleOpenShop(TypeShop typeShop, List<ItemData> itemsForSale)
+    public void HandleOpenShop(TypeShop typeShop, List<ItemData> itemsForSale, List<ItemData> itemSell, ShopInteractable shopInteractable)
     {
         Debug.Log("membuka shop");
         //GameController.Instance.PindahKeScene("Village");
-        ShopUI.OpenShop(typeShop, itemsForSale);
+        ShopUI.OpenShop(typeShop, itemsForSale, itemSell, shopInteractable );
     }
 }

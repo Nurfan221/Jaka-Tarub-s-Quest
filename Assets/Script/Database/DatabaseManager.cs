@@ -291,7 +291,7 @@ public enum TypeShop
 {
     None,
     ItemShop,
-    CakeShop,
+    FoodShop,
     StorageUpgrade,
     SkillUpgrade,
     FarmUpgrade
@@ -311,16 +311,21 @@ public class ItemShopDatabase
     public string seasonName;
     public Season season;
     public List<Item> itemsForSale;
+    public List<Item> itemWajib; // List item wajib yang harus ada di toko
+
 }
 
-
-
-[Serializable]
-public class  ItemShopSaveData
+[System.Serializable]
+public class ItemShopSaveData
 {
-    public Season currentSeason;
-    public List<ItemData> itemsSoldThisSeason;
+    public string typeName;
+    public TypeShop typeShop;
+    public List<ItemData> items;
 }
+
+
+
+
 public class DatabaseManager : MonoBehaviour
 {
     public static DatabaseManager Instance { get; private set; }

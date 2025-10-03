@@ -280,6 +280,12 @@ public class GameController : MonoBehaviour
             {
                 RestoreFarmStateFromData(saveData.savedHoedTilesList);
             }
+
+            if(saveData.itemShopSaveData != null && saveData.itemShopSaveData.Count > 0)
+            {
+                Debug.Log("GameController: Membangun item shop dari file save" + saveData.itemShopSaveData.Count);
+                BuildItemToSeelFromSaveData(saveData.itemShopSaveData);
+            }
         }
         else
         {
@@ -382,7 +388,12 @@ public class GameController : MonoBehaviour
         }
 
 
-        Debug.Log("[LOAD] Restorasi state batu selesai.");
+    }
+
+    public void BuildItemToSeelFromSaveData(List<ItemShopSaveData> itemToSale)
+    {
+
+        MainEnvironmentManager.Instance.HandleAddItemSellToShops(itemToSale);
     }
 
     public void ReturnQueueStoneActive(List<StoneRespawnSaveData> savedStone)

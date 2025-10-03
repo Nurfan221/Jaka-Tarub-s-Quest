@@ -171,7 +171,20 @@ public class SaveDataManager : MonoBehaviour
                     saveData.savedHoedTilesList = hoedTile.hoedTilesList;
                     Debug.Log("Data Hoed Tile telah ditangkap untuk penyimpanan." + saveData.savedHoedTilesList.Count);
                 }
+            }else if (saveable is ShopInteractable shopInteractable)
+            {
+                Debug.Log("[Save] Ditemukan ShopInteractable, memanggil CaptureState...");
+
+                // Panggil CaptureState() dan pastikan hasilnya adalah ItemShopSaveData
+                // (Berdasarkan perbaikan kita sebelumnya, fungsi ini mengembalikan satu objek, bukan list)
+                if (shopInteractable.CaptureState() is ItemShopSaveData shopData)
+                {
+                    // Tambahkan data dari toko ini ke dalam list utama di GameSaveData
+                    saveData.itemShopSaveData.Add(shopData);
+                    Debug.Log($"Data untuk toko '{shopData.typeShop}' berhasil ditambahkan. Jumlah item: {shopData.items.Count}");
+                }
             }
+
             // Tambahkan 'else if' lain untuk Chest, Bunga, dll. di masa depan.
         }
     }

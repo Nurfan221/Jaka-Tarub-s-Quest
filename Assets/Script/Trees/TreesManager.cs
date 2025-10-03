@@ -96,7 +96,7 @@ public class TreesManager : MonoBehaviour, ISaveable
 
     public void RestoreState(object state)
     {
-        Debug.Log("[LOAD] Merestorasi data antrian respawn batu...");
+        Debug.Log("[LOAD] Merestorasi data antrian respawn Pohon...");
         TreePlacementData data = (TreePlacementData)state;
         secondListTrees.Add(new TreePlacementData
         {
