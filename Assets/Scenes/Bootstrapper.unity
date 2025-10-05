@@ -151,13 +151,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c02650208d9d2540b46ac7e6195d097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isNewGame: 1
   latestPlayerPos: {x: 0, y: 0}
   playerName: 
   enablePlayerInput: 0
   tilemap: {fileID: 0}
   canPause: 1
   gamePaused: 0
+  currentState: 0
 --- !u!4 &1851154125
 Transform:
   m_ObjectHideFlags: 0
@@ -223,6 +223,11 @@ MonoBehaviour:
   spriteDatabase: {fileID: 11400000, guid: c42a311dcbd50c146ba627f7cd96ffc2, type: 2}
   emoticonDatabase: {fileID: 11400000, guid: 623dc0e3ff44f084f8814ec3d0f8c832, type: 2}
   templateTreesObject: {fileID: 11400000, guid: 16971a1dba179b9439e725823376f96b, type: 2}
+  listPintu:
+  - lokasiName: RumahJaka
+    idPintu: 1
+    pintuIn: {x: -14, y: 6}
+    pintuOut: {x: -157.5, y: 72}
   itemWorldPrefab: {fileID: 4459120725376062254, guid: fcf6058b0a7c2534a9ee6e4538b1ab04, type: 3}
   plantWorldPrefab: {fileID: 2120680195082938319, guid: 1b9eff35e73337c42be7a10f3901c222, type: 3}
   storageWorldPrefab: {fileID: 5454017072709228803, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}

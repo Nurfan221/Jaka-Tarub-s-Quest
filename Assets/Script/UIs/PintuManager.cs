@@ -5,16 +5,7 @@ using System.Collections;
 public class PintuManager : MonoBehaviour
 {
     public static PintuManager Instance { get; private set; }
-    [Serializable]
-    public class ArrayPintu
-    {
-        public string lokasiName;
-        public GameObject pintuIn;
-        public GameObject pintuOut;
-        //public GameObject area;
-    }
-
-    public ArrayPintu[] pintuArray;
+    public DatabaseManager databaseManager;
 
     [Header("Daftar Hubungan")]
     public GameObject player;
@@ -40,7 +31,7 @@ public class PintuManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        databaseManager = DatabaseManager.Instance;
     }
 
     // Update is called once per frame
@@ -49,34 +40,38 @@ public class PintuManager : MonoBehaviour
 
     }
 
-    public void EnterArea(string pintu)
+    public void EnterArea(IdPintu idPintu, bool isPintuIn)
     {
-        Debug.Log("Nama pintu: " + pintu);
+        Debug.Log("Nama pintu: " + idPintu);
 
         // Mencari pintu dalam pintuArray berdasarkan nama pintu
-        foreach (var pintuTujuan in pintuArray)
+        foreach (var pintuTujuan in databaseManager.listPintu)
         {
-            if (pintuTujuan.pintuIn.name == pintu)
+            if (pintuTujuan.idPintu == idPintu)
             {
-                // Mengambil posisi pintuIn
-                Vector3 posisiPintu = pintuTujuan.pintuOut.transform.position;
-                Debug.Log("Posisi Pintu Masuk (pintuOut): " + posisiPintu);
+                if (isPintuIn)
+                {
+                    // Mengambil posisi pintuIn
+                    Debug.Log("Posisi Pintu Masuk (pintuOut): " + pintuTujuan.pintuIn);
+                    Debug.Log("posisi player sebelum pindah : " + player.transform.position);
+                    player.transform.position = pintuTujuan.pintuOut;
+                    Debug.Log("posisi player di pindahkan ke : " + player.transform.position);
+                    StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+                }
+                else
+                {
+                    // Mengambil posisi pintuOut
+                    Debug.Log("Posisi Pintu Masuk (pintuIn): " + pintuTujuan.pintuIn);
 
-                player.transform.position = posisiPintu;
-                StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+                    Debug.Log("posisi player sebelum pindah : " + player.transform.position);
+                    player.transform.position = pintuTujuan.pintuIn;
+                    Debug.Log("posisi player di pindahkan ke : " + player.transform.position);
+                    StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+                }
 
 
             }
-            else if (pintuTujuan.pintuOut.name == pintu)
-            {
-                // Mengambil posisi pintuIn
-                Vector3 posisiPintu = pintuTujuan.pintuIn.transform.position;
-                Debug.Log("Posisi Pintu Masuk (pintuIn): " + posisiPintu);
-                player.transform.position = posisiPintu;
 
-                StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
-
-            }
         }
     }
 }

@@ -12,7 +12,7 @@ public class Recipe
 }
 
 [System.Serializable]
-public class  EmoticonTemplate
+public class EmoticonTemplate
 {
     public string emoticonName;
     public Sprite emoticonSprite;
@@ -26,14 +26,14 @@ public class CraftRecipe
 }
 
 [System.Serializable]
-public class  SpriteImageTemplate
+public class SpriteImageTemplate
 {
     public string nameImage;
     public List<imagePersen> imagePersens;
 }
 
 [System.Serializable]
-public class  imagePersen
+public class imagePersen
 {
     public int persen;
     public Sprite sprites;
@@ -323,7 +323,23 @@ public class ItemShopSaveData
     public List<ItemData> items;
 }
 
+public enum IdPintu
+{
+    None,
+    Rumah,
+    Toko,
+    Dll
+}
 
+[System.Serializable]
+public class ArrayPintu
+{
+    public string lokasiName;
+    public IdPintu idPintu;
+    public Vector2 pintuIn;
+    public Vector2 pintuOut;
+    //public GameObject area;
+}
 
 
 public class DatabaseManager : MonoBehaviour
@@ -362,6 +378,9 @@ public class DatabaseManager : MonoBehaviour
     public EmoticonDatabaseSO emoticonDatabase;
     [Tooltip("Database template untuk tahap-tahap pertumbuhan pohon.")]
     public GrowthTreesDatabase templateTreesObject;
+    [Tooltip("Database template untuk Pintu")]
+    public List<ArrayPintu> listPintu;
+
 
     [Space(10)]
     [Header("World Prefabs")]
@@ -571,7 +590,7 @@ public class DatabaseManager : MonoBehaviour
         return null; // jika tidak ada match
     }
 
-   
+
 
     public GameObject GetFlower(TypePlant typePlant)
     {

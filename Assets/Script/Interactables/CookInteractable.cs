@@ -33,10 +33,9 @@ public class CookInteractable : Interactable
     }
 
 
-    [SerializeField] CookUI cookUI;
     protected override void Interact()
     {
-        cookUI.OpenCook();
+        MechanicController.Instance.HandleOpenCookUI();
     }
     // fungsi memanggil corountine yang di inginkan
     public void StartCookingExternally(IEnumerator coroutine)

@@ -54,7 +54,7 @@ public class LoadingScreenUI : MonoBehaviour
             StopCoroutine(animationCoroutine);
         }
 
-        tipsText.text = "Tips: \n" + tips[Random.Range(0, tips.Length + 1)];
+        tipsText.text = "Tips: \n" + tips[Random.Range(0, tips.Length)];
         transform.GetChild(0).gameObject.SetActive(true);
         GameController.Instance.ShowPersistentUI(false);
         GameController.Instance.PauseGame();
