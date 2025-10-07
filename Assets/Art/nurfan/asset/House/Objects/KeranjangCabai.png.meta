@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: 13e55a2275e9c6c4098af1384054586f
+guid: 34de1752e142fcb45804c8aa31bc3770
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3479281171318946369
-    second: Camp_Decor_0
-  - first:
-      213: 527754238477885213
-    second: Camp_Decor_1
-  - first:
-      213: 6530044190553100295
-    second: Camp_Decor_2
-  - first:
-      213: 9174951443937570191
-    second: Camp_Decor_3
-  - first:
-      213: 8096726046466229516
-    second: Camp_Decor_4
+      213: -8257312949001527117
+    second: KeranjangCabai_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -63,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -125,111 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Camp_Decor_0
+      name: KeranjangCabai_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 15
-        height: 16
+        width: 128
+        height: 97
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fb544dd653c17bfc0800000000000000
-      internalID: -3479281171318946369
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Camp_Decor_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d1f5e290fa5f25700800000000000000
-      internalID: 527754238477885213
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Camp_Decor_2
-      rect:
-        serializedVersion: 2
-        x: 33
-        y: 0
-        width: 15
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7005589f7906f9a50800000000000000
-      internalID: 6530044190553100295
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Camp_Decor_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f8d2b5f2ab9f35f70800000000000000
-      internalID: 9174951443937570191
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Camp_Decor_4
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c05c543e0795d5070800000000000000
-      internalID: 8096726046466229516
+      spriteID: 3b0e78b3f91286d80800000000000000
+      internalID: -8257312949001527117
       vertices: []
       indices: 
       edges: []
@@ -238,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d0329b48f937fd14f9eca9913d0aac20
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -248,11 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Camp_Decor_0: -3479281171318946369
-      Camp_Decor_1: 527754238477885213
-      Camp_Decor_2: 6530044190553100295
-      Camp_Decor_3: 9174951443937570191
-      Camp_Decor_4: 8096726046466229516
+      KeranjangCabai_0: -8257312949001527117
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

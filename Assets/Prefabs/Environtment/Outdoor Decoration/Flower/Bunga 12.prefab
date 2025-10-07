@@ -77,8 +77,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: 1435065146, guid: f77de023ef82a784f8ff4dd467ee0193, type: 3}
+  m_SortingOrder: 6
+  m_Sprite: {fileID: 4504817331843142608, guid: 03b98a81801f5b84e8abdbf33c16b304, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,17 +101,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 0
+  typeObject: 0
+  typePlant: 0
   rumputAnimation:
-  - {fileID: 1435065146, guid: f77de023ef82a784f8ff4dd467ee0193, type: 3}
-  - {fileID: -1187483110, guid: f77de023ef82a784f8ff4dd467ee0193, type: 3}
-  - {fileID: 1386924041, guid: f77de023ef82a784f8ff4dd467ee0193, type: 3}
-  - {fileID: 655524535, guid: f77de023ef82a784f8ff4dd467ee0193, type: 3}
-  - {fileID: -377053750, guid: f77de023ef82a784f8ff4dd467ee0193, type: 3}
-  - {fileID: 1095508465, guid: f77de023ef82a784f8ff4dd467ee0193, type: 3}
+  - {fileID: 3179321478137800504, guid: 03b98a81801f5b84e8abdbf33c16b304, type: 3}
+  - {fileID: 1858854148438597566, guid: 03b98a81801f5b84e8abdbf33c16b304, type: 3}
+  - {fileID: 4504817331843142608, guid: 03b98a81801f5b84e8abdbf33c16b304, type: 3}
+  - {fileID: -2352854657282611845, guid: 03b98a81801f5b84e8abdbf33c16b304, type: 3}
+  - {fileID: -4121739273069667068, guid: 03b98a81801f5b84e8abdbf33c16b304, type: 3}
+  - {fileID: -886382304784255002, guid: 03b98a81801f5b84e8abdbf33c16b304, type: 3}
   frameRate: 0.2
   nameEnvironment: 
   itemDrop: {fileID: 0}
-  plantsContainer: {fileID: 0}
+  environmentType: 0
 --- !u!61 &2015185196815379192
 BoxCollider2D:
   m_ObjectHideFlags: 0

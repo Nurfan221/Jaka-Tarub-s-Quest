@@ -228,6 +228,14 @@ MonoBehaviour:
     idPintu: 1
     pintuIn: {x: -14, y: 6}
     pintuOut: {x: -157.5, y: 72}
+  - lokasiName: ItemShop
+    idPintu: 2
+    pintuIn: {x: 39.5, y: -2}
+    pintuOut: {x: -211.5, y: 77}
+  - lokasiName: FoodShop
+    idPintu: 3
+    pintuIn: {x: 24.5, y: -16}
+    pintuOut: {x: -211, y: 46}
   itemWorldPrefab: {fileID: 4459120725376062254, guid: fcf6058b0a7c2534a9ee6e4538b1ab04, type: 3}
   plantWorldPrefab: {fileID: 2120680195082938319, guid: 1b9eff35e73337c42be7a10f3901c222, type: 3}
   storageWorldPrefab: {fileID: 5454017072709228803, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}

@@ -126,7 +126,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 3
   m_Sprite: {fileID: 1343397094658679742, guid: d7e5e7ce63dadd149aac4eea942da0fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -233,7 +233,7 @@ MonoBehaviour:
     count: 1
     quality: 0
     itemHealth: 0
-  plantEffectPrefab: {fileID: 0}
+  plantEffectPrefab: {fileID: 8203399397347019520}
   currentStage: 2
   typePlant: 2
   growthObject: {fileID: 0}
@@ -371,5 +371,10 @@ PrefabInstance:
 --- !u!4 &970646594594879076 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3983057899602519848, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}
+  m_PrefabInstance: {fileID: 4197011672354394444}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8203399397347019520 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5469221150697445964, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}
   m_PrefabInstance: {fileID: 4197011672354394444}
   m_PrefabAsset: {fileID: 0}

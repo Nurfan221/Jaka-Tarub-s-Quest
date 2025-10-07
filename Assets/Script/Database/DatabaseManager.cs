@@ -327,7 +327,9 @@ public enum IdPintu
 {
     None,
     Rumah,
-    Toko,
+    ItemShop,
+    FoodShop,
+    ToolsUpgrade, 
     Dll
 }
 
