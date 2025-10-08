@@ -17,6 +17,10 @@ public class TempatTidurInteractable : Interactable
 
     protected override void Interact()
     {
-        TimeManager.Instance.hour = 99;
+        Debug.Log("Pemain memilih untuk tidur.");
+
+        SaveDataManager.Instance.SaveGame();
+
+        TimeManager.Instance.AdvanceToNextDay();
     }
 }

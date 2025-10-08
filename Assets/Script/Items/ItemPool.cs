@@ -298,4 +298,67 @@ public class ItemPool : MonoBehaviour
             }
         }
     }
+
+    public void DropRandomItemsOnPassOut() // Nama fungsi diubah agar lebih jelas
+    {
+        if (PlayerController.Instance == null)
+        {
+            Debug.LogError("PlayerController Instance is null!");
+            return;
+        }
+
+        PlayerController player = PlayerController.Instance;
+        Vector3 playerPosition = PlayerController.Instance.HandleGetPlayerPosition();
+        List<ItemData> inventory = player.inventory;
+
+        if (inventory.Count == 0)
+        {
+            Debug.Log("Inventaris kosong, tidak ada item yang dijatuhkan.");
+            return;
+        }
+
+        // Hitung berapa banyak SLOT item yang akan dijatuhkan
+        int minItemsToDrop = Mathf.CeilToInt(inventory.Count * 0.5f);
+        int maxItemsToDrop = Mathf.FloorToInt(inventory.Count * 0.75f);
+        int slotsToDropCount = UnityEngine.Random.Range(minItemsToDrop, maxItemsToDrop + 1);
+
+        // Pilih slot-slot unik secara acak untuk dijatuhkan
+        List<int> allIndices = Enumerable.Range(0, inventory.Count).ToList();
+        List<int> shuffledIndices = allIndices.OrderBy(x => UnityEngine.Random.value).ToList();
+        List<int> indicesToDrop = shuffledIndices.Take(slotsToDropCount).ToList();
+
+        Debug.Log($"Pemain pingsan! Menjatuhkan {slotsToDropCount} dari {inventory.Count} slot item.");
+
+        // Siapkan daftar untuk menampung item yang akan dihapus nanti
+        List<ItemData> itemsToRemove = new List<ItemData>();
+
+        //  Loop melalui INDEKS ACAK yang sudah dipilih
+        foreach (int randomIndex in indicesToDrop)
+        {
+            ItemData itemToDrop = inventory[randomIndex];
+
+            // Pastikan item ada dan bisa didapatkan datanya
+            // (Anda bisa skip pengecekan GetItemWithQuality jika tidak perlu)
+            Item itemData = GetItemWithQuality(itemToDrop.itemName, itemToDrop.quality);
+            if (itemData != null)
+            {
+                //  Jatuhkan semua item dari tumpukan (stack) ini 
+                for (int i = 0; i < itemToDrop.count; i++)
+                {
+                    Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
+                    DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, playerPosition + offset, 1);
+                }
+            }
+           
+            // Tandai item ini untuk dihapus dari inventaris
+            itemsToRemove.Add(itemToDrop);
+        }
+
+        foreach (ItemData item in itemsToRemove)
+        {
+            inventory.Remove(item);
+        }
+
+        Debug.Log("Proses menjatuhkan item dan menghapus dari inventaris selesai.");
+    }
 }

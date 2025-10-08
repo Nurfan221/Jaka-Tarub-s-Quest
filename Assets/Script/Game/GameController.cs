@@ -461,4 +461,19 @@ public class GameController : MonoBehaviour
         tilemap.RestoreFarmStateList();
     }
 
+    public void StartPassOutSequence()
+    {
+        Debug.Log("Pemain pingsan karena kelelahan!");
+        GameEconomy.Instance.LostMoney(200); // kehilangan uang sebesar 500
+        ItemPool.Instance.DropRandomItemsOnPassOut();
+        PlayerController.Instance.HandlePlayerPingsan();
+
+        //SaveDataManager.Instance.SaveGame();
+
+        //TimeManager.Instance.AdvanceToNextDay();
+
+
+    }
+
+  
 }

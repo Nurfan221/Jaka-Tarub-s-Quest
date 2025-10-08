@@ -138,8 +138,33 @@ public class TimeManager : MonoBehaviour, ISaveable
 
     }
 
-   
 
+
+
+    public void AdvanceToNextDay()
+    {
+        hour = 4; // Atau jam berapa pun hari baru dimulai
+        totalHari += 1;
+        currentDay = (Days)((totalHari % 7 == 0) ? 7 : totalHari % 7);
+
+        HitungWaktu(totalHari);
+        if (totalHari % 29 == 0)
+        {
+            UpdateSeason();
+        }
+
+        GetLuck();
+        Debug.Log($"Hari telah berganti: {totalHari}");
+
+        // Update semua sistem yang bergantung pada hari baru
+        foreach (var trap in registeredTrap)
+        {
+            trap.GetAnimalToTrap();
+        }
+        AdvanceAllTreeGrowth();
+
+        OnDayChanged?.Invoke();
+    }
 
     private void AdvanceTime()
     {
@@ -149,58 +174,23 @@ public class TimeManager : MonoBehaviour, ISaveable
         {
             minutes -= 60;
             hour++;
-            OnHourChanged?.Invoke(); // Memanggil event saat jam berubah
-            //if (buffScrollController.isBuffDamage || buffScrollController.isBuffSprint || buffScrollController.isBuffProtection)
-            //{
-            //    buffScrollController.UpdateBuffTime();
-            //}
-
-           
+            OnHourChanged?.Invoke();
         }
 
-        if (hour >= 24)
+        if (hour >= 25)
         {
-            //hour = 0;
-            UpdateDay();
-            totalHari += 1;
+           
+            hour = 1;
 
-            HitungWaktu(totalHari);
-
-            // Update musim setiap 28 hari
-            if (totalHari % 29 == 0)
-            {
-                UpdateSeason();
-            }
-            AdvanceAllTreeGrowth(); // Memanggil logika pertumbuhan pohon
+            // Panggil fungsi pingsan Anda di sini
+            GameController.Instance.StartPassOutSequence();
         }
+
 
         OnTimeChanged?.Invoke();
     }
 
-   public void UpdateDay()
-   {
-        hour = 4;
-        currentDay = (Days)((totalHari % 7 == 0) ? 7 : totalHari % 7);
-
-        // Tentukan probabilitas hujan berdasarkan musim
-
-        GetLuck();
-        // Panggil event OnDayChanged untuk memberi tahu semua pohon bahwa hari telah berubah
-        Debug.Log($"Hari telah berganti: {totalHari}");
-
-
-        //Update semua perangkap
-        foreach (var trap in registeredTrap)
-        {
-            trap.GetAnimalToTrap(); // Memanggil logika di perangkap
-        }
-
-        // Debug jumlah listener yang terdaftar
-        //Debug.Log($"Jumlah pohon yang menerima event: {registeredTrees.Count}");
-        OnDayChanged?.Invoke(); // Mengirim totalHari ke semua pohon
-
-
-    }
+ 
 
 
     public void GetCurrentDate()

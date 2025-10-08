@@ -5,10 +5,7 @@ using UnityEngine.UI;
 
 public class Player_Health : MonoBehaviour
 {
-    //public static Player_Health Instance;
 
-    //[SerializeField] Player_Anim player_Anim;
-    //[SerializeField] BuffScrollController buffScrollController;
 
     public static event Action Sekarat;
 
@@ -21,11 +18,7 @@ public class Player_Health : MonoBehaviour
 
     private void Awake()
     {
-        //Instance = this;
-        //PlayerController.Instance.health = PlayerController.Instance.maxHealth;
-        //PlayerController.Instance.stamina = PlayerController.Instance.maxStamina;
-        //UpdateCaps();
-        //StartGrief();
+      
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
@@ -178,7 +171,6 @@ public class Player_Health : MonoBehaviour
     }
     public bool DrainStamina(float drainPerSecond)
     {
-        // 1. PERBAIKAN: Cek apakah BATAS STAMINA saat ini masih di atas nol.
         if (stats.currentStaminaCap > 0)
         {
             // Kurangi BATAS STAMINA berdasarkan waktu.
@@ -272,5 +264,13 @@ public class Player_Health : MonoBehaviour
             Debug.Log("KONDISI SEKARAT TERPENUHI! MENYIARKAN EVENT...");
             Sekarat?.Invoke();
         }
+    }
+
+    public void PlayerPingsan()
+    {
+        int healthPenalty = Mathf.CeilToInt(stats.health * 0.3f);
+        int staminaPenalty = Mathf.FloorToInt(stats.currentStaminaCap * 0.3f);
+        stats.currentStaminaCap -= staminaPenalty;
+        stats.health -= healthPenalty;
     }
 }

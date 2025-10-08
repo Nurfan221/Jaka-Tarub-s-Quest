@@ -372,6 +372,11 @@ public class PlayerController : MonoBehaviour, ISaveable
         }
     }
 
+    public void HandlePlayerPingsan()
+    {
+        ActivePlayer.Health.PlayerPingsan();
+    }    
+
     public void HandlePlayAnimation(string nameAnimation)
     {
         ActivePlayer.Player_Anim.PlayAnimation(nameAnimation);
