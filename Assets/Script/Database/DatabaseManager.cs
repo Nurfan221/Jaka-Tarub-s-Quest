@@ -242,6 +242,19 @@ public enum TypeObject
     AkarPohon,
     Bunga,
     Jamur,
+    Lilin,
+    Obor,
+    Lentern,
+    Meja,
+    Lemari,
+    Kursi,
+    TempatTidur,
+    TongSampah,
+    Craft,
+    Gentong,
+    Penanda,
+    Semak,
+
 }
 public enum TypePlant
 {
@@ -262,7 +275,9 @@ public enum TypePlant
     JamurHutanLegenda,
     JamurKeceriaan,
     JamurMimpiBuruk,
-    JamurPelindungBumi
+    JamurPelindungBumi,
+    BungaDalamPot,
+    BungaLiar
 }
 
 public enum EnvironmentHardnessLevel
@@ -281,9 +296,13 @@ public enum EnvironmentType
     Rumput,
     Pohon,
     Batu,
-    Semak,
     Sampah,
     Kuburan,
+    KursiTaman,
+    Decoration,
+    KursiTamu,
+    MejaTamu,
+    Shop,
     Lainnya
 }
 
@@ -330,7 +349,18 @@ public enum IdPintu
     ItemShop,
     FoodShop,
     ToolsUpgrade, 
+    Library,
+    RumahFahri,
     Dll
+}
+
+public enum ArahObject
+{
+    None,
+    Atas,
+    Kanan,
+    Bawah,
+    Kiri
 }
 
 [System.Serializable]

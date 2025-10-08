@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3014339130429936612}
   - component: {fileID: -1037705350642132295}
+  - component: {fileID: 6915894699792296919}
   m_Layer: 0
-  m_Name: MejaKecil
+  m_Name: KursiKecil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6530044190553100295, guid: 13e55a2275e9c6c4098af1384054586f, type: 3}
+  m_Sprite: {fileID: -4822843431627522031, guid: f54b7fc5d3ec9e840a0d9b413664d5fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,3 +88,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6915894699792296919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5388214106243207399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 1
+  typeObject: 15
+  typePlant: 0
+  arahObject: 0
+  environmentType: 9
+  rumputAnimation: []
+  frameRate: 0.3
+  nameEnvironment: 
+  itemDrop: {fileID: 0}

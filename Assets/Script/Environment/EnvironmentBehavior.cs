@@ -10,7 +10,8 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
     public EnvironmentHardnessLevel hardnessLevel;
     public TypeObject typeObject;
     public TypePlant typePlant;
-
+    public ArahObject arahObject;
+    public EnvironmentType environmentType;
     //Animation idle 
     public Sprite[] rumputAnimation;
     public float frameRate = 0.3f; // Waktu per frame (kecepatan animasi)
@@ -19,7 +20,6 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
     private int currentFrame = 0; // Indeks frame saat ini
     public string nameEnvironment;
     public Item itemDrop;
-    public EnvironmentType environmentType;
 
     #region Unique ID Implementation
 
@@ -38,12 +38,21 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
     public override string GetBaseName()
     {
         // Ambil nama dasar dari variabel yang bisa diatur di Inspector.
-        return typePlant.ToString();
+        if (typePlant == TypePlant.None && arahObject != ArahObject.None )
+        {
+            return arahObject.ToString();
+        }
+        else
+        {
+            return typePlant.ToString();
+        }
+
     }
 
     public override string GetVariantName()
     {
         return environmentType.ToString();
+
     }
 
     #endregion

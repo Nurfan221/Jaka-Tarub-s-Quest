@@ -4860,6 +4860,7 @@ GameObject:
   - component: {fileID: 8322885891473917973}
   - component: {fileID: -6908410645558361750}
   - component: {fileID: 5955235709826840995}
+  - component: {fileID: 770429694434353400}
   m_Layer: 8
   m_Name: TongSampah
   m_TagString: Environment
@@ -5001,7 +5002,11 @@ MonoBehaviour:
   spriteFull: {fileID: -4596688152266512502, guid: cf83dd2644dc21a4187dbd5e63159d2d, type: 3}
   spriteKosong: {fileID: 6951114633567200485, guid: cf83dd2644dc21a4187dbd5e63159d2d, type: 3}
   isFull: 0
-  sampahItem: {fileID: 0}
+  sampahItem:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
   spriteRenderer: {fileID: 7918664341146998191}
   glowEffect: {fileID: 4703779917972532033}
 --- !u!114 &-6908410645558361750
@@ -5054,3 +5059,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &770429694434353400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454017072709228803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 3
+  typeObject: 17
+  typePlant: 0
+  arahObject: 0
+  environmentType: 5
+  rumputAnimation: []
+  frameRate: 0.3
+  nameEnvironment: 
+  itemDrop: {fileID: 0}

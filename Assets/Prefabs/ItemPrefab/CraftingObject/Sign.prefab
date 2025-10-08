@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8562865648284200056}
   - component: {fileID: 313714726022396053}
   - component: {fileID: 8244850476991734386}
+  - component: {fileID: -6016625029817405817}
   m_Layer: 0
   m_Name: Sign
   m_TagString: Untagged
@@ -150,3 +151,25 @@ MonoBehaviour:
   useEvents: 0
   promptMessage: Rumah Fahri
   istrigger: 0
+--- !u!114 &-6016625029817405817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776742059324081699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 3
+  typeObject: 20
+  typePlant: 0
+  arahObject: 0
+  environmentType: 8
+  rumputAnimation: []
+  frameRate: 0.3
+  nameEnvironment: 
+  itemDrop: {fileID: 0}

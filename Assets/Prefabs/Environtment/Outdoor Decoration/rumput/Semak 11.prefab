@@ -105,11 +105,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 2
+  typeObject: 0
+  typePlant: 0
+  arahObject: 0
+  environmentType: 0
   rumputAnimation: []
   frameRate: 0.1
   nameEnvironment: 
   itemDrop: {fileID: 0}
-  plantsContainer: {fileID: 0}
 --- !u!114 &-3435405265951927929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +187,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  itemDrop: {fileID: 0}
+  itemDrop:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
+  particleSystem: {fileID: 0}
 --- !u!61 &-2450848009458499496
 BoxCollider2D:
   m_ObjectHideFlags: 0

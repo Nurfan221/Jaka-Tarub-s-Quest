@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: -5813825827657916090, guid: 6d5505a6853dfc4499dbaaab4ceb9771, type: 3}
+  m_Sprite: {fileID: -6384757981071886301, guid: 6d5505a6853dfc4499dbaaab4ceb9771, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,14 +104,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
-  hardnessLevel: 0
-  typeObject: 0
+  hardnessLevel: 1
+  typeObject: 10
   typePlant: 0
+  arahObject: 0
+  environmentType: 8
   rumputAnimation: []
   frameRate: 0.1
   nameEnvironment: 
   itemDrop: {fileID: 0}
-  environmentType: 0
 --- !u!114 &875132793960531145
 MonoBehaviour:
   m_ObjectHideFlags: 0

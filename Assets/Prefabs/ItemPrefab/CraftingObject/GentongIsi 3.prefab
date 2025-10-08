@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3014339130429936612}
   - component: {fileID: -1037705350642132295}
   - component: {fileID: 3142854760297119145}
+  - component: {fileID: -3704181299297130438}
   m_Layer: 0
   m_Name: GentongIsi 3
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: -7535629791818594788, guid: cf83dd2644dc21a4187dbd5e63159d2d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -134,3 +135,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1.2751923}
   m_EdgeRadius: 0
+--- !u!114 &-3704181299297130438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5388214106243207399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 3
+  typeObject: 19
+  typePlant: 0
+  arahObject: 0
+  environmentType: 0
+  rumputAnimation: []
+  frameRate: 0.3
+  nameEnvironment: 
+  itemDrop: {fileID: 0}

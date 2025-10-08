@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1290509033, guid: 04a35fcf171f17140bd13a741dee7699, type: 3}
+  m_Sprite: {fileID: -4114866240783111905, guid: 35bd2925e80259e469eaeee29d061887, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,17 +101,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 1
+  typeObject: 8
+  typePlant: 18
+  arahObject: 0
+  environmentType: 8
   rumputAnimation:
-  - {fileID: -1290509033, guid: 04a35fcf171f17140bd13a741dee7699, type: 3}
-  - {fileID: 1977080443, guid: 04a35fcf171f17140bd13a741dee7699, type: 3}
-  - {fileID: 725568177, guid: 04a35fcf171f17140bd13a741dee7699, type: 3}
-  - {fileID: -1232725315, guid: 04a35fcf171f17140bd13a741dee7699, type: 3}
-  - {fileID: 541171464, guid: 04a35fcf171f17140bd13a741dee7699, type: 3}
-  - {fileID: 1253193186, guid: 04a35fcf171f17140bd13a741dee7699, type: 3}
+  - {fileID: -410369555511586112, guid: 35bd2925e80259e469eaeee29d061887, type: 3}
+  - {fileID: -8870637409320447216, guid: 35bd2925e80259e469eaeee29d061887, type: 3}
+  - {fileID: -2570332998024903907, guid: 35bd2925e80259e469eaeee29d061887, type: 3}
+  - {fileID: -4114866240783111905, guid: 35bd2925e80259e469eaeee29d061887, type: 3}
+  - {fileID: 8752938578493496143, guid: 35bd2925e80259e469eaeee29d061887, type: 3}
+  - {fileID: -4493493682539948683, guid: 35bd2925e80259e469eaeee29d061887, type: 3}
   frameRate: 0.2
   nameEnvironment: 
   itemDrop: {fileID: 0}
-  plantsContainer: {fileID: 0}
 --- !u!61 &4449578432299026871
 BoxCollider2D:
   m_ObjectHideFlags: 0

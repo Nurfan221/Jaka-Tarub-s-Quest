@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3014339130429936612}
   - component: {fileID: -1037705350642132295}
   - component: {fileID: 5562003051840328618}
+  - component: {fileID: -7215184264547797187}
   m_Layer: 0
   m_Name: Decoration 4
   m_TagString: Untagged
@@ -134,3 +135,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6738434, y: 0.71707916}
   m_EdgeRadius: 0
+--- !u!114 &-7215184264547797187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5388214106243207399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 3
+  typeObject: 8
+  typePlant: 0
+  arahObject: 0
+  environmentType: 8
+  rumputAnimation: []
+  frameRate: 0.3
+  nameEnvironment: 
+  itemDrop: {fileID: 0}

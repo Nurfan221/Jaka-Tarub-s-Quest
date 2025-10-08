@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4027252354791520117}
   - component: {fileID: 1024894237847107043}
   - component: {fileID: 1538967937493972923}
+  - component: {fileID: 4757493408504027328}
   m_Layer: 0
-  m_Name: MejaVertical
+  m_Name: MejaTamuVertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,3 +135,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.93788147, y: 1.7149734}
   m_EdgeRadius: 0
+--- !u!114 &4757493408504027328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2948476006831267236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 3
+  typeObject: 13
+  typePlant: 0
+  arahObject: 2
+  environmentType: 10
+  rumputAnimation: []
+  frameRate: 0.3
+  nameEnvironment: 
+  itemDrop: {fileID: 0}

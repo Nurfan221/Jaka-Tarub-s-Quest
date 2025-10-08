@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3436595357372821194}
   - component: {fileID: 5850054699918957584}
   - component: {fileID: 7392120495020239127}
+  - component: {fileID: 1081778217497663337}
   m_Layer: 8
   m_Name: Craft
   m_TagString: Environment
@@ -95,7 +96,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Open Craft
-  craft: {fileID: 0}
 --- !u!50 &5850054699918957584
 Rigidbody2D:
   serializedVersion: 5
@@ -178,3 +178,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1081778217497663337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3768322494726522806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 3
+  typeObject: 18
+  typePlant: 0
+  arahObject: 0
+  environmentType: 0
+  rumputAnimation: []
+  frameRate: 0.3
+  nameEnvironment: 
+  itemDrop: {fileID: 0}

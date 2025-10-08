@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4027252354791520117}
   - component: {fileID: 1024894237847107043}
   - component: {fileID: 1538967937493972923}
+  - component: {fileID: -4485014881307412060}
   m_Layer: 0
   m_Name: TempatTidur
   m_TagString: Untagged
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -6007857137893288414, guid: cf83dd2644dc21a4187dbd5e63159d2d, type: 3}
+  m_Sprite: {fileID: 818592313707460002, guid: 648e88b345d11234286fb6b14238b917, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,3 +135,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.94650507, y: 1.7093668}
   m_EdgeRadius: 0
+--- !u!114 &-4485014881307412060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2948476006831267236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 3
+  typeObject: 16
+  typePlant: 0
+  arahObject: 0
+  environmentType: 8
+  rumputAnimation: []
+  frameRate: 0.3
+  nameEnvironment: 
+  itemDrop: {fileID: 0}
