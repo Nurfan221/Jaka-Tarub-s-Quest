@@ -254,6 +254,7 @@ public enum TypeObject
     Gentong,
     Penanda,
     Semak,
+    Decoration,
 
 }
 public enum TypePlant
@@ -303,6 +304,7 @@ public enum EnvironmentType
     KursiTamu,
     MejaTamu,
     Shop,
+    Dapur,
     Lainnya
 }
 
