@@ -237,6 +237,7 @@ public class GameController : MonoBehaviour
     [ContextMenu("Load Game")]
     public void LoadGame()
     {
+  
         GenerateDefaultWorld();
         GameSaveData saveData = SaveDataManager.Instance.LoadGame();
 
@@ -324,6 +325,8 @@ public class GameController : MonoBehaviour
 
     public void GenerateDefaultWorld()
     {
+        //nonactifkan hujan saat di dalam rumah
+        SmoothCameraFollow.Instance.EnterHouse(true);
         Debug.Log("Membangun dunia default dari DatabaseManager...");
 
         // Pengecekan keamanan untuk memastikan manajer sudah ada

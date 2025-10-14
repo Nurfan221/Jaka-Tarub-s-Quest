@@ -203,7 +203,6 @@ public class PlayerUI : MonoBehaviour
 
         InitializePlayer(); // Fungsi ini akan menemukan GameObject Player yang baru
 
-        //INI BAGIAN BARUNYA: PANGGIL SEMUA FUNGSI REINITIALIZE 
         Reinitialize();
     }
 
@@ -240,26 +239,29 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    //public void UpdateCapacityBar(ItemData item)
-    //{
-    //    capacityUseItem.gameObject.SetActive(true);
-    //    Image capacityBarImage = capacityUseItem.Find("KapacityBar").GetComponent<Image>();
-       
-    //}
+
 
     public void TakeCapacityBar(Item item)
     {
         Debug.Log("health item di kurangi");
-        //if (item.itemName == playerInventory.equippedWeapon.itemName)
-        //{
-        //    playerInventory.equippedWeapon.health -= 1;
-        //    UpdateCapacityBar(playerInventory.equippedWeapon);
-        //}
-        //else
-        //{
-
-        //    Debug.Log("item tidak di temukan " + "item di kirim  : " + item.itemName + "item di equippedWeapon : " + playerInventory.equippedWeapon.itemName);
-        //}
+        if (stats.equipped1)
+        {
+            if (item.itemName == stats.equippedItemData[0].itemName)
+            {
+                stats.equippedItemData[0].itemHealth -= 1;
+                UpdateEquippedWeaponUI();
+            }
+           
+        }
+        else
+        {
+            if (item.itemName == stats.equippedItemData[1].itemName)
+            {
+                stats.equippedItemData[1].itemHealth -= 1;
+                UpdateEquippedWeaponUI();
+            }
+            Debug.Log("item tidak di temukan " + "item di kirim  : " + item.itemName + "item di equippedWeapon : " + stats.equippedItemData[0].itemName);
+        }
     }
     public void Reinitialize()
     {

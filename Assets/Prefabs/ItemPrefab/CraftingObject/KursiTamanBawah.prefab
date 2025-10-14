@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: -1037705350642132295}
   - component: {fileID: 2651851543884027256}
   - component: {fileID: 7856744826189593684}
+  - component: {fileID: -7190740815796494856}
+  - component: {fileID: -3297722235013838598}
   m_Layer: 0
   m_Name: KursiTamanBawah
   m_TagString: Untagged
@@ -157,3 +159,53 @@ MonoBehaviour:
   frameRate: 0.3
   nameEnvironment: 
   itemDrop: {fileID: 0}
+--- !u!114 &-7190740815796494856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5388214106243207399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14b53db7d19e334da74b59ac196662f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startYOffset: -2
+  animationDuration: 0.5
+  popUpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &-3297722235013838598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5388214106243207399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

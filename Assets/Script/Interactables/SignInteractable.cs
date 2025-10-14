@@ -10,4 +10,9 @@ public class SignInteractable : Interactable
       
     }
 
+    protected override void Interact()
+    {
+
+    }
+
 }

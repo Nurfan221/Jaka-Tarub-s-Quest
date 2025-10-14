@@ -57,6 +57,7 @@ public class PintuManager : MonoBehaviour
                     player.transform.position = pintuTujuan.pintuOut;
                     Debug.Log("posisi player di pindahkan ke : " + player.transform.position);
                     StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+                    SmoothCameraFollow.Instance.EnterHouse(true);
                 }
                 else
                 {
@@ -67,6 +68,7 @@ public class PintuManager : MonoBehaviour
                     player.transform.position = pintuTujuan.pintuIn;
                     Debug.Log("posisi player di pindahkan ke : " + player.transform.position);
                     StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+                    SmoothCameraFollow.Instance.EnterHouse(false);
                 }
 
 

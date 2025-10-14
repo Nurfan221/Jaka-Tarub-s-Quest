@@ -1,21 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// Mengubah kelas menjadi 'abstract'
 public abstract class Interactable : MonoBehaviour
 {
-    public bool useEvents;
+    [Tooltip("Pesan yang akan ditampilkan saat pemain melihat objek ini.")]
     public string promptMessage;
 
+    // Fungsi ini akan menjadi satu-satunya titik masuk untuk interaksi.
     public void BaseInteract()
     {
-        if (useEvents)
-            GetComponent<InteractionEvent>().OnInteract.Invoke();
         Interact();
     }
 
-    protected virtual void Interact()
-    {
-        Debug.Log("Interact() dipanggil dari kelas Interactable");
-    }
+    protected abstract void Interact();
 }

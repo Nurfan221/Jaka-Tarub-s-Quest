@@ -66,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -131,10 +131,10 @@ TextureImporter:
       name: BedRoom4_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 1
-        width: 34
-        height: 64
+        x: 0
+        y: 0
+        width: 48
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: BedRoom4_1
       rect:
         serializedVersion: 2
-        x: 54
-        y: 1
-        width: 44
-        height: 74
+        x: 48
+        y: 0
+        width: 48
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,10 +175,10 @@ TextureImporter:
       name: BedRoom4_2
       rect:
         serializedVersion: 2
-        x: 127
-        y: 1
-        width: 34
-        height: 64
+        x: 96
+        y: 0
+        width: 48
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: BedRoom4_3
       rect:
         serializedVersion: 2
-        x: 191
-        y: 1
-        width: 38
-        height: 64
+        x: 144
+        y: 0
+        width: 48
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,10 +219,10 @@ TextureImporter:
       name: BedRoom4_4
       rect:
         serializedVersion: 2
-        x: 255
-        y: 1
-        width: 34
-        height: 64
+        x: 192
+        y: 0
+        width: 48
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -241,10 +241,10 @@ TextureImporter:
       name: BedRoom4_5
       rect:
         serializedVersion: 2
-        x: 319
-        y: 1
-        width: 40
-        height: 76
+        x: 240
+        y: 0
+        width: 48
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -263,7 +263,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 74c1ace558c5fe8459e2c09268fc0315
     internalID: 0
     vertices: []
     indices: 
@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BedRoom4_0: -4467583016981852501
+      BedRoom4_1: -8876359070743853626
+      BedRoom4_2: 2015575365119387743
+      BedRoom4_3: 6257349784403611045
+      BedRoom4_4: -2552826923316454094
+      BedRoom4_5: 5106742214024032780
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

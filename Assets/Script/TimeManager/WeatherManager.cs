@@ -4,7 +4,7 @@ public class WeatherManager : MonoBehaviour
 {
 
 
-    public ParticleSystem rainParticle;
+    //public ParticleSystem rainParticle;
     //public bool isRain;
 
     public float rainChance = 0f;
@@ -67,12 +67,14 @@ public class WeatherManager : MonoBehaviour
         {
             TimeManager.Instance.isRain = true;
             Debug.Log("Hujan turun bang");
-            rainParticle.Play();
+            //nonactifkan hujan saat di dalam rumah
+            SmoothCameraFollow.Instance.EnterHouse(true);
         }
         else
         {
             TimeManager.Instance.isRain = false;
-            rainParticle.Stop();
+            //nonactifkan hujan saat di dalam rumah
+            SmoothCameraFollow.Instance.EnterHouse(true);
             Debug.Log("Tidak turun hujan");
         }
     }

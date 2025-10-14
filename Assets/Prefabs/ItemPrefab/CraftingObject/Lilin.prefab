@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8204194015257329924}
   - component: {fileID: 8753991768299431060}
   - component: {fileID: 875132793960531145}
+  - component: {fileID: 7274995363967479277}
+  - component: {fileID: 1650506044815608656}
   m_Layer: 0
   m_Name: Lilin
   m_TagString: Untagged
@@ -102,11 +104,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 0
+  typeObject: 0
+  typePlant: 0
+  arahObject: 0
+  environmentType: 0
   rumputAnimation: []
   frameRate: 0.1
   nameEnvironment: 
   itemDrop: {fileID: 0}
-  plantsContainer: {fileID: 0}
 --- !u!114 &875132793960531145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +129,56 @@ MonoBehaviour:
   torchLight: {fileID: 1069341284081892982}
   nightStart: 18
   nightEnd: 6
+--- !u!114 &7274995363967479277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3889454340021637116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14b53db7d19e334da74b59ac196662f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startYOffset: -2
+  animationDuration: 0.5
+  popUpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1650506044815608656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3889454340021637116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5394333660416106248
 GameObject:
   m_ObjectHideFlags: 0

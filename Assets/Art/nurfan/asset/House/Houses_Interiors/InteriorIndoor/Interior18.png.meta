@@ -66,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -131,10 +131,10 @@ TextureImporter:
       name: Interior18_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 4
-        width: 134
-        height: 134
+        x: 0
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: Interior18_1
       rect:
         serializedVersion: 2
-        x: 149
-        y: 4
-        width: 134
-        height: 134
+        x: 144
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,10 +175,10 @@ TextureImporter:
       name: Interior18_2
       rect:
         serializedVersion: 2
-        x: 293
-        y: 4
-        width: 134
-        height: 134
+        x: 288
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: Interior18_3
       rect:
         serializedVersion: 2
-        x: 437
-        y: 4
-        width: 134
-        height: 134
+        x: 432
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -219,10 +219,10 @@ TextureImporter:
       name: Interior18_4
       rect:
         serializedVersion: 2
-        x: 581
-        y: 4
-        width: 134
-        height: 134
+        x: 576
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -241,10 +241,10 @@ TextureImporter:
       name: Interior18_5
       rect:
         serializedVersion: 2
-        x: 725
-        y: 4
-        width: 134
-        height: 134
+        x: 720
+        y: 0
+        width: 144
+        height: 144
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -263,7 +263,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: eb8ef893b7b77ba4a89893e5471fc8a8
     internalID: 0
     vertices: []
     indices: 
@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Interior18_0: 8068010310325460776
+      Interior18_1: -8259526657553543274
+      Interior18_2: -4846044152712725363
+      Interior18_3: 442436882279216779
+      Interior18_4: 6839017560425544061
+      Interior18_5: 2767584758591001776
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

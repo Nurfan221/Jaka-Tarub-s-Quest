@@ -49,15 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Open Cook
-  animationFire:
-  - {fileID: -3968539654459880187, guid: b7817109ae89f0b45bec1119e28c213a, type: 3}
-  - {fileID: -8558918869735692199, guid: b7817109ae89f0b45bec1119e28c213a, type: 3}
-  - {fileID: -2008683585229313245, guid: b7817109ae89f0b45bec1119e28c213a, type: 3}
-  - {fileID: -3740634898217525811, guid: b7817109ae89f0b45bec1119e28c213a, type: 3}
-  - {fileID: -2652864750715110740, guid: b7817109ae89f0b45bec1119e28c213a, type: 3}
-  - {fileID: 5098392477632295796, guid: b7817109ae89f0b45bec1119e28c213a, type: 3}
-  - {fileID: -7261524470554781880, guid: b7817109ae89f0b45bec1119e28c213a, type: 3}
-  - {fileID: -8660196821742194322, guid: b7817109ae89f0b45bec1119e28c213a, type: 3}
+  animationFire: []
   frameRate: 0.1
 --- !u!61 &1537486939397333378
 BoxCollider2D:

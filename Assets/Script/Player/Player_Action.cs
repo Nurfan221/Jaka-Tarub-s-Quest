@@ -151,21 +151,21 @@ public class Player_Action : MonoBehaviour
     }
 
     // Handling the spiral animation for UIs
-    
+
     #endregion
 
     // Helper function for checking interactables nearby
-    
 
 
-    public void OnActionInputButtonClick()
-    {
-        if (canInteract)
-        {
-            interactable.BaseInteract();
-            Debug.Log("actionInputButton on click");
-        }
-    }
+
+    //public void OnActionInputButtonClick()
+    //{
+    //    if (canInteract)
+    //    {
+    //        interactable.BaseInteract();
+    //        Debug.Log("actionInputButton on click");
+    //    }
+    //}
 
 
 

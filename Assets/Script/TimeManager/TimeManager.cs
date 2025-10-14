@@ -143,6 +143,7 @@ public class TimeManager : MonoBehaviour, ISaveable
 
     public void AdvanceToNextDay()
     {
+
         hour = 4; // Atau jam berapa pun hari baru dimulai
         totalHari += 1;
         currentDay = (Days)((totalHari % 7 == 0) ? 7 : totalHari % 7);
@@ -164,6 +165,7 @@ public class TimeManager : MonoBehaviour, ISaveable
         AdvanceAllTreeGrowth();
 
         OnDayChanged?.Invoke();
+
     }
 
     private void AdvanceTime()

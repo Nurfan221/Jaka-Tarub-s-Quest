@@ -49,6 +49,7 @@ public class SumurInteractable : Interactable
                 Debug.Log("Item di slot pertama cocok! Mengisi ulang...");
                 Item item = ItemPool.Instance.GetItemWithQuality(itemDiSlotPertama.itemName, itemDiSlotPertama.quality);
                 stats.equippedItemData[0].itemHealth = item.maxhealth;
+                PlayerUI.Instance.UpdateEquippedWeaponUI();
             }
         }
         else 
@@ -62,6 +63,7 @@ public class SumurInteractable : Interactable
                 Debug.Log("Item di slot pertama cocok! Mengisi ulang...");
                 Item item = ItemPool.Instance.GetItemWithQuality(itemDiSlotKedua.itemName, itemDiSlotKedua.quality);
                 stats.equippedItemData[0].itemHealth = item.maxhealth;
+                PlayerUI.Instance.UpdateEquippedWeaponUI();
             }
         }
     }

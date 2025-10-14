@@ -15,14 +15,7 @@ public class SaveDataManager : MonoBehaviour
     // Properti publik untuk mengakses nama scene secara aman (read-only dari luar)
     public string MainGameSceneName => mainGameSceneName;
 
-    private void OnEnable()
-    {
-        TimeManager.OnDayChanged += SaveGame;
-    }
-    private void OnDisable()
-    {
-        TimeManager.OnDayChanged -= SaveGame;
-    }
+
 
     private void Awake()
     {
