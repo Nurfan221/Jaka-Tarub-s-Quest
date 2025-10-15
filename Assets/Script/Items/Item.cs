@@ -102,6 +102,7 @@ public class Item : ScriptableObject
     [Header("SEED PROPERTIES")]
     public float growthTime; // Lama pertumbuhan dalam hari
     public Sprite[] growthImages; // Gambar untuk tiap tahap pertumbuhan
+    public SeedType seedType; // Jenis benih (misal: sayuran, buah, dll)
     //public GameObject plantPrefab; // Prefab tanaman yang akan tumbuh dari benih
 
 

@@ -67,16 +67,16 @@ public class GameController : MonoBehaviour
         //    Debug.LogError("DatabaseManager Instance is null in GameController Awake");
         //}
 
-        if (FarmTile.Instance != null)
-        {
-            tilemap = FarmTile.Instance;
-        }
     }
 
   
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (FarmTile.Instance != null)
+        {
+            tilemap = FarmTile.Instance;
+        }
         // Ganti "MainGameScene" dengan nama scene utama Anda jika berbeda
         string mainGameSceneName = "MainGameScene";
 
@@ -98,6 +98,9 @@ public class GameController : MonoBehaviour
                 LoadGame();
             }
         }
+
+
+
     }
 
 

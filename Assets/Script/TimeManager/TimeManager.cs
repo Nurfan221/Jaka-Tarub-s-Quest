@@ -63,6 +63,8 @@ public class TimeManager : MonoBehaviour, ISaveable
     public Season currentSeason = Season.Rain;
     public float dailyLuck;
     public bool isRain;
+    public float rainChance = 0f;
+
 
 
 
@@ -163,7 +165,7 @@ public class TimeManager : MonoBehaviour, ISaveable
             trap.GetAnimalToTrap();
         }
         AdvanceAllTreeGrowth();
-
+        SetRainChance(currentSeason);
         OnDayChanged?.Invoke();
 
     }
@@ -192,8 +194,48 @@ public class TimeManager : MonoBehaviour, ISaveable
         OnTimeChanged?.Invoke();
     }
 
- 
 
+    public void SetRainChance(Season currentSeason)
+    {
+        // Akses currentSeason melalui timeManager
+        switch (currentSeason)
+        {
+
+            case Season.Rain:
+                rainChance = 0.80f;
+                break;
+
+            case Season.Dry:
+                rainChance = 0.1f; // Dry season doesn't have rain chance
+                break;
+
+            default:
+                rainChance = 0f;  // Nilai default jika tidak ada yang cocok
+                break;
+        }
+
+        CheckForRain();
+    }
+
+    public void CheckForRain()
+    {
+        float randomValue = UnityEngine.Random.Range(0f, 1f);
+
+        if (randomValue <= rainChance)
+        {
+            TimeManager.Instance.isRain = true;
+            Debug.Log("Hujan turun bang");
+            //nonactifkan hujan saat di dalam rumah
+            SmoothCameraFollow.Instance.EnterHouse(true);
+        }
+        else
+        {
+            TimeManager.Instance.isRain = false;
+            //nonactifkan hujan saat di dalam rumah
+            SmoothCameraFollow.Instance.EnterHouse(true);
+            Debug.Log("Tidak turun hujan");
+        }
+    }
 
     public void GetCurrentDate()
     {

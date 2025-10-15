@@ -102,11 +102,13 @@ public class ListBatuManager
 [System.Serializable]
 public class HoedTileData
 {
-    public string plantedItemName;
+    public string plantID;
     public Vector3Int tilePosition;
     public int hoedTime;
     public bool watered;
     public bool isPlanted;
+    public Item plantSeedItem; // Referensi ke item benih
+    public bool isInfected;
     public int growthProgress;
     public GrowthStage currentStage;
     public bool isReadyToHarvest;
@@ -316,6 +318,33 @@ public enum TypeShop
     StorageUpgrade,
     SkillUpgrade,
     FarmUpgrade
+}
+
+public enum SeedType
+{
+    NoItem, // Untuk state kosong atau default
+    Anggur,
+    BawangMerah,
+    BawangPutih,
+    BungaMatahari,
+    Cabai,
+    DaunBawang,
+    Jagung,
+    Kentang,
+    Kubis,
+    Labu,
+    LabuHijau,
+    Lobak,
+    Padi,
+    PaprikaHijau,
+    PaprikaKuning,
+    PaprikaMerah,
+    Strawberry,
+    Timun,
+    Tomat,
+    UbiMerah,
+    UbiUngu,
+    Wortel
 }
 
 [System.Serializable]

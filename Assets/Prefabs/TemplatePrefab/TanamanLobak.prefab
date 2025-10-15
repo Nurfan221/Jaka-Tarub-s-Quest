@@ -4987,6 +4987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d0cc03c1d4abb647a53ba144d4dbb6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueID: 
   waterEffect: {fileID: 0}
   harvestParticle: {fileID: 0}
   growEffect: {fileID: 0}
@@ -4999,7 +5000,9 @@ MonoBehaviour:
   growthTime: 0
   growthSpeed: 0
   namaSeed: 
-  dropItem: {fileID: 0}
+  seedType: 0
+  hardnessLevel: 1
+  dropItem: 
   growthTimer: 0
   insectTime: 0
   plantLocation: {x: 0, y: 0, z: 0}
@@ -5016,7 +5019,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4feacc05248dc73439894c2ff8dc30fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useEvents: 0
   promptMessage: TanamanLobak
   plantSeed: {fileID: 2375128868307419422}
 --- !u!114 &903731056761299950

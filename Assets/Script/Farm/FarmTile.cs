@@ -37,11 +37,13 @@ public class FarmTile : MonoBehaviour, ISaveable
         {
             Debug.LogError("DatabaseManager Instance is null! Please ensure DatabaseManager is initialized before FarmTile.");
         }
+        plantPrefab = DatabaseManager.Instance.plantWorldPrefab;
+
+
     }
 
     private void Start()
     {
-        plantPrefab = DatabaseManager.Instance.plantWorldPrefab;
 
         //RestoreFarmStateFromData();
     }
@@ -75,7 +77,9 @@ public class FarmTile : MonoBehaviour, ISaveable
                 tilePosition = respawnItem.tilePosition,
                 hoedTime = respawnItem.hoedTime,
                 isPlanted = respawnItem.isPlanted,
-                plantedItemName = respawnItem.plantedItemName,
+                plantID = respawnItem.plantID,
+                plantSeedItem = respawnItem.plantSeedItem,
+                isInfected = respawnItem.isInfected,
                 growthProgress = respawnItem.growthProgress,
                 currentStage = respawnItem.currentStage,
                 isReadyToHarvest = respawnItem.isReadyToHarvest,
@@ -94,7 +98,8 @@ public class FarmTile : MonoBehaviour, ISaveable
             tilePosition = data.tilePosition,
             hoedTime = data.hoedTime,
             isPlanted = data.isPlanted,
-            plantedItemName = data.plantedItemName,
+            plantID = data.plantID,
+            plantSeedItem = data.plantSeedItem,
             growthProgress = data.growthProgress,
             currentStage = data.currentStage,
             isReadyToHarvest = data.isReadyToHarvest,
@@ -115,15 +120,23 @@ public class FarmTile : MonoBehaviour, ISaveable
 
 
     /// Fungsi utama yang dieksekusi setiap kali hari berganti.
-    public void AdvanceDay(bool isRaining = false)
+    public void AdvanceDay(bool isRaining)
     {
+        // Munculkan Hama Secara Acak (jika tidak hujan)
+       TrySpawningPests();
+
+
         //Debug.Log("--- Memulai Hari Baru (Tanggal: " + timeManager.date + ")Hujan: " + isRaining);
         if (hoedTilesList == null) return;
-
+       
         // Jika hujan, siram semua tile terlebih dahulu
         if (isRaining)
         {
+            Debug.Log("Hujan turun! Menyiram semua tanaman...");
             WaterAllHoedTiles();
+        }else
+        {
+            Debug.Log("Hari cerah, tidak ada penyiraman otomatis.");
         }
 
         // Looping mundur agar aman saat menghapus item dari list
@@ -153,11 +166,7 @@ public class FarmTile : MonoBehaviour, ISaveable
             }
         }
 
-        // Munculkan Hama Secara Acak (jika tidak hujan)
-        if (!isRaining)
-        {
-            TrySpawningPests();
-        }
+  
     }
 
 
@@ -247,7 +256,7 @@ public class FarmTile : MonoBehaviour, ISaveable
         Debug.Log("Hujan turun! Menyiram semua tanaman...");
         foreach (var tileData in hoedTilesList)
         {
-            if (!tileData.watered)
+            if (!tileData.watered && !tileData.isInfected)
             {
                 tilemap.SetTile(tileData.tilePosition, databaseManager.wateredTile);
                 tileData.watered = true;
@@ -273,7 +282,7 @@ public class FarmTile : MonoBehaviour, ISaveable
         if (plant.isReadyToHarvest)
         {
             PlantInteractable plantInteractable = plant.GetComponent<PlantInteractable>();
-            plantInteractable.promptMessage = "Panen"+ tileData.plantedItemName;
+            plantInteractable.promptMessage = "Panen"+ tileData.plantID;
             return;
         }
         
@@ -303,6 +312,7 @@ public class FarmTile : MonoBehaviour, ISaveable
     }
 
 
+    //berikan tanamanam hama dengan nilai random
 
     private void TrySpawningPests()
     {
@@ -314,6 +324,7 @@ public class FarmTile : MonoBehaviour, ISaveable
                 if (plant != null && !plant.isReadyToHarvest && !plant.isInfected)
                 {
                     plant.isInfected = true;
+                    tileData.isInfected = true;
                     plant.UpdateParticleEffect();
                     Debug.Log("Hama muncul di tanaman: " + plant.namaSeed);
                 }
@@ -345,10 +356,10 @@ public class FarmTile : MonoBehaviour, ISaveable
 
     
 
-    public void OnPlantHarvested(Vector3Int tilePosition)
+    public void OnPlantHarvested(string plantTargetID)
     {
         // Cari data tile yang sesuai di dalam list
-        HoedTileData tileData = hoedTilesList.Find(t => t.tilePosition == tilePosition);
+        HoedTileData tileData = hoedTilesList.Find(t => t.plantID == plantTargetID);
 
         if (tileData != null)
         {
@@ -356,18 +367,20 @@ public class FarmTile : MonoBehaviour, ISaveable
             tileData.isPlanted = false;
 
             // (Opsional tapi direkomendasikan) Reset data tanaman lainnya untuk kebersihan
-            tileData.plantedItemName = null;
+            tileData.plantID = null;
             tileData.growthProgress = 0;
             tileData.currentStage = GrowthStage.Seed;
             tileData.isReadyToHarvest = false;
-
-            Debug.Log($"Tanaman di posisi {tilePosition} telah dipanen. Tile sekarang bisa ditanami kembali.");
+            tileData.isInfected = false;
+            tileData.plantSeedItem = null;
+            Debug.Log($"Tanaman dengan id {plantTargetID} telah dipanen. Tile sekarang bisa ditanami kembali.");
         }
 
         //Hapus referensi tanaman dari dictionary tanaman aktif
-        if (activePlants.ContainsKey(tilePosition))
+        if (activePlants.ContainsKey(tileData.tilePosition))
         {
-            activePlants.Remove(tilePosition);
+
+            activePlants.Remove(tileData.tilePosition);
         }
     }
 
@@ -380,29 +393,33 @@ public class FarmTile : MonoBehaviour, ISaveable
             Tile targetTile = tileData.watered ? databaseManager.wateredTile : databaseManager.hoeedTile;
             tilemap.SetTile(tileData.tilePosition, targetTile);
 
-            if (tileData.isPlanted && !string.IsNullOrEmpty(tileData.plantedItemName))
+            if (tileData.isPlanted && !string.IsNullOrEmpty(tileData.plantID))
             {
-                Item itemTemplate = ItemPool.Instance.GetItem(tileData.plantedItemName);
+                Debug.Log($"[LOAD] Menemukan tanaman yang ditanam: {tileData.plantID} di {tileData.tilePosition}.");
+                Item itemTemplate = tileData.plantSeedItem;
                 if (itemTemplate != null && plantPrefab != null)
                 {
+                    Debug.Log($"[LOAD] Merestorasi tanaman {tileData.plantID} di {tileData.tilePosition}.");
                     Vector3 spawnPosition = tilemap.GetCellCenterWorld(tileData.tilePosition);
                     GameObject plantObject = Instantiate(plantPrefab, spawnPosition, Quaternion.identity, MainEnvironmentManager.Instance.plantContainer.transform);
                     plantObject.name = "Tanaman " + itemTemplate.itemDropName; // Memberi nama pada objek tanaman yang diinst
                     PlantInteractable plantInteractable = plantObject.GetComponent<PlantInteractable>();
-                    plantInteractable.promptMessage = tileData.plantedItemName;
+                    plantInteractable.promptMessage = tileData.plantID;
                     PlantSeed seedComponent = plantObject.GetComponent<PlantSeed>();
                     if (seedComponent != null)
                     {
                         // Setup data tanaman
-                        seedComponent.namaSeed = tileData.plantedItemName;
+                        seedComponent.namaSeed = tileData.plantID;
                         seedComponent.dropItem = itemTemplate.itemDropName;
                         seedComponent.growthImages = itemTemplate.growthImages;
                         seedComponent.growthTime = itemTemplate.growthTime;
                         seedComponent.plantLocation = spawnPosition;
                         seedComponent.tilePosition = tileData.tilePosition;
                         seedComponent.isWatered = tileData.watered;
+                        seedComponent.isInfected = tileData.isInfected;
                         seedComponent.growthTimer = tileData.growthProgress;
                         seedComponent.currentStage = tileData.currentStage;
+                        seedComponent.plantSeedItem = tileData.plantSeedItem;
                         seedComponent.isReadyToHarvest = tileData.isReadyToHarvest;
 
                         // Panggil Initialize untuk final setup
@@ -411,7 +428,7 @@ public class FarmTile : MonoBehaviour, ISaveable
 
                     if (tileData.currentStage == GrowthStage.ReadyToHarvest)
                     {
-                        plantInteractable.promptMessage = "Panen " + tileData.plantedItemName;
+                        plantInteractable.promptMessage = "Panen " + tileData.plantID;
                     }
 
                     activePlants[tileData.tilePosition] = plantObject;

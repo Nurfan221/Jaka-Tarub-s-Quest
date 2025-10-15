@@ -125,7 +125,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 // Debug.Log("Item ditemukan: " + item.itemName);
 
                 // Menanam benih
-                PlantSeed(cellPosition, item.itemName, item.itemDropName, item.growthImages, item.growthTime);
+                PlantSeed(cellPosition, item);
 
                 // Panggil fungsi untuk menyimpan status tile
                 SaveTileStatus(cellPosition, true);
@@ -435,7 +435,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 
     // Fungsi untuk menanam benih
-    private void PlantSeed(Vector3Int cellPosition, string namaSeed, string dropItem, Sprite[] growthImages, float growthTime)
+    private void PlantSeed(Vector3Int cellPosition, Item seedItem)
     {
         // Konversi posisi tile ke World Space
         Vector3 spawnPosition = FarmTile.Instance.tilemap.GetCellCenterWorld(cellPosition);
@@ -445,9 +445,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         // Inisiasi prefab tanaman di posisi world yang sesuai dengan tile
         GameObject plant = Instantiate(plantPrefab, spawnPosition, Quaternion.identity);
-        plant.name = "Tanaman " + namaSeed; // Memberi nama pada objek tanaman yang diinst
+        plant.name = "Tanaman " + seedItem.itemName; // Memberi nama pada objek tanaman yang diinst
         PlantInteractable plantInteractable = plant.GetComponent<PlantInteractable>();
-        plantInteractable.promptMessage = "Tanaman " + namaSeed;
+        plantInteractable.promptMessage = "Tanaman " + seedItem.itemName;
 
         // Set parent prefab tanaman ke plantsContainer
         plant.transform.SetParent(MainEnvironmentManager.Instance.plantContainer.transform);
@@ -457,12 +457,14 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (seedComponent != null)
         {
             // Mengatur nilai namaSeed, dropItem, dan growthImages
-            seedComponent.namaSeed = namaSeed;
-            seedComponent.dropItem = dropItem;
-            seedComponent.growthImages = growthImages; // Simpan growthImages ke komponen Seed
-            seedComponent.growthTime = growthTime; // Simpan growthTime ke komponen Seed
+            seedComponent.namaSeed = seedItem.itemName;
+            seedComponent.dropItem = seedItem.itemDropName;
+            seedComponent.growthImages = seedItem.growthImages; // Simpan growthImages ke komponen Seed
+            seedComponent.growthTime = seedItem.growthTime; // Simpan growthTime ke komponen Seed
             seedComponent.isWatered = TimeManager.Instance.isRain;
-            seedComponent.dropItem = dropItem;
+            seedComponent.seedType = seedItem.seedType;
+            seedComponent.plantSeedItem = seedItem; // Simpan referensi ke item benih
+            seedComponent.ForceGenerateUniqueID();
             //seedComponent.plantLocation = spawnPosition;
         }
 
@@ -473,7 +475,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
                 lokasihoedTile.isPlanted = true;
                 lokasihoedTile.growthProgress = 0;
-                lokasihoedTile.plantedItemName = namaSeed;
+                lokasihoedTile.plantID = seedComponent.UniqueID;
+                lokasihoedTile.plantSeedItem = seedItem;
             }
         }
     }

@@ -22,5 +22,6 @@ public class TempatTidurInteractable : Interactable
         SaveDataManager.Instance.SaveGame();
 
         TimeManager.Instance.AdvanceToNextDay();
+
     }
 }

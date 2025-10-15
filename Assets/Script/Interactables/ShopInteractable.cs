@@ -121,6 +121,8 @@ public class ShopInteractable : Interactable, ISaveable
     public void AddItemToList(List<Item> Items, List<Item> itemWajib)
     {
         // Membuat salinan dari item yang ada di quest.itemQuests sebelum menghapus item lama
+        currentSeasonItems.Clear();
+        itemToSell.Clear(); // Mungkin Anda juga ingin mengosongkan ini? Sesuaikan jika perlu.
 
         foreach (var item in Items)
         {

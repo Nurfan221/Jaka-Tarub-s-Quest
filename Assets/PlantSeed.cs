@@ -8,7 +8,7 @@ public enum GrowthStage
     ReadyToHarvest
 }
 
-public class PlantSeed : MonoBehaviour
+public class PlantSeed : UniqueIdentifiableObject
 {
     [Header("Particle Effects")]
     public ParticleSystem waterEffect; // Efek "perlu disiram" atau "siap panen"
@@ -27,7 +27,10 @@ public class PlantSeed : MonoBehaviour
     public float growthTime; // Total hari untuk tumbuh maksimal
     public float growthSpeed; // Jeda hari antar tahap pertumbuhan
     public string namaSeed;
+    public SeedType seedType;
+    public EnvironmentHardnessLevel hardnessLevel;
     public string dropItem;
+    public Item plantSeedItem; // Referensi ke item benih
 
     // Data Internal
     public float growthTimer = 0; // Menghitung progres pertumbuhan (dalam hari)
@@ -36,6 +39,35 @@ public class PlantSeed : MonoBehaviour
     public Vector3 plantLocation;
     public Vector3Int tilePosition;
 
+
+    #region Unique ID Implementation
+
+    public override string GetObjectType()
+    {
+        // Berikan kategori umum untuk objek ini.
+        return seedType.ToString();
+    }
+
+    public override EnvironmentHardnessLevel GetHardness()
+    {
+        // Ambil nilai dari variabel yang bisa diatur di Inspector.
+        return hardnessLevel;
+    }
+
+    public override string GetBaseName()
+    {
+        // Ambil nama dasar dari variabel yang bisa diatur di Inspector.
+        return seedType.ToString();
+
+    }
+
+    public override string GetVariantName()
+    {
+        return currentStage.ToString();
+
+    }
+
+    #endregion
     private void Start()
     {
         // Cari GameObject anak berdasarkan NAMA, lalu ambil komponen ParticleSystem-nya.
@@ -169,7 +201,7 @@ public class PlantSeed : MonoBehaviour
 
             ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.health, itemDrop.quality, transform.position + new Vector3(0, 0.5f, 0));
 
-            FarmTile.Instance.OnPlantHarvested(this.tilePosition);
+            FarmTile.Instance.OnPlantHarvested(this.UniqueID);
 
             Destroy(gameObject);
         }
