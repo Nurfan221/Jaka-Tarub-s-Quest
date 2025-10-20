@@ -124,7 +124,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
     private void ChangeState(MainQuest1State newState)
     {
-        QuestManager.Instance.SaveMainQuest();
+        //QuestManager.Instance.SaveMainQuest();
 
         if (isChangingState) return; // Jika sedang sibuk, jangan lakukan apa-apa
 

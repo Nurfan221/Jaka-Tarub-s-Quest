@@ -138,7 +138,7 @@ public class InventoryUI : MonoBehaviour
         spriteImageTemplate = DatabaseManager.Instance.GetSpriteTempalte("HealthItemUI");
 
         CloseInventory();
-        UpdateInventoryUI();
+        SetInventory();
     }
 
 
@@ -158,7 +158,7 @@ public class InventoryUI : MonoBehaviour
         gameObject.SetActive(true);
         //isInventoryOpen = true;
         IfClose();
-        UpdateInventoryUI(); // Update UI when inventory is opened
+        SetInventory(); // Update UI when inventory is opened
 
 
         //if (isInventoryOpen)
@@ -242,19 +242,7 @@ public class InventoryUI : MonoBehaviour
 
     }
 
-    public void UpdateInventoryUI()
-    {
-        SetInventory();
-        if (stats.inventory.Count > 0)
-        {
-            SetDescription(stats.inventory[0]);
-        }
-        else
-        {
-            SetDescription(playerData.emptyItemTemplate);
-        }
-        Debug.Log("Inventory has running");
-    }
+
 
     // Ganti nama fungsi utama agar lebih jelas
     void RefreshAllActiveSlots()
@@ -330,7 +318,14 @@ public class InventoryUI : MonoBehaviour
 
     public void SetInventory()
     {
-
+        if (stats.inventory.Count > 0)
+        {
+            SetDescription(stats.inventory[0]);
+        }
+        else
+        {
+            SetDescription(playerData.emptyItemTemplate);
+        }
         // Jika item kosong, tidak perlu lanjutkan refresh
         if (stats.inventory == null || stats.inventory.Count == 0)
         {
@@ -629,9 +624,9 @@ public class InventoryUI : MonoBehaviour
                 break;
             case "QuestInfo":
                  QuestInfoUI questInfoUI = menuPanels[menu].panelInventory.GetComponent<QuestInfoUI>();
-                foreach (var quest in QuestManager.Instance.questLog)
+                foreach (var quest in QuestManager.Instance.questActive)
                 {
-                    questInfoUI.DisplayActiveQuest(quest.Quest);
+                    //questInfoUI.DisplayActiveQuest(quest.sideQuests);
                 }
                 questInfoUI.RefreshActiveQuest();
                 break;

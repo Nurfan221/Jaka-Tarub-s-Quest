@@ -12,43 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest-1.6
   m_EditorClassIdentifier: 
-  questName: Misi mengusir Hewan Liar
-  questInfo: Bicara Dengan Pak Amru
-  DeskripsiAwal: ' Mengusir hewan liar di lahan pak Amru. Berikan'
-  DeskripsiAkhir: ' Untuk menyelesaikan quest ini .'
+  questName: 
+  questInfo: 
+  DeskripsiAwal: 
+  DeskripsiAkhir: 
   startLocateNpcQuest: {x: 0, y: 0}
   finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
   questProgress: 1
   questEmoticon:
-    emoticonName: Peringatan
+    emoticonName: 
     emoticonSprite: {fileID: 0}
-  dateToActivate: 25
-  MonthToActivate: 1
+  dateToActivate: 0
+  MonthToActivate: 0
   npcName: 
-  itemRequirements:
-  - itemName: tanduk
-    count: 1
-    quality: 0
-    itemHealth: 0
-  goldReward: 500
-  itemRewards:
-  - itemName: Anggur
-    count: 3
-    quality: 0
-    itemHealth: 0
+  itemRequirements: []
+  goldReward: 0
+  itemRewards: []
   NPCItem:
     itemName: 
     count: 0
     quality: 0
     itemHealth: 0
-  startDialogue: {fileID: 11400000, guid: cc9f422faa6995a46ab5db5ae39085a6, type: 2}
-  finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
+  startDialogue: {fileID: 0}
+  finishDialogue: {fileID: 0}
   isMainQuest: 0
   isInGrief: 0
-  isSpawner: 1
+  isSpawner: 0
   isNPCItem: 0
-  spawnerToActivate: SpawnerQuest1_6
+  spawnerToActivate: 
   isTheCleanupQuest: 0
   cleanupQuestIndex: 0
   objectToClean: 

@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest-1.2
   m_EditorClassIdentifier: 
-  questName: Kebutuhan Padi Desa
-  questInfo: Bicara Dengan Pak Wirya
-  DeskripsiAwal: Kepala desa meminta bantuan Jaka Tarub untuk mengumpulkan beberapa
-    karung padi dari ladang untuk mengisi persediaan padi desa yang hampir habis.
-    Berikan
-  DeskripsiAkhir: ' Untuk menyelesaikan quest ini .'
+  questName: 
+  questInfo: 
+  DeskripsiAwal: 
+  DeskripsiAkhir: 
   startLocateNpcQuest: {x: 0, y: 0}
   finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
@@ -25,27 +23,19 @@ MonoBehaviour:
   questEmoticon:
     emoticonName: 
     emoticonSprite: {fileID: 0}
-  dateToActivate: 3
-  MonthToActivate: 1
-  npcName: Fahri Pranajaya
-  itemRequirements:
-  - itemName: Padi
-    count: 10
-    quality: 0
-    itemHealth: 0
-  - itemName: Jagung
-    count: 5
-    quality: 0
-    itemHealth: 0
-  goldReward: 500
+  dateToActivate: 0
+  MonthToActivate: 0
+  npcName: 
+  itemRequirements: []
+  goldReward: 0
   itemRewards: []
   NPCItem:
     itemName: 
     count: 0
     quality: 0
     itemHealth: 0
-  startDialogue: {fileID: 11400000, guid: 7d2ed832501bd5b46981f34aae7c0eec, type: 2}
-  finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
+  startDialogue: {fileID: 0}
+  finishDialogue: {fileID: 0}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0

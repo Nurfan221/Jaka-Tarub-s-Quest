@@ -245,27 +245,7 @@ public class NPCBehavior : MonoBehaviour
 
 
 
-    public bool CheckItemGive(ItemData inventoryItemData)
-    {
-        Debug.Log($"NPC {this.npcName}: Pemain mencoba memberikan item {inventoryItemData.itemName}");
 
-        // Panggil fungsi terpusat di QuestManager untuk memproses item
-        bool itemProcessedByQuest = QuestManager.Instance.ProcessItemGivenToNPC(inventoryItemData, this.npcName); // <<< PENTING
-
-        if (itemProcessedByQuest)
-        {
-          
-
-            Debug.Log($"NPC {this.npcName}: Item '{inventoryItemData.itemName}' telah diproses oleh sistem quest.");
-            // Panggil fungsi untuk memperbarui UI Inventaris pemain
-            return true; // Item berhasil diberikan dan diproses
-        }
-        else
-        {
-            Debug.Log($"NPC {this.npcName}: Item '{inventoryItemData.itemName}' tidak relevan untuk quest manapun.");
-            return false; // Item tidak diproses
-        }
-    }
 
     private IEnumerator WiggleRoutine()
     {

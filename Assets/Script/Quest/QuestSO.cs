@@ -1,7 +1,7 @@
+// File: QuestSO.cs (versi baru)
 using System.Collections.Generic;
 using UnityEngine;
 
-// Baris ini memungkinkan Anda membuat aset quest dari menu Create di Project Window
 [CreateAssetMenu(fileName = "New Quest", menuName = "Quest System/Quest")]
 public class QuestSO : ScriptableObject
 {
@@ -13,34 +13,32 @@ public class QuestSO : ScriptableObject
     public string DeskripsiAwal; // Deskripsi awal
     [TextArea(3, 10)]
     public string DeskripsiAkhir; // Deskripsi akhir
-    public Vector2 startLocateNpcQuest; // Lokasi NPC yang memberikan quest, bisa diubah menjadi Vector3 atau string ID
-    public Vector2 finishLocateNpcQuest; // Lokasi NPC yang menyelesaikan quest, bisa diubah menjadi Vector3 atau string ID
-    public QuestType questType; // Tipe quest, bisa MainQuest atau SideQuest
-    public QuestProgress questProgress = QuestProgress.Accepted; // Progres quest, bisa NotAccepted, Accepted, atau Completed
-    public EmoticonTemplate questEmoticon; // Emoticon yang muncul di atas kepala NPC
+    public Vector2 startLocateNpcQuest;
+    public Vector2 finishLocateNpcQuest;
+    public QuestType questType;
+    public QuestProgress questProgress = QuestProgress.Accepted;
+    public EmoticonTemplate questEmoticon;
 
     [Header("Kondisi Aktivasi")]
-    public int dateToActivate; // Tanggal quest akan menjadi tersedia
-    public int MonthToActivate; // Bulan quest akan menjadi tersedia
-    // public int requiredChapter; // Bisa ditambahkan jika ada syarat chapter
+    public int dateToActivate;
+    public int MonthToActivate;
 
     [Header("Tujuan & Hadiah")]
-    public string npcName; // Ganti referensi GameObject NPC dengan ID (string)
-    public List<ItemData> itemRequirements; // Ganti nama dari itemQuests
+    public string npcName;
+    public List<ItemData> itemRequirements;
     public int goldReward;
-    public List<ItemData> itemRewards; // Ganti nama dari rewards
+    public List<ItemData> itemRewards;
     public ItemData NPCItem;
 
     [Header("Dialog")]
-    public Dialogues startDialogue; // Ganti nama dari dialogueQuest
-    public Dialogues finishDialogue; // Ganti nama dari finish
-    //public Dialogues RewardItem
+    public Dialogues startDialogue;
+    public Dialogues finishDialogue;
 
     [Header("Flags & Events")]
-    public bool isMainQuest; // Untuk membedakan main/side quest
+    public bool isMainQuest;
     public bool isInGrief;
     public bool isSpawner;
-    public bool isNPCItem; // Jika true, itemRequirements adalah item yang dimiliki NPC untuk quest ini
+    public bool isNPCItem;
     public string spawnerToActivate;
 
     [Header("Variabel Clean Quest")]
@@ -50,7 +48,4 @@ public class QuestSO : ScriptableObject
     public bool isTheCleanupObjectDone;
     public int cleanupQuestTotal;
     public EnvironmentType tipeCleanObject;
-
-    //public GameObject nameSpawnerToActive; // Ganti referensi GameObject
 }
-

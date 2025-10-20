@@ -545,26 +545,30 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             ItemData inventoryItemData = stats.inventory[i];
             Item itemSO = ItemPool.Instance.GetItemWithQuality(inventoryItemData.itemName, inventoryItemData.quality);
 
-            // Cek apakah ini item yang dicari
             if (itemSO.itemName == itemInDrag && itemSO.categories != ItemCategory.PlantSeed)
             {
-                // Panggil CheckItemGive. Fungsi ini akan mengubah inventoryItemData.count secara langsung.
-                // Coba untuk Side Quest, jika gagal, coba untuk Mini Quest.
-                bool success = npc.CheckItemGive(inventoryItemData) || npc.CheckItemGive(inventoryItemData);
 
-                if (success)
+
+                // Panggil fungsi HANYA SEKALI dan simpan hasilnya ke dalam variabel.
+                int amountProcessed = QuestManager.Instance.ProcessItemGivenToNPC(inventoryItemData, npc.npcName);
+
+                // GUNAKAN variabel yang sudah disimpan untuk semua pengecekan.
+                if (amountProcessed > 0)
                 {
-                    // Setelah item berhasil diberikan, periksa jumlahnya di inventaris
-                    if (inventoryItemData.count <= 0)
+                    // GUNAKAN variabel yang sama untuk mengurangi inventaris.
+                    Debug.Log($"Memproses pemberian {amountProcessed} x {inventoryItemData.itemName} ke NPC {npc.npcName}.");
+                    stats.inventory[i].count -= amountProcessed;
+
+                    if (stats.inventory[i].count <= 0)
                     {
-                        // Hapus dari list jika habis
                         stats.inventory.RemoveAt(i);
                         Debug.Log($"{inventoryItemData.itemName} habis dan dihapus dari inventory.");
                     }
 
                     itemFoundAndProcessed = true;
-                    break; // Keluar dari loop karena item sudah ditemukan dan diproses
+                    break;
                 }
+
             }
         }
 

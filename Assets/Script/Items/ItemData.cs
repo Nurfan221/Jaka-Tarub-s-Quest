@@ -15,4 +15,12 @@ public class ItemData
         this.quality = quality;
         this.itemHealth = itemHealth;
     }
+    public ItemData(ItemData other)
+    {
+        this.itemName = other.itemName;
+        this.count = other.count;
+        this.quality = other.quality;
+        this.itemHealth = other.itemHealth;
+    }
+
 }

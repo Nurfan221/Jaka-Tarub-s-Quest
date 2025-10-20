@@ -12,51 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest-1.3
   m_EditorClassIdentifier: 
-  questName: Pengantar Sayuran ke toko
-  questInfo: Bicara Dengan NyiSekar
-  DeskripsiAwal: 'Nyi Sekar meminta Jaka untuk Jaka Tarub mengirimkan hasil pertanian
-    ke pasar untuk di jual Berikan '
-  DeskripsiAkhir: ' Untuk menyelesaikan quest ini .'
+  questName: 
+  questInfo: 
+  DeskripsiAwal: 
+  DeskripsiAkhir: 
   startLocateNpcQuest: {x: 0, y: 0}
   finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
-  questProgress: 0
+  questProgress: 1
   questEmoticon:
     emoticonName: 
     emoticonSprite: {fileID: 0}
-  dateToActivate: 10
-  MonthToActivate: 1
-  npcName: Sekar Arum
-  itemRequirements:
-  - itemName: Kubis
-    count: 5
-    quality: 0
-    itemHealth: 0
-  - itemName: Jagung
-    count: 5
-    quality: 0
-    itemHealth: 0
-  - itemName: Wortel
-    count: 5
-    quality: 0
-    itemHealth: 0
-  goldReward: 1000
-  itemRewards:
-  - itemName: BawangMerah
-    count: 5
-    quality: 0
-    itemHealth: 0
-  - itemName: BawangPutih
-    count: 5
-    quality: 0
-    itemHealth: 0
+  dateToActivate: 0
+  MonthToActivate: 0
+  npcName: 
+  itemRequirements: []
+  goldReward: 0
+  itemRewards: []
   NPCItem:
     itemName: 
     count: 0
     quality: 0
     itemHealth: 0
-  startDialogue: {fileID: 11400000, guid: c510249ecc290c94a9af14d0ee2c5e5d, type: 2}
-  finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
+  startDialogue: {fileID: 0}
+  finishDialogue: {fileID: 0}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0

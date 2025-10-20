@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest-1.1
   m_EditorClassIdentifier: 
-  questName: Tutorial Menanam Tanaman
-  questInfo: Bicara Dengan Mbok Milah
-  DeskripsiAwal: Bantu Jaka Tarub belajar bertani bersama Mbok Rini. Mulai dari menggemburkan
-    tanah, menanam benih padi, hingga menyiram tanaman dengan telaten. Ikuti petunjuk
-    Mbok Rini untuk merawat kebun agar subur. Berikan
-  DeskripsiAkhir: ' Untuk menyelesaikan quest ini .'
+  questName: tutorial menanam padi
+  questInfo: 'ayo menanam padi '
+  DeskripsiAwal: 
+  DeskripsiAkhir: 
   startLocateNpcQuest: {x: 0, y: 0}
   finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
@@ -33,14 +31,10 @@ MonoBehaviour:
     count: 10
     quality: 0
     itemHealth: 0
-  goldReward: 200
+  goldReward: 0
   itemRewards:
-  - itemName: BenihKubis
-    count: 5
-    quality: 0
-    itemHealth: 0
-  - itemName: BenihPadi
-    count: 5
+  - itemName: jagung
+    count: 10
     quality: 0
     itemHealth: 0
   NPCItem:
@@ -48,8 +42,8 @@ MonoBehaviour:
     count: 0
     quality: 0
     itemHealth: 0
-  startDialogue: {fileID: 11400000, guid: 91485e6417e32c24f8c5b0c9d41a0835, type: 2}
-  finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
+  startDialogue: {fileID: 0}
+  finishDialogue: {fileID: 0}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0

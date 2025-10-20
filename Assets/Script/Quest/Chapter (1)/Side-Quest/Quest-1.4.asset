@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest-1.4
   m_EditorClassIdentifier: 
-  questName: Perangkap Hewan
-  questInfo: Bicara Dengan Mas Darmaji
-  DeskripsiAwal: Mas Darmaji meminta beberapa bahan untuk membuat perangkap hewan.
-    Berikan
-  DeskripsiAkhir: ' Untuk menyelesaikan quest ini .'
+  questName: 
+  questInfo: 
+  DeskripsiAwal: 
+  DeskripsiAkhir: 
   startLocateNpcQuest: {x: 0, y: 0}
   finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
@@ -24,39 +23,19 @@ MonoBehaviour:
   questEmoticon:
     emoticonName: 
     emoticonSprite: {fileID: 0}
-  dateToActivate: 15
-  MonthToActivate: 1
+  dateToActivate: 0
+  MonthToActivate: 0
   npcName: 
-  itemRequirements:
-  - itemName: Kayu
-    count: 5
-    quality: 0
-    itemHealth: 0
-  - itemName: IronIngot
-    count: 5
-    quality: 0
-    itemHealth: 0
-  - itemName: Wortel
-    count: 5
-    quality: 0
-    itemHealth: 0
-  goldReward: 500
-  itemRewards:
-  - itemName: DaunBawang
-    count: 6
-    quality: 0
-    itemHealth: 0
-  - itemName: Mentimun
-    count: 5
-    quality: 0
-    itemHealth: 0
+  itemRequirements: []
+  goldReward: 0
+  itemRewards: []
   NPCItem:
     itemName: 
     count: 0
     quality: 0
     itemHealth: 0
-  startDialogue: {fileID: 11400000, guid: 17242be63b94ab748997b6850fdd669d, type: 2}
-  finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
+  startDialogue: {fileID: 0}
+  finishDialogue: {fileID: 0}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0

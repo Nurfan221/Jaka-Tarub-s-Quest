@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO; // Penting untuk operasi file
 using System.Linq;
+using JetBrains.Annotations;
 using NUnit.Framework.Interfaces;
 using TMPro;
 using Unity.VisualScripting;
@@ -27,7 +28,8 @@ public class QuestManager : MonoBehaviour
 
     [Header("Status Quest Pemain")]
     // List ini akan melacak semua quest (side quest) yang sedang aktif atau sudah selesai.
-    public List<PlayerQuestStatus> questLog = new List<PlayerQuestStatus>();
+    //public List<PlayerQuestStatus> questLog = new List<PlayerQuestStatus>();
+    public List<ChapterQuestActiveDatabase> questActive = new List<ChapterQuestActiveDatabase>();
 
 
     // Event ini akan memberitahu UI atau sistem lain jika ada pembaruan pada log quest.
@@ -46,8 +48,7 @@ public class QuestManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
-            LoadQuests(); // Panggil Load saat Awake
-            LoadMainQuest();
+
         }
     }
 
@@ -69,6 +70,7 @@ public class QuestManager : MonoBehaviour
     {
         //StartMainQuest(pendingMainQuest);
         CheckForNewQuests();
+
 
     }
 
@@ -110,24 +112,97 @@ public class QuestManager : MonoBehaviour
             }
         }
     }
+    public bool IsQuestInLog(string questName)
+    {
+        return questActive.SelectMany(chapter => chapter.sideQuests)
+                          .Any(quest => quest.questName == questName);
+    }
 
 
+    public void AddQuestActivetoList(TemplateQuest questCopy, int chapterID, string chapterName)
+    {
+        //  Cari tahu apakah chapter ini sudah ada di dalam list quest aktif.
+        ChapterQuestActiveDatabase existingChapter = null;
+        foreach (var chapter in questActive)
+        {
+            if (chapter.chapterID == chapterID)
+            {
+                existingChapter = chapter;
+                break; // Ditemukan, hentikan pencarian
+            }
+        }
+
+        //  Jika chapter SUDAH ADA...
+        if (existingChapter != null)
+        {
+            Debug.Log($"Chapter {chapterID} sudah ada. Menambahkan quest '{questCopy.questName}' ke dalamnya.");
+            // Cukup tambahkan quest baru ke dalam list sideQuests di chapter yang sudah ada.
+            existingChapter.sideQuests.Add(questCopy);
+        }
+        // Jika chapter BELUM ADA...
+        else
+        {
+            Debug.Log($"Chapter {chapterID} belum ada. Membuat entri baru untuk chapter ini.");
+            // Buat objek chapter BARU.
+            ChapterQuestActiveDatabase newChapter = new ChapterQuestActiveDatabase();
+            newChapter.chapterID = chapterID;
+            newChapter.chapterName = chapterName;
+            // PENTING: Inisialisasi list sideQuests sebelum digunakan!
+            newChapter.sideQuests = new List<TemplateQuest>();
+
+            // Tambahkan quest pertama ke chapter baru ini.
+            newChapter.sideQuests.Add(questCopy);
+
+            // DAN YANG PALING PENTING: Tambahkan chapter baru ini ke list utama `questActive`.
+            questActive.Add(newChapter);
+        }
+    }
 
     // Mengaktifkan sebuah quest dan menambahkannya ke log pemain.
     public void ActivateQuest(QuestSO questToActivate)
     {
+        var template = questToActivate;
+        Debug.Log($"Mengaktifkan Side Quest: {template.questName}");
+
+        ChapterSO parentChapter = FindChapterForQuest(questToActivate);
+
+        // Tambahkan blok 'else' untuk penanganan error
+        if (parentChapter != null)
+        {
+            TemplateQuest newActiveQuest = new TemplateQuest(questToActivate);
+
+            // Tambahkan salinan baru ini ke list `questActive`
+            AddQuestActivetoList(newActiveQuest, parentChapter.chapterID, parentChapter.chapterName);
+        }
+        else
+        {
+            Debug.LogError($"GAGAL AKTIVASI: Quest '{template.questName}' tidak terdaftar di ChapterSO manapun! Periksa database 'allChapters'.");
+            return; // Hentikan aktivasi jika chapter tidak ditemukan
+        }
         Debug.Log($"Mengaktifkan Side Quest: {questToActivate.questName}");
 
         // Buat data status baru untuk quest ini
-        PlayerQuestStatus newQuestStatus = new PlayerQuestStatus(questToActivate);
-        NPCBehavior npcTargetQuest = NPCManager.Instance.GetActiveNpcByName(newQuestStatus.Quest.npcName);
-        questLog.Add(newQuestStatus);
-        if (newQuestStatus.Quest.isSpawner)
+        NPCBehavior npcTargetQuest = NPCManager.Instance.GetActiveNpcByName(questToActivate.npcName);
+
+
+
+        if (parentChapter != null)
+        {
+            //    perubahan di masa depan tidak mempengaruhi aset aslinya.
+            TemplateQuest questCopy = new TemplateQuest(template); // Butuh constructor penyalinan
+
+            // Panggil fungsi baru kita untuk menambahkan salinan ini ke list `questActive`.
+            AddQuestActivetoList(questCopy, parentChapter.chapterID, parentChapter.chapterName);
+        }
+        if (questToActivate.isSpawner)
         {
             Debug.Log("mengaktifkan spawner SpawnerQuest1_6");
-            SpawnerManager.Instance.HandleSpawnerActive(newQuestStatus.Quest.spawnerToActivate);
+            SpawnerManager.Instance.HandleSpawnerActive(questToActivate.spawnerToActivate);
         }
-        if (newQuestStatus.Quest.isNPCItem)
+
+
+
+        if (questToActivate.isNPCItem)
         {
             Debug.Log("mengaktifkan NPCItem");
             //Panggil fungsi dari NPCManager untuk mencari Jhorgeo di daftar NPC aktif.
@@ -139,22 +214,22 @@ public class QuestManager : MonoBehaviour
             {
                 // Jika ditemukan, Anda sekarang memiliki akses penuh ke komponen NPCBehavior-nya
                 //    dan bisa memanggil semua metode publiknya.
-                Debug.Log($"NPC {newQuestStatus.Quest.npcName} ditemukan! Memberi perintah untuk pindah...");
+                Debug.Log($"NPC {questToActivate.npcName} ditemukan! Memberi perintah untuk pindah...");
 
 
-                npcTargetQuest.transform.position = newQuestStatus.Quest.startLocateNpcQuest;
+                npcTargetQuest.transform.position = questToActivate.startLocateNpcQuest;
                 // Panggil metode yang sudah kita siapkan di NPCBehavior
-                npcTargetQuest.OverrideForQuest(newQuestStatus.Quest.startLocateNpcQuest, newQuestStatus.Quest.finishLocateNpcQuest, newQuestStatus.Quest.startDialogue, "Peringatan");
-                npcTargetQuest.itemQuestToGive = newQuestStatus.Quest.NPCItem;
+                npcTargetQuest.OverrideForQuest(questToActivate.startLocateNpcQuest, questToActivate.finishLocateNpcQuest, questToActivate.startDialogue, "Peringatan");
+                npcTargetQuest.itemQuestToGive = questToActivate.NPCItem;
                 npcTargetQuest.isGivenItemForQuest = true;
                 Debug.Log("itemQuestToGive" + npcTargetQuest.itemQuestToGive.itemName + "jumlah item : " + npcTargetQuest.itemQuestToGive.ToString());
             }
             else
             {
-                Debug.LogError($"Gagal memberi perintah: NPC aktif bernama {newQuestStatus.Quest.npcName} tidak ditemukan!");
+                Debug.LogError($"Gagal memberi perintah: NPC aktif bernama {questToActivate.npcName} tidak ditemukan!");
             }
         }
-        NPCManager.Instance.AddDialogueForNPCQuest(newQuestStatus.Quest.npcName, newQuestStatus.Quest.startDialogue);
+        NPCManager.Instance.AddDialogueForNPCQuest(questToActivate.npcName, questToActivate.startDialogue);
         // Siarkan event agar UI bisa memperbarui tampilannya
         //OnQuestLogUpdated?.Invoke();
         CreateTemplateQuest();
@@ -162,20 +237,8 @@ public class QuestManager : MonoBehaviour
     }
     // Fungsi helper untuk mengecek apakah sebuah quest sudah ada di log.
 
-    public bool IsQuestInLog(string questName)
-    {
-        return questLog.Any(q => q.Quest.questName == questName);
-    }
 
-    // Fungsi untuk mendapatkan status quest yang aktif untuk NPC tertentu.
 
-    public PlayerQuestStatus GetActiveQuestForNPC(string npcName)
-    {
-        return questLog.FirstOrDefault(q =>
-            q.Quest.npcName == npcName &&
-            q.Progress == QuestProgress.Accepted
-        );
-    }
 
     public PlayerMainQuestStatus GetActiveMainQuestStatus(string npcName)
     {
@@ -197,133 +260,112 @@ public class QuestManager : MonoBehaviour
     }
 
     // Mengembalikan TRUE jika item berhasil diproses oleh Main Quest ATAU Side Quest
-    private void CheckIfQuestIsComplete(PlayerQuestStatus questStatus)
+    private void CheckIfQuestIsComplete(TemplateQuest questStatus)
     {
-        // Cek apakah quest valid
-        if (questStatus == null || questStatus.Progress != QuestProgress.Accepted)
-        {
-            return;
-        }
 
-        bool allRequirementsMet = true;
-        // Pastikan questStatus.Quest dan itemRequirements tidak null
-        if (questStatus.Quest != null && questStatus.Quest.itemRequirements != null)
-        {
-            foreach (var requirement in questStatus.Quest.itemRequirements)
-            {
-                // Pastikan itemProgress mengandung kunci ini sebelum mengaksesnya
-                if (!questStatus.itemProgress.ContainsKey(requirement.itemName) || questStatus.itemProgress[requirement.itemName] < requirement.count)
-                {
-                    allRequirementsMet = false;
-                    break;
-                }
-            }
-        }
-        else
-        {
-            allRequirementsMet = false; // Jika tidak ada definisi quest atau itemRequirements
-        }
+        bool allRequirementsMet = questStatus.itemRequirements.All(item => item.count <= 0);
 
-
-        // JIKA SEMUA SYARAT TERPENUHI...
         if (allRequirementsMet)
         {
-            Debug.Log($"Side Quest '{questStatus.Quest.questName}' TELAH TERPENUHI!");
-            // Biarkan QuestManager yang mengurus sisanya (dialog, hadiah, save).
-            // Pastikan fungsi CompleteQuest ini ada dan menangani Side Quest
+            Debug.Log($"Quest '{questStatus.questName}' TELAH SELESAI!");
+            questStatus.questProgress = QuestProgress.Completed;
             CompleteQuest(questStatus);
         }
         else
         {
             // Jika belum selesai, Anda bisa memicu dialog "pengingat" di sini
-            Debug.Log($"Side Quest '{questStatus.Quest.questName}' belum selesai, masih ada item yang dibutuhkan.");
+            Debug.Log($"Side Quest '{questStatus.questName}' belum selesai, masih ada item yang dibutuhkan.");
         }
+
+
+       
     }
 
-    public bool ProcessItemGivenToNPC(ItemData givenItemData, string npcName)
+    public int ProcessItemGivenToNPC(ItemData givenItemData, string npcName)
     {
-        Debug.Log($"QuestManager: Menerima item '{givenItemData.itemName}' dari '{npcName}' untuk diproses.");
+        //  Temukan quest aktif yang relevan.
+        TemplateQuest questUse = GetQuestForGiveItem(givenItemData.itemName, npcName);
 
-        //Logika pengecekan MainQuest
-        PlayerMainQuestStatus currentMainQuestStatus = GetActiveMainQuestStatus(npcName);
-        if (currentMainQuestStatus != null && currentMainQuestStatus.CurrentStateName == "ProsesToGiveItem")
+        if (questUse != null)
         {
-            if (currentMainQuestStatus.MainQuestDefinition != null &&
-                currentMainQuestStatus.MainQuestDefinition.namaNpcQuest.Equals(npcName, StringComparison.OrdinalIgnoreCase))
-            {
-                if (activeMainQuestController != null)
-                {
-                    // TryProcessGivenItem di MainQuestController sudah memiliki logika pengecekan kelengkapan item
-                    // dan memajukan state quest jika semua item terpenuhi.
-                    bool processedByMainQuest = activeMainQuestController.TryProcessGivenItem(givenItemData);
-                    if (processedByMainQuest)
-                    {
-                        Debug.Log($"QuestManager: Item '{givenItemData.itemName}' berhasil diproses oleh Main Quest.");
-                        return true;
-                    }
-                    else
-                    {
-                        Debug.Log($"QuestManager: Item '{givenItemData.itemName}' tidak sepenuhnya diproses oleh Main Quest (mungkin sudah cukup atau tidak relevan untuk state saat ini).");
-                    }
-                }
-            }
-        }
-
-        //logika pengecekan untuk sideQuest 
-        PlayerQuestStatus activeSideQuestStatus = GetActiveQuestForNPC(npcName);
-        if (activeSideQuestStatus != null)
-        {
-            ItemData requiredSideItem = activeSideQuestStatus.Quest.itemRequirements
+            //  Temukan item spesifik di dalam daftar persyaratan quest tersebut.
+            ItemData requirementToUpdate = questUse.itemRequirements
                 .FirstOrDefault(req => req.itemName.Equals(givenItemData.itemName, StringComparison.OrdinalIgnoreCase));
 
-            if (requiredSideItem != null)
+            // Pastikan kita menemukan itemnya dan masih ada yang dibutuhkan (count > 0)
+            if (requirementToUpdate != null && requirementToUpdate.count > 0)
             {
-                int currentProgressSide = activeSideQuestStatus.itemProgress.ContainsKey(givenItemData.itemName) ? activeSideQuestStatus.itemProgress[givenItemData.itemName] : 0;
-                int neededSide = requiredSideItem.count - currentProgressSide;
+                //  Tentukan berapa banyak yang bisa diberikan.
+                int amountToGive = Mathf.Min(givenItemData.count, requirementToUpdate.count);
 
-                if (neededSide > 0)
+                if (amountToGive > 0)
                 {
-                    int amountToGiveSide = Mathf.Min(givenItemData.count, neededSide);
-                    givenItemData.count -= amountToGiveSide;
+                    //   Langsung kurangi jumlah yang dibutuhkan di dalam salinan quest.
+                    requirementToUpdate.count -= amountToGive;
 
-                    if (amountToGiveSide > 0)
-                    {
-                        activeSideQuestStatus.itemProgress[givenItemData.itemName] += amountToGiveSide;
-                        // givenItemData.count -= amountToGiveSide; // Pengurangan item diinventaris dilakukan di NPCBehavior setelah ini.
-                        // Kurangi item dari inventaris pemain
+                    Debug.Log($"Quest '{questUse.questName}': Menerima {amountToGive} {givenItemData.itemName}. Sisa yang dibutuhkan: {requirementToUpdate.count}");
 
-                        Debug.Log($"QuestManager: Item '{givenItemData.itemName}' berhasil diproses oleh Side Quest.");
+                    //  Kurangi item dari inventaris pemain.
+                    //InventoryManager.Instance.RemoveItem(givenItemData.itemName, amountToGive);
 
-                        CheckIfQuestIsComplete(activeSideQuestStatus);
+                    //  Cek apakah quest sudah selesai.
+                    CheckIfQuestIsComplete(questUse);
 
-                        return true; // Side Quest berhasil memprosesnya
-                    }
+                    return amountToGive; // Item berhasil diproses
                 }
             }
         }
 
         Debug.Log($"QuestManager: Item '{givenItemData.itemName}' tidak diproses oleh quest manapun.");
-        return false; // Tidak ada quest yang memproses item ini
+        return 0;
+    }
+
+    public TemplateQuest GetQuestForGiveItem(string itemName, string npcName)
+    {
+        foreach (var chapter in questActive)
+        {
+            foreach (var sideQuest in chapter.sideQuests)
+            {
+                if (sideQuest.questProgress == QuestProgress.Accepted && sideQuest.npcName == npcName)
+                {
+                    // Cek apakah quest ini membutuhkan item tersebut
+                    if (sideQuest.itemRequirements.Any(req => req.itemName == itemName))
+                    {
+                        Debug.Log($"Quest '{sideQuest.questName}' ditemukan dan membutuhkan '{itemName}'.");
+                        return sideQuest;
+                    }
+                }
+            }
+        }
+
+        // Pindahkan Debug.Log sebelum return
+        Debug.Log($"Tidak ada Side Quest aktif untuk NPC '{npcName}' yang membutuhkan item '{itemName}'.");
+        return null;
     }
 
     public void UpdateCleanupQuest(string nameObject, EnvironmentType environmentType)
     {
-        foreach(var quest in questLog)
+        foreach (var chapter in questActive)
         {
-            if (quest.Quest.isTheCleanupQuest && quest.Quest.tipeCleanObject == environmentType && !quest.Quest.isTheCleanupObjectDone)
+            // Tidak perlu lagi cek chapterID, karena kita ingin update semua quest aktif
+            foreach (var sideQuest in chapter.sideQuests)
             {
-                quest.Quest.cleanupQuestIndex++;
-                Debug.Log("Jumlah yang sudah di bersihkan" + quest.Quest.cleanupQuestIndex);
-
-                if (quest.Quest.objectToClean == nameObject)
+                if (sideQuest.isTheCleanupQuest && sideQuest.questProgress == QuestProgress.Accepted)
                 {
-                    quest.Quest.isTheCleanupObjectDone = true;
-                    Debug.Log("Object sudah di bersihkan" + quest.Quest.isTheCleanupObjectDone);
-                }
+                    if (sideQuest.objectToClean == nameObject && sideQuest.tipeCleanObject == environmentType)
+                    {
+                        sideQuest.cleanupQuestTotal += 1;
+                        Debug.Log($"Progres pembersihan untuk '{sideQuest.questName}' diperbarui. Total: {sideQuest.cleanupQuestTotal}/{sideQuest.cleanupQuestIndex}");
 
-                if (quest.Quest.cleanupQuestIndex == quest.Quest.cleanupQuestTotal && quest.Quest.isTheCleanupObjectDone)
-                {
-                    Debug.Log("Quest membersihkan sudah selesai");
+                        if (sideQuest.cleanupQuestTotal >= sideQuest.cleanupQuestIndex)
+                        {
+                            sideQuest.isTheCleanupObjectDone = true;
+                            Debug.Log($"Target pembersihan untuk '{sideQuest.questName}' telah selesai.");
+
+                            // PENTING: Panggil fungsi CompleteQuest di sini!
+                            CompleteQuest(sideQuest);
+                        }
+                    }
                 }
             }
         }
@@ -343,13 +385,15 @@ public class QuestManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (var questStatus in questLog)
+        foreach (var questStatus in questActive)
         {
             // Tampilkan hanya jika belum selesai
-            if (questStatus.Progress != QuestProgress.Completed)
+           foreach(var sideQuest in questStatus.sideQuests)
             {
-                // Buat sebuah fungsi helper untuk menghindari duplikasi kode
-                InstantiateQuestUI(questStatus.Quest.questName, questStatus.Quest.questInfo);
+                if (sideQuest.questProgress != QuestProgress.Completed)
+                {
+                    InstantiateQuestUI(sideQuest.questName, sideQuest.questInfo);
+                }
             }
         }
 
@@ -384,46 +428,33 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public void UpdateQuestProgress(string questName, string itemName, int amount)
-    {
-        PlayerQuestStatus questStatus = questLog.FirstOrDefault(q => q.Quest.questName == questName && q.Progress == QuestProgress.Accepted);
-
-        if (questStatus != null)
-        {
-            if (questStatus.itemProgress.ContainsKey(itemName))
-            {
-                questStatus.itemProgress[itemName] += amount;
-                Debug.Log($"Progres untuk item {itemName} di quest {questName} diperbarui.");
-                // Di sini Anda bisa memanggil fungsi untuk cek penyelesaian quest
-            }
-        }
-    }
+ 
 
     // Fungsi untuk menyelesaikan quest
-    public void CompleteQuest(PlayerQuestStatus questStatus)
+    public void CompleteQuest(TemplateQuest questStatus)
     {
         // Pengecekan keamanan di awal
-        if (questStatus == null || questStatus.Progress != QuestProgress.Accepted) return;
+        if (questStatus == null || questStatus.questProgress != QuestProgress.Accepted) return;
 
 
-        questStatus.Progress = QuestProgress.Completed;
-        Debug.Log($"Quest '{questStatus.Quest.questName}' telah selesai!");
+        questStatus.questProgress = QuestProgress.Completed;
+        Debug.Log($"Quest '{questStatus.questName}' telah selesai!");
 
-        GameEconomy.Instance.GainMoney(questStatus.Quest.goldReward);
-        foreach (var item in questStatus.Quest.itemRewards)
+        GameEconomy.Instance.GainMoney(questStatus.goldReward);
+        foreach (var item in questStatus.itemRewards)
         {
             ItemPool.Instance.AddItem(item);
         }
 
-        NPCBehavior behavior = NPCManager.Instance.GetActiveNpcByName(questStatus.Quest.npcName);
+        NPCBehavior behavior = NPCManager.Instance.GetActiveNpcByName(questStatus.npcName);
         behavior.emoticonTransform.gameObject.SetActive(false);
         // (Tambahkan logika untuk memberi item reward di sini jika ada)
 
         // Pastikan referensi DialogueSystem ada dan benar
-        if (questStatus.Quest.finishDialogue != null)
+        if (questStatus.finishDialogue != null)
         {
-            DialogueSystem.Instance.npcName = questStatus.Quest.npcName;
-            DialogueSystem.Instance.theDialogues = questStatus.Quest.finishDialogue;
+            DialogueSystem.Instance.npcName = questStatus.npcName;
+            DialogueSystem.Instance.theDialogues = questStatus.finishDialogue;
             DialogueSystem.Instance.StartDialogue();
         }
 
@@ -432,44 +463,17 @@ public class QuestManager : MonoBehaviour
 
         //SaveQuests();
 
-        ChapterSO parentChapter = FindChapterForQuest(questStatus.Quest);
-        if (parentChapter != null && AreAllSideQuestsComplete(parentChapter))
-        {
-            if (parentChapter.mainQuest != null)
-            {
-                SetNextMainQuest(parentChapter.mainQuest);
-            }
-        }
+        //ChapterSO parentChapter = FindChapterForQuest(questStatus.Quest);
+        //if (parentChapter != null && AreAllSideQuestsComplete(parentChapter))
+        //{
+        //    if (parentChapter.mainQuest != null)
+        //    {
+        //        SetNextMainQuest(parentChapter.mainQuest);
+        //    }
+        //}
     }
 
-    public void ComplateMainQuest(PlayerMainQuestStatus mainQuestStatus)
-    {
-        // Pengecekan keamanan di awal
-        if (mainQuestStatus == null || mainQuestStatus.Progress != QuestProgress.Accepted) return;
-
-
-        mainQuestStatus.Progress = QuestProgress.Completed;
-        Debug.Log($"Quest '{mainQuestStatus.MainQuestDefinition.questName}' telah selesai!");
-
-        //GameEconomy.Instance.GainMoney(mainQuestStatus.MainQuestDefinition.goldReward);
-        CreateTemplateQuest();
-        // (Tambahkan logika untuk memberi item reward di sini jika ada)
-
-        // Pastikan referensi DialogueSystem ada dan benar
-        if (mainQuestStatus.MainQuestDefinition.finishDialogue != null)
-        {
-            DialogueSystem.Instance.npcName = mainQuestStatus.MainQuestDefinition.namaNpcQuest;
-            DialogueSystem.Instance.theDialogues = mainQuestStatus.MainQuestDefinition.finishDialogue;
-            DialogueSystem.Instance.StartDialogue();
-        }
-
-        CreateTemplateQuest();
-
-        SaveQuests();
-
-
-    }
-
+   
     // Fungsi bantuan untuk menemukan chapter dari sebuah quest.
     private ChapterSO FindChapterForQuest(QuestSO questToFind)
     {
@@ -485,229 +489,7 @@ public class QuestManager : MonoBehaviour
         return null; // Jika tidak ditemukan
     }
 
-    private string GetSavePath()
-    {
-        // Application.persistentDataPath adalah folder aman di setiap platform (PC, Android, iOS)
-        // untuk menyimpan data game.
-        return Path.Combine(Application.persistentDataPath, "questprogress.json");
-    }
-
-    public void SaveQuests()
-    {
-        // Kumpulkan data side quest
-        List<QuestSaveData> saveDataList = new List<QuestSaveData>();
-        foreach (var questStatus in questLog)
-        {
-            saveDataList.Add(new QuestSaveData(questStatus));
-        }
-
-        // Buat objek save data yang lengkap
-        QuestManagerSaveData managerSaveData = new QuestManagerSaveData();
-        managerSaveData.currentChapterQuestIndex = this.currentChapterQuestIndex;
-        managerSaveData.sideQuests = saveDataList;
-
-        // Ubah objek menjadi JSON
-        string json = JsonUtility.ToJson(managerSaveData, true);
-
-        // Tulis ke file
-        File.WriteAllText(GetSavePath(), json);
-        Debug.Log("Progres quest berhasil disimpan!");
-    }
-
-
-
-    // Di dalam QuestManager.cs
-    public void LoadQuests()
-    {
-        string path = GetSavePath();
-        if (File.Exists(path))
-        {
-            string json = File.ReadAllText(path);
-            QuestManagerSaveData loadedData = JsonUtility.FromJson<QuestManagerSaveData>(json);
-
-            if (loadedData != null)
-            {
-                // Muat nilai currentChapterQuestIndex
-                this.currentChapterQuestIndex = loadedData.currentChapterQuestIndex;
-
-                // Muat kembali questLog
-                questLog.Clear();
-                foreach (var saveData in loadedData.sideQuests)
-                {
-                    QuestSO questSO = FindQuestSOByName(saveData.questName);
-                    if (questSO != null)
-                    {
-                        PlayerQuestStatus status = new PlayerQuestStatus(questSO);
-                        status.Progress = saveData.progress;
-                        status.itemProgress = new Dictionary<string, int>();
-
-                        for (int i = 0; i < saveData.itemProgressKeys.Count; i++)
-                        {
-                            string key = saveData.itemProgressKeys[i];
-                            int value = saveData.itemProgressValues[i];
-                            status.itemProgress[key] = value;
-                        }
-                        questLog.Add(status);
-                    }
-                }
-                Debug.Log($"Progres quest berhasil dimuat! Chapter saat ini: {this.currentChapterQuestIndex}");
-            }
-        }
-        CreateTemplateQuest();
-    }
-
-    public void SaveMainQuest()
-    {
-        // Pastikan ada Main Quest aktif yang bisa disimpan
-        if (activePlayerMainQuestStatus == null)
-        {
-            Debug.Log("Tidak ada Main Quest aktif untuk disimpan.");
-            return;
-        }
-
-        MainQuestSaveData mainQuestSaveData = new MainQuestSaveData(activePlayerMainQuestStatus);
-
-        // JsonUtility.ToJson bisa langsung menserialisasi satu objek
-        string json = JsonUtility.ToJson(mainQuestSaveData, true); // 'true' untuk pretty print (mudah dibaca)
-
-        // Application.persistentDataPath adalah lokasi yang aman untuk menyimpan data di berbagai platform
-        string filePath = Application.persistentDataPath + "/mainQuestSave.json"; // Gunakan ekstensi .json
-
-        // Tulis string JSON ke file
-        try
-        {
-            System.IO.File.WriteAllText(filePath, json);
-            Debug.Log($"Main Quest data berhasil disimpan ke: {filePath}");
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Gagal menyimpan Main Quest data: {e.Message}");
-        }
-    }
-    public void LoadMainQuest()
-    {
-        string filePath = Application.persistentDataPath + "/mainQuestSave.json";
-
-        if (!System.IO.File.Exists(filePath))
-        {
-            Debug.LogWarning("File save Main Quest tidak ditemukan. Memulai dari awal.");
-            return;
-        }
-
-        string json = System.IO.File.ReadAllText(filePath);
-        MainQuestSaveData loadedSaveData = JsonUtility.FromJson<MainQuestSaveData>(json);
-
-        if (loadedSaveData == null)
-        {
-            Debug.LogError("Data Main Quest yang dimuat kosong atau tidak valid.");
-            return;
-        }
-
-        Debug.Log($"Data JSON berhasil diparsing. questNameID dari save: '{loadedSaveData.questNameID}'"); // <<< Tambahkan ini
-
-        MainQuestSO foundMainQuestSO = Resources.Load<MainQuestSO>(loadedSaveData.questNameID); // Line 404
-
-        if (foundMainQuestSO == null)
-        {
-            Debug.LogError($"ERROR: MainQuestSO dengan ID '{loadedSaveData.questNameID}' tidak ditemukan saat memuat. Quest tidak dapat dilanjutkan.");
-            return;
-        }
-
-        // Hancurkan controller yang ada jika game sedang berjalan sebelum memuat
-        if (activeMainQuestController != null)
-        {
-            Destroy(activeMainQuestController.gameObject);
-            activeMainQuestController = null;
-        }
-
-        // Instantiate kembali MainQuestController prefab yang sesuai
-        GameObject controllerGO = Instantiate(foundMainQuestSO.questControllerPrefab, this.transform);
-        activeMainQuestController = controllerGO.GetComponent<MainQuestController>();
-
-        if (activeMainQuestController == null)
-        {
-            Debug.LogError($"ERROR: Prefab '{foundMainQuestSO.questControllerPrefab.name}' tidak memiliki komponen MainQuestController.");
-            Destroy(controllerGO);
-            return;
-        }
-
-        // Buat objek PlayerMainQuestStatus baru dari data yang dimuat
-        activePlayerMainQuestStatus = new PlayerMainQuestStatus(foundMainQuestSO); // Inisialisasi dengan definisi SO
-        activePlayerMainQuestStatus.Progress = loadedSaveData.progress;
-        activePlayerMainQuestStatus.CurrentStateName = loadedSaveData.currentStateName;
-        activePlayerMainQuestStatus.itemProgress = loadedSaveData.GetItemProgressDictionary(); // Isi dictionary progres item
-
-        // Panggil StartQuest pada controller yang baru di-spawn, berikan status yang sudah dimuat
-        activeMainQuestController.StartQuest(this, foundMainQuestSO, activePlayerMainQuestStatus);
-
-        Debug.Log($"Main Quest '{activePlayerMainQuestStatus.MainQuestDefinition.questName}' berhasil diinisialisasi ulang ke state '{activePlayerMainQuestStatus.CurrentStateName}'.");
-
-        // Jika Anda punya UI untuk Quest Manager, perbarui di sini
-        // CreateTemplateQuest();
-    }
-
-    public void DeleteSaveData()
-    {
-        Debug.Log("Menghapus file save quest...");
-        string path = GetSavePath();
-
-        if (File.Exists(path))
-        {
-            File.Delete(path);
-            Debug.LogWarning("FILE SAVE QUEST TELAH DIHAPUS!");
-
-            // Kosongkan log yang ada di memori saat ini
-            questLog.Clear();
-
-            // Pastikan Anda sudah menambahkan "using UnityEngine.SceneManagement;" di bagian atas
-            GameController.Instance.PindahKeScene("Village");
-        }
-        else
-        {
-            Debug.Log("Tidak ada file save quest yang ditemukan untuk dihapus.");
-        }
-    }
-
-
-
-    //pengecekan apakah seluruh Side Quest sudah selesai
-    private bool AreAllSideQuestsComplete(ChapterSO chapter)
-    {
-        // Jika chapter ini tidak punya side quest, anggap saja "selesai".
-        if (chapter.sideQuests == null || chapter.sideQuests.Count == 0)
-        {
-            return true;
-        }
-
-        // Gunakan LINQ 'All' untuk memeriksa setiap side quest yang dibutuhkan.
-        // 'All' akan mengembalikan true hanya jika SEMUA elemen memenuhi kondisi.
-        return chapter.sideQuests.All(requiredQuestSO =>
-        {
-            // Untuk setiap 'requiredQuestSO', cari statusnya di dalam 'questLog'.
-            PlayerQuestStatus statusInLog = questLog.FirstOrDefault(status => status.Quest == requiredQuestSO);
-
-            // Kondisinya adalah: statusnya harus ada di log DAN progresnya harus 'Completed'.
-            return statusInLog != null && statusInLog.Progress == QuestProgress.Completed;
-        });
-    }
-
-
-
-    // Fungsi helper untuk mencari QuestSO berdasarkan nama
-    private QuestSO FindQuestSOByName(string name)
-    {
-        foreach (var chapter in allChapters)
-        {
-            foreach (var quest in chapter.sideQuests)
-            {
-                if (quest.questName == name)
-                {
-                    return quest;
-                }
-            }
-        }
-        return null;
-    }
+  
 
     //Logika menjalankan Main Quest
     public void SetNextMainQuest(MainQuestSO mainQuest)

@@ -12,38 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest-1.5
   m_EditorClassIdentifier: 
-  questName: 'Makan malam keluarga '
-  questInfo: Bicara Dengan Mbak Asih
-  DeskripsiAwal: 'Mbak Asih membutuhkan daging rusa dan beberapa rempah untuk membuat
-    makan malam keluarganya. Berikan '
-  DeskripsiAkhir: ' Untuk menyelesaikan quest ini .'
-  locateNpcQuest: {x: 0, y: 0, z: 0}
+  questName: 
+  questInfo: 
+  DeskripsiAwal: 
+  DeskripsiAkhir: 
+  startLocateNpcQuest: {x: 0, y: 0}
+  finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
   questProgress: 1
-  dateToActivate: 20
-  MonthToActivate: 1
+  questEmoticon:
+    emoticonName: 
+    emoticonSprite: {fileID: 0}
+  dateToActivate: 0
+  MonthToActivate: 0
   npcName: 
-  itemRequirements:
-  - itemName: DagingDomba
-    count: 3
+  itemRequirements: []
+  goldReward: 0
+  itemRewards: []
+  NPCItem:
+    itemName: 
+    count: 0
     quality: 0
-  - itemName: Cabai
-    count: 2
-    quality: 0
-  - itemName: Tomat
-    count: 2
-    quality: 0
-  - itemName: Wortel
-    count: 5
-    quality: 0
-  goldReward: 500
-  itemRewards:
-  - itemName: DagingDombaPanggang
-    count: 2
-    quality: 0
-  startDialogue: {fileID: 11400000, guid: cc9f422faa6995a46ab5db5ae39085a6, type: 2}
-  finishDialogue: {fileID: 11400000, guid: f23be557d94f97947a0ee5823fc0265c, type: 2}
+    itemHealth: 0
+  startDialogue: {fileID: 0}
+  finishDialogue: {fileID: 0}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0
+  isNPCItem: 0
   spawnerToActivate: 
+  isTheCleanupQuest: 0
+  cleanupQuestIndex: 0
+  objectToClean: 
+  isTheCleanupObjectDone: 0
+  cleanupQuestTotal: 0
+  tipeCleanObject: 0
