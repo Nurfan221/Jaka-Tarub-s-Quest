@@ -80,7 +80,7 @@ public class TemplateStoneObject
     public TypeObject typeStone;
     public EnvironmentHardnessLevel hardnessLevel;
     public int healthStone;
-    public ItemData[] hasilTambang;
+    public List<ItemData> hasilTambang;
 }
 [System.Serializable]
 public class TemplateStoneActive
@@ -640,8 +640,9 @@ public class DatabaseManager : MonoBehaviour
         return foundStage.stagePrefab;
     }
 
-    public ItemData[] GetHasilTambang(TypeObject typeStone, EnvironmentHardnessLevel environmentHardnessLevel)
+    public List<ItemData> GetHasilTambang(TypeObject typeStone, EnvironmentHardnessLevel environmentHardnessLevel)
     {
+
         foreach (var item in worldStoneDatabase.templateStoneObject)
         {
             if (item.typeStone == typeStone && item.hardnessLevel == environmentHardnessLevel)

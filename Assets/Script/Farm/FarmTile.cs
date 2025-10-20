@@ -128,13 +128,14 @@ public class FarmTile : MonoBehaviour, ISaveable
 
         //Debug.Log("--- Memulai Hari Baru (Tanggal: " + timeManager.date + ")Hujan: " + isRaining);
         if (hoedTilesList == null) return;
-       
-        // Jika hujan, siram semua tile terlebih dahulu
+
+        //Jika hujan, siram semua tile terlebih dahulu
         if (isRaining)
         {
             Debug.Log("Hujan turun! Menyiram semua tanaman...");
             WaterAllHoedTiles();
-        }else
+        }
+        else
         {
             Debug.Log("Hari cerah, tidak ada penyiraman otomatis.");
         }
@@ -256,18 +257,23 @@ public class FarmTile : MonoBehaviour, ISaveable
         Debug.Log("Hujan turun! Menyiram semua tanaman...");
         foreach (var tileData in hoedTilesList)
         {
+            PlantSeed plant = GetPlantAtPosition(tileData.tilePosition)?.GetComponent<PlantSeed>();
+
+            DryOutWateredTile(tileData, plant);
             if (!tileData.watered && !tileData.isInfected)
             {
                 tilemap.SetTile(tileData.tilePosition, databaseManager.wateredTile);
                 tileData.watered = true;
                 tileData.hoedTime = timeManager.date; // Update waktu siram
 
-                PlantSeed plant = GetPlantAtPosition(tileData.tilePosition)?.GetComponent<PlantSeed>();
                 if (plant != null && !plant.isInfected && !plant.isReadyToHarvest)
                 {
                     plant.isWatered = true;
                     plant.UpdateParticleEffect();
                 }
+            }else
+            {
+                Debug.Log($"[DEBUG] Melewati tile di {tileData.tilePosition}: Sudah disiram atau terinfeksi.");
             }
         }
     }
@@ -404,12 +410,14 @@ public class FarmTile : MonoBehaviour, ISaveable
                     GameObject plantObject = Instantiate(plantPrefab, spawnPosition, Quaternion.identity, MainEnvironmentManager.Instance.plantContainer.transform);
                     plantObject.name = "Tanaman " + itemTemplate.itemDropName; // Memberi nama pada objek tanaman yang diinst
                     PlantInteractable plantInteractable = plantObject.GetComponent<PlantInteractable>();
-                    plantInteractable.promptMessage = tileData.plantID;
+                    plantInteractable.promptMessage = "Tanaman" + tileData.plantSeedItem.seedType;
                     PlantSeed seedComponent = plantObject.GetComponent<PlantSeed>();
                     if (seedComponent != null)
                     {
                         // Setup data tanaman
-                        seedComponent.namaSeed = tileData.plantID;
+                        seedComponent.UniqueID = tileData.plantID;
+                        seedComponent.namaSeed = "Tanaman" + tileData.plantSeedItem.seedType;
+                        seedComponent.gameObject.name = tileData.plantID;
                         seedComponent.dropItem = itemTemplate.itemDropName;
                         seedComponent.growthImages = itemTemplate.growthImages;
                         seedComponent.growthTime = itemTemplate.growthTime;
@@ -428,12 +436,25 @@ public class FarmTile : MonoBehaviour, ISaveable
 
                     if (tileData.currentStage == GrowthStage.ReadyToHarvest)
                     {
-                        plantInteractable.promptMessage = "Panen " + tileData.plantID;
+                        seedComponent.isReadyToHarvest = true;
+                        plantInteractable.promptMessage = "Panen " + tileData.plantSeedItem.seedType;
                     }
 
                     activePlants[tileData.tilePosition] = plantObject;
                 }
             }
+        }
+    }
+
+    public void HandlePlacePestisida(string id)
+    {
+        Debug.Log($"Menggunakan pestisida pada tanaman dengan id {id}.");
+        HoedTileData tileData = hoedTilesList.Find(t => t.plantID == id);
+        if (tileData != null)
+        {
+            Debug.Log($"Berhasil Menggunakan pestisida pada tanaman dengan id {id}.");
+            tileData.isInfected = false;
+
         }
     }
 }

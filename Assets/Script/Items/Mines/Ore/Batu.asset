@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Batu
   m_EditorClassIdentifier: 
-  itemID: 49
+  itemID: 50
   itemName: Batu
   quality: 0
   types: 0
@@ -31,6 +31,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 1
@@ -46,8 +47,8 @@ MonoBehaviour:
   SellValue: 2
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 7562009284141931606, guid: d4cee6a55e1fb82438aa6521e6a8e45c, type: 3}
+  itemDropName: Batu
+  namePrefab: Batu
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 7562009284141931606, guid: d4cee6a55e1fb82438aa6521e6a8e45c, type: 3}
+  seedType: 0

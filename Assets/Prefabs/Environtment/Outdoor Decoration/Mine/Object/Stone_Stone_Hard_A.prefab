@@ -80,8 +80,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: 8634735989486108777, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
+  m_SortingOrder: 4
+  m_Sprite: {fileID: 6161726829266164557, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,23 +106,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueID: 
   itemDropMines:
-  - itemName: 
-    count: 0
+  - itemName: Batu
+    count: 1
     quality: 0
     itemHealth: 0
-  - itemName: 
-    count: 0
+  - itemName: CoalOre
+    count: 1
     quality: 0
     itemHealth: 0
-  - itemName: 
-    count: 0
+  - itemName: CopperOre
+    count: 1
     quality: 0
     itemHealth: 0
-  - itemName: 
-    count: 0
-    quality: 0
-    itemHealth: 0
-  hitEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 2952636132394193548}
   nameStone: Stone_Stone_Hard_A
   stoneType: 2
   environmentHardnessLevel: 3
@@ -136,12 +132,27 @@ MonoBehaviour:
   - {fileID: 788949051, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
   - {fileID: -86480837, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
   frameRate: 0.1
-  minHasil: 0
-  maxHasil: 0
-  health: 100
-  dayLuck: 0
+  minHasil: 4
+  maxHasil: 5
+  health: 20
   isLucky: 0
   dayToRespawn: 0
+  maxRareDropsLimit: 2
+  commonTierItems:
+  - itemName: Batu
+    count: 1
+    quality: 0
+    itemHealth: 0
+  uncommonTierItems: []
+  rareTierItems:
+  - itemName: CoalOre
+    count: 1
+    quality: 0
+    itemHealth: 0
+  - itemName: CopperOre
+    count: 1
+    quality: 0
+    itemHealth: 0
 --- !u!61 &648529286410309539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -355,6 +366,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}
+--- !u!198 &2952636132394193548 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5469221150697445964, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}
+  m_PrefabInstance: {fileID: 7142512488000063680}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6078143492605226984 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3983057899602519848, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}

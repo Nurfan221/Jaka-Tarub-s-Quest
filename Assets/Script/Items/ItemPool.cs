@@ -109,7 +109,7 @@ public class ItemPool : MonoBehaviour
             // dan suruh ia berhenti setelah 1.0 detik.
             if (interactable != null)
             {
-                interactable.StartCoroutine(interactable.FreezeAfterDelay(0.4f));
+                interactable.StartCoroutine(interactable.FreezeAfterDelay(0.3f));
             }
         }
     }

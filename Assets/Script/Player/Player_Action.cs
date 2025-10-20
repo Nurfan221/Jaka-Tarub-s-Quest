@@ -534,7 +534,7 @@ public class Player_Action : MonoBehaviour
                         // Ambil arah dari posisi face
                         faceDirection = face.localPosition.normalized;
                         PlayActionAnimation(itemToAttack.itemName);
-                        //ActivateHitboxAndPlayAction(itemToAttack.itemName, 0, 0.5f, true);
+                        ActivateHitboxAndPlayAction(itemToAttack.itemName, 0, 0.5f, true);
                         FarmTile.Instance.WaterTile(playerPosition, faceDirection);
                         //farmTile.HoeTile(playerPosition, faceDirection);
                     }

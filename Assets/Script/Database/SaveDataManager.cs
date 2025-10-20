@@ -138,7 +138,17 @@ public class SaveDataManager : MonoBehaviour
                 if (storage.CaptureState() is StorageSaveData storageData)
                 {
                     storageData.id = storage.uniqueID;
-                    saveData.savedStorages.Add(storageData);
+                    foreach (var item in saveData.savedStorages)
+                    {
+                        if (item.id == storageData.id)
+                        {
+                            item.itemsInStorage.Clear();
+                            item.itemsInStorage.AddRange(storageData.itemsInStorage);
+                        }else
+                        {
+                            saveData.savedStorages.Add(storageData);
+                        }
+                    }
                 }
             }else if (saveable is BatuManager stone)
             {

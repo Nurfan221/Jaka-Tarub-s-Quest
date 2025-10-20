@@ -80,8 +80,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: 6403163858679429358, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
+  m_SortingOrder: 4
+  m_Sprite: {fileID: 1451376041264858180, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,23 +106,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueID: 
   itemDropMines:
-  - itemName: 
-    count: 0
+  - itemName: Batu
+    count: 1
     quality: 0
     itemHealth: 0
-  - itemName: 
-    count: 0
+  - itemName: CoalOre
+    count: 1
     quality: 0
     itemHealth: 0
-  - itemName: 
-    count: 0
+  - itemName: CopperOre
+    count: 1
     quality: 0
     itemHealth: 0
-  - itemName: 
-    count: 0
+  - itemName: IronOre
+    count: 1
     quality: 0
     itemHealth: 0
-  hitEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 416280218566542200}
   nameStone: Stone_Stone_VeryHard_A
   stoneType: 2
   environmentHardnessLevel: 4
@@ -136,12 +136,31 @@ MonoBehaviour:
   - {fileID: -303902461451481744, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
   - {fileID: -1984176748466978555, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
   frameRate: 0.1
-  minHasil: 0
-  maxHasil: 0
-  health: 100
-  dayLuck: 0
+  minHasil: 4
+  maxHasil: 5
+  health: 20
   isLucky: 0
   dayToRespawn: 0
+  maxRareDropsLimit: 2
+  commonTierItems:
+  - itemName: Batu
+    count: 1
+    quality: 0
+    itemHealth: 0
+  uncommonTierItems:
+  - itemName: CoalOre
+    count: 1
+    quality: 0
+    itemHealth: 0
+  rareTierItems:
+  - itemName: CopperOre
+    count: 1
+    quality: 0
+    itemHealth: 0
+  - itemName: IronOre
+    count: 1
+    quality: 0
+    itemHealth: 0
 --- !u!61 &648529286410309539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -355,6 +374,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}
+--- !u!198 &416280218566542200 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5469221150697445964, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}
+  m_PrefabInstance: {fileID: 5629639240774162740}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8747913528875073052 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3983057899602519848, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}

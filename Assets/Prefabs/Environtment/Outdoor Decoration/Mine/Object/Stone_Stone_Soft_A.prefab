@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 7085373414561553270, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -105,23 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
-  itemDropMines:
-  - itemName: 
-    count: 0
-    quality: 0
-    itemHealth: 0
-  - itemName: 
-    count: 0
-    quality: 0
-    itemHealth: 0
-  - itemName: 
-    count: 0
-    quality: 0
-    itemHealth: 0
-  - itemName: 
-    count: 0
-    quality: 0
-    itemHealth: 0
+  itemDropMines: []
   hitEffectPrefab: {fileID: 0}
   nameStone: Stone_Stone__Soft_A
   stoneType: 2
@@ -136,12 +120,15 @@ MonoBehaviour:
   - {fileID: -1303689804267094122, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
   - {fileID: -8646749081693069554, guid: a2d991687c19b4d48a5435be92cb4209, type: 3}
   frameRate: 0.1
-  minHasil: 0
-  maxHasil: 0
-  health: 100
-  dayLuck: 0
+  minHasil: 1
+  maxHasil: 2
+  health: 20
   isLucky: 0
   dayToRespawn: 0
+  maxRareDropsLimit: 2
+  commonTierItems: []
+  uncommonTierItems: []
+  rareTierItems: []
 --- !u!61 &648529286410309539
 BoxCollider2D:
   m_ObjectHideFlags: 0

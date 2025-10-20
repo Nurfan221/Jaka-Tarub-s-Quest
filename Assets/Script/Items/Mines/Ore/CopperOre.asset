@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: CopperOre
   m_EditorClassIdentifier: 
-  itemID: 50
+  itemID: 51
   itemName: CopperOre
   quality: 0
   types: 0
@@ -31,6 +31,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -46,8 +47,8 @@ MonoBehaviour:
   SellValue: 30
   BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 4459120725376062254, guid: f86b05e5916a77348833bf951d3be7fb, type: 3}
+  itemDropName: CopperOre
+  namePrefab: CopperOre
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 4459120725376062254, guid: f86b05e5916a77348833bf951d3be7fb, type: 3}
+  seedType: 0

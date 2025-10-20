@@ -649,6 +649,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                         plantSeed.isInfected = false;
                         plantSeed.isWatered = false;
+                        FarmTile.Instance.HandlePlacePestisida(plantSeed.UniqueID);
                         plantSeed.UpdateParticleEffect();
 
                         MechanicController.Instance.HandleUpdateInventory();

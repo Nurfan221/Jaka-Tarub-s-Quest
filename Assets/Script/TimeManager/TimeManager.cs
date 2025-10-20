@@ -87,6 +87,7 @@ public class TimeManager : MonoBehaviour, ISaveable
         //AdvanceTime();
         //OnDayChanged?.Invoke(); // Mengirim totalHari ke semua pohon
         //UpdateDay();
+        SetRainChance(currentSeason);
 
     }
 
@@ -98,9 +99,9 @@ public class TimeManager : MonoBehaviour, ISaveable
         var saveData = new TimeSaveData
         {
             // Isi objek tersebut dengan nilai saat ini dari TimeManager
-            totalHari = this.totalHari,
-            hari = this.hari,
-            date = this.date,
+            totalHari = this.totalHari + 1,
+            hari = this.hari + 1,
+            date = this.date + 1,
             minggu = this.minggu,
             bulan = this.bulan,
             tahun = this.tahun

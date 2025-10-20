@@ -368,6 +368,7 @@ public class GameController : MonoBehaviour
         bungaManager.RandomSpawnFlower();
         jamurManager.RandomSpawnJamur();
 
+
     }
 
     // Membangun kembali dunia dari data save yang sudah dimuat.
@@ -408,45 +409,46 @@ public class GameController : MonoBehaviour
         if (batuManager == null) return;
 
         Debug.Log($"[LOAD] Merestorasi state untuk {savedStone.Count} batu...");
+        batuManager.SpawnStonesForDay(TimeManager.Instance.dailyLuck);
 
         // Kita tetap butuh loop ini untuk memastikan semua batu dalam kondisi default (aktif).
         // Cara ini masih lebih aman daripada mengasumsikan semuanya nonaktif.
-        foreach (var group in batuManager.listBatuManager)
-        {
-            foreach (var stoneData in group.listActive)
-            {
-                Transform stoneTransform = batuManager.transform.Find(stoneData.stoneID);
-                if (stoneTransform != null)
-                {
-                    stoneTransform.gameObject.SetActive(true);
-                }
-            }
-        }
+        //foreach (var group in batuManager.listBatuManager)
+        //{
+        //    foreach (var stoneData in group.listActive)
+        //    {
+        //        Transform stoneTransform = batuManager.transform.Find(stoneData.stoneID);
+        //        if (stoneTransform != null)
+        //        {
+        //            stoneTransform.gameObject.SetActive(true);
+        //        }
+        //    }
+        //}
 
-        batuManager.respawnQueue.Clear();
+        //batuManager.respawnQueue.Clear();
 
-        foreach (var savedItem in savedStone)
-        {
-            // CARI CHILD DENGAN NAMA YANG SESUAI DENGAN ID
-            Transform stoneTransform = batuManager.transform.Find(savedItem.id);
-            Debug.Log($"[LOAD] nama stoneTransform" + stoneTransform.gameObject.name);
-            if (stoneTransform != null )
-            {
-                Debug.Log($"[LOAD] Menemukan batu dengan nama/ID: '{savedItem.id}'. Nonaktifkan karena sudah waktunya respawn.");
-                // Jika ditemukan, nonaktifkan GameObject-nya
-                stoneTransform.gameObject.SetActive(false);
-
-                
-            }
-            else
-            {
-                Debug.LogWarning($"[LOAD] Gagal menemukan child object dengan nama/ID: '{savedItem.id}'.");
-            }
-            batuManager.RestoreState(savedItem);
+        //foreach (var savedItem in savedStone)
+        //{
+        //    // CARI CHILD DENGAN NAMA YANG SESUAI DENGAN ID
+        //    Transform stoneTransform = batuManager.transform.Find(savedItem.id);
+        //    Debug.Log($"[LOAD] nama stoneTransform" + stoneTransform.gameObject.name);
+        //    if (stoneTransform != null )
+        //    {
+        //        Debug.Log($"[LOAD] Menemukan batu dengan nama/ID: '{savedItem.id}'. Nonaktifkan karena sudah waktunya respawn.");
+        //        // Jika ditemukan, nonaktifkan GameObject-nya
+        //        stoneTransform.gameObject.SetActive(false);
 
 
+        //    }
+        //    else
+        //    {
+        //        Debug.LogWarning($"[LOAD] Gagal menemukan child object dengan nama/ID: '{savedItem.id}'.");
+        //    }
+        //    batuManager.RestoreState(savedItem);
 
-        }
+
+
+        //}
         Debug.Log("[LOAD] Restorasi state batu selesai.");
     }
 

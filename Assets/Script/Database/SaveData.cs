@@ -24,7 +24,11 @@ public class GameSaveData
     public List<StoneRespawnSaveData> queueRespownStone = new List<StoneRespawnSaveData>();
     public List<HoedTileData> savedHoedTilesList = new List<HoedTileData>();
     public List<ItemShopSaveData> itemShopSaveData = new List<ItemShopSaveData>();
+    public List<QuestManagerSaveData> questManagerSaveData = new List<QuestManagerSaveData>();
+
     public TimeSaveData timeSaveData;
+
+
 }
 
 [System.Serializable]

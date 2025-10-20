@@ -14,7 +14,7 @@ public class ItemDropInteractable : Interactable
     public bool isPickable; // Menandakan apakah item bisa diambil
 
     [Tooltip("Waktu tunda dalam detik sebelum item bisa diambil.")]
-    public float pickupDelay = 5.0f; // Jeda waktu 5 detik sesuai permintaan Anda
+    public float pickupDelay = 3.0f; // Jeda waktu 3 detik sesuai permintaan Anda
 
     private Collider2D itemCollider; // Tambahkan ini
 
