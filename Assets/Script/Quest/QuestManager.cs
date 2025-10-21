@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.IO; // Penting untuk operasi file
 using System.Linq;
+using System.Xml;
 using JetBrains.Annotations;
 using NUnit.Framework.Interfaces;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 //using UnityEngine.UIElements;
 
-public class QuestManager : MonoBehaviour
+public class QuestManager : MonoBehaviour, ISaveable
 {
     public static QuestManager Instance { get; private set; }
     [Header("Template Quest UI")]
@@ -73,6 +75,38 @@ public class QuestManager : MonoBehaviour
 
 
     }
+
+    public object CaptureState()
+    {
+        Debug.Log("[SAVE-CAPTURE] QuestManager menangkap data quest aktif...");
+
+     
+        return questActive;
+    }
+
+    public void RestoreState(object state)
+    {
+        Debug.Log("[LOAD-RESTORE] QuestManager merestorasi data quest aktif...");
+        questActive.Clear();
+        // Coba cast 'state' yang datang kembali ke tipe aslinya.
+        var loadedData = state as List<ChapterQuestActiveDatabase>;
+
+        if (loadedData != null)
+        {
+            //  Ganti list 'questActive' saat ini dengan data dari file save.
+            questActive = loadedData;
+
+            Debug.Log($"Data quest berhasil direstorasi. {questActive.Count} chapter aktif dimuat.");
+
+            // Anda sudah punya fungsi ini, jadi kita panggil saja.
+            CreateTemplateQuest();
+        }
+        else
+        {
+            Debug.LogWarning("Gagal merestorasi data quest: data tidak valid atau corrupt.");
+        }
+    }
+
 
     public void DialogueEnd()
     {
@@ -184,21 +218,6 @@ public class QuestManager : MonoBehaviour
         // Buat data status baru untuk quest ini
         NPCBehavior npcTargetQuest = NPCManager.Instance.GetActiveNpcByName(questToActivate.npcName);
 
-
-
-        if (parentChapter != null)
-        {
-            //    perubahan di masa depan tidak mempengaruhi aset aslinya.
-            TemplateQuest questCopy = new TemplateQuest(template); // Butuh constructor penyalinan
-
-            // Panggil fungsi baru kita untuk menambahkan salinan ini ke list `questActive`.
-            AddQuestActivetoList(questCopy, parentChapter.chapterID, parentChapter.chapterName);
-        }
-        if (questToActivate.isSpawner)
-        {
-            Debug.Log("mengaktifkan spawner SpawnerQuest1_6");
-            SpawnerManager.Instance.HandleSpawnerActive(questToActivate.spawnerToActivate);
-        }
 
 
 
@@ -362,7 +381,7 @@ public class QuestManager : MonoBehaviour
                             sideQuest.isTheCleanupObjectDone = true;
                             Debug.Log($"Target pembersihan untuk '{sideQuest.questName}' telah selesai.");
 
-                            // PENTING: Panggil fungsi CompleteQuest di sini!
+                            // Panggil fungsi CompleteQuest di sini!
                             CompleteQuest(sideQuest);
                         }
                     }
@@ -433,12 +452,19 @@ public class QuestManager : MonoBehaviour
     // Fungsi untuk menyelesaikan quest
     public void CompleteQuest(TemplateQuest questStatus)
     {
+        Debug.Log($"memanggil fungsi complateQuest '{questStatus.questName} {questStatus.questProgress}' telah selesai! ");
         // Pengecekan keamanan di awal
-        if (questStatus == null || questStatus.questProgress != QuestProgress.Accepted) return;
+        if (questStatus == null || questStatus.questProgress != QuestProgress.Completed)
+        {
+            Debug.LogWarning("Quest tidak valid atau belum diterima. Tidak dapat menyelesaikan quest.");
+            return;
+        }
+        else
+        {
+            Debug.Log($"Menyelesaikan Side Quest: {questStatus.questName}");
+        }
 
 
-        questStatus.questProgress = QuestProgress.Completed;
-        Debug.Log($"Quest '{questStatus.questName}' telah selesai!");
 
         GameEconomy.Instance.GainMoney(questStatus.goldReward);
         foreach (var item in questStatus.itemRewards)

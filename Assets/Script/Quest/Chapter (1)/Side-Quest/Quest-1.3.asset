@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest-1.3
   m_EditorClassIdentifier: 
-  questName: 
-  questInfo: 
-  DeskripsiAwal: 
-  DeskripsiAkhir: 
+  questName: Pengantar Sayuran ke toko
+  questInfo: Sekar Arum meminta bantuan Jaka Tarub
+  DeskripsiAwal: Nyi Sekar meminta Jaka untuk Jaka Tarub mengirimkan hasil pertanian
+    ke pasar untuk di jual.
+  DeskripsiAkhir: . Antarkan padanya segera.
   startLocateNpcQuest: {x: 0, y: 0}
   finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
@@ -23,19 +24,35 @@ MonoBehaviour:
   questEmoticon:
     emoticonName: 
     emoticonSprite: {fileID: 0}
-  dateToActivate: 0
-  MonthToActivate: 0
-  npcName: 
-  itemRequirements: []
-  goldReward: 0
-  itemRewards: []
+  dateToActivate: 10
+  MonthToActivate: 1
+  npcName: Sekar Arum
+  itemRequirements:
+  - itemName: Kubis
+    count: 10
+    quality: 0
+    itemHealth: 0
+  - itemName: Cabai
+    count: 5
+    quality: 0
+    itemHealth: 0
+  - itemName: Wortel
+    count: 10
+    quality: 0
+    itemHealth: 0
+  goldReward: 300
+  itemRewards:
+  - itemName: Insectisida
+    count: 5
+    quality: 0
+    itemHealth: 0
   NPCItem:
     itemName: 
     count: 0
     quality: 0
     itemHealth: 0
-  startDialogue: {fileID: 0}
-  finishDialogue: {fileID: 0}
+  startDialogue: {fileID: 11400000, guid: da3b004ae94ffa84a9b1c04584a42813, type: 2}
+  finishDialogue: {fileID: 11400000, guid: e309547988c29b5479a07f49415eeba9, type: 2}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0

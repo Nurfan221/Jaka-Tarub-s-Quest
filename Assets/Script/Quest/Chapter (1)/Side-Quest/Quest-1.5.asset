@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest-1.5
   m_EditorClassIdentifier: 
-  questName: 
-  questInfo: 
-  DeskripsiAwal: 
-  DeskripsiAkhir: 
+  questName: Makan Malam keluarga
+  questInfo: Mba Ratri Membutuhkan Bantuan
+  DeskripsiAwal: 'Mbak Asih membutuhkan daging rusa dan beberapa rempah untuk membuat
+    makan malam keluarganya berikan : '
+  DeskripsiAkhir: Untuk Menyelesaikan quest
   startLocateNpcQuest: {x: 0, y: 0}
   finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
@@ -23,19 +24,39 @@ MonoBehaviour:
   questEmoticon:
     emoticonName: 
     emoticonSprite: {fileID: 0}
-  dateToActivate: 0
-  MonthToActivate: 0
-  npcName: 
-  itemRequirements: []
-  goldReward: 0
-  itemRewards: []
+  dateToActivate: 20
+  MonthToActivate: 1
+  npcName: 'Ratri Wulandari '
+  itemRequirements:
+  - itemName: DagingDomba
+    count: 3
+    quality: 0
+    itemHealth: 0
+  - itemName: Cabai
+    count: 2
+    quality: 0
+    itemHealth: 0
+  - itemName: Tomat
+    count: 2
+    quality: 0
+    itemHealth: 0
+  - itemName: Wortel
+    count: 5
+    quality: 0
+    itemHealth: 0
+  goldReward: 300
+  itemRewards:
+  - itemName: DagingDombaPanggang
+    count: 1
+    quality: 0
+    itemHealth: 0
   NPCItem:
     itemName: 
     count: 0
     quality: 0
     itemHealth: 0
-  startDialogue: {fileID: 0}
-  finishDialogue: {fileID: 0}
+  startDialogue: {fileID: 11400000, guid: 17242be63b94ab748997b6850fdd669d, type: 2}
+  finishDialogue: {fileID: 11400000, guid: e309547988c29b5479a07f49415eeba9, type: 2}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0

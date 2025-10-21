@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest-1.4
   m_EditorClassIdentifier: 
-  questName: 
-  questInfo: 
-  DeskripsiAwal: 
-  DeskripsiAkhir: 
+  questName: Perangkap Hewan
+  questInfo: Mas Jhorgeo membutuhkan bantuan
+  DeskripsiAwal: Kumpulkan beberapa barang untuk membantu mas Jhorgeo membuat perangkap
+    hewan.
+  DeskripsiAkhir: Untuk menyelesaikan Quest.
   startLocateNpcQuest: {x: 0, y: 0}
   finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
@@ -23,19 +24,35 @@ MonoBehaviour:
   questEmoticon:
     emoticonName: 
     emoticonSprite: {fileID: 0}
-  dateToActivate: 0
-  MonthToActivate: 0
-  npcName: 
-  itemRequirements: []
-  goldReward: 0
-  itemRewards: []
+  dateToActivate: 15
+  MonthToActivate: 1
+  npcName: Jhorgeo Wicaksana
+  itemRequirements:
+  - itemName: Kayu
+    count: 3
+    quality: 0
+    itemHealth: 0
+  - itemName: IronIngot
+    count: 2
+    quality: 0
+    itemHealth: 0
+  - itemName: Tali
+    count: 1
+    quality: 0
+    itemHealth: 0
+  goldReward: 500
+  itemRewards:
+  - itemName: Perangkap
+    count: 1
+    quality: 0
+    itemHealth: 0
   NPCItem:
     itemName: 
     count: 0
     quality: 0
     itemHealth: 0
-  startDialogue: {fileID: 0}
-  finishDialogue: {fileID: 0}
+  startDialogue: {fileID: 11400000, guid: c510249ecc290c94a9af14d0ee2c5e5d, type: 2}
+  finishDialogue: {fileID: 11400000, guid: e309547988c29b5479a07f49415eeba9, type: 2}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0

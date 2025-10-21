@@ -23,35 +23,35 @@ MonoBehaviour:
   schedules:
   - activityName: BerangkatKeSawah
     waypoints:
-    - {x: 65.1, y: -22, z: 0}
-    - {x: 65.1, y: -25.25, z: 0}
-    - {x: 63, y: -25.25, z: 0}
-    - {x: 63, y: -11.5, z: 0}
-    - {x: 63, y: -3, z: 0}
+    - {x: 65.1, y: -22}
+    - {x: 65.1, y: -25.25}
+    - {x: 63, y: -25.25}
+    - {x: 63, y: -11.5}
+    - {x: 63, y: -3}
     startTime: 5
   - activityName: PulangKerumah
     waypoints:
-    - {x: 63, y: -3, z: 0}
-    - {x: 63, y: -11.5, z: 0}
-    - {x: 63, y: -25.25, z: 0}
-    - {x: 65.1, y: -25.25, z: 0}
-    - {x: 65.1, y: -22, z: 0}
+    - {x: 63, y: -3}
+    - {x: 63, y: -11.5}
+    - {x: 63, y: -25.25}
+    - {x: 65.1, y: -25.25}
+    - {x: 65.1, y: -22}
     startTime: 9
   - activityName: KeSawah
     waypoints:
-    - {x: 65.1, y: -22, z: 0}
-    - {x: 65.1, y: -25.25, z: 0}
-    - {x: 63, y: -25.25, z: 0}
-    - {x: 63, y: -11.5, z: 0}
-    - {x: 58, y: -9, z: 0}
+    - {x: 65.1, y: -22}
+    - {x: 65.1, y: -25.25}
+    - {x: 63, y: -25.25}
+    - {x: 63, y: -11.5}
+    - {x: 58, y: -9}
     startTime: 12
   - activityName: KeSawah
     waypoints:
-    - {x: 58, y: -9, z: 0}
-    - {x: 63, y: -11.5, z: 0}
-    - {x: 63, y: -25.25, z: 0}
-    - {x: 65.1, y: -25.25, z: 0}
-    - {x: 65.1, y: -22, z: 0}
+    - {x: 58, y: -9}
+    - {x: 63, y: -11.5}
+    - {x: 63, y: -25.25}
+    - {x: 65.1, y: -25.25}
+    - {x: 65.1, y: -22}
     startTime: 18
   frendship:
     favoriteValue: 0

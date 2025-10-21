@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest-1.6
   m_EditorClassIdentifier: 
-  questName: 
-  questInfo: 
-  DeskripsiAwal: 
-  DeskripsiAkhir: 
+  questName: Misi mengusir Bandit
+  questInfo: Pak Amru Membutuhkan Bantuan
+  DeskripsiAwal: 'Bantu Pak Amru untuk mengusir Bandit dari ladangnya. Berikan '
+  DeskripsiAkhir: Untuk menyelesaikan quest.
   startLocateNpcQuest: {x: 0, y: 0}
   finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
@@ -23,9 +23,9 @@ MonoBehaviour:
   questEmoticon:
     emoticonName: 
     emoticonSprite: {fileID: 0}
-  dateToActivate: 0
-  MonthToActivate: 0
-  npcName: 
+  dateToActivate: 25
+  MonthToActivate: 1
+  npcName: Amru Kusnadi
   itemRequirements: []
   goldReward: 0
   itemRewards: []
@@ -34,8 +34,8 @@ MonoBehaviour:
     count: 0
     quality: 0
     itemHealth: 0
-  startDialogue: {fileID: 0}
-  finishDialogue: {fileID: 0}
+  startDialogue: {fileID: 11400000, guid: cc9f422faa6995a46ab5db5ae39085a6, type: 2}
+  finishDialogue: {fileID: 11400000, guid: e309547988c29b5479a07f49415eeba9, type: 2}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0

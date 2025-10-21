@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
   m_Name: Jhorgeo Wicaksana
   m_EditorClassIdentifier: 
-  npcName: Jhorgeo
+  npcName: Jhorgeo Wicaksana
   fullName: Jhorgeo Wicaksana
   pekerjaan: Pemburu
   hobi: Nganu
@@ -23,39 +23,39 @@ MonoBehaviour:
   schedules:
   - activityName: PergiBerburu
     waypoints:
-    - {x: 47.37, y: -12, z: 0}
-    - {x: 47.37, y: -14.5, z: 0}
-    - {x: 42.18, y: -14.5, z: 0}
-    - {x: 38.34, y: -10, z: 0}
-    - {x: 38.34, y: -6.41, z: 0}
-    - {x: 44.65, y: 0, z: 0}
-    - {x: 44.65, y: 16.24, z: 0}
-    - {x: 49, y: 21, z: 0}
-    - {x: 49, y: 35.93, z: 0}
+    - {x: 47.37, y: -12}
+    - {x: 47.37, y: -14.5}
+    - {x: 42.18, y: -14.5}
+    - {x: 38.34, y: -10}
+    - {x: 38.34, y: -6.41}
+    - {x: 44.65, y: 0}
+    - {x: 44.65, y: 16.24}
+    - {x: 49, y: 21}
+    - {x: 49, y: 35.93}
     startTime: 5
   - activityName: Berburu
     waypoints:
-    - {x: 49, y: 35.93, z: 0}
-    - {x: 49, y: 21, z: 0}
-    - {x: 77, y: 21, z: 0}
-    - {x: 77, y: 4, z: 0}
+    - {x: 49, y: 35.93}
+    - {x: 49, y: 21}
+    - {x: 77, y: 21}
+    - {x: 77, y: 4}
     startTime: 9
   - activityName: Nongkrong
     waypoints:
-    - {x: 77, y: 4, z: 0}
-    - {x: 63, y: -18, z: 0}
-    - {x: 63, y: -25.25, z: 0}
-    - {x: 58, y: -25.25, z: 0}
-    - {x: 58, y: -22, z: 0}
+    - {x: 77, y: 4}
+    - {x: 63, y: -18}
+    - {x: 63, y: -25.25}
+    - {x: 58, y: -25.25}
+    - {x: 58, y: -22}
     startTime: 14
   - activityName: PulangKeRumah
     waypoints:
-    - {x: 61, y: -20, z: 0}
-    - {x: 61, y: -25, z: 0}
-    - {x: 43, y: -25, z: 0}
-    - {x: 43, y: -15, z: 0}
-    - {x: 47.5, y: -15, z: 0}
-    - {x: 47.5, y: -12, z: 0}
+    - {x: 61, y: -20}
+    - {x: 61, y: -25}
+    - {x: 43, y: -25}
+    - {x: 43, y: -15}
+    - {x: 47.5, y: -15}
+    - {x: 47.5, y: -12}
     startTime: 18
   frendship:
     favoriteValue: 0

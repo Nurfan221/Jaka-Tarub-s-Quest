@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99255a66f1b269a488eac332dc1807ae, type: 3}
   m_Name: Quest-1.2
   m_EditorClassIdentifier: 
-  questName: 
-  questInfo: 
-  DeskripsiAwal: 
-  DeskripsiAkhir: 
+  questName: Kebutuhan Pangan Desa
+  questInfo: Kepala desa meminta bantuan Jaka Tarub
+  DeskripsiAwal: Persediaan pangan desa menipis. Kepala Desa Pak Fahri meminta bantuanmu
+    mengumpulkan.
+  DeskripsiAkhir: ' dari ladang. Antarkan padanya segera.'
   startLocateNpcQuest: {x: 0, y: 0}
   finishLocateNpcQuest: {x: 0, y: 0}
   questType: 0
@@ -23,19 +24,27 @@ MonoBehaviour:
   questEmoticon:
     emoticonName: 
     emoticonSprite: {fileID: 0}
-  dateToActivate: 0
-  MonthToActivate: 0
-  npcName: 
-  itemRequirements: []
-  goldReward: 0
+  dateToActivate: 3
+  MonthToActivate: 1
+  npcName: Fahri Pranajaya
+  itemRequirements:
+  - itemName: Padi
+    count: 15
+    quality: 0
+    itemHealth: 0
+  - itemName: Kubis
+    count: 5
+    quality: 0
+    itemHealth: 0
+  goldReward: 300
   itemRewards: []
   NPCItem:
     itemName: 
     count: 0
     quality: 0
     itemHealth: 0
-  startDialogue: {fileID: 0}
-  finishDialogue: {fileID: 0}
+  startDialogue: {fileID: 11400000, guid: 7d2ed832501bd5b46981f34aae7c0eec, type: 2}
+  finishDialogue: {fileID: 11400000, guid: e309547988c29b5479a07f49415eeba9, type: 2}
   isMainQuest: 0
   isInGrief: 0
   isSpawner: 0

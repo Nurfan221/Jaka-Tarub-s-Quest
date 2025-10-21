@@ -188,6 +188,18 @@ public class SaveDataManager : MonoBehaviour
                     Debug.Log($"Data untuk toko '{shopData.typeShop}' berhasil ditambahkan. Jumlah item: {shopData.items.Count}");
                 }
             }
+            else if (saveable is QuestManager questManager)
+            {
+                Debug.Log("[SAVE] Ditemukan QuestManager. Memanggil CaptureState...");
+
+                // CaptureState() akan mengembalikan list 'questActive'
+                if (questManager.CaptureState() is List<ChapterQuestActiveDatabase> questData)
+                {
+                    // Simpan data itu ke 'savedQuestList' di GameSaveData
+                    saveData.savedQuestList = questData;
+                    Debug.Log($"Data QuestManager berhasil ditangkap. {questData.Count} chapter aktif.");
+                }
+            }
 
             // Tambahkan 'else if' lain untuk Chest, Bunga, dll. di masa depan.
         }

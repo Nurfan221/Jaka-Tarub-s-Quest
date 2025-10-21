@@ -222,8 +222,8 @@ public class SampahDatabase
 [Serializable]
 public class ChapterQuestActiveDatabase
 {
-    public int chapterID;
     public string chapterName;
+    public int chapterID;
     public List<TemplateQuest> sideQuests; // Sekarang berisi list dari ASET QuestSO
 }
 

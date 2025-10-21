@@ -566,6 +566,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     }
 
                     itemFoundAndProcessed = true;
+                    MechanicController.Instance.HandleUpdateInventory();
                     break;
                 }
 

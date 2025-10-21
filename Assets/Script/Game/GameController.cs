@@ -290,6 +290,12 @@ public class GameController : MonoBehaviour
                 Debug.Log("GameController: Membangun item shop dari file save" + saveData.itemShopSaveData.Count);
                 BuildItemToSeelFromSaveData(saveData.itemShopSaveData);
             }
+
+            if (saveData.savedQuestList != null&& saveData.savedQuestList.Count > 0)
+            {
+                //QuestManager.Instance.RestoreQuestStateFromData(saveData.savedQuestList);
+                QuestManager.Instance.RestoreState(saveData.savedQuestList);
+            }
         }
         else
         {
@@ -402,6 +408,7 @@ public class GameController : MonoBehaviour
 
         MainEnvironmentManager.Instance.HandleAddItemSellToShops(itemToSale);
     }
+
 
     public void ReturnQueueStoneActive(List<StoneRespawnSaveData> savedStone)
     {

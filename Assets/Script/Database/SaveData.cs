@@ -25,6 +25,7 @@ public class GameSaveData
     public List<HoedTileData> savedHoedTilesList = new List<HoedTileData>();
     public List<ItemShopSaveData> itemShopSaveData = new List<ItemShopSaveData>();
     public List<QuestManagerSaveData> questManagerSaveData = new List<QuestManagerSaveData>();
+    public List<ChapterQuestActiveDatabase> savedQuestList = new List<ChapterQuestActiveDatabase>();
 
     public TimeSaveData timeSaveData;
 
