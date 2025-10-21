@@ -84,7 +84,7 @@ public class BatuManager : MonoBehaviour, ISaveable
     {
         float luck = TimeManager.Instance.GetDayLuck();
         SpawnStonesForDay(luck);
-        ProcessRespawnQueue();
+        //ProcessRespawnQueue();
     }
 
    
@@ -114,16 +114,27 @@ public class BatuManager : MonoBehaviour, ISaveable
     public void RestoreState(object state)
     {
         Debug.Log("[LOAD] Merestorasi data antrian respawn batu...");
-        StoneRespawnSaveData data = (StoneRespawnSaveData)state;
-        respawnQueue.Add(new StoneRespawnSaveData
+        var loadedData = state as List<StoneRespawnSaveData>;
+
+        // Pengecekan keamanan tambahan: Pastikan data yang dimuat tidak null
+        if (loadedData == null)
         {
-            id = data.id,
-            dayToRespawn = data.dayToRespawn,
-            stonePosition = data.stonePosition
-        });
+            Debug.LogWarning("[LOAD] Gagal merestorasi data batu, data yang dimuat null.");
+            return;
+        }
 
+        // Pengecekan keamanan tambahan: Pastikan parentEnvironment sudah di-assign
+        if (parentEnvironment == null)
+        {
+            Debug.LogError("[LOAD] Gagal merestorasi batu: parentEnvironment belum di-assign!");
+            return;
+        }
+
+        respawnQueue.Clear();
+        respawnQueue = loadedData.ToList();
+
+       
     }
-
 
 
     // Fungsi utama yang baru
@@ -226,34 +237,87 @@ public class BatuManager : MonoBehaviour, ISaveable
     }
     public void SpawnStone()
     {
-        Debug.Log($"Memulai proses Instantiate untuk {listStoneActivePerDay.Sum(g => g.listActive.Count)} batu...");
+        // Kunci: stone.id, Nilai: item.dayToRespawn
+        var respawnLookup = new Dictionary<string, int>();
+        foreach (var item in respawnQueue)
+        {
+            // Jika ada ID duplikat, ini akan mengambil yang terakhir (seharusnya tidak masalah)
+            respawnLookup[item.id] = item.dayToRespawn;
+        }
+
+        // Ambil tanggal saat ini CUKUP SATU KALI di luar loop untuk efisiensi
+        int currentDate = TimeManager.Instance.date;
+
+        // Buat daftar sementara untuk melacak ID batu yang berhasil di-respawn hari ini
+        List<string> respawnedStoneIDs = new List<string>();
+
+        Debug.Log($"Memulai proses Instantiate... Mengecek {listStoneActivePerDay.Sum(g => g.listActive.Count)} batu.");
+        int spawnedCount = 0;
+
         foreach (var group in listStoneActivePerDay)
         {
             foreach (var stone in group.listActive)
             {
-                // Coba dapatkan prefab dari database
-                GameObject stoneObject = DatabaseManager.Instance.GetStone(stone.typeStone, stone.hardnessLevel);
+                bool shouldSpawn = false; // Flag untuk memutuskan apakah batu ini akan di-spawn
 
-                // Cek apakah prefab berhasil ditemukan
-                if (stoneObject != null)
+                // 2. Cek apakah batu ini ada di kamus respawn
+                if (respawnLookup.TryGetValue(stone.stoneID, out int dayToRespawn))
                 {
-                    // Jika berhasil, munculkan batunya
-                    GameObject newStone = Instantiate(stoneObject, stone.position, Quaternion.identity, parentEnvironment);
-                    StoneBehavior stoneBehavior = newStone.GetComponent<StoneBehavior>();
-                    if (stoneBehavior != null)
+                    //  Batu ada di antrian. Cek tanggalnya.
+                    if (currentDate >= dayToRespawn)
                     {
-                        stoneBehavior.UniqueID = stone.stoneID;
-                        newStone.name = stone.stoneID;
-                        Debug.Log("Berhasil memunculkan Stone dengan ID: " + stone.stoneID);
+                        // SUDAH WAKTUNYA RESPAWN!
+                        shouldSpawn = true;
+                        // Tandai batu ini untuk dihapus dari antrian respawn nanti
+                        respawnedStoneIDs.Add(stone.stoneID);
+                    }
+                    else
+                    {
+                        //  Batu ada di antrian, TAPI BELUM WAKTUNYA.
+                        // 'shouldSpawn' tetap false, jadi batu ini akan dilewati.
+                        continue; // Lanjut ke batu berikutnya
                     }
                 }
                 else
                 {
-                    // Jika GAGAL, berikan pesan error yang spesifik agar mudah dilacak!
-                    Debug.LogError($"Gagal memunculkan Stone Tidak dapat menemukan prefab di DatabaseManager untuk batu dengan tipe '{stone.typeStone}' dan kekerasan '{stone.hardnessLevel}'. ID: {stone.stoneID}");
+                    // Batu TIDAK ADA di antrian. Ini adalah batu normal.
+                    shouldSpawn = true;
+                }
+
+                // Lakukan spawning jika 'shouldSpawn' adalah true (dari Kasus A atau C)
+                if (shouldSpawn)
+                {
+                    GameObject stoneObject = DatabaseManager.Instance.GetStone(stone.typeStone, stone.hardnessLevel);
+
+                    if (stoneObject != null)
+                    {
+                        GameObject newStone = Instantiate(stoneObject, stone.position, Quaternion.identity, parentEnvironment);
+                        StoneBehavior stoneBehavior = newStone.GetComponent<StoneBehavior>();
+
+                        if (stoneBehavior != null)
+                        {
+                            stoneBehavior.UniqueID = stone.stoneID;
+                            newStone.name = stone.stoneID;
+                            spawnedCount++;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError($"Gagal memunculkan Stone! Tidak dapat menemukan prefab di DatabaseManager untuk tipe '{stone.typeStone}' dan kekerasan '{stone.hardnessLevel}'. ID: {stone.stoneID}");
+                    }
                 }
             }
         }
+
+        // Setelah semua loop selesai, bersihkan 'respawnQueue' dari batu yang sudah di-respawn
+        if (respawnedStoneIDs.Count > 0)
+        {
+            Debug.Log($"Membersihkan {respawnedStoneIDs.Count} batu dari antrian respawn...");
+            // Gunakan RemoveAll untuk menghapus semua item yang ID-nya ada di 'respawnedStoneIDs'
+            respawnQueue.RemoveAll(item => respawnedStoneIDs.Contains(item.id));
+        }
+
+        Debug.Log($"Proses Spawn Selesai. Berhasil memunculkan {spawnedCount} batu.");
     }
 
     // Kode helper untuk mengisi candidate pool (agar lebih rapi)
@@ -329,39 +393,7 @@ public class BatuManager : MonoBehaviour, ISaveable
 
 
 
-    public void ProcessRespawnQueue()
-    {
-        // Gunakan FOR loop yang berjalan MUNDUR untuk keamanan saat menghapus item
-        for (int i = respawnQueue.Count - 1; i >= 0; i--)
-        {
-            // Ambil item saat ini dari antrian
-            var item = respawnQueue[i];
 
-            // Cek dulu apakah waktunya sudah tiba untuk respawn
-            if (TimeManager.Instance.date >= item.dayToRespawn)
-            {
-                // Jika sudah waktunya, baru kita cari GameObject-nya
-                Transform stoneTransform = transform.Find(item.id);
-
-                if (stoneTransform != null)
-                {
-                    Debug.Log($"Batu '{item.id}' telah respawn pada hari ke-{TimeManager.Instance.date}.");
-
-                    // Aktifkan kembali GameObject-nya
-                    stoneTransform.gameObject.SetActive(true);
-
-                    // Hapus item dari antrian karena tugasnya sudah selesai
-                    respawnQueue.RemoveAt(i);
-                }
-                else
-                {
-                    // Kasus langka: objeknya hilang dari scene, mungkin lebih baik dihapus dari antrian
-                    Debug.LogWarning($"Gagal respawn: Child object dengan nama/ID '{item.id}' tidak ditemukan. Menghapus dari antrian.");
-                    respawnQueue.RemoveAt(i);
-                }
-            }
-        }
-    }
 
     [ContextMenu("Langkah 1: Cari & Kelompokkan Semua Batu Child")]
     public void FindAndRegisterChildStones()

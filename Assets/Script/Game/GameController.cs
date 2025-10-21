@@ -416,6 +416,7 @@ public class GameController : MonoBehaviour
         if (batuManager == null) return;
 
         Debug.Log($"[LOAD] Merestorasi state untuk {savedStone.Count} batu...");
+        batuManager.RestoreState(savedStone);
         batuManager.SpawnStonesForDay(TimeManager.Instance.dailyLuck);
 
         // Kita tetap butuh loop ini untuk memastikan semua batu dalam kondisi default (aktif).

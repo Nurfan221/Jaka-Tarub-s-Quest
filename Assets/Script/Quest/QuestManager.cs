@@ -215,40 +215,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         }
         Debug.Log($"Mengaktifkan Side Quest: {questToActivate.questName}");
 
-        // Buat data status baru untuk quest ini
-        NPCBehavior npcTargetQuest = NPCManager.Instance.GetActiveNpcByName(questToActivate.npcName);
-
-
-
-
-        if (questToActivate.isNPCItem)
-        {
-            Debug.Log("mengaktifkan NPCItem");
-            //Panggil fungsi dari NPCManager untuk mencari Jhorgeo di daftar NPC aktif.
-
-
-            // SELALU periksa apakah hasilnya null. Ini penting untuk menghindari error
-            //    jika karena suatu alasan NPC tidak ditemukan.
-            if (npcTargetQuest != null)
-            {
-                // Jika ditemukan, Anda sekarang memiliki akses penuh ke komponen NPCBehavior-nya
-                //    dan bisa memanggil semua metode publiknya.
-                Debug.Log($"NPC {questToActivate.npcName} ditemukan! Memberi perintah untuk pindah...");
-
-
-                npcTargetQuest.transform.position = questToActivate.startLocateNpcQuest;
-                // Panggil metode yang sudah kita siapkan di NPCBehavior
-                npcTargetQuest.OverrideForQuest(questToActivate.startLocateNpcQuest, questToActivate.finishLocateNpcQuest, questToActivate.startDialogue, "Peringatan");
-                npcTargetQuest.itemQuestToGive = questToActivate.NPCItem;
-                npcTargetQuest.isGivenItemForQuest = true;
-                Debug.Log("itemQuestToGive" + npcTargetQuest.itemQuestToGive.itemName + "jumlah item : " + npcTargetQuest.itemQuestToGive.ToString());
-            }
-            else
-            {
-                Debug.LogError($"Gagal memberi perintah: NPC aktif bernama {questToActivate.npcName} tidak ditemukan!");
-            }
-        }
-        NPCManager.Instance.AddDialogueForNPCQuest(questToActivate.npcName, questToActivate.startDialogue);
+       
         // Siarkan event agar UI bisa memperbarui tampilannya
         //OnQuestLogUpdated?.Invoke();
         CreateTemplateQuest();
@@ -412,6 +379,40 @@ public class QuestManager : MonoBehaviour, ISaveable
                 if (sideQuest.questProgress != QuestProgress.Completed)
                 {
                     InstantiateQuestUI(sideQuest.questName, sideQuest.questInfo);
+                    // Buat data status baru untuk quest ini
+                    NPCBehavior npcTargetQuest = NPCManager.Instance.GetActiveNpcByName(sideQuest.npcName);
+
+
+
+
+                    if (sideQuest.isNPCItem)
+                    {
+                        Debug.Log("mengaktifkan NPCItem");
+                        //Panggil fungsi dari NPCManager untuk mencari Jhorgeo di daftar NPC aktif.
+
+
+                        // SELALU periksa apakah hasilnya null. Ini penting untuk menghindari error
+                        //    jika karena suatu alasan NPC tidak ditemukan.
+                        if (npcTargetQuest != null )
+                        {
+                            // Jika ditemukan, Anda sekarang memiliki akses penuh ke komponen NPCBehavior-nya
+                            //    dan bisa memanggil semua metode publiknya.
+                            Debug.Log($"NPC {sideQuest.npcName} ditemukan! Memberi perintah untuk pindah...");
+
+
+                            npcTargetQuest.transform.position = sideQuest.startLocateNpcQuest;
+                            // Panggil metode yang sudah kita siapkan di NPCBehavior
+                            npcTargetQuest.OverrideForQuest(sideQuest.startLocateNpcQuest, sideQuest.finishLocateNpcQuest, sideQuest.startDialogue, "Peringatan");
+                            npcTargetQuest.itemQuestToGive = sideQuest.NPCItem;
+                            npcTargetQuest.isGivenItemForQuest = true;
+                            Debug.Log("itemQuestToGive" + npcTargetQuest.itemQuestToGive.itemName + "jumlah item : " + npcTargetQuest.itemQuestToGive.ToString());
+                        }
+                        else
+                        {
+                            Debug.LogError($"Gagal memberi perintah: NPC aktif bernama {sideQuest.npcName} tidak ditemukan!");
+                        }
+                    }
+                    NPCManager.Instance.AddDialogueForNPCQuest(sideQuest.npcName, sideQuest.startDialogue);
                 }
             }
         }

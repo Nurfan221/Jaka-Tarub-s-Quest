@@ -22,11 +22,13 @@ public class NPCManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) Destroy(this.gameObject);
         else { Instance = this; DontDestroyOnLoad(this.gameObject); }
+        SpawnAllNpcs();
+
     }
 
     private void Start()
     {
-        SpawnAllNpcs();
+        
     }
 
     // Fungsi ini akan membuat semua NPC dari database saat game dimulai

@@ -172,9 +172,7 @@ public class StoneBehavior : UniqueIdentifiableObject
         int amountToDrop = UnityEngine.Random.Range(minHasil, maxHasil + 1);
         List<ItemData> chosenDrops = new List<ItemData>();
 
-        // =====================================================================
-        // ===== BLOK LOGIKA BARU UNTUK KASUS DENGAN JUMLAH ITEM SEDIKIT =====
-        // =====================================================================
+
         if (itemDropMines.Count < 3)
         {
             Debug.Log($"Jumlah item drop kurang dari 3 ({itemDropMines.Count}). Menggunakan logika drop sederhana, mengabaikan DailyLuck.");
@@ -188,9 +186,7 @@ public class StoneBehavior : UniqueIdentifiableObject
                 Debug.Log($"Iterasi {i + 1}: Item terpilih -> {droppedItem.itemName}");
             }
         }
-        // =====================================================================
-        // JIKA JUMLAH ITEM CUKUP, JALANKAN LOGIKA TIER SEPERTI BIASA
-        // =====================================================================
+
         else
         {
             int rareItemsDroppedCount = 0;
@@ -238,10 +234,6 @@ public class StoneBehavior : UniqueIdentifiableObject
             }
         }
 
-        // =====================================================================
-        // BAGIAN AKHIR INI TETAP SAMA, KARENA HANYA BERTUGAS MENJATUHKAN ITEM
-        // DARI LIST 'chosenDrops' YANG SUDAH DIISI OLEH SALAH SATU BLOK LOGIKA DI ATAS
-        // =====================================================================
         if (chosenDrops.Count > 0)
         {
             Debug.Log($"Proses pemilihan selesai. Total item yang akan didrop: {chosenDrops.Count}");
