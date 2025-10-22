@@ -8,7 +8,7 @@ using static QuestManager;
 public class QuestInfoUI : MonoBehaviour
 {
     public static QuestInfoUI Instance { get; private set; }
-    public List<QuestSO> quest = new List<QuestSO>(); // List untuk menampung data Quest dari QuestManager
+
 
 
     [Header("UI STUFF")]
@@ -51,130 +51,140 @@ public class QuestInfoUI : MonoBehaviour
 
     }
 
-    public void DisplayActiveQuest(QuestSO questActive)
-    {
-        Debug.Log("DisplayActiveQuest di jalankan");
-        if (!quest.Contains(questActive)) // Cek apakah quest sudah ada
-        {
-            quest.Add(questActive);
+    //public void DisplayActiveQuest(TemplateQuest questActive)
+    //{
+    //    Debug.Log("DisplayActiveQuest di jalankan");
+    //    if (!quest.Contains(questActive)) // Cek apakah quest sudah ada
+    //    {
+    //        quest.Add(questActive);
 
-        }
-    }
+    //    }
+    //}
 
 
     public void RefreshActiveQuest()
     {
+
         //Hapus elemen lama sebelum menampilkan yang baru
         ClearChildrenExceptTemplate(ContentDetail, SlotTemplateDetail);
         ClearChildrenExceptTemplate(ContentInfo, SlotTemplateInfo);
-
-        for (int i = 0; i < quest.Count; i++)
+        int questIndex = 0;
+        foreach (var item in QuestManager.Instance.questActive)
         {
-            QuestSO questData = quest[i];
-
-            //Instansiasi UI untuk Quest
-            Transform questDetail = Instantiate(SlotTemplateDetail, ContentDetail);
-            Transform questInfo = Instantiate(SlotTemplateInfo, ContentInfo);
-            questDetail.gameObject.SetActive(true);
-            questInfo.gameObject.SetActive(true);
-            questDetail.name = questData.questName;
-            questInfo.name = questData.questName;
-
-            //Ambil referensi komponen
-            Image questImage = questInfo.GetChild(0).GetComponent<Image>();
-            Image questImageInfo = questInfo.GetComponent<Image>();
-            Image questDetailImage = questDetail.GetComponent<Image>();
-            TMP_Text questTextInfo = questInfo.GetChild(1).GetComponent<TMP_Text>();
-            TMP_Text questTextDetail = questDetail.GetChild(1).GetComponent<TMP_Text>();
-
-            //Cek apakah quest aktif atau tidak
-            if (questData.questProgress == QuestProgress.Accepted)
+            foreach (var item1 in item.sideQuests)
             {
-                Debug.Log("Quest Active");
-                questImage.sprite = sliderActive;
-                SetOpacity(questImage, 1f);
-            }
-            else
-            {
-                Debug.Log("Quest Inactive");
-                questImage.sprite = sliderInactive;
-                SetOpacity(questDetailImage, 0.5f);
-                SetOpacity(questImageInfo, 0.5f);
-                SetOpacity(questImage, 0.8f);
-                SetOpacity(questTextInfo, 0.5f);
-                SetOpacity(questTextDetail, 0.5f);
-            }
+                TemplateQuest questData = item1;
 
-            //Set teks quest
-            questDetail.GetChild(1).GetComponent<TMP_Text>().text = questData.questName;
-            questInfo.GetChild(1).GetComponent<TMP_Text>().text = questData.npcName;
+                //Instansiasi UI untuk Quest
+                Transform questDetail = Instantiate(SlotTemplateDetail, ContentDetail);
+                Transform questInfo = Instantiate(SlotTemplateInfo, ContentInfo);
+                questDetail.gameObject.SetActive(true);
+                questInfo.gameObject.SetActive(true);
+                questDetail.name = questData.questName;
+                questInfo.name = questData.questName;
 
-            //Mengatur itemID berdasarkan indeks
-            ItemDragandDrop itemDragAndDrop = questDetail.GetComponent<ItemDragandDrop>();
-            if (itemDragAndDrop != null)
-            {
-                itemDragAndDrop.index = i;
-            }
-            Button btnDeskripsi = questDetail.GetComponent<Button>();
-            btnDeskripsi.onClick.AddListener(() =>
-            {
-                if (!isDeskripsi)
+                //Ambil referensi komponen
+                Image questImage = questInfo.GetChild(0).GetComponent<Image>();
+                Image questImageInfo = questInfo.GetComponent<Image>();
+                Image questDetailImage = questDetail.GetComponent<Image>();
+                TMP_Text questTextInfo = questInfo.GetChild(1).GetComponent<TMP_Text>();
+                TMP_Text questTextDetail = questDetail.GetChild(1).GetComponent<TMP_Text>();
+
+                //Cek apakah quest aktif atau tidak
+                if (questData.questProgress == QuestProgress.Accepted)
                 {
-                    // Menampilkan deskripsi
-                    deskripsi.gameObject.SetActive(true);
-                    deskripsiContent.gameObject.SetActive(true);
-
-
-                    // Mengambil teks quest name
-                    TMP_Text questName = deskripsiContent.GetChild(1).GetComponent<TMP_Text>();
-                    TMP_Text questDeskripsi = deskripsiContent.GetChild(2).GetComponent<TMP_Text>();
-
-                    // Mengatur nama quest
-                    questName.text = questData.questName;
-
-                    // Menyusun deskripsi quest
-                    string fullDescription = questData.DeskripsiAwal;
-
-                    //Hapus elemen lama sebelum menampilkan yang baru
-                    ClearChildrenExceptTemplate(itemDeskripsi, templateItemDeskripsi);
-
-                    // Menambahkan jumlah item yang ada di itemQuest ke dalam deskripsi
-                    foreach (ItemData itemDataQuest in questData.itemRequirements)
-                    {
-                        //fullDescription += $" {itemQuest.stackCount} buah {itemQuest.itemName} kepada {quest.NPC.name} "; // Menggunakan itemName atau field lainnya dari Item
-                        Item itemQuest = ItemPool.Instance.GetItem(itemDataQuest.itemName);                                                                                                  //Instansiasi UI untuk Quest
-                        Transform itemQuestDetail = Instantiate(templateItemDeskripsi, itemDeskripsi);
-                        itemQuestDetail.gameObject.SetActive(true);
-
-                        // Mengakses objek Image pertama yang ada pada objek instansiasi
-                        Image itemImage = itemQuestDetail.GetChild(0).GetComponent<Image>();
-                        TMP_Text itemName = itemQuestDetail.GetChild(1).GetComponent<TMP_Text>();
-                        TMP_Text jumlah = itemQuestDetail.GetChild(2).GetComponent<TMP_Text>();
-
-                        itemImage.sprite = itemQuest.sprite;
-                        itemName.text = itemQuest.itemName;
-                        jumlah.text = itemDataQuest.count.ToString();
-
-
-                    }
-
-                    // Menambahkan deskripsi akhir
-                    fullDescription += questData.DeskripsiAkhir;
-
-                    // Memasukkan ke dalam questDeskripsi
-                    questDeskripsi.text = fullDescription;
-
-                    isDeskripsi = true;
+                    Debug.Log("Quest Active");
+                    questImage.sprite = sliderActive;
+                    SetOpacity(questImage, 1f);
                 }
                 else
                 {
-                    deskripsi.gameObject.SetActive(false);
-                    isDeskripsi = false;
-
+                    Debug.Log("Quest Inactive");
+                    questImage.sprite = sliderInactive;
+                    SetOpacity(questDetailImage, 0.5f);
+                    SetOpacity(questImageInfo, 0.5f);
+                    SetOpacity(questImage, 0.8f);
+                    SetOpacity(questTextInfo, 0.5f);
+                    SetOpacity(questTextDetail, 0.5f);
                 }
-            });
 
+                //Set teks quest
+                questDetail.GetChild(1).GetComponent<TMP_Text>().text = questData.questName;
+                questInfo.GetChild(1).GetComponent<TMP_Text>().text = questData.npcName;
+
+                //Mengatur itemID berdasarkan indeks
+                ItemDragandDrop itemDragAndDrop = questDetail.GetComponent<ItemDragandDrop>();
+                if (itemDragAndDrop != null)
+                {
+                    itemDragAndDrop.index = questIndex; // <-- Gunakan counter
+                }
+                Button btnDeskripsi = questDetail.GetComponent<Button>();
+                btnDeskripsi.onClick.AddListener(() =>
+                {
+                    if (!isDeskripsi)
+                    {
+                        // Menampilkan deskripsi
+                        deskripsi.gameObject.SetActive(true);
+                        deskripsiContent.gameObject.SetActive(true);
+
+
+                        // Mengambil teks quest name
+                        TMP_Text questName = deskripsiContent.GetChild(1).GetComponent<TMP_Text>();
+                        TMP_Text questDeskripsi = deskripsiContent.GetChild(2).GetComponent<TMP_Text>();
+
+                        // Mengatur nama quest
+                        questName.text = questData.questName;
+
+                        // Menyusun deskripsi quest
+                        string fullDescription = questData.DeskripsiAwal;
+
+                        //Hapus elemen lama sebelum menampilkan yang baru
+                        ClearChildrenExceptTemplate(itemDeskripsi, templateItemDeskripsi);
+
+                        // Menambahkan jumlah item yang ada di itemQuest ke dalam deskripsi
+                        foreach (ItemData itemDataQuest in questData.itemRequirements)
+                        {
+                            //fullDescription += $" {itemQuest.stackCount} buah {itemQuest.itemName} kepada {quest.NPC.name} "; // Menggunakan itemName atau field lainnya dari Item
+                            Item itemQuest = ItemPool.Instance.GetItem(itemDataQuest.itemName);                                                                                                  //Instansiasi UI untuk Quest
+                            Transform itemQuestDetail = Instantiate(templateItemDeskripsi, itemDeskripsi);
+                            itemQuestDetail.gameObject.SetActive(true);
+
+                            // Mengakses objek Image pertama yang ada pada objek instansiasi
+                            Image itemImage = itemQuestDetail.GetChild(0).GetComponent<Image>();
+                            TMP_Text itemName = itemQuestDetail.GetChild(1).GetComponent<TMP_Text>();
+                            TMP_Text jumlah = itemQuestDetail.GetChild(2).GetComponent<TMP_Text>();
+
+                            itemImage.sprite = itemQuest.sprite;
+                            itemName.text = itemQuest.itemName;
+                            jumlah.text = itemDataQuest.count.ToString();
+
+
+                        }
+
+                        // Menambahkan deskripsi akhir
+                        fullDescription += questData.DeskripsiAkhir;
+
+                        // Memasukkan ke dalam questDeskripsi
+                        questDeskripsi.text = fullDescription;
+
+                        isDeskripsi = true;
+                    }
+                    else
+                    {
+                        deskripsi.gameObject.SetActive(false);
+                        isDeskripsi = false;
+
+                    }
+                });
+                questIndex++;
+            }
         }
+
+        //for (int i = 0; i < quest.Count; i++)
+        //{
+            
+
+        //}
     }
 
     //Fungsi untuk menghapus child kecuali template
@@ -200,25 +210,25 @@ public class QuestInfoUI : MonoBehaviour
 
 
 
-    public void SetQuestInActive(string questName)
-    {
-        Debug.Log("SetQuestInActive di jalankan");
-        //Set quest menjadi tidak aktif
-        foreach (var quest in quest)
-        {
-            if (quest.questName == questName)
-            {
-                quest.questProgress = QuestProgress.Completed;
+    //public void SetQuestInActive(string questName)
+    //{
+    //    Debug.Log("SetQuestInActive di jalankan");
+    //    //Set quest menjadi tidak aktif
+    //    foreach (var quest in quest)
+    //    {
+    //        if (quest.questName == questName)
+    //        {
+    //            quest.questProgress = QuestProgress.Completed;
 
-            }
-        }
+    //        }
+    //    }
 
-        //Hapus quest dari list jika sudah tidak aktif
-        quest.RemoveAll(q => q.questName == questName && q.questProgress == QuestProgress.Completed);
+    //    //Hapus quest dari list jika sudah tidak aktif
+    //    quest.RemoveAll(q => q.questName == questName && q.questProgress == QuestProgress.Completed);
 
-        // Refresh UI untuk menghilangkan quest yang sudah tidak aktif
-        RefreshActiveQuest();
-    }
+    //    // Refresh UI untuk menghilangkan quest yang sudah tidak aktif
+    //    RefreshActiveQuest();
+    //}
 
     public void AddMiniQuestActive(MiniQuestList miniQuest)
     {

@@ -37,7 +37,7 @@ public class BatuManager : MonoBehaviour, ISaveable
     public List<StoneRespawnSaveData> respawnQueue = new List<StoneRespawnSaveData>();
 
     [Tooltip("Jumlah maksimal batu yang akan muncul dalam satu siklus.")]
-    public int maxStonesToSpawn = 30;
+    public int maxSpesialStonesToSpawn = 6;
 
 
     private void Awake()
@@ -144,21 +144,19 @@ public class BatuManager : MonoBehaviour, ISaveable
         listStoneActivePerDay.Clear(); // Selalu kosongkan list di awal!
         ClearContainer(parentEnvironment);
 
-        //  Selalu tambahkan grup batu BIASA (Stone) ---
+        //  Selalu tambahkan grup batu BIASA (Stone)
         var stoneGroupTemplate = listBatuManager.FirstOrDefault(g => g.typeStone == TypeObject.Stone);
         if (stoneGroupTemplate != null)
         {
-            // Buat grup baru untuk output hari ini dan tambahkan ke daftar
             listStoneActivePerDay.Add(new ListBatuManager
             {
                 listName = stoneGroupTemplate.typeStone.ToString(),
                 typeStone = stoneGroupTemplate.typeStone,
-                // Buat salinan list agar tidak mengubah data asli
                 listActive = new List<TemplateStoneActive>(stoneGroupTemplate.listActive)
             });
         }
 
-        //  Tentukan pool batu BERHARGA berdasarkan keberuntungan ---
+        //  Tentukan pool batu BERHARGA berdasarkan keberuntungan
         List<TemplateStoneActive> valuableCandidatePool = new List<TemplateStoneActive>();
 
         var copperGroup = listBatuManager.FirstOrDefault(g => g.typeStone == TypeObject.Copper);
@@ -172,7 +170,7 @@ public class BatuManager : MonoBehaviour, ISaveable
         else if (dailyLuck < 3) // HARI NORMAL
         {
             if (copperGroup != null) valuableCandidatePool.AddRange(copperGroup.listActive);
-            if (ironGroup != null) valuableCandidatePool.AddRange(ironGroup.listActive);
+            if (ironGroup != null) valuableCandidatePool.AddRange(ironGroup.listActive); // Iron sudah ada di pool
         }
         else // HARI SANGAT BERUNTUNG
         {
@@ -181,7 +179,7 @@ public class BatuManager : MonoBehaviour, ISaveable
             if (goldGroup != null) valuableCandidatePool.AddRange(goldGroup.listActive);
         }
 
-        // Pilih batu BERHARGA dalam jumlah terbatas ---
+        // Tentukan jumlah spawn MAKSIMAL (untuk pool acak)
         int maxSpawns = 0;
         if (dailyLuck < 1) maxSpawns = 10;
         else if (dailyLuck < 3) maxSpawns = 20;
@@ -193,7 +191,39 @@ public class BatuManager : MonoBehaviour, ISaveable
         var shuffledValuablePool = valuableCandidatePool.OrderBy(x => UnityEngine.Random.value).ToList();
         List<TemplateStoneActive> selectedValuables = shuffledValuablePool.Take(valuableSpawnCount).ToList();
 
-        // Kelompokkan batu berharga yang terpilih dan tambahkan ke list akhir ---
+
+        if (dailyLuck < 3)
+        {
+            if (ironGroup != null && ironGroup.listActive.Count > 0)
+            {
+                // Hitung iron yang sudah terpilih
+                int ironAlreadySelected = selectedValuables.Count(stone => stone.typeStone == TypeObject.Iron);
+
+                // Hitung berapa banyak lagi iron yang kita butuhkan
+                int ironToSpawn = Mathf.Max(0, maxSpesialStonesToSpawn - ironAlreadySelected);
+
+                if (ironToSpawn > 0)
+                {
+                    // Ambil iron yang BELUM terpilih
+                    var availableIron = ironGroup.listActive.Except(selectedValuables).ToList();
+
+                    // Acak iron yang tersedia & ambil sebanyak yang kita butuhkan
+                    var extraIron = availableIron.OrderBy(x => UnityEngine.Random.value)
+                                                 .Take(ironToSpawn)
+                                                 .ToList();
+
+                    if (extraIron.Count > 0)
+                    {
+                        // 5. Tambahkan ke list spawn utama
+                        selectedValuables.AddRange(extraIron);
+                        Debug.Log($"BALANCE: Menambahkan {extraIron.Count} Iron Stone ekstra untuk jaminan.");
+                    }
+                }
+            }
+        }
+
+
+        // Kelompokkan batu berharga yang terpilih dan tambahkan ke list akhir
         var groupedValuables = selectedValuables.GroupBy(stone => stone.typeStone);
 
         foreach (var group in groupedValuables)
@@ -207,10 +237,11 @@ public class BatuManager : MonoBehaviour, ISaveable
         }
 
         // Hitung total batu yang di-spawn untuk logging
-        int totalSpawnedStones = listStoneActivePerDay.Sum(group => group.listActive.Count);
+        // Kita hitung dari selectedValuables.Count karena itu jumlah batu berharga yg *sebenarnya*
+        int totalValuableStones = selectedValuables.Count;
+        int totalSpawnedStones = listStoneActivePerDay.Sum(group => group.listActive.Count); // Ini termasuk batu biasa
 
-        Debug.Log($"Proses selesai. Hari ini (luck: {dailyLuck}), sebanyak {totalSpawnedStones} total batu (termasuk {valuableSpawnCount} batu berharga) telah ditambahkan ke antrian spawn dalam {listStoneActivePerDay.Count} grup.");
-
+        Debug.Log($"Proses selesai. Hari ini (luck: {dailyLuck}), sebanyak {totalSpawnedStones} total batu (termasuk {totalValuableStones} batu berharga) telah ditambahkan ke antrian spawn dalam {listStoneActivePerDay.Count} grup.");
 
         //Spawner Stone di sini 
         SpawnStone();
@@ -355,7 +386,7 @@ public class BatuManager : MonoBehaviour, ISaveable
         Debug.Log($"Mencoba menjadwalkan respawn untuk ID: '{stoneID}'");
         TemplateStoneActive stoneDataFromBlueprint = FindStoneDataByID(stoneID);
 
-        // --- TAMBAHKAN PENGECEKAN INI ---
+        // TAMBAHKAN PENGECEKAN INI
         if (stoneDataFromBlueprint != null)
         {
             // Kode ini HANYA akan berjalan jika batu berhasil ditemukan

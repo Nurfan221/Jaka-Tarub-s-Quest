@@ -160,7 +160,7 @@ public class StoneBehavior : UniqueIdentifiableObject
 
     private void DestroyStone()
     {
-        Debug.Log($"--- Memulai DestroyStone. DayLuck: {TimeManager.Instance.dailyLuck} ---");
+        Debug.Log($"Memulai DestroyStone. DayLuck: {TimeManager.Instance.dailyLuck}");
 
         if (itemDropMines.Count == 0)
         {
@@ -177,22 +177,51 @@ public class StoneBehavior : UniqueIdentifiableObject
         {
             Debug.Log($"Jumlah item drop kurang dari 3 ({itemDropMines.Count}). Menggunakan logika drop sederhana, mengabaikan DailyLuck.");
 
+            // Logika sederhana (tidak diubah)
             for (int i = 0; i < amountToDrop; i++)
             {
-                // Langsung pilih item secara acak dari list yang ada
                 int index = UnityEngine.Random.Range(0, itemDropMines.Count);
                 ItemData droppedItem = itemDropMines[index];
                 chosenDrops.Add(droppedItem);
                 Debug.Log($"Iterasi {i + 1}: Item terpilih -> {droppedItem.itemName}");
             }
         }
-
         else
         {
             int rareItemsDroppedCount = 0;
-            Debug.Log($"Jumlah item cukup. Menggunakan sistem tier. Akan menjatuhkan {amountToDrop} item.");
+            // Kita gunakan variabel baru untuk loop, agar 'amountToDrop' tetap jadi total akhir
+            int amountOfDropsForLoop = amountToDrop;
 
-            for (int i = 0; i < amountToDrop; i++)
+            // Cek kondisi balance (di bawah 3)
+            if (TimeManager.Instance.dailyLuck < 3)
+            {
+                Debug.Log($"BALANCE: DailyLuck < 3 ({TimeManager.Instance.dailyLuck}). Menerapkan jaminan drop.");
+
+                // Pastikan list-nya ada isinya DAN kita masih punya jatah drop
+                if (uncommonTierItems.Count > 0 && amountOfDropsForLoop > 0)
+                {
+                    ItemData guaranteedUncommon = uncommonTierItems[UnityEngine.Random.Range(0, uncommonTierItems.Count)];
+                    chosenDrops.Add(guaranteedUncommon);
+                    amountOfDropsForLoop--; // Kurangi jatah drop untuk loop
+                    Debug.Log($"BALANCE: Menjamin 1 item Uncommon -> {guaranteedUncommon.itemName}");
+                }
+
+                // Pastikan list-nya ada isinya, kita masih punya jatah drop, DAN kita belum melebihi batas rare
+                if (rareTierItems.Count > 0 && amountOfDropsForLoop > 0 && rareItemsDroppedCount < maxRareDropsLimit)
+                {
+                    ItemData guaranteedRare = rareTierItems[UnityEngine.Random.Range(0, rareTierItems.Count)];
+                    chosenDrops.Add(guaranteedRare);
+                    amountOfDropsForLoop--; // Kurangi jatah drop untuk loop
+                    rareItemsDroppedCount++; // PENTING: Hitung ini sebagai drop rare pertama!
+                    Debug.Log($"BALANCE: Menjamin 1 item Rare -> {guaranteedRare.itemName}");
+                }
+            }
+
+            // Kita sekarang menjalankan loop untuk sisa drop (jika ada)
+            Debug.Log($"Jumlah item cukup. Menggunakan sistem tier. Total drop: {amountToDrop}. ({chosenDrops.Count} sudah dijamin, {amountOfDropsForLoop} akan diacak).");
+
+            // Loop sekarang menggunakan amountOfDropsForLoop
+            for (int i = 0; i < amountOfDropsForLoop; i++)
             {
                 ItemTier chosenTier = GetTierBasedOnLuck();
 
@@ -200,7 +229,8 @@ public class StoneBehavior : UniqueIdentifiableObject
                 {
                     if (rareItemsDroppedCount >= maxRareDropsLimit)
                     {
-                        Debug.Log($"Iterasi {i + 1}: Batas item langka ({maxRareDropsLimit}) tercapai. Menurunkan tier dari Rare menjadi Uncommon.");
+                        // Gunakan (i + chosenDrops.Count) agar log iterasi tetap urut
+                        Debug.Log($"Iterasi {i + chosenDrops.Count + 1}: Batas item langka ({maxRareDropsLimit}) tercapai. Menurunkan tier dari Rare menjadi Uncommon.");
                         chosenTier = ItemTier.Uncommon;
                     }
                     else
@@ -229,20 +259,19 @@ public class StoneBehavior : UniqueIdentifiableObject
                 if (droppedItem != null)
                 {
                     chosenDrops.Add(droppedItem);
-                    Debug.Log($"Iterasi {i + 1}: Tier terpilih -> {chosenTier}. Item -> {droppedItem.itemName}");
+                    Debug.Log($"Iterasi {i + chosenDrops.Count}: Tier terpilih -> {chosenTier}. Item -> {droppedItem.itemName}");
                 }
             }
         }
 
+        // Drop semua item yang sudah terkumpul (tidak diubah)
         if (chosenDrops.Count > 0)
         {
             Debug.Log($"Proses pemilihan selesai. Total item yang akan didrop: {chosenDrops.Count}");
             foreach (var item in chosenDrops)
             {
-                // ... panggil logika ItemPool.Instance.DropItem(...) Anda di sini
                 Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(0.1f, 0.5f));
                 ItemPool.Instance.DropItem(item.itemName, item.itemHealth, item.quality, transform.position + offset, 1);
-
             }
         }
 

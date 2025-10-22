@@ -22,6 +22,7 @@ public class QuestManager : MonoBehaviour, ISaveable
     [Header("Database Quest (Aset SO)")]
     // Cukup seret semua aset ChapterSO Anda ke sini.
     public List<ChapterSO> allChapters;
+    public Dialogues dialogueIfItemNotComplate;
     //MainQuestController 
     public MainQuestSO pendingMainQuest; // Quest yang menunggu untuk diaktifkan
     public MainQuestController activeMainQuestController; // Controller yang sedang berjalan
@@ -226,24 +227,7 @@ public class QuestManager : MonoBehaviour, ISaveable
 
 
 
-    public PlayerMainQuestStatus GetActiveMainQuestStatus(string npcName)
-    {
-        // Pertama, cek apakah ada Main Quest yang aktif secara keseluruhan
-        if (activePlayerMainQuestStatus == null || activePlayerMainQuestStatus.Progress != QuestProgress.Accepted)
-        {
-            return null; // Tidak ada Main Quest aktif atau belum diterima
-        }
 
-        // Kemudian, cek apakah NPC yang diberikan adalah NPC yang terkait dengan Main Quest ini
-        // (Asumsi MainQuestSO.npcName sudah diset dengan benar)
-        if (activePlayerMainQuestStatus.MainQuestDefinition != null &&
-            activePlayerMainQuestStatus.MainQuestDefinition.namaNpcQuest.Equals(npcName, StringComparison.OrdinalIgnoreCase))
-        {
-            return activePlayerMainQuestStatus; // Main Quest aktif, dan NPC cocok
-        }
-
-        return null; // Main Quest aktif tetapi NPC tidak cocok, atau MainQuestDefinition null
-    }
 
     // Mengembalikan TRUE jika item berhasil diproses oleh Main Quest ATAU Side Quest
     private void CheckIfQuestIsComplete(TemplateQuest questStatus)
@@ -259,6 +243,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         }
         else
         {
+            DialogueSystem.Instance.HandlePlayDialogue(dialogueIfItemNotComplate);
             // Jika belum selesai, Anda bisa memicu dialog "pengingat" di sini
             Debug.Log($"Side Quest '{questStatus.questName}' belum selesai, masih ada item yang dibutuhkan.");
         }

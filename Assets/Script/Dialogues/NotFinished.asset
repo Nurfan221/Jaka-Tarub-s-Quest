@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: NotFinished
   m_EditorClassIdentifier: 
   TheDialogues:
-  - name: MbokRini
+  - name: NPC
+    sentence: Terimakasih jaka . . .
+  - name: NPC
     sentence: Baiklah Saya tunggu kekuranganya
-  mainSpeaker: MbokRini
+  mainSpeaker: NPC
   promptAfterDialogue: 
