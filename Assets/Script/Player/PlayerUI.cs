@@ -76,7 +76,6 @@ public class PlayerUI : MonoBehaviour
 
     [Header("Inventory UI")]
     public Button inventoryButton;  // Drag and drop the button in the inspector
-    public Button closeInventoryButton;  // Drag and drop the close button in the inspector
 
 
     // Variabel untuk menyimpan coroutine yang sedang berjalan
@@ -111,10 +110,7 @@ public class PlayerUI : MonoBehaviour
             inventoryButton.onClick.AddListener(MechanicController.Instance.HandleOpenInventory);
         }
 
-        if (closeInventoryButton != null)
-        {
-            closeInventoryButton.onClick.AddListener(MechanicController.Instance.HandleCloseInventory);
-        }
+
 
         if (dashButton != null)
         {

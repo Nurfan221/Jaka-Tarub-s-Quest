@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
+  m_Name: DagingSapiPanggang
+  m_EditorClassIdentifier: 
+  itemID: 113
+  itemName: DagingSapiPanggang
+  quality: 0
+  types: 4
+  categories: 16
+  sprite: {fileID: -1758145566270953921, guid: 22ca46a4b54c021448c2f2ff9de9c5aa, type: 3}
+  itemDescription: Daging sapi panggang yang juicy dan penuh rasa, dipanggang hingga
+    sempurna untuk menciptakan cita rasa yang lezat. Mengandung protein yang tinggi
+    untuk mengembalikan kekuatan dan stamina.
+  QuantityFuel: 0
+  maxhealth: 0
+  health: 0
+  waktuBuffDamage: 5
+  buffDamage: 3
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 30
+  countStamina: 10
+  isItemCombat: 0
+  Level: 1
+  MaxLevel: 0
+  Damage: 0
+  AreaOfEffect: 0
+  SpecialAttackCD: 0
+  SpecialAttackStamina: 0
+  UpgradeCost: 0
+  UseStamina: 0
+  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  isStackable: 1
+  maxStackCount: 32
+  BuyValue: 60
+  SellValue: 0
+  BurningTime: 0
+  CookTime: 5
+  itemDropName: 
+  namePrefab: 
+  growthTime: 0
+  growthImages: []
+  seedType: 0

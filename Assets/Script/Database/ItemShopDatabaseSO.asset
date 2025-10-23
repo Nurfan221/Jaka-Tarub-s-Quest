@@ -54,15 +54,31 @@ MonoBehaviour:
     - seasonName: Rain
       season: 0
       itemsForSale:
+      - {fileID: 11400000, guid: 5420feede23264f489b3e80a3aa8d4b0, type: 2}
+      - {fileID: 11400000, guid: d4cb4152b3a1751408535eb7b11e70b2, type: 2}
+      - {fileID: 11400000, guid: 9588ebd1db8841648adbcd0c040274ac, type: 2}
+      - {fileID: 11400000, guid: d5914af9f3b42d746ab356714191331b, type: 2}
+      - {fileID: 11400000, guid: e0fc16276a3099746858ed704a0816c1, type: 2}
+      - {fileID: 11400000, guid: bb7e3fdb3ba3d0c42bc5827c273e25b7, type: 2}
+      - {fileID: 11400000, guid: 758610d83385a9f4d8aeb8d7d13c965a, type: 2}
+      itemWajib:
       - {fileID: 11400000, guid: 38edefcf53dbc7646a3f9f223a40b894, type: 2}
       - {fileID: 11400000, guid: d176e391de84df34f8fc7fa8a3d5365a, type: 2}
-      itemWajib:
-      - {fileID: 11400000, guid: fbdf2c85b189a2e42aefa92b3fa09046, type: 2}
+      - {fileID: 11400000, guid: 36d2ddb112a350d4da05b5a3bb31952f, type: 2}
+      - {fileID: 11400000, guid: 8750ba94bab26ec48baa37d182da9441, type: 2}
     - seasonName: Dry
       season: 1
       itemsForSale:
+      - {fileID: 11400000, guid: 0db5cd2b19ee8594bb58dfe3fb188b4a, type: 2}
+      - {fileID: 11400000, guid: aef311747819f3d4c8ca047c4f44e762, type: 2}
+      - {fileID: 11400000, guid: eb0a96bf81f64484e94e5211fceff826, type: 2}
+      - {fileID: 11400000, guid: 4e91c7eb133066447a987edc8c7f49cd, type: 2}
+      - {fileID: 11400000, guid: a6d1ff8ca98960e4ba1c252bdc012adb, type: 2}
+      - {fileID: 11400000, guid: 788c9ddcdaabed74bb502f4e6e1ce0e8, type: 2}
+      - {fileID: 11400000, guid: b81117d8dab297c41a661cd860c9dbe3, type: 2}
+      itemWajib:
+      - {fileID: 11400000, guid: 38edefcf53dbc7646a3f9f223a40b894, type: 2}
+      - {fileID: 11400000, guid: d176e391de84df34f8fc7fa8a3d5365a, type: 2}
       - {fileID: 11400000, guid: 36d2ddb112a350d4da05b5a3bb31952f, type: 2}
       - {fileID: 11400000, guid: 8750ba94bab26ec48baa37d182da9441, type: 2}
-      itemWajib:
-      - {fileID: 11400000, guid: f81f0f4680ff90d40bbf5ff8a6d21c02, type: 2}
   itemShopSaveData: []

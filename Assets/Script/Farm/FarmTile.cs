@@ -46,6 +46,7 @@ public class FarmTile : MonoBehaviour, ISaveable
     {
 
         //RestoreFarmStateFromData();
+        HandleNewDay();
     }
 
 

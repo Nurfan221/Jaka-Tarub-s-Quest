@@ -40,8 +40,10 @@ public class InventoryUI : MonoBehaviour
     public Button openCraft;
     public Button openInventory;
     public Button btnHapus;
+    public Button closeInventoryButton;  // Drag and drop the close button in the inspector
+           
 
-    [Header("Item Description")]
+[Header("Item Description")]
     public GameObject frontSide; // Drag the front side GameObject here
     public GameObject backSide;  // Drag the back side GameObject here
     public bool Description = false;
@@ -53,6 +55,8 @@ public class InventoryUI : MonoBehaviour
     [Header("Six Item Display")]
     public Transform ContentGO6; // New UI Content for 6 items
     public Transform SlotTemplate6; // New UI Slot Template for 6 items
+
+
 
 
 
@@ -134,6 +138,12 @@ public class InventoryUI : MonoBehaviour
             quickSlotButtons[i].onClick.RemoveAllListeners();
             quickSlotButtons[i].onClick.AddListener(() => ShowDeleteButton(() => RisetQuickSlot(index)));
         }
+
+        if (closeInventoryButton != null)
+        {
+            closeInventoryButton.onClick.AddListener(MechanicController.Instance.HandleCloseInventory);
+        }
+
 
         spriteImageTemplate = DatabaseManager.Instance.GetSpriteTempalte("HealthItemUI");
 

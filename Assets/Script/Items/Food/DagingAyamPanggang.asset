@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
+  m_Name: DagingAyamPanggang
+  m_EditorClassIdentifier: 
+  itemID: 109
+  itemName: DagingAyamPanggang
+  quality: 0
+  types: 6
+  categories: 16
+  sprite: {fileID: 7801308808990622549, guid: 22ca46a4b54c021448c2f2ff9de9c5aa, type: 3}
+  itemDescription: Daging ayam panggang dengan lapisan kulit yang renyah dan daging
+    yang lembut di dalamnya. Memberikan keseimbangan antara rasa dan energi.
+  QuantityFuel: 0
+  maxhealth: 0
+  health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 10
+  countStamina: 10
+  isItemCombat: 0
+  Level: 1
+  MaxLevel: 0
+  Damage: 0
+  AreaOfEffect: 0
+  SpecialAttackCD: 0
+  SpecialAttackStamina: 0
+  UpgradeCost: 0
+  UseStamina: 0
+  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  isStackable: 1
+  maxStackCount: 32
+  BuyValue: 35
+  SellValue: 0
+  BurningTime: 0
+  CookTime: 5
+  itemDropName: 
+  namePrefab: 
+  growthTime: 0
+  growthImages: []
+  seedType: 0

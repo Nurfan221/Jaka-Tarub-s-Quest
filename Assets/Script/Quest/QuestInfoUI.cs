@@ -23,8 +23,11 @@ public class QuestInfoUI : MonoBehaviour
     public Transform deskripsi;
     public Transform deskripsiContent;
     public bool isDeskripsi;
-    public Transform itemDeskripsi;
-    public Transform templateItemDeskripsi;
+    [Header("Menu Panels QuestInfo")]
+    public TMP_Text questInfoPanelName;
+    public TMP_Text deskripsiQuestPanelName;
+    public Transform itemQuestContentGo;
+    public Transform itemQuestSlotTemplate;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -42,7 +45,6 @@ public class QuestInfoUI : MonoBehaviour
 
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -128,25 +130,21 @@ public class QuestInfoUI : MonoBehaviour
                         deskripsiContent.gameObject.SetActive(true);
 
 
-                        // Mengambil teks quest name
-                        TMP_Text questName = deskripsiContent.GetChild(1).GetComponent<TMP_Text>();
-                        TMP_Text questDeskripsi = deskripsiContent.GetChild(2).GetComponent<TMP_Text>();
-
                         // Mengatur nama quest
-                        questName.text = questData.questName;
+                        questInfoPanelName.text = questData.questName;
 
                         // Menyusun deskripsi quest
                         string fullDescription = questData.DeskripsiAwal;
 
                         //Hapus elemen lama sebelum menampilkan yang baru
-                        ClearChildrenExceptTemplate(itemDeskripsi, templateItemDeskripsi);
+                        ClearChildrenExceptTemplate(itemQuestContentGo, itemQuestSlotTemplate);
 
                         // Menambahkan jumlah item yang ada di itemQuest ke dalam deskripsi
                         foreach (ItemData itemDataQuest in questData.itemRequirements)
                         {
                             //fullDescription += $" {itemQuest.stackCount} buah {itemQuest.itemName} kepada {quest.NPC.name} "; // Menggunakan itemName atau field lainnya dari Item
                             Item itemQuest = ItemPool.Instance.GetItem(itemDataQuest.itemName);                                                                                                  //Instansiasi UI untuk Quest
-                            Transform itemQuestDetail = Instantiate(templateItemDeskripsi, itemDeskripsi);
+                            Transform itemQuestDetail = Instantiate(itemQuestSlotTemplate, itemQuestContentGo);
                             itemQuestDetail.gameObject.SetActive(true);
 
                             // Mengakses objek Image pertama yang ada pada objek instansiasi
@@ -165,7 +163,7 @@ public class QuestInfoUI : MonoBehaviour
                         fullDescription += questData.DeskripsiAkhir;
 
                         // Memasukkan ke dalam questDeskripsi
-                        questDeskripsi.text = fullDescription;
+                        deskripsiQuestPanelName.text = fullDescription;
 
                         isDeskripsi = true;
                     }
@@ -297,14 +295,14 @@ public class QuestInfoUI : MonoBehaviour
                 string fullDescription = $"{miniQuest.deskripsiAwal} {miniQuest.deskripsiAkhir}";
 
                 //Hapus elemen lama sebelum menampilkan yang baru
-                ClearChildrenExceptTemplate(itemDeskripsi, templateItemDeskripsi);
+                ClearChildrenExceptTemplate(itemQuestContentGo, itemQuestSlotTemplate);
 
                 // Menambahkan jumlah item yang ada di itemQuest ke dalam deskripsi
                 foreach (Item itemQuest in miniQuest.itemsQuest)
                 {
                     //fullDescription += $" {itemQuest.stackCount} buah {itemQuest.itemName} kepada {miniQuest.npc.name} "; // Menggunakan itemName atau field lainnya dari Item
                                                                                                                           //Instansiasi UI untuk Quest
-                    Transform itemQuestDetail = Instantiate(templateItemDeskripsi, itemDeskripsi);
+                    Transform itemQuestDetail = Instantiate(itemQuestContentGo, itemQuestSlotTemplate);
                     itemQuestDetail.gameObject.SetActive(true);
 
                     // Mengakses objek Image pertama yang ada pada objek instansiasi
