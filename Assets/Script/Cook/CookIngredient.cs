@@ -33,7 +33,7 @@ public class CookIngredient : MonoBehaviour
         }
 
         // Perulangan untuk setiap resep di database
-        foreach (Recipe recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
+        foreach (RecipeCooking recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
         {
             // Instansiasi SlotTemplate untuk setiap resep
             Transform recipeSlot = Instantiate(SlotTemplate, ContentGO);
@@ -78,7 +78,7 @@ public class CookIngredient : MonoBehaviour
     private void CheckIngredients(string nameResult)
     {
         // Iterasi melalui semua resep
-        foreach (Recipe recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
+        foreach (RecipeCooking recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
         {
             // Pastikan resep yang dimaksud adalah resep yang sesuai dengan nameResult
             if (recipe.result.name == nameResult)

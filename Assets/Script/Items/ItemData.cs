@@ -23,4 +23,8 @@ public class ItemData
         this.itemHealth = other.itemHealth;
     }
 
+    public ItemData()
+    {
+    }
+
 }

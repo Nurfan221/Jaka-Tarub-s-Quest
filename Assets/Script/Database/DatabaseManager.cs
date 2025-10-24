@@ -1,15 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 [System.Serializable]
-public class Recipe
+public class RecipeCooking
 {
     public string recipeName; // Nama resep
     public Item ingredient;    // Bahan-bahan yang dibutuhkan
     public float ingredientCount; // jumlah bahan yang di perlukan
     public Item result;    // Hasil dari resep ini
 }
+
+[System.Serializable]
+public class RecipeSmelting
+{
+    public string recipeName; // Nama resep
+    public Item ingredient;    // Bahan-bahan yang dibutuhkan
+    public float ingredientCount; // jumlah bahan yang di perlukan
+    public Item result;    // Hasil dari resep ini
+    public float resultCount; // jumlah hasil yang di dapatkan
+}
+
 
 [System.Serializable]
 public class EmoticonTemplate
@@ -265,6 +277,7 @@ public enum TypeObject
     Penanda,
     Semak,
     Decoration,
+    TungkuPeleburan
 
 }
 public enum TypePlant
@@ -315,6 +328,7 @@ public enum EnvironmentType
     MejaTamu,
     Shop,
     Dapur,
+    Workshop,
     Lainnya
 }
 
@@ -328,6 +342,12 @@ public enum TypeShop
     FarmUpgrade
 }
 
+public enum TypeCooking
+{
+    None,
+    FoodCook,
+    SmeltCook
+}
 public enum SeedType
 {
     NoItem, // Untuk state kosong atau default

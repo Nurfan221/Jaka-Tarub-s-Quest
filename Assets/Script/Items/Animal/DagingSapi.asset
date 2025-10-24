@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 42
   itemName: DagingSapi
+  quality: 0
   types: 8
   categories: 514
   sprite: {fileID: -6555871079831587737, guid: 22ca46a4b54c021448c2f2ff9de9c5aa, type: 3}
@@ -29,6 +30,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -39,14 +41,13 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: -1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   BurningTime: 0
   CookTime: 5
-  prefabItem: {fileID: 4459120725376062254, guid: 05bed41abe792fd459a4b938cbadca05, type: 3}
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 4459120725376062254, guid: 05bed41abe792fd459a4b938cbadca05, type: 3}
+  seedType: 0

@@ -11,6 +11,7 @@ public class CookInteractable : Interactable
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
     private int currentFrame = 0; // Indeks frame saat ini
     private Coroutine cookingCoroutine;
+    public TypeCooking typeCooking;
 
 
     private void Start()

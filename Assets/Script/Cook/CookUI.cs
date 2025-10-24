@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq; // Tambahkan ini
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq; // Tambahkan ini
+
 
 public class CookUI : MonoBehaviour
 {
@@ -11,120 +12,60 @@ public class CookUI : MonoBehaviour
 
     [Header("Database Crafting")]
     [SerializeField] private CookInteractable interactableInstance;
+    public PlayerController stats;
 
-    // public GameObject inventorySlots;
-    public bool isCookUIPanelOpen = false;
+    [Header("UI Elements")]
+    // ui untuk menampilkan inventory yang bisa di masak
+    public Transform inventoryContent;
+    public Transform inventorySlotTemplate;
 
-    List<Item> Items;
-
-    [Header("Inventory Slot")]
-    [SerializeField] Transform itemSlotContainer;
-    [SerializeField] Transform itemSlotTemplate;
-
-    [Header("Item Cook")]
-    public List<Item> itemsInCook = new List<Item>();  // Menyimpan item yang telah dipindahkan ke cooking
-    public List<Item> fuelInCook = new List<Item>();  // Menyimpan Fuel yang telah dipindahkan ke cooking
-    public List<Item> resultInCook = new List<Item>();  // Menyimpan Fuel yang telah dipindahkan ke cooking
-    public GameObject ItemCook;  // Objek tempat item akan dipindahkan (misal, slot masak)
-    public GameObject FuelCook;  // Objek tempat item akan dipindahkan (misal, slot masak)
-    public GameObject cookingResult;  // Objek tempat item akan dipindahkan (misal, slot masak)
-    public GameObject fire;
-    public Transform imageFire;
-    public Sprite[] newFireSprite; // Sprite baru yang akan digunakan saat kondisi terpenuhi
-    public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
-
-    private Image fireImage; // Komponen UI Image
-    private int currentFrame = 0; // Indeks frame saat ini
-
-    public bool itemCookValue = false;
-    public bool fuelCookValue = false;
-    public bool resultCookValue = false;
-    private bool isCooking = false; // Menandakan apakah sedang memasak
-    public int cookTime;
-    public float timeToCook = 0; // Waktu memasak yang tersisa 
-    public int totalItemCooked = 0;
-    public int totalBurning = 0;
-    public int fuelStackCount;
-
-    // Fungsi untuk memulai proses memasak
-    public Queue<Item> cookingQueue = new Queue<Item>();
-
-    //deklarasikan perbandikan bahan masakan 
-    public ItemCategory[] validCategories = {
-    ItemCategory.Fruit,
-    ItemCategory.Meat,
-    ItemCategory.Vegetable
-    };
-
-    [Header("button")]
+    // ui untuk menampilkan proses memasak
+    public Transform itemCookTemplate;
+    public Transform fuelCookTemplate;
+    public Transform resultCookTemplate;
+    public Transform fireCookTemplate;
     public Button closeButton;
 
-    private PlayerController stats;
-    private void Awake()
-    {
+    [Header("Cook settings")]
+    private ItemCategory[] validCookCategories = {
+        ItemCategory.Food,
+        ItemCategory.Meat,
+        ItemCategory.Vegetable,
+    };
+    public ItemData itemCook;
+    public ItemData fuelCook;
+    public ItemData itemResult;
+    private bool isCooking = false; // Mencegah spam klik
+    private Coroutine cookingCoroutine; // Menyimpan referensi ke coroutine
+
+    // QuantityFuel menandakan berapa item bisa di masak menggunakan fuel tersebut
+    public int quantityFuel = 0; // Nilai bahan bakar saat ini
 
 
-        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
-        if (PlayerController.Instance != null)
-        {
-            stats = PlayerController.Instance;
-        }
-        else
-        {
-            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
-        }
-    }
     private void Start()
     {
-        // SetRecipeDescription(recipes[0], CanCraft(recipes[0]));
-        // LogRecipesToConsole();
-
+        if (itemCookTemplate != null)
+        {
+            itemCookTemplate.GetComponent<Button>().onClick.AddListener(OnClickItemCook);
+        }
+        if (fuelCookTemplate != null)
+        {
+            fuelCookTemplate.GetComponent<Button>().onClick.AddListener(OnClickFuelCook);
+        }
         if (closeButton != null)
         {
             closeButton.onClick.AddListener(CloseCookUI);
-            Debug.Log("tombol close listener added.");
         }
-        else
-        {
-            Debug.Log("tombol close belum terhubung");
-        }
-        fireImage = imageFire.GetComponent<Image>();
-
-
-
-
+    
     }
-
-    private void Update()
-    {
-       
-
-
-
-
-
-    }
-
-    private IEnumerator PlayFireAnimation()
-    {
-        while (true) // Loop tanpa batas (animasi berulang)
-        {
-            if (newFireSprite.Length > 0) // Pastikan array sprite tidak kosong
-            {
-                fireImage.sprite = newFireSprite[currentFrame]; // Setel sprite saat ini
-                currentFrame = (currentFrame + 1) % newFireSprite.Length; // Pindah ke frame berikutnya (loop)
-            }
-            yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
-        }
-    }
-
     public void OpenCook()
     {
+        stats = PlayerController.Instance;
+
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Click");
         GameController.Instance.ShowPersistentUI(false);
         gameObject.SetActive(true);
-        isCookUIPanelOpen = true;
 
         RefreshSlots();
     }
@@ -132,578 +73,323 @@ public class CookUI : MonoBehaviour
     private void CloseCookUI()
     {
         GameController.Instance.ShowPersistentUI(true);
-        isCookUIPanelOpen = false;
 
-        RefreshSlots();
+        //RefreshSlots();
 
         // Jangan stop dari sini. Langsung delegasikan ke pemilik coroutine
-        interactableInstance.StartCookingExternally(ProcessCookingQueue(cookTime));
+        //interactableInstance.StartCookingExternally(ProcessCookingQueue(cookTime));
 
         gameObject.SetActive(false);
     }
 
-
-
     public void RefreshSlots()
     {
-        foreach (Transform child in itemSlotContainer)
+        foreach (Transform child in inventoryContent)
         {
-            if (child == itemSlotTemplate)
+            if (child == inventorySlotTemplate)
                 continue;
             Destroy(child.gameObject);
         }
 
+        //  Mengisi slot inventory baru (Kode Anda sudah benar)
         foreach (ItemData itemData in stats.inventory)
         {
             Item item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
-            Transform theItem = Instantiate(itemSlotTemplate, itemSlotContainer);
-            theItem.name = item.itemName;
-            theItem.gameObject.SetActive(true);
-            theItem.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            //theItem.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
-            theItem.GetComponent<DragCook>().itemName = item.itemName;
 
-            // Menambahkan event listener ketika item diklik
-            if (validCategories.Any(category => item.IsInCategory(category)))
+            if (validCookCategories.Any(category => item.IsInCategory(category)) || item.IsInCategory(ItemCategory.Fuel)) // Tampilkan juga fuel
             {
-                theItem.GetComponent<Button>().onClick.AddListener(() => MoveItemToCook(item));
-            }
-            else if (item.IsInCategory(ItemCategory.Fuel))
-            {
-                theItem.GetComponent<Button>().onClick.AddListener(() => MoveFuelToCook(item));
-            }
+                Transform theItem = Instantiate(inventorySlotTemplate, inventoryContent);
+                theItem.name = item.itemName;
+                theItem.gameObject.SetActive(true);
 
+                theItem.GetChild(0).GetComponent<Image>().sprite = item.sprite;
+                theItem.GetChild(1).GetComponent<TMP_Text>().text = itemData.count.ToString();
+                theItem.GetComponent<DragCook>().itemName = item.itemName;
+
+                ItemData currentItemData = itemData;
+                theItem.GetComponent<Button>().onClick.AddListener(() => OnClickItemInInventory(currentItemData));
+            }
         }
-    }
 
-    // Fungsi untuk memindahkan item ke ItemCook
-    public void MoveItemToCook(Item item)
-    {
-        //    if (cookIngredients.cekIngredient == true)
-        //    {
-        //        Debug.Log("please move item in itemcook inventory");
-        //        cookIngredients.DestroyCekIngredient();
-        //        cookIngredients.cekIngredient = false;
-        //    }
-        // Dapatkan item dari item pool
-        item = ItemPool.Instance.GetItem(item.itemName);
-
-        // Remove item dari inventory
-        //Player_Inventory.Instance.RemoveItem(item);
-
-        // Cek apakah item sudah ada di dalam itemsInCook
-        Item existingItem = itemsInCook.FirstOrDefault(i => i.itemName == item.itemName);
-
-        // Jika item sudah ada di itemsInCook
-        if (existingItem != null)
+        if (itemCook != null && itemCook.count > 0)
         {
-            //existingItem.stackCount += item.stackCount;
-            Debug.Log("Item sudah ada, menambahkan ke stack.");
+            itemCookTemplate.name = itemCook.itemName;
+            itemCookTemplate.GetChild(0).GetComponent<Image>().sprite = ItemPool.Instance.GetItemWithQuality(itemCook.itemName, itemCook.quality).sprite;
+            itemCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = itemCook.count.ToString();
+            itemCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1); // Tampilkan gambar
         }
         else
         {
-            // Cek apakah resultInCook memiliki hasil masakan dari item yang sama
-            bool hasMatchingResult = false;
-            foreach (var recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
-            {
-                if (recipe.ingredient.itemName == item.itemName)
-                {
-                    var matchedResult = resultInCook.FirstOrDefault(r => r.itemName == recipe.result.itemName);
-                    if (matchedResult != null)
-                    {
-                        hasMatchingResult = true;
-                        break;
-                    }
-                }
-            }
-
-            // Jika hasil sebelumnya cocok, tetap masukkan item ke dalam itemsInCook
-            itemsInCook.Add(item);
-            Debug.Log(hasMatchingResult
-                ? "Item dimasukkan karena cocok dengan hasil sebelumnya."
-                : "Item baru ditambahkan ke itemsInCook.");
+            // Kosongkan slot jika itemCook null atau count 0
+            itemCook = null; // Pastikan null jika count 0
+            itemCookTemplate.name = "Slot_Item";
+            itemCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = "";
+            itemCookTemplate.GetChild(0).GetComponent<Image>().sprite = null;
+            itemCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0); // Sembunyikan gambar
         }
 
-        // Update tampilan UI
-        UpdateItemCookUI();
-        RefreshSlots();
-        TryStartCook();
-
-    }
-
-
-
-
-    public void MoveFuelToCook(Item item)
-    {
-        // Dapatkan item dari item pool
-        item = ItemPool.Instance.GetItem(item.itemName);
-
-        // Remove item dari inventory
-        //Player_Inventory.Instance.RemoveItem(item);
-
-        // Cek apakah item sudah ada di dalam fuelInCook
-        Item existingItem = fuelInCook.FirstOrDefault(i => i.itemName == item.itemName);
-
-        if (existingItem != null)
+        if (fuelCook != null && fuelCook.count > 0)
         {
-            // Tambahkan ke stack fuel yang sudah ada
-            //existingItem.stackCount += item.stackCount;
-            //Debug.Log("Fuel sudah ada, menambahkan ke stack. Total sekarang: " + existingItem.stackCount);
+            fuelCookTemplate.name = fuelCook.itemName;
+            fuelCookTemplate.GetChild(0).GetComponent<Image>().sprite = ItemPool.Instance.GetItemWithQuality(fuelCook.itemName, fuelCook.quality).sprite;
+            fuelCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = fuelCook.count.ToString();
+            fuelCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
         else
         {
-            // Tambahkan fuel baru ke list
-            fuelInCook.Add(item);
-            Debug.Log("Fuel baru ditambahkan ke fuelInCook.");
+            // Kosongkan slot jika fuelCook null atau count 0
+            fuelCook = null; // Pastikan null jika count 0
+            fuelCookTemplate.name = "Slot_Fuel";
+            fuelCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = "";
+            fuelCookTemplate.GetChild(0).GetComponent<Image>().sprite = null;
+            fuelCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
 
-        // Update tampilan FuelCook UI
-        UpdateFuelCookUI();
-
-        // Refresh tampilan inventory
-        RefreshSlots();
-
-        // Coba mulai memasak jika kedua komponen sudah siap
-        TryStartCook();
+        StartCook();
     }
 
-
-
-    // Fungsi untuk memperbarui tampilan ItemCook setelah item ditambahkan
-    public void UpdateItemCookUI()
+    public void OnClickItemInInventory(ItemData itemDataFromInventory)
     {
-        itemCookValue = true;
+        Debug.Log($"Item diklik: {itemDataFromInventory.itemName}, Jumlah: {itemDataFromInventory.count}");
+        Item item = ItemPool.Instance.GetItemWithQuality(itemDataFromInventory.itemName, itemDataFromInventory.quality);
 
-        // Hapus item yang sudah ada di tampilan Cook
-        foreach (Transform child in ItemCook.transform)
+        bool itemMoved = false; // Flag untuk menandai jika ada item yang berpindah
+
+        if (validCookCategories.Any(category => item.IsInCategory(category)))
         {
-            Destroy(child.gameObject);
-        }
-
-        // Pastikan hanya satu item yang ditambahkan ke ItemCook
-        if (itemsInCook.Count > 0)
-        {
-            // Ambil item pertama dari itemsInCook
-            Item item = itemsInCook[0];
-
-            // Menambahkan item ke slot tampilan masak
-            Transform itemSlot = Instantiate(itemSlotTemplate, ItemCook.transform);
-            itemSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            //itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
-            itemSlot.gameObject.SetActive(true);
-            itemSlot.name = item.itemName;
-            itemSlot.GetComponent<DragCook>().itemName = item.itemName;
-            // Tambahkan listener untuk mengembalikan item ke inventory saat diklik
-            itemSlot.GetComponent<Button>().onClick.AddListener(() => ReturnItemToInventory(item));
-        }
-
-       
-
-    }
-
-    public void UpdateFuelCookUI()
-    {
-        fuelCookValue = true;
-
-        // Hapus item yang sudah ada di tampilan Cook
-        foreach (Transform child in FuelCook.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        // Pastikan hanya satu item yang ditambahkan ke ItemCook
-        if (fuelInCook.Count > 0)
-        {
-            // Ambil item pertama dari fuelInCook
-            Item item = fuelInCook[0];
-
-            // Menambahkan item ke slot tampilan masak
-            Transform itemSlot = Instantiate(itemSlotTemplate, FuelCook.transform);
-            itemSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            //itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
-            itemSlot.gameObject.SetActive(true);
-            itemSlot.name = item.itemName;
-            itemSlot.GetComponent<DragCook>().itemName = item.itemName;
-            // Tambahkan listener untuk mengembalikan item ke inventory saat diklik
-            itemSlot.GetComponent<Button>().onClick.AddListener(() => ReturnFuelToInventory(item));
-
-            //fuelStackCount = item.stackCount;
-        }
-        // fuelInCook.gameObject.SetActive(false);
-        ChangeFireImage();
-
-       
-
-    }
-    private void TryStartCook()
-    {
-        bool hasFuel = (fuelInCook.Count > 0) || (totalBurning > 0);
-
-        if (itemsInCook.Count > 0 && hasFuel && !isCooking)
-        {
-            Debug.Log("TryStartCook berhasil. Memulai StartCook()");
-            StartCook();
-        }
-        else
-        {
-            Debug.Log($"TryStartCook gagal. Kondisi: itemsInCook.Count={itemsInCook.Count}, hasFuel={hasFuel}, isCooking={isCooking}");
-        }
-    }
-
-
-
-    void ChangeFireImage()
-    {
-        // Cari objek Fire di scene
-        GameObject fireObject = GameObject.Find("Fire");
-
-        if (fireObject != null)
-        {
-            // Dapatkan komponen Image dari objek Fire
-            Image fireImage = fireObject.GetComponent<Image>();
-
-            if (fireImage != null)
+            // Jika slot masak kosong, buat tumpukan baru
+            if (itemCook == null)
             {
-                if (fuelInCook.Count == 0)
-                {
-                    StopCoroutine(PlayFireAnimation());
-                    Debug.Log("Fuel empty, fire image set to none.");
-                }
-                else
-                {
-                    imageFire.gameObject.SetActive(true);
-                    StartCoroutine(PlayFireAnimation());
-                    Debug.Log("Fuel present, fire image set to newFireSprite.");
-                }
+                // Buat ItemData BARU untuk slot masak
+                itemCook = new ItemData(itemDataFromInventory.itemName, 1, itemDataFromInventory.quality, itemDataFromInventory.itemHealth);
+                itemMoved = true;
             }
+            // Jika slot masak berisi item yang SAMA, tambahkan tumpukan
+            else if (itemCook.itemName == itemDataFromInventory.itemName)
+            {
+                itemCook.count += 1;
+                itemMoved = true;
+            }
+            // Jika slot masak berisi item BERBEDA
             else
             {
-                Debug.LogWarning("Fire object ditemukan, tapi tidak memiliki komponen Image.");
+                Debug.LogWarning("Slot masak sudah terisi item lain. Kembalikan dulu!");
+            }
+        }
+        else if (item.IsInCategory(ItemCategory.Fuel))
+        {
+            // Jika slot fuel kosong
+            if (fuelCook == null)
+            {
+                fuelCook = new ItemData(itemDataFromInventory.itemName, 1, itemDataFromInventory.quality, itemDataFromInventory.itemHealth);
+                itemMoved = true;
+            }
+            //  Jika slot fuel berisi item yang SAMA
+            else if (fuelCook.itemName == itemDataFromInventory.itemName)
+            {
+                fuelCook.count += 1;
+                quantityFuel = item.QuantityFuel; // Perbarui fuel value berdasarkan item fuel yang ditambahkan
+                itemMoved = true;
+            }
+            //  Jika slot fuel berisi item BERBEDA
+            else
+            {
+                Debug.LogWarning("Slot bahan bakar sudah terisi item lain. Kembalikan dulu!");
             }
         }
         else
         {
-            Debug.LogWarning("Fire object tidak ditemukan di scene.");
+            Debug.LogWarning("Item tidak valid untuk memasak atau bahan bakar.");
+        }
+
+        if (itemMoved)
+        {
+            // Kurangi jumlah item di inventaris
+            itemDataFromInventory.count -= 1;
+
+            // Jika item di inventaris habis (count <= 0), hapus dari list
+            if (itemDataFromInventory.count <= 0)
+            {
+                stats.inventory.Remove(itemDataFromInventory);
+            }
+
+            RefreshSlots();
         }
     }
 
 
-
-
-
-    // Metode untuk mengembalikan item ke inventory
-    public void ReturnItemToInventory(Item item)
+    public void OnClickItemCook()
     {
-        // Menambahkan item kembali ke inventory
-        //Player_Inventory.Instance.AddItem(item); // Asumsikan Anda memiliki metode AddItem di Player_Inventory
-
-        // Hapus item dari itemsInCook
-        itemsInCook.Remove(item);
-
-        // Perbarui tampilan ItemCook
-        UpdateItemCookUI();
+        if (itemCook != null)
+        {
+            ItemData newItemData = new ItemData(itemCook.itemName, 1, itemCook.quality, itemCook.itemHealth);
+            ItemPool.Instance.AddItem(newItemData);
+            itemCook.count -= 1;
+        }
         RefreshSlots();
-        itemCookValue = false;
-
-
     }
-    public void ReturnFuelToInventory(Item item)
+    public void OnClickFuelCook()
     {
-        // Menambahkan item kembali ke inventory
-        //Player_Inventory.Instance.AddItem(item); // Asumsikan Anda memiliki metode AddItem di Player_Inventory
-
-        // Hapus item dari itemsInCook
-        fuelInCook.Remove(item);
-
-        // Perbarui tampilan ItemCook
-        UpdateFuelCookUI();
+        if (fuelCook != null)
+        {
+            ItemData newItemData = new ItemData(fuelCook.itemName, 1, fuelCook.quality, fuelCook.itemHealth);
+            ItemPool.Instance.AddItem(newItemData);
+            fuelCook.count -= 1;
+        }
         RefreshSlots();
-        fuelCookValue = false;
+    }
 
-
-
-
-
+    private bool IsItemResultEmpty()
+    {
+        return itemResult == null || string.IsNullOrEmpty(itemResult.itemName);
     }
 
 
-
-
-   
-
-    //void LogRecipesToConsole()
-    //{
-    //    // Mengambil total recipes 
-    //    int recipeCount = recipes.Count;
-    //    Debug.Log($"Total Recipes: {recipeCount}");
-
-    //    foreach (var recipe in recipes)
-    //    {
-    //        // Mengambil nama item yang dihasilkan 
-    //        string recipeDetails = $"Recipe: {recipe.result.itemName}\nIngredients:";
-    //        // Mengecek jumlah item dari sebuah resep 
-    //        for (int i = 0; i < recipe.ingredients.Count; i++)
-    //        {
-    //            // Menampilkan ingredients dan ingredients Count
-    //            recipeDetails += $"\n- {recipe.ingredients[i].itemName} x{recipe.ingredientsCount[i]}";
-    //        }
-    //        Debug.Log(recipeDetails);
-    //    }
-    //}
-
-    //   
-
-
-
-    // Fungsi untuk memulai proses memasak
     public void StartCook()
     {
         if (isCooking)
         {
-            Debug.Log("Masih memasak. Tidak bisa mulai lagi.");
+            Debug.LogWarning("Proses memasak sedang berjalan!");
             return;
         }
 
-        if (itemsInCook.Count > 0 )
+        if (itemCook == null || fuelCook == null)
         {
-            itemCookValue = false;
-            fuelCookValue = false;
-            string itemName = itemsInCook[0].itemName;
-            //int stackCountItem = itemsInCook[0].stackCount;
-            
+            Debug.LogWarning("Pastikan item masak dan bahan bakar terisi sebelum memasak.");
+            return;
+        }
 
+    
 
-
-
-
-            // Mencari resep yang cocok
-            foreach (Recipe recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
+        // Cari Resep
+        RecipeCooking foundRecipe = null;
+        foreach (var recipeCooking in DatabaseManager.Instance.cookingDatabase.cookRecipes)
+        {
+            if (recipeCooking.ingredient.itemName == itemCook.itemName)
             {
-                if (recipe.ingredientCount == 1 && itemName == recipe.ingredient.itemName)
-                {
-                    Debug.Log("Recipe found");
-                    Debug.Log("time To Cook = " + timeToCook);
-
-
-                    Item cookedItem = ItemPool.Instance.GetItem(recipe.result.itemName);
-                    cookTime = recipe.result.CookTime;
-
-                    // Tambahkan item ke antrian sebanyak stackCount
-                    //for (int i = 0; i < stackCountItem; i++)
-                    //{
-                    //    cookingQueue.Enqueue(cookedItem); // Masukkan ke antrian
-                    //    Debug.Log("Jumlah hasil yang akan di masak " +  i);
-                    //}
-
-                    if (!resultCookValue) // Jika tidak ada hasil masakan, mulai proses masak
-                    {
-                        interactableInstance.StartCookingExternally(ProcessCookingQueue(cookTime));
-                    }
-                    else if (resultCookValue && resultInCook.Count > 0 && resultInCook[0].itemName == cookedItem.itemName)
-                    {
-                        // Jika ada hasil masakan dan item yang di-cook sesuai dengan item yang sedang dimasak
-                        //cookingCoroutine = interactableInstance.StartCookingCoroutine(ProcessCookingQueue(cookTime));
-                          interactableInstance.StartCookingExternally(ProcessCookingQueue(cookTime));
-                    }
-                    else
-                    {
-                        Debug.Log("Result item not match with cooked item");
-                        return; // Hentikan proses jika item tidak cocok
-                    }
-
-                    break;
-                }
-                else
-                {
-                    Debug.Log("Recipe not found");
-                }
+                foundRecipe = recipeCooking;
+                break; // Resep ditemukan, hentikan pencarian
             }
+        }
+
+        if (foundRecipe == null)
+        {
+            Debug.LogWarning("Tidak ada resep yang cocok untuk item ini.");
+            return;
+        }
+
+        //Jika resep valid, mulai Coroutine
+        if (IsItemResultEmpty() || foundRecipe.result.itemName == itemResult.itemName)
+        {
+
+
+            // Mulai Coroutine dan simpan referensinya
+            cookingCoroutine = StartCoroutine(CookItemCoroutine(foundRecipe));
         }
         else
         {
-            Debug.Log("No items or fuel in cook!");
+            Debug.LogWarning("Tidak ada resep yang cocok untuk item ini.");
+            return;
         }
     }
 
-    // Coroutine untuk memproses antrian memasak
-    private IEnumerator ProcessCookingQueue(int cookTime)
+    private IEnumerator CookItemCoroutine(RecipeCooking recipe) // Menggunakan nama parameter dari sebelumnya
     {
+        // Ambil data item, bukan ItemData
+        Item resultItemCook = ItemPool.Instance.GetItemWithQuality(recipe.result.itemName, recipe.result.quality);
         isCooking = true;
-        int cookCounter = 1; // Mulai dari 1
 
-        while (cookingQueue.Count > 0)
+        // Ambil referensi UI
+        Image fillImage = resultCookTemplate.GetChild(0).GetComponent<Image>(); // Ini adalah Ikon
+        Image hasilCookImage = resultCookTemplate.GetComponent<Image>(); // Ini adalah Filler (Slot)
+        TMP_Text resultCountText = resultCookTemplate.GetChild(1).GetComponent<TMP_Text>();
+
+        // Setup Ikon (gambar transparan di atas)
+        fillImage.gameObject.SetActive(true);
+        fillImage.sprite = resultItemCook.sprite;
+        fillImage.color = new Color(1, 1, 1, 0.5f);
+
+        // Setup Filler (gambar radial di slot)
+        hasilCookImage.fillAmount = 0;
+
+    
+
+        float elapsedTime = 0;
+
+        // Loop timer
+        while (elapsedTime < resultItemCook.CookTime) // Asumsi Item punya properti CookTime
         {
-            Item cookedItem = cookingQueue.Dequeue(); // Ambil item dari antrian
-            Debug.Log("fuel total : " + fuelStackCount);
-            if (totalBurning <= 0 && fuelStackCount > 0)
-            {
-                fuelStackCount--;
-                totalBurning = fuelInCook[0].BurningTime;
-                Debug.Log("Fuel habis, ambil fuel baru: ");
-                // Pengurangan stack count dari fuelInCook
-                if (fuelInCook.Count > 0)
-                {
-                    Item firstFuel = fuelInCook[0];
-                    //if (firstFuel.stackCount > 0)
-                    //{
-                    //    firstFuel.stackCount -= 1;
+            elapsedTime += Time.unscaledDeltaTime;
+            float progress = elapsedTime / resultItemCook.CookTime;
+            hasilCookImage.fillAmount = progress;
 
-                    //    if (firstFuel.stackCount <= 0)
-                    //    {
-                    //        fuelInCook.RemoveAt(0);
-                    //    }
-                    //}
-                }
-            }
-            else if (totalBurning <= 0 && fuelStackCount == 0)
-            {
-                Debug.Log("Semua bahan bakar habis.");
-                break;
-            }
+      
 
-
-
-            totalBurning -= cookTime;
-
-            yield return new WaitForSeconds(cookTime);
-
-            CookItem(cookedItem);
-
-            Debug.Log("Memasak item ke-" + cookCounter);
-            cookCounter++; // Naikkan setelah log
-
-            if ( totalBurning <= 0 && fuelStackCount <= 0)
-            {
-                Debug.Log("Fuel finished or time to cook is zero.");
-                break;
-            }
+            yield return null;
         }
+
+        //  PROSES MEMASAK SELESAI 
+
+        hasilCookImage.fillAmount = 1;      // Set filler 100%
+        fillImage.color = new Color(1, 1, 1, 1); // Set ikon 100% buram
+
+        // Cek apakah slot hasil kosong ATAU berisi item yang berbeda
+        if (itemResult == null || itemResult.itemName != recipe.result.itemName)
+        {
+            // Buat tumpukan baru
+            // Asumsi konstruktor: (nama, kualitas, jumlah)
+            itemResult = new ItemData(recipe.result.itemName,1, recipe.result.quality, 1);
+
+            // Hanya reset teks jika ini adalah tumpukan baru/berbeda
+            resultCountText.text = "";
+        }
+        // Jika itemnya SAMA, tambahkan saja jumlahnya
+        else if (itemResult.itemName == recipe.result.itemName)
+        {
+            itemResult.count += 1;
+        }
+
+
+
+        // Update UI dengan data yang sudah di-stack
+        resultCookTemplate.name = itemResult.itemName;
+        resultCountText.gameObject.SetActive(true);
+        resultCountText.text = itemResult.count.ToString();
+
+        // Kurangi bahan SATU KALI setelah selesai
+        itemCook.count -= 1;
+        fuelCook.count -= 1;
+
+        RefreshSlots();
 
         isCooking = false;
+        cookingCoroutine = null;
 
-        if (itemsInCook.Count > 0 && fuelInCook.Count > 0)
+        //  LOGIKA AUTO-COOK 
+        // Cek apakah bahan & fuel masih ada untuk memasak item berikutnya
+        if (itemCook != null && itemCook.count > 0 && fuelCook != null && fuelCook.count > 0)
         {
-            Debug.Log("Memulai ulang memasak karena bahan dan fuel masih ada.");
-            TryStartCook(); // Ini akan memanggil StartCook ulang
-        }
-
-    }
-
-
-    // Fungsi untuk memproses satu item yang dimasak
-    private void CookItem(Item cookedItem)
-    {
-        totalItemCooked++;
-        Debug.Log("total masakan selesai : " +  totalItemCooked);
-        // Cek apakah item sudah ada di dalam resultInCook
-        Item existingItem = resultInCook.FirstOrDefault(item => item.itemName == cookedItem.itemName);
-
-        if (existingItem != null)
-        {
-            // Jika item sudah ada, tambahkan ke stack
-            //existingItem.stackCount += 1;
-            //Debug.Log("Item sudah ada, menambahkan ke stack. Stack count: " + existingItem.stackCount);
+            Debug.Log("Bahan masih ada, melanjutkan memasak...");
+            StartCook(); // Panggil fungsi StartCook() utama lagi
         }
         else
         {
-            // Jika item belum ada, tambahkan item baru
-            resultInCook.Add(cookedItem);
-            Debug.Log("Item baru ditambahkan ke resultInCook: " + cookedItem.itemName);
-        }
+            Debug.Log("Bahan masak atau bahan bakar habis. Berhenti memasak.");
+            resultCookTemplate.GetComponent<Button>().onClick.RemoveAllListeners();
+            resultCookTemplate.GetComponent<Button>().onClick.AddListener(()=>
+            {
+                if (itemResult != null)
+                {
+                    ItemPool.Instance.AddItem(itemResult);
+                    itemResult = null;
 
-        // Update UI dan slots setelah item dimasak
-        UpdateCookingResultUI();
-        RefreshSlots();
-    }
+                    fillImage.gameObject.SetActive(false);
+                    resultCountText.gameObject.SetActive(false);
+                    RefreshSlots();
 
-    // Fungsi untuk memperbarui UI setelah memasak
-    private void UpdateCookingResultUI()
-    {
+                }
+            });
 
-        isCooking = false;
-        resultCookValue = true;
-
-        // Hapus item yang sudah ada di tampilan Cook
-        foreach (Transform child in cookingResult.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        // Pengurangan stack count dari itemsInCook
-        if (itemsInCook.Count > 0)
-        {
-            Item firstItem = itemsInCook[0];
-            //if (firstItem.stackCount > 0)
-            //{
-            //    firstItem.stackCount -= 1;
-
-            //    if (firstItem.stackCount <= 0)
-            //    {
-            //        itemsInCook.RemoveAt(0);
-            //    }
-            //}
-        }
-
-        
-
-        // Pastikan hanya satu item yang ditambahkan ke cooking result
-        if (resultInCook.Count > 0)
-        {
-            // Ambil item pertama dari itemsInCook
-            Item item = resultInCook[0];
-
-            // Menambahkan item ke slot tampilan masak
-            Transform itemSlot = Instantiate(itemSlotTemplate, cookingResult.transform);
-            itemSlot.GetChild(0).GetComponent<Image>().sprite = item.sprite;
-            //itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.stackCount.ToString();
-            itemSlot.gameObject.SetActive(true);
-            itemSlot.name = item.itemName;
-            itemSlot.GetComponent<DragCook>().itemName = item.itemName;
-            // Tambahkan listener untuk mengembalikan item ke inventory saat diklik
-            itemSlot.GetComponent<Button>().onClick.AddListener(() => ReturnResultToInventory(item));
-        }
-
-        // Perbarui tampilan UI dan slot
-        UpdateItemCookUI();
-        UpdateFuelCookUI();
-        RefreshSlots();
-    }
-
-
-
-
-
-
-    private void ClearCookingResult()
-    {
-        // Hapus item yang sudah ada di tampilan Cook
-        foreach (Transform child in cookingResult.transform)
-        {
-            Destroy(child.gameObject);
         }
     }
-
-
-    // Contoh fungsi ReturnFuelToInventory (jika diperlukan)
-    private void ReturnResultToInventory(Item item)
-    {
-
-        resultInCook.Remove(item);
-
-
-        // Logika untuk mengembalikan item ke inventory
-        Debug.Log($"Returning {item.itemName} to inventory");
-        //Player_Inventory.Instance.AddItem(item); // Misalnya menambahkan kembali ke inventory
-        ClearCookingResult();
-        RefreshSlots();
-
-        fuelCookValue = false;
-        itemCookValue = false;
-        resultCookValue = false;
-    }
-
-
-
-
 }

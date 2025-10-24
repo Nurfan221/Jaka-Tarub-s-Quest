@@ -128,10 +128,10 @@ TextureImporter:
       name: UIBaaarr_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 103
-        width: 122
-        height: 22
+        x: 0
+        y: 128
+        width: 256
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,10 +150,10 @@ TextureImporter:
       name: UIBaaarr_1
       rect:
         serializedVersion: 2
-        x: 3
-        y: 79
-        width: 122
-        height: 22
+        x: 0
+        y: 96
+        width: 256
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +172,10 @@ TextureImporter:
       name: UIBaaarr_2
       rect:
         serializedVersion: 2
-        x: 3
-        y: 55
-        width: 122
-        height: 22
+        x: 0
+        y: 64
+        width: 256
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,10 +194,10 @@ TextureImporter:
       name: UIBaaarr_3
       rect:
         serializedVersion: 2
-        x: 3
-        y: 31
-        width: 122
-        height: 22
+        x: 0
+        y: 32
+        width: 256
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,10 +216,10 @@ TextureImporter:
       name: UIBaaarr_4
       rect:
         serializedVersion: 2
-        x: 3
-        y: 7
-        width: 122
-        height: 22
+        x: 0
+        y: 0
+        width: 256
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -238,7 +238,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d23e17954afeba745ab4cc65af5a7101
     internalID: 0
     vertices: []
     indices: 
@@ -247,7 +247,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      UIBaaarr_0: -6844913924078335846
+      UIBaaarr_1: -2818527216096843119
+      UIBaaarr_2: 7607210294130395402
+      UIBaaarr_3: 8834966309712142247
+      UIBaaarr_4: -1720446584756610369
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

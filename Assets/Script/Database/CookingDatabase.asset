@@ -17,3 +17,18 @@ MonoBehaviour:
     ingredient: {fileID: 11400000, guid: be4a13e273645364c9af7545ac02f048, type: 2}
     ingredientCount: 1
     result: {fileID: 11400000, guid: 8750ba94bab26ec48baa37d182da9441, type: 2}
+  - recipeName: DagingDombaPanggang
+    ingredient: {fileID: 11400000, guid: 16c336a800e62b64494af8c2012d5956, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 36d2ddb112a350d4da05b5a3bb31952f, type: 2}
+  smeltRecipes:
+  - recipeName: CopperIngot
+    ingredient: {fileID: 11400000, guid: 5957d9a95df37d048a60d7a16b1a83e7, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 08a121126761b3b47ae07f3e3dbb063a, type: 2}
+    resultCount: 1
+  - recipeName: IronIngot
+    ingredient: {fileID: 11400000, guid: 5ea4325b64294ef44952ed669d71bc0e, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 3bd66d80fb23e764f9744b7e7fcfaa76, type: 2}
+    resultCount: 1

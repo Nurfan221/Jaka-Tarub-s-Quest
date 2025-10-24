@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1537486939397333378}
   - component: {fileID: 3157959627615786834}
   - component: {fileID: 3345695273949750160}
+  - component: {fileID: 1160691333224790097}
   m_Layer: 8
   m_Name: Kompor
   m_TagString: Environment
@@ -47,7 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78cf7a5a3e6b26b4ebc874c9da8ac8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useEvents: 0
   promptMessage: Open Cook
   animationFire: []
   frameRate: 0.1
@@ -85,17 +85,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0005493164, y: -0.1833455}
+  m_Offset: {x: -0.01008606, y: -0.40586567}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.6666666}
+    oldSize: {x: 2, y: 3}
     newSize: {x: 0.5, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.0089417, y: 0.99863374}
+  m_Size: {x: 1.7273636, y: 1.3292351}
   m_EdgeRadius: 0
 --- !u!212 &3157959627615786834
 SpriteRenderer:
@@ -141,7 +141,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 786978748, guid: 515025b351876d643ad5bb86233cf9f6, type: 3}
+  m_Sprite: {fileID: 6954428268693162600, guid: bbb1da25904c3864ca83623165402711, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -217,3 +217,29 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!114 &1160691333224790097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8687371611602760786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
+  hardnessLevel: 4
+  typeObject: 23
+  typePlant: 0
+  arahObject: 3
+  environmentType: 12
+  rumputAnimation:
+  - {fileID: -439146913866183013, guid: bbb1da25904c3864ca83623165402711, type: 3}
+  - {fileID: 8199865031149654543, guid: bbb1da25904c3864ca83623165402711, type: 3}
+  - {fileID: -4220188119609036000, guid: bbb1da25904c3864ca83623165402711, type: 3}
+  - {fileID: 6954428268693162600, guid: bbb1da25904c3864ca83623165402711, type: 3}
+  frameRate: 0.3
+  nameEnvironment: TunkuPeleburan
+  itemDrop: {fileID: 0}
