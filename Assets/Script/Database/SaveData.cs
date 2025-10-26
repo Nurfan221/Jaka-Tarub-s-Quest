@@ -21,6 +21,7 @@ public class GameSaveData
     public List<TreePlacementData> savedTrees = new List<TreePlacementData>();
     public List<PlayerSaveData> savedPlayerData = new List<PlayerSaveData>();
     public List<StorageSaveData> savedStorages = new List<StorageSaveData>();
+    public List<FurnanceSaveData> furnanceSaveData = new List<FurnanceSaveData>();
     public List<StoneRespawnSaveData> queueRespownStone = new List<StoneRespawnSaveData>();
     public List<HoedTileData> savedHoedTilesList = new List<HoedTileData>();
     public List<ItemShopSaveData> itemShopSaveData = new List<ItemShopSaveData>();

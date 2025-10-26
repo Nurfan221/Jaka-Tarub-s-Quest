@@ -124,7 +124,6 @@ public class GameController : MonoBehaviour
 
     public void RestoreAllStorages(List<StorageSaveData> savedStorages)
     {
-        // Hapus semua storage lama dari daftar aktif SEBELUM memuat yang baru.
         // Ini penting agar tidak ada data ganda jika fungsi ini dipanggil lebih dari sekali.
         if (StorageSystem.Instance != null)
         {
@@ -267,6 +266,31 @@ public class GameController : MonoBehaviour
             {
                 Debug.Log("GameController: Membangun Storage dari file save");
                 RestoreAllStorages(saveData.savedStorages);
+            }
+
+            if (saveData.furnanceSaveData != null && saveData.furnanceSaveData.Count > 0)
+            {
+                Debug.Log("GameController: Membangun Furnance dari file save");
+                // Ini penting agar tidak ada data ganda jika fungsi ini dipanggil lebih dari sekali.
+                if (FurnanceObjectSystem.Instance != null)
+                {
+                    FurnanceObjectSystem.Instance.environmentList.Clear();
+                    Debug.Log("Daftar storage lama di FurnanceObjectSystem telah dibersihkan.");
+                }
+
+                Debug.Log($"Memulai proses restore untuk {saveData.furnanceSaveData.Count} storage...");
+
+                // Loop melalui setiap data storage yang ada di file save
+                foreach (FurnanceSaveData storageData in saveData.furnanceSaveData)
+                {
+
+                    FurnanceObjectSystem.Instance.environmentList.Add(storageData); // Tambahkan data ke daftar di StorageSystem
+
+
+                }
+
+                FurnanceObjectSystem.Instance.AddStorageFromEnvironmentList();
+                Debug.Log("Restore semua storage selesai.");
             }
 
             if (saveData.queueRespownStone != null && saveData.queueRespownStone.Count > 0)

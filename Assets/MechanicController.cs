@@ -275,9 +275,9 @@ public class MechanicController : MonoBehaviour
         ShopUI.OpenShop(typeShop, itemsForSale, itemSell, shopInteractable );
     }
 
-    public void HandleOpenCookUI()
+    public void HandleOpenCookUI(CookInteractable cookInteractable)
     {
         Debug.Log("membuka Cook");
-        CookUI.OpenCook();
+        CookUI.OpenCook(cookInteractable);
     }
 }

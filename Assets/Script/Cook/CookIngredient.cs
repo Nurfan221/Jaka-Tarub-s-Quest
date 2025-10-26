@@ -12,9 +12,7 @@ public class CookIngredient : MonoBehaviour
     [SerializeField] Transform SlotTemplate; // Parent untuk menempatkan hasil resep
     public bool checkRecipes = false;
 
-    //gameobjek untuk menampilkan detail recipe
-    public GameObject ItemCook;
-    public GameObject ItemResult;
+
 
 
 
@@ -66,8 +64,11 @@ public class CookIngredient : MonoBehaviour
                 else
                 {
                     // Jika checkRecipes true, lakukan "destroy" pada objek yang ditampilkan
-                    DestroyCraftItems();
-                    checkRecipes = false; // Set checkRecipes kembali menjadi false setelah menghapus objek
+                    if (!CookUI.Instance.isCookReady)
+                    {
+                        CookUI.Instance.DestroyCraftItems();
+                        checkRecipes = false; // Set checkRecipes kembali menjadi false setelah menghapus objek
+                    }
                 }
             });
 
@@ -81,13 +82,17 @@ public class CookIngredient : MonoBehaviour
         foreach (RecipeCooking recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
         {
             // Pastikan resep yang dimaksud adalah resep yang sesuai dengan nameResult
-            if (recipe.result.name == nameResult)
+            if (recipe.result.name == nameResult && !CookUI.Instance.isCookReady)
             {
 
                 // Tampilkan hasil crafting di ItemResult
-                DisplayResultInSlot(ItemResult, recipe.result, 1);  // Menampilkan hasil dengan jumlah 1 (default)
-                                                                    // Loop untuk menampilkan bahan-bahan yang diperlukan
-                DisplayIngredientInSlot(ItemCook, recipe.ingredient, recipe.ingredientCount);
+                CookUI.Instance.isIngredientAdded = true;
+                CookUI.Instance.currentIngredient = recipe.ingredient;
+                CookUI.Instance.resultIngredient = recipe.result;
+                CookUI.Instance.currentIngredientCount = recipe.ingredientCount;
+                CookUI.Instance.resultIngredientCount = 1; // Asumsikan hasil crafting selalu 1
+
+                CookUI.Instance.CekIngredient();
 
 
             }
@@ -152,14 +157,7 @@ public class CookIngredient : MonoBehaviour
 
 
 
-    private void DestroyCraftItems()
-    {
-        // Menghapus item yang ada di setiap ItemCraft slot
-        DestroyItemInSlot(ItemCook);
-       
-        DestroyItemInSlot(ItemResult);
 
-    }
 
     private void DestroyItemInSlot(GameObject itemCraftSlot)
     {

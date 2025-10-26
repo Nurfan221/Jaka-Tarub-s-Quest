@@ -36,7 +36,7 @@ public class QuestManager : MonoBehaviour, ISaveable
 
 
     // Event ini akan memberitahu UI atau sistem lain jika ada pembaruan pada log quest.
-    //public static event System.Action OnQuestLogUpdated;
+    // public static event System.Action OnQuestLogUpdated;
 
 
 

@@ -1,5 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+
 using UnityEngine;
 
 public class StorageSystem : MonoBehaviour
@@ -26,7 +27,13 @@ public class StorageSystem : MonoBehaviour
         }
     }
 
-    
+    private void Start()
+    {
+        //RegisterAllObjectsInEditor();
+        //AddStorageFromEnvironmentList();
+    }
+
+
     public void RegisterAllObject()
     {
 
@@ -54,28 +61,108 @@ public class StorageSystem : MonoBehaviour
 
     public void AddStorageFromEnvironmentList()
     {
-        Debug.Log("Memulai proses penambahan storage dari environmentList...");
+        Debug.Log("Sinkronisasi storage berdasarkan environmentList...");
+
         foreach (var storageData in environmentList)
         {
-            //    (Diasumsikan Anda punya satu prefab generik untuk semua peti)
-            GameObject storagePrefab = DatabaseManager.Instance.storageWorldPrefab;
+            Transform existing = parentEnvironment.Find(storageData.id);
 
-            if (storagePrefab != null)
+            if (existing != null)
             {
-                //    Pastikan di StorageSaveData Anda ada variabel Vector3 position.
-                Vector3 spawnPosition = storageData.storagePosition;
+                //  Update data storage yang sudah ada
+                StorageInteractable storage = existing.GetComponent<StorageInteractable>();
+                storage.storage = storageData.itemsInStorage;
+                existing.position = storageData.storagePosition;
+                Debug.Log($"Storage {storageData.id} diperbarui.");
+            }
+            else
+            {
+                //  Buat storage baru
+                GameObject prefab = DatabaseManager.Instance.storageWorldPrefab;
+                if (prefab == null)
+                {
+                    Debug.LogError("Prefab storageWorldPrefab tidak ditemukan!");
+                    continue;
+                }
 
-                // Buat objek storage baru di posisi yang benar.
-                GameObject newStorageGO = Instantiate(storagePrefab, spawnPosition, Quaternion.identity, StorageSystem.Instance.parentEnvironment);
-                StorageInteractable storageInteractable = newStorageGO.GetComponent<StorageInteractable>();
-                EnvironmentIdentity environmentIdentity = newStorageGO.GetComponent<EnvironmentIdentity>();
-                storageInteractable.uniqueID = storageData.id;
-                storageInteractable.storage = storageData.itemsInStorage;
-                environmentIdentity.UniqueID = storageData.id;
-                newStorageGO.name = storageData.id; // Ganti nama GameObject dengan ID unik dari data
+                GameObject newStorage = Instantiate(prefab, storageData.storagePosition, Quaternion.identity, parentEnvironment);
+                StorageInteractable storage = newStorage.GetComponent<StorageInteractable>();
+                EnvironmentIdentity envId = newStorage.GetComponent<EnvironmentIdentity>();
+
+                storage.uniqueID = storageData.id;
+                storage.storage = storageData.itemsInStorage;
+                envId.UniqueID = storageData.id;
+
+                newStorage.name = storageData.id;
+                Debug.Log($"Storage baru {storageData.id} dibuat di {storageData.storagePosition}.");
             }
         }
+
+        // Hapus storage yang tidak ada lagi di data save
+        RemoveDeletedStoragesFromScene();
     }
+    private void RemoveDeletedStoragesFromScene()
+    {
+        // Buat daftar ID dari data save
+        HashSet<string> validIDs = new HashSet<string>(environmentList.Select(s => s.id));
+
+        // Cek setiap anak di parentEnvironment
+        List<Transform> toRemove = new List<Transform>();
+
+        foreach (Transform child in parentEnvironment)
+        {
+            EnvironmentIdentity envId = child.GetComponent<EnvironmentIdentity>();
+            if (envId != null && !validIDs.Contains(envId.UniqueID))
+            {
+                // Tidak ada di data save — tandai untuk dihapus
+                toRemove.Add(child);
+            }
+        }
+
+        // Hapus objek yang tidak valid
+        foreach (var target in toRemove)
+        {
+            Debug.Log($"Menghapus storage {target.name} karena tidak ada di data save.");
+            Destroy(target.gameObject);
+        }
+    }
+    //public void RemoveStorage()
+    //{
+    //    // 1️⃣ Drop semua item
+    //    if (storage != null && storage.Count > 0)
+    //    {
+    //        foreach (var item in storage)
+    //        {
+    //            if (item != null)
+    //            {
+    //                GameObject dropped = Instantiate(
+    //                    ItemPool.Instance.GetItemWithQuality(item.itemName, item.quality).prefabItem,
+    //                    transform.position + Vector3.up * 0.5f,
+    //                    Quaternion.identity
+    //                );
+    //                Debug.Log($"Menjatuhkan item: {item.itemName}");
+    //            }
+    //        }
+    //    }
+
+    //    // 2️⃣ Hapus storage dari environmentList
+    //    StorageSystem.Instance.RemoveStorageByID(UniqueId);
+
+    //    // 3️⃣ Hapus GameObject storage dari dunia
+    //    Destroy(gameObject);
+
+    //    Debug.Log($"Storage {uniqueID} dihapus dari dunia dan data save.");
+    //}
+
+    //public void RemoveStorageByID(string id)
+    //{
+    //    var target = environmentList.FirstOrDefault(s => s.id == id);
+    //    if (target != null)
+    //    {
+    //        environmentList.Remove(target);
+    //        Debug.Log($"Data storage {id} dihapus dari environmentList.");
+    //    }
+    //}
 
     [ContextMenu("Langkah 1: Daftarkan Semua Objek Anak ke List")]
     public void RegisterAllObjectsInEditor()

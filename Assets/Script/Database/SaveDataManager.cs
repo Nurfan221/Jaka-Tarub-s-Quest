@@ -132,25 +132,80 @@ public class SaveDataManager : MonoBehaviour
                     saveData.savedPlayerData.Add(playerData);
                     Debug.Log("Data pemain telah ditangkap untuk penyimpanan." + playerData.inventory.Count);
                 }
-            }else if (saveable is StorageInteractable storage)
+            }
+            else if (saveable is StorageInteractable storage)
             {
                 Debug.Log("[SAVE] Ditemukan StorageInteractable. Memanggil CaptureState...");
                 if (storage.CaptureState() is StorageSaveData storageData)
                 {
                     storageData.id = storage.uniqueID;
+
+                    // Pastikan list sudah terinisialisasi
+                    if (saveData.savedStorages == null)
+                        saveData.savedStorages = new List<StorageSaveData>();
+
+                    bool isFound = false;
+
+                    // Cari apakah ID sudah ada di list
                     foreach (var item in saveData.savedStorages)
                     {
                         if (item.id == storageData.id)
                         {
                             item.itemsInStorage.Clear();
                             item.itemsInStorage.AddRange(storageData.itemsInStorage);
-                        }else
-                        {
-                            saveData.savedStorages.Add(storageData);
+                            item.storagePosition = storageData.storagePosition;
+                            isFound = true;
+                            break;
                         }
                     }
+
+                    // Kalau belum ditemukan, tambahkan data baru
+                    if (!isFound)
+                    {
+                        saveData.savedStorages.Add(storageData);
+                        Debug.Log($"[SAVE] Storage baru ditambahkan: {storageData.id}");
+                    }
                 }
-            }else if (saveable is BatuManager stone)
+
+                Debug.Log("Data storage telah ditangkap untuk penyimpanan. Jumlah total: " + saveData.savedStorages.Count);
+            }
+            else if (saveable is CookInteractable furnance)
+            {
+                Debug.Log("[SAVE] Ditemukan CookInteractable. Memanggil CaptureState...");
+                if (furnance.CaptureState() is FurnanceSaveData furnanceData)
+                {
+                    furnanceData.id = furnance.interactableUniqueID.UniqueID;
+
+                    if (saveData.furnanceSaveData == null)
+                        saveData.furnanceSaveData = new List<FurnanceSaveData>();
+
+                    bool isFound = false;
+                    foreach (var item in saveData.furnanceSaveData)
+                    {
+                        if (item.id == furnanceData.id)
+                        {
+                            item.itemCook = furnanceData.itemCook;
+                            item.fuelCook = furnanceData.fuelCook;
+                            item.itemResult = furnanceData.itemResult;
+                            item.quantityFuel = furnanceData.quantityFuel;
+                            item.furnancePosition = furnanceData.furnancePosition;
+                            isFound = true;
+                            break;
+                        }
+                    }
+
+                    if (!isFound)
+                    {
+                        saveData.furnanceSaveData.Add(furnanceData);
+                        Debug.Log($"[SAVE] CookInteractable baru ditambahkan: {furnanceData.id}");
+                    }
+                }
+
+                Debug.Log("Data CookInteractable telah ditangkap untuk penyimpanan. Jumlah total: " + saveData.furnanceSaveData.Count);
+            }
+
+
+            else if (saveable is BatuManager stone)
             {
                 Debug.Log("[SAVE] Ditemukan BatuManager. Memanggil CaptureState...");
                 if (stone.CaptureState() is List<StoneRespawnSaveData> queueData)

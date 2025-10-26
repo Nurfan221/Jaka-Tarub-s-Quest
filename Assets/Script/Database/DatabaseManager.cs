@@ -8,7 +8,7 @@ public class RecipeCooking
 {
     public string recipeName; // Nama resep
     public Item ingredient;    // Bahan-bahan yang dibutuhkan
-    public float ingredientCount; // jumlah bahan yang di perlukan
+    public int ingredientCount; // jumlah bahan yang di perlukan
     public Item result;    // Hasil dari resep ini
 }
 
@@ -176,6 +176,17 @@ public class StorageSaveData
 }
 
 [System.Serializable]
+public class FurnanceSaveData
+{
+    public string id; // ID unik dari peti ini
+    public Vector3 furnancePosition;
+    public ItemData itemCook;
+    public ItemData fuelCook;
+    public ItemData itemResult;
+    public int quantityFuel = 0; // Nilai bahan bakar saat ini
+}
+
+[System.Serializable]
 public class PerangkapSaveData
 {
     public string id; // ID unik dari peti ini
@@ -277,7 +288,8 @@ public enum TypeObject
     Penanda,
     Semak,
     Decoration,
-    TungkuPeleburan
+    TungkuPeleburan,
+    Kompor,
 
 }
 public enum TypePlant
@@ -433,6 +445,16 @@ public class ArrayPintu
 }
 
 
+[Serializable]
+public class CookSaveData
+{
+    public string uniqueID;
+    public ItemData itemCook;
+    public ItemData fuelCook;
+    public ItemData itemResult;
+    public int quantityFuel = 0; // Nilai bahan bakar saat ini
+
+}
 public class DatabaseManager : MonoBehaviour
 {
     public static DatabaseManager Instance { get; private set; }
@@ -481,6 +503,8 @@ public class DatabaseManager : MonoBehaviour
     public GameObject plantWorldPrefab;
     [Tooltip("Prefab untuk objek penyimpanan (peti, dll) di dunia.")]
     public GameObject storageWorldPrefab;
+    [Tooltip("Prefab untuk objek furnance (Kompor, tunggu peleburan dll) di dunia")]
+    public GameObject furnanceWorldPrefab;
 
     [Space(10)]
     [Header("System & Save Data")]

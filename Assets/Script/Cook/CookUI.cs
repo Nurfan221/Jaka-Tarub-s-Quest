@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq; // Tambahkan ini
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +10,23 @@ using UnityEngine.UI;
 public class CookUI : MonoBehaviour
 {
     //[SerializeField] CookIngredient cookIngredient;
+    public static CookUI Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
 
     [Header("Database Crafting")]
-    [SerializeField] private CookInteractable interactableInstance;
+    public CookInteractable interactableInstance;
     public PlayerController stats;
 
     [Header("UI Elements")]
@@ -24,24 +39,38 @@ public class CookUI : MonoBehaviour
     public Transform fuelCookTemplate;
     public Transform resultCookTemplate;
     public Transform fireCookTemplate;
+    public Slider fuelSlider;
+    public Image fireCookImage;
+    public Sprite[] fireCookSprite;
+    public Sprite fireNotActive;
+    public Image quantityFuelImage;
+    public Sprite[] quantityFuelSprite;
     public Button closeButton;
 
-    [Header("Cook settings")]
     private ItemCategory[] validCookCategories = {
         ItemCategory.Food,
         ItemCategory.Meat,
         ItemCategory.Vegetable,
     };
-    public ItemData itemCook;
-    public ItemData fuelCook;
-    public ItemData itemResult;
-    private bool isCooking = false; // Mencegah spam klik
-    private Coroutine cookingCoroutine; // Menyimpan referensi ke coroutine
 
-    // QuantityFuel menandakan berapa item bisa di masak menggunakan fuel tersebut
-    public int quantityFuel = 0; // Nilai bahan bakar saat ini
+    [Header("Ingriedient State")]
+    public bool isIngredientAdded = false;
+    public bool isCookReady = false;
+    public Item currentIngredient;
+    public Item resultIngredient;
+    public int currentIngredientCount = 0;
+    public int resultIngredientCount = 0;
 
 
+    [Header("Animation Settings")]
+    //Animation idle 
+    public float frameRate = 0.2f; // Waktu per frame (kecepatan animasi)
+    private int currentFrame = 0; // Indeks frame saat ini
+    public bool isFireActive = false;
+    public int maxQuantityFuel = 5; // max bahan bakar berdasarkan item fuel
+    private Coroutine fireAnimationCoroutine; // Menyimpan referensi ke coroutine animasi api
+
+   
     private void Start()
     {
         if (itemCookTemplate != null)
@@ -56,16 +85,69 @@ public class CookUI : MonoBehaviour
         {
             closeButton.onClick.AddListener(CloseCookUI);
         }
-    
+
+
+        if (IsItemResultEmpty())
+        {
+            Image fillImage = resultCookTemplate.GetChild(0).GetComponent<Image>(); // Ini adalah Ikon
+            TMP_Text resultCountText = resultCookTemplate.GetChild(1).GetComponent<TMP_Text>();
+
+            resultCookTemplate.GetComponent<Button>().onClick.RemoveAllListeners();
+            resultCookTemplate.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                if (interactableInstance.itemResult != null)
+                {
+                    ItemPool.Instance.AddItem(interactableInstance.itemResult);
+                    interactableInstance.itemResult = null;
+
+                    if (isFireActive)
+                    {
+                        isFireActive = false;
+                        Debug.Log("Menghentikan animasi api karena memasak selesai.");
+
+                        // Pastikan referensinya ada sebelum dihentikan
+                        if (fireAnimationCoroutine != null)
+                        {
+                            // Gunakan referensi yang disimpan untuk berhenti
+                            StopCoroutine(fireAnimationCoroutine);
+                            fireAnimationCoroutine = null; // Bersihkan referensi
+                            fireCookImage.sprite = fireNotActive; // Setel sprite api mati
+                        }
+                    }
+                    //fillImage.gameObject.SetActive(false);
+                    //resultCountText.gameObject.SetActive(false);
+                    RefreshSlots();
+
+                }
+
+                interactableInstance.UpdateSpriteHasil();
+            });
+        }
+
+
     }
-    public void OpenCook()
+    public void OpenCook(CookInteractable cookInteractable)
     {
-        stats = PlayerController.Instance;
+        if (PlayerController.Instance != null)
+        {
+            Debug.Log("PlayerController Instance found and assigned in CookUI Awake.");
+            stats = PlayerController.Instance;
+        }
+        else
+        {
+            Debug.LogError("PlayerController Instance is null in CookUI Awake.");
+        }
+
+        BindToCook(cookInteractable);
+        interactableInstance = cookInteractable;
+
 
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Click");
         GameController.Instance.ShowPersistentUI(false);
         gameObject.SetActive(true);
+
+
 
         RefreshSlots();
     }
@@ -73,8 +155,9 @@ public class CookUI : MonoBehaviour
     private void CloseCookUI()
     {
         GameController.Instance.ShowPersistentUI(true);
-
-        //RefreshSlots();
+        UnbindFromCook();
+        RefreshSlots();
+        interactableInstance = null;
 
         // Jangan stop dari sini. Langsung delegasikan ke pemilik coroutine
         //interactableInstance.StartCookingExternally(ProcessCookingQueue(cookTime));
@@ -111,45 +194,72 @@ public class CookUI : MonoBehaviour
             }
         }
 
-        if (itemCook != null && itemCook.count > 0)
+        if (interactableInstance.itemCook != null && interactableInstance.itemCook.count > 0)
         {
-            itemCookTemplate.name = itemCook.itemName;
-            itemCookTemplate.GetChild(0).GetComponent<Image>().sprite = ItemPool.Instance.GetItemWithQuality(itemCook.itemName, itemCook.quality).sprite;
-            itemCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = itemCook.count.ToString();
+            itemCookTemplate.name = interactableInstance.itemCook.itemName;
+            itemCookTemplate.GetChild(0).GetComponent<Image>().sprite = ItemPool.Instance.GetItemWithQuality(interactableInstance.itemCook.itemName, interactableInstance.itemCook.quality).sprite;
+            itemCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = interactableInstance.itemCook.count.ToString();
             itemCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1); // Tampilkan gambar
         }
         else
         {
             // Kosongkan slot jika itemCook null atau count 0
-            itemCook = null; // Pastikan null jika count 0
+            interactableInstance.itemCook = null; // Pastikan null jika count 0
             itemCookTemplate.name = "Slot_Item";
             itemCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = "";
             itemCookTemplate.GetChild(0).GetComponent<Image>().sprite = null;
             itemCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0); // Sembunyikan gambar
         }
 
-        if (fuelCook != null && fuelCook.count > 0)
+        if (interactableInstance.fuelCook != null && interactableInstance.fuelCook.count > 0)
         {
-            fuelCookTemplate.name = fuelCook.itemName;
-            fuelCookTemplate.GetChild(0).GetComponent<Image>().sprite = ItemPool.Instance.GetItemWithQuality(fuelCook.itemName, fuelCook.quality).sprite;
-            fuelCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = fuelCook.count.ToString();
+            fuelCookTemplate.name = interactableInstance.fuelCook.itemName;
+            fuelCookTemplate.GetChild(0).GetComponent<Image>().sprite = ItemPool.Instance.GetItemWithQuality(interactableInstance.fuelCook.itemName, interactableInstance.fuelCook.quality).sprite;
+            fuelCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = interactableInstance.fuelCook.count.ToString();
             fuelCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
         else
         {
             // Kosongkan slot jika fuelCook null atau count 0
-            fuelCook = null; // Pastikan null jika count 0
+            interactableInstance.fuelCook = null; // Pastikan null jika count 0
             fuelCookTemplate.name = "Slot_Fuel";
             fuelCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = "";
             fuelCookTemplate.GetChild(0).GetComponent<Image>().sprite = null;
             fuelCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
 
-        StartCook();
+        if (interactableInstance.itemResult != null && interactableInstance.itemResult.count > 0)
+        {
+            resultCookTemplate.name = interactableInstance.itemResult.itemName;
+            resultCookTemplate.GetChild(0).GetComponent<Image>().sprite = ItemPool.Instance.GetItemWithQuality(interactableInstance.itemResult.itemName, interactableInstance.itemResult.quality).sprite;
+            resultCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = interactableInstance.itemResult.count.ToString();
+            resultCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+        else
+        {
+            // Kosongkan slot jika fuelCook null atau count 0
+            interactableInstance.itemResult = null; // Pastikan null jika count 0
+            resultCookTemplate.name = "Slot_Fuel";
+            resultCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = "";
+            resultCookTemplate.GetChild(0).GetComponent<Image>().sprite = null;
+            resultCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        }
+
+
+        UpdateFuelSlider();
+        if (!interactableInstance.isCooking)
+        {
+            interactableInstance.StartCook();
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void OnClickItemInInventory(ItemData itemDataFromInventory)
     {
+        isCookReady = true;
         Debug.Log($"Item diklik: {itemDataFromInventory.itemName}, Jumlah: {itemDataFromInventory.count}");
         Item item = ItemPool.Instance.GetItemWithQuality(itemDataFromInventory.itemName, itemDataFromInventory.quality);
 
@@ -158,16 +268,16 @@ public class CookUI : MonoBehaviour
         if (validCookCategories.Any(category => item.IsInCategory(category)))
         {
             // Jika slot masak kosong, buat tumpukan baru
-            if (itemCook == null)
+            if (interactableInstance.itemCook == null)
             {
                 // Buat ItemData BARU untuk slot masak
-                itemCook = new ItemData(itemDataFromInventory.itemName, 1, itemDataFromInventory.quality, itemDataFromInventory.itemHealth);
+                interactableInstance.itemCook = new ItemData(itemDataFromInventory.itemName, 1, itemDataFromInventory.quality, itemDataFromInventory.itemHealth);
                 itemMoved = true;
             }
             // Jika slot masak berisi item yang SAMA, tambahkan tumpukan
-            else if (itemCook.itemName == itemDataFromInventory.itemName)
+            else if (interactableInstance.itemCook.itemName == itemDataFromInventory.itemName)
             {
-                itemCook.count += 1;
+                interactableInstance.itemCook.count += 1;
                 itemMoved = true;
             }
             // Jika slot masak berisi item BERBEDA
@@ -178,41 +288,54 @@ public class CookUI : MonoBehaviour
         }
         else if (item.IsInCategory(ItemCategory.Fuel))
         {
-            // Jika slot fuel kosong
-            if (fuelCook == null)
+            // LOGIKA BARU: Cek apakah "tank" bahan bakar kosong
+            if (interactableInstance.quantityFuel <= 0)
             {
-                fuelCook = new ItemData(itemDataFromInventory.itemName, 1, itemDataFromInventory.quality, itemDataFromInventory.itemHealth);
-                itemMoved = true;
+                // JIKA TANK KOSONG: Langsung konsumsi item ini untuk mengisi tank
+                // Jangan tampilkan di slot fuelCook
+
+                // Cek apakah slot cadangan KOSONG atau berisi item SAMA
+                if (interactableInstance.fuelCook == null || interactableInstance.fuelCook.itemName == itemDataFromInventory.itemName)
+                {
+                    interactableInstance.quantityFuel = item.QuantityFuel;
+                    itemMoved = true;
+                }
+                else
+                {
+                    Debug.LogWarning("Tidak bisa mengisi bahan bakar, slot cadangan terisi item fuel berbeda!");
+                }
             }
-            //  Jika slot fuel berisi item yang SAMA
-            else if (fuelCook.itemName == itemDataFromInventory.itemName)
-            {
-                fuelCook.count += 1;
-                quantityFuel = item.QuantityFuel; // Perbarui fuel value berdasarkan item fuel yang ditambahkan
-                itemMoved = true;
-            }
-            //  Jika slot fuel berisi item BERBEDA
+            // JIKA TANK MASIH TERISI: Tambahkan item ini ke slot cadangan (fuelCook)
             else
             {
-                Debug.LogWarning("Slot bahan bakar sudah terisi item lain. Kembalikan dulu!");
+                // Jika slot fuel cadangan kosong
+                if (interactableInstance.fuelCook == null)
+                {
+                    interactableInstance.fuelCook = new ItemData(itemDataFromInventory.itemName, 1, itemDataFromInventory.quality, itemDataFromInventory.itemHealth);
+                    itemMoved = true;
+                }
+                // Jika slot fuel cadangan berisi item yang SAMA
+                else if (interactableInstance.fuelCook.itemName == itemDataFromInventory.itemName)
+                {
+                    interactableInstance.fuelCook.count += 1;
+                    itemMoved = true;
+                }
+                // Jika slot fuel cadangan berisi item BERBEDA
+                else
+                {
+                    Debug.LogWarning("Slot bahan bakar sudah terisi item lain. Habiskan dulu!");
+                }
             }
-        }
-        else
-        {
-            Debug.LogWarning("Item tidak valid untuk memasak atau bahan bakar.");
         }
 
         if (itemMoved)
         {
-            // Kurangi jumlah item di inventaris
             itemDataFromInventory.count -= 1;
-
-            // Jika item di inventaris habis (count <= 0), hapus dari list
             if (itemDataFromInventory.count <= 0)
-            {
                 stats.inventory.Remove(itemDataFromInventory);
-            }
 
+            // Sekarang baru bersihkan & update tampilan
+            DestroyCraftItems();
             RefreshSlots();
         }
     }
@@ -220,176 +343,237 @@ public class CookUI : MonoBehaviour
 
     public void OnClickItemCook()
     {
-        if (itemCook != null)
+        if (interactableInstance.itemCook != null)
         {
-            ItemData newItemData = new ItemData(itemCook.itemName, 1, itemCook.quality, itemCook.itemHealth);
+            isCookReady = false;
+            ItemData newItemData = new ItemData(interactableInstance.itemCook.itemName, 1, interactableInstance.itemCook.quality, interactableInstance.itemCook.itemHealth);
             ItemPool.Instance.AddItem(newItemData);
-            itemCook.count -= 1;
+            interactableInstance.itemCook.count -= 1;
         }
         RefreshSlots();
     }
     public void OnClickFuelCook()
     {
-        if (fuelCook != null)
+        if (interactableInstance.fuelCook != null)
         {
-            ItemData newItemData = new ItemData(fuelCook.itemName, 1, fuelCook.quality, fuelCook.itemHealth);
+            isCookReady = false;
+            ItemData newItemData = new ItemData(interactableInstance.fuelCook.itemName, 1, interactableInstance.fuelCook.quality, interactableInstance.fuelCook.itemHealth);
             ItemPool.Instance.AddItem(newItemData);
-            fuelCook.count -= 1;
+            interactableInstance.fuelCook.count -= 1;
         }
         RefreshSlots();
     }
 
     private bool IsItemResultEmpty()
     {
-        return itemResult == null || string.IsNullOrEmpty(itemResult.itemName);
+        return interactableInstance.itemResult == null || string.IsNullOrEmpty(interactableInstance.itemResult.itemName);
     }
 
 
-    public void StartCook()
-    {
-        if (isCooking)
-        {
-            Debug.LogWarning("Proses memasak sedang berjalan!");
-            return;
-        }
-
-        if (itemCook == null || fuelCook == null)
-        {
-            Debug.LogWarning("Pastikan item masak dan bahan bakar terisi sebelum memasak.");
-            return;
-        }
-
     
 
-        // Cari Resep
-        RecipeCooking foundRecipe = null;
-        foreach (var recipeCooking in DatabaseManager.Instance.cookingDatabase.cookRecipes)
+    public void BindToCook(CookInteractable interactable)
+    {
+        if (interactableInstance != null)
         {
-            if (recipeCooking.ingredient.itemName == itemCook.itemName)
+            UnbindFromCook();
+        }
+        interactableInstance = interactable;
+
+        // Daftarkan event listener
+        interactableInstance.OnStartCooking += HandleStartCooking;
+        interactableInstance.OnProgressUpdated += HandleProgressUpdate;
+        interactableInstance.OnResultUpdated += HandleResultUpdate;
+        interactableInstance.OnCookingFinished += HandleCookingFinished;
+
+        RefreshVisualState();
+    }
+    private void UnbindFromCook()
+    {
+        if (interactableInstance == null) return;
+
+        interactableInstance.OnStartCooking -= HandleStartCooking;
+        interactableInstance.OnResultUpdated -= HandleResultUpdate;
+        interactableInstance.OnCookingFinished -= HandleCookingFinished;
+        interactableInstance.OnProgressUpdated -= HandleProgressUpdate;
+    }
+
+    private void RefreshVisualState()
+    {
+        if (interactableInstance == null) return;
+
+        if (interactableInstance.isCooking)
+        {
+            Debug.Log("Menampilkan progress dari tungku yang sedang memasak...");
+            Item item = ItemPool.Instance.GetItemWithQuality(interactableInstance.itemResult.itemName, interactableInstance.itemResult.quality);
+            HandleStartCooking(item);
+            HandleProgressUpdate(interactableInstance.currentProgress);
+        }
+        else
+        {
+            Debug.Log("Tungku ini belum memasak, tampilkan state idle.");
+            fireCookImage.sprite = fireNotActive;
+            Image hasilCookImage = resultCookTemplate.GetComponent<Image>();
+            hasilCookImage.fillAmount = maxQuantityFuel;
+
+            RefreshSlots();
+            if (IsItemResultEmpty())
             {
-                foundRecipe = recipeCooking;
-                break; // Resep ditemukan, hentikan pencarian
+                Debug.Log("itemResult kosong");
+            }else
+            {
+                HandleResultUpdate(interactableInstance.itemResult);
             }
         }
-
-        if (foundRecipe == null)
-        {
-            Debug.LogWarning("Tidak ada resep yang cocok untuk item ini.");
-            return;
-        }
-
-        //Jika resep valid, mulai Coroutine
-        if (IsItemResultEmpty() || foundRecipe.result.itemName == itemResult.itemName)
-        {
-
-
-            // Mulai Coroutine dan simpan referensinya
-            cookingCoroutine = StartCoroutine(CookItemCoroutine(foundRecipe));
-        }
-        else
-        {
-            Debug.LogWarning("Tidak ada resep yang cocok untuk item ini.");
-            return;
-        }
     }
 
-    private IEnumerator CookItemCoroutine(RecipeCooking recipe) // Menggunakan nama parameter dari sebelumnya
+
+    private void HandleStartCooking(Item resultData)
     {
-        // Ambil data item, bukan ItemData
-        Item resultItemCook = ItemPool.Instance.GetItemWithQuality(recipe.result.itemName, recipe.result.quality);
-        isCooking = true;
-
-        // Ambil referensi UI
-        Image fillImage = resultCookTemplate.GetChild(0).GetComponent<Image>(); // Ini adalah Ikon
-        Image hasilCookImage = resultCookTemplate.GetComponent<Image>(); // Ini adalah Filler (Slot)
-        TMP_Text resultCountText = resultCookTemplate.GetChild(1).GetComponent<TMP_Text>();
-
-        // Setup Ikon (gambar transparan di atas)
-        fillImage.gameObject.SetActive(true);
-        fillImage.sprite = resultItemCook.sprite;
+        Image fillImage = resultCookTemplate.GetChild(0).GetComponent<Image>();
+        fillImage.sprite = ItemPool.Instance.GetItemWithQuality(resultData.itemName, resultData.quality).sprite;
         fillImage.color = new Color(1, 1, 1, 0.5f);
+        fillImage.gameObject.SetActive(true);
+    }
 
-        // Setup Filler (gambar radial di slot)
-        hasilCookImage.fillAmount = 0;
+    private void HandleProgressUpdate(float progress)
+    {
+        Image hasilCookImage = resultCookTemplate.GetComponent<Image>();
+        hasilCookImage.fillAmount = progress;
+    }
 
-    
-
-        float elapsedTime = 0;
-
-        // Loop timer
-        while (elapsedTime < resultItemCook.CookTime) // Asumsi Item punya properti CookTime
-        {
-            elapsedTime += Time.unscaledDeltaTime;
-            float progress = elapsedTime / resultItemCook.CookTime;
-            hasilCookImage.fillAmount = progress;
-
-      
-
-            yield return null;
-        }
-
-        //  PROSES MEMASAK SELESAI 
-
-        hasilCookImage.fillAmount = 1;      // Set filler 100%
-        fillImage.color = new Color(1, 1, 1, 1); // Set ikon 100% buram
-
-        // Cek apakah slot hasil kosong ATAU berisi item yang berbeda
-        if (itemResult == null || itemResult.itemName != recipe.result.itemName)
-        {
-            // Buat tumpukan baru
-            // Asumsi konstruktor: (nama, kualitas, jumlah)
-            itemResult = new ItemData(recipe.result.itemName,1, recipe.result.quality, 1);
-
-            // Hanya reset teks jika ini adalah tumpukan baru/berbeda
-            resultCountText.text = "";
-        }
-        // Jika itemnya SAMA, tambahkan saja jumlahnya
-        else if (itemResult.itemName == recipe.result.itemName)
-        {
-            itemResult.count += 1;
-        }
-
-
-
-        // Update UI dengan data yang sudah di-stack
-        resultCookTemplate.name = itemResult.itemName;
+    private void HandleResultUpdate(ItemData itemResult)
+    {
+        Image hasilCookImage = resultCookTemplate.GetComponent<Image>();
+        TMP_Text resultCountText = resultCookTemplate.GetChild(1).GetComponent<TMP_Text>();
+        hasilCookImage.gameObject.SetActive(true);
         resultCountText.gameObject.SetActive(true);
         resultCountText.text = itemResult.count.ToString();
+    }
 
-        // Kurangi bahan SATU KALI setelah selesai
-        itemCook.count -= 1;
-        fuelCook.count -= 1;
-
+    private void HandleCookingFinished()
+    {
         RefreshSlots();
+        Debug.Log("Memasak selesai — matikan animasi api, reset UI.");
+        fireCookImage.sprite = fireNotActive;
+    }
 
-        isCooking = false;
-        cookingCoroutine = null;
 
-        //  LOGIKA AUTO-COOK 
-        // Cek apakah bahan & fuel masih ada untuk memasak item berikutnya
-        if (itemCook != null && itemCook.count > 0 && fuelCook != null && fuelCook.count > 0)
+    public void GetFuelForCook()
+    {
+
+    }
+
+    //private IEnumerator PlayFireAnimation()
+    //{
+    //    while (true) // Loop tanpa batas (animasi berulang)
+    //    {
+    //        if (fireCookSprite.Length > 0) // Pastikan array sprite tidak kosong
+    //        {
+    //            fireCookImage.sprite = fireCookSprite[currentFrame]; // Setel sprite saat ini
+    //            currentFrame = (currentFrame + 1) % fireCookSprite.Length; // Pindah ke frame berikutnya (loop)
+    //        }
+    //        yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
+    //    }
+    //}
+
+    private void UpdateFuelSlider()
+    {
+        if (fuelSlider == null) return; // Pengaman jika slider tidak di-set
+
+        // Jika ada bahan bakar, tampilkan dan atur slider
+        if (maxQuantityFuel > 0)
         {
-            Debug.Log("Bahan masih ada, melanjutkan memasak...");
-            StartCook(); // Panggil fungsi StartCook() utama lagi
+            fuelSlider.gameObject.SetActive(true); // Tampilkan slider
+            fuelSlider.maxValue = maxQuantityFuel;
+            fuelSlider.value = interactableInstance.quantityFuel;
+        }
+        // Jika tidak ada bahan bakar, sembunyikan slider
+        else
+        {
+            fuelSlider.gameObject.SetActive(false); // Sembunyikan slider
+            fuelSlider.value = 0;
+        }
+    }
+
+    public void CekIngredient()
+    {
+        Button resultCookButton = resultCookTemplate.GetComponent<Button>();
+        Button itemCookButton = itemCookTemplate.GetComponent<Button>();
+
+        if (isIngredientAdded)
+        {
+            // Nonaktifkan tombol agar tidak bisa diklik saat bahan sudah dipilih
+            resultCookButton.interactable = false;
+            itemCookButton.interactable = false;
+
+            // Setup slot item bahan
+            itemCookTemplate.name = currentIngredient.itemName;
+
+            // Pastikan child aktif sebelum diubah tampilannya
+            var itemIconObj = itemCookTemplate.GetChild(0).gameObject;
+            var itemTextObj = itemCookTemplate.GetChild(1).gameObject;
+            itemIconObj.SetActive(true);
+            itemTextObj.SetActive(true);
+
+            var itemIcon = itemIconObj.GetComponent<Image>();
+            var itemText = itemTextObj.GetComponent<TMP_Text>();
+
+            itemIcon.sprite = ItemPool.Instance.GetItemWithQuality(currentIngredient.itemName, currentIngredient.quality).sprite;
+            itemText.text = currentIngredientCount.ToString();
+            itemIcon.color = new Color(1, 1, 1, 0.5f); // tampilkan semi-transparan
+
+
+            // Setup slot hasil masakan
+            resultCookTemplate.name = resultIngredient.itemName;
+
+            // Aktifkan child terlebih dahulu
+            var resultIconObj = resultCookTemplate.GetChild(0).gameObject;
+            var resultTextObj = resultCookTemplate.GetChild(1).gameObject;
+            resultIconObj.SetActive(true);
+            resultTextObj.SetActive(true);
+
+            var resultIcon = resultIconObj.GetComponent<Image>();
+            var resultText = resultTextObj.GetComponent<TMP_Text>();
+
+            resultIcon.sprite = ItemPool.Instance.GetItemWithQuality(resultIngredient.itemName, resultIngredient.quality).sprite;
+            resultText.text = resultIngredientCount.ToString();
+            resultIcon.color = new Color(1, 1, 1, 0.5f);
         }
         else
         {
-            Debug.Log("Bahan masak atau bahan bakar habis. Berhenti memasak.");
-            resultCookTemplate.GetComponent<Button>().onClick.RemoveAllListeners();
-            resultCookTemplate.GetComponent<Button>().onClick.AddListener(()=>
-            {
-                if (itemResult != null)
-                {
-                    ItemPool.Instance.AddItem(itemResult);
-                    itemResult = null;
+            // Jika bahan kosong, aktifkan interaksi lagi
+            resultCookButton.interactable = true;
+            itemCookButton.interactable = true;
 
-                    fillImage.gameObject.SetActive(false);
-                    resultCountText.gameObject.SetActive(false);
-                    RefreshSlots();
+            // Reset bahan
+            currentIngredient = null;
+            itemCookTemplate.name = "Slot_Item";
 
-                }
-            });
+            itemCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = "";
+            itemCookTemplate.GetChild(0).GetComponent<Image>().sprite = null;
+            itemCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
 
+            // Reset hasil
+            resultIngredient = null;
+            resultCookTemplate.name = "Slot_Fuel";
+
+            resultCookTemplate.GetChild(1).GetComponent<TMP_Text>().text = "";
+            resultCookTemplate.GetChild(0).GetComponent<Image>().sprite = null;
+            resultCookTemplate.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
     }
+
+    public void DestroyCraftItems()
+    {
+        // Menghapus item yang ada di setiap ItemCraft slot
+        isIngredientAdded = false;
+        currentIngredient = null;
+        resultIngredient = null;
+        currentIngredientCount = 0;
+        resultIngredientCount = 0; // Asumsikan hasil crafting selalu 1
+        CekIngredient();
+
+    }
+
 }
