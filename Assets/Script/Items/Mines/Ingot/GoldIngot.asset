@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: GoldIngot
   m_EditorClassIdentifier: 
-  itemID: 52
+  itemID: 53
   itemName: GoldIngot
   quality: 0
   types: 0
   categories: 512
-  sprite: {fileID: -3267578286498063631, guid: 35a83fac362f6b345843b0099c51c735, type: 3}
+  sprite: {fileID: -8265287564210044032, guid: 446a947af1ef534439a12c0a3cc24bd7, type: 3}
   itemDescription: Batangan emas murni yang diperoleh dari melebur emas ore. Sangat
     berharga dan dapat digunakan untuk membuat peralatan mewah.
   QuantityFuel: 0
@@ -31,6 +31,7 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
+  isItemCombat: 0
   Level: 1
   MaxLevel: 0
   Damage: 0
@@ -45,9 +46,9 @@ MonoBehaviour:
   BuyValue: 300
   SellValue: 200
   BurningTime: 0
-  CookTime: 0
-  prefabItem: {fileID: 7562009284141931606, guid: 51aa447f1f7294149a1e6a65151bb246, type: 3}
+  CookTime: 30
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 7562009284141931606, guid: 51aa447f1f7294149a1e6a65151bb246, type: 3}
+  seedType: 0

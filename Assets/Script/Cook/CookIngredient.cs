@@ -11,6 +11,7 @@ public class CookIngredient : MonoBehaviour
     [SerializeField] Transform ContentGO;
     [SerializeField] Transform SlotTemplate; // Parent untuk menempatkan hasil resep
     public bool checkRecipes = false;
+    public TypeCooking typeCooking;
 
 
 
@@ -18,70 +19,100 @@ public class CookIngredient : MonoBehaviour
 
     public void Start()
     {
-        RefreshRecipe();
     }
 
-    public void RefreshRecipe()
+    public void RefreshRecipe(TypeCooking typeCooking)
     {
+        this.typeCooking = typeCooking;
         // Hapus semua child sebelumnya di ContentGO kecuali SlotTemplate
         foreach (Transform child in ContentGO)
         {
-            if (child == SlotTemplate) continue; // Abaikan SlotTemplate
-            Destroy(child.gameObject); // Hapus child lainnya
+            if (child == SlotTemplate) continue;
+            Destroy(child.gameObject);
         }
 
-        // Perulangan untuk setiap resep di database
-        foreach (RecipeCooking recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
+        // Pilih list resep sesuai tipe tungku
+        List<RecipeCooking> recipes = typeCooking == TypeCooking.FoodCook
+            ? DatabaseManager.Instance.cookingDatabase.cookRecipes
+            : DatabaseManager.Instance.cookingDatabase.smeltRecipes;
+
+        if (recipes == null || recipes.Count == 0)
         {
-            // Instansiasi SlotTemplate untuk setiap resep
+            Debug.LogWarning("[RefreshRecipe] Tidak ada resep ditemukan untuk tipe ini: " + typeCooking);
+            return;
+        }
+
+        foreach (RecipeCooking recipe in recipes)
+        {
+            if (recipe == null || recipe.result == null)
+            {
+                Debug.LogWarning("[RefreshRecipe] Resep atau hasil resep null, dilewati.");
+                continue;
+            }
+
+            // Instansiasi slot resep baru
             Transform recipeSlot = Instantiate(SlotTemplate, ContentGO);
-            recipeSlot.gameObject.SetActive(true); // Mengaktifkan objek SlotTemplate yang baru
+            recipeSlot.gameObject.SetActive(true);
 
-            // Set sprite gambar hasil resep
-            recipeSlot.GetChild(0).GetComponent<Image>().sprite = recipe.result.sprite;
-
-            // Set jumlah hasil (biasanya hanya 1)
-            recipeSlot.GetChild(1).GetComponent<TMP_Text>().text = "1"; // Menampilkan 1 karena hasil craft biasanya 1 item
-
-            // Set nama slot berdasarkan nama hasil resep
-            recipeSlot.name = recipe.result.name; // Mengatur nama SlotTemplate sesuai dengan nama hasil resep
-
-            // Pastikan nama tidak memiliki akhiran "(Clone)" setelah instansiasi
-            recipeSlot.name = recipeSlot.name.Replace("(Clone)", "");
-
-            // Menambahkan listener untuk mendeskripsikan item jika perlu
+            // Set data visual
+            Image icon = recipeSlot.GetChild(0).GetComponent<Image>();
+            TMP_Text countText = recipeSlot.GetChild(1).GetComponent<TMP_Text>();
             Button button = recipeSlot.GetComponent<Button>();
-            // Update listener untuk button
+
+            icon.sprite = recipe.result.sprite;
+            countText.text = "1";
+            recipeSlot.name = recipe.result.itemName; // gunakan itemName untuk konsistensi
+
+            // Hapus listener lama dan tambahkan baru
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() =>
             {
-                if (checkRecipes == false)
+                
+                // Toggle mode lihat resep
+                if (!checkRecipes)
                 {
-                    // Jika checkRecipes false, jalankan CheckIngredients
+                    Debug.Log($"[RefreshRecipe] Memeriksa bahan untuk resep: {recipeSlot.name}");
                     CheckIngredients(recipeSlot.name);
-                    checkRecipes = true; // Set checkRecipes menjadi true setelah CheckIngredients dipanggil
+                    checkRecipes = true;
                 }
                 else
                 {
-                    // Jika checkRecipes true, lakukan "destroy" pada objek yang ditampilkan
+                    Debug.Log($"[RefreshRecipe] Membatalkan mode lihat resep untuk: {recipeSlot.name}");
+                    // Jika UI belum siap masak, artinya masih dalam mode lihat resep
                     if (!CookUI.Instance.isCookReady)
                     {
                         CookUI.Instance.DestroyCraftItems();
-                        checkRecipes = false; // Set checkRecipes kembali menjadi false setelah menghapus objek
+                        checkRecipes = false;
                     }
                 }
             });
-
         }
+
+        Debug.Log($"[RefreshRecipe] {recipes.Count} resep berhasil dimuat untuk {typeCooking}");
     }
 
 
     private void CheckIngredients(string nameResult)
     {
-        // Iterasi melalui semua resep
-        foreach (RecipeCooking recipe in DatabaseManager.Instance.cookingDatabase.cookRecipes)
+
+        List<RecipeCooking> recipes = typeCooking == TypeCooking.FoodCook
+           ? DatabaseManager.Instance.cookingDatabase.cookRecipes
+           : DatabaseManager.Instance.cookingDatabase.smeltRecipes;
+
+        if (recipes == null || recipes.Count == 0)
         {
-            // Pastikan resep yang dimaksud adalah resep yang sesuai dengan nameResult
+            Debug.LogWarning("[RefreshRecipe] Tidak ada resep ditemukan untuk tipe ini: " + typeCooking);
+            return;
+        }
+
+        foreach (RecipeCooking recipe in recipes)
+        {
+            if (recipe == null || recipe.result == null)
+            {
+                Debug.LogWarning("[RefreshRecipe] Resep atau hasil resep null, dilewati.");
+                continue;
+            }
+
             if (recipe.result.name == nameResult && !CookUI.Instance.isCookReady)
             {
 
@@ -97,6 +128,7 @@ public class CookIngredient : MonoBehaviour
 
             }
         }
+          
     }
 
     private void DisplayIngredientInSlot(GameObject itemCraftSlot, Item ingredient, float count)

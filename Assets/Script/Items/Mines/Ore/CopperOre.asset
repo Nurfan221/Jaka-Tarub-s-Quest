@@ -15,9 +15,9 @@ MonoBehaviour:
   itemID: 51
   itemName: CopperOre
   quality: 0
-  types: 0
-  categories: 516
-  sprite: {fileID: -520590931183156557, guid: 35a83fac362f6b345843b0099c51c735, type: 3}
+  types: 8
+  categories: 33280
+  sprite: {fileID: -4762069126456669561, guid: 446a947af1ef534439a12c0a3cc24bd7, type: 3}
   itemDescription: Bijih tembaga mentah yang dapat dilebur menjadi logam tembaga.
     Digunakan untuk membuat alat, senjata, atau konduktor listrik.
   QuantityFuel: 5
@@ -46,7 +46,7 @@ MonoBehaviour:
   BuyValue: 50
   SellValue: 30
   BurningTime: 0
-  CookTime: 0
+  CookTime: 10
   itemDropName: CopperOre
   namePrefab: CopperOre
   growthTime: 0

@@ -36,6 +36,7 @@ public enum ItemCategory
     ItemPrefab = 4096,
     Insectisida = 8192,
     Hunt = 16384,
+    Smelt = 32768,
 }
 
 public enum ItemQuality

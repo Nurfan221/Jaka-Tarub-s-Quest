@@ -15,9 +15,9 @@ MonoBehaviour:
   itemID: 48
   itemName: GoldOre
   quality: 0
-  types: 0
-  categories: 512
-  sprite: {fileID: -8656567730949352908, guid: 35a83fac362f6b345843b0099c51c735, type: 3}
+  types: 8
+  categories: 33280
+  sprite: {fileID: -278611372618483759, guid: 446a947af1ef534439a12c0a3cc24bd7, type: 3}
   itemDescription: Batuan yang mengandung kilauan emas. Dapat dilelehkan untuk membuat
     ingot emas yang berharga.
   QuantityFuel: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   BuyValue: 150
   SellValue: 100
   BurningTime: 0
-  CookTime: 0
+  CookTime: 30
   itemDropName: GoldOre
   namePrefab: GoldOre
   growthTime: 0

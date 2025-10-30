@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8168844948068069531}
-  - component: {fileID: 5055354418458172506}
   - component: {fileID: 1537486939397333378}
   - component: {fileID: 3157959627615786834}
   - component: {fileID: 3345695273949750160}
-  - component: {fileID: 1160691333224790097}
+  - component: {fileID: 3737791352658205016}
+  - component: {fileID: 8124508460909555166}
   m_Layer: 8
   m_Name: Kompor
   m_TagString: Environment
@@ -33,24 +33,10 @@ Transform:
   m_LocalPosition: {x: -9.87, y: -3.48, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 8580715309768185315}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5055354418458172506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8687371611602760786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78cf7a5a3e6b26b4ebc874c9da8ac8df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptMessage: Open Cook
-  animationFire: []
-  frameRate: 0.1
 --- !u!61 &1537486939397333378
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -140,8 +126,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 6954428268693162600, guid: bbb1da25904c3864ca83623165402711, type: 3}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 8199865031149654543, guid: bbb1da25904c3864ca83623165402711, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -205,7 +191,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -217,7 +203,7 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!114 &1160691333224790097
+--- !u!114 &3737791352658205016
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -226,20 +212,119 @@ MonoBehaviour:
   m_GameObject: {fileID: 8687371611602760786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2abd55fb3353ec84f9761bf20afa1bef, type: 3}
+  m_Script: {fileID: 11500000, guid: 78cf7a5a3e6b26b4ebc874c9da8ac8df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Open Smelt
+  interactableUniqueID: {fileID: 8124508460909555166}
+  animationFire: []
+  resultItemSprite: {fileID: 3411637315986988222}
+  frameRate: 0.1
+  typeCooking: 2
+  itemCook:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
+  fuelCook:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
+  itemResult:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
+  isCooking: 0
+  currentProgress: 0
+  quantityFuel: 0
+--- !u!114 &8124508460909555166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8687371611602760786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c1fe7414a377f34e9c0500616069500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
-  hardnessLevel: 4
+  hardnessLevel: 3
   typeObject: 23
   typePlant: 0
-  arahObject: 3
+  arahObject: 0
   environmentType: 12
-  rumputAnimation:
-  - {fileID: -439146913866183013, guid: bbb1da25904c3864ca83623165402711, type: 3}
-  - {fileID: 8199865031149654543, guid: bbb1da25904c3864ca83623165402711, type: 3}
-  - {fileID: -4220188119609036000, guid: bbb1da25904c3864ca83623165402711, type: 3}
-  - {fileID: 6954428268693162600, guid: bbb1da25904c3864ca83623165402711, type: 3}
-  frameRate: 0.3
-  nameEnvironment: TunkuPeleburan
-  itemDrop: {fileID: 0}
+--- !u!1001 &6827956674958657031
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8168844948068069531}
+    m_Modifications:
+    - target: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.79999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.012
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.731
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388214106243207399, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_Name
+      value: PetunjukPintu (8)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+--- !u!212 &3411637315986988222 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: -1037705350642132295, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+  m_PrefabInstance: {fileID: 6827956674958657031}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8580715309768185315 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3014339130429936612, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+  m_PrefabInstance: {fileID: 6827956674958657031}
+  m_PrefabAsset: {fileID: 0}

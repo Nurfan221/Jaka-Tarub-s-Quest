@@ -116,7 +116,11 @@ public class SaveDataManager : MonoBehaviour
                 Debug.Log("[SAVE] Ditemukan EnvironmentManager. Memanggil CaptureState...");
                 if (tree.CaptureState() is List<TreePlacementData> treeData)
                 {
-                    saveData.savedTrees = tree.secondListTrees;
+                    saveData.savedTrees = treeData;
+                    foreach (var item in saveData.savedTrees)
+                    {
+                        Debug.Log($"Menangkap data antrian respawn pohon : {item.initialStage}");
+                    }
                     Debug.Log("Data pohon telah ditangkap untuk penyimpanan." + saveData.savedTrees.Count);
                 }
             }
@@ -211,8 +215,8 @@ public class SaveDataManager : MonoBehaviour
                 if (stone.CaptureState() is List<StoneRespawnSaveData> queueData)
                 {
                     
-                    saveData.queueRespownStone = stone.respawnQueue;
-                    Debug.Log("Data pemain telah ditangkap untuk StoneManager." + stone.respawnQueue.Count);
+                    saveData.queueRespownStone = queueData;
+                    Debug.Log("Data pemain telah ditangkap untuk StoneManager." + queueData.Count);
                 }
             } else if (saveable is TimeManager time)
             {
@@ -227,8 +231,8 @@ public class SaveDataManager : MonoBehaviour
                 Debug.Log("[SAVE] Ditemukan TiledHoedManager. Memanggil CaptureState...");
                 if (hoedTile.CaptureState() is List<HoedTileData> hoedTiles)
                 {
-                    saveData.savedHoedTilesList = hoedTile.hoedTilesList;
-                    Debug.Log("Data Hoed Tile telah ditangkap untuk penyimpanan." + saveData.savedHoedTilesList.Count);
+                    saveData.savedHoedTilesList = hoedTiles;
+                    Debug.Log("Data Hoed Tile telah ditangkap untuk penyimpanan." + hoedTiles.Count);
                 }
             }else if (saveable is ShopInteractable shopInteractable)
             {

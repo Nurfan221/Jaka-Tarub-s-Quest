@@ -240,7 +240,7 @@ public class GameController : MonoBehaviour
     public void LoadGame()
     {
   
-        GenerateDefaultWorld();
+   
         GameSaveData saveData = SaveDataManager.Instance.LoadGame();
 
         // Cek apakah ada data yang berhasil di-load
@@ -320,6 +320,8 @@ public class GameController : MonoBehaviour
                 //QuestManager.Instance.RestoreQuestStateFromData(saveData.savedQuestList);
                 QuestManager.Instance.RestoreState(saveData.savedQuestList);
             }
+
+            GenerateDefaultWorld();
         }
         else
         {
@@ -358,28 +360,20 @@ public class GameController : MonoBehaviour
 
     public void GenerateDefaultWorld()
     {
-        //nonactifkan hujan saat di dalam rumah
-        SmoothCameraFollow.Instance.EnterHouse(true);
         Debug.Log("Membangun dunia default dari DatabaseManager...");
 
-        // Pengecekan keamanan untuk memastikan manajer sudah ada
-        if (MainEnvironmentManager.Instance == null)
-        {
-            Debug.LogError("GenerateDefaultWorld GAGAL: MainEnvironmentManager tidak ditemukan!");
-            return;
-        }
-
-        // Generate Pohon
         TreesManager treesManager = MainEnvironmentManager.Instance.pohonManager;
         if (treesManager != null)
         {
-            treesManager.environmentList = new List<TreePlacementData>(DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements);
-            treesManager.HandleAddTreesObject();
+            treesManager.environmentList = new List<TreePlacementData>(
+                DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements
+            );
+            treesManager.SpawnAllTrees(); 
         }
 
-        // Generate Lingkungan Lain
         GenerateDefaultEnvirontment();
     }
+
 
     public void GenerateDefaultEnvirontment()
     {

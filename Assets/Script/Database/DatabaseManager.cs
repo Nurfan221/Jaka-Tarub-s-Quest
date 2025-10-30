@@ -10,17 +10,10 @@ public class RecipeCooking
     public Item ingredient;    // Bahan-bahan yang dibutuhkan
     public int ingredientCount; // jumlah bahan yang di perlukan
     public Item result;    // Hasil dari resep ini
+    public int resultCount; // jumlah hasil yang di dapatkan
 }
 
-[System.Serializable]
-public class RecipeSmelting
-{
-    public string recipeName; // Nama resep
-    public Item ingredient;    // Bahan-bahan yang dibutuhkan
-    public float ingredientCount; // jumlah bahan yang di perlukan
-    public Item result;    // Hasil dari resep ini
-    public float resultCount; // jumlah hasil yang di dapatkan
-}
+
 
 
 [System.Serializable]
@@ -70,6 +63,7 @@ public class GrowthStageTrees
     public GameObject batangPrefab; // Prefab untuk batang pohon
     public GameObject AkarPrefab; // Prefab untuk akar pohon
 }
+
 
 [System.Serializable]
 public class TreePlacementData
@@ -386,7 +380,13 @@ public enum SeedType
     UbiUngu,
     Wortel
 }
-
+public enum GrowthTree
+{
+    Seed,
+    Sprout,
+    YoungPlant,
+    MaturePlant
+}
 [System.Serializable]
 public class ShopTypeDatabase
 {

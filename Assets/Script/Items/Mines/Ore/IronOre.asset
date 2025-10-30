@@ -15,9 +15,9 @@ MonoBehaviour:
   itemID: 47
   itemName: IronOre
   quality: 0
-  types: 0
-  categories: 512
-  sprite: {fileID: -2939801824191070668, guid: 35a83fac362f6b345843b0099c51c735, type: 3}
+  types: 8
+  categories: 33280
+  sprite: {fileID: 6927115773471029863, guid: 446a947af1ef534439a12c0a3cc24bd7, type: 3}
   itemDescription: Batuan yang menganduk besi. Dapat di lelehkan untuk membuat ingot
     besi yang berharga
   QuantityFuel: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   BuyValue: 75
   SellValue: 50
   BurningTime: 0
-  CookTime: 0
+  CookTime: 20
   itemDropName: IronOre
   namePrefab: IronOre
   growthTime: 0

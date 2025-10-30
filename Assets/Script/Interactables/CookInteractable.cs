@@ -31,13 +31,6 @@ public class CookInteractable : Interactable, ISaveable
 
     private CookingDatabaseSO cookingDatabase;
 
-    [Header("Unique ID")]
-      //  Implementasi dari Kontrak IUniqueIdentifiable 
-    public EnvironmentHardnessLevel hardnessLevel;
-    public TypeObject typeObject;
-    public TypePlant typePlant;
-    public ArahObject arahObject;
-    public EnvironmentType environmentType;
 
 
 
@@ -113,6 +106,7 @@ public class CookInteractable : Interactable, ISaveable
     {
         return itemResult == null || string.IsNullOrEmpty(itemResult.itemName);
     }
+
     public void StartCook()
     {
         if (isCooking)
@@ -133,15 +127,29 @@ public class CookInteractable : Interactable, ISaveable
 
         // Cari Resep
         RecipeCooking foundRecipe = null;
-        foreach (var recipeCooking in DatabaseManager.Instance.cookingDatabase.cookRecipes)
+        if (typeCooking == TypeCooking.FoodCook)
         {
-            if (recipeCooking.ingredient.itemName == itemCook.itemName)
+            foreach (var recipeCooking in DatabaseManager.Instance.cookingDatabase.cookRecipes)
             {
-                foundRecipe = recipeCooking;
-                break; // Resep ditemukan, hentikan pencarian
+                if (recipeCooking.ingredient.itemName == itemCook.itemName)
+                {
+                    foundRecipe = recipeCooking;
+                    break; // Resep ditemukan, hentikan pencarian
+                }
+            }
+
+        }
+        else if (typeCooking == TypeCooking.SmeltCook)
+        {
+            foreach (var recipeCooking in DatabaseManager.Instance.cookingDatabase.smeltRecipes)
+            {
+                if (recipeCooking.ingredient.itemName == itemCook.itemName)
+                {
+                    foundRecipe = recipeCooking;
+                    break; // Resep ditemukan, hentikan pencarian
+                }
             }
         }
-
         if (foundRecipe == null)
         {
             Debug.LogWarning("Tidak ada resep yang cocok untuk item ini.");
@@ -184,6 +192,8 @@ public class CookInteractable : Interactable, ISaveable
     private IEnumerator CookingProcess(RecipeCooking recipe)
     {
         Item resultItemCook = ItemPool.Instance.GetItemWithQuality(recipe.result.itemName, recipe.result.quality);
+        itemResult = itemResult ?? new ItemData(recipe.result.itemName, 0, recipe.result.quality, 1);
+
         isCooking = true;
 
         // Kirim event ke UI untuk menampilkan icon hasil
@@ -203,8 +213,8 @@ public class CookInteractable : Interactable, ISaveable
         }
 
         // Update hasil masakan
-        if (itemResult == null || itemResult.itemName != recipe.result.itemName)
-            itemResult = new ItemData(recipe.result.itemName, 1, recipe.result.quality, 1);
+        if (IsItemResultEmpty() || itemResult.itemName != recipe.result.itemName)
+            itemResult = new ItemData(recipe.result.itemName, recipe.resultCount, recipe.result.quality, 1);
         else
             itemResult.count++;
 

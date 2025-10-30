@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +15,10 @@ using static UnityEditor.Progress;
 
 public class TreesManager : MonoBehaviour, ISaveable
 {
+    [Header("Tree Control")]
+    public bool hasSpawnedInitialTrees = false; // penanda agar pohon awal hanya di-spawn sekali
+
+
     [Header("Daftar Hubungan")]
     public WorldTreeDatabaseSO targetTreeDatabase;
     public List<TreePlacementData> secondListTrees = new List<TreePlacementData>();
@@ -25,12 +29,7 @@ public class TreesManager : MonoBehaviour, ISaveable
     public Transform parentEnvironment;
     public List<TreePlacementData> environmentList = new List<TreePlacementData>();
     public List<GameObject> gameObjectsList = new List<GameObject>();
-    public bool isGameObjectManager;
-    public bool isJanganAcak;
-    public bool isKuburanManager;
-    public int countKuburanKotor;
-    public int jumlahdiBersihkan;
-    public int useStamina = 10;
+
 
     public GameObject kuburanMbokRini;
 
@@ -48,18 +47,11 @@ public class TreesManager : MonoBehaviour, ISaveable
     void Start()
     {
 
-        if (isGameObjectManager)
-        {
-            RegisterAllGameObject();
-        }
-        else
-        {
-            //RegisterAllObject();
-        }
+  
+        //RegisterAllGameObject();
 
         parentEnvironment = gameObject.transform;
         targetTreeDatabase = DatabaseManager.Instance.worldTreeDatabase;
-        ProsesPenanamanUlangPohon();
         HandleNewDay();
 
 
@@ -67,14 +59,15 @@ public class TreesManager : MonoBehaviour, ISaveable
 
     public object CaptureState()
     {
-        Debug.Log("[SAVE] Menangkap data antrian respawn pohon...");
+        Debug.Log("[SAVE] Menangkap data antrian respawn pohon (dengan peningkatan stage)...");
 
-        // Buat list baru dengan format yang siap disimpan
         var saveTreeQueue = new List<TreePlacementData>();
 
-        // Konversi setiap item di antrian runtime ke format save
         foreach (var respawnItem in secondListTrees)
         {
+            // Buat salinan baru dengan stage yang dinaikkan
+            GrowthTree nextStage = GetNextStage(respawnItem.initialStage);
+
             saveTreeQueue.Add(new TreePlacementData
             {
                 TreeID = respawnItem.TreeID,
@@ -82,17 +75,26 @@ public class TreesManager : MonoBehaviour, ISaveable
                 position = respawnItem.position,
                 typePlant = respawnItem.typePlant,
                 sudahTumbang = respawnItem.sudahTumbang,
-                initialStage = respawnItem.initialStage,
+                initialStage = nextStage, // gunakan stage yang sudah ditingkatkan
                 isGrow = respawnItem.isGrow,
-                
             });
+        Debug.Log($"Menangkap data antrian respawn pohon : {nextStage}");
         }
 
-        // Kembalikan SELURUH LIST yang sudah siap disimpan
         return saveTreeQueue;
-
-       
     }
+
+    private GrowthTree GetNextStage(GrowthTree currentStage)
+    {
+        switch (currentStage)
+        {
+            case GrowthTree.Seed: return GrowthTree.Sprout;
+            case GrowthTree.Sprout: return GrowthTree.YoungPlant;
+            case GrowthTree.MaturePlant: return GrowthTree.MaturePlant;
+            default: return currentStage;
+        }
+    }
+
 
     public void RestoreState(object state)
     {
@@ -122,16 +124,18 @@ public class TreesManager : MonoBehaviour, ISaveable
     {
 
         float dayLuck = TimeManager.Instance.GetDayLuck();
-        if (isJanganAcak)
-        {
-            //return;
-        }
-        else
-        {
-            SpawnFromEnvironmentList(dayLuck);
-        }
+        SpawnAllTrees();
 
-       
+        //if (isJanganAcak)
+        //{
+        //    //return;
+        //}
+        //else
+        //{
+        //    SpawnFromEnvironmentList(dayLuck);
+        //}
+
+
 
     }
     public void RegisterAllObject()
@@ -271,21 +275,8 @@ public class TreesManager : MonoBehaviour, ISaveable
         }
     }
 
-    
-
-    public void UpdateStatusJob()
-    {
-        // Tambahkan 1 ke jumlahdiBersihkan setiap kali event dipicu
-        jumlahdiBersihkan++;
-
-        // Tampilkan log untuk memverifikasi
-        Debug.Log($"Kuburan berhasil dibersihkan! Total: {jumlahdiBersihkan}");
 
 
-        // Logika tambahan untuk stamina, dll.
-        PlayerController.Instance.HandleDrainStamina(useStamina);
-
-    }
 
     public void TumbuhkanPohonDalamAntrian(TreeBehavior treeBehavior)
     {
@@ -322,31 +313,7 @@ public class TreesManager : MonoBehaviour, ISaveable
         secondListTrees.Add(data);
     }
 
-    public void ProsesPenanamanUlangPohon()
-    {
-        Debug.Log("memanggil fungsi menanam ulang pohon");
-        foreach (var item in secondListTrees)
-        {
-            if (item.isGrow == true && TimeManager.Instance.date >= item.dayToRespawn)
-            {
-                Debug.Log($"[RESPAWN POHON] Menanam ulang pohon ID: {item.TreeID} di posisi {item.position} pada hari ke-{TimeManager.Instance.date} (target hari: {item.dayToRespawn} munculkan {item.initialStage}) ");
-                GameObject objectPohon = DatabaseManager.Instance.GetPrefabForTreeStage(item.typePlant, item.initialStage);
-
-                Vector3 spawnPosition = new Vector3(item.position.x, item.position.y, 0);
-
-                GameObject plant = Instantiate(objectPohon, spawnPosition, Quaternion.identity);
-
-                // Panggil ForceGenerateUniqueID untuk memastikan pohon yang di-load punya ID yang benar
-                plant.GetComponent<UniqueIdentifiableObject>().UniqueID = item.TreeID;
-                plant.name = item.TreeID.ToString();
-                plant.transform.SetParent(parentEnvironment);
-            }
-
-
-        }
-
-        
-    }
+  
 
     public void CheckDataInSecondList(string id)
     {
@@ -361,45 +328,129 @@ public class TreesManager : MonoBehaviour, ISaveable
         }
     }
 
-    public void HandleAddTreesObject()
+    public void SpawnAllTrees()
     {
-        
-        // yang ada di dalam secondListTrees (data save/perubahan).
-        var idsInSecondList = new HashSet<string>(secondListTrees.Select(data => data.TreeID));
+        int currentDate = TimeManager.Instance.date;
+        int spawnedCount = 0;
+        List<string> respawnedTreeIDs = new List<string>();
 
-        foreach (var item in environmentList)
+        Debug.Log($"[TreesManager] Memulai proses spawn pohon...");
+
+        // PRIORITAS: Pohon hasil tebang (yang menunggu respawn)
+        if (secondListTrees != null && secondListTrees.Count > 0)
         {
-            // Cek apakah ID dari pohon template ini TIDAK ADA di dalam daftar pelacak.
-            if (!idsInSecondList.Contains(item.TreeID))
+            Debug.Log($"[TreesManager] Mengecek {secondListTrees.Count} pohon di daftar respawn...");
+            Debug.Log($"[TreesManager] Hari sekarang: {currentDate}");
+
+            foreach (var respawnData in secondListTrees)
             {
-                // Aman untuk memunculkan versi default-nya.
+                Debug.Log($"[TreesManager] --- Mengecek pohon ID: {respawnData.TreeID}, " +
+                          $"tipe: {respawnData.typePlant}, posisi: {respawnData.position}, " +
+                          $"dayToRespawn: {respawnData.dayToRespawn}, stage: {respawnData.initialStage}");
 
-                Debug.Log($"[SPAWN] Pohon ID: {item.TreeID} tidak ada di secondListTrees. Memunculkan versi default...");
-                GameObject objectPohon = DatabaseManager.Instance.GetPrefabForTreeStage(item.typePlant, item.initialStage);
-
-                // Tambahkan pengecekan null untuk keamanan
-                if (objectPohon != null)
+                // 1️⃣ Kalau belum waktunya tumbuh, lewati
+                if (currentDate < respawnData.dayToRespawn)
                 {
-                    Vector3 spawnPosition = new Vector3(item.position.x, item.position.y, 0);
-                    GameObject plant = Instantiate(objectPohon, spawnPosition, Quaternion.identity);
-
-                    // Atur ID dan nama pohon yang baru dibuat
-                    plant.GetComponent<UniqueIdentifiableObject>().UniqueID = item.TreeID;
-                    plant.name = item.TreeID; // .ToString() tidak perlu karena sudah string
-                    plant.transform.SetParent(parentEnvironment);
+                    Debug.Log($"[TreesManager] Pohon {respawnData.TreeID} BELUM waktunya tumbuh. (currentDate={currentDate}, dayToRespawn={respawnData.dayToRespawn})");
+                    continue;
                 }
+
+                // 2️⃣ Cegah duplikasi jika sudah ada di scene
+                var existingTree = parentEnvironment.Find(respawnData.TreeID);
+                if (existingTree != null)
+                {
+                    Debug.LogWarning($"[TreesManager] Pohon {respawnData.TreeID} sudah ada di scene! Melewati spawn ulang.");
+                    continue;
+                }
+
+                // 3️⃣ Ambil prefab pohon
+                GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(respawnData.typePlant, respawnData.initialStage);
+                if (treePrefab == null)
+                {
+                    Debug.LogError($"[TreesManager] Prefab pohon TIDAK ditemukan untuk tipe '{respawnData.typePlant}' dengan stage '{respawnData.initialStage}'!");
+                    continue;
+                }
+                else
+                {
+                    Debug.Log($"[TreesManager] Prefab ditemukan: {treePrefab.name}");
+                }
+
+                // 4️⃣ Spawn pohon
+                GameObject newTree = Instantiate(treePrefab, respawnData.position, Quaternion.identity, parentEnvironment);
+                newTree.name = respawnData.TreeID;
+
+                Debug.Log($"[TreesManager] Berhasil instantiate pohon {respawnData.TreeID} di posisi {respawnData.position}");
+
+                // 5️⃣ Set Unique ID
+                var unique = newTree.GetComponent<UniqueIdentifiableObject>();
+                if (unique != null)
+                {
+                    unique.UniqueID = respawnData.TreeID;
+                    Debug.Log($"[TreesManager] UniqueID diset: {unique.UniqueID}");
+                }
+                else
+                {
+                    Debug.LogWarning($"[TreesManager] Komponen UniqueIdentifiableObject tidak ditemukan di prefab {treePrefab.name}");
+                }
+
+                spawnedCount++;
+                respawnedTreeIDs.Add(respawnData.TreeID);
+            }
+
+            // Debug akhir hasil respawn
+            Debug.Log($"[TreesManager] Total pohon respawn hari ini: {spawnedCount}");
+            if (respawnedTreeIDs.Count > 0)
+            {
+                Debug.Log($"[TreesManager] Pohon yang berhasil respawn: {string.Join(", ", respawnedTreeIDs)}");
             }
             else
             {
-               
-                // Kita tidak melakukan apa-apa dan melewatkannya.
-                Debug.Log($"[SKIP] Melewatkan pohon default '{item.TreeID}' karena datanya sudah ada di secondListTrees.");
+                Debug.Log($"[TreesManager] Tidak ada pohon yang memenuhi syarat untuk respawn hari ini.");
             }
+        }
+        else
+        {
+            Debug.Log("[TreesManager] secondListTrees kosong atau null — tidak ada pohon untuk direspawn.");
         }
 
 
-       
+        // Spawn awal dunia (hanya jika belum pernah di-spawn)
+        if (environmentList != null && environmentList.Count > 0)
+        {
+            Debug.Log($"[TreesManager] Mengecek {environmentList.Count} pohon dari environmentList (default world)...");
+
+            foreach (var data in environmentList)
+            {
+                // Lewati jika pohon ini sudah di tebang (ada di secondListTrees)
+                if (secondListTrees.Any(t => t.TreeID == data.TreeID))
+                    continue;
+
+                // Lewati jika pohon sudah ada di scene
+                if (parentEnvironment.Find(data.TreeID) != null)
+                    continue;
+
+                GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(data.typePlant, data.initialStage);
+                if (treePrefab == null)
+                {
+                    Debug.LogError($"[TreesManager] Gagal menemukan prefab untuk pohon {data.TreeID}!");
+                    continue;
+                }
+
+                GameObject newTree = Instantiate(treePrefab, data.position, Quaternion.identity, parentEnvironment);
+                newTree.name = data.TreeID;
+
+                var unique = newTree.GetComponent<UniqueIdentifiableObject>();
+                if (unique != null)
+                    unique.UniqueID = data.TreeID;
+
+                spawnedCount++;
+            }
+        }
+
+        Debug.Log($"[TreesManager] Proses spawn selesai. Total pohon yang dimunculkan: {spawnedCount}");
     }
+
+
 
 
     // TOMBOL BARU: Untuk mengisi 'environmentList' di dalam Editor

@@ -2,13 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GrowthTree
-{
-    Seed,
-    Sprout,
-    YoungPlant,
-    MaturePlant
-}
 
 public class TreeBehavior : UniqueIdentifiableObject
 {
@@ -174,7 +167,6 @@ public class TreeBehavior : UniqueIdentifiableObject
         {
             Vector2 posisiPohon = transform.position;
 
-            // --- PERBAIKAN KUNCI 1: Simpan ID lama sebelum hancur ---
             string oldUniqueID = this.UniqueID;
 
             GameObject pohonBaru = Instantiate(nextStagePrefab, posisiPohon, Quaternion.identity);
@@ -186,7 +178,6 @@ public class TreeBehavior : UniqueIdentifiableObject
             treeBehaviorBaru.daysSincePlanting = this.daysSincePlanting;
             treeBehaviorBaru.currentStage = (GrowthTree)((int)this.currentStage + 1);
 
-            // --- PERBAIKAN KUNCI 2: Wariskan ID lama ke pohon baru ---
             treeBehaviorBaru.UniqueID = oldUniqueID;
             // Ganti juga nama GameObject agar konsisten di Hierarchy
             pohonBaru.name = oldUniqueID;

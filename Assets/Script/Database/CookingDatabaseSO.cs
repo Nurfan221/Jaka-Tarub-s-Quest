@@ -5,5 +5,5 @@ using System.Collections.Generic;
 public class CookingDatabaseSO : ScriptableObject
 {
     public List<RecipeCooking> cookRecipes;
-    public List<RecipeSmelting> smeltRecipes;
+    public List<RecipeCooking> smeltRecipes;
 }
