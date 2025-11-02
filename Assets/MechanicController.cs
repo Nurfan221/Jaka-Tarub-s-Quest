@@ -12,7 +12,8 @@ public class MechanicController : MonoBehaviour
     public CraftUI _craftingUI;
     private ShopUI _shopUI;
     private CookUI _cookUI;
-    // --- Properti "Pintar" yang Bisa Mencari Sendiri ---
+    private UpgradeToolsUI _upgradeToolsUI;
+    // Properti "Pintar" yang Bisa Mencari Sendiri 
     public StorageUI StorageUI
     {
         get
@@ -97,6 +98,23 @@ public class MechanicController : MonoBehaviour
             return _craftingUI;
         }
     }
+
+    public UpgradeToolsUI UpgradeToolsUI
+    {
+        get
+        {
+            // Lakukan hal yang sama untuk UpgradeToolsInteractable
+            if (_upgradeToolsUI == null)
+            {
+                _upgradeToolsUI = FindObjectOfType<UpgradeToolsUI>(true);
+                if (_upgradeToolsUI == null)
+                {
+                    Debug.LogError("MechanicController tidak bisa menemukan [UpgradeToolsInteractable] di scene!");
+                }
+            }
+            return _upgradeToolsUI;
+        }
+    }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -171,11 +189,7 @@ public class MechanicController : MonoBehaviour
 
         MechanicController.Instance.HandleUpdateInventory();
         //StorageUI.ClosePopUp();
-        // --- FASE 3: REFRESH UI ---
-        // Panggil fungsi refresh UI Anda di sini setelah semua operasi selesai
-        // Contoh:
-        // StorageUI.Instance.RefreshUI();
-        // PlayerInventory.Instance.OnInventoryUpdated?.Invoke();
+      
     }
 
     public void HandleOpenInventory()
@@ -279,5 +293,11 @@ public class MechanicController : MonoBehaviour
     {
         Debug.Log("membuka Cook");
         CookUI.OpenCook(cookInteractable);
+    }
+
+    public void HandleOpenUpgradeTools(UpgradeToolsInteractable upgradeToolsInteractable)
+    {
+        Debug.Log("membuka Upgrade Tools");
+        UpgradeToolsUI.OpenUpgradeToolsUI(upgradeToolsInteractable);
     }
 }

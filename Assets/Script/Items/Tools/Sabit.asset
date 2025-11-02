@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Sabit
   quality: 0
   types: 0
-  categories: 256
+  categories: 65792
   sprite: {fileID: -2760005961147629764, guid: d8227a64b59d6e94aad06794d1ae2b64, type: 3}
   itemDescription: Alat untuk memotong rumput dan memanen tanaman
   QuantityFuel: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 1
   MaxLevel: 1
   Damage: 10
   AreaOfEffect: 5
@@ -44,9 +44,9 @@ MonoBehaviour:
   maxStackCount: 1
   BuyValue: 500
   SellValue: 500
-  BurningTime: 0
   CookTime: 0
   itemDropName: 
   namePrefab: 
   growthTime: 0
   growthImages: []
+  seedType: 0

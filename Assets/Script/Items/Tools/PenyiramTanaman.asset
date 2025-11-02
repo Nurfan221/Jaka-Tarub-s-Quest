@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: PenyiramTanaman
   quality: 0
   types: 0
-  categories: 256
+  categories: 65792
   sprite: {fileID: -6307849244470767558, guid: d566de0f6bdec3f48bd0b58bab4a43c1, type: 3}
   itemDescription: 'Ayolah, masa kalian tidak tahu item ini?
 
@@ -34,7 +34,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 1
   MaxLevel: 1
   Damage: 1
   AreaOfEffect: 1
@@ -47,9 +47,9 @@ MonoBehaviour:
   maxStackCount: 1
   BuyValue: 500
   SellValue: 500
-  BurningTime: 0
   CookTime: 0
   itemDropName: 
   namePrefab: 
   growthTime: 0
   growthImages: []
+  seedType: 0

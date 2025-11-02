@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: IronIngot
   quality: 0
   types: 0
-  categories: 512
+  categories: 131584
   sprite: {fileID: 5424335526881210050, guid: 446a947af1ef534439a12c0a3cc24bd7, type: 3}
   itemDescription: Batangan besi yang kuat dan tahan lama. Digunakan dalam pembuatan
     senjata, baju besi, dan berbagai peralatan lainya.
@@ -32,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -45,7 +45,6 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 150
   SellValue: 100
-  BurningTime: 0
   CookTime: 20
   itemDropName: 
   namePrefab: 

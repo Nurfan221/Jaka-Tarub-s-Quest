@@ -327,10 +327,9 @@ public class CookUI : MonoBehaviour
         }
         else if (item.IsInCategory(ItemCategory.Fuel))
         {
-            // LOGIKA BARU: Cek apakah "tank" bahan bakar kosong
+            // Cek apakah "tank" bahan bakar kosong
             if (interactableInstance.quantityFuel <= 0)
             {
-                // JIKA TANK KOSONG: Langsung konsumsi item ini untuk mengisi tank
                 // Jangan tampilkan di slot fuelCook
 
                 // Cek apakah slot cadangan KOSONG atau berisi item SAMA

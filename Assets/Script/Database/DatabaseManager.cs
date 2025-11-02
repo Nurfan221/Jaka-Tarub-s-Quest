@@ -387,6 +387,7 @@ public enum GrowthTree
     YoungPlant,
     MaturePlant
 }
+
 [System.Serializable]
 public class ShopTypeDatabase
 {
@@ -455,6 +456,30 @@ public class CookSaveData
     public int quantityFuel = 0; // Nilai bahan bakar saat ini
 
 }
+
+public enum LevelUpgradeTools
+{
+    None,
+    Level1,
+    Level2,
+    Level3,
+    Level4,
+    Level5
+}
+
+[Serializable]
+public class UpgradeToolsDatabase
+{
+    public string toolsName;
+    public LevelUpgradeTools levelUpgradeTools;
+    public int upgradeCost;
+    public Item itemToolRequired;
+    public Item itemToolResult;
+    public Item itemUpgradeRequired;
+    public int itemUpgradeRequiredCount;
+    public int upgradeTimeInDays;
+}
+
 public class DatabaseManager : MonoBehaviour
 {
     public static DatabaseManager Instance { get; private set; }
@@ -480,6 +505,8 @@ public class DatabaseManager : MonoBehaviour
     public EnvironmentDatabaseSO environmentDatabase;
     [Tooltip("Database untuk item sampah yang bisa didapat dari memancing/menggali.")]
     public SampahDatabaseSO sampahDatabase;
+    [Tooltip("Database untuk data upgrade alat.")]
+    public UpgradeToolsDatabaseSO upgradeToolsDatabase;
     [Tooltip("Database untuk data lahan pertanian.")]
     public FarmData_SO farmData_SO;
 

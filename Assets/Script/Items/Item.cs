@@ -37,6 +37,8 @@ public enum ItemCategory
     Insectisida = 8192,
     Hunt = 16384,
     Smelt = 32768,
+    tools = 65536,
+    Ingot = 131072,
 }
 
 public enum ItemQuality
@@ -75,7 +77,7 @@ public class Item : ScriptableObject
     // Combat Item
     [Header("COMBAT")]
     public bool isItemCombat;
-    public int Level;
+    public LevelUpgradeTools level;
     public int MaxLevel;
     public int Damage;
     public int AreaOfEffect;
@@ -92,7 +94,6 @@ public class Item : ScriptableObject
     public int maxStackCount;
     public int BuyValue;
     public int SellValue;
-    public int BurningTime;
     public int CookTime;
     public string itemDropName; // nama item yang dijatuhkan au dihasilkan
     public string namePrefab; // nama prefab yang akan ditanam khusus untuk seed atau tanaman 

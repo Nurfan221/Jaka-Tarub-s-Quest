@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  itemID: 94
+  itemID: 97
   itemName: Sword
   quality: 0
   types: 0
-  categories: 256
+  categories: 65792
   sprite: {fileID: 4515062826918275721, guid: d566de0f6bdec3f48bd0b58bab4a43c1, type: 3}
   itemDescription: "Pedang pemberian ren, cukup untuk mengusir bandit \nSpecial Skill:
     Meningkatkan atk sebesar 100% selama 30 detik. Cd: 40 detik; Stamina: 20"
@@ -31,7 +31,8 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
-  Level: 1
+  isItemCombat: 0
+  level: 1
   MaxLevel: 3
   Damage: 30
   AreaOfEffect: 3
@@ -44,10 +45,9 @@ MonoBehaviour:
   maxStackCount: 1
   BuyValue: 500
   SellValue: 500
-  BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 4459120725376062254, guid: 659d7259b9f882b42bfd1ce37e0a88dd, type: 3}
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 4459120725376062254, guid: 659d7259b9f882b42bfd1ce37e0a88dd, type: 3}
+  seedType: 0

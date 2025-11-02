@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: PenggarukSampah
   quality: 0
   types: 0
-  categories: 256
+  categories: 65792
   sprite: {fileID: -768353917898154162, guid: 2d27a17f733c5e949912b76bc7e8e210, type: 3}
   itemDescription: digunakan untuk mengumpulkan sampah terutama daun kering. jangan
     di gunakan untuk menggaruk punggung
@@ -32,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 1
   MaxLevel: 3
   Damage: 30
   AreaOfEffect: 3
@@ -45,9 +45,9 @@ MonoBehaviour:
   maxStackCount: 1
   BuyValue: 500
   SellValue: 500
-  BurningTime: 0
   CookTime: 0
   itemDropName: 
   namePrefab: 
   growthTime: 0
   growthImages: []
+  seedType: 0

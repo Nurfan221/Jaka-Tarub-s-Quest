@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cea2cc924badbef439d0b2c5fb86cfe2, type: 3}
+  m_Name: UpgradeToolsDatabaseSO
+  m_EditorClassIdentifier: 
+  upgradeTools:
+  - toolsName: PickAxe
+    levelUpgradeTools: 1
+    upgradeCost: 1000
+    itemToolRequired: {fileID: 11400000, guid: 89e00e0c54b34164cb03b392d7714a78, type: 2}
+    itemToolResult: {fileID: 11400000, guid: 4542f9717d6086e44a24e12f9436fa6e, type: 2}
+    itemUpgradeRequired: {fileID: 11400000, guid: 08a121126761b3b47ae07f3e3dbb063a, type: 2}
+    itemUpgradeRequiredCount: 5
+    upgradeTimeInDays: 3
+  - toolsName: PickAxe
+    levelUpgradeTools: 1
+    upgradeCost: 1000
+    itemToolRequired: {fileID: 11400000, guid: 17879e46153e76142bc6005180323b56, type: 2}
+    itemToolResult: {fileID: 11400000, guid: 95a60329254f211409851ef472bf950f, type: 2}
+    itemUpgradeRequired: {fileID: 11400000, guid: 08a121126761b3b47ae07f3e3dbb063a, type: 2}
+    itemUpgradeRequiredCount: 5
+    upgradeTimeInDays: 3
