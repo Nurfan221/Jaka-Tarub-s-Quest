@@ -154,7 +154,7 @@ public class MiniGameHewanUI : MonoBehaviour
             // Simpan item ke dalam dropitems milik MiniGameHewanUI
             for (int i = 0; i < animalBehavior.dropitems.Length; i++)
             {
-                dropitems[i] = animalBehavior.dropitems[i];
+                dropitems[i] = new ItemData(dropitems[i].itemName, 1, dropitems[i].quality, 0); ;
             }
 
             animalIdle = new Sprite[animalBehavior.animalIdle.Length];

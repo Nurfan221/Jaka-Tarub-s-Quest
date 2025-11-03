@@ -162,13 +162,24 @@ public class FarmTile : MonoBehaviour, ISaveable
             }
 
             // Reset Tanah Cangkulan yang Terlantar (jika tidak ditanami)
-            if (!tileData.isPlanted && timeManager.date >= tileData.hoedTime + 3)
+            //if (!tileData.isPlanted && timeManager.date >= tileData.hoedTime + 3)
+            //{
+            //    RevertTileToSoil(tileData.tilePosition);
+            //}
+
+            if (!tileData.isPlanted && tileData.revertDelay == 0)
+            {
+                tileData.revertDelay = Random.Range(2, 4);
+            }
+
+            if (!tileData.isPlanted && timeManager.date >= tileData.hoedTime + tileData.revertDelay)
             {
                 RevertTileToSoil(tileData.tilePosition);
             }
+
         }
 
-  
+
     }
 
 
@@ -217,7 +228,7 @@ public class FarmTile : MonoBehaviour, ISaveable
             tilemap.SetTile(tileToWater, databaseManager.wateredTile);
             hoedTile.watered = true;
             // Catat kapan terakhir disiram
-            hoedTile.hoedTime = timeManager.date;
+            //hoedTile.hoedTime = timeManager.date;
 
             if (plant != null)
             {
@@ -265,7 +276,7 @@ public class FarmTile : MonoBehaviour, ISaveable
             {
                 tilemap.SetTile(tileData.tilePosition, databaseManager.wateredTile);
                 tileData.watered = true;
-                tileData.hoedTime = timeManager.date; // Update waktu siram
+                //tileData.hoedTime = timeManager.date; // Update waktu siram
 
                 if (plant != null && !plant.isInfected && !plant.isReadyToHarvest)
                 {

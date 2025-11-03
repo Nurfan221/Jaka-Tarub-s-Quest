@@ -58,7 +58,7 @@ public class AnimalBehavior : MonoBehaviour
     public int maxHealth;
 
 
-    public ItemData[] dropitems;
+    public Item[] dropitems;
     public int minNormalItem = 1;
     public int maxNormalItem = 2;
     public int minSpecialItem = 0;
@@ -427,7 +427,8 @@ public class AnimalBehavior : MonoBehaviour
          
             if (dropitems.Length > 0)
             {
-                ItemData itemToDrop = dropitems[0]; // Asumsi: daging domba adalah elemen pertama
+
+                ItemData itemToDrop = new ItemData(dropitems[0].itemName, 1 , dropitems[0].quality, 0); // Asumsi: daging domba adalah elemen pertama
                 Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
                 ItemPool.Instance.DropItem(itemToDrop.itemName,itemToDrop.itemHealth,itemToDrop.quality , transform.position + offset);
 
@@ -467,7 +468,7 @@ public class AnimalBehavior : MonoBehaviour
         for (int i = 0; i < itemCount; i++)
         {
             int randomIndex = UnityEngine.Random.Range(startIndex, endIndex);
-            ItemData itemToDrop = dropitems[randomIndex];
+            ItemData itemToDrop = new ItemData(dropitems[randomIndex].itemName, 1, dropitems[randomIndex].quality, randomIndex);
             if (itemToDrop != null)
             {
                 Debug.Log("nama item yang di drop adalah : " + itemToDrop.itemName);

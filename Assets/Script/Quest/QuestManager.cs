@@ -470,6 +470,7 @@ public class QuestManager : MonoBehaviour, ISaveable
             DialogueSystem.Instance.StartDialogue();
         }
 
+        behavior.ReturnToNormalSchedule();
 
         CreateTemplateQuest();
 

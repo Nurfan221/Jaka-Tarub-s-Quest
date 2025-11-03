@@ -166,36 +166,12 @@ public class InventoryUI : MonoBehaviour
         GameController.Instance.ShowPersistentUI(false);
         GameController.Instance.PauseGame();
         gameObject.SetActive(true);
-        //isInventoryOpen = true;
-        IfClose();
+        //IfClose();
+        Description = false;
         SetInventory(); // Update UI when inventory is opened
 
 
-        //if (isInventoryOpen)
-        //{
-        //    GameController.Instance.PauseGame();
-        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-        //    //Instance.AddItem(ItemPool.Instance.GetItem("Padi"));
-
-
-
-
-
-
-
-        //}
-        //else
-        //{
-        //    GameController.Instance.ResumeGame();
-        //}
+       
     }
 
     public void CloseInventory()
@@ -210,10 +186,7 @@ public class InventoryUI : MonoBehaviour
         GameController.Instance.ResumeGame();
     }
 
-    // private void update()
-    // {
-    //     UpdateSixItemDisplay();
-    // }
+
 
     private void OnEnable()
     {
@@ -386,6 +359,7 @@ public class InventoryUI : MonoBehaviour
                 {
                     Debug.Log($"Item {item.itemName} clicked");
                     SetDescription(currentItemData);
+                    ShowDescription();
                 });
             }
             else
@@ -549,7 +523,6 @@ public class InventoryUI : MonoBehaviour
 
     public void SetDescription(ItemData item)
     {
-        ShowDescription();
         Item getItem = ItemPool.Instance.GetItemWithQuality(item.itemName, item.quality);
         // Set item's texts
         itemSprite.sprite = getItem.sprite;

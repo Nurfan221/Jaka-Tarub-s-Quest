@@ -321,6 +321,11 @@ public class GameController : MonoBehaviour
                 QuestManager.Instance.RestoreState(saveData.savedQuestList);
             }
 
+            if (saveData.upgradeToolsSaveData != null && saveData.upgradeToolsSaveData.resultItemUpgrade != null)
+            {
+                MainEnvironmentManager.Instance.upgradeToolsInteractable.RestoreState(saveData.upgradeToolsSaveData);
+            }
+
             GenerateDefaultWorld();
         }
         else
@@ -330,6 +335,8 @@ public class GameController : MonoBehaviour
             FindObjectOfType<PlayerController>()?.InitializeForNewGame();
         }
     }
+
+ 
 
 
     public void GoToMainMenu()

@@ -10,6 +10,7 @@ public class UpgradeToolsUI : MonoBehaviour
     public UpgradeToolsDatabaseSO upgradeToolsDatabaseSO;
     public UIShaker uiShaker;
     public UpgradeToolsInteractable upgradeToolsInteractable;
+    public Dialogues startUpgradeDialogue;
 
     [Header("UI Setting")]
     public Transform inventoryContent;
@@ -154,7 +155,7 @@ public class UpgradeToolsUI : MonoBehaviour
 
         //  Matikan UI setelah animasi selesai
         gameObject.SetActive(false);
-
+        DialogueSystem.Instance.HandlePlayDialogue(startUpgradeDialogue);
         isClosing = false;
     }
 
@@ -511,6 +512,8 @@ public class UpgradeToolsUI : MonoBehaviour
         // set started flag dan schedule complete
         upgradeToolsInteractable.startedUpgrade = true;
         // TimeManager.Instance.ScheduleAction(upgradeToolsInteractable.upgradeTime, CompleteUpgrade);
+
+
         CloseUpgradeToolsUI();
 
         Debug.Log($"[Upgrade] Proses upgrade dimulai! Akan selesai di hari {upgradeToolsInteractable.upgradeTime}");

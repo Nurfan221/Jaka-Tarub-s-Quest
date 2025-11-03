@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NUnit.Framework.Interfaces;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -257,6 +258,14 @@ public class SaveDataManager : MonoBehaviour
                     // Simpan data itu ke 'savedQuestList' di GameSaveData
                     saveData.savedQuestList = questData;
                     Debug.Log($"Data QuestManager berhasil ditangkap. {questData.Count} chapter aktif.");
+                }
+            }else if (saveable is UpgradeToolsInteractable upgradeToolsInteractable)
+            {
+                Debug.Log("[SAVE] Ditemukan UpgradeToolsInteractable . Memanggil CaptureState...");
+                if (upgradeToolsInteractable.CaptureState() is UpgradeToolsSaveData upgradeSaveData)
+                {
+                    saveData.upgradeToolsSaveData = upgradeSaveData;
+                    Debug.Log($"Data UpgradeToolsInteractable berhasil ditangkap. {upgradeSaveData.upgradeToolsDatabase.toolsName} siap untuk upgrade.");
                 }
             }
 

@@ -93,7 +93,7 @@ public class NPCBehavior : MonoBehaviour
         Debug.Log($"NPC {this.name} kembali ke jadwal normal.");
         isLockedForQuest = false;
 
-        //questOverrideDialogue = null;
+        questOverrideDialogue = null;
         // NPC akan otomatis melanjutkan jadwalnya di frame Update berikutnya.
     }
     // NPC memeriksa jadwalnya sendiri berdasarkan waktu saat ini.

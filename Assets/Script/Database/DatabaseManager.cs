@@ -118,6 +118,7 @@ public class HoedTileData
     public int growthProgress;
     public GrowthStage currentStage;
     public bool isReadyToHarvest;
+    public int revertDelay;
 
     //public HoedTileData(Vector3Int pos, int time)
     //{
@@ -480,6 +481,13 @@ public class UpgradeToolsDatabase
     public int upgradeTimeInDays;
 }
 
+[Serializable]
+public class UpgradeToolsSaveData
+{
+    public UpgradeToolsDatabase upgradeToolsDatabase;
+    public bool startedUpgrade = false;
+    public ItemData resultItemUpgrade;
+}
 public class DatabaseManager : MonoBehaviour
 {
     public static DatabaseManager Instance { get; private set; }

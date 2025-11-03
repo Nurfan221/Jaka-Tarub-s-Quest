@@ -177,7 +177,7 @@ public class Player_Inventory : MonoBehaviour
         }
 
         // JIKA ITEM ADALAH ITEM GUNA (HEAL/BUFF)
-        else if(itemTemplate.types == ItemType.Melee_Combat || itemTemplate.types == ItemType.Ranged_Combat)
+        else if(itemTemplate.IsInType(ItemType.Melee_Combat) || itemTemplate.IsInType(ItemType.Ranged_Combat))
         {
             Debug.Log($"Item '{itemToEquip.itemName}' adalah Senjata. Memasang ke slot combat.");
 
@@ -210,8 +210,7 @@ public class Player_Inventory : MonoBehaviour
         }
 
         Debug.Log($"Item '{itemToEquip.itemName}' berhasil dipasang.");
-        MechanicController.Instance.InventoryUI.RefreshInventoryItems();
-        MechanicController.Instance.InventoryUI.UpdateSixItemDisplay();
+        MechanicController.Instance.HandleUpdateInventory();
         PlayerUI.Instance.UpdateItemUseUI();
         PlayerUI.Instance.UpdateEquippedWeaponUI();
 

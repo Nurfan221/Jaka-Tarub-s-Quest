@@ -395,196 +395,101 @@ public class Player_Action : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("tombol attack di tekan");
-        Item itemToAttack = ItemPool.Instance.GetItemWithQuality(playerData.equippedWeaponTemplate.itemName, playerData.equippedWeaponTemplate.quality);
+        Debug.Log("Tombol attack ditekan");
+
+        Item itemToAttack = ItemPool.Instance.GetItemWithQuality(
+            playerData.equippedWeaponTemplate.itemName,
+            playerData.equippedWeaponTemplate.quality
+        );
+
         if (itemToAttack.itemName == "Empty")
             return;
 
-        if (itemToAttack.types == ItemType.Melee_Combat)
+        if (itemToAttack.IsInType(ItemType.Melee_Combat))
         {
-            // Memanggil suara pedang ketika serangan normal dengan pedang
-            //if (SoundManager.Instance != null)
-            //    SoundManager.Instance.PlaySound("Sword");
-
-            print("melee normal attacking");
+            Debug.Log("Melee normal attacking");
             PlayerUI.Instance.TakeCapacityBar(itemToAttack);
-            //PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina);
-            //playerHealth.SpendMaxCurrentStamina(itemToAttack.UseStamina);
-            Debug.Log("nama item yang sedang di pakai" + itemToAttack.itemName);
-            switch (itemToAttack.itemName)
+
+            if (itemToAttack.IsInType(ItemType.Kapak))
             {
-                //case "Tombak Berburu":
-                //case "Halberd":
-                //    if (Player_Health.Instance.SpendStamina(itemToAttack.SpecialAttackStamina))
-                //    {
-                //        ActivateHitbox(itemToAttack.Damage, itemToAttack.AreaOfEffect);
-                //    }
-                //break;
-
-                case "Kapak":
-                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
-                    {
-                        Debug.Log("Menyerang menggunakan" + itemToAttack.itemName);
-
-                        //Debug.Log($"Damage: {itemToAttack.Damage}");
-                        //print("Mengapak tanah");
-                        playerPosition = transform.position; // Posisi pemain
-
-                        // Ambil arah dari posisi face
-                        faceDirection = face.localPosition.normalized;
-                        // Memanggil ActivateHitbox tanpa parameter area
-                        ActivateHitboxAndPlayAction("Menebang", itemToAttack.Damage, 0.5f);
-                       
-                        //PlayActionAnimation(itemToAttack.itemName);
-
-                        //Debug.Log("Kapak dijalankan dengan hitbox.");
-                    }
-                    else
-                    {
-                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
-                    }
-                    break;
-
-                case "PickAxe":
-                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
-                    {
-                        //print("Mengapak tanah");
-                        playerPosition = transform.position; // Posisi pemain
-
-                        // Ambil arah dari posisi face
-                        faceDirection = face.localPosition.normalized;
-
-                        //Debug.Log($"Damage: {itemToAttack.Damage}");
-                        // Memanggil ActivateHitbox tanpa parameter area
-                        ActivateHitboxAndPlayAction("Menambang", itemToAttack.Damage, 0.5f);
-                       
-                        //Debug.Log("PickAxe dijalankan dengan hitbox.");
-                    }
-                    else
-                    {
-                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
-                    }
-                    break;
-
-                case "Sabit":
-                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
-                    {
-                        //print("Mengapak tanah");
-                        playerPosition = transform.position; // Posisi pemain
-
-                        // Ambil arah dari posisi face
-                        faceDirection = face.localPosition.normalized;
-                        //Debug.Log($"Damage: {itemToAttack.Damage}");
-
-                        //Memanggil ActiveHitbox tanpa parameter area
-                        ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
-                       
-                    }
-                    else
-                    {
-                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
-                    }
-
-                    break;
-                case "Sword":
-                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
-                    {
-                        //print("Mengapak tanah");
-                        playerPosition = transform.position; // Posisi pemain
-
-                        // Ambil arah dari posisi face
-                        faceDirection = face.localPosition.normalized;
-
-                        //Debug.Log($"Damage: {itemToAttack.Damage}");
-                        // Memanggil ActivateHitbox tanpa parameter area
-                        ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
-
-                        //Debug.Log("PickAxe dijalankan dengan hitbox.");
-                    }
-                    else
-                    {
-                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
-                    }
-
-                    break;
-                case "Cangkul":
-                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
-                    {
-                        playerPosition = transform.position; // Posisi pemain
-
-                        // Ambil arah dari posisi face
-                        faceDirection = face.localPosition.normalized;
-                        ActivateHitboxAndPlayAction("Mencangkul", itemToAttack.Damage, 0.5f);
-                        PlayActionAnimation(itemToAttack.itemName);
-                       
-                        FarmTile.Instance.HoeTile(playerPosition, faceDirection);
-                    }
-                    else
-                    {
-                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
-                    }
-                    //print("Mengapak tanah");
-
-                    break;
-                case "PenyiramTanaman":
-                    if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
-                    {
-                        playerPosition = transform.position; // Posisi pemain
-
-                        // Ambil arah dari posisi face
-                        faceDirection = face.localPosition.normalized;
-                        PlayActionAnimation(itemToAttack.itemName);
-                        ActivateHitboxAndPlayAction(itemToAttack.itemName, 0, 0.5f, true);
-                        FarmTile.Instance.WaterTile(playerPosition, faceDirection);
-                        //farmTile.HoeTile(playerPosition, faceDirection);
-                    }
-                    else
-                    {
-                        Debug.Log("Stamina tidak mencukupi untuk menyerang.");
-                    }
-                    //print("Mengapak tanah");
-
-                    break;
-
-
-
-                    //default:
-                    //    ActivateHitbox(itemToAttack.Damage, itemToAttack.AreaOfEffect);
-                    //    break;
+                if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
+                {
+                    playerPosition = transform.position;
+                    faceDirection = face.localPosition.normalized;
+                    ActivateHitboxAndPlayAction("Menebang", itemToAttack.Damage, 0.5f);
+                }
             }
-            StartCoroutine(ActivateAttack(.5f));
+            else if (itemToAttack.IsInType(ItemType.PickAxe))
+            {
+                if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
+                {
+                    Debug.Log("menjalankan animasi menambang");
+                    playerPosition = transform.position;
+                    faceDirection = face.localPosition.normalized;
+                    ActivateHitboxAndPlayAction("Menambang", itemToAttack.Damage, 0.5f);
+                }
+            }
+            else if (itemToAttack.IsInType(ItemType.Sabit))
+            {
+                if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
+                {
+                    playerPosition = transform.position;
+                    faceDirection = face.localPosition.normalized;
+                    ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
+                }
+            }
+            else if (itemToAttack.IsInType(ItemType.Pedang))
+            {
+                if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
+                {
+                    playerPosition = transform.position;
+                    faceDirection = face.localPosition.normalized;
+                    ActivateHitboxAndPlayAction(itemToAttack.itemName, itemToAttack.Damage, 0.5f);
+                }
+            }
+            else if (itemToAttack.IsInType(ItemType.Cangkul))
+            {
+                if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
+                {
+                    playerPosition = transform.position;
+                    faceDirection = face.localPosition.normalized;
+                    ActivateHitboxAndPlayAction("Mencangkul", itemToAttack.Damage, 0.5f);
+                    PlayActionAnimation(itemToAttack.itemName);
+                    FarmTile.Instance.HoeTile(playerPosition, faceDirection);
+                }
+            }
+            else if (itemToAttack.IsInType(ItemType.PenyiramTanaman))
+            {
+                if (PlayerController.Instance.HandleDrainStamina(itemToAttack.UseStamina))
+                {
+                    playerPosition = transform.position;
+                    faceDirection = face.localPosition.normalized;
+                    PlayActionAnimation(itemToAttack.itemName);
+                    ActivateHitboxAndPlayAction(itemToAttack.itemName, 0, 0.5f, true);
+                    FarmTile.Instance.WaterTile(playerPosition, faceDirection);
+                }
+            }
+
+            StartCoroutine(ActivateAttack(0.5f));
         }
         else if (itemToAttack.itemName == "Batu")
         {
-            print("throwing rock");
-            // throw rock
+            Debug.Log("Throwing rock");
             StartCoroutine(ShootProjectile(itemToAttack.RangedWeapon_ProjectilePrefab, itemToAttack.Damage));
-            // check if rock depleted after use then remove as equipped then remove from inventory
-            //if (stats.equippedWeapon.stackCount == 1)
-            //{
-            //    //stats.EquipItem(ItemPool.Instance.GetItem("Empty"));
-            //}
-
-            // minus rock count
-            //stats.RemoveItem(ItemPool.Instance.GetItem("Batu"));
-
-            StartCoroutine(ActivateAttack(.5f));
+            StartCoroutine(ActivateAttack(0.5f));
         }
         else if (itemToAttack.types == ItemType.Ranged_Combat)
         {
-            // Check for arrow first
             if (stats.inventory.Exists(x => x.itemName == "Anak Panah"))
             {
-                print("shooting arrow");
-                // Shoot arrow if possible
+                Debug.Log("Shooting arrow");
                 StartCoroutine(ShootProjectile(itemToAttack.RangedWeapon_ProjectilePrefab, itemToAttack.Damage));
-                // minus arrow count
-                //stats.RemoveItem(ItemPool.Instance.GetItem("Anak Panah"));
             }
             else
             {
-                print("no arrow bish");
+                Debug.Log("No arrow available!");
             }
+
             StartCoroutine(ActivateAttack(1));
         }
     }
@@ -646,7 +551,6 @@ public class Player_Action : MonoBehaviour
         // playerUI.TakeCapacityBar(activeWeaponData);
     }
 
-    // --- FUNGSI-FUNGSI BANTUAN YANG LEBIH FOKUS ---
 
     // Satu fungsi untuk menangani semua aksi bertani
     private void HandleFarmingAction(Item tool, FarmActionType actionType)

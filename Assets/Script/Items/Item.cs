@@ -15,6 +15,11 @@ public enum ItemType
     None = 256,
     PenyiramTanaman = 512,
     Cangkul = 1024,
+    PickAxe = 2048,
+    Pedang = 4096,
+    Kapak = 8192,
+    PenggarukSampah = 16384,
+    Sabit = 32768
 }
 
 [System.Flags]

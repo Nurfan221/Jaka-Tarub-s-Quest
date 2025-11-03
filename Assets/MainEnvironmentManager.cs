@@ -16,6 +16,8 @@ public class MainEnvironmentManager : MonoBehaviour
     public JamurManager jamurManager;
     public StorageSystem storageManager;
 
+    public UpgradeToolsInteractable upgradeToolsInteractable;
+
     // Kunci: Enum TypeShop, Nilai: Referensi ke skrip ShopInteractable.
     private Dictionary<TypeShop, ShopInteractable> registeredShops = new Dictionary<TypeShop, ShopInteractable>();
 

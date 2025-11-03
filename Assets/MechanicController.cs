@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -219,6 +220,7 @@ public class MechanicController : MonoBehaviour
     public void HandleUpdateInventory()
     {
         InventoryUI.SetInventory();
+        InventoryUI.ChangeMenu(0);
     }
 
     public void HandleOpenCrafting()
@@ -300,4 +302,6 @@ public class MechanicController : MonoBehaviour
         Debug.Log("membuka Upgrade Tools");
         UpgradeToolsUI.OpenUpgradeToolsUI(upgradeToolsInteractable);
     }
+
+  
 }
