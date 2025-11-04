@@ -413,44 +413,37 @@ public class AnimalBehavior : MonoBehaviour
         currentState = nextState;
     }
 
-    
+
 
 
     public void DropItem()
     {
-        // Bagian ini untuk drop item "normal" (daging, kulit, tulang)
         int normalItemCount = UnityEngine.Random.Range(minNormalItem, maxNormalItem + 1);
 
-
-        if (isAnimalQuest) // Asumsi: ingin mengecek tipeHewan
+        if (isAnimalQuest)
         {
-         
+            // Drop item quest (biasanya 1)
             if (dropitems.Length > 0)
             {
-
-                ItemData itemToDrop = new ItemData(dropitems[0].itemName, 1 , dropitems[0].quality, 0); // Asumsi: daging domba adalah elemen pertama
+                ItemData itemToDrop = new ItemData(dropitems[0].itemName, 1, dropitems[0].quality, dropitems[0].health);
                 Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
-                ItemPool.Instance.DropItem(itemToDrop.itemName,itemToDrop.itemHealth,itemToDrop.quality , transform.position + offset);
-
-            }
-            else
-            {
-                Debug.LogWarning("Dropitems array is empty, cannot drop quest item.");
+                ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset);
             }
         }
-        else if(!isAnimalQuest)
+        else
         {
+            // Drop item normal
             DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
-        }
-        else if (!isAnimalQuest && dropitems.Length > 2) // Gunakan tipeHewan == AnimalType.isQuest
-        {
 
-            int specialItemCount = UnityEngine.Random.Range(minSpecialItem, maxSpecialItem + 1);
-            DropItemsByType(3, dropitems.Length, specialItemCount);
+            // Jika punya item spesial, drop juga secara terpisah
+            if (dropitems.Length > 3)
+            {
+                int specialItemCount = UnityEngine.Random.Range(minSpecialItem, maxSpecialItem + 1);
+                DropItemsByType(3, dropitems.Length, specialItemCount);
+            }
         }
-
-     
     }
+
 
     private void DropItemsByType(int startIndex, int endIndex, int itemCount)
     {

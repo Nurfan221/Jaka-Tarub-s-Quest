@@ -241,6 +241,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   tipeHewan: 0
   currentTarget: {fileID: 0}
+  itemTriggerName: 
   attackRange: 1.5
   attackCooldown: 2
   zonaSerangTransform: {fileID: 0}
@@ -252,9 +253,9 @@ MonoBehaviour:
   health: 10
   maxHealth: 0
   dropitems:
-  - {fileID: 4459120725376062254, guid: 83e3ab7933d6dc54a9ae2a639294281a, type: 3}
-  - {fileID: 4459120725376062254, guid: 641620bc321129b408dcf8e8b76a69a3, type: 3}
-  - {fileID: 4459120725376062254, guid: fe35534c5969c5b4c902575039a582b2, type: 3}
+  - {fileID: 11400000, guid: fbdf2c85b189a2e42aefa92b3fa09046, type: 2}
+  - {fileID: 11400000, guid: dbc2f0d718acd6b41a610c0a59066cce, type: 2}
+  - {fileID: 11400000, guid: b2afd192f68f7c0409b076e15c62c405, type: 2}
   minNormalItem: 1
   maxNormalItem: 2
   minSpecialItem: 0

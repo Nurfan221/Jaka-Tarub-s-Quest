@@ -23,17 +23,18 @@ public class UpgradeToolsUI : MonoBehaviour
 
     //UI UPGRADE TOOLS 
     public Button upgradeButton;
-    public Image toolImage;
-    public TMP_Text toolNameText;
-    public Image itemRequiredImage;
-    public TMP_Text itemUpgradeRequiredCount;
-    public TMP_Text upgradeCost;
+    public Transform deskripsiTemplate;
+    public Transform resultRequiredTemplate;
+    public Transform toolRequiredTemplate;
+    public Transform itemRequiredTemplate;
+    public Transform constRequiredTemplate;
+    public Transform errorUI;
 
     public Button closebutton;
 
     [Header("Animation")]
     public bool isDropping = false;
-    public float startY = 400f;   // posisi awal UI saat muncul (mis. di atas)
+    public float startY = 700f;   // posisi awal UI saat muncul (mis. di atas)
     public float targetY = 0f;    // posisi akhir saat tampil (mis. 0)
     public float smoothTime = 0.18f;
 
@@ -76,12 +77,53 @@ public class UpgradeToolsUI : MonoBehaviour
         {
             Debug.Log("Syarat upgrade belum terpenuhi!");
             upgradeButton.GetComponent<UIShaker>().Shake(); // Efek guncangan!
+            CanvasGroup errorCanvasGroup = errorUI.GetComponent<CanvasGroup>();
+            if (errorCanvasGroup != null)
+            {
+                StartCoroutine(ShowErrorUI(2f, 0.5f));
+            }
             return;
         }
 
         // Jika berhasil upgrade
         DoUpgrade();
     }
+
+    public IEnumerator ShowErrorUI(float showDuration = 3f, float fadeDuration = 0.2f)
+    {
+        CanvasGroup errorCanvasGroup = errorUI.GetComponent<CanvasGroup>();
+
+        // Pastikan CanvasGroup aktif
+        errorUI.gameObject.SetActive(true);
+        errorCanvasGroup.alpha = 0f;
+
+        // Fade In
+        float timer = 0f;
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            errorCanvasGroup.alpha = Mathf.Lerp(0f, 1f, timer / fadeDuration);
+            yield return null;
+        }
+        errorCanvasGroup.alpha = 1f;
+
+        // Tahan beberapa detik
+        yield return new WaitForSeconds(showDuration);
+
+        // Fade Out
+        timer = 0f;
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            errorCanvasGroup.alpha = Mathf.Lerp(1f, 0f, timer / fadeDuration);
+            yield return null;
+        }
+        errorCanvasGroup.alpha = 0f;
+
+        // Sembunyikan setelah fade out
+        errorUI.gameObject.SetActive(false);
+    }
+
     private bool IsUpgradeRequirementIncomplete()
     {
         bool isToolEmpty = upgradeToolsInteractable.itemToUpgrade == null || string.IsNullOrEmpty(upgradeToolsInteractable.itemToUpgrade.itemName) || upgradeToolsInteractable.itemToUpgrade.count <= 0;
@@ -155,7 +197,10 @@ public class UpgradeToolsUI : MonoBehaviour
 
         //  Matikan UI setelah animasi selesai
         gameObject.SetActive(false);
-        DialogueSystem.Instance.HandlePlayDialogue(startUpgradeDialogue);
+        if (upgradeToolsInteractable.startedUpgrade)
+        {
+            DialogueSystem.Instance.HandlePlayDialogue(startUpgradeDialogue);
+        }
         isClosing = false;
     }
 
@@ -236,21 +281,53 @@ public class UpgradeToolsUI : MonoBehaviour
         GetItemForUpgrade();
 
         //  Update UI dasar 
-        toolImage.sprite = upgradeToolsDatabase.itemToolRequired.sprite;
-        toolNameText.text = upgradeToolsDatabase.itemToolRequired.itemName;
+        //Deskripsi text
+        TMP_Text deskripsiText = deskripsiTemplate.GetChild(0).GetComponent<TMP_Text>();
+        deskripsiText.text = $"Upgrade {upgradeToolsDatabase.itemToolRequired.itemName} menjadi {upgradeToolsDatabase.itemToolResult.itemName} Dibutuhkan Waktu Selama {upgradeToolsDatabase.upgradeTimeInDays} Hari";
 
+        // template untuk menampilkan hasil upgrade
+        Image resultRequiredImage = resultRequiredTemplate.GetChild(0).GetComponent<Image>();
+        TMP_Text resultRequiredCountText = resultRequiredTemplate.GetChild(1).GetComponent<TMP_Text>();
+
+        resultRequiredImage.sprite = upgradeToolsDatabase.itemToolResult.sprite;
+        resultRequiredCountText.text = upgradeToolsDatabase.itemToolResult.itemName;
+
+        // template untuk menampilkan alat yang di upgrade
+        Image toolRequiredImage = toolRequiredTemplate.GetChild(0).GetComponent<Image>();
+        TMP_Text toolNameText = toolRequiredTemplate.GetChild(1).GetComponent<TMP_Text>();
+        TMP_Text countToolRequired = toolRequiredTemplate.GetChild(2).GetComponent<TMP_Text>();
+        toolRequiredImage.sprite = upgradeToolsDatabase.itemToolRequired.sprite;
+        toolNameText.text = upgradeToolsDatabase.itemToolRequired.itemName;
+        countToolRequired.text = "1";
+
+
+        // template untuk menampilkan item yang dibutuhkan
+        Image itemRequiredImage = itemRequiredTemplate.GetChild(0).GetComponent<Image>();
+        TMP_Text itemUpgradeRequiredName = itemRequiredTemplate.GetChild(1).GetComponent<TMP_Text>();
+        TMP_Text itemUpgradeRequiredCount = itemRequiredTemplate.GetChild(2).GetComponent<TMP_Text>();
         itemRequiredImage.sprite = upgradeToolsDatabase.itemUpgradeRequired.sprite;
+        itemUpgradeRequiredName.text = upgradeToolsDatabase.itemUpgradeRequired.itemName;
         itemUpgradeRequiredCount.text = upgradeToolsDatabase.itemUpgradeRequiredCount.ToString();
-        upgradeCost.text = upgradeToolsDatabase.upgradeCost.ToString();
+
+        // template untuk menampilkan biaya upgrade
+        CanvasGroup constCanvasGroup = constRequiredTemplate.GetComponent<CanvasGroup>();
+        TMP_Text upgradeCostText = constRequiredTemplate.GetChild(0).GetComponent<TMP_Text>();
+
+        //toolImage.sprite = upgradeToolsDatabase.itemToolRequired.sprite;
+        //toolNameText.text = upgradeToolsDatabase.itemToolRequired.itemName;
+
+        //itemRequiredImage.sprite = upgradeToolsDatabase.itemUpgradeRequired.sprite;
+        //itemUpgradeRequiredCount.text = upgradeToolsDatabase.itemUpgradeRequiredCount.ToString();
+        //upgradeCost.text = upgradeToolsDatabase.upgradeCost.ToString();
 
         // Jika item tidak ada, atau jumlahnya kurang, maka buat pudar
         if (upgradeToolsInteractable.itemToUpgrade == null || upgradeToolsInteractable.itemToUpgrade.count < 1)
         {
-            SetImageAlpha(toolImage, 0.4f); // pudar
+            SetImageAlpha(toolRequiredImage, 0.4f); // pudar
         }
         else
         {
-            SetImageAlpha(toolImage, 1f); // normal
+            SetImageAlpha(toolRequiredImage, 1f); // normal
         }
 
         if (upgradeToolsInteractable.itemRequired == null || upgradeToolsInteractable.itemRequired.count < upgradeToolsDatabase.itemUpgradeRequiredCount)
@@ -262,6 +339,8 @@ public class UpgradeToolsUI : MonoBehaviour
             SetImageAlpha(itemRequiredImage, 1f);
         }
 
+   
+
         if (IsUpgradeRequirementIncomplete())
         {
             Debug.LogWarning("Upgrade tidak bisa dilakukan: item belum lengkap!");
@@ -272,11 +351,17 @@ public class UpgradeToolsUI : MonoBehaviour
             if (GameEconomy.Instance.coins >= upgradeToolsInteractable.upgradeCostAmount)
             {
                 upgradeToolsInteractable.canUpgrade = true;
+                Debug.Log("Uang tidak cukup untuk upgrade.");
+                constCanvasGroup.alpha = 1f;
 
-            }else
+            }
+            else
             {
                 upgradeToolsInteractable.canUpgrade = false;
                 Debug.LogWarning("Upgrade tidak bisa dilakukan: uang tidak cukup!");
+
+                Debug.Log("Uang cukup untuk upgrade.");
+                constCanvasGroup.alpha = 0.4f;
             }
             Debug.Log("Upgrade bisa dilakukan: semua item lengkap.");
         }
