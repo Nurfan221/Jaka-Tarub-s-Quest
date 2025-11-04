@@ -1,162 +1,116 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PerangkapBehavior : MonoBehaviour
 {
     public bool isfull; // Apakah perangkap penuh
+    public SpriteRenderer spriteRenderer; // Renderer untuk menampilkan sprite perangkap
+    public Item[] itemPerangkap; // Item yang digunakan untuk perangkap
+    public Item itemTertangkap; // Item hewan yang tertangkap
+    public int perangkapHealth; // Kesehatan perangkap
 
-    public GameObject[] hewanBuruan; // Daftar prefab hewan yang bisa ditangkap
-    public GameObject animalInTrap;  // Hewan yang tertangkap
-    public GameObject imageAnimalInTrap; // GameObject di atas perangkap untuk menampilkan sprite hewan
-    [SerializeField] private PrefabItemBehavior prefabItemBehavior;
-    [SerializeField] private Player_Inventory player_Inventory;
-
-    private PlayerController stats;
-    private void Awake()
+    private void OnEnable()
     {
-
-
-        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
-        if (PlayerController.Instance != null)
-        {
-            stats = PlayerController.Instance;
-        }
-        else
-        {
-            Debug.LogError("PlayerController.Instance tidak ditemukan saat Awake!");
-        }
+        TimeManager.OnDayChanged += NewDay;
     }
-    void Start()
+    private void OnDisable()
     {
-        imageAnimalInTrap.gameObject.SetActive(false);
-        // Berlangganan ke event OnDayChanged di TimeManager
-        TimeManager.OnDayChanged += OnDayChanged;
+        TimeManager.OnDayChanged -= NewDay;
     }
-
-    void Update()
+    private void Start()
     {
-
+        GetRandomAnimal(); 
     }
-
-
-    private void OnDestroy()
-    {
-        // Unsubscribe dari event OnDayChanged untuk mencegah error saat pohon dihancurkan
-        TimeManager.OnDayChanged -= OnDayChanged;
-    }
-
-    private void OnDayChanged()
-    {
-        Debug.Log($"Pohon menerima perubahan hari, Hari ke-");
-        GetAnimalToTrap();
-        Debug.Log("pohon tumbuh");
-    }
-
-    // Fungsi untuk menangkap hewan
-    public void GetAnimalToTrap()
-    {
-        if (!isfull) // Perangkap kosong, bisa menangkap hewan
-        {
-            prefabItemBehavior.health -= 1;
-            imageAnimalInTrap.gameObject.SetActive(true);
-            // Memilih hewan secara acak dari daftar hewanBuruan
-            int randomIndex = Random.Range(0, hewanBuruan.Length);
-            animalInTrap = hewanBuruan[randomIndex];
-
-            //Mendapatkan SpriteRenderer dari GameObject imageAnimalInTrap
-            SpriteRenderer hewanImage = imageAnimalInTrap.GetComponent<SpriteRenderer>();
-
-            if (hewanImage != null && animalInTrap != null)
-            {
-                //Mendapatkan Sprite dari hewan yang tertangkap
-                Sprite spriteHewan = animalInTrap.GetComponent<SpriteRenderer>().sprite;
-
-                if (spriteHewan != null)
-                {
-                    hewanImage.sprite = spriteHewan;
-                    Debug.Log("Sprite hewan di perangkap diperbarui ke: " + spriteHewan.name);
-                }
-                else
-                {
-                    Debug.LogWarning("Animal tidak memiliki sprite.");
-                }
-            }
-            else
-            {
-                Debug.LogWarning("SpriteRenderer tidak ditemukan di imageAnimalInTrap.");
-            }
-
-            isfull = true; // Perangkap sekarang penuh
-        }
-        else
-        {
-            Debug.Log("Perangkap sudah penuh, tidak bisa menangkap hewan baru.");
-        }
-    }
-
-    //Fungsi untuk melepaskan hewan dari perangkap
     public void TakeAnimal()
     {
-        if (isfull) // Perangkap penuh, hewan bisa dilepas
+        if (isfull)
         {
-            // Hapus sprite dari GameObject imageAnimalInTrap
-            SpriteRenderer hewanImage = imageAnimalInTrap.GetComponent<SpriteRenderer>();
-
-            if (hewanImage != null)
+            // Logika untuk mengambil hewan dari perangkap
+            Debug.Log("Mengambil hewan dari perangkap.");
+            isfull = false;
+            ItemData itemData = new ItemData
             {
-                //Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(animalInTrap.gameObject.name));
-            }
-            else
-            {
-                Debug.LogWarning("Komponen SpriteRenderer pada imageAnimalInTrap tidak ditemukan.");
-            }
+                itemName = itemTertangkap.itemName,
+                count = 1,
+                quality = itemTertangkap.quality,
+                itemHealth = itemTertangkap.health
+            };
 
-            //string nameAnimal = animalInTrap.gameObject.name;
-            imageAnimalInTrap.gameObject.SetActive(false);
-            //Debug.Log("Hewan " + animalInTrap.name + " dilepas dari perangkap.");
-
-            animalInTrap = null; // Hapus hewan dari perangkap
-            isfull = false; // Set perangkap kosong lagi
-            if (prefabItemBehavior.health <=0)
-            {
-                Destroy(gameObject);
-            }
+            ItemPool.Instance.AddItem(itemData);
+            spriteRenderer.gameObject.SetActive(false);
+            itemTertangkap = null;
         }
         else
         {
-            Debug.Log("Perangkap kosong, tidak ada hewan yang bisa dilepas.");
+            Debug.Log("Perangkap kosong, tidak ada hewan untuk diambil.");
         }
     }
+    public void NewDay()
+    {
+        GetRandomAnimal();
+    }
+    public void GetRandomAnimal()
+    {
+        if (isfull)
+        {
+            Debug.Log("Perangkap sudah penuh, tidak bisa menangkap hewan lagi.");
+            return;
+        }
 
+        // Ambil nilai keberuntungan hari ini (0 - 3, bertipe float)
+        float dayLuck = TimeManager.Instance.GetDayLuck();
+        Debug.Log($"[Perangkap] Day Luck hari ini: {dayLuck:F2}");
+
+        // Gunakan dayLuck untuk meningkatkan peluang tangkapan
+        float luckMultiplier = 1f + (dayLuck * 0.25f);
+
+        // Tentukan apakah perangkap berhasil menangkap sesuatu hari ini
+        float catchChance = Random.value * luckMultiplier;
+        if (catchChance < 0.4f)
+        {
+            Debug.Log($"[Perangkap] Gagal menangkap hewan hari ini. (Chance={catchChance:F2})");
+            return;
+        }
+
+        // Jika berhasil, tentukan hewan berdasarkan keberuntungan
+        // Konversi hasil menjadi integer agar bisa digunakan untuk index
+        int randomIndex = Mathf.Clamp(
+            Mathf.FloorToInt(Random.Range(0f, itemPerangkap.Length) + dayLuck),
+            0,
+            itemPerangkap.Length - 1
+        );
+
+        itemTertangkap = itemPerangkap[randomIndex];
+        Debug.Log($"[Perangkap] Menangkap hewan: {itemTertangkap.itemName} (Luck={dayLuck:F2}, Index={randomIndex})");
+
+        spriteRenderer.gameObject.SetActive(true);
+        spriteRenderer.sprite = itemTertangkap.sprite;
+        isfull = true;
+    }
 
     public void TakePerangkap()
     {
-        ItemDropInteractable itemDropInteractable = gameObject.GetComponent<ItemDropInteractable>();
-        ItemData itemDataPerangkap = itemDropInteractable.itemdata;
-        Item itemPerangkap = ItemPool.Instance.GetItemWithQuality(itemDataPerangkap.itemName, itemDataPerangkap.quality);
-
-        itemPerangkap.health = prefabItemBehavior.health;
-
-        bool itemFound = false; // Menyimpan status apakah item sudah ditemukan
-
-        for (int i = 0; i < stats.inventory.Count; i++)
+        if (!isfull)
         {
-            if (stats.inventory[i].itemName == itemPerangkap.itemName)
+            Debug.Log("Mengambil perangkap kosong.");
+            // Logika untuk mengambil perangkap kosong
+            ItemData itemData = new ItemData
             {
-                //stats.itemList[i].stackCount += 1; // Menambahkan jumlah stack
-                itemFound = true;
-                break; // Keluar dari loop setelah item ditemukan
-            }
-        }
+                itemName = "Perangkap",
+                count = 1,
+                quality = ItemQuality.Normal,
+                itemHealth = perangkapHealth
+            };
 
-        // Jika item tidak ditemukan, tambahkan item baru ke dalam inventory
-        if (!itemFound)
+            ItemPool.Instance.AddItem(itemData);
+            Destroy(gameObject);
+        }
+        else
         {
-            //stats.inventory.Add(itemPerangkap);
+            Debug.Log("Perangkap penuh, tidak bisa diambil.");
         }
-
-        Destroy(gameObject);
     }
 
 

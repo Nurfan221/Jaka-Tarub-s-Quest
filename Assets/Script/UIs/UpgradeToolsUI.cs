@@ -29,6 +29,7 @@ public class UpgradeToolsUI : MonoBehaviour
     public Transform itemRequiredTemplate;
     public Transform constRequiredTemplate;
     public Transform errorUI;
+    public string errorMessage = "Syarat upgrade belum terpenuhi!";
 
     public Button closebutton;
 
@@ -43,6 +44,8 @@ public class UpgradeToolsUI : MonoBehaviour
     private Coroutine currentAnim = null;
 
     private bool isClosing = false;
+    private Coroutine errorCoroutine; // simpan coroutine yang sedang jalan
+    private bool isErrorShowing = false;
 
 
 
@@ -91,9 +94,25 @@ public class UpgradeToolsUI : MonoBehaviour
 
     public IEnumerator ShowErrorUI(float showDuration = 3f, float fadeDuration = 0.2f)
     {
-        CanvasGroup errorCanvasGroup = errorUI.GetComponent<CanvasGroup>();
+        // Jika sudah ada animasi error yang sedang jalan, hentikan dulu
+        if (errorCoroutine != null)
+        {
+            StopCoroutine(errorCoroutine);
+            errorCoroutine = null;
+        }
 
-        // Pastikan CanvasGroup aktif
+        errorCoroutine = StartCoroutine(ShowErrorUICoroutine(showDuration, fadeDuration));
+        yield return null;
+    }
+
+    private IEnumerator ShowErrorUICoroutine(float showDuration, float fadeDuration)
+    {
+        isErrorShowing = true;
+
+        CanvasGroup errorCanvasGroup = errorUI.GetComponent<CanvasGroup>();
+        TMP_Text errorText = errorUI.GetChild(0).GetComponent<TMP_Text>();
+        errorText.text = errorMessage;
+
         errorUI.gameObject.SetActive(true);
         errorCanvasGroup.alpha = 0f;
 
@@ -101,6 +120,13 @@ public class UpgradeToolsUI : MonoBehaviour
         float timer = 0f;
         while (timer < fadeDuration)
         {
+            // Kalau UI utama tiba-tiba ditutup, hentikan animasi aman
+            if (!errorUI.gameObject.activeInHierarchy)
+            {
+                ResetErrorUI();
+                yield break;
+            }
+
             timer += Time.deltaTime;
             errorCanvasGroup.alpha = Mathf.Lerp(0f, 1f, timer / fadeDuration);
             yield return null;
@@ -114,14 +140,32 @@ public class UpgradeToolsUI : MonoBehaviour
         timer = 0f;
         while (timer < fadeDuration)
         {
+            if (!errorUI.gameObject.activeInHierarchy)
+            {
+                ResetErrorUI();
+                yield break;
+            }
+
             timer += Time.deltaTime;
             errorCanvasGroup.alpha = Mathf.Lerp(1f, 0f, timer / fadeDuration);
             yield return null;
         }
         errorCanvasGroup.alpha = 0f;
 
-        // Sembunyikan setelah fade out
-        errorUI.gameObject.SetActive(false);
+        ResetErrorUI();
+    }
+
+    private void ResetErrorUI()
+    {
+        if (errorUI != null)
+            errorUI.gameObject.SetActive(false);
+
+        isErrorShowing = false;
+        if (errorCoroutine != null)
+        {
+            StopCoroutine(errorCoroutine);
+            errorCoroutine = null;
+        }
     }
 
     private bool IsUpgradeRequirementIncomplete()
@@ -174,6 +218,7 @@ public class UpgradeToolsUI : MonoBehaviour
     {
 
         isDropping = false;
+        ResetErrorUI();
         PlayUp(); // jalankan animasi naik
 
         // Tunggu hingga animasi selesai (sesuaikan durasi dengan animasi PlayUp)
@@ -313,17 +358,12 @@ public class UpgradeToolsUI : MonoBehaviour
         CanvasGroup constCanvasGroup = constRequiredTemplate.GetComponent<CanvasGroup>();
         TMP_Text upgradeCostText = constRequiredTemplate.GetChild(0).GetComponent<TMP_Text>();
 
-        //toolImage.sprite = upgradeToolsDatabase.itemToolRequired.sprite;
-        //toolNameText.text = upgradeToolsDatabase.itemToolRequired.itemName;
-
-        //itemRequiredImage.sprite = upgradeToolsDatabase.itemUpgradeRequired.sprite;
-        //itemUpgradeRequiredCount.text = upgradeToolsDatabase.itemUpgradeRequiredCount.ToString();
-        //upgradeCost.text = upgradeToolsDatabase.upgradeCost.ToString();
 
         // Jika item tidak ada, atau jumlahnya kurang, maka buat pudar
         if (upgradeToolsInteractable.itemToUpgrade == null || upgradeToolsInteractable.itemToUpgrade.count < 1)
         {
             SetImageAlpha(toolRequiredImage, 0.4f); // pudar
+            errorMessage = "Alat untuk di upgrade tidak tersedia!";
         }
         else
         {
@@ -333,6 +373,7 @@ public class UpgradeToolsUI : MonoBehaviour
         if (upgradeToolsInteractable.itemRequired == null || upgradeToolsInteractable.itemRequired.count < upgradeToolsDatabase.itemUpgradeRequiredCount)
         {
             SetImageAlpha(itemRequiredImage, 0.4f);
+            errorMessage = "Bahan upgrade tidak mencukupi!";
         }
         else
         {
@@ -362,6 +403,7 @@ public class UpgradeToolsUI : MonoBehaviour
 
                 Debug.Log("Uang cukup untuk upgrade.");
                 constCanvasGroup.alpha = 0.4f;
+                errorMessage = "Koin anda tidak cukup untuk upgrade!";
             }
             Debug.Log("Upgrade bisa dilakukan: semua item lengkap.");
         }

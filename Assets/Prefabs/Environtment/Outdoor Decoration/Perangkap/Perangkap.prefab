@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 221916205474464569}
   - component: {fileID: 8664554216995394883}
   - component: {fileID: 111458419296442766}
-  - component: {fileID: -6987671628748341261}
-  - component: {fileID: 3850026579648043215}
   m_Layer: 8
   m_Name: Perangkap
   m_TagString: ObjekDestroy
@@ -81,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: -8135096131531685454, guid: 6865f60417eb7f041b0a3916c4337764, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -123,11 +121,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0316692, y: 0.04394865}
+  m_Offset: {x: 0.0045109987, y: 0.04394865}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -137,7 +135,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.93878496, y: 0.7837726}
+  m_Size: {x: 1.210376, y: 1.1342022}
   m_EdgeRadius: 0
 --- !u!114 &8664554216995394883
 MonoBehaviour:
@@ -153,10 +151,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isfull: 0
   hewanBuruan:
-  - {fileID: 3632186851480370098, guid: 1f56aee5c0ed0ec46b61ccfb6a6f1a6a, type: 3}
-  animalInTrap: {fileID: 0}
+  - {fileID: 4459120725376062254, guid: 80effc465e293a142b8d8616d1d0c61d, type: 3}
+  - {fileID: 4459120725376062254, guid: 83e3ab7933d6dc54a9ae2a639294281a, type: 3}
+  - {fileID: 4459120725376062254, guid: 05bed41abe792fd459a4b938cbadca05, type: 3}
+  - {fileID: 4459120725376062254, guid: ed5cad5dac6105e41836b4772e81d04d, type: 3}
+  animalInTrap: {fileID: 8640419358972590822}
   imageAnimalInTrap: {fileID: 8640419358972590822}
-  prefabItemBehavior: {fileID: -6987671628748341261}
+  prefabItemBehavior: {fileID: 0}
+  player_Inventory: {fileID: 0}
 --- !u!114 &111458419296442766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,41 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025be52e4deec224f9b9d20200e07e35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useEvents: 0
-  promptMessage: 
+  promptMessage: perangkap
   perangkapBehavior: {fileID: 8664554216995394883}
---- !u!114 &-6987671628748341261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4992219504839692284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95f35b7bfeabcee4ba85145e38dd752e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  namePrefab: Perangkap
-  itemDrop: {fileID: 0}
---- !u!114 &3850026579648043215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4992219504839692284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9af62f5c85e00a94ba211bb3ee9bac35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useEvents: 0
-  promptMessage: Perangkap
-  item: {fileID: 11400000, guid: a5270a7f876edb242a48cc23b681b8af, type: 2}
-  itemName: Perangkap
-  gravityDuration: 2
 --- !u!1 &8640419358972590822
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,8 +199,8 @@ Transform:
   m_GameObject: {fileID: 8640419358972590822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 1.06, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.001, y: 0.871, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8299911343305725812}
@@ -279,12 +248,12 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.3764706}
+  m_SortingOrder: 4
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.62352943}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0

@@ -6,6 +6,10 @@ public class PeraangkapInteractable : Interactable
 {
     public PerangkapBehavior perangkapBehavior;
 
+    private void Awake()
+    {
+        perangkapBehavior = GetComponent<PerangkapBehavior>();
+    }
 
     void Start()
     {
@@ -26,7 +30,8 @@ public class PeraangkapInteractable : Interactable
         if (perangkapBehavior.isfull)
         {
             perangkapBehavior.TakeAnimal();
-        }else
+        }
+        else
         {
             perangkapBehavior.TakePerangkap();
         }

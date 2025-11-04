@@ -72,8 +72,6 @@ public class TimeManager : MonoBehaviour, ISaveable
 
     //logika mengirim waktu 
 
-    private List<TreeBehavior> registeredTrees = new List<TreeBehavior>(); // Menyimpan pohon-pohon yang terdaftar
-    private List<PerangkapBehavior> registeredTrap = new List<PerangkapBehavior>();// Menyimpan perangkap-perangkap yang terdaftar
     public static event System.Action OnHourChanged;
     public static event System.Action OnDayChanged;
     public static event System.Action OnSeasonChanged;
@@ -161,10 +159,7 @@ public class TimeManager : MonoBehaviour, ISaveable
         Debug.Log($"Hari telah berganti: {totalHari}");
 
         // Update semua sistem yang bergantung pada hari baru
-        foreach (var trap in registeredTrap)
-        {
-            trap.GetAnimalToTrap();
-        }
+
         AdvanceAllTreeGrowth();
         SetRainChance(currentSeason);
         OnDayChanged?.Invoke();
@@ -333,42 +328,9 @@ public class TimeManager : MonoBehaviour, ISaveable
         return $"Minggu ke-{minggu}";
     }
 
-    public void RegisterTree(TreeBehavior tree)
-    {
-        if (!registeredTrees.Contains(tree))
-        {
-            registeredTrees.Add(tree);
-            Debug.Log("Pohon terdaftar: " + tree.name);
-        }
-    }
 
 
-    // Fungsi untuk menghapus pohon dari daftar terdaftar
-    public void UnregisterTree(TreeBehavior tree)
-    {
-        if (registeredTrees.Contains(tree))
-        {
-            registeredTrees.Remove(tree);
-        }
-    }
 
-    public void RegisterTrap(PerangkapBehavior trap)
-    {
-        if (!registeredTrap.Contains(trap))
-        {
-            registeredTrap.Add(trap);
-            Debug.Log("Perangkap terdaftar: " + trap.name);
-        }
-    }
-
-    public void UnregisterTrap(PerangkapBehavior trap)
-    {
-        if (registeredTrap.Contains(trap))
-        {
-            registeredTrap.Remove(trap);
-            Debug.Log("Perangkap dihapus: " + trap.name);
-        }
-    }
     public void AdvanceAllTreeGrowth()
     {
         Debug.Log("Hari baru! Memeriksa semua pohon untuk pertumbuhan...");

@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TheDialogues:
   - name: Jaka Tarub
-    sentence: Mat perkakas ku apakah sudah selesai di upgrade ? . . .
+    sentence: Mat, perkakasnya udah jadi belum ya...
   - name: Mamat Wirasena
-    sentence: 'sudah dong ini dia. jangan lupa datang lagi untuk peningkatan perkakas
-      lainya '
+    sentence: 'Udah dong! '
+  - name: Mamat Wirasena
+    sentence: 'Nih, udah kelar semua.
+
+      Jangan lupa balik lagi kalau mau upgrade
+      yang lain ya!'
   mainSpeaker: Jaka Tarub
   promptAfterDialogue: Finish Upgrade tool

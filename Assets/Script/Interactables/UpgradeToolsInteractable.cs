@@ -16,6 +16,7 @@ public class UpgradeToolsInteractable : Interactable, ISaveable
     public SpriteRenderer resultItemSprite;
     public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
     public Dialogues finishUpgradeDialogue;
+    public Dialogues notFinisedUpgradeDialogue;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void OnEnable()
@@ -89,6 +90,10 @@ public class UpgradeToolsInteractable : Interactable, ISaveable
                 finishUpgrade = false;
                 startedUpgrade = false;
                 UpdateSpriteHasil();
+            }
+            else
+            {
+                DialogueSystem.Instance.HandlePlayDialogue(notFinisedUpgradeDialogue);
             }
         }
     }

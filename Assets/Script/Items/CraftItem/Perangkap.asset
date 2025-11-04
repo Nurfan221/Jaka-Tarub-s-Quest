@@ -14,13 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 8
   itemName: Perangkap
-  type: 6
+  quality: 0
+  types: 8
   categories: 4096
   sprite: {fileID: -8135096131531685454, guid: 6865f60417eb7f041b0a3916c4337764, type: 3}
   itemDescription: gunakan ini untuk menangkap hewan kecil
   QuantityFuel: 0
-  health: 9
-  Level: 1
+  maxhealth: 0
+  health: 10
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
+  isItemCombat: 0
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -30,13 +41,12 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 4992219504839692284, guid: 704fea7ce88ee2c49a1cfa225bd6472f, type: 3}
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
   growthImages: []
-  dropItem: {fileID: 0}
+  seedType: 0
