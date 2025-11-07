@@ -19,7 +19,9 @@ public enum ItemType
     Pedang = 4096,
     Kapak = 8192,
     PenggarukSampah = 16384,
-    Sabit = 32768
+    Sabit = 32768,
+    Perangkap = 65536,
+
 }
 
 [System.Flags]

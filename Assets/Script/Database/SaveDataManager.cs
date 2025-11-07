@@ -267,6 +267,14 @@ public class SaveDataManager : MonoBehaviour
                     saveData.upgradeToolsSaveData = upgradeSaveData;
                     Debug.Log($"Data UpgradeToolsInteractable berhasil ditangkap. {upgradeSaveData.upgradeToolsDatabase.toolsName} siap untuk upgrade.");
                 }
+            }else if (saveable is PerangkapManager perangkapManager)
+            {
+                Debug.Log("[SAVE] Ditemukan PerangkapManager. Memanggil CaptureState...");
+                if (perangkapManager.CaptureState() is List<PerangkapSaveData> perangkapData)
+                {
+                    saveData.perangkapSaveData = perangkapData;
+                    Debug.Log("Data Perangkap telah ditangkap untuk penyimpanan." + perangkapData.Count);
+                }
             }
 
             // Tambahkan 'else if' lain untuk Chest, Bunga, dll. di masa depan.

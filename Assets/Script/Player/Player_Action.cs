@@ -405,6 +405,11 @@ public class Player_Action : MonoBehaviour
         if (itemToAttack.itemName == "Empty")
             return;
 
+        if (playerData.equippedWeaponTemplate.itemHealth <= 0)
+        {
+            return;
+        }
+
         if (itemToAttack.IsInType(ItemType.Melee_Combat))
         {
             Debug.Log("Melee normal attacking");
@@ -497,7 +502,6 @@ public class Player_Action : MonoBehaviour
 
 
 
-    // Diasumsikan fungsi ini ada di dalam skrip seperti Player_Action.cs
 
     public void SpecialAttack()
     {
@@ -518,7 +522,6 @@ public class Player_Action : MonoBehaviour
             return;
         }
 
-        // --- DELEGASI TUGAS BERDASARKAN TIPE ITEM ---
 
         // Apakah ini alat untuk bertani?
         if (itemTemplate.IsInType(ItemType.Pestisida)) // Prioritaskan tipe yang paling spesifik

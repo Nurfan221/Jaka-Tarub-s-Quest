@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Perangkap
   m_EditorClassIdentifier: 
-  itemID: 8
+  itemID: 127
   itemName: Perangkap
   quality: 0
-  types: 8
+  types: 65568
   categories: 4096
   sprite: {fileID: -8135096131531685454, guid: 6865f60417eb7f041b0a3916c4337764, type: 3}
   itemDescription: gunakan ini untuk menangkap hewan kecil
@@ -40,8 +40,8 @@ MonoBehaviour:
   UpgradeCost: 0
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
-  isStackable: 1
-  maxStackCount: 32
+  isStackable: 0
+  maxStackCount: 1
   BuyValue: 0
   SellValue: 0
   CookTime: 0

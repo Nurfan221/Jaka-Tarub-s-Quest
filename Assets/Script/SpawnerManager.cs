@@ -26,6 +26,8 @@ public class SpawnerManager : MonoBehaviour
     }
     public Spawner[] spawner;
     public List<GameObject> spawnerListQuestActive;
+
+    public List<Item> itemStorageEnemy;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void OnEnable()

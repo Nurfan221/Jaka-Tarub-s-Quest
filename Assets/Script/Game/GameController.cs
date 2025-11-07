@@ -299,11 +299,7 @@ public class GameController : MonoBehaviour
                 ReturnQueueStoneActive(saveData.queueRespownStone);
             }
 
-            if (saveData.timeSaveData != null && saveData.timeSaveData.totalHari > 0)
-            {
-                Debug.Log("GameController: Membangun Time dari file save");
-                TimeManager.Instance.RestoreState(saveData.timeSaveData);
-            }
+          
             if (saveData.savedHoedTilesList != null && saveData.savedHoedTilesList.Count > 0)
             {
                 RestoreFarmStateFromData(saveData.savedHoedTilesList);
@@ -324,6 +320,22 @@ public class GameController : MonoBehaviour
             if (saveData.upgradeToolsSaveData != null && saveData.upgradeToolsSaveData.resultItemUpgrade != null)
             {
                 MainEnvironmentManager.Instance.upgradeToolsInteractable.RestoreState(saveData.upgradeToolsSaveData);
+            }
+
+            if (saveData.perangkapSaveData != null && saveData.perangkapSaveData.Count > 0)
+            {
+                MainEnvironmentManager.Instance.perangkapManager.RestoreState(saveData.perangkapSaveData);
+                Debug.Log("GameController: Membangun Perangkap dari file save");
+            }
+            else
+            {
+                Debug.Log("GameController: Tidak ada data Perangkap yang ditemukan di file save");
+            }
+
+            if (saveData.timeSaveData != null && saveData.timeSaveData.totalHari > 0)
+            {
+                Debug.Log("GameController: Membangun Time dari file save");
+                TimeManager.Instance.RestoreState(saveData.timeSaveData);
             }
 
             GenerateDefaultWorld();

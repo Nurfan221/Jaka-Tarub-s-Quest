@@ -28,6 +28,7 @@ public class GameSaveData
     public List<QuestManagerSaveData> questManagerSaveData = new List<QuestManagerSaveData>();
     public List<ChapterQuestActiveDatabase> savedQuestList = new List<ChapterQuestActiveDatabase>();
     public UpgradeToolsSaveData upgradeToolsSaveData = new UpgradeToolsSaveData();
+    public List<PerangkapSaveData> perangkapSaveData = new List<PerangkapSaveData>();
 
     public TimeSaveData timeSaveData;
 

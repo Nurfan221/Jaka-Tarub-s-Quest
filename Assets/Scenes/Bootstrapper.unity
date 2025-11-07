@@ -245,10 +245,15 @@ MonoBehaviour:
     idPintu: 6
     pintuIn: {x: 26.5, y: -5}
     pintuOut: {x: -154, y: 11}
+  - lokasiName: TokoMamat
+    idPintu: 4
+    pintuIn: {x: 54, y: -20}
+    pintuOut: {x: -210, y: 14}
   itemWorldPrefab: {fileID: 4459120725376062254, guid: fcf6058b0a7c2534a9ee6e4538b1ab04, type: 3}
   plantWorldPrefab: {fileID: 2120680195082938319, guid: 1b9eff35e73337c42be7a10f3901c222, type: 3}
   storageWorldPrefab: {fileID: 5454017072709228803, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
-  furnanceWorldPrefab: {fileID: 0}
+  furnanceWorldPrefab: {fileID: 8687371611602760786, guid: ccd682afe2d4aa043b01ae37338ba200, type: 3}
+  perangkapWorldPrefab: {fileID: 4992219504839692284, guid: 704fea7ce88ee2c49a1cfa225bd6472f, type: 3}
   timeManagerDatabase:
     totalHari: 0
     hari: 0

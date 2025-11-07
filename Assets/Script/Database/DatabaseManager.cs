@@ -186,9 +186,9 @@ public class PerangkapSaveData
 {
     public string id; // ID unik dari peti ini
     public Vector2 perangkapPosition;
-    public bool isActive; // Apakah perangkap aktif atau tidak
     public int healthPerangkap; // Kesehatan perangkap
-    public string hasilTangkap; // Hasil tangkapan
+    public Item hasilTangkap; // Hasil tangkapan
+    public bool isfull; // Apakah perangkap penuh
 }
 
 [System.Serializable]
@@ -284,7 +284,9 @@ public enum TypeObject
     Semak,
     Decoration,
     TungkuPeleburan,
+    environmentType,
     Kompor,
+    Perangkap
 
 }
 public enum TypePlant
@@ -308,7 +310,8 @@ public enum TypePlant
     JamurMimpiBuruk,
     JamurPelindungBumi,
     BungaDalamPot,
-    BungaLiar
+    BungaLiar,
+
 }
 
 public enum EnvironmentHardnessLevel
@@ -540,6 +543,8 @@ public class DatabaseManager : MonoBehaviour
     public GameObject storageWorldPrefab;
     [Tooltip("Prefab untuk objek furnance (Kompor, tunggu peleburan dll) di dunia")]
     public GameObject furnanceWorldPrefab;
+    [Tooltip("Prefab untuk objek perangkap di dunia")]
+    public GameObject perangkapWorldPrefab;
 
     [Space(10)]
     [Header("System & Save Data")]

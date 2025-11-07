@@ -15,6 +15,7 @@ public class MainEnvironmentManager : MonoBehaviour
     public BungaManager bungaManager;
     public JamurManager jamurManager;
     public StorageSystem storageManager;
+    public PerangkapManager perangkapManager;
 
     public UpgradeToolsInteractable upgradeToolsInteractable;
 

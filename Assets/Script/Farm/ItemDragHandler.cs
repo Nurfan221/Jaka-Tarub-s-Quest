@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NUnit.Framework.Interfaces;
 using TMPro;
 using TreeEditor;
@@ -155,7 +156,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void CheckPrefabItem(Vector3Int cellPosition)
     {
         bool itemFound = false; // Flag untuk mengecek apakah item ditemukan
-        Debug.Log(" fungsi cek tree seed di jalankan");
+        Debug.Log(" fungsi cek Prefab di jalankan");
 
         foreach (ItemData itemData in stats.inventory)
         {
@@ -163,7 +164,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
             // Debug.Log("nama itemInDrag  " + itemInDrag);
             // Cek apakah nama item sama dengan itemInDrag dan kategori item adalah Seed
-            if (item.itemName == itemInDrag && !item.IsInCategory(ItemCategory.PlantSeed) && item.types == ItemType.ItemPrefab)
+            if (item.itemName == itemInDrag && !item.IsInCategory(ItemCategory.PlantSeed) && item.IsInType(ItemType.ItemPrefab))
             {
                 // Debug.Log("nama item.itemname " + item.itemName);
                 itemFound = true; // Tandai bahwa item ditemukan
@@ -183,7 +184,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 }
                 else
                 {
-                    //PlacePrefab(cellPosition, item.itemName, prefabItem, item.health);
+                    PlacePrefab(cellPosition, item.itemName, itemData);
                 }
 
                 // Kurangi stack item setelah menanam
@@ -194,13 +195,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 {
                     stats.inventory.Remove(itemData);
                     // Jika stack count habis, hapus item dari inventory
-                    //Player_Inventory.Instance.RemoveItem(item);
-                    //    Debug.Log("Item habis dan dihapus dari inventory.");
+                   
                 }
-                else
-                {
-                    // Debug.Log("Jumlah item tersisa: " + stackItem);
-                }
+                
 
                 rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
 
@@ -583,32 +580,37 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         MechanicController.Instance.HandleUpdateInventory();
     }
 
-    private void PlacePrefab(Vector3Int cellPosition, string namaItem, GameObject prefabItem, int health)
+    private void PlacePrefab(Vector3Int cellPosition, string namaItem, ItemData prefabItem)
     {
 
-        // Debug.Log("Menambahkan Game Object...");
+        Debug.Log("Menambahkan Game Object...");
         // Konversi posisi tile ke World Space
         Vector3 spawnPosition = FarmTile.Instance.tilemap.GetCellCenterWorld(cellPosition);
-
+        Item item = ItemPool.Instance.GetItemWithQuality(namaItem, ItemQuality.Normal);
+        GameObject prefabObject = null; 
         // Inisiasi prefab tanaman di posisi world yang sesuai dengan tile
-        GameObject plant = Instantiate(prefabItem, spawnPosition, Quaternion.identity);
-
-        // Set parent prefab tanaman ke plantsContainer
-        plant.transform.SetParent(prefabContainer);
-
-        //Cek apakah prefab memiliki komponen PrefabItemBehavior
-        PrefabItemBehavior prefabBehavior = plant.GetComponent<PrefabItemBehavior>();
-        FenceBehavior fenceBehavior = plant.GetComponent<FenceBehavior>();
-        if (prefabBehavior != null || fenceBehavior)
+        if (item.IsInType(ItemType.Perangkap))
         {
-            // Set health dari prefab berdasarkan nilai health dari item di inventory
-            prefabBehavior.health = health;
-            fenceBehavior.UpdateFenceSprite();
-            //Debug.Log("Prefab memiliki PrefabItemBehavior. Health diset ke: " + health);
-        }
-        else
-        {
-            Debug.LogWarning("Prefab tidak memiliki komponen PrefabItemBehavior.");
+            prefabObject = Instantiate(DatabaseManager.Instance.perangkapWorldPrefab, spawnPosition, Quaternion.identity);
+            PerangkapBehavior perangkapBehavior = prefabObject.GetComponent<PerangkapBehavior>();
+            Transform locationTransform = MainEnvironmentManager.Instance.perangkapManager.transform;
+            prefabObject.transform.SetParent(locationTransform);
+            perangkapBehavior.ForceGenerateUniqueID();
+            perangkapBehavior.perangkapHealth = prefabItem.itemHealth;
+
+
+
+            // buat data penempatan perangkap baru
+            PerangkapSaveData newPlacementData = new PerangkapSaveData
+            {
+                id = perangkapBehavior.UniqueID,
+                perangkapPosition = perangkapBehavior.transform.position,
+                healthPerangkap = prefabItem.itemHealth,
+                hasilTangkap = null
+            };
+
+            // Tambahkan data baru ke dalam list Objek Manager (PerangkapManager)
+            MainEnvironmentManager.Instance.perangkapManager.perangkapListActive.Add(newPlacementData);
         }
 
 

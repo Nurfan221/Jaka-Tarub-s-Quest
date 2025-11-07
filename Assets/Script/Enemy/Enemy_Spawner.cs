@@ -14,6 +14,7 @@ public class Enemy_Spawner : MonoBehaviour
     public int maxSpawnCount = 5;
     [SerializeField] GameObject enemyPrefab;
     public List<GameObject> enemies;
+    public GameObject storageEnemies;
     Queue<GameObject> objectPool = new Queue<GameObject>();
 
     // Start is called before the first frame update
