@@ -28,7 +28,6 @@ public class UpgradeToolsUI : MonoBehaviour
     public Transform toolRequiredTemplate;
     public Transform itemRequiredTemplate;
     public Transform constRequiredTemplate;
-    public Transform errorUI;
     public string errorMessage = "Syarat upgrade belum terpenuhi!";
 
     public Button closebutton;
@@ -80,11 +79,8 @@ public class UpgradeToolsUI : MonoBehaviour
         {
             Debug.Log("Syarat upgrade belum terpenuhi!");
             upgradeButton.GetComponent<UIShaker>().Shake(); // Efek guncangan!
-            CanvasGroup errorCanvasGroup = errorUI.GetComponent<CanvasGroup>();
-            if (errorCanvasGroup != null)
-            {
-                StartCoroutine(ShowErrorUI(2f, 0.5f));
-            }
+            ShowErrorUI.Instance.ShowError(errorMessage, 2f, 0.5f);
+
             return;
         }
 
@@ -92,82 +88,7 @@ public class UpgradeToolsUI : MonoBehaviour
         DoUpgrade();
     }
 
-    public IEnumerator ShowErrorUI(float showDuration = 3f, float fadeDuration = 0.2f)
-    {
-        // Jika sudah ada animasi error yang sedang jalan, hentikan dulu
-        if (errorCoroutine != null)
-        {
-            StopCoroutine(errorCoroutine);
-            errorCoroutine = null;
-        }
-
-        errorCoroutine = StartCoroutine(ShowErrorUICoroutine(showDuration, fadeDuration));
-        yield return null;
-    }
-
-    private IEnumerator ShowErrorUICoroutine(float showDuration, float fadeDuration)
-    {
-        isErrorShowing = true;
-
-        CanvasGroup errorCanvasGroup = errorUI.GetComponent<CanvasGroup>();
-        TMP_Text errorText = errorUI.GetChild(0).GetComponent<TMP_Text>();
-        errorText.text = errorMessage;
-
-        errorUI.gameObject.SetActive(true);
-        errorCanvasGroup.alpha = 0f;
-
-        // Fade In
-        float timer = 0f;
-        while (timer < fadeDuration)
-        {
-            // Kalau UI utama tiba-tiba ditutup, hentikan animasi aman
-            if (!errorUI.gameObject.activeInHierarchy)
-            {
-                ResetErrorUI();
-                yield break;
-            }
-
-            timer += Time.deltaTime;
-            errorCanvasGroup.alpha = Mathf.Lerp(0f, 1f, timer / fadeDuration);
-            yield return null;
-        }
-        errorCanvasGroup.alpha = 1f;
-
-        // Tahan beberapa detik
-        yield return new WaitForSeconds(showDuration);
-
-        // Fade Out
-        timer = 0f;
-        while (timer < fadeDuration)
-        {
-            if (!errorUI.gameObject.activeInHierarchy)
-            {
-                ResetErrorUI();
-                yield break;
-            }
-
-            timer += Time.deltaTime;
-            errorCanvasGroup.alpha = Mathf.Lerp(1f, 0f, timer / fadeDuration);
-            yield return null;
-        }
-        errorCanvasGroup.alpha = 0f;
-
-        ResetErrorUI();
-    }
-
-    private void ResetErrorUI()
-    {
-        if (errorUI != null)
-            errorUI.gameObject.SetActive(false);
-
-        isErrorShowing = false;
-        if (errorCoroutine != null)
-        {
-            StopCoroutine(errorCoroutine);
-            errorCoroutine = null;
-        }
-    }
-
+   
     private bool IsUpgradeRequirementIncomplete()
     {
         bool isToolEmpty = upgradeToolsInteractable.itemToUpgrade == null || string.IsNullOrEmpty(upgradeToolsInteractable.itemToUpgrade.itemName) || upgradeToolsInteractable.itemToUpgrade.count <= 0;
@@ -218,7 +139,7 @@ public class UpgradeToolsUI : MonoBehaviour
     {
 
         isDropping = false;
-        ResetErrorUI();
+        ShowErrorUI.Instance.ResetErrorUI();
         PlayUp(); // jalankan animasi naik
 
         // Tunggu hingga animasi selesai (sesuaikan durasi dengan animasi PlayUp)
