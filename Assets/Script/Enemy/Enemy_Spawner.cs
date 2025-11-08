@@ -14,7 +14,8 @@ public class Enemy_Spawner : MonoBehaviour
     public int maxSpawnCount = 5;
     [SerializeField] GameObject enemyPrefab;
     public List<GameObject> enemies;
-    public GameObject storageEnemies;
+    public bool canOpenStorage = false;
+    public StorageInteractable storageEnemies;
     Queue<GameObject> objectPool = new Queue<GameObject>();
 
     // Start is called before the first frame update
@@ -25,12 +26,17 @@ public class Enemy_Spawner : MonoBehaviour
             if (CanSpawn)
                 SpawnEnemy();
         }
+
+
+      
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (maxSpawnCount < spawnCount && CanSpawn)
+        if (spawnCount < maxSpawnCount && CanSpawn)
+
         {
             spawnTimer += Time.deltaTime;
             if (spawnTimer > spawnCD)
@@ -71,9 +77,11 @@ public class Enemy_Spawner : MonoBehaviour
             Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
         if (enemies.Count == 0)
         {
-            ItemPool.Instance.DropItem(itemDrop.itemName,itemDrop.health, itemDrop.quality, transform.position + offset);
-            spawnCount = 0;
-            gameObject.SetActive(false);
+            //ItemPool.Instance.DropItem(itemDrop.itemName,itemDrop.health, itemDrop.quality, transform.position + offset);
+            //spawnCount = 0;
+            //gameObject.SetActive(false);
+
+            storageEnemies.UnlockStorage();
         }
 
     }

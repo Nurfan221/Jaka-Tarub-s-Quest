@@ -12,6 +12,7 @@ public class StorageInteractable : Interactable, ISaveable
     [Header("Deklarasi Variabel Item")]
     public List<ItemData> storage = new List<ItemData>();
     public int maxItem = 12;
+    public bool isLocked = false;
 
     //[SerializeField] StorageUI storageUI;
 
@@ -50,34 +51,20 @@ public class StorageInteractable : Interactable, ISaveable
 
     }
 
-    //public void AddItemToList()
-    //{
-    //    // Membuat salinan dari item yang ada di quest.itemQuests sebelum menghapus item lama
-    //    List<Item> newItemList = new List<Item>();
-
-    //    // Menambahkan item baru ke dalam itemQuests berdasarkan countItem
-    //    for (int i = 0; i < storage.Count; i++)
-    //    {
-
-    //        Item newItem = ItemPool.Instance.GetItem(storage[i].itemName); 
-            
-
-    //        // Menambahkan item baru ke dalam newItemList
-    //        newItemList.Add(newItem);
-    //    }
-
-    //    // Menghapus semua item lama setelah menambahkan item baru
-    //    Items.Clear();
-
-    //    // Menambahkan item baru dari newItemList ke quest.itemQuests
-    //    foreach (var item in newItemList)
-    //    {
-    //        Items.Add(item);
-    //    }
-    //}
+    public void UnlockStorage()
+    {
+        isLocked = false;
+        Debug.Log("Storage telah dibuka!");
+        // Anda bisa tambahkan efek suara atau partikel di sini
+    }
     protected override void Interact()
     {
-
+        if (isLocked)
+        {
+            Debug.Log("Terkunci! Kalahkan semua musuh terlebih dahulu.");
+            // Anda bisa memutar suara 'terkunci' di sini
+            return; // Hentikan fungsi, jangan buka storage
+        }
 
         // Mulai animasi
         StartAnimationOpen();

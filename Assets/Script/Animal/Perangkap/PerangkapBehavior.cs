@@ -128,7 +128,6 @@ public class PerangkapBehavior : UniqueIdentifiableObject
 
     public void HandlePerangkapFull(bool full)
     {
-        spriteRenderer.gameObject.SetActive(full);
         if (full)
         {
             spriteRenderer.sprite = itemTertangkap.sprite;
@@ -136,6 +135,8 @@ public class PerangkapBehavior : UniqueIdentifiableObject
         {
             spriteRenderer.sprite = null;
         }
+        spriteRenderer.gameObject.SetActive(full);
+
     }
 
     public void UpdatePerangkapInListManager()

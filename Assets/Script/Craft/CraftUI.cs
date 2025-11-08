@@ -15,11 +15,11 @@ public class CraftUI : MonoBehaviour
 
     [Header("Daftar Resep")]
     public Transform recipeListContent;
-    public GameObject recipeSlotTemplate;
+    public Transform recipeSlotTemplate;
 
     [Header("Detail Resep")]
-    public GameObject[] ingredientSlots;
-    public GameObject resultSlot;
+    public Transform[] ingredientSlots;
+    public Transform resultSlot;
     public Button craftButton;
 
     [Header("Popup Kuantitas")]
@@ -64,7 +64,7 @@ public class CraftUI : MonoBehaviour
         {
             Debug.LogError("Referensi ke QuantityPopupUI.Instance adalah null saat Start(). Pastikan objek popup ada di scene.");
         }
-      
+
     }
     #endregion
 
@@ -75,7 +75,6 @@ public class CraftUI : MonoBehaviour
         GameController.Instance.ShowPersistentUI(false);
         GameController.Instance.PauseGame();
         RefreshRecipeList();
-        ClearRecipeDetails();
     }
 
     private void CloseUI()
@@ -92,14 +91,14 @@ public class CraftUI : MonoBehaviour
         {
             if (child.gameObject != recipeSlotTemplate) Destroy(child.gameObject);
         }
-        recipeSlotTemplate.SetActive(false);
+        recipeSlotTemplate.gameObject.SetActive(false);
 
         foreach (CraftRecipe recipe in DatabaseManager.Instance.craftingDatabase.craftRecipes)
         {
             CraftRecipe localRecipe = recipe;
             Item itemUse = ItemPool.Instance.GetItemWithQuality(localRecipe.result.itemName, localRecipe.result.quality);
-            GameObject recipeSlotGO = Instantiate(recipeSlotTemplate, recipeListContent);
-            recipeSlotGO.SetActive(true);
+            Transform recipeSlotGO = Instantiate(recipeSlotTemplate, recipeListContent);
+            recipeSlotGO.gameObject.SetActive(true);
 
             //Cek apakah resep ini bisa dibuat (minimal 1)
             bool canCraft = IsRecipeCraftable(localRecipe);
@@ -107,10 +106,12 @@ public class CraftUI : MonoBehaviour
             // Dapatkan komponen Image dari slot resep
             //Image slotImage = recipeSlotGO.GetComponent<Image>();
             Image itemImage = recipeSlotGO.transform.Find("ItemImage").GetComponent<Image>();
+            itemImage.gameObject.SetActive(true);
             if (itemImage == null)
             {
                 Debug.Log("Item Image tidak ditemukan");
-            }else
+            }
+            else
             {
                 Debug.Log("Item Image ditemukan");
                 itemImage.sprite = itemUse.sprite; // Pastikan sprite hasil ditampilkan
@@ -118,37 +119,25 @@ public class CraftUI : MonoBehaviour
 
 
             //Atur warnanya berdasarkan ketersediaan
-            if (canCraft)
-            {
-                // Warna normal jika bisa dibuat
-                recipeSlotGO.GetComponent<Button>().interactable = true; // Aktifkan interaksi
-            }
-            else
-            {
-                // Warna redup/abu-abu jika tidak bisa
-                recipeSlotGO.GetComponent<Button>().interactable = false; // Nonaktifkan interaksi
-                                                                          //recipeSlotGO.interactab
-            }
+            //if (canCraft)
+            //{
+            //    // Warna normal jika bisa dibuat
+            //    recipeSlotGO.GetComponent<Button>().interactable = true; // Aktifkan interaksi
+            //}
+            //else
+            //{
+            //    // Warna redup/abu-abu jika tidak bisa
+            //    recipeSlotGO.GetComponent<Button>().interactable = false; // Nonaktifkan interaksi
+            //                                                              //recipeSlotGO.interactab
+            //}
 
-            // ... (sisa kode untuk menampilkan sprite dan listener) ...
-            recipeSlotGO.GetComponent<Button>().onClick.AddListener(() => OnRecipeSlotClicked(localRecipe, canCraft));
+            recipeSlotGO.GetComponent<Button>().onClick.AddListener(() => SelectRecipe(localRecipe));
         }
     }
     // Buat metode baru ini
-    private void OnRecipeSlotClicked(CraftRecipe recipe, bool isCraftable)
+    private void OnRecipeSlotClicked(CraftRecipe recipe)
     {
-        if (isCraftable)
-        {
-            // Jika bisa dibuat, lanjutkan ke pemilihan jumlah
-            SelectRecipe(recipe);
-        }
-        else
-        {
-            // Jika tidak, beri feedback ke pemain
-            Debug.Log("Bahan tidak cukup untuk membuat item ini!");
-            // Di sini Anda bisa memunculkan pesan di UI atau memutar suara error
-            // Contoh: UIMessageManager.Instance.ShowMessage("Bahan tidak cukup!");
-        }
+
     }
     private bool IsRecipeCraftable(CraftRecipe recipe)
     {
@@ -169,13 +158,7 @@ public class CraftUI : MonoBehaviour
         selectedResultItem = ItemPool.Instance.GetItem(recipe.result.itemName);
         if (selectedResultItem == null) return;
 
-        int maxPossible = CalculateMaxCraftAmount();
-        if (maxPossible <= 0)
-        {
-            Debug.Log("Tidak memiliki bahan yang cukup untuk membuka popup.");
-            // Di sini Anda bisa memberikan feedback ke pemain, misal tombol resep berwarna merah
-            return;
-        }
+        int maxPossible = 10;
 
         QuantityPopupUI.Instance.Show(selectedResultItem.sprite, 1, maxPossible);
     }
@@ -202,7 +185,6 @@ public class CraftUI : MonoBehaviour
             {
                 ItemData ingredientData = selectedRecipe.ingredients[i];
                 Item itemObject = ItemPool.Instance.GetItem(ingredientData.itemName);
-                // --- PERBAIKAN --- Menggunakan selectedCraftAmount
                 int requiredCount = ingredientData.count * selectedCraftAmount;
                 UpdateSlotUI(ingredientSlots[i], itemObject, requiredCount);
             }
@@ -213,7 +195,7 @@ public class CraftUI : MonoBehaviour
         }
 
         // Tampilkan hasil
-        // --- PERBAIKAN --- Menggunakan selectedCraftAmount
+
         int resultCount = selectedRecipe.result.count * selectedCraftAmount;
         UpdateSlotUI(resultSlot, selectedResultItem, resultCount);
         CheckIngredientAvailability();
@@ -221,8 +203,36 @@ public class CraftUI : MonoBehaviour
 
     private void ClearRecipeDetails()
     {
-        foreach (var slot in ingredientSlots) ClearSlotUI(slot);
-        ClearSlotUI(resultSlot);
+        // --- DEBUG TAMBAHAN 1 ---
+        if (ingredientSlots == null || ingredientSlots.Length == 0)
+        {
+            Debug.LogError("[CraftUI] GAGAL! Array 'ingredientSlots' di Inspector MASIH KOSONG!");
+            return; // Hentikan fungsi di sini
+        }
+
+        foreach (var slot in ingredientSlots)
+        {
+            // --- DEBUG TAMBAHAN 2 ---
+            if (slot == null)
+            {
+                Debug.LogError("[CraftUI] GAGAL! Salah satu elemen di dalam 'ingredientSlots' ternyata NULL/MISSING!");
+                continue; // Lanjutkan ke slot berikutnya
+            }
+
+            // Jika lolos dari 2 debug di atas, baru jalankan ClearSlotUI
+            ClearSlotUI(slot);
+        }
+
+        // Ini juga harus dicek
+        if (resultSlot != null)
+        {
+            ClearSlotUI(resultSlot);
+        }
+        else
+        {
+            Debug.LogError("[CraftUI] GAGAL! 'resultSlot' di Inspector juga KOSONG!");
+        }
+
         craftButton.interactable = false;
         selectedRecipe = null;
     }
@@ -256,7 +266,6 @@ public class CraftUI : MonoBehaviour
         // Kurangi bahan dari inventory
         foreach (var ingredient in selectedRecipe.ingredients)
         {
-            // --- PERBAIKAN --- Menggunakan selectedCraftAmount
             int countToRemove = ingredient.count * selectedCraftAmount;
             ItemData itemToRemove = new ItemData(ingredient.itemName, countToRemove, ingredient.quality, ingredient.itemHealth);
             ItemPool.Instance.RemoveItemsFromInventory(itemToRemove);
@@ -278,16 +287,15 @@ public class CraftUI : MonoBehaviour
     #endregion
 
     #region Helper & Utility Functions
-    private void UpdateSlotUI(GameObject slot, Item item, int requiredCount)
+    private void UpdateSlotUI(Transform slot, Item item, int requiredCount)
     {
         if (item == null || slot == null) return;
 
-        // --- Menampilkan Gambar Item ---
+        // Menampilkan Gambar Item
         Transform imageTransform = slot.transform.Find("ItemImage"); // Asumsi nama child tetap "ItemImage"
         imageTransform.gameObject.SetActive(true);
         imageTransform.GetComponent<Image>().sprite = item.sprite;
 
-        // --- Menampilkan Jumlah (Baik untuk Hasil maupun Bahan) ---
         // Mari kita gunakan satu nama yang konsisten, misalnya "IngridientCount"
         Transform countTextTransform = slot.transform.Find("IngridientCount");
         if (countTextTransform != null)
@@ -303,16 +311,15 @@ public class CraftUI : MonoBehaviour
             }
         }
 
-        // --- LOGIKA KHUSUS UNTUK SLOT BAHAN (TIDAK BERJALAN UNTUK RESULT SLOT) ---
         if (slot != resultSlot)
         {
-            // 1. Hitung jumlah yang dimiliki
+            //  Hitung jumlah yang dimiliki
             int ownedCount = CountItemsInInventory(item);
 
-            // 2. Tentukan warna berdasarkan kecukupan
+            // Tentukan warna berdasarkan kecukupan
             Color availabilityColor = (ownedCount >= requiredCount) ? Color.white : Color.red;
 
-            // 3. Cari dan perbarui teks jumlah yang dimiliki
+            //  Cari dan perbarui teks jumlah yang dimiliki
             Transform ownedTextTransform = slot.transform.Find("ItemInInventory"); // Ganti "ItemInInventory" dengan nama child Anda, misal "ItemInInventory"
             if (ownedTextTransform != null)
             {
@@ -356,12 +363,30 @@ public class CraftUI : MonoBehaviour
         return maxPossible;
     }
 
-    private void ClearSlotUI(GameObject slot)
+    private void ClearSlotUI(Transform slot)
     {
-        slot.transform.Find("ItemImage").gameObject.SetActive(false);
-        Debug.Log("CraftUI: ClearSlotUI called for slot: " + slot.name);
+        if (slot == null)
+        {
+            Debug.LogError("eh  kenapa ga bisa ");
+
+            // TAMBAHKAN INI!
+            return; // Hentikan fungsi di sini agar tidak crash
+        }
+        else
+        {
+            Debug.LogError("bisa deng  " + slot.name);
+        }
+
+        // Kode di bawah ini sekarang aman
+        Transform slotImage = slot.transform.Find("ItemImage");
+        if (slotImage) slotImage.gameObject.SetActive(false);
+
+        // Pindahkan log ini ke dalam 'else' agar aman
+        // Debug.Log("CraftUI: ClearSlotUI called for slot: " + slot.name); 
+
         Transform countText = slot.transform.Find("IngridientCount");
         if (countText) countText.gameObject.SetActive(false);
+
         Transform ownedText = slot.transform.Find("ItemInInventory");
         if (ownedText) ownedText.gameObject.SetActive(false);
     }

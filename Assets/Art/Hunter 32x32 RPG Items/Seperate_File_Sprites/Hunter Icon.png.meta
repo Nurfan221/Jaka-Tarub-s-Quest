@@ -128,7 +128,7 @@ TextureImporter:
         x: 0
         y: 0
         width: 32
-        height: 21
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,77 +143,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Hunter Icon_1
-      rect:
-        serializedVersion: 2
-        x: 4
-        y: 16
-        width: 11
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 26d96c36c8672a740800000000000000
-      internalID: 5161818468261469538
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hunter Icon_2
-      rect:
-        serializedVersion: 2
-        x: 12
-        y: 19
-        width: 12
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 05b53730024dcdef0800000000000000
-      internalID: -81957459237577904
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hunter Icon_3
-      rect:
-        serializedVersion: 2
-        x: 24
-        y: 15
-        width: 8
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 56469bb9846c2d210800000000000000
-      internalID: 1356364452944503909
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d36ca2db4ef6fab47bba8169645914cd
     internalID: 0
     vertices: []
     indices: 
@@ -224,9 +158,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Hunter Icon_0: 2037458572599787921
-      Hunter Icon_1: 5161818468261469538
-      Hunter Icon_2: -81957459237577904
-      Hunter Icon_3: 1356364452944503909
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

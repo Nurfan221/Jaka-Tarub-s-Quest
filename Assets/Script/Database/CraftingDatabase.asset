@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: CraftingDatabase
   m_EditorClassIdentifier: 
   craftRecipes:
-  - ingredients:
-    - itemName: Kayu
-      count: 3
+  - name: Pelebur
+    ingredients:
+    - itemName: Batu
+      count: 30
       quality: 0
-    - itemName: Ranting
+      itemHealth: 0
+    - itemName: CoalOre
       count: 5
       quality: 0
+      itemHealth: 0
     result:
-      itemName: MejaCamp
+      itemName: Pelebur
       count: 1
       quality: 0
+      itemHealth: 0

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 96
   itemName: PakaianBandit
+  quality: 0
   types: 8
   categories: 4608
   sprite: {fileID: -1934946530, guid: 94a60f539ec348549bac662f10055cad, type: 3}
@@ -22,7 +23,16 @@ MonoBehaviour:
   QuantityFuel: 0
   maxhealth: 0
   health: 0
-  Level: 1
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
+  isItemCombat: 0
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -32,14 +42,12 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 0
-  stackCount: 1
   maxStackCount: 1
   BuyValue: 600
   SellValue: 500
-  BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 7562009284141931606, guid: c4788e01ff915724f8623cb18aefa3d1, type: 3}
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 0}
+  seedType: 0

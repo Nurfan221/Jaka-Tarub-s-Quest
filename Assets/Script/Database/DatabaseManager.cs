@@ -26,6 +26,7 @@ public class EmoticonTemplate
 [System.Serializable]
 public class CraftRecipe
 {
+    public string name;
     public List<ItemData> ingredients; // Satu list untuk bahan dan jumlahnya
     public ItemData result;            // Satu object untuk hasil dan jumlahnya
 }

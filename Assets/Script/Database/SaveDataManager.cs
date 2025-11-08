@@ -256,7 +256,7 @@ public class SaveDataManager : MonoBehaviour
                 if (questManager.CaptureState() is List<ChapterQuestActiveDatabase> questData)
                 {
                     // Simpan data itu ke 'savedQuestList' di GameSaveData
-                    saveData.savedQuestList = questData;
+                    saveData.savedQuestList.AddRange(questData);
                     Debug.Log($"Data QuestManager berhasil ditangkap. {questData.Count} chapter aktif.");
                 }
             }else if (saveable is UpgradeToolsInteractable upgradeToolsInteractable)
@@ -272,7 +272,7 @@ public class SaveDataManager : MonoBehaviour
                 Debug.Log("[SAVE] Ditemukan PerangkapManager. Memanggil CaptureState...");
                 if (perangkapManager.CaptureState() is List<PerangkapSaveData> perangkapData)
                 {
-                    saveData.perangkapSaveData = perangkapData;
+                    saveData.perangkapSaveData.AddRange(perangkapData);
                     Debug.Log("Data Perangkap telah ditangkap untuk penyimpanan." + perangkapData.Count);
                 }
             }

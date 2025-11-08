@@ -17,7 +17,6 @@ public class StorageUI : MonoBehaviour
     [SerializeField] private Button storeAllButton;
     [SerializeField] private Button takeAllButton;
 
-    // --- Variabel State ---
     // Menyimpan item yang sedang dalam proses untuk dipindahkan.
     private ItemData currentItemForPopup;
     // Menyimpan mode operasi (mengambil atau menyimpan).
@@ -84,8 +83,8 @@ public class StorageUI : MonoBehaviour
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySound("Click");
 
-        GameController.Instance.ShowPersistentUI(false);
-        GameController.Instance.PauseGame();
+        //GameController.Instance.ShowPersistentUI(false);
+        //GameController.Instance.PauseGame();
         gameObject.SetActive(true);
 
         RefreshAllItems();
@@ -98,8 +97,8 @@ public class StorageUI : MonoBehaviour
             theStorage.StartAnimationClose();
         }
 
-        GameController.Instance.ResumeGame();
-        GameController.Instance.ShowPersistentUI(true);
+        //GameController.Instance.ResumeGame();
+        //GameController.Instance.ShowPersistentUI(true);
         gameObject.SetActive(false);
     }
     #endregion
