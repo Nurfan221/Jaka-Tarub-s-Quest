@@ -546,6 +546,9 @@ public class DatabaseManager : MonoBehaviour
     public GameObject furnanceWorldPrefab;
     [Tooltip("Prefab untuk objek perangkap di dunia")]
     public GameObject perangkapWorldPrefab;
+    [Tooltip("Prefab untuk objek Pelebur dan kompor di dunia")]
+    public GameObject peleburWorldPrefab;
+    public GameObject komporWorldPrefab;
 
     [Space(10)]
     [Header("System & Save Data")]

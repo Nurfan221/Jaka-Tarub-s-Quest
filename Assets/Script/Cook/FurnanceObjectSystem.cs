@@ -9,6 +9,7 @@ public class FurnanceObjectSystem : MonoBehaviour
     public List<FurnanceSaveData> environmentList = new List<FurnanceSaveData>();
     public Transform parentEnvironment; // Tempat menyimpan semua tungku aktif di scene
     public GameObject furnanceWorldPrefab; // Prefab untuk tungku
+    public GameObject komporWorldPrefab;
 
     private void Awake()
     {
@@ -19,6 +20,9 @@ public class FurnanceObjectSystem : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        furnanceWorldPrefab = DatabaseManager.Instance.furnanceWorldPrefab;
+        komporWorldPrefab = DatabaseManager.Instance.komporWorldPrefab;
     }
 
 
@@ -73,7 +77,7 @@ public class FurnanceObjectSystem : MonoBehaviour
             }
             else
             {
-                GameObject prefab = furnanceWorldPrefab ?? DatabaseManager.Instance.furnanceWorldPrefab;
+                GameObject prefab = furnanceWorldPrefab;
                 if (prefab == null)
                 {
                     Debug.LogError("[FurnanceSystem] Prefab tungku tidak ditemukan!");

@@ -103,6 +103,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -124,6 +126,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
@@ -233,6 +236,11 @@ MonoBehaviour:
     count: 1
     quality: 0
     itemHealth: 0
+  seratTanaman:
+    itemName: 
+    count: 0
+    quality: 0
+    itemHealth: 0
   plantEffectPrefab: {fileID: 8073000206557582387}
   currentStage: 0
   typePlant: 2
@@ -251,6 +259,8 @@ MonoBehaviour:
   maxSap: 0
   minLeaf: 0
   maxLeaf: 1
+  minSeratTanaman: 0
+  maxSeratTanaman: 0
 --- !u!1001 &4318843476660375167
 PrefabInstance:
   m_ObjectHideFlags: 0

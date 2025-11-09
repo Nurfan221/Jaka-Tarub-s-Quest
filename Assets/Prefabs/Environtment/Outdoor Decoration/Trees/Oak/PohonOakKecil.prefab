@@ -103,6 +103,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -124,6 +126,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
@@ -233,6 +236,11 @@ MonoBehaviour:
     count: 1
     quality: 0
     itemHealth: 0
+  seratTanaman:
+    itemName: SeratTanaman
+    count: 1
+    quality: 0
+    itemHealth: 0
   plantEffectPrefab: {fileID: 5919665826077750561}
   currentStage: 1
   typePlant: 2
@@ -245,12 +253,14 @@ MonoBehaviour:
   akarPohonPrefab: {fileID: 1599877733878797977, guid: ce29f164063fcf74588b018fb3839753, type: 3}
   growthSpeed: 1
   daysSincePlanting: 1
-  minWood: 3
-  maxWood: 5
-  minSap: 2
-  maxSap: 5
-  minLeaf: 3
-  maxLeaf: 4
+  minWood: 1
+  maxWood: 2
+  minSap: 1
+  maxSap: 2
+  minLeaf: 0
+  maxLeaf: 1
+  minSeratTanaman: 0
+  maxSeratTanaman: 1
 --- !u!1001 &1855609611868827501
 PrefabInstance:
   m_ObjectHideFlags: 0

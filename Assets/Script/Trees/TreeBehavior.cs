@@ -20,7 +20,7 @@ public class TreeBehavior : UniqueIdentifiableObject
     public ItemData daun;
     public ItemData getah;
     public ItemData benih;
-    
+    public ItemData seratTanaman;
 
     [Header("Logika Tanam Pohon")]
     public ParticleSystem plantEffectPrefab; // Efek partikel saat menanam
@@ -39,12 +39,14 @@ public class TreeBehavior : UniqueIdentifiableObject
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer untuk mengganti gambar
 
     //logika menentukan jumlah minimal dan maksimal dari item yang akan di jatuhkan 
-    public int minWood = 1;  // Jumlah minimum kayu
-    public int maxWood = 5;  // Jumlah maksimum kayu
-    public int minSap = 0;   // Jumlah minimum getah
-    public int maxSap = 3;   // Jumlah maksimum getah
-    public int minLeaf = 2;  // Jumlah minimum daun
-    public int maxLeaf = 7;  // Jumlah maksimum daun
+    public int minWood ;  // Jumlah minimum kayu
+    public int maxWood;  // Jumlah maksimum kayu
+    public int minSap;   // Jumlah minimum getah
+    public int maxSap;   // Jumlah maksimum getah
+    public int minLeaf;  // Jumlah minimum daun
+    public int maxLeaf;  // Jumlah maksimum daun
+    public int minSeratTanaman; 
+    public int maxSeratTanaman;
 
     
 
@@ -399,6 +401,7 @@ public class TreeBehavior : UniqueIdentifiableObject
         int sapCount = Random.Range(minSap, maxSap + 1);
         int leafCount = Random.Range(minLeaf, maxLeaf + 1);
         int seedCount = Random.Range(minLeaf, maxLeaf + 1);
+        int seratCount = Random.Range(minSeratTanaman, maxSeratTanaman + 1);
 
         Debug.Log($"Menjatuhkan item: Kayu={woodCount}, Getah={sapCount}, Daun={leafCount}, Seed={seedCount}");
 
@@ -432,6 +435,15 @@ public class TreeBehavior : UniqueIdentifiableObject
             }
         }
 
+        // Drop Serat Tanaman
+        for (int i = 0; i < seratCount; i++)
+        {
+            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
+            if (seratTanaman != null)
+            {
+                ItemPool.Instance.DropItem(seratTanaman.itemName, seratTanaman.itemHealth, seratTanaman.quality, posisi + offset);
+            }
+        }
         // Drop benih
         for (int i = 0; i < seedCount; i++)
         {

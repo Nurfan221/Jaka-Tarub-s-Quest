@@ -582,23 +582,29 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private void PlacePrefab(Vector3Int cellPosition, string namaItem, ItemData prefabItem)
     {
-
         Debug.Log("Menambahkan Game Object...");
         // Konversi posisi tile ke World Space
         Vector3 spawnPosition = FarmTile.Instance.tilemap.GetCellCenterWorld(cellPosition);
         Item item = ItemPool.Instance.GetItemWithQuality(namaItem, ItemQuality.Normal);
-        GameObject prefabObject = null; 
+        GameObject prefabObject = null;
+
         // Inisiasi prefab tanaman di posisi world yang sesuai dengan tile
         if (item.IsInType(ItemType.Perangkap))
         {
             prefabObject = Instantiate(DatabaseManager.Instance.perangkapWorldPrefab, spawnPosition, Quaternion.identity);
+
             PerangkapBehavior perangkapBehavior = prefabObject.GetComponent<PerangkapBehavior>();
+            if (perangkapBehavior == null)
+            {
+                Debug.LogError($"Prefab 'perangkapWorldPrefab' tidak memiliki komponen PerangkapBehavior!", prefabObject);
+                Destroy(prefabObject); // Hancurkan objek yg salah dibuat
+                return; // Hentikan fungsi agar tidak crash
+            }
+
             Transform locationTransform = MainEnvironmentManager.Instance.perangkapManager.transform;
             prefabObject.transform.SetParent(locationTransform);
             perangkapBehavior.ForceGenerateUniqueID();
             perangkapBehavior.perangkapHealth = prefabItem.itemHealth;
-
-
 
             // buat data penempatan perangkap baru
             PerangkapSaveData newPlacementData = new PerangkapSaveData
@@ -612,10 +618,48 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // Tambahkan data baru ke dalam list Objek Manager (PerangkapManager)
             MainEnvironmentManager.Instance.perangkapManager.perangkapListActive.Add(newPlacementData);
         }
+        else if (item.IsInType(ItemType.Pelebur))
+        {
+            // Sesuaikan posisi Y jika perlu (bisa diringkas)
+            spawnPosition.z = -1f;
 
+            prefabObject = Instantiate(DatabaseManager.Instance.peleburWorldPrefab, spawnPosition, Quaternion.identity);
 
+            CookInteractable peleburpBehavior = prefabObject.GetComponent<CookInteractable>();
+            if (peleburpBehavior == null)
+            {
+                Debug.LogError($"Prefab 'peleburWorldPrefab' tidak memiliki komponen CookInteractable!", prefabObject);
+                Destroy(prefabObject); // Hancurkan objek yg salah dibuat
+                return; // Hentikan fungsi
+            }
 
-        //Debug.Log("Prefab tanaman ditanam di posisi: " + spawnPosition);
+            InteractableUniqueID interactableUniqueID = prefabObject.GetComponent<InteractableUniqueID>();
+            if (interactableUniqueID == null)
+            {
+                Debug.LogError($"Prefab 'peleburWorldPrefab' tidak memiliki komponen InteractableUniqueID!", prefabObject);
+                Destroy(prefabObject); // Hancurkan objek yg salah dibuat
+                return; // Hentikan fungsi
+            }
+
+            Transform locationTransform = MainEnvironmentManager.Instance.komporManager.transform;
+            prefabObject.transform.SetParent(locationTransform);
+            interactableUniqueID.ForceGenerateUniqueID();
+
+            FurnanceSaveData newFurnanceSaveData = new FurnanceSaveData
+            {
+                id = interactableUniqueID.UniqueID,
+                furnancePosition = spawnPosition,
+                itemCook = peleburpBehavior.itemCook,
+                fuelCook = peleburpBehavior.fuelCook,
+                itemResult = peleburpBehavior.itemResult,
+                quantityFuel = 0
+            };
+
+            // Tambahkan data baru ke dalam list Objek Manager
+            MainEnvironmentManager.Instance.komporManager.environmentList.Add(newFurnanceSaveData);
+        }
+
+        //Debug.Log("Prefab ditanam di posisi: " + spawnPosition);
     }
 
 

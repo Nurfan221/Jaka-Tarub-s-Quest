@@ -16,7 +16,7 @@ public class MainEnvironmentManager : MonoBehaviour
     public JamurManager jamurManager;
     public StorageSystem storageManager;
     public PerangkapManager perangkapManager;
-
+    public FurnanceObjectSystem komporManager;
     public UpgradeToolsInteractable upgradeToolsInteractable;
 
     // Kunci: Enum TypeShop, Nilai: Referensi ke skrip ShopInteractable.

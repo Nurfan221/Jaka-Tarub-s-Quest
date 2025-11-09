@@ -28,18 +28,25 @@ MonoBehaviour:
       count: 1
       quality: 0
       itemHealth: 0
-  - name: Pelebur
+  - name: SeratTanaman
     ingredients:
-    - itemName: Batu
-      count: 30
-      quality: 0
-      itemHealth: 0
-    - itemName: CoalOre
-      count: 5
+    - itemName: Daun
+      count: 3
       quality: 0
       itemHealth: 0
     result:
-      itemName: DagingDomba
+      itemName: SeratTanaman
       count: 1
+      quality: 0
+      itemHealth: 0
+  - name: Tali
+    ingredients:
+    - itemName: SeratTanaman
+      count: 2
+      quality: 0
+      itemHealth: 0
+    result:
+      itemName: Tali
+      count: 2
       quality: 0
       itemHealth: 0

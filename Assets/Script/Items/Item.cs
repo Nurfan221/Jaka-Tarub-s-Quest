@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Flags]
 public enum ItemType
 {
-    Melee_Combat = 0,
+    None = 0,
     Ranged_Combat = 1,
     Heal = 2,
     Buff = 4,
@@ -12,7 +12,7 @@ public enum ItemType
     ItemPrefab = 32,
     Animal = 64,
     Pestisida = 128,
-    None = 256,
+    Melee_Combat = 256,
     PenyiramTanaman = 512,
     Cangkul = 1024,
     PickAxe = 2048,
@@ -21,6 +21,7 @@ public enum ItemType
     PenggarukSampah = 16384,
     Sabit = 32768,
     Perangkap = 65536,
+    Pelebur = 131072
 
 }
 

@@ -5,7 +5,6 @@ using TMPro; // Gunakan ini jika Anda memakai TextMeshPro
 
 public class ItemDragandDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    // --- Variabel Publik ---
     // Index item ini di dalam List data inventaris. Diatur oleh skrip UI Manager.
     public int index;
 
@@ -13,12 +12,10 @@ public class ItemDragandDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI countText;
 
-    // --- Variabel Statis ---
     // Referensi statis ke item yang SEDANG diseret.
     // Ini memudahkan skrip lain (seperti TrashZone) untuk mengetahui item mana yang aktif.
     public static ItemDragandDrop itemBeingDragged;
 
-    // --- Variabel Privat ---
     private Transform originalParent;
     private CanvasGroup canvasGroup;
 
