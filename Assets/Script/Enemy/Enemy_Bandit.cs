@@ -41,7 +41,7 @@ public class Enemy_Bandit : MonoBehaviour
 
     //[ DROP ITEM SETTINGS ]//
     [Header("Drop Item Settings")]
-    public ItemData[] dropitems; // Array item yang bisa dijatuhkan
+    public Item[] dropitems; // Array item yang bisa dijatuhkan
                                    //element 0 harus selalu di isi dengan prefab item normal
                                    //element 1 harus selalu di isi dengan prefab item normal
                                    //element 3 harus selalu di isi dengan prefab item normal
@@ -525,7 +525,13 @@ public class Enemy_Bandit : MonoBehaviour
             for (int i = 0; i < itemCount; i++)
             {
                 int randomIndex = Random.Range(startIndex, endIndex);
-                ItemData itemToDrop = dropitems[randomIndex];
+                ItemData itemToDrop = new ItemData
+                {
+                    itemName = dropitems[randomIndex].itemName,
+                    count = 1,
+                    quality = ItemQuality.Normal,
+                    itemHealth = dropitems[randomIndex].health,
+                };
 
                 // Periksa apakah item ini lolos drop rate
                 if (Random.value <= dropRates[randomIndex]) // Random.value menghasilkan angka antara 0-1

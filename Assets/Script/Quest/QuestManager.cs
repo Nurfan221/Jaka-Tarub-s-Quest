@@ -396,6 +396,8 @@ public class QuestManager : MonoBehaviour, ISaveable
                     }
                     if (sideQuest.isSpawner)
                     {
+
+                        MainEnvironmentManager.Instance.spawnerManager.AddSpawnerToList();
                         Enemy_Spawner enemy_Spawner = MainEnvironmentManager.Instance.spawnerManager.GetEnemySpawner(sideQuest.spawnerToActivate);
                         if (enemy_Spawner != null)
                         {

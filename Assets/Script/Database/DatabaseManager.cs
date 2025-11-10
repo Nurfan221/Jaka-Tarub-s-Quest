@@ -551,6 +551,8 @@ public class DatabaseManager : MonoBehaviour
     [Tooltip("Prefab untuk objek Pelebur dan kompor di dunia")]
     public GameObject peleburWorldPrefab;
     public GameObject komporWorldPrefab;
+    [Tooltip("Prefab untuk objek Enemy")]
+    public GameObject EnemyWorldPrefab;
 
     [Space(10)]
     [Header("System & Save Data")]

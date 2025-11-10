@@ -50,3 +50,22 @@ MonoBehaviour:
       count: 2
       quality: 0
       itemHealth: 0
+  - name: Tali
+    ingredients:
+    - itemName: SeratTanaman
+      count: 4
+      quality: 0
+      itemHealth: 0
+    - itemName: Kayu
+      count: 10
+      quality: 0
+      itemHealth: 0
+    - itemName: IronIngot
+      count: 2
+      quality: 0
+      itemHealth: 0
+    result:
+      itemName: Storage
+      count: 1
+      quality: 0
+      itemHealth: 0

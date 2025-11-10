@@ -13,6 +13,7 @@ public class StorageInteractable : Interactable, ISaveable
     public List<ItemData> storage = new List<ItemData>();
     public int maxItem = 12;
     public bool isLocked = false;
+    public bool isSaveable = false;
 
     //[SerializeField] StorageUI storageUI;
 

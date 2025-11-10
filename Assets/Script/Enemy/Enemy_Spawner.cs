@@ -12,14 +12,14 @@ public class Enemy_Spawner : UniqueIdentifiableObject
     public EnvironmentType environmentType;
 
     public bool CanSpawn = true;
-    [SerializeField] bool drawSpawnRadius;
-    [SerializeField] float spawnRadius = 2f;
-    [SerializeField] float spawnCD = 2f;
+    public bool drawSpawnRadius;
+    public float spawnRadius = 2f;
+    public float spawnCD = 2f;
     float spawnTimer;
 
     public int spawnCount;
     public int maxSpawnCount = 5;
-    [SerializeField] GameObject enemyPrefab;
+    public GameObject enemyPrefab;
     public List<GameObject> enemies;
     public bool canOpenStorage = false;
     public bool isQuestSpawner = false;
@@ -63,6 +63,19 @@ public class Enemy_Spawner : UniqueIdentifiableObject
     // Start is called before the first frame update
     void Start()
     {
+        enemyPrefab = DatabaseManager.Instance.EnemyWorldPrefab;
+        foreach (Transform child in transform)
+        {
+            Enemy_Bandit enemy_Bandit = child.GetComponent<Enemy_Bandit>();
+            if (enemy_Bandit != null)
+            {
+                Destroy(enemy_Bandit.gameObject);
+
+            }
+        }
+
+        // Pastikan list referensi juga kosong
+        enemies.Clear();
         for (int i = 0; i < spawnCount; i++)
         {
             if (CanSpawn)
@@ -92,10 +105,16 @@ public class Enemy_Spawner : UniqueIdentifiableObject
 
     void SpawnEnemy()
     {
+
         GameObject newEnemy = Instantiate(enemyPrefab, transform);
         newEnemy.transform.localPosition = GetSpawnPosition();
         //newEnemy.GetComponent<Enemy_Health>().theSpawner = this;
         newEnemy.gameObject.SetActive(true);
+        Enemy_Bandit enemy_Bandit = newEnemy.GetComponent<Enemy_Bandit>();
+        if (enemy_Bandit != null)
+        {
+            enemy_Bandit.spawner = this.gameObject;
+        }
 
         enemies.Add(newEnemy);
     }

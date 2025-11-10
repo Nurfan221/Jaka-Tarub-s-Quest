@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 
@@ -10,11 +11,14 @@ public class SpawnerManager : MonoBehaviour
     public int minItemStorage = 4;
     public int maxItemStorage =  6;
 
+    private void Awake()
+    {
 
+
+    }
 
     private void Start()
     {
-
         AddSpawnerToList();
         HandleNewDay();
     }
@@ -64,7 +68,7 @@ public class SpawnerManager : MonoBehaviour
         // Matikan semua spawner terlebih dahulu agar kondisi selalu bersih
         foreach (Enemy_Spawner spawner in enemySpawnerList)
         {
-            if (spawner != null)
+            if (spawner != null && !spawner.isQuestSpawner)
             {
                 spawner.gameObject.SetActive(false);
             }
@@ -187,12 +191,16 @@ public class SpawnerManager : MonoBehaviour
 
     public Enemy_Spawner GetEnemySpawner(string id)
     {
-        foreach (Enemy_Spawner spawner in enemySpawnerList)
+        foreach (var spawner in enemySpawnerList)
         {
             if (spawner != null && spawner.UniqueID == id)
             {
+                Debug.Log("Ditemukan Spawner dengan id : " + spawner.UniqueID);
                 return spawner;
-            }
+            }else
+            {
+                Debug.Log("tidak ditemukan spawner dengan id : " + id);
+            }    
         }
         return null;
     }

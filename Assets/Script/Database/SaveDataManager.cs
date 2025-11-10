@@ -141,7 +141,7 @@ public class SaveDataManager : MonoBehaviour
             else if (saveable is StorageInteractable storage)
             {
                 Debug.Log("[SAVE] Ditemukan StorageInteractable. Memanggil CaptureState...");
-                if (storage.CaptureState() is StorageSaveData storageData)
+                if (storage.CaptureState() is StorageSaveData storageData && storage.isSaveable)
                 {
                     storageData.id = storage.uniqueID;
 
