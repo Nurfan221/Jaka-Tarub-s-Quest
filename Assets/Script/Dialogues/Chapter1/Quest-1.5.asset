@@ -13,34 +13,33 @@ MonoBehaviour:
   m_Name: Quest-1.5
   m_EditorClassIdentifier: 
   TheDialogues:
-  - name: Pak Teguh
+  - name: Pak Amru
     sentence: Pagi, Jaka.
   - name: Jaka Tarub
-    sentence: Pagi, Pak. Ada apa ya?
-  - name: Pak Teguh
-    sentence: Tolong aku, Jaka! Ladangku diserang hewan liar!
+    sentence: Pagi, Pak. Ada apa? Bapak terlihat panik sekali!
+  - name: Pak Amru
+    sentence: olong aku, Jaka! Ladangku diserang bandit!
   - name: Jaka Tarub
-    sentence: Waduh, sepertinya ini keadaan genting. Hewan liar apa yang menyerang,
-      Pak?
-  - name: Pak Teguh
-    sentence: Ada sekawanan babi hutan yang merusak tanaman. Mereka sudah menghancurkan
-      sebagian besar sayuranku!
+    sentence: Waduh, Bandit?! Apa yang mereka lakukan, Pak?
+  - name: Pak Amru
+    sentence: Ada segerombolan bandit yang menjarah tanaman. Mereka merampas semua
+      sayuranku!
   - name: Jaka Tarub
     sentence: Oh tidak! Itu sangat merugikan, Pak. Berapa banyak yang sudah mereka
-      rusak?
-  - name: Pak Teguh
-    sentence: Hampir setengah ladangku, Jaka! Jika tidak segera diusir, bisa-bisa
-      semua tanaman akan hancur!
+      ambil?
+  - name: Pak Amru
+    sentence: Hampir setengah ladangku, Jaka! Jika tidak segera dihentikan, bisa-bisa
+      semua hasil panen akan mereka jarah!
   - name: Jaka Tarub
-    sentence: Tenang saja, Pak.  Saya tidak akan membiarkan ladang Bapak hancur lebih
+    sentence: Tenang saja, Pak. Saya tidak akan membiarkan ladang Bapak dijarah lebih
       jauh.
-  - name: Pak Teguh
-    sentence: Terima kasih, Jaka. Aku sangat berharap kamu bisa mengatasi ini. Jika
-      berhasil, aku akan memberikanmu beberapa uang dan hasil panen sebagai imbalan.
+  - name: Pak Amru
+    sentence: Terima kasih, Jaka. Tapi hati-hati, mereka berbahaya. Aku sangat berharap
+      kamu bisa mengatasi ini. Jika berhasil, aku akan memberikanmu beberapa uang
+      dan hasil panen sebagai imbalan.
   - name: Jaka Tarub
-    sentence: Baiklah, Pak. Saya akan segera berangkat. Doakan saya agar berhasil!
-  - name: Pak Teguh
-    sentence: Semoga keberuntungan menyertaimu, Jaka! Ladang ini sangat bergantung
-      padamu.
-  mainSpeaker: Pak Teguh
-  promptAfterDialogue: Misi mengusir Hewan Liar
+    sentence: Baiklah, Pak. Saya akan segera berangkat ke sana.
+  - name: Pak Amru
+    sentence: Hati-hati di jalan, Jaka! Ladang ini sangat bergantung padamu
+  mainSpeaker: Pak Amru
+  promptAfterDialogue: Misi mengusir bandit

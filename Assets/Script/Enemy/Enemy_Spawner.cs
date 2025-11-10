@@ -2,8 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Spawner : MonoBehaviour
+public class Enemy_Spawner : UniqueIdentifiableObject
 {
+    [Header("Spawner Settings")]
+    public EnvironmentHardnessLevel hardnessLevel;
+    public TypeObject typeObject;
+    public TypePlant typePlant;
+    public ArahObject arahObject;
+    public EnvironmentType environmentType;
+
     public bool CanSpawn = true;
     [SerializeField] bool drawSpawnRadius;
     [SerializeField] float spawnRadius = 2f;
@@ -15,9 +22,44 @@ public class Enemy_Spawner : MonoBehaviour
     [SerializeField] GameObject enemyPrefab;
     public List<GameObject> enemies;
     public bool canOpenStorage = false;
+    public bool isQuestSpawner = false;
     public StorageInteractable storageEnemies;
     Queue<GameObject> objectPool = new Queue<GameObject>();
+    #region Unique ID Implementation
 
+    public override string GetObjectType()
+    {
+        // Berikan kategori umum untuk objek ini.
+        return typeObject.ToString();
+    }
+
+    public override EnvironmentHardnessLevel GetHardness()
+    {
+        // Ambil nilai dari variabel yang bisa diatur di Inspector.
+        return hardnessLevel;
+    }
+
+    public override string GetBaseName()
+    {
+        // Ambil nama dasar dari variabel yang bisa diatur di Inspector.
+        if (typePlant == TypePlant.None && arahObject != ArahObject.None)
+        {
+            return arahObject.ToString();
+        }
+        else
+        {
+            return typePlant.ToString();
+        }
+
+    }
+
+    public override string GetVariantName()
+    {
+        return environmentType.ToString();
+
+    }
+
+    #endregion
     // Start is called before the first frame update
     void Start()
     {

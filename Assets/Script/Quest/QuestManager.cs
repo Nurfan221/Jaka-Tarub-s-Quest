@@ -205,6 +205,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         if (parentChapter != null)
         {
             TemplateQuest newActiveQuest = new TemplateQuest(questToActivate);
+           
 
             // Tambahkan salinan baru ini ke list `questActive`
             AddQuestActivetoList(newActiveQuest, parentChapter.chapterID, parentChapter.chapterName);
@@ -217,7 +218,6 @@ public class QuestManager : MonoBehaviour, ISaveable
         Debug.Log($"Mengaktifkan Side Quest: {questToActivate.questName}");
 
        
-        // Siarkan event agar UI bisa memperbarui tampilannya
         //OnQuestLogUpdated?.Invoke();
         CreateTemplateQuest();
 
@@ -376,7 +376,6 @@ public class QuestManager : MonoBehaviour, ISaveable
                         //Panggil fungsi dari NPCManager untuk mencari Jhorgeo di daftar NPC aktif.
 
 
-                        // SELALU periksa apakah hasilnya null. Ini penting untuk menghindari error
                         //    jika karena suatu alasan NPC tidak ditemukan.
                         if (npcTargetQuest != null )
                         {
@@ -385,9 +384,7 @@ public class QuestManager : MonoBehaviour, ISaveable
                             Debug.Log($"NPC {sideQuest.npcName} ditemukan! Memberi perintah untuk pindah...");
 
 
-                            npcTargetQuest.transform.position = sideQuest.startLocateNpcQuest;
-                            // Panggil metode yang sudah kita siapkan di NPCBehavior
-                            npcTargetQuest.OverrideForQuest(sideQuest.startLocateNpcQuest, sideQuest.finishLocateNpcQuest, sideQuest.startDialogue, "Peringatan");
+                          
                             npcTargetQuest.itemQuestToGive = sideQuest.NPCItem;
                             npcTargetQuest.isGivenItemForQuest = true;
                             Debug.Log("itemQuestToGive" + npcTargetQuest.itemQuestToGive.itemName + "jumlah item : " + npcTargetQuest.itemQuestToGive.ToString());
@@ -396,6 +393,26 @@ public class QuestManager : MonoBehaviour, ISaveable
                         {
                             Debug.LogError($"Gagal memberi perintah: NPC aktif bernama {sideQuest.npcName} tidak ditemukan!");
                         }
+                    }
+                    if (sideQuest.isSpawner)
+                    {
+                        Enemy_Spawner enemy_Spawner = MainEnvironmentManager.Instance.spawnerManager.GetEnemySpawner(sideQuest.spawnerToActivate);
+                        if (enemy_Spawner != null)
+                        {
+                            enemy_Spawner.gameObject.SetActive(true);
+                            Debug.Log("mengaktifkan spawner quest di " + sideQuest.spawnerToActivate);
+
+                        }else
+                        {
+                            Debug.LogError("spawner tidak ditemukan " + sideQuest.spawnerToActivate);
+                        }
+                    }
+
+                    if(sideQuest.startLocateNpcQuest != Vector2.zero && sideQuest.finishLocateNpcQuest != Vector2.zero)
+                    {
+                        npcTargetQuest.transform.position = sideQuest.startLocateNpcQuest;
+                        // Panggil metode yang sudah kita siapkan di NPCBehavior
+                        npcTargetQuest.OverrideForQuest(sideQuest.startLocateNpcQuest, sideQuest.finishLocateNpcQuest, sideQuest.startDialogue, "Peringatan");
                     }
                     NPCManager.Instance.AddDialogueForNPCQuest(sideQuest.npcName, sideQuest.startDialogue);
                 }

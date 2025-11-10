@@ -287,7 +287,8 @@ public enum TypeObject
     TungkuPeleburan,
     environmentType,
     Kompor,
-    Perangkap
+    Perangkap,
+    SpawnerEnemy
 
 }
 public enum TypePlant
@@ -340,6 +341,7 @@ public enum EnvironmentType
     Shop,
     Dapur,
     Workshop,
+    Spawner,
     Lainnya
 }
 

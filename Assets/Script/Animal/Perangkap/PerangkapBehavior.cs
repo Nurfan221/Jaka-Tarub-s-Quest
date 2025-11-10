@@ -5,7 +5,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class PerangkapBehavior : UniqueIdentifiableObject
-{  public EnvironmentHardnessLevel hardnessLevel;
+{   
+    public EnvironmentHardnessLevel hardnessLevel;
     public TypeObject typeObject;
     public TypePlant typePlant;
     public ArahObject arahObject;

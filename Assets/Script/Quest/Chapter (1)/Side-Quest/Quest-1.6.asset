@@ -16,8 +16,8 @@ MonoBehaviour:
   questInfo: Pak Amru Membutuhkan Bantuan
   DeskripsiAwal: 'Bantu Pak Amru untuk mengusir Bandit dari ladangnya. Berikan '
   DeskripsiAkhir: Untuk menyelesaikan quest.
-  startLocateNpcQuest: {x: 0, y: 0}
-  finishLocateNpcQuest: {x: 0, y: 0}
+  startLocateNpcQuest: {x: -14, y: -8}
+  finishLocateNpcQuest: {x: -14, y: 6}
   questType: 0
   questProgress: 1
   questEmoticon:
@@ -26,7 +26,11 @@ MonoBehaviour:
   dateToActivate: 25
   MonthToActivate: 1
   npcName: Amru Kusnadi
-  itemRequirements: []
+  itemRequirements:
+  - itemName: PakaianBandit
+    count: 1
+    quality: 0
+    itemHealth: 0
   goldReward: 0
   itemRewards: []
   NPCItem:
@@ -38,9 +42,9 @@ MonoBehaviour:
   finishDialogue: {fileID: 11400000, guid: e309547988c29b5479a07f49415eeba9, type: 2}
   isMainQuest: 0
   isInGrief: 0
-  isSpawner: 0
+  isSpawner: 1
   isNPCItem: 0
-  spawnerToActivate: 
+  spawnerToActivate: SpawnerEnemy_None_None_Spawner_7
   isTheCleanupQuest: 0
   cleanupQuestIndex: 0
   objectToClean: 

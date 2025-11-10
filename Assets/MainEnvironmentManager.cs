@@ -18,6 +18,7 @@ public class MainEnvironmentManager : MonoBehaviour
     public PerangkapManager perangkapManager;
     public FurnanceObjectSystem komporManager;
     public UpgradeToolsInteractable upgradeToolsInteractable;
+    public SpawnerManager spawnerManager;
 
     // Kunci: Enum TypeShop, Nilai: Referensi ke skrip ShopInteractable.
     private Dictionary<TypeShop, ShopInteractable> registeredShops = new Dictionary<TypeShop, ShopInteractable>();

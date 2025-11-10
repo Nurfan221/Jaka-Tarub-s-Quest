@@ -101,18 +101,19 @@ public class SpawnerManager : MonoBehaviour
         {
             // Ambil "indeks pemenang" dari list yang sudah diacak
             int indexToActivate = indexes[i];
+            Enemy_Spawner spawner = enemySpawnerList[indexToActivate];
 
             // Aktifkan GameObject spawner di indeks tersebut
-            if (enemySpawnerList[indexToActivate] != null)
+            if (enemySpawnerList[indexToActivate] != null && !spawner.isQuestSpawner)
             {
                 enemySpawnerList[indexToActivate].gameObject.SetActive(true);
-                Enemy_Spawner spawner = enemySpawnerList[indexToActivate];
                 StorageInteractable storage = spawner.storageEnemies;
 
                 if (storage != null)
                 {
                     List<ItemData> newItems = AddItemForStorage();
 
+                    storage.storage.Clear();
                     // (Saya asumsikan list di StorageInteractable bernama 'storage')
                     storage.storage.AddRange(newItems);
 
@@ -182,5 +183,17 @@ public class SpawnerManager : MonoBehaviour
 
         Debug.Log($"[AddItemForStorage] Selesai. Total item di-generate: {generatedItems.Count}.");
         return generatedItems;
+    }
+
+    public Enemy_Spawner GetEnemySpawner(string id)
+    {
+        foreach (Enemy_Spawner spawner in enemySpawnerList)
+        {
+            if (spawner != null && spawner.UniqueID == id)
+            {
+                return spawner;
+            }
+        }
+        return null;
     }
 }
