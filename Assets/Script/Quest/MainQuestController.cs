@@ -20,19 +20,17 @@ public abstract class MainQuestController : MonoBehaviour
 
     // 'protected' berarti variabel ini hanya bisa diakses oleh kelas ini dan kelas turunannya.
     protected QuestManager questManager;
-    protected MainQuestSO questData;
+    protected TemplateMainQuest questData;
     protected bool isQuestComplete = false;
 
-    protected PlayerMainQuestStatus playerQuestStatus;
     public static event Action<bool> OnItemGivenToNPC;
 
-    public virtual void StartQuest(QuestManager manager, MainQuestSO so, PlayerMainQuestStatus status)
+    public virtual void StartQuest(QuestManager manager, TemplateMainQuest so)
     {
         this.questManager = manager;
         this.questData = so; // Simpan referensi ke naskahnya
         this.isQuestComplete = false;
         // Ambil nama dari SO agar konsisten
-        this.playerQuestStatus = status;
         this.questName = so.questName;
         this.itemRequirements = so.itemRequirements;
         this.goldReward = so.goldReward;
@@ -71,95 +69,95 @@ public abstract class MainQuestController : MonoBehaviour
 
 
 
-    public bool AreAllItemRequirementsMet() // Tidak perlu parameter currentItemProgress lagi
-    {
-        if (questData == null || questData.itemRequirements == null || questData.itemRequirements.Count == 0)
-        {
-            return true;
-        }
+    //public bool AreAllItemRequirementsMet() // Tidak perlu parameter currentItemProgress lagi
+    //{
+    //    if (questData == null || questData.itemRequirements == null || questData.itemRequirements.Count == 0)
+    //    {
+    //        return true;
+    //    }
 
-        // Pastikan playerQuestStatus dan itemProgress-nya tidak null
-        if (playerQuestStatus == null || playerQuestStatus.itemProgress == null)
-        {
-            Debug.LogError($"playerQuestStatus atau itemProgress-nya null untuk '{questName}'.");
-            return false;
-        }
+    //    // Pastikan playerQuestStatus dan itemProgress-nya tidak null
+    //    if (playerQuestStatus == null || playerQuestStatus.itemProgress == null)
+    //    {
+    //        Debug.LogError($"playerQuestStatus atau itemProgress-nya null untuk '{questName}'.");
+    //        return false;
+    //    }
 
-        foreach (var requiredItem in questData.itemRequirements)
-        {
-            if (!playerQuestStatus.itemProgress.ContainsKey(requiredItem.itemName))
-            {
-                return false;
-            }
-            if (playerQuestStatus.itemProgress[requiredItem.itemName] < requiredItem.count)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
+    //    foreach (var requiredItem in questData.itemRequirements)
+    //    {
+    //        if (!playerQuestStatus.itemProgress.ContainsKey(requiredItem.itemName))
+    //        {
+    //            return false;
+    //        }
+    //        if (playerQuestStatus.itemProgress[requiredItem.itemName] < requiredItem.count)
+    //        {
+    //            return false;
+    //        }
+    //    }
+    //    return true;
+    //}
 
-    public int GetNeededItemCount(string itemName) // Tidak perlu parameter currentItemProgress lagi
-    {
-        ItemData requiredItem = GetRequiredItem(itemName);
-        if (requiredItem == null)
-        {
-            return -1;
-        }
+    //public int GetNeededItemCount(string itemName) // Tidak perlu parameter currentItemProgress lagi
+    //{
+    //    ItemData requiredItem = GetRequiredItem(itemName);
+    //    if (requiredItem == null)
+    //    {
+    //        return -1;
+    //    }
 
-        if (playerQuestStatus == null || playerQuestStatus.itemProgress == null)
-        {
-            Debug.LogError($"playerQuestStatus atau itemProgress-nya null untuk '{questName}'.");
-            return requiredItem.count;
-        }
+    //    if (playerQuestStatus == null || playerQuestStatus.itemProgress == null)
+    //    {
+    //        Debug.LogError($"playerQuestStatus atau itemProgress-nya null untuk '{questName}'.");
+    //        return requiredItem.count;
+    //    }
 
-        int currentProgress = 0;
-        if (playerQuestStatus.itemProgress.ContainsKey(itemName))
-        {
-            currentProgress = playerQuestStatus.itemProgress[itemName];
-        }
+    //    int currentProgress = 0;
+    //    if (playerQuestStatus.itemProgress.ContainsKey(itemName))
+    //    {
+    //        currentProgress = playerQuestStatus.itemProgress[itemName];
+    //    }
 
-        return requiredItem.count - currentProgress;
-    }
+    //    return requiredItem.count - currentProgress;
+    //}
 
-    public bool TryProcessGivenItem(ItemData givenItemData)
-    {
-        // Pastikan kita punya status quest yang valid
-        if (playerQuestStatus == null || playerQuestStatus.Progress != QuestProgress.Accepted)
-        {
-            Debug.LogWarning("Tidak ada Main Quest aktif atau sudah selesai untuk memproses item.");
-            return false;
-        }
+    //public bool TryProcessGivenItem(ItemData givenItemData)
+    //{
+    //    // Pastikan kita punya status quest yang valid
+    //    if (playerQuestStatus == null || playerQuestStatus.Progress != QuestProgress.Accepted)
+    //    {
+    //        Debug.LogWarning("Tidak ada Main Quest aktif atau sudah selesai untuk memproses item.");
+    //        return false;
+    //    }
 
-        Debug.Log($"Main Quest Controller: Memproses item '{givenItemData.itemName}'...");
+    //    Debug.Log($"Main Quest Controller: Memproses item '{givenItemData.itemName}'...");
 
-        ItemData requiredItem = GetRequiredItem(givenItemData.itemName); // Menggunakan fungsi dari base class
-        if (requiredItem == null) return false;
+    //    ItemData requiredItem = GetRequiredItem(givenItemData.itemName); // Menggunakan fungsi dari base class
+    //    if (requiredItem == null) return false;
 
-        int neededAmount = GetNeededItemCount(givenItemData.itemName); // Menggunakan fungsi dari base class
-        if (neededAmount <= 0) return false;
+    //    int neededAmount = GetNeededItemCount(givenItemData.itemName); // Menggunakan fungsi dari base class
+    //    if (neededAmount <= 0) return false;
 
-        int amountToProcess = Mathf.Min(givenItemData.count, neededAmount);
-        givenItemData.count -= amountToProcess;
+    //    int amountToProcess = Mathf.Min(givenItemData.count, neededAmount);
+    //    givenItemData.count -= amountToProcess;
 
-        if (amountToProcess > 0)
-        {
-            // Update progres item di PlayerMainQuestStatus yang disimpan di base class
-            playerQuestStatus.itemProgress[givenItemData.itemName] += amountToProcess;
+    //    if (amountToProcess > 0)
+    //    {
+    //        // Update progres item di PlayerMainQuestStatus yang disimpan di base class
+    //        playerQuestStatus.itemProgress[givenItemData.itemName] += amountToProcess;
 
-            Debug.Log($"Progres '{givenItemData.itemName}' untuk '{questName}' diupdate: {playerQuestStatus.itemProgress[givenItemData.itemName]}/{requiredItem.count}");
+    //        Debug.Log($"Progres '{givenItemData.itemName}' untuk '{questName}' diupdate: {playerQuestStatus.itemProgress[givenItemData.itemName]}/{requiredItem.count}");
 
-            if (AreAllItemRequirementsMet()) // Menggunakan fungsi dari base class tanpa parameter
-            {
-                Debug.Log($"SEMUA ITEM DIBUTUHKAN UNTUK MAIN QUEST '{questName}' TELAH TERPENUHI!");
-                OnAllItemRequirementsFulfilled(); 
-            }
-            return true;
-        }
-        SetQuestNotComplete(); // Panggil hook untuk logika spesifik quest
-        return false;
+    //        if (AreAllItemRequirementsMet()) // Menggunakan fungsi dari base class tanpa parameter
+    //        {
+    //            Debug.Log($"SEMUA ITEM DIBUTUHKAN UNTUK MAIN QUEST '{questName}' TELAH TERPENUHI!");
+    //            OnAllItemRequirementsFulfilled();
+    //        }
+    //        return true;
+    //    }
+    //    SetQuestNotComplete(); // Panggil hook untuk logika spesifik quest
+    //    return false;
 
-    }
+    //}
 
     protected virtual void OnAllItemRequirementsFulfilled()
     {

@@ -246,7 +246,11 @@ public class ChapterQuestActiveDatabase
     public int totalSideQuestsRequired; // Total dari ChapterSO
     public int completedSideQuestCount; // Counter progres
     public List<TemplateQuest> sideQuests; // Sekarang berisi list dari ASET QuestSO
+
+    //MainQuest
     public TemplateMainQuest mainQuest; // Sekarang berisi ASET MainQuestSO
+    public bool isMainQuestActive;
+
 
     public bool IsMainQuestEmpty()
     {
@@ -254,6 +258,8 @@ public class ChapterQuestActiveDatabase
         // ATAU (jika tidak null) cek apakah 'questName' di dalamnya kosong
         return mainQuest == null || string.IsNullOrEmpty(mainQuest.questName);
     }
+
+
 
 }
 
@@ -270,6 +276,20 @@ public enum LuckLevel
     High
 }
 
+public enum QuestType
+{
+    SideQuest,
+    MiniQuest,
+    MainQuest,
+}
+
+public enum QuestProgress
+{
+    NotStarted,
+    Accepted,
+    Completed,
+
+}
 public enum TypeObject
 {
     None,

@@ -18,7 +18,8 @@ public class TemplateMainQuest
     public Dialogues finishDialogue;
 
     public GameObject questControllerPrefab;
-
+    [Header("Runtime Progress")]
+    public string CurrentStateName; // Ini akan menyimpan "AdeganMimpi", "PergiKeHutan", dll.
     public TemplateMainQuest() { }
 
     public TemplateMainQuest(MainQuestSO blueprint)
@@ -28,11 +29,23 @@ public class TemplateMainQuest
         this.dateToActivate = blueprint.dateToActivate;
         this.monthToActivate = blueprint.monthToActivate;
         this.namaNpcQuest = blueprint.namaNpcQuest;
-        this.itemRequirements = new List<ItemData>(blueprint.itemRequirements);
         this.goldReward = blueprint.goldReward;
-        this.itemRewards = new List<ItemData>(blueprint.itemRewards);
         this.questNotComplate = blueprint.questNotComplate;
         this.finishDialogue = blueprint.finishDialogue;
         this.questControllerPrefab = blueprint.questControllerPrefab;
+
+        this.itemRequirements = new List<ItemData>();
+        // Loop list blueprint dan buat SALINAN BARU dari setiap ItemData
+        foreach (var item in blueprint.itemRequirements)
+        {
+            // harus menyalin field satu per satu.
+            this.itemRequirements.Add(new ItemData(item));
+        }
+
+        this.itemRewards = new List<ItemData>();
+        foreach (var item in blueprint.itemRewards)
+        {
+            this.itemRewards.Add(new ItemData(item));
+        }
     }
 }

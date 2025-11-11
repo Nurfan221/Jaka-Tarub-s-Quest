@@ -31,7 +31,7 @@ public class SaveDataManager : MonoBehaviour
     {
         Debug.Log("Menyimpan data ke: " + saveFilePath);
         GameSaveData saveData = new GameSaveData();
-        StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+        //StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
         CaptureAllSaveableStates(saveData);
         SaveToFile(saveData);
     }
@@ -252,14 +252,14 @@ public class SaveDataManager : MonoBehaviour
             {
                 Debug.Log("[SAVE] Ditemukan QuestManager. Memanggil CaptureState...");
 
-                // CaptureState() akan mengembalikan list 'questActive'
                 if (questManager.CaptureState() is List<ChapterQuestActiveDatabase> questData)
                 {
-                    // Simpan data itu ke 'savedQuestList' di GameSaveData
-                    saveData.savedQuestList.AddRange(questData);
+                    saveData.savedQuestList = questData;
+
                     Debug.Log($"Data QuestManager berhasil ditangkap. {questData.Count} chapter aktif.");
                 }
-            }else if (saveable is UpgradeToolsInteractable upgradeToolsInteractable)
+            }
+            else if (saveable is UpgradeToolsInteractable upgradeToolsInteractable)
             {
                 Debug.Log("[SAVE] Ditemukan UpgradeToolsInteractable . Memanggil CaptureState...");
                 if (upgradeToolsInteractable.CaptureState() is UpgradeToolsSaveData upgradeSaveData)

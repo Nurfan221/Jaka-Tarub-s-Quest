@@ -90,7 +90,7 @@ public class TemplateQuest
         this.cleanupQuestTotal = blueprint.cleanupQuestTotal;
         this.tipeCleanObject = blueprint.tipeCleanObject;
 
-        // 2. Buat "Salinan Dalam" (Deep Copy) untuk Lists
+        // Buat "Salinan Dalam" (Deep Copy) untuk Lists
         this.itemRequirements = new List<ItemData>();
         foreach (var item in blueprint.itemRequirements)
         {

@@ -94,25 +94,25 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         //DialogueSystem.OnDialogueEnded -= HandleDialogueTrigger;
     }
 
-    public override void StartQuest(QuestManager manager, MainQuestSO so, PlayerMainQuestStatus status)
+    public override void StartQuest(QuestManager manager, TemplateMainQuest so)
     {
-        base.StartQuest(manager, so, status); // Panggil implementasi dasar
+        base.StartQuest(manager, so); // Panggil implementasi dasar
 
         // Sekarang Anda bisa mengakses nama NPC dari naskah
         this.targetNpcName = questData.namaNpcQuest;
         Debug.Log($"NPC target untuk quest ini adalah: {this.targetNpcName}");
 
-        // Mulai adegan pertama
-        if (!string.IsNullOrEmpty(playerQuestStatus.CurrentStateName))
+        // Cek apakah 'questData' punya state yang sudah disimpan
+        if (!string.IsNullOrEmpty(questData.CurrentStateName))
         {
             // Konversi string kembali ke enum
-            if (System.Enum.TryParse(playerQuestStatus.CurrentStateName, out MainQuest1State loadedState))
+            if (System.Enum.TryParse(questData.CurrentStateName, out MainQuest1State loadedState))
             {
                 ChangeState(loadedState); // Set state berdasarkan data yang dimuat
             }
             else
             {
-                Debug.LogWarning($"Gagal memuat state '{playerQuestStatus.CurrentStateName}'. Menggunakan state awal.");
+                Debug.LogWarning($"Gagal memuat state '{questData.CurrentStateName}'. Menggunakan state awal.");
                 ChangeState(MainQuest1State.AdeganMimpi); // Fallback ke state awal
             }
         }
@@ -130,11 +130,11 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
         isChangingState = true;
         currentState = newState;
-        if (playerQuestStatus != null)
+        if (questData != null)
         {
-            playerQuestStatus.CurrentStateName = newState.ToString();
+            questData.CurrentStateName = newState.ToString();
+            Debug.Log($"Progres Main Quest Disimpan: {questData.CurrentStateName}");
         }
-        //Debug.Log($"Main Quest '{questName}' masuk ke adegan: {currentState}");
 
         QuestStateData data = stateDataList.FirstOrDefault(s => s.state == newState);
         if (data == null) return;

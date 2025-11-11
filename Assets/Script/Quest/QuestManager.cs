@@ -30,7 +30,8 @@ public class QuestManager : MonoBehaviour, ISaveable
     // List ini akan melacak semua quest (side quest) yang sedang aktif atau sudah selesai.
     //public List<PlayerQuestStatus> questLog = new List<PlayerQuestStatus>();
     public List<ChapterQuestActiveDatabase> questActive = new List<ChapterQuestActiveDatabase>();
-
+    public MainQuestController activeMainQuestController;
+    public TemplateMainQuest mainQuestActive;
 
     // Event ini akan memberitahu UI atau sistem lain jika ada pembaruan pada log quest.
     // public static event System.Action OnQuestLogUpdated;
@@ -74,12 +75,15 @@ public class QuestManager : MonoBehaviour, ISaveable
 
     }
 
+    // Di dalam QuestManager.cs
     public object CaptureState()
     {
         Debug.Log("[SAVE-CAPTURE] QuestManager menangkap data quest aktif...");
 
-     
-        return questActive;
+        // Buat "salinan" baru dari list questActive.
+        // Ini adalah 'snapshot' data Anda saat ini.
+        var snapshot = new List<ChapterQuestActiveDatabase>(questActive);
+        return snapshot;
     }
 
     public void RestoreState(object state)
@@ -95,7 +99,7 @@ public class QuestManager : MonoBehaviour, ISaveable
             questActive = loadedData;
 
             Debug.Log($"Data quest berhasil direstorasi. {questActive.Count} chapter aktif dimuat.");
-
+            RestoreActiveQuestLogic();
             // Anda sudah punya fungsi ini, jadi kita panggil saja.
             CreateTemplateQuest();
         }
@@ -104,7 +108,43 @@ public class QuestManager : MonoBehaviour, ISaveable
             Debug.LogWarning("Gagal merestorasi data quest: data tidak valid atau corrupt.");
         }
     }
+    // Di dalam QuestManager.cs
+    private void RestoreActiveQuestLogic()
+    {
+        // Bersihkan controller lama jika ada (untuk keamanan)
+        if (activeMainQuestController != null)
+        {
+            Destroy(activeMainQuestController.gameObject);
+            activeMainQuestController = null;
+        }
 
+        // Cari data main quest yang aktif di dalam list 'questActive'
+        TemplateMainQuest activeQuestData = null;
+        foreach (var chapter in questActive)
+        {
+            // Gunakan flag 'isMainQuestActive' yang sudah Anda siapkan
+            if (chapter.isMainQuestActive && !chapter.IsMainQuestEmpty())
+            {
+                activeQuestData = chapter.mainQuest;
+                break; // Hanya boleh ada satu main quest aktif
+            }
+        }
+
+        //  Jika data quest aktif ditemukan, hidupkan controllernya!
+        if (activeQuestData != null)
+        {
+            Debug.Log($"Merestorasi logika untuk Main Quest: {activeQuestData.questName}");
+
+            // Panggil fungsi StartMainQuest yang sudah Anda miliki.
+            // Ini akan membuat ulang prefab dan mengisi 'activeMainQuestController'
+            SetNextMainQuest(activeQuestData);
+            StartMainQuest(activeQuestData);
+        }
+        else
+        {
+            Debug.Log("Tidak ada main quest aktif yang ditemukan di data save.");
+        }
+    }
 
     public void DialogueEnd()
     {
@@ -131,7 +171,34 @@ public class QuestManager : MonoBehaviour, ISaveable
            
         }
 
-      
+
+        if (IsMainQuestActiveEmpty())
+        {
+            return; // Tidak ada yang perlu dicek
+        }
+
+
+        if (activeMainQuestController != null)
+        {
+            return; // Sudah ada main quest yang aktif
+        }
+
+
+        if (TimeManager.Instance.date == mainQuestActive.dateToActivate &&
+        TimeManager.Instance.bulan == mainQuestActive.monthToActivate)
+        {
+            Debug.Log($"Memulai Main Quest yang tertunda: {mainQuestActive.questName}");
+            StartMainQuest(mainQuestActive);
+        }
+        else
+        {
+            // Ganti LogError menjadi Log biasa agar tidak spam
+            Debug.Log($"Main Quest '{mainQuestActive.questName}' menunggu hari aktivasi. (Sekarang: {TimeManager.Instance.date}, Aktivasi: {mainQuestActive.dateToActivate})");
+        }
+
+
+
+
     }
     public bool IsQuestInLog(string questName)
     {
@@ -405,16 +472,16 @@ public class QuestManager : MonoBehaviour, ISaveable
             }
         }
 
-      
-        //// Cek dulu apakah 'activeMainQuestController' ada, BARU akses propertinya.
-        //if (activeMainQuestController != null && !activeMainQuestController.IsComplete())
-        //{
-        //    // Ini membutuhkan sebuah fungsi publik baru di MainQuestController Anda.
-        //    string currentObjective = activeMainQuestController.GetCurrentObjectiveInfo();
 
-        //    // Gunakan fungsi helper yang sama untuk membuat UI-nya
-        //    InstantiateQuestUI(activeMainQuestController.questName, currentObjective);
-        //}
+        // Cek dulu apakah 'activeMainQuestController' ada, BARU akses propertinya.
+        if (activeMainQuestController != null && !activeMainQuestController.IsComplete())
+        {
+            // Ini membutuhkan sebuah fungsi publik baru di MainQuestController Anda.
+            string currentObjective = activeMainQuestController.GetCurrentObjectiveInfo();
+
+            // Gunakan fungsi helper yang sama untuk membuat UI-nya
+            InstantiateQuestUI(activeMainQuestController.questName, currentObjective);
+        }
     }
 
  
@@ -496,9 +563,25 @@ public class QuestManager : MonoBehaviour, ISaveable
                         // Buat dan aktifkan main quest
                         TemplateMainQuest newMainQuest = new TemplateMainQuest(chapterAsset.mainQuest);
                         Debug.Log($"Main Quest '{newMainQuest.questName}' diaktifkan untuk Chapter '{parentChapter.chapterName}'.");
+                        if (TimeManager.Instance.date >= 28)
+                        {
+                            newMainQuest.dateToActivate = 1;
+                            newMainQuest.monthToActivate = TimeManager.Instance.bulan + 1;
+                        }
+                        else
+                        {
+                            newMainQuest.dateToActivate = TimeManager.Instance.date + 1;
+                            newMainQuest.monthToActivate = TimeManager.Instance.bulan;
+                        }
+                        //if (IsMainQuestActiveEmpty())
+                        //{
+                        //    mainQuestActive = newMainQuest;
+                        //}
+                        SetNextMainQuest(newMainQuest);
                         parentChapter.mainQuest = newMainQuest;
+                        parentChapter.isMainQuestActive = true;
+                        
                         Debug.Log("cek main quest di chapter aktif " + parentChapter.mainQuest.questName);
-                        Debug.Break(); // Ini akan mem-pause game
                                        // (Opsional) Langsung panggil StartMainQuest jika Anda mau,
                                        // atau biarkan CheckForNewQuests() yang menanganinya
                                        // StartMainQuest(chapterAsset.mainQuest); 
@@ -530,6 +613,13 @@ public class QuestManager : MonoBehaviour, ISaveable
         //    }
         //}
     }
+    public bool IsMainQuestActiveEmpty()
+    {
+        //  Cek apakah referensi 'mainQuestActive' itu sendiri null
+        // ATAU (jika tidak null) cek apakah 'questName' di dalamnya kosong
+        return mainQuestActive == null || string.IsNullOrEmpty(mainQuestActive.questName);
+    }
+
     private ChapterQuestActiveDatabase FindActiveChapterForQuest(TemplateQuest questToFind)
     {
         foreach (var chapter in questActive)
@@ -557,52 +647,48 @@ public class QuestManager : MonoBehaviour, ISaveable
         return null; // Jika tidak ditemukan
     }
 
-  
+
 
     ////Logika menjalankan Main Quest
-    //public void SetNextMainQuest(TemplateMainQuest mainQuest)
-    //{
-    //    // Hanya siapkan quest jika belum ada yang disiapkan atau sedang aktif
-    //    if (pendingMainQuest == null && activeMainQuestController == null)
-    //    {
-    //        pendingMainQuest = mainQuest;
-    //        pendingMainQuest.dateToActivate = TimeManager.Instance.date + 1;
-    //        pendingMainQuest.monthToActivate = TimeManager.Instance.bulan;
-    //        Debug.Log($"Main Quest '{mainQuest.questName}' disiapkan untuk dimulai pada tanggal {mainQuest.dateToActivate}.");
-    //    }
-    //}
-    //public void StartMainQuest(MainQuestSO mainQuestSO)
-    //{
-    //    if (activeMainQuestController != null)
-    //    {
-    //        Debug.LogWarning($"Main Quest '{activeMainQuestController.questName}' sudah aktif. Tidak bisa memulai '{mainQuestSO.questName}'.");
-    //        return;
-    //    }
-    //    if (mainQuestSO.questControllerPrefab == null)
-    //    {
-    //        Debug.LogError($"Prefab controller untuk '{mainQuestSO.questName}' belum diatur!");
-    //        return;
-    //    }
+    public void SetNextMainQuest(TemplateMainQuest mainQuest)
+    {
+        // Hanya siapkan quest jika belum ada yang disiapkan atau sedang aktif
+        if (IsMainQuestActiveEmpty() && activeMainQuestController == null)
+        {
+            mainQuestActive = mainQuest;
+            
+            Debug.Log($"Main Quest '{mainQuest.questName}' disiapkan untuk dimulai pada tanggal {mainQuest.dateToActivate}.");
+        }
+    }
+    public void StartMainQuest(TemplateMainQuest mainQuestTemplate)
+    {
+        if (IsMainQuestActiveEmpty())
+        {
+            Debug.LogWarning($"Main Quest '{mainQuestTemplate.questName}' sudah aktif. Tidak bisa memulai .");
+            return;
+        }
+        if (mainQuestTemplate.questControllerPrefab == null)
+        {
+            Debug.LogError($"Prefab controller untuk '{mainQuestTemplate.questName}' belum diatur!");
+            return;
+        }
 
-    //    Debug.Log($"MEMULAI MAIN QUEST: {mainQuestSO.questName}");
+        Debug.Log($"MEMULAI MAIN QUEST: {mainQuestTemplate.questName}");
 
-    //    // Instantiate controller prefab
-    //    GameObject controllerGO = Instantiate(mainQuestSO.questControllerPrefab, this.transform);
-    //    activeMainQuestController = controllerGO.GetComponent<MainQuestController>();
-
-    //    // Buat dan simpan status Main Quest yang baru ke variabel kelas
-    //    this.activePlayerMainQuestStatus = new PlayerMainQuestStatus(mainQuestSO); // <<< PENTING: Assign ke variabel kelas
-
-    //    if (activeMainQuestController != null)
-    //    {
-    //        // Panggil StartQuest pada controller, dan berikan status Main Quest yang baru dibuat
-    //        activeMainQuestController.StartQuest(this, mainQuestSO, activePlayerMainQuestStatus);
-    //        pendingMainQuest = null; // Hapus dari antrian setelah dimulai
-    //        CreateTemplateQuest(); // Perbarui UI
+        // Instantiate controller prefab
+        GameObject controllerGO = Instantiate(mainQuestTemplate.questControllerPrefab, this.transform);
+        activeMainQuestController = controllerGO.GetComponent<MainQuestController>();
 
 
-    //    }
-    //}
+        if (activeMainQuestController != null)
+        {
+            // Panggil StartQuest pada controller, dan berikan status Main Quest yang baru dibuat
+            activeMainQuestController.StartQuest(this, mainQuestTemplate);
+            CreateTemplateQuest(); // Perbarui UI
+
+
+        }
+    }
 
     // Handle Template Story active
     public void HandleContentStory(Sprite sp)

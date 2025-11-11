@@ -25,7 +25,6 @@ public class GameSaveData
     public List<StoneRespawnSaveData> queueRespownStone = new List<StoneRespawnSaveData>();
     public List<HoedTileData> savedHoedTilesList = new List<HoedTileData>();
     public List<ItemShopSaveData> itemShopSaveData = new List<ItemShopSaveData>();
-    public List<QuestManagerSaveData> questManagerSaveData = new List<QuestManagerSaveData>();
     public List<ChapterQuestActiveDatabase> savedQuestList = new List<ChapterQuestActiveDatabase>();
     public UpgradeToolsSaveData upgradeToolsSaveData = new UpgradeToolsSaveData();
     public List<PerangkapSaveData> perangkapSaveData = new List<PerangkapSaveData>();

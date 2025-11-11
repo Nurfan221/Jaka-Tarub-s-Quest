@@ -123,6 +123,8 @@ public class TimeManager : MonoBehaviour, ISaveable
         minggu = loadedData.minggu;
         bulan = loadedData.bulan;
         tahun = loadedData.tahun;
+        HitungWaktu(totalHari);
+
 
         Debug.Log($"Waktu berhasil direstorasi ke hari ke-{totalHari}");
     }
