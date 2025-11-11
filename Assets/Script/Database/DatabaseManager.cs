@@ -238,12 +238,23 @@ public class SampahDatabase
 
 }
 
-[Serializable]
+[System.Serializable]
 public class ChapterQuestActiveDatabase
 {
     public string chapterName;
     public int chapterID;
+    public int totalSideQuestsRequired; // Total dari ChapterSO
+    public int completedSideQuestCount; // Counter progres
     public List<TemplateQuest> sideQuests; // Sekarang berisi list dari ASET QuestSO
+    public TemplateMainQuest mainQuest; // Sekarang berisi ASET MainQuestSO
+
+    public bool IsMainQuestEmpty()
+    {
+        //  Cek apakah referensi 'mainQuest' itu sendiri null
+        // ATAU (jika tidak null) cek apakah 'questName' di dalamnya kosong
+        return mainQuest == null || string.IsNullOrEmpty(mainQuest.questName);
+    }
+
 }
 
 //[System.Serializable]
