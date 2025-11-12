@@ -590,7 +590,8 @@ public class DatabaseManager : MonoBehaviour
     [Tooltip("Referensi ke data waktu yang bisa disimpan.")]
     public TimeSaveData timeManagerDatabase;
 
-
+    [Header("Quest Object Databases")]
+    public List<GameObject> questControllerPrefab;
 
 
     private void Awake()
@@ -835,4 +836,6 @@ public class DatabaseManager : MonoBehaviour
     {
         return itemShopDatabase.shopTypeDatabases.FirstOrDefault(db => db.shopType == typeShop);
     }
+
+   
 }

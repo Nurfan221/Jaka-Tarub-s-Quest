@@ -134,11 +134,18 @@ public class QuestManager : MonoBehaviour, ISaveable
         if (activeQuestData != null)
         {
             Debug.Log($"Merestorasi logika untuk Main Quest: {activeQuestData.questName}");
+            // Cari prefab langsung dari database chapter yang sudah ada!
+            GameObject prefab = GetMainQuestPrefabByName(activeQuestData.questName);
 
-            // Panggil fungsi StartMainQuest yang sudah Anda miliki.
-            // Ini akan membuat ulang prefab dan mengisi 'activeMainQuestController'
-            SetNextMainQuest(activeQuestData);
-            StartMainQuest(activeQuestData);
+            if (prefab != null)
+            {
+
+                // Panggil fungsi StartMainQuest yang sudah Anda miliki.
+                // Ini akan membuat ulang prefab dan mengisi 'activeMainQuestController'
+                SetNextMainQuest(activeQuestData);
+                StartMainQuest(activeQuestData, prefab);
+            }
+           
         }
         else
         {
@@ -187,8 +194,9 @@ public class QuestManager : MonoBehaviour, ISaveable
         if (TimeManager.Instance.date == mainQuestActive.dateToActivate &&
         TimeManager.Instance.bulan == mainQuestActive.monthToActivate)
         {
+           GameObject prefab = GetMainQuestPrefabByName(mainQuestActive.questName);
             Debug.Log($"Memulai Main Quest yang tertunda: {mainQuestActive.questName}");
-            StartMainQuest(mainQuestActive);
+            StartMainQuest(mainQuestActive, prefab);
         }
         else
         {
@@ -647,7 +655,22 @@ public class QuestManager : MonoBehaviour, ISaveable
         return null; // Jika tidak ditemukan
     }
 
+    public GameObject GetMainQuestPrefabByName(string questName)
+    {
+        // Cari di semua chapter
+        foreach (var chapter in allChapters)
+        {
+            //  Cek apakah chapter ini punya Main Quest dan namanya cocok
+            if (chapter.mainQuest != null && chapter.mainQuest.questName == questName)
+            {
+                // KEMBALIKAN PREFAB DARI BLUEPRINT ASLI
+                return chapter.mainQuest.questControllerPrefab;
+            }
+        }
 
+        Debug.LogError($"QuestManager: Tidak menemukan blueprint Main Quest dengan nama '{questName}' di daftar allChapters.");
+        return null;
+    }
 
     ////Logika menjalankan Main Quest
     public void SetNextMainQuest(TemplateMainQuest mainQuest)
@@ -660,14 +683,14 @@ public class QuestManager : MonoBehaviour, ISaveable
             Debug.Log($"Main Quest '{mainQuest.questName}' disiapkan untuk dimulai pada tanggal {mainQuest.dateToActivate}.");
         }
     }
-    public void StartMainQuest(TemplateMainQuest mainQuestTemplate)
+    public void StartMainQuest(TemplateMainQuest mainQuestTemplate, GameObject prefabMainQuestController)
     {
         if (IsMainQuestActiveEmpty())
         {
             Debug.LogWarning($"Main Quest '{mainQuestTemplate.questName}' sudah aktif. Tidak bisa memulai .");
             return;
         }
-        if (mainQuestTemplate.questControllerPrefab == null)
+        if (prefabMainQuestController == null)
         {
             Debug.LogError($"Prefab controller untuk '{mainQuestTemplate.questName}' belum diatur!");
             return;
@@ -675,8 +698,8 @@ public class QuestManager : MonoBehaviour, ISaveable
 
         Debug.Log($"MEMULAI MAIN QUEST: {mainQuestTemplate.questName}");
 
-        // Instantiate controller prefab
-        GameObject controllerGO = Instantiate(mainQuestTemplate.questControllerPrefab, this.transform);
+        //Instantiate controller prefab
+       GameObject controllerGO = Instantiate(prefabMainQuestController, this.transform);
         activeMainQuestController = controllerGO.GetComponent<MainQuestController>();
 
 
