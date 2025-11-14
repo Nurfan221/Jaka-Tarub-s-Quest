@@ -47,7 +47,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
     private string objectiveInfoForUI;
     //public string lokasiYangDitunggu;
     public Transform lokasiYangDitunggu;
-    private string nameLokasiYangDitunggu;
+    public string nameLokasiYangDitunggu;
     private AnimalBehavior animalBehavior;
     private Vector2 positionNpc;
     private Dialogues questtDialogue;
@@ -108,164 +108,194 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             // Konversi string kembali ke enum
             if (System.Enum.TryParse(questData.CurrentStateName, out MainQuest1State loadedState))
             {
-                ChangeState(loadedState); // Set state berdasarkan data yang dimuat
+                MainQuest1State safeState = GetSafeCheckpointState(loadedState);
+                Debug.Log($"[LOAD] Sanitasi Data. Asli: {loadedState}, Dipaksa ke: {safeState}");
+                ChangeState(loadedState, true);
             }
             else
             {
-                Debug.LogWarning($"Gagal memuat state '{questData.CurrentStateName}'. Menggunakan state awal.");
-                ChangeState(MainQuest1State.AdeganMimpi); // Fallback ke state awal
+                ChangeState(MainQuest1State.AdeganMimpi, true);
             }
         }
         else
         {
-            ChangeState(MainQuest1State.AdeganMimpi); // Jika tidak ada state yang dimuat, mulai dari awal
+            ChangeState(MainQuest1State.AdeganMimpi, false); // Jika tidak ada state yang dimuat, mulai dari awal
         }
     }
 
-    private void ChangeState(MainQuest1State newState)
+    // Tambahkan parameter isRestoring (default false)
+    private void ChangeState(MainQuest1State newState, bool isRestoring = false)
     {
-        //QuestManager.Instance.SaveMainQuest();
-
-        if (isChangingState) return; // Jika sedang sibuk, jangan lakukan apa-apa
+        if (isChangingState) return;
 
         isChangingState = true;
+
+        // Update State di Memori Game
         currentState = newState;
+
+        // Update State di Save Data (Gunakan Checkpoint Aman!)
         if (questData != null)
         {
-            questData.CurrentStateName = newState.ToString();
-            Debug.Log($"Progres Main Quest Disimpan: {questData.CurrentStateName}");
+            // Kita simpan versi "Checkpoint"-nya, bukan state volatile
+            MainQuest1State safeState = GetSafeCheckpointState(newState);
+            questData.CurrentStateName = safeState.ToString();
+
+            Debug.Log($"[MainQuest1] ChangeState ke: {newState} (Restoring: {isRestoring}). Saved Checkpoint: {safeState}");
+        }else
+        {
+            Debug.LogWarning("[MainQuest1] questData adalah null! Tidak dapat menyimpan state.");
         }
 
-        QuestStateData data = stateDataList.FirstOrDefault(s => s.state == newState);
-        if (data == null) return;
+            // Ambil data untuk state ini
+            QuestStateData data = stateDataList.FirstOrDefault(s => s.state == newState);
 
-
-        
+        // Eksekusi Logika State
         switch (newState)
         {
             case MainQuest1State.AdeganMimpi:
-                HandleSpriteAndDialogue(MainQuest1State.AdeganMimpi);
                 Debug.Log("Memulai adegan mimpi...");
-                //QuestManager.Instance
-                //DialogueSystem.Instance.StartDialogue(dialogMimpi);
+                // Dialog mimpi harus muncul kecuali sedang load (meskipun mimpi biasanya start awal)
+                if (!isRestoring)
+                {
+                    HandleSpriteAndDialogue(MainQuest1State.AdeganMimpi);
+                }
                 break;
+
             case MainQuest1State.ApaArtiMimpiItu:
-
-
-                HandleSpriteAndDialogue(MainQuest1State.ApaArtiMimpiItu);
+                if (!isRestoring)
+                {
+                    HandleSpriteAndDialogue(MainQuest1State.ApaArtiMimpiItu);
+                }
                 break;
+
             case MainQuest1State.PerjodohanDenganLaraswati:
-
-
-                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PerjodohanDenganLaraswati)?.locationToEnterTrigger ?? "";
-                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PerjodohanDenganLaraswati)?.objectiveInfoForUI ?? "";
+                // State ini menunggu lokasi, jadi hanya setup UI
+                nameLokasiYangDitunggu = data?.locationToEnterTrigger ?? "";
+                objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
-
-
                 break;
 
             case MainQuest1State.PamitUntukBerburu:
-                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PamitUntukBerburu)?.objectiveInfoForUI ?? "";
-
-                positionNpc = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PamitUntukBerburu)?.npcPositionStartQuest ?? Vector2.zero;
-                questtDialogue = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PamitUntukBerburu)?.dialogueToPlay;
-
+                objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
+                positionNpc = data?.npcPositionStartQuest ?? Vector2.zero;
+                questtDialogue = data?.dialogueToPlay;
                 QuestManager.Instance.CreateTemplateQuest();
                 break;
 
             case MainQuest1State.PergiKeHutan:
-
-
-                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PergiKeHutan)?.objectiveInfoForUI ?? "";
-                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.PergiKeHutan)?.locationToEnterTrigger ?? "";
+                Debug.Log("Memulai adegan Pergi Ke Hutan...");
+                objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
+                nameLokasiYangDitunggu = data?.locationToEnterTrigger ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
-
-                // Logika untuk adegan pergi ke hutan
                 break;
+
             case MainQuest1State.CariRusa:
-
-
-                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.CariRusa)?.objectiveInfoForUI ?? "";
+                objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
+                nameLokasiYangDitunggu = data?.locationToEnterTrigger ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
-                HandleSpriteAndDialogue(MainQuest1State.CariRusa);
-                SpawnPrefabsForState(MainQuest1State.CariRusa);
 
-
+                if (!isRestoring)
+                {
+                    SpawnPrefabsForState(MainQuest1State.CariRusa);
+                    HandleSpriteAndDialogue(MainQuest1State.CariRusa);
+                }
                 break;
+
             case MainQuest1State.MunculkanHarimau:
-
-
-                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.MunculkanHarimau)?.objectiveInfoForUI ?? "";
+                objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
-                HandleSpriteAndDialogue(MainQuest1State.MunculkanHarimau);
-                SpawnPrefabsForState(MainQuest1State.MunculkanHarimau);
+
+                if (!isRestoring)
+                {
+                    HandleSpriteAndDialogue(MainQuest1State.MunculkanHarimau);
+                    SpawnPrefabsForState(MainQuest1State.MunculkanHarimau);
+                }
                 break;
+
             case MainQuest1State.BerikanHasilBuruan:
-
-
                 Debug.Log("Memulai adegan Berikan Hasil Buruan...");
-                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.BerikanHasilBuruan)?.objectiveInfoForUI ?? "";
+                objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
-                HandleSpriteAndDialogue(MainQuest1State.BerikanHasilBuruan);
+
+                if (!isRestoring)
+                {
+                    HandleSpriteAndDialogue(MainQuest1State.BerikanHasilBuruan);
+                }
+
+                // Logika game state (aman dijalankan ulang)
                 if (animalBehavior != null)
                 {
-                    Debug.Log("Mengubah tipe hewan menjadi isQuest untuk harimau.");
                     animalBehavior.ChangeAnimalType(AnimalType.isQuest);
                 }
                 break;
-             case MainQuest1State.NasibSial:
 
-
+            case MainQuest1State.NasibSial:
                 Debug.Log("Memulai adegan Cari Tempat Aman...");
-
-                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.NasibSial)?.objectiveInfoForUI ?? "";
-                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.NasibSial)?.locationToEnterTrigger ?? "";
+                objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
+                nameLokasiYangDitunggu = data?.locationToEnterTrigger ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
-                HandleSpriteAndDialogue(MainQuest1State.NasibSial);
 
-
+                if (!isRestoring)
+                {
+                    HandleSpriteAndDialogue(MainQuest1State.NasibSial);
+                }
                 break;
-             case MainQuest1State.KembaliBerburu:
 
-
+            case MainQuest1State.KembaliBerburu:
                 Debug.Log("Memulai adegan Apakah Ini Danau Itu...");
-                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.KembaliBerburu)?.objectiveInfoForUI ?? "";
-                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.KembaliBerburu)?.locationToEnterTrigger ?? "";
+                objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
+                nameLokasiYangDitunggu = data?.locationToEnterTrigger ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
-                HandleSpriteAndDialogue(MainQuest1State.KembaliBerburu);
+
+                if (!isRestoring)
+                {
+                    HandleSpriteAndDialogue(MainQuest1State.KembaliBerburu);
+                }
+
+                // Pembersihan spawn aman dilakukan kapan saja
                 HandleDestroySpawnedAnimals();
                 break;
+
             case MainQuest1State.NasibBuruk:
                 Debug.Log("Memulai adegan Pengingat Main Quest...");
-                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.NasibBuruk)?.objectiveInfoForUI ?? "";
-                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.NasibBuruk)?.locationToEnterTrigger ?? "";
-                HandleSpriteAndDialogue(MainQuest1State.NasibBuruk);
-
-                //UpdateQuest update quest UI 
+                objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
+                nameLokasiYangDitunggu = data?.locationToEnterTrigger ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
+
+                if (!isRestoring)
+                {
+                    HandleSpriteAndDialogue(MainQuest1State.NasibBuruk);
+                }
                 break;
+
             case MainQuest1State.KabarKesedihan:
-
-
                 Debug.Log("Memulai adegan Kabar Kesedihan...");
-                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.KabarKesedihan)?.objectiveInfoForUI ?? "";
-                nameLokasiYangDitunggu = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.KabarKesedihan)?.locationToEnterTrigger ?? "";
+                objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
+                nameLokasiYangDitunggu = data?.locationToEnterTrigger ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
-                HandleSpriteAndDialogue(MainQuest1State.KabarKesedihan);
+
+                if (!isRestoring)
+                {
+                    HandleSpriteAndDialogue(MainQuest1State.KabarKesedihan);
+                }
+
                 PlayerController.Instance.HandlePlayerIsGreaf();
                 break;
+
             case MainQuest1State.Selesai:
-                Debug.Log("Main Quest Selesai! Berikan hadiah dan bersihkan.");
-                objectiveInfoForUI = stateDataList.FirstOrDefault(s => s.state == MainQuest1State.Selesai)?.objectiveInfoForUI ?? "";
+                Debug.Log("Main Quest Selesai!");
+                objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
-                HandleSpriteAndDialogue(MainQuest1State.Selesai);
+
+                if (!isRestoring)
+                {
+                    HandleSpriteAndDialogue(MainQuest1State.Selesai);
+                }
+
                 isQuestComplete = true;
-                //questManager.CompleteCurrentMainQuest(); // Panggil metode di QuestManager untuk menyelesaikan quest
-                //HandleDestroySpawnedAnimals();
                 break;
-
-
         }
+
         StartCoroutine(FinishStateChange());
     }
 
@@ -590,5 +620,43 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
     {
         DialogueSystem.Instance.theDialogues = questNotComplate;
         DialogueSystem.Instance.StartDialogue();
+    }
+
+    // Fungsi untuk menentukan state mana yang AMAN untuk disimpan ke database
+    private MainQuest1State GetSafeCheckpointState(MainQuest1State current)
+    {
+        switch (current)
+        {
+            // KELOMPOK 1: Hutan & Rusa 
+            // Jika pemain keluar game saat "Cari Rusa" atau "Munculkan Harimau",
+            // kembalikan mereka ke "Pergi Ke Hutan".
+            // Agar saat load, mereka harus masuk trigger hutan lagi untuk memicu eventnya.
+            case MainQuest1State.CariRusa:
+            case MainQuest1State.MunculkanHarimau:
+                return MainQuest1State.PergiKeHutan;
+
+            // KELOMPOK 2: Nasib Sial 
+            // Jika pemain save saat dialog "Nasib Sial" atau "Kembali Berburu",
+            // kembalikan ke state sebelumnya agar trigger lokasi reset.
+            case MainQuest1State.NasibSial:
+            case MainQuest1State.KembaliBerburu:
+                // Asumsi: NasibSial dipicu setelah trigger tertentu, 
+                // kita kembalikan ke state pemicunya (misal: BerikanHasilBuruan atau trigger lokasi sebelumnya)
+                // Sesuaikan dengan alur cerita Anda mana state "Pintu Masuk"-nya
+                return MainQuest1State.BerikanHasilBuruan;
+
+            // KELOMPOK 3: State Stabil (Aman) 
+            // State ini tidak perlu diubah, simpan apa adanya.
+            case MainQuest1State.BelumMulai:
+            case MainQuest1State.AdeganMimpi: // Ini aman karena start di kamar tidur
+            case MainQuest1State.PergiKeHutan:
+            case MainQuest1State.BerikanHasilBuruan:
+            case MainQuest1State.Selesai:
+                return current;
+
+            // Default: Simpan state saat ini jika tidak ada aturan khusus
+            default:
+                return current;
+        }
     }
 }

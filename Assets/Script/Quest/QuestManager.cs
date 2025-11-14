@@ -699,7 +699,11 @@ public class QuestManager : MonoBehaviour, ISaveable
         Debug.Log($"MEMULAI MAIN QUEST: {mainQuestTemplate.questName}");
 
         //Instantiate controller prefab
-       GameObject controllerGO = Instantiate(prefabMainQuestController, this.transform);
+        foreach (Transform child in this.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        GameObject controllerGO = Instantiate(prefabMainQuestController, this.transform);
         activeMainQuestController = controllerGO.GetComponent<MainQuestController>();
 
 

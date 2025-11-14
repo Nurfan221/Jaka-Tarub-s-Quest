@@ -1,11 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 
-// Memberitahu Unity untuk menggunakan drawer ini setiap kali menemukan tipe QuestStateData di Inspector
 [CustomPropertyDrawer(typeof(QuestStateData))]
 public class QuestStateDataDrawer : PropertyDrawer
 {
-    // Override fungsi untuk menggambar properti di Inspector
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         EditorGUI.BeginProperty(position, label, property);
@@ -13,9 +11,28 @@ public class QuestStateDataDrawer : PropertyDrawer
         // Cari properti 'state' di dalam kelas QuestStateData
         SerializedProperty stateProperty = property.FindPropertyRelative("state");
 
-        // Ambil nama dari enum yang terpilih sebagai judul baru
-        // enumNames[property.enumValueIndex] akan mengambil nama string dari enum
-        label.text = stateProperty.enumNames[stateProperty.enumValueIndex];
+        if (stateProperty != null)
+        {
+            // Ambil index saat ini dan array nama-nama enum
+            int currentIndex = stateProperty.enumValueIndex;
+            string[] names = stateProperty.enumNames;
+
+            // Cek apakah index aman (tidak lebih besar dari jumlah item enum)
+            if (currentIndex >= 0 && currentIndex < names.Length)
+            {
+                // Jika aman, gunakan nama enum sebagai label
+                label.text = names[currentIndex];
+            }
+            else
+            {
+                // Jika error (index di luar batas), tampilkan pesan error di label
+                // Ini mencegah crash Unity Editor
+                label.text = $"Invalid State (Index: {currentIndex})";
+
+                // Reset ke 0 agar error hilang permanen
+                stateProperty.enumValueIndex = 0;
+            }
+        }
 
         // Gambar field properti dengan judul yang sudah diubah
         EditorGUI.PropertyField(position, property, label, true);
