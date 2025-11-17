@@ -152,7 +152,7 @@ public class TimeManager : MonoBehaviour, ISaveable
         currentDay = (Days)((totalHari % 7 == 0) ? 7 : totalHari % 7);
 
         HitungWaktu(totalHari);
-        if (totalHari % 29 == 0)
+        if (totalHari % 28 == 0)
         {
             UpdateSeason();
         }

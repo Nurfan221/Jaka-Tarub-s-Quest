@@ -163,7 +163,7 @@ public class MechanicController : MonoBehaviour
 
         // Buat slot baru di list tujuan jika masih ada sisa
         int remainingToAdd = amountToMove - amountSuccessfullyMoved;
-        int maxSlots = 24; // Anda perlu cara untuk mendapatkan maxSlots dari targetList
+        int maxSlots = PlayerController.Instance.playerData.maxItem; // Anda perlu cara untuk mendapatkan maxSlots dari targetList
 
         while (remainingToAdd > 0 && targetList.Count < maxSlots)
         {

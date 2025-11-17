@@ -201,59 +201,114 @@ public class ItemPool : MonoBehaviour
             }
         }
     }
-
-    public void AddItem(ItemData itemDataToAdd)
+    public bool IsInventoryFull()
     {
-        //Validasi awal
-        if (itemDataToAdd == null || itemDataToAdd.count <= 0) return;
+        return PlayerController.Instance.inventory.Count >= PlayerController.Instance.playerData.maxItem;
+    }
 
-        //Dapatkan "Katalog Produk" (ItemSO) dari database menggunakan nama dari paket data
+    public bool AddItem(ItemData itemDataToAdd)
+    {
+        // Validasi Awal: Cek apakah data item valid
+        if (itemDataToAdd == null || itemDataToAdd.count <= 0)
+        {
+            return false;
+        }
+
+        // Validasi Database: Pastikan item terdaftar di database (ItemSO)
         Item itemTemplate = GetItemWithQuality(itemDataToAdd.itemName, itemDataToAdd.quality);
         if (itemTemplate == null)
         {
-            Debug.LogError($"Tidak ada item dengan nama '{itemDataToAdd.itemName}' di ItemDatabase!");
-            return;
+            Debug.LogError($"Gagal AddItem: '{itemDataToAdd.itemName}' tidak ditemukan di Database!");
+            return false;
         }
 
-        int amountToAdd = itemDataToAdd.count;
+        int initialAmount = itemDataToAdd.count; // Jumlah awal yang ingin dimasukkan
+        int amountLeft = initialAmount;          // Sisa yang belum masuk (akan kita kurangi)
 
-        //FASE MENUMPUK (STACKING)
+        // Cek slot yang sudah ada DULUAN. Ini memungkinkan item masuk walau slot tas penuh.
         if (itemTemplate.isStackable)
         {
-            // Cari slot di inventaris yang itemnya sama, kualitasnya sama, dan belum penuh
             foreach (ItemData slot in PlayerController.Instance.inventory)
             {
-                if (slot.itemName == itemDataToAdd.itemName && slot.quality == itemDataToAdd.quality && slot.count < itemTemplate.maxStackCount)
+                // Cek apakah: Nama sama, Kualitas sama, dan Slot belum full stack
+                if (slot.itemName == itemDataToAdd.itemName &&
+                    slot.quality == itemDataToAdd.quality &&
+                    slot.count < itemTemplate.maxStackCount)
                 {
+                    // Hitung berapa ruang kosong di slot ini
                     int availableSpace = itemTemplate.maxStackCount - slot.count;
-                    int amountToStack = Mathf.Min(availableSpace, amountToAdd);
 
+                    // Ambil jumlah yang bisa masuk (min antara sisa item vs ruang kosong)
+                    int amountToStack = Mathf.Min(availableSpace, amountLeft);
+
+                    // Masukkan ke slot
                     slot.count += amountToStack;
-                    amountToAdd -= amountToStack;
 
-                    if (amountToAdd <= 0) break;
+                    // Kurangi sisa item yang perlu dimasukkan
+                    amountLeft -= amountToStack;
+
+                    // Jika sudah habis, berhenti mencari
+                    if (amountLeft <= 0) break;
                 }
             }
         }
 
-        // FASE MEMBUAT SLOT BARU
-        while (amountToAdd > 0 && PlayerController.Instance.inventory.Count < PlayerController.Instance.playerData.maxItem)
+        // Hanya dijalankan jika masih ada sisa item (amountLeft > 0)
+        while (amountLeft > 0)
         {
-            int amountForNewSlot = Mathf.Min(amountToAdd, itemTemplate.maxStackCount);
+            // PENTING: Cek apakah tas penuh SEBELUM membuat slot baru
+            if (IsInventoryFull())
+            {
+                Debug.Log("Inventaris Penuh! Tidak bisa membuat slot baru.");
+                break; // Berhenti paksa, sisa item tidak bisa masuk
+            }
 
-            // Buat "Catatan Stok" (ItemData) baru dari data yang diterima
-            ItemData newSlot = new ItemData(itemDataToAdd.itemName, amountForNewSlot, itemDataToAdd.quality, itemDataToAdd.itemHealth);
+            // Tentukan isi slot baru (maksimal 1 stack penuh)
+            int amountForNewSlot = Mathf.Min(amountLeft, itemTemplate.maxStackCount);
+
+            // Buat data baru
+            ItemData newSlot = new ItemData(
+                itemDataToAdd.itemName,
+                amountForNewSlot,
+                itemDataToAdd.quality,
+                itemDataToAdd.itemHealth
+            );
+
+            // Masukkan ke list inventory
             PlayerController.Instance.inventory.Add(newSlot);
 
-            amountToAdd -= amountForNewSlot;
+            // Kurangi sisa
+            amountLeft -= amountForNewSlot;
         }
 
-        // ... (peringatan jika inventory penuh) ...
 
-        //// Siarkan berita bahwa inventory telah berubah!
-        //OnInventoryUpdated?.Invoke();
-        ItemGetPanelManager.Instance.ShowItems(itemDataToAdd);
-        MechanicController.Instance.HandleUpdateInventory();
+        // Hitung total yang BENAR-BENAR masuk
+        int totalAdded = initialAmount - amountLeft;
+
+        if (totalAdded > 0)
+        {
+            // Update sistem mekanik (misal UI slot inventory utama)
+            MechanicController.Instance.HandleUpdateInventory();
+
+            // Tampilkan Popup "Mendapatkan Item"
+            // Kita buat dummy data agar UI menampilkan angka yang jujur (totalAdded), bukan angka awal
+            ItemData dataForUI = new ItemData(itemDataToAdd.itemName, totalAdded, itemDataToAdd.quality, itemDataToAdd.itemHealth);
+            ItemGetPanelManager.Instance.ShowItems(dataForUI);
+
+            // Debug info
+            if (amountLeft > 0)
+            {
+                Debug.LogWarning($"Inventaris penuh sebagian! Masuk: {totalAdded}, Terbuang: {amountLeft}");
+            }
+
+            return true; // BERHASIL (Setidaknya sebagian masuk)
+        }
+        else
+        {
+            // Tidak ada satupun yang masuk (Tas Penuh Total dan tidak bisa ditumpuk)
+            Debug.Log("Gagal menambahkan item: Inventaris Penuh.");
+            return false; // GAGAL
+        }
     }
 
     public void RemoveItemsFromInventory(ItemData itemDataToRemove)

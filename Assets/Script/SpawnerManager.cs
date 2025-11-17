@@ -7,9 +7,11 @@ public class SpawnerManager : MonoBehaviour
 {
 
     public List<Enemy_Spawner> enemySpawnerList = new List<Enemy_Spawner>();
+    public List<AnimalSpawner> animalSpawnersList = new List<AnimalSpawner>();
     public List<Item> itemStorageEnemy = new List<Item>();
     public int minItemStorage = 4;
     public int maxItemStorage =  6;
+    public bool isMainQuest1Active = false;
 
     private void Awake()
     {
@@ -37,6 +39,15 @@ public class SpawnerManager : MonoBehaviour
     {
         float luck = TimeManager.Instance.GetDayLuck();
         ActivateSpawnersBasedOnLuck(luck);
+        if (isMainQuest1Active)
+        {
+            ActivateSingleRandomAnimalSpawner();
+
+        }else
+        {
+            ActivateAnimalSpawnersBasedOnLuck(luck);
+
+        }
     }
 
     public void AddSpawnerToList()
@@ -47,10 +58,15 @@ public class SpawnerManager : MonoBehaviour
         foreach (Transform childTransform in transform)
         {
             Enemy_Spawner spawner = childTransform.GetComponent<Enemy_Spawner>();
+            AnimalSpawner animalSpawner = childTransform.GetComponent<AnimalSpawner>();
 
             if (spawner != null)
             {
                 enemySpawnerList.Add(spawner);
+            }
+            else if (animalSpawner != null)
+            {
+                animalSpawnersList.Add(animalSpawner);
             }
         }
     }
@@ -129,6 +145,94 @@ public class SpawnerManager : MonoBehaviour
                 }
                 Debug.Log($"[SpawnerManager] Spawner {enemySpawnerList[indexToActivate].name} diaktifkan.");
             }
+        }
+    }
+
+    public void ActivateAnimalSpawnersBasedOnLuck(float luckValue)
+    {
+
+        int activeSpawnerCount = 0;
+        if (luckValue <= 1f)
+            activeSpawnerCount = 3;
+        else if (luckValue <= 2f)
+            activeSpawnerCount = 5;
+        else
+            activeSpawnerCount = 6;
+
+        foreach (AnimalSpawner spawner in animalSpawnersList)
+        {
+            if (spawner != null)
+            {
+                spawner.gameObject.SetActive(false);
+            }
+        }
+
+        List<int> indexes = new List<int>();
+        for (int i = 0; i < animalSpawnersList.Count; i++)
+        {
+            indexes.Add(i);
+        }
+
+        for (int i = 0; i < indexes.Count; i++)
+        {
+            int randomIndex = Random.Range(i, indexes.Count);
+            int temp = indexes[i];
+            indexes[i] = indexes[randomIndex];
+            indexes[randomIndex] = temp;
+        }
+
+        // Tidak boleh melebihi jumlah total spawner yang tersedia di list
+        int countToActivate = Mathf.Min(activeSpawnerCount, animalSpawnersList.Count);
+
+        Debug.Log($"[SpawnerManager - Animal] Berdasarkan Luck {luckValue}, akan mengaktifkan {countToActivate} spawner hewan.");
+
+        // Aktifkan spawner terpilih
+        for (int i = 0; i < countToActivate; i++)
+        {
+            int indexToActivate = indexes[i];
+            AnimalSpawner spawner = animalSpawnersList[indexToActivate];
+
+            if (spawner != null)
+            {
+                // Aktifkan GameObject
+                spawner.gameObject.SetActive(true);
+
+                Debug.Log($"[SpawnerManager - Animal] Spawner Hewan '{spawner.name}' diaktifkan.");
+            }
+        }
+    }
+
+    public void ActivateSingleRandomAnimalSpawner()
+    {
+        List<AnimalSpawner> validCandidates = new List<AnimalSpawner>();
+
+        foreach (AnimalSpawner spawner in animalSpawnersList)
+        {
+            if (spawner != null)
+            {
+
+                spawner.gameObject.SetActive(false);
+
+                // Masukkan ke daftar kandidat yang boleh dipilih
+                validCandidates.Add(spawner);
+            }
+        }
+
+        // Cek apakah ada kandidat yang tersedia
+        if (validCandidates.Count > 0)
+        {
+            //  Pilih satu indeks acak
+            int randomIndex = Random.Range(0, validCandidates.Count);
+            AnimalSpawner selectedSpawner = validCandidates[randomIndex];
+
+            //  Aktifkan spawner yang terpilih
+            selectedSpawner.gameObject.SetActive(true);
+
+            Debug.Log($"[SpawnerManager] Random Single Spawn: Mengaktifkan '{selectedSpawner.name}'.");
+        }
+        else
+        {
+            Debug.LogWarning("[SpawnerManager] Tidak ada AnimalSpawner yang valid untuk diaktifkan.");
         }
     }
 

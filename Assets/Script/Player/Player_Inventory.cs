@@ -100,9 +100,21 @@ public class Player_Inventory : MonoBehaviour
                 ItemDropInteractable itemDropInteractable = other.GetComponent<ItemDropInteractable>();
                 ItemData itemData = itemDropInteractable.itemdata;
 
-                ItemPool.Instance.AddItem(itemData);
-                MechanicController.Instance.HandleUpdateInventory();
-                Destroy(other.gameObject);
+                // Di dalam CookUI / Result Button Listener
+                bool isSuccess = ItemPool.Instance.AddItem(itemData);
+
+                if (isSuccess)
+                {
+                    // Hapus item dari tungku
+                    MechanicController.Instance.HandleUpdateInventory();
+                    Destroy(other.gameObject);
+                }
+                else
+                {
+                    // Jangan hapus, biarkan di tungku
+                    Debug.Log("Tas penuh, item tetap di tungku.");
+                }
+              
             }
             else
             {
@@ -169,10 +181,23 @@ public class Player_Inventory : MonoBehaviour
             {
                 //Debug.Log($"Memasang gagal Quick slots penuh. Mengganti item di slot 0 dengan '{itemToEquip.itemName}'.");
                 // Kembalikan item lama di slot 0 ke inventaris
-                ItemPool.Instance.AddItem(quickSlotList[0]);
+                // Di dalam CookUI / Result Button Listener
+                bool isSuccess = ItemPool.Instance.AddItem(quickSlotList[0]);
                 // Pasang item baru di slot 0
-                quickSlotList[0] = itemToEquip;
-                stats.inventory.Remove(itemToEquip);
+
+                if (isSuccess)
+                {
+                    // Hapus item dari tungku
+                    quickSlotList[0] = itemToEquip;
+                    stats.inventory.Remove(itemToEquip);
+                }
+                else
+                {
+                    // Jangan hapus, biarkan di tungku
+                    Debug.Log("Tas penuh, item tetap di tungku.");
+                    // Opsional: Munculkan teks "Tas Penuh!"
+                }
+               
             }
         }
 
@@ -196,11 +221,21 @@ public class Player_Inventory : MonoBehaviour
             }
             else
             {
-                // Kembalikan item lama di slot 0 ke inventaris
-                ItemPool.Instance.AddItem(equipmentList[0]);
-                // Pasang item baru di slot 0
-                equipmentList[0] = itemToEquip;
-                stats.inventory.Remove(itemToEquip);
+                // Di dalam CookUI / Result Button Listener
+                bool isSuccess = ItemPool.Instance.AddItem(equipmentList[0]);
+
+                if (isSuccess)
+                {
+                    // Pasang item baru di slot 0
+                    equipmentList[0] = itemToEquip;
+                    stats.inventory.Remove(itemToEquip);
+                }
+                else
+                {
+                    // Jangan hapus, biarkan di tungku
+                    Debug.Log("Tas penuh, item tetap di tungku.");
+                }
+               
             }
         }
         else

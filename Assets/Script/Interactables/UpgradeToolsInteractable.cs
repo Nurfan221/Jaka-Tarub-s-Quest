@@ -81,15 +81,27 @@ public class UpgradeToolsInteractable : Interactable, ISaveable
           Debug.Log("Upgrade sedang berlangsung, tunggu hingga selesai!");
             if (finishUpgrade)
             {
-                DialogueSystem.Instance.HandlePlayDialogue(finishUpgradeDialogue);
-                ItemPool.Instance.AddItem(resultItemUpgrade);
-                upgradeToolsDatabase = null;
-                itemToUpgrade = null;
-                itemRequired = null;
-                resultItemUpgrade = null;
-                finishUpgrade = false;
-                startedUpgrade = false;
-                UpdateSpriteHasil();
+                // Di dalam CookUI / Result Button Listener
+                bool isSuccess = ItemPool.Instance.AddItem(resultItemUpgrade);
+
+                if (isSuccess)
+                {
+                    // Hapus item dari tungku
+                    DialogueSystem.Instance.HandlePlayDialogue(finishUpgradeDialogue);
+                    upgradeToolsDatabase = null;
+                    itemToUpgrade = null;
+                    itemRequired = null;
+                    resultItemUpgrade = null;
+                    finishUpgrade = false;
+                    startedUpgrade = false;
+                    UpdateSpriteHasil();
+                }
+                else
+                {
+                    // Jangan hapus, biarkan di tungku
+                    Debug.Log("Tas penuh, item tetap di tungku.");
+                }
+               
             }
             else
             {

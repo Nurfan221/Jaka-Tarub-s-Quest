@@ -46,7 +46,7 @@ public class LoadingScreenUI : MonoBehaviour
 
 
     }
-    public void ShowLoading(bool achievement)
+    public void ShowLoading(bool achievement,string textLoading)
     {
         // Hentikan coroutine lama jika ada sebelum memulai yang baru
         if (animationCoroutine != null)
@@ -61,14 +61,15 @@ public class LoadingScreenUI : MonoBehaviour
 
         // Mulai coroutine yang baru
 
-        animationCoroutine = StartCoroutine(PlayLoadingAnimation(achievement));
+        animationCoroutine = StartCoroutine(PlayLoadingAnimation(achievement, textLoading));
 
     }
 
     public IEnumerator SetLoadingandTimer(bool achievement)
     {
         isAnimating = true;
-        ShowLoading(achievement);
+        string textLoading = "Chapter-1, Selesai";
+        ShowLoading(achievement, textLoading);
         yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
         LoadingScreenUI.Instance.HideLoading();
     }
@@ -142,11 +143,11 @@ public class LoadingScreenUI : MonoBehaviour
     //    Debug.Log("DONE");
     //}
 
-    private IEnumerator PlayLoadingAnimation(bool achievement)
+    private IEnumerator PlayLoadingAnimation(bool achievement, string textLoading)
     {
         if (achievement)
         {
-            StartAnimation();
+            StartAnimation(textLoading);
         }
 
         while (true) // Loop tanpa batas (animasi berulang)
@@ -164,10 +165,11 @@ public class LoadingScreenUI : MonoBehaviour
 
 
 
-    public void StartAnimation() // Ubah nama fungsi ini agar tidak bentrok dengan Start()
+    public void StartAnimation(string textLoading) // Ubah nama fungsi ini agar tidak bentrok dengan Start()
     {
         // Hentikan coroutine lama jika ada
         //StopAllCoroutines();
+        TMP_Text loadingText = bgTransform.GetComponent<TMP_Text>();
 
         // Atur posisi awal
         if (bgTransform != null)

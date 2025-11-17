@@ -106,7 +106,7 @@ public class AnimalBehavior : MonoBehaviour
             {
                 currentState = "Idle"; // Jika tidak ada player, kembali idle
                 animalAnimator.Play("Idle");
-                StartCoroutine(PlayRandomAnimationPeriodically()); // Mungkin perlu perilaku acak jika tak ada player
+                //StartCoroutine(PlayRandomAnimationPeriodically()); // Mungkin perlu perilaku acak jika tak ada player
             }
         }
     }

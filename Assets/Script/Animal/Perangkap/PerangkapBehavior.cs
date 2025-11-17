@@ -185,12 +185,23 @@ public class PerangkapBehavior : UniqueIdentifiableObject
                 count = 1,
                 quality = ItemQuality.Normal,
                 itemHealth = perangkapHealth
-            };
+            }; 
+            bool isSuccess = ItemPool.Instance.AddItem(itemData);
 
-            ItemPool.Instance.AddItem(itemData);
+            if (isSuccess)
+            {
+                // Hapus item dari perangkap
+                IfDestroy(force: true);
 
-            // Update data manager dan hapus perangkap secara paksa
-            IfDestroy(force: true);
+            }
+            else
+            {
+                // Jangan hapus, biarkan di perangkap
+                Debug.Log("Tas penuh, item tetap di tungku.");
+                // Opsional: Munculkan teks "Tas Penuh!"
+            }
+
+
         }
         else
         {
@@ -214,12 +225,26 @@ public class PerangkapBehavior : UniqueIdentifiableObject
                 itemHealth = itemTertangkap.health
             };
 
-            ItemPool.Instance.AddItem(itemData);
-            HandlePerangkapFull(IsFull);
-            perangkapHealth -= 1;
-            itemTertangkap = null;
-            UpdatePerangkapInListManager();
-            IfDestroy();
+            // Update data manager dan hapus perangkap secara paksa
+            bool isSuccess = ItemPool.Instance.AddItem(itemData);
+
+            if (isSuccess)
+            {
+                // Hapus item dari perangkap
+                HandlePerangkapFull(IsFull);
+                perangkapHealth -= 1;
+                itemTertangkap = null;
+                UpdatePerangkapInListManager();
+                IfDestroy();
+            }
+            else
+            {
+                // Jangan hapus, biarkan di perangkap
+                Debug.Log("Tas penuh, item tetap di tungku.");
+                // Opsional: Munculkan teks "Tas Penuh!"
+            }
+            //ItemPool.Instance.AddItem(itemData);
+          
 
         }
         else

@@ -102,35 +102,43 @@ public class CookUI : MonoBehaviour
                 if (interactableInstance.itemResult != null && interactableInstance.itemResult.count > 0)
                 {
                     // Player mengambil hasil masak
-                    ItemPool.Instance.AddItem(interactableInstance.itemResult);
-
-                    // cek apakah tungku masih aktif memasak
-                    if (interactableInstance.isCooking)
+                    bool isSuccess = ItemPool.Instance.AddItem(interactableInstance.itemResult);
+                    if (isSuccess)
                     {
-                        // Kalau masih masak, jangan hilangkan item — set count ke 0 agar sprite tetap tampil
-                        interactableInstance.itemResult.count = 0;
-                        Debug.Log("Player mengambil hasil, tapi tungku masih memasak. ItemResult diset count=0.");
+                        if (interactableInstance.isCooking)
+                        {
+                            // Kalau masih masak, jangan hilangkan item — set count ke 0 agar sprite tetap tampil
+                            interactableInstance.itemResult.count = 0;
+                            Debug.Log("Player mengambil hasil, tapi tungku masih memasak. ItemResult diset count=0.");
+                        }
+                        else
+                        {
+                            // Kalau sudah tidak masak, hapus item
+                            interactableInstance.itemResult = null;
+                            Debug.Log("Player mengambil hasil dan tungku sudah berhenti. ItemResult dihapus.");
+                        }
+
+                        // Hentikan api hanya jika benar-benar tidak masak
+                        if (!interactableInstance.isCooking && isFireActive)
+                        {
+                            isFireActive = false;
+                            Debug.Log("Menghentikan animasi api karena memasak selesai.");
+
+                            if (fireAnimationCoroutine != null)
+                            {
+                                StopCoroutine(fireAnimationCoroutine);
+                                fireAnimationCoroutine = null;
+                                fireCookImage.sprite = fireNotActive;
+                            }
+                        }
                     }
                     else
                     {
-                        // Kalau sudah tidak masak, hapus item
-                        interactableInstance.itemResult = null;
-                        Debug.Log("Player mengambil hasil dan tungku sudah berhenti. ItemResult dihapus.");
+                        // Jangan hapus, biarkan di tungku
+                        Debug.Log("Tas penuh, item tetap di tungku.");
                     }
-
-                    // Hentikan api hanya jika benar-benar tidak masak
-                    if (!interactableInstance.isCooking && isFireActive)
-                    {
-                        isFireActive = false;
-                        Debug.Log("Menghentikan animasi api karena memasak selesai.");
-
-                        if (fireAnimationCoroutine != null)
-                        {
-                            StopCoroutine(fireAnimationCoroutine);
-                            fireAnimationCoroutine = null;
-                            fireCookImage.sprite = fireNotActive;
-                        }
-                    }
+                    // cek apakah tungku masih aktif memasak
+                   
 
                     RefreshSlots();
                     interactableInstance.UpdateSpriteHasil();
@@ -396,14 +404,36 @@ public class CookUI : MonoBehaviour
                     interactableInstance.itemCook.quality,
                     interactableInstance.itemCook.itemHealth
                 );
-                ItemPool.Instance.AddItem(newItemData);
-                interactableInstance.itemCook.count -= 1;
+                bool isSuccess = ItemPool.Instance.AddItem(newItemData);
+
+                if (isSuccess)
+                {
+                    // Hapus item dari tungku
+                    interactableInstance.itemCook.count -= 1;
+                }
+                else
+                {
+                    // Jangan hapus, biarkan di tungku
+                    Debug.Log("Tas penuh, item tetap di tungku.");
+                }
+               
             }
             // Jika hanya 1 item, kembalikan semuanya
             else if (interactableInstance.itemCook.count == 1)
             {
-                ItemPool.Instance.AddItem(interactableInstance.itemCook);
-                interactableInstance.itemCook = null; // Kosongkan slot masak
+                bool isSuccess = ItemPool.Instance.AddItem(interactableInstance.itemCook);
+
+                if (isSuccess)
+                {
+                    // Hapus item dari tungku
+                    interactableInstance.itemCook = null; // Kosongkan slot masak
+                }
+                else
+                {
+                    // Jangan hapus, biarkan di tungku
+                    Debug.Log("Tas penuh, item tetap di tungku.");
+                }
+               
             }
 
             isCookReady = false;

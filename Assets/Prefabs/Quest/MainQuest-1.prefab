@@ -52,6 +52,7 @@ MonoBehaviour:
   questDescription: Deskripsi singkat quest.
   currentState: 0
   lokasiYangDitunggu: {fileID: 0}
+  nameLokasiYangDitunggu: 
   stateDataList:
   - state: 1
     nameState: 
@@ -182,19 +183,9 @@ MonoBehaviour:
     nameState: 
     dialogueToPlay: {fileID: 11400000, guid: 921abc64003b7db41936e56d8baef031, type: 2}
     spriteToShow: {fileID: -4961541960237517390, guid: 5ddb9a1e0eb4b324eac6157b0ef27588, type: 3}
-    objectiveInfoForUI: Mas Jhorgeo minta apa yaa ?
+    objectiveInfoForUI: Ah apa yang harus kulakukan . . .
     npcPositionStartQuest: {x: 0, y: 0}
     locationToEnterTrigger: 
-    isLocationTrigger: 0
-    prefabsToSpawn: []
-    animalToDefeatTrigger: 
-  - state: 14
-    nameState: 
-    dialogueToPlay: {fileID: 11400000, guid: ceff8b4d3c28bd44eb14c3138fa0e938, type: 2}
-    spriteToShow: {fileID: -8393480617640707146, guid: a2ca9386a602436479338e10cd6ed72b, type: 3}
-    objectiveInfoForUI: Makan Malam Sederhana
-    npcPositionStartQuest: {x: 0, y: 0}
-    locationToEnterTrigger: RumahJhorgeo
     isLocationTrigger: 0
     prefabsToSpawn: []
     animalToDefeatTrigger: 

@@ -256,7 +256,6 @@ public class CraftInventoryUI : MonoBehaviour
         // Kurangi bahan dari inventory
         foreach (var ingredient in selectedRecipe.ingredients)
         {
-            // --- PERBAIKAN --- Menggunakan selectedCraftAmount
             int countToRemove = ingredient.count * selectedCraftAmount;
             ItemData itemToRemove = new ItemData(ingredient.itemName, countToRemove, ingredient.quality, ingredient.itemHealth);
             ItemPool.Instance.RemoveItemsFromInventory(itemToRemove);
@@ -269,7 +268,23 @@ public class CraftInventoryUI : MonoBehaviour
             selectedResultItem.quality,
             selectedResultItem.health
         );
-        ItemPool.Instance.AddItem(resultData);
+
+        bool isSuccess = ItemPool.Instance.AddItem(resultData);
+
+        if (isSuccess)
+        {
+            // Hapus item dari Craft
+            Debug.Log($"Berhasil crafting {resultData.itemName} x{resultData.count}");
+            MechanicController.Instance.HandleUpdateInventory();
+
+            MechanicController.Instance.HandleUpdateMenuInventory(0);
+        }
+        else
+        {
+            // Jangan hapus, biarkan di tungku
+            Debug.Log("Tas penuh, item tetap di tungku.");
+            // Opsional: Munculkan teks "Tas Penuh!"
+        }
 
         Debug.Log($"Berhasil crafting {resultData.itemName} x{resultData.count}");
         MechanicController.Instance.HandleUpdateInventory();
@@ -283,7 +298,7 @@ public class CraftInventoryUI : MonoBehaviour
     {
         if (item == null || slot == null) return;
 
-        // --- Menampilkan Gambar Item ---
+        //  Menampilkan Gambar Item 
         Transform imageTransform = slot.transform.Find("ItemImage"); // Asumsi nama child tetap "ItemImage"
         imageTransform.gameObject.SetActive(true);
         imageTransform.GetComponent<Image>().sprite = item.sprite;

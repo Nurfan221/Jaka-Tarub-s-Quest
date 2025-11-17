@@ -649,8 +649,21 @@ public class InventoryUI : MonoBehaviour
         Debug.Log("Equipped item di-reset: " + index);
         if (stats.equippedItemData[index].itemName != playerData.emptyItemTemplate.itemName)
         {
-            ItemPool.Instance.AddItem(stats.equippedItemData[index]);
-            stats.equippedItemData[index] = playerData.emptyItemTemplate;
+            // Di dalam CookUI / Result Button Listener
+            bool isSuccess = ItemPool.Instance.AddItem(stats.equippedItemData[index]);
+
+            if (isSuccess)
+            {
+                // Hapus item dari tungku
+                stats.equippedItemData[index] = playerData.emptyItemTemplate;
+
+            }
+            else
+            {
+                // Jangan hapus, biarkan di tungku
+                Debug.Log("Tas penuh, item tetap di tungku.");
+                // Opsional: Munculkan teks "Tas Penuh!"
+            }
         }
         //player_Inventory.equippedCombat[index] = stats.emptyItem;
 
@@ -670,23 +683,37 @@ public class InventoryUI : MonoBehaviour
     {
         Debug.Log("Quick Slot di-reset: " + index);
         ItemPool.Instance.AddItem(stats.itemUseData[index]);
-        stats.itemUseData[index] = playerData.emptyItemTemplate;
-        //stats.equippedItemData[index].count = 0;
+        // Di dalam CookUI / Result Button Listener
+        bool isSuccess = ItemPool.Instance.AddItem(stats.itemUseData[index]);
 
-        Image itemImage = (index == 0) ?
-            quickSlot1.GetComponentInChildren<Image>() :
-            quickSlot2.GetComponentInChildren<Image>();
-
-        itemImage.sprite = null; // Hapus sprite
-        itemImage.gameObject.SetActive(false);
-        if (index == 0)
+        if (isSuccess)
         {
-            jumlahQuickItem1.gameObject.SetActive(false);
+            // Hapus item dari tungku
+            stats.itemUseData[index] = playerData.emptyItemTemplate;
+            //stats.equippedItemData[index].count = 0;
+
+            Image itemImage = (index == 0) ?
+                quickSlot1.GetComponentInChildren<Image>() :
+                quickSlot2.GetComponentInChildren<Image>();
+
+            itemImage.sprite = null; // Hapus sprite
+            itemImage.gameObject.SetActive(false);
+            if (index == 0)
+            {
+                jumlahQuickItem1.gameObject.SetActive(false);
+            }
+            else
+            {
+                jumlahQuickItem2.gameObject.SetActive(false);
+            }
         }
         else
         {
-            jumlahQuickItem2.gameObject.SetActive(false);
+            // Jangan hapus, biarkan di tungku
+            Debug.Log("Tas penuh, item tetap di tungku.");
+            // Opsional: Munculkan teks "Tas Penuh!"
         }
+       
         //itemImage.gameObject.SetActive(false);
         RefreshInventoryItems();
         UpdateSixItemDisplay();

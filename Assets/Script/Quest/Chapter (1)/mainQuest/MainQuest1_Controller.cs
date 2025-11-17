@@ -100,6 +100,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
         // Sekarang Anda bisa mengakses nama NPC dari naskah
         this.targetNpcName = questData.namaNpcQuest;
+        MainEnvironmentManager.Instance.spawnerManager.isMainQuest1Active = true;
         Debug.Log($"NPC target untuk quest ini adalah: {this.targetNpcName}");
 
         // Cek apakah 'questData' punya state yang sudah disimpan
@@ -279,7 +280,6 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                     HandleSpriteAndDialogue(MainQuest1State.KabarKesedihan);
                 }
 
-                PlayerController.Instance.HandlePlayerIsGreaf();
                 break;
 
             case MainQuest1State.Selesai:
@@ -289,6 +289,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
                 if (!isRestoring)
                 {
+                    PlayerController.Instance.HandlePlayerIsGreaf();
                     HandleSpriteAndDialogue(MainQuest1State.Selesai);
                 }
 
@@ -301,7 +302,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
     public IEnumerator UseLoadingScreenUI(bool achievement)
     {
-        StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+        StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(true));
         // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik
         yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
         LoadingScreenUI.Instance.HideLoading();
@@ -350,6 +351,9 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 break;
             case MainQuest1State.Selesai:
                 StartCoroutine(UseLoadingScreenUI(true));
+                break;
+            default:
+                                Debug.Log("Tidak ada aksi khusus setelah dialog untuk adegan ini.");
                 break;
 
                 //case MainQuest1State.CariRusa:
@@ -587,6 +591,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             if (behavior.namaHewan == "Harimau")
             {
                 this.animalBehavior = behavior; // Simpan referensi ke hewan harimau
+                behavior.itemTriggerName = "DagingRusaSpesial"; // Set item trigger untuk harimau
             }
 
             Debug.Log($"Spawned prefab {prefab.name} for state {state} at location {lokasiYangDitunggu.name}");
@@ -627,7 +632,6 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
     {
         switch (current)
         {
-            // KELOMPOK 1: Hutan & Rusa 
             // Jika pemain keluar game saat "Cari Rusa" atau "Munculkan Harimau",
             // kembalikan mereka ke "Pergi Ke Hutan".
             // Agar saat load, mereka harus masuk trigger hutan lagi untuk memicu eventnya.
@@ -635,12 +639,10 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             case MainQuest1State.MunculkanHarimau:
                 return MainQuest1State.PergiKeHutan;
 
-            // KELOMPOK 2: Nasib Sial 
             // Jika pemain save saat dialog "Nasib Sial" atau "Kembali Berburu",
             // kembalikan ke state sebelumnya agar trigger lokasi reset.
             case MainQuest1State.NasibSial:
             case MainQuest1State.KembaliBerburu:
-                // Asumsi: NasibSial dipicu setelah trigger tertentu, 
                 // kita kembalikan ke state pemicunya (misal: BerikanHasilBuruan atau trigger lokasi sebelumnya)
                 // Sesuaikan dengan alur cerita Anda mana state "Pintu Masuk"-nya
                 return MainQuest1State.BerikanHasilBuruan;
@@ -651,8 +653,10 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             case MainQuest1State.AdeganMimpi: // Ini aman karena start di kamar tidur
             case MainQuest1State.PergiKeHutan:
             case MainQuest1State.BerikanHasilBuruan:
-            case MainQuest1State.Selesai:
                 return current;
+
+            case MainQuest1State.Selesai:
+                return MainQuest1State.KabarKesedihan;
 
             // Default: Simpan state saat ini jika tidak ada aturan khusus
             default:

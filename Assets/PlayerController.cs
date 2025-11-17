@@ -361,9 +361,10 @@ public class PlayerController : MonoBehaviour, ISaveable
 
     public void HandlePlayerIsGreaf()
     {
+        
         if (ActivePlayer.Health != null)
         {
-          ActivePlayer.Health.StartGrief();
+            ActivePlayer.Health.StartGrief();
             Debug.Log("Status grief telah diatur ke true untuk player aktif.");
         }
         else

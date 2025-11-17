@@ -531,10 +531,32 @@ public class QuestManager : MonoBehaviour, ISaveable
 
         // (Tambahkan logika untuk memberi item reward di sini jika ada)
         GameEconomy.Instance.GainMoney(questStatus.goldReward);
-        foreach (var item in questStatus.itemRewards)
+        foreach (var itemReward in questStatus.itemRewards)
         {
-            ItemPool.Instance.AddItem(item);
+            //  Coba masukkan ke tas
+            bool isSuccess = ItemPool.Instance.AddItem(itemReward);
+
+            if (isSuccess)
+            {
+                Debug.Log($"Menerima reward masuk tas: {itemReward.itemName} x{itemReward.count}");
+            }
+            else
+            {
+                //  JIKA GAGAL (Tas Penuh), JATUHKAN KE TANAH
+                Debug.LogWarning($"Tas penuh! Menjatuhkan {itemReward.itemName} ke tanah.");
+
+                // Asumsi Anda punya fungsi untuk spawn item di dunia (World Item)
+                // Posisi jatuhnya di dekat pemain
+                Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
+                Vector3 playerPosition = PlayerUI.Instance.player.transform.position;
+                // Panggil fungsi drop item Anda (sesuaikan dengan sistem Anda)
+                ItemPool.Instance.DropItem(itemReward.itemName, itemReward.itemHealth, itemReward.quality, playerPosition + offset, 1);
+                // Atau: Instantiate(itemReward.prefab, dropPosition, Quaternion.identity);
+            }
         }
+
+        // Setelah loop selesai, quest aman untuk ditutup/diselesaikan
+        // karena semua item sudah diberikan (entah di tas atau di tanah).
 
         NPCBehavior behavior = NPCManager.Instance.GetActiveNpcByName(questStatus.npcName);
         behavior.emoticonTransform.gameObject.SetActive(false);

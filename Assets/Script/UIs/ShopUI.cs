@@ -413,7 +413,24 @@ public class ShopUI : MonoBehaviour
 
                 item.isStackable = newItem.count < item.maxStackCount;
 
-                ItemPool.Instance.AddItem(newItem);
+                bool isSuccess = ItemPool.Instance.AddItem(newItem);
+
+                if (isSuccess)
+                {
+                    Debug.Log($"Menerima reward masuk tas: {newItem.itemName} x{newItem.count}");
+                }
+                else
+                {
+                    // 2. JIKA GAGAL (Tas Penuh), JATUHKAN KE TANAH
+                    Debug.LogWarning($"Tas penuh! Menjatuhkan {newItem.itemName} ke tanah.");
+
+                    // Asumsi Anda punya fungsi untuk spawn item di dunia (World Item)
+                    Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
+                    Vector3 playerPosition = PlayerUI.Instance.player.transform.position;
+                    // Panggil fungsi drop item Anda (sesuaikan dengan sistem Anda)
+                    ItemPool.Instance.DropItem(newItem.itemName, newItem.itemHealth, newItem.quality, playerPosition + offset, 1);
+                    // Atau: Instantiate(itemReward.prefab, dropPosition, Quaternion.identity);
+                }
                 //stats.inventory.Add(newItem);
             }
 

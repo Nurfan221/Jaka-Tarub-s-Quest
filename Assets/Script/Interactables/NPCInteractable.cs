@@ -44,8 +44,21 @@ public class NPCInteractable : Interactable
             if (npcBehavior && npcBehavior.isGivenItemForQuest)
             {
                 Debug.Log($" NPC {npcBehavior.npcName} sudah diberikan item untuk quest.");
-                ItemPool.Instance.AddItem(npcBehavior.itemQuestToGive);
-                npcBehavior.isGivenItemForQuest = true;
+
+                // Di dalam CookUI / Result Button Listener
+                bool isSuccess = ItemPool.Instance.AddItem(npcBehavior.itemQuestToGive);
+
+                if (isSuccess)
+                {
+                    // Hapus item dari tungku
+                    npcBehavior.isGivenItemForQuest = true;
+                }
+                else
+                {
+                    // Jangan hapus, biarkan di tungku
+                    Debug.Log("Tas penuh, item tetap di tungku.");
+                    // Opsional: Munculkan teks "Tas Penuh!"
+                }
                 //StartCoroutine(NPCGiveItemCoroutine());
             }
         }

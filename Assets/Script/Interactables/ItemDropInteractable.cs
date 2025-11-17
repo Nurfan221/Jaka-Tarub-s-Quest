@@ -46,9 +46,21 @@ public class ItemDropInteractable : Interactable
         Debug.Log(itemdata.itemName + " di ambil.");
         //Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(item.itemName));
         //if (item.type == ItemType.Quest) { GetComponent<QuestQuanta>().Take(); }
-        ItemPool.Instance.AddItem(itemdata);
+        // Di dalam CookUI / Result Button Listener
+        bool isSuccess = ItemPool.Instance.AddItem(itemdata);
 
-        Destroy(gameObject);
+        if (isSuccess)
+        {
+            // Hapus item dari tungku
+            Destroy(gameObject);
+
+        }
+        else
+        {
+            // Jangan hapus, biarkan di tungku
+            Debug.Log("Tas penuh, item tetap di tungku.");
+        }
+
     }
 
     public IEnumerator FreezeAfterDelay(float delay)

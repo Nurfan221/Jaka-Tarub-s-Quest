@@ -44,10 +44,21 @@ public class TongSampahInteractable : Interactable
     {
        if (isFull)
         {
+            // Di dalam CookUI / Result Button Listener
+            bool isSuccess = ItemPool.Instance.AddItem(sampahItem);
 
-            ItemPool.Instance.AddItem(sampahItem);
-            isFull = false;
-            TongKosong();
+            if (isSuccess)
+            {
+                // Hapus item dari tungku
+                isFull = false;
+                TongKosong();
+            }
+            else
+            {
+                // Jangan hapus, biarkan di tungku
+                Debug.Log("Tas penuh, item tetap di tungku.");
+            }
+           
         }
     }
 
