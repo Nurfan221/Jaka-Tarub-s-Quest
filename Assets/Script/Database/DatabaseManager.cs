@@ -461,6 +461,7 @@ public enum IdPintu
     ToolsUpgrade, 
     Library,
     RumahFahri,
+    KantorDesa,
     Dll
 }
 
