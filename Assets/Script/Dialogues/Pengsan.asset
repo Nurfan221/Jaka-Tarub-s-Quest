@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Pengsan
+  m_EditorClassIdentifier: Assembly-CSharp::Dialogues
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: Eghhh... di mana... ini?
+  - name: Amelia Sari
+    sentence: Akhirnya matamu terbuka juga. Jangan bangun dulu, Jaka.
+  - name: Jaka Tarub
+    sentence: Amelia?
+  - name: Jaka Tarub
+    sentence: Kenapa aku bisa ada di klinik?
+  - name: Jaka Tarub
+    sentence: Warga menemukanmu tergeletak di pinggir jalan. Kamu pingsan, Jaka.
+      Tubuhmu panas tinggi.
+  - name: Jaka Tarub
+    sentence: Ah... benar. Aku ingat pandanganku tiba-tiba gelap saat sedang berjalan.
+  - name: Amelia Sari
+    sentence: Kamu itu terlalu memaksakan diri. Terlalu asik bekerja itu bagus tapi
+      ingat kalau kamu itu manusia, bukan mesin
+  - name: Amelia Sari
+    sentence: Kapan terakhir kali kamu makan atau tidur dengan benar?
+  - name: Jaka Tarub
+    sentence: Maaf, Amelia. Aku hanya ingin menyelesaikan tugas secepatnya.
+  - name: Amelia Sari
+    sentence: Dan karena itu kamu malah tumbang. Sekarang, minum ramuan ini dan tidurlah
+      lagi. Aku tidak mengizinkanmu keluar kalau kamu sudah merasa baikan
+  - name: Jaka Tarub
+    sentence: Baiklah, Bu Perawat. Terima kasih sudah merawatku.
+  mainSpeaker: Jaka Tarub
+  promptAfterDialogue: Sepertinya aku pingsan

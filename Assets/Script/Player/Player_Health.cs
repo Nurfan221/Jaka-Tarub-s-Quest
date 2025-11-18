@@ -15,6 +15,7 @@ public class Player_Health : MonoBehaviour
     public SpriteRenderer sr;
     private PlayerController stats;
     private PlayerData_SO playerData;
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -130,15 +131,45 @@ public class Player_Health : MonoBehaviour
 
     public void TakeDamage(int damage, Vector2 attackerPosition)
     {
-        if (BuffScrollController.Instance.isBuffProtection) damage -= BuffScrollController.Instance.jumlahBuffProtection;
+        // Jika pemain sudah ditandai mati (atau sedang proses mati), tolak damage baru.
+        // Ini mencegah fungsi Die() dipanggil berulang kali oleh musuh yang menyerang bersamaan.
+        if (isDead) return;
+
+        //  Logika Hitung Damage 
+        if (BuffScrollController.Instance.isBuffProtection)
+            damage -= BuffScrollController.Instance.jumlahBuffProtection;
+
         damage = Mathf.Max(0, damage);
         stats.health -= damage;
+
+        // Update UI
         PlayerUI.Instance.UpdateHealthDisplay(stats.health, playerData.maxHealth);
-        //if (player_Anim != null) player_Anim.PlayTakeDamageAnimation();
+
+        // Animasi & Visual (Tetap jalankan ini meskipun akan mati, agar terlihat impact-nya)
         PlayerController.Instance.HandlePlayAnimation("TakeDamage");
         StartCoroutine(ApplyKnockback(attackerPosition));
         StartCoroutine(TakeDamageVisual());
-        if (stats.health <= 0) Die();
+
+        // CEK KEMATIAN:
+        if (stats.health <= 0)
+        {
+            // Serangan musuh ke-2 yang masuk setelah baris ini akan ditolak oleh "if (isDead) return;" di atas.
+            isDead = true;
+
+            // Panggil proses kematian dengan jeda
+            StartCoroutine(ProcessDeathSequence());
+        }
+    }
+
+    private IEnumerator ProcessDeathSequence()
+    {
+        // Berikan jeda sedikit (misal 0.1 atau 0.2 detik)
+        // Ini memberi waktu agar animasi TakeDamage atau Knockback sempat terlihat sedikit
+        // dan memastikan semua logika frame saat ini selesai sebelum objek dimatikan.
+        yield return new WaitForSeconds(0.1f);
+
+        // Jalankan logika kematian yang sebenarnya
+        Die();
     }
 
     public void Heal(int healthAmount, int staminaAmount )
@@ -250,7 +281,9 @@ public class Player_Health : MonoBehaviour
     void Die()
     {
         Debug.Log("Player Died");
-        GameController.Instance.PlayerDied();
+        //GameController.Instance.PlayerDied();
+        GameController.Instance.StartPassOutSequence(false);
+        isDead = false; // Reset flag kematian untuk memungkinkan respawn
     }
 
     public void CheckSekarat()
@@ -268,9 +301,15 @@ public class Player_Health : MonoBehaviour
 
     public void PlayerPingsan()
     {
-        int healthPenalty = Mathf.CeilToInt(stats.health * 0.3f);
-        int staminaPenalty = Mathf.FloorToInt(stats.currentStaminaCap * 0.3f);
+        int healthPenalty = Mathf.CeilToInt(stats.health * 0.8f);
+        int staminaPenalty = Mathf.FloorToInt(stats.currentStaminaCap * 0.8f);
+        Debug.Log("PlayerPingsan dipanggil. nilai health di kurangi menjadi : " + healthPenalty + "nilai stamina di kurangi menjadi " + staminaPenalty);
+
         stats.currentStaminaCap -= staminaPenalty;
         stats.health -= healthPenalty;
     }
+
+   
+
+   
 }

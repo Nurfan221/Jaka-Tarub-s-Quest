@@ -151,13 +151,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c02650208d9d2540b46ac7e6195d097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  latestPlayerPos: {x: 0, y: 0}
+  latestPlayerPos: {x: -185, y: -12}
   playerName: 
   enablePlayerInput: 0
   tilemap: {fileID: 0}
   canPause: 1
   gamePaused: 0
   currentState: 0
+  lokasiPerawatan: {x: -185, y: -13}
+  dialogPingsan: {fileID: 11400000, guid: ca9acf50d763d434fa0e1900ec2406c8, type: 2}
+  dialogSekarat: {fileID: 11400000, guid: 90829c4a9c523204192f78b4c8246f74, type: 2}
 --- !u!4 &1851154125
 Transform:
   m_ObjectHideFlags: 0

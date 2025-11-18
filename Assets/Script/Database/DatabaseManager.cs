@@ -140,7 +140,7 @@ public class HoedTileData
 public class PlayerSaveData
 {
     // Data Posisi
-    public Vector2 position;
+    public Vector3 position;
 
     // Data Health & Stamina
     public int health;
@@ -161,6 +161,7 @@ public class PlayerSaveData
     public bool equipped1;
     public bool itemUse1;
     public int coins;
+
 }
 
 [System.Serializable]
@@ -207,7 +208,7 @@ public class TimeSaveData
     public int hari;
     public int date;
     public int minggu;
-    public int bulan;
+    public Season bulan;
     public int tahun;
 }
 

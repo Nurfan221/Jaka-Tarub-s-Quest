@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Sekarat
+  m_EditorClassIdentifier: Assembly-CSharp::Dialogues
+  TheDialogues:
+  - name: Jaka Tarub
+    sentence: Hah... hah... sakh... kit...
+  - name: Amelia Sari
+    sentence: Sstt! Jaka, tenang! Jangan banyak bergerak dulu!
+  - name: Jaka Tarub
+    sentence: Amelia... apa aku... masih hidup?
+  - name: Amelia Sari
+    sentence: Hampir saja tidak. Luka di bahu dan perutmu sangat dalam. Kamu kehilangan
+      banyak darah saat mereka membawamu ke sini.
+  - name: Jaka Tarub
+    sentence: Rasanya... seluruh badanku remuk...
+  - name: Amelia Sari
+    sentence: Aku sudah menjahit lukamu dan membalutnya dengan ramuan herbal terkuat
+      yang kupunya. Kalau saja terlambat sedikit lagi... entahlah.
+  - name: Jaka Tarub
+    sentence: Maaf sudah membuatmu khawatir.
+  - name: Amelia Sari
+    sentence: Sudahlah, simpan tenagamu. Lukamu belum kering benar. Jangan berani-berani
+      menyentuh pedangmu dulu untuk beberapa hari ini, mengerti?
+  - name: Jaka Tarub
+    sentence: Mengerti. Terima kasih, Amelia. Nyawaku tertolong karenamu.
+  - name: Amelia Sari
+    sentence: Istirahatlah. Aku akan berjaga di sini.
+  mainSpeaker: 
+  promptAfterDialogue: 

@@ -15,10 +15,8 @@ public class GameController : MonoBehaviour
 
     public static bool IsNewGame = false;
     public static int LatestMap = 1;
-    //public string LatestMapName;
     public Vector2 latestPlayerPos;
-    //public static int QuestItemCount = 0;
-    //public static bool CanFinishStory = false;
+
 
     public string playerName;
     public bool enablePlayerInput;
@@ -33,6 +31,12 @@ public class GameController : MonoBehaviour
     public bool canPause = true;
     public bool gamePaused;
     public GameState currentState;
+
+    [Header("Logika Perawatan")]
+    //simpan lokasi perawatan player ketika pengsan 
+    public Vector2 lokasiPerawatan = new Vector2(-185f, -13f);
+    public Dialogues dialogPingsan;
+    public Dialogues dialogSekarat;
 
 
 
@@ -514,19 +518,76 @@ public class GameController : MonoBehaviour
         tilemap.RestoreFarmStateList();
     }
 
-    public void StartPassOutSequence()
+    public void StartPassOutSequence(bool isPingsan)
     {
-        Debug.Log("Pemain pingsan karena kelelahan!");
-        GameEconomy.Instance.LostMoney(200); // kehilangan uang sebesar 500
-        ItemPool.Instance.DropRandomItemsOnPassOut();
+
+        // Terapkan Penalti (Logika Game)
+        Debug.Log(isPingsan ? "Pemain pingsan karena kelelahan!" : "Pemain pingsan karena sekarat!");
+
+        
+        // Jika ada logika save atau next day, lakukan di sini saat layar gelap
+    
+        // Matikan kontrol pemain agar tidak bisa gerak saat proses pingsan
+
+        // Tentukan Teks dan Dialog berdasarkan kondisi
+        string judulKeadaan;
+        string deskripsiKeadaan;
+        Dialogues dialogToPlay; 
+
+        if (isPingsan)
+        {
+            judulKeadaan = "Kamu kehilangan kesadaran";
+            deskripsiKeadaan = "Kamu kehilangan kesadaran karena kelelahan.";
+            dialogToPlay = dialogPingsan;
+
+        }
+        else
+        {
+            judulKeadaan = "Kamu hampir meninggal";
+            deskripsiKeadaan = "Kamu terluka parah dan tidak sadarkan diri.";
+            dialogToPlay = dialogSekarat;
+
+        }
+
+        // Mulai Coroutine untuk mengatur urutan visual (Loading -> Pindah -> Dialog)
+        StartCoroutine(ProcessPassOutSequence(judulKeadaan, deskripsiKeadaan, dialogToPlay));
+    }
+
+    // Coroutine utama untuk menangani urutan kejadian
+    private IEnumerator ProcessPassOutSequence(string judul, string deskripsi, Dialogues dialog)
+    {
+        // Pastikan fungsi SetLoadingandTimer mendukung parameter judul & deskripsi
+        yield return StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(true, judul));
+
+        //  Logika saat Layar Gelap (Pindahkan Pemain & Reset Waktu)
+        Transform playerTransform = PlayerController.Instance.ActivePlayer.transform;
+        playerTransform.position = lokasiPerawatan;
+        Debug.Log("Memindahkan pemain ke lokasi perawatan: " + playerTransform.position);
+
+      
+
+        // Tunggu sebentar agar pemain sempat membaca teks loading / transisi terasa halus
+        yield return new WaitForSecondsRealtime(2.0f);
+
+       
+        //DialogueSystem.Instance.HandlePlayDialogue(dialog);
+        DialogueSystem.Instance.HandlePlayDialogue(dialog);
+        TimeManager.Instance.AdvanceToNextDay();
         PlayerController.Instance.HandlePlayerPingsan();
 
-        //SaveDataManager.Instance.SaveGame();
-
-        //TimeManager.Instance.AdvanceToNextDay();
+        GameEconomy.Instance.LostMoney(200); // Memotong uang 200
+        ItemPool.Instance.DropRandomItemsOnPassOut();
+        SaveDataManager.Instance.SaveGame();
 
 
     }
 
-  
+    // atau disesuaikan jika masih dipakai skrip lain)
+    public IEnumerator UseLoadingScreenUI(bool show, string keadaan)
+    {
+        yield return StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(show, keadaan));
+        yield return new WaitForSecondsRealtime(1.5f);
+        LoadingScreenUI.Instance.HideLoading();
+    }
+
 }

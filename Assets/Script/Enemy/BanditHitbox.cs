@@ -79,6 +79,9 @@ public class BanditHitbox : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        // Jika objek ini tidak aktif (misal sedang pindah scene), hentikan eksekusi.
+        if (!gameObject.activeInHierarchy) return;
+
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Player keluar dari hitbox! Bandit kembali mengejar.");
@@ -86,8 +89,11 @@ public class BanditHitbox : MonoBehaviour
             bandit.isAttacking = false;
             playerDiHitbox = false;
 
-            // Tunggu sebentar sebelum mulai mengejar kembali
-            StartCoroutine(KembaliMengejar());
+            // Pastikan script masih aktif sebelum memulai coroutine
+            if (this.isActiveAndEnabled)
+            {
+                StartCoroutine(KembaliMengejar());
+            }
         }
     }
 

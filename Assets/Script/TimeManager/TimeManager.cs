@@ -101,7 +101,7 @@ public class TimeManager : MonoBehaviour, ISaveable
             hari = this.hari + 1,
             date = this.date + 1,
             minggu = this.minggu,
-            bulan = this.bulan,
+            bulan = this.currentSeason,
             tahun = this.tahun
         };
 
@@ -121,7 +121,7 @@ public class TimeManager : MonoBehaviour, ISaveable
         hari = loadedData.hari;
         date = loadedData.date;
         minggu = loadedData.minggu;
-        bulan = loadedData.bulan;
+        currentSeason = loadedData.bulan;
         tahun = loadedData.tahun;
         HitungWaktu(totalHari);
 
@@ -185,7 +185,7 @@ public class TimeManager : MonoBehaviour, ISaveable
             hour = 1;
 
             // Panggil fungsi pingsan Anda di sini
-            GameController.Instance.StartPassOutSequence();
+            GameController.Instance.StartPassOutSequence(true);
         }
 
 

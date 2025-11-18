@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour, ISaveable
     public void HandleNewDay()
     {
         HandleReverseHealthandStamina();
+
+      
     }
     // Fungsi ini akan dipanggil oleh setiap Player_Movement baru yang muncul.
     public void RegisterPlayer(Player player)
@@ -79,10 +81,15 @@ public class PlayerController : MonoBehaviour, ISaveable
     public object CaptureState()
     {
         Debug.Log($"[SAVE-CAPTURE] PlayerController menangkap {inventory.Count} item di inventaris.");
+        //Transform playerTransform = ActivePlayer.transform;
+        Vector3 playerPosition = ActivePlayer.transform.position;
+        Debug.Log($"[LOAD-RESTORE] PlayerController me-restore posisi player ke {playerPosition}.");
         // Buat "formulir" baru
         return new PlayerSaveData
         {
             // Isi semua data dari kondisi saat ini
+
+            position = playerPosition,
             health = this.health,
             currentHealthCap = this.currentHealthCap,
             stamina = this.stamina,
@@ -124,6 +131,11 @@ public class PlayerController : MonoBehaviour, ISaveable
         this.equipped1 = data.equipped1;
         this.itemUse1 = data.itemUse1;
         GameEconomy.Instance.coins = data.coins;
+
+        Transform playerTransform = ActivePlayer.transform;
+        playerTransform.position = data.position;
+        Debug.Log($"[LOAD-RESTORE] PlayerController me-restore posisi player ke {data.position}.");
+
 
         Debug.Log($"[LOAD-RESTORE] PlayerController me-restore {this.inventory.Count} item ke inventaris.");
 
@@ -377,6 +389,8 @@ public class PlayerController : MonoBehaviour, ISaveable
     {
         ActivePlayer.Health.PlayerPingsan();
     }    
+
+ 
 
     public void HandlePlayAnimation(string nameAnimation)
     {

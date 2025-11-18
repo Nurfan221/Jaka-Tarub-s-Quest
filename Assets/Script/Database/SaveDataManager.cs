@@ -31,7 +31,6 @@ public class SaveDataManager : MonoBehaviour
     {
         Debug.Log("Menyimpan data ke: " + saveFilePath);
         GameSaveData saveData = new GameSaveData();
-        //StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
         CaptureAllSaveableStates(saveData);
         SaveToFile(saveData);
     }

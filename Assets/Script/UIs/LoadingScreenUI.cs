@@ -19,16 +19,17 @@ public class LoadingScreenUI : MonoBehaviour
     private int currentFrame = 0; // Indeks frame saat ini
 
     private Coroutine animationCoroutine;
-
+    private Coroutine moveCoroutine; 
 
     [SerializeField] string[] tips;
     [Header("UI Animation")]
     public RectTransform bgTransform; // Gunakan RectTransform untuk UI
+    public string achievementText;
 
     [Header("Pengaturan Animasi")]
     public float animationSpeed; // Kecepatan animasi
     public float endPosition_Y = 0f; // Posisi Y akhir (biasanya di tengah)
-    public float startPosition_Y = 500f; // Posisi Y awal (di luar layar atas)
+    public float startPosition_Y = 600f; // Posisi Y awal (di luar layar atas)
 
     public bool isAnimating = false;
 
@@ -46,30 +47,44 @@ public class LoadingScreenUI : MonoBehaviour
 
 
     }
-    public void ShowLoading(bool achievement,string textLoading)
+    public void ShowLoading(bool achievement, string textLoading)
     {
-        // Hentikan coroutine lama jika ada sebelum memulai yang baru
+        // Hentikan coroutine loop gambar (Loading Spinner)
         if (animationCoroutine != null)
         {
             StopCoroutine(animationCoroutine);
         }
 
+        // Hentikan coroutine gerakan background (PENTING: Agar tidak bentrok)
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
+
         tipsText.text = "Tips: \n" + tips[Random.Range(0, tips.Length)];
+
+        // Reset posisi dulu sebelum mengaktifkan UI agar tidak terlihat 'glitch' di posisi lama
+        // Kita default-kan ke atas dulu, nanti PlayLoadingAnimation yang menentukan turun atau tidak
+        if (bgTransform != null)
+        {
+            bgTransform.anchoredPosition = new Vector2(bgTransform.anchoredPosition.x, startPosition_Y);
+        }
+
         transform.GetChild(0).gameObject.SetActive(true);
         GameController.Instance.ShowPersistentUI(false);
         GameController.Instance.PauseGame();
 
-        // Mulai coroutine yang baru
-
+        // Mulai coroutine utama
         animationCoroutine = StartCoroutine(PlayLoadingAnimation(achievement, textLoading));
-
     }
 
-    public IEnumerator SetLoadingandTimer(bool achievement)
+    public IEnumerator SetLoadingandTimer(bool achievement, string achievementText = "")
     {
+        this.achievementText = achievementText;
+        Debug.Log("[SetLoadingandTimer] Memulai loading screen..." + achievementText);
         isAnimating = true;
-        string textLoading = "Chapter-1, Selesai";
-        ShowLoading(achievement, textLoading);
+        ShowLoading(achievement, achievementText);
         yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
         LoadingScreenUI.Instance.HideLoading();
     }
@@ -86,7 +101,6 @@ public class LoadingScreenUI : MonoBehaviour
         OnFinishedLoadingScreen?.Invoke();
         isAnimating = false;
 
-        // --- DEBUGGING DIMULAI DI SINI ---
         Debug.Log($"[Hide Coroutine] Memulai. Time.timeScale saat ini adalah: {Time.timeScale}");
         Debug.Log($"[Hide Coroutine] Mengecek kondisi while: currentFrame ({currentFrame}) < loadingImages.Length - 1 ({loadingImages.Length - 1})");
 
@@ -112,7 +126,6 @@ public class LoadingScreenUI : MonoBehaviour
         }
 
         Debug.Log($"[Hide Coroutine] Berhasil keluar dari while loop. currentFrame sekarang {currentFrame}.");
-        // --- DEBUGGING SELESAI ---
 
         // Tunggu sedikit untuk memastikan frame terakhir tampil
         // Ganti ke WaitForSecondsRealtime agar tidak terpengaruh oleh Time.timeScale
@@ -145,45 +158,69 @@ public class LoadingScreenUI : MonoBehaviour
 
     private IEnumerator PlayLoadingAnimation(bool achievement, string textLoading)
     {
-        if (achievement)
+        // Setup teks
+        TMP_Text loadingText = bgTransform.GetChild(0).GetComponent<TMP_Text>();
+        if (loadingText != null)
         {
-            StartAnimation(textLoading);
+            loadingText.text = textLoading;
         }
 
-        while (true) // Loop tanpa batas (animasi berulang)
+        if (achievement)
         {
-            if (loadingImages.Length > 0) // Pastikan array sprite tidak kosong
+            // Jika True: Jalankan animasi turun
+            StartAnimation(textLoading);
+        }
+        else
+        {
+            // Jika False:
+            // Pastikan tidak ada animasi turun yang berjalan (Safety double check)
+            if (moveCoroutine != null) StopCoroutine(moveCoroutine);
+
+            // PAKSA posisi tetap di ATAS (startPosition_Y)
+            if (bgTransform != null)
+            {
+                bgTransform.anchoredPosition = new Vector2(bgTransform.anchoredPosition.x, startPosition_Y);
+            }
+        }
+
+        // Loop animasi loading spinner (gambar berputar/berubah)
+        while (true)
+        {
+            if (loadingImages.Length > 0 && loadingImageTransform != null)
             {
                 Image imageloadingScreen = loadingImageTransform.GetComponent<Image>();
-                imageloadingScreen.sprite = loadingImages[currentFrame]; // Setel sprite saat ini
-                currentFrame = (currentFrame + 1) % loadingImages.Length; // Pindah ke frame berikutnya (loop)
+                if (imageloadingScreen != null)
+                {
+                    imageloadingScreen.sprite = loadingImages[currentFrame];
+                    currentFrame = (currentFrame + 1) % loadingImages.Length;
+                }
             }
-            yield return new WaitForSecondsRealtime(frameRate); // Tunggu sebelum beralih ke frame berikutnya
+            yield return new WaitForSecondsRealtime(frameRate);
         }
     }
 
 
 
 
-    public void StartAnimation(string textLoading) // Ubah nama fungsi ini agar tidak bentrok dengan Start()
+    public void StartAnimation(string textLoading)
     {
-        // Hentikan coroutine lama jika ada
-        //StopAllCoroutines();
-        TMP_Text loadingText = bgTransform.GetComponent<TMP_Text>();
+        Debug.Log("Memulai animasi turun...");
+        TMP_Text loadingText = bgTransform.GetChild(0).GetComponent<TMP_Text>();
+        loadingText.text = textLoading;
 
-        // Atur posisi awal
+        // Pastikan posisi di awal (atas) sebelum turun
         if (bgTransform != null)
         {
             bgTransform.anchoredPosition = new Vector2(bgTransform.anchoredPosition.x, startPosition_Y);
         }
 
-        // Mulai coroutine animasi
-        StartCoroutine(AnimateDownCoroutine());
+        // SIMPAN coroutine-nya agar bisa di-stop nanti
+        moveCoroutine = StartCoroutine(AnimateDownCoroutine());
     }
 
     private IEnumerator AnimateDownCoroutine()
     {
-        Debug.Log("Memulai animasi turun...");
+
         Vector2 targetPosition = new Vector2(bgTransform.anchoredPosition.x, endPosition_Y);
 
         while (Vector2.Distance(bgTransform.anchoredPosition, targetPosition) > 0.1f)

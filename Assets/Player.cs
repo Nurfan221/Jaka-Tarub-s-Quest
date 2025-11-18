@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public Player_Inventory Inventory { get; private set; }
     public Player_Health Health { get; private set; }
     public Player_Anim Player_Anim { get; private set; }
+
     
     // Tambahkan komponen penting lainnya di sini
 
@@ -21,11 +22,7 @@ public class Player : MonoBehaviour
         Inventory = GetComponent<Player_Inventory>();
         Health = GetComponent<Player_Health>();
         Player_Anim = GetComponent<Player_Anim>();
-    }
 
-    private void Start()
-    {
-        // Setelah semua departemen siap, Manajer Hotel ini melapor ke "Kantor Pusat".
         if (PlayerController.Instance != null)
         {
             PlayerController.Instance.RegisterPlayer(this);
@@ -34,6 +31,12 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("Player tidak bisa menemukan PlayerController untuk mendaftar!");
         }
+    }
+
+    private void Start()
+    {
+        // Setelah semua departemen siap, Manajer Hotel ini melapor ke "Kantor Pusat".
+       
     }
 
     private void OnDestroy()
