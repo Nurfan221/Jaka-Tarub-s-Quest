@@ -4777,6 +4777,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4798,6 +4800,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1910421821
   m_SortingLayer: 3
   m_SortingOrder: 0
@@ -4846,8 +4849,8 @@ GameObject:
   - component: {fileID: 9206981023511161924}
   - component: {fileID: 2375128868307419422}
   - component: {fileID: 2262402367362025452}
-  - component: {fileID: 903731056761299950}
   - component: {fileID: -69260696320916373}
+  - component: {fileID: 1380802752737748106}
   m_Layer: 8
   m_Name: TanamanLobak
   m_TagString: Plant
@@ -4894,6 +4897,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4915,6 +4920,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -4988,10 +4994,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
-  waterEffect: {fileID: 0}
-  harvestParticle: {fileID: 0}
-  growEffect: {fileID: 0}
-  insectEffect: {fileID: 0}
+  waterEffect: {fileID: 6376930177193966924}
+  harvestParticle: {fileID: 8453923550398365902}
+  growEffect: {fileID: 3535190924927436543}
+  insectEffect: {fileID: 803794970856007458}
   currentStage: 0
   isWatered: 0
   isReadyToHarvest: 0
@@ -5003,6 +5009,7 @@ MonoBehaviour:
   seedType: 0
   hardnessLevel: 1
   dropItem: 
+  plantSeedItem: {fileID: 0}
   growthTimer: 0
   insectTime: 0
   plantLocation: {x: 0, y: 0, z: 0}
@@ -5021,18 +5028,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: TanamanLobak
   plantSeed: {fileID: 2375128868307419422}
---- !u!114 &903731056761299950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2120680195082938319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-69260696320916373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5071,6 +5066,25 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1380802752737748106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120680195082938319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f39557c3d7bc0a4b924a35e67b4d0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StructureFixer
+  popUpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  startYOffset: -2
 --- !u!1 &2681367960847632910
 GameObject:
   m_ObjectHideFlags: 0
@@ -9848,6 +9862,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9869,6 +9885,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1910421821
   m_SortingLayer: 3
   m_SortingOrder: 0
@@ -14681,6 +14698,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -14702,6 +14721,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1910421821
   m_SortingLayer: 3
   m_SortingOrder: 0
@@ -19514,6 +19534,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -19535,6 +19557,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1910421821
   m_SortingLayer: 3
   m_SortingOrder: 0

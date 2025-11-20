@@ -14,8 +14,7 @@ GameObject:
   - component: {fileID: 875132793960531145}
   - component: {fileID: 8986608510113964804}
   - component: {fileID: 8447794282174610450}
-  - component: {fileID: 6165176932887957671}
-  - component: {fileID: 8103107473270328828}
+  - component: {fileID: -1484502024146533069}
   m_Layer: 0
   m_Name: Torch 3
   m_TagString: Untagged
@@ -84,7 +83,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 6
   m_Sprite: {fileID: 3066779294536387729, guid: 0f1a208b093d3a04f851bc7ca807375a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -194,7 +193,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -252,7 +251,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.16113472, y: 0.4688897}
   m_EdgeRadius: 0
---- !u!114 &6165176932887957671
+--- !u!114 &-1484502024146533069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -261,11 +260,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3889454340021637116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b14b53db7d19e334da74b59ac196662f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f39557c3d7bc0a4b924a35e67b4d0ed, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  startYOffset: -2
-  animationDuration: 0.5
+  m_EditorClassIdentifier: Assembly-CSharp::StructureFixer
   popUpCurve:
     serializedVersion: 2
     m_Curve:
@@ -281,8 +278,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -290,15 +287,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8103107473270328828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3889454340021637116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  startYOffset: -2

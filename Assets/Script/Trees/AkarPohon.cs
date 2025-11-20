@@ -14,6 +14,8 @@ public class AkarPohon : UniqueIdentifiableObject
     public int minKayu;
     public int maxKayu;
 
+    public bool ditebang = false;
+
     #region Unique ID Implementation
 
     public override string GetObjectType()
@@ -54,6 +56,7 @@ public class AkarPohon : UniqueIdentifiableObject
     }
     public void TakeDamage(int damage)
     {
+        if(ditebang) return;
         if (hitEffectPrefab != null)
         {
             Debug.Log("Menampilkan efek pukulan pada posisi: " + gameObject.transform.position);
@@ -67,6 +70,7 @@ public class AkarPohon : UniqueIdentifiableObject
         int woodCount = Random.Range(minKayu, maxKayu + 1);
         if (health <= 0)
         {
+            ditebang = true;
             for (int i = 0; i < woodCount; i++)
             {
                 Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
@@ -88,4 +92,9 @@ public class AkarPohon : UniqueIdentifiableObject
         Destroy(gameObject);
     }
 
+    public void InstantlyDestroy()
+    {
+        // Kirim damage sebesar HP saat ini (pasti mati)
+        TakeDamage(9999);
+    }
 }

@@ -36,16 +36,14 @@ public class NPCManager : MonoBehaviour
     {
         foreach (var data in allNpcDefinitions)
         {
-            if (data.prefab != null)
+            GameObject npcObject = DatabaseManager.Instance.NPCWorldPrefab;
+            GameObject npcGO = Instantiate(npcObject, wargaDesaParent);
+            NPCBehavior behavior = npcGO.GetComponent<NPCBehavior>();
+            if (behavior != null)
             {
-                GameObject npcGO = Instantiate(data.prefab, wargaDesaParent);
-                NPCBehavior behavior = npcGO.GetComponent<NPCBehavior>();
-                if (behavior != null)
-                {
-                    // Berikan "identitas" pada NPC yang baru dibuat
-                    behavior.Initialize(data);
-                    activeNpcs.Add(behavior);
-                }
+                // Berikan "identitas" pada NPC yang baru dibuat
+                behavior.Initialize(data);
+                activeNpcs.Add(behavior);
             }
         }
     }
@@ -58,26 +56,26 @@ public class NPCManager : MonoBehaviour
         );
     }
 
-    public GameObject GetNpcPrefabByName(string npcFullName)
-    {
-        NpcSO foundNpcData = allNpcDefinitions.FirstOrDefault(npc =>
-            npc.fullName.Equals(npcFullName, System.StringComparison.OrdinalIgnoreCase)
-        );
+    //public GameObject GetNpcPrefabByName(string npcFullName)
+    //{
+    //    NpcSO foundNpcData = allNpcDefinitions.FirstOrDefault(npc =>
+    //        npc.fullName.Equals(npcFullName, System.StringComparison.OrdinalIgnoreCase)
+    //    );
 
-        // Periksa apakah data NPC ditemukan
-        if (foundNpcData != null)
-        {
-            // Jika ditemukan, kembalikan prefab yang tersimpan di dalamnya.
-            Debug.Log($"Prefab untuk '{npcFullName}' ditemukan.");
-            return foundNpcData.prefab;
-        }
-        else
-        {
-            // Jika tidak ditemukan, beri peringatan dan kembalikan null.
-            Debug.LogWarning($"Data NPC dengan nama '{npcFullName}' tidak ditemukan di npcDataArray.");
-            return null;
-        }
-    }
+    //    // Periksa apakah data NPC ditemukan
+    //    if (foundNpcData != null)
+    //    {
+    //        // Jika ditemukan, kembalikan prefab yang tersimpan di dalamnya.
+    //        Debug.Log($"Prefab untuk '{npcFullName}' ditemukan.");
+    //        return foundNpcData.prefab;
+    //    }
+    //    else
+    //    {
+    //        // Jika tidak ditemukan, beri peringatan dan kembalikan null.
+    //        Debug.LogWarning($"Data NPC dengan nama '{npcFullName}' tidak ditemukan di npcDataArray.");
+    //        return null;
+    //    }
+    //}
 
 
     public void UpdateScheduleNPC()

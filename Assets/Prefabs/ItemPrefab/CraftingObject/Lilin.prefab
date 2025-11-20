@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 8204194015257329924}
   - component: {fileID: 8753991768299431060}
   - component: {fileID: 875132793960531145}
-  - component: {fileID: 7274995363967479277}
-  - component: {fileID: 1650506044815608656}
+  - component: {fileID: -2790713360519508553}
   m_Layer: 0
   m_Name: Lilin
   m_TagString: Untagged
@@ -57,6 +56,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,6 +79,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
@@ -129,7 +131,7 @@ MonoBehaviour:
   torchLight: {fileID: 1069341284081892982}
   nightStart: 18
   nightEnd: 6
---- !u!114 &7274995363967479277
+--- !u!114 &-2790713360519508553
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,11 +140,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3889454340021637116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b14b53db7d19e334da74b59ac196662f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f39557c3d7bc0a4b924a35e67b4d0ed, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  startYOffset: -2
-  animationDuration: 0.5
+  m_EditorClassIdentifier: Assembly-CSharp::StructureFixer
   popUpCurve:
     serializedVersion: 2
     m_Curve:
@@ -158,8 +158,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -167,18 +167,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1650506044815608656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3889454340021637116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  startYOffset: -2
 --- !u!1 &5394333660416106248
 GameObject:
   m_ObjectHideFlags: 0

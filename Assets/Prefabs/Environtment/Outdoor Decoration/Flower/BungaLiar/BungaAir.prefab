@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1864868281198516365}
   - component: {fileID: 5817962037388929403}
   - component: {fileID: 6187847586292981318}
+  - component: {fileID: 949817222261739178}
   m_Layer: 8
   m_Name: BungaAir
   m_TagString: Untagged
@@ -55,6 +56,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -76,6 +79,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
@@ -106,6 +110,8 @@ MonoBehaviour:
   hardnessLevel: 0
   typeObject: 8
   typePlant: 5
+  arahObject: 0
+  environmentType: 0
   rumputAnimation:
   - {fileID: -7809002689319474411, guid: 615906cced2045240b700435d3772e6c, type: 3}
   - {fileID: -5821233834451338635, guid: 615906cced2045240b700435d3772e6c, type: 3}
@@ -116,7 +122,6 @@ MonoBehaviour:
   frameRate: 0.2
   nameEnvironment: BungaAir
   itemDrop: {fileID: 11400000, guid: 5fd754cdb47ba6e43b5061e0ce65f4ff, type: 2}
-  environmentType: 0
 --- !u!61 &5817962037388929403
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -175,6 +180,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0772390156f631e40bf2351877f838f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useEvents: 0
   promptMessage: 
   envBehavior: {fileID: 1864868281198516365}
+--- !u!114 &949817222261739178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486291666243436108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f39557c3d7bc0a4b924a35e67b4d0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StructureFixer
+  popUpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  startYOffset: -2

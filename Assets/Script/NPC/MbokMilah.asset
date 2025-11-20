@@ -19,30 +19,36 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 3632186851480370098, guid: b747942da01865a4ea8d215266b4f27b, type: 3}
   schedules:
   - activityName: BerangkatKesawah
     waypoints:
-    - {x: -14, y: 8}
+    - {x: -163, y: 77.7}
+    - {x: -162, y: 77.7}
+    - {x: -162, y: 75}
+    - {x: -157.5, y: 75}
+    - {x: -157.5, y: 71}
     - {x: -14, y: -3}
     startTime: 5
   - activityName: Istirahat
     waypoints:
     - {x: -14, y: -3}
-    - {x: -2.63, y: -3}
-    - {x: -2.63, y: -4.3}
+    - {x: -4, y: -3}
+    - {x: -4, y: -4}
     startTime: 9
   - activityName: KembaliBekerja
     waypoints:
-    - {x: -2.63, y: -4.3}
-    - {x: -2.63, y: 6}
+    - {x: -4, y: -4}
+    - {x: -3, y: 6}
     startTime: 12
   - activityName: Pulang
     waypoints:
-    - {x: -2.63, y: 6}
-    - {x: -2.63, y: -4.3}
-    - {x: -14, y: -4.3}
-    - {x: -14, y: 8}
+    - {x: -3, y: 6}
+    - {x: -14, y: 6}
+    - {x: -157.5, y: 72}
+    - {x: -157.5, y: 75}
+    - {x: -162, y: 75}
+    - {x: -162, y: 77.7}
+    - {x: -163, y: 77.7}
     startTime: 15
   frendship:
     favoriteValue: 0

@@ -30,6 +30,7 @@ public class StoneBehavior : UniqueIdentifiableObject
     public float health; // Kesehatan batu
     public bool isLucky;
     public int dayToRespawn;
+    public bool diHancurkan = false;    
 
 
     [Header("Drop Tiers & Balancing")]
@@ -80,7 +81,17 @@ public class StoneBehavior : UniqueIdentifiableObject
     public void Start()
     {
         hitEffectPrefab = gameObject.GetComponentInChildren<ParticleSystem>();
-        spriteRenderer = GetComponent<SpriteRenderer>(); // Ambil komponen SpriteRenderer
+        Transform visualChild = transform.Find("Visual");
+
+        if (visualChild != null)
+        {
+            // Ambil komponen dari anak tersebut
+            spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
+        }
         StartCoroutine(PlayStoneAnimation()); // Mulai animasi
 
     }
@@ -143,6 +154,8 @@ public class StoneBehavior : UniqueIdentifiableObject
 
     public void TakeDamage(int damage)
     {
+        if (diHancurkan) return;
+       
         if (hitEffectPrefab != null)
         {
             Debug.Log("Menampilkan efek pukulan pada posisi: " + gameObject.transform.position);
@@ -154,6 +167,7 @@ public class StoneBehavior : UniqueIdentifiableObject
 
         if (health <= 0)
         {
+            diHancurkan = true;
             DestroyStone();
         }
     }
@@ -315,5 +329,11 @@ public class StoneBehavior : UniqueIdentifiableObject
                 else return ItemTier.Common;                  // 95% sisanya
         }
     }
+    public void InstantlyDestroy()
+    {
+        // Kirim damage sebesar HP saat ini (pasti mati)
+        TakeDamage(9999);
+    }
+
 
 }

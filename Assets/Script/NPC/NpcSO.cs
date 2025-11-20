@@ -34,7 +34,7 @@ public class NpcSO : ScriptableObject
     public int tanggalUltah;
     public int bulanUltah;
     public Sprite npcSprite;
-    public GameObject prefab;
+    //public GameObject prefab;
     public Schedule[] schedules;
     public FrendshipDefinition frendship;
 }

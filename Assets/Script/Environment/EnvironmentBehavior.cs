@@ -58,7 +58,17 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
     #endregion
     public void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>(); // Ambil komponen SpriteRenderer
+        Transform visualChild = transform.Find("Visual");
+
+        if (visualChild != null)
+        {
+            // Ambil komponen dari anak tersebut
+            spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!" + gameObject.name);
+        }
         StartCoroutine(PlayrumputAnimation()); // Mulai animasi
     }
 
@@ -68,6 +78,7 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
         {
             if (rumputAnimation.Length > 0) // Pastikan array sprite tidak kosong
             {
+
                 spriteRenderer.sprite = rumputAnimation[currentFrame]; // Setel sprite saat ini
                 currentFrame = (currentFrame + 1) % rumputAnimation.Length; // Pindah ke frame berikutnya (loop)
             }

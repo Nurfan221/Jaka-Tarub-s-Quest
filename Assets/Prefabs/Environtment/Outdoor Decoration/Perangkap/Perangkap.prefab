@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 221916205474464569}
   - component: {fileID: 8664554216995394883}
   - component: {fileID: 111458419296442766}
+  - component: {fileID: 5460996520659691395}
   m_Layer: 8
   m_Name: Perangkap
   m_TagString: ObjekDestroy
@@ -56,6 +57,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -77,6 +80,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
@@ -155,7 +159,6 @@ MonoBehaviour:
   typePlant: 0
   arahObject: 0
   environmentType: 13
-  isfull: 0
   spriteRenderer: {fileID: 5651965763540378010}
   itemPerangkap:
   - {fileID: 11400000, guid: fbdf2c85b189a2e42aefa92b3fa09046, type: 2}
@@ -163,6 +166,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 16c336a800e62b64494af8c2012d5956, type: 2}
   itemTertangkap: {fileID: 0}
   perangkapHealth: 10
+  _isFull: 0
 --- !u!114 &111458419296442766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +181,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: perangkap
   perangkapBehavior: {fileID: 8664554216995394883}
+--- !u!114 &5460996520659691395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992219504839692284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f39557c3d7bc0a4b924a35e67b4d0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StructureFixer
+  popUpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  startYOffset: -2
 --- !u!1001 &4609017030908738339
 PrefabInstance:
   m_ObjectHideFlags: 0

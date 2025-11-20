@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1864868281198516365}
   - component: {fileID: 843619207050050708}
   - component: {fileID: 6617662295542718227}
+  - component: {fileID: 3630238501532161654}
   m_Layer: 0
   m_Name: JamurBulanBiru
   m_TagString: Untagged
@@ -55,6 +56,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -76,6 +79,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
@@ -106,6 +110,8 @@ MonoBehaviour:
   hardnessLevel: 0
   typeObject: 9
   typePlant: 13
+  arahObject: 0
+  environmentType: 0
   rumputAnimation:
   - {fileID: -7758524535556295958, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
   - {fileID: 8032385547397731467, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
@@ -116,7 +122,6 @@ MonoBehaviour:
   frameRate: 0.2
   nameEnvironment: JamurBulanBiru
   itemDrop: {fileID: 11400000, guid: a18cead96c51a5745b465cfae2a6b1f2, type: 2}
-  environmentType: 0
 --- !u!114 &843619207050050708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,9 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84cc73adf28e52d4f8990ecf127eb232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useEvents: 0
   promptMessage: Jamur Bulan Biru
   envBehavior: {fileID: 1864868281198516365}
+  typeObject: 0
 --- !u!61 &6617662295542718227
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -178,3 +183,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.53356457, y: 0.53356266}
   m_EdgeRadius: 0
+--- !u!114 &3630238501532161654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486291666243436108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f39557c3d7bc0a4b924a35e67b4d0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StructureFixer
+  popUpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  startYOffset: -2

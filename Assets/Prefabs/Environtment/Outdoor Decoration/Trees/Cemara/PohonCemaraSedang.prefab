@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 5297067821582616087}
   - component: {fileID: 3358023806408393524}
   - component: {fileID: 1888632240794282398}
-  - component: {fileID: 98220388249015529}
-  - component: {fileID: 6996199711268626285}
   - component: {fileID: 7111364941028505943}
+  - component: {fileID: -8316567960444584504}
   m_Layer: 0
   m_Name: PohonCemaraSedang
   m_TagString: Tree
@@ -141,65 +140,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &98220388249015529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5090815853600988913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6996199711268626285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5090815853600988913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b14b53db7d19e334da74b59ac196662f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startYOffset: -1
-  animationDuration: 0.5
-  popUpCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.006666676
-      value: 0.7907634
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.49002907
-      value: 0.6476951
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.0033334
-      value: 0.7926484
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &7111364941028505943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +181,7 @@ MonoBehaviour:
     count: 1
     quality: 0
     itemHealth: 0
-  plantEffectPrefab: {fileID: 0}
+  plantEffectPrefab: {fileID: 6166783799726048995}
   currentStage: 2
   typePlant: 3
   growthObject: {fileID: 0}
@@ -261,6 +201,43 @@ MonoBehaviour:
   maxLeaf: 2
   minSeratTanaman: 1
   maxSeratTanaman: 2
+--- !u!114 &-8316567960444584504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5090815853600988913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f39557c3d7bc0a4b924a35e67b4d0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StructureFixer
+  popUpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  startYOffset: -2
 --- !u!1001 &2193889195797372079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -381,5 +358,10 @@ PrefabInstance:
 --- !u!4 &2969253793500167047 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3983057899602519848, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}
+  m_PrefabInstance: {fileID: 2193889195797372079}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6166783799726048995 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5469221150697445964, guid: 4b7b38080774f2d43ba5a2eab6634d74, type: 3}
   m_PrefabInstance: {fileID: 2193889195797372079}
   m_PrefabAsset: {fileID: 0}

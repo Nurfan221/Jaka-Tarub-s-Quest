@@ -1,7 +1,8 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
-using System.Collections;
+using static UnityEngine.GraphicsBuffer;
 
 public class NPCBehavior : MonoBehaviour
 {
@@ -20,6 +21,16 @@ public class NPCBehavior : MonoBehaviour
     public float movementSpeed = 2.0f;
     private Schedule currentActivity;
     private Coroutine movementCoroutine; // Tambahkan ini untuk mengelola coroutine
+    public bool isTeleporting = false; // Flag penanda
+
+
+    [Tooltip("Jarak hitbox dari pusat NPC")]
+    public float hitboxRadius = 1.0f;
+    public Transform hitboxTransform;
+    private Vector3 lastPosition;
+    private Vector2 lastMovedDirection = Vector2.right; // Default menghadap kanan (bisa diubah)
+    [Tooltip("Geser titik pusat lingkaran ke atas (agar sejajar badan, bukan kaki)")]
+    public float verticalOffset = -2f; // Coba ubah angka ini di inspector (misal 0.5 atau 0.8)
 
     [Header("variabel for quest")]
     public ItemData itemQuestToGive; // Item yang dimiliki NPC untuk quest ini
@@ -73,6 +84,10 @@ public class NPCBehavior : MonoBehaviour
         this.name = data.fullName; // Ganti nama GameObject agar mudah dicari
         transform.position = data.schedules[0].waypoints[0]; // Mulai di waypoint pertama dari jadwal pertama
     }
+    private void Start()
+    {
+        lastPosition = transform.position;
+    }
 
     private void Update()
     {
@@ -83,6 +98,8 @@ public class NPCBehavior : MonoBehaviour
         {
             CheckSchedule();
         }
+
+        UpdateHitboxPosition();
         // Jika sedang bergerak, biarkan coroutine yang mengurusnya, tidak perlu di sini
     }
 
@@ -137,44 +154,69 @@ public class NPCBehavior : MonoBehaviour
 
     private IEnumerator FollowWaypoints(Vector2[] waypoints)
     {
+        Debug.Log($"{gameObject.name} [DEBUG] NPCMemulai FollowWaypoints. Jumlah titik: {waypoints.Length}");
+
         if (waypoints == null || waypoints.Length == 0)
         {
+            Debug.LogWarning("{gameObject.name} [DEBUG] NPCWaypoints kosong! Berhenti.");
             isMoving = false;
             yield break;
         }
 
-        foreach (Vector2 targetPosition in waypoints)
+        for (int i = 0; i < waypoints.Length; i++)
         {
+            Vector2 targetPosition = waypoints[i];
+            Debug.Log($"{gameObject.name} [DEBUG] NPCMenuju Waypoint [{i}]: {targetPosition}. Posisi Saat Ini: {transform.position}");
+
+            // Jika NPC masih dalam status cooldown teleport (isTeleporting = true),
+            // tahan dulu di sini. Jangan lanjut jalan dulu sampai cooldown selesai.
+            while (isTeleporting)
+            {
+                Debug.Log($"{gameObject.name} [DEBUG] NPCMenunggu cooldown teleport selesai... (Posisi: {transform.position})");
+                yield return null; // Tunggu frame berikutnya
+            }
+
+            // Loop pergerakan menuju satu titik
             while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
             {
+                // Jika tiba-tiba teleport aktif SAAT sedang berjalan
+                if (isTeleporting)
+                {
+                    Debug.Log("{gameObject.name} [DEBUG] NPCTeleport terdeteksi saat bergerak! Membatalkan waypoint ini.");
+                    // waypoint berikutnya tidak akan langsung di-skip.
+                    break;
+                }
+
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
-                //Debug.Log($"NPC '{npcName}' bergerak ke {targetPosition}");
                 yield return null; // Tunggu satu frame
             }
+
+            Debug.Log($"{gameObject.name} [DEBUG] NPCSelesai dengan Waypoint [{i}] atau di-skip karena teleport.");
         }
 
-        // Setelah selesai, hentikan pergerakan
+        // Setelah selesai semua titik
         isMoving = false;
-        //Debug.Log($"NPC '{npcName}' telah sampai di tujuan terakhir. ");
+        Debug.Log("{gameObject.name} [DEBUG] NPCSemua Waypoints selesai dilalui. isMoving = false.");
     }
     public void OverrideForQuest(Vector2 startPosition, Vector2 finishLocation, Dialogues newDialogue, string nameEmoticon)
     {
+        // Kunci NPC
         islocked = true;
         isLockedForQuest = true;
         isQuestLocation = true;
         preQuestPosition = transform.position;
         questOverrideDialogue = newDialogue;
 
-        //ShowEmoticon()
-
         questWaypoint = new Vector2[] { startPosition, finishLocation };
         ShowEmoticon(nameEmoticon);
 
-        // Pindah ke posisi quest dengan pergerakan halus (Coroutines)
         if (movementCoroutine != null) StopCoroutine(movementCoroutine);
+
+        // Ini mencegah Update() memanggil CheckSchedule() secara tidak sengaja
+        isMoving = true;
+
         movementCoroutine = StartCoroutine(FollowWaypoints(questWaypoint));
 
-        // Pastikan NPC terlihat
         gameObject.SetActive(true);
     }
 
@@ -278,6 +320,102 @@ public class NPCBehavior : MonoBehaviour
             StartCoroutine(WiggleRoutine()); // Mulai gerakan wiggle
         }
     }
+    public void OnHitboxTriggerEnter(Collider2D collision)
+    {
+        // Jika sedang cooldown, ABAIKAN segalanya.
+        if (isTeleporting) return;
 
+        if (collision.CompareTag("Pintu"))
+        {
+            PintuInteractable pintu = collision.GetComponent<PintuInteractable>();
+            if (pintu != null)
+            {
+                Debug.Log($"[SENSOR] Hitbox mendeteksi pintu: {collision.name}. Memulai Teleport...");
 
+                // Langsung kunci NPC SEKARANG JUGA sebelum memanggil Manager.
+                // Ini menjamin saat NPC mendarat di tujuan, statusnya sudah isTeleporting = true.
+                StartTeleportCooldown();
+
+                // Baru panggil Manager untuk memindahkan posisi
+                PintuManager.Instance.NPCEnterArea(pintu.idPintu, pintu.isPintuIn, this.gameObject);
+            }
+        }
+        if (collision.CompareTag("Tree"))
+        {
+            Debug.Log($"[SENSOR] Hitbox mendeteksi pohon: {collision.name}.");
+            TreeBehavior tree = collision.GetComponent<TreeBehavior>();
+            if (tree != null) tree.InstantlyDestroy();
+        }
+        else if (collision.CompareTag("AkarPohon"))
+        {
+            Debug.Log($"[SENSOR] Hitbox mendeteksi akar: {collision.name}.");
+            AkarPohon akarPohon = collision.GetComponent<AkarPohon>();
+            if (akarPohon != null) akarPohon.InstantlyDestroy();
+        }else if (collision.CompareTag("Stone"))
+        {
+            Debug.Log($"[SENSOR] Hitbox mendeteksi batu: {collision.name}.");
+            StoneBehavior rock = collision.GetComponent<StoneBehavior>();
+            if (rock != null) rock.InstantlyDestroy();
+        }
+    }
+   
+
+    // Fungsi ini akan dipanggil oleh PintuManager setelah memindahkan posisi
+    public void StartTeleportCooldown()
+    {
+        StartCoroutine(CooldownRoutine());
+    }
+
+    private IEnumerator CooldownRoutine()
+    {
+        isTeleporting = true; // Kunci pintu agar tidak bisa dipicu
+        yield return new WaitForSeconds(1f); // Tunggu 1.5 detik (sampai NPC keluar dari area pintu tujuan)
+        isTeleporting = false; // Buka kunci
+    }
+
+    void UpdateHitboxPosition()
+    {
+        // Hitung pergerakan
+        Vector3 movementDelta = transform.position - lastPosition;
+        if (movementDelta.sqrMagnitude > 0.001f)
+        {
+            lastMovedDirection = movementDelta.normalized;
+        }
+
+        if (hitboxTransform != null)
+        {
+            // Hitung posisi melingkar
+            Vector3 finalPosition = lastMovedDirection * hitboxRadius;
+
+            // TERAPKAN OFFSET (Ditambah nilai negatif = Turun)
+            finalPosition.y += verticalOffset;
+
+            // Terapkan ke Transform
+            hitboxTransform.localPosition = finalPosition;
+
+            // Rotasi
+            float angle = Mathf.Atan2(lastMovedDirection.y, lastMovedDirection.x) * Mathf.Rad2Deg;
+            hitboxTransform.rotation = Quaternion.Euler(0, 0, angle);
+        }
+
+        lastPosition = transform.position;
+    }
+    private void OnDrawGizmosSelected()
+    {
+        // Titik pusat lingkaran (Posisi NPC + Offset vertikal)
+        // Jika verticalOffset negatif, titik ini akan turun.
+        Vector3 centerPoint = transform.position + new Vector3(0, verticalOffset, 0);
+
+        // Gambar Lingkaran Lintasan (Kuning)
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(centerPoint, hitboxRadius);
+
+        // Gambar Hitbox Aktual (Merah)
+        if (hitboxTransform != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(centerPoint, hitboxTransform.position);
+            Gizmos.DrawWireSphere(hitboxTransform.position, 0.2f);
+        }
+    }
 }

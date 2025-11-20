@@ -37,7 +37,17 @@ public class CookInteractable : Interactable, ISaveable
     private void Start()
     {
         interactableUniqueID = gameObject.GetComponent<InteractableUniqueID>();
-        spriteRenderer = GetComponent<SpriteRenderer>(); // Ambil komponen SpriteRenderer
+        Transform visualChild = transform.Find("Visual");
+
+        if (visualChild != null)
+        {
+            // Ambil komponen dari anak tersebut
+            spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
+        }
         StartCoroutine(PlayFireAnimation()); // Mulai animasi
         UpdateSpriteHasil();
     }

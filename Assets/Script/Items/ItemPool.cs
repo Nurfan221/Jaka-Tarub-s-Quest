@@ -91,10 +91,20 @@ public class ItemPool : MonoBehaviour
         }
 
 
-        SpriteRenderer spriteRenderer = droppedItemGO.GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
+        
+
+        Transform visualChild = droppedItemGO.transform.Find("Visual");
+
+        if (visualChild != null)
         {
+            // Ambil komponen dari anak tersebut
+            SpriteRenderer spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = itemDefinition.sprite;
+
+        }
+        else
+        {
+            Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!" + gameObject.name);
         }
 
         Rigidbody2D rb = droppedItemGO.GetComponent<Rigidbody2D>();

@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 5755219114831489250}
   - component: {fileID: 7057871296556573875}
   - component: {fileID: 648529286410309539}
-  - component: {fileID: 4043061950410974094}
-  - component: {fileID: -837743461516066282}
+  - component: {fileID: -896571174847076617}
   m_Layer: 0
   m_Name: Stone_Stone_Soft_B
   m_TagString: Stone
@@ -57,6 +56,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,10 +79,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 3550236991686688401, guid: 909521df1f0797a47a3c7b85a867afa5, type: 3}
+  m_Sprite: {fileID: 2423963003259021196, guid: 909521df1f0797a47a3c7b85a867afa5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,7 +107,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
-  itemDropMines: []
+  itemDropMines:
+  - itemName: Batu
+    count: 1
+    quality: 0
+    itemHealth: 0
   hitEffectPrefab: {fileID: 8867558715227147684}
   nameStone: Stone_Stone_Soft_B
   stoneType: 2
@@ -125,10 +131,15 @@ MonoBehaviour:
   health: 20
   isLucky: 0
   dayToRespawn: 0
+  diHancurkan: 0
   maxRareDropsLimit: 2
   commonTierItems: []
   uncommonTierItems: []
-  rareTierItems: []
+  rareTierItems:
+  - itemName: Batu
+    count: 1
+    quality: 0
+    itemHealth: 0
 --- !u!61 &648529286410309539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -175,7 +186,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.73262787, y: 0.5451807}
   m_EdgeRadius: 0
---- !u!114 &4043061950410974094
+--- !u!114 &-896571174847076617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,23 +195,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7562009284141931606}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eddc34b49c3b284cbdb377ed3950ce1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f39557c3d7bc0a4b924a35e67b4d0ed, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-837743461516066282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7562009284141931606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b14b53db7d19e334da74b59ac196662f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startYOffset: -1
-  animationDuration: 0.5
+  m_EditorClassIdentifier: Assembly-CSharp::StructureFixer
   popUpCurve:
     serializedVersion: 2
     m_Curve:
@@ -216,8 +213,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -225,6 +222,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  startYOffset: -2
 --- !u!1001 &3524477940854642664
 PrefabInstance:
   m_ObjectHideFlags: 0

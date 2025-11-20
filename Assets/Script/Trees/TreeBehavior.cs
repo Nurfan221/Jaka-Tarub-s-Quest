@@ -89,34 +89,7 @@ public class TreeBehavior : UniqueIdentifiableObject
 
     }
 
-    // Fungsi untuk mengemas data pohon ini
-    //public object CaptureState()
-    //{
-    //    // Buat sebuah objek data save baru, isi dengan nilai saat ini, lalu kembalikan.
-    //    return new TreePlacementData
-    //    {
-    //        TreeID = this.uniqueID,
-    //        position = transform.position,
-    //        initialStage = this.currentStage,
-    //        sudahTumbang = this.isRubuh,
-    //    };
-    //}
-
-    //// FUNGSI UNTUK MEMUAT DATA (MEMBACA FORMULIR)
-    //public void RestoreState(object state)
-    //{
-    //    // Terima data 'state', ubah kembali ke tipe data yang benar
-    //    TreePlacementData savedData = (TreePlacementData)state;
-    //    // Terapkan nilai dari data yang di-load ke komponen ini
-    //    this.uniqueID = savedData.TreeID;
-    //    transform.position = savedData.position;
-    //    this.currentStage = savedData.initialStage;
-    //    this.isRubuh = savedData.sudahTumbang;
-    //    // PENTING: Setelah me-restore state, Anda mungkin perlu memperbarui visual pohon
-    //    // agar cocok dengan `currentStage` yang baru.
-    //    // UpdateVisuals(); 
-    //}
-
+  
 
 
 
@@ -186,7 +159,7 @@ public class TreeBehavior : UniqueIdentifiableObject
 
             pohonBaru.transform.SetParent(MainEnvironmentManager.Instance.pohonManager.transform);
 
-            UpdateReferencesInManagers(this.gameObject, pohonBaru);
+            //UpdateReferencesInManagers(this.gameObject, pohonBaru);
             MainEnvironmentManager.Instance.pohonManager.TumbuhkanPohonDalamAntrian(treeBehaviorBaru);
 
             Destroy(gameObject);
@@ -228,21 +201,23 @@ public class TreeBehavior : UniqueIdentifiableObject
 
     public void TakeDamage(int damage)
     {
+        if (isRubuh) return;
+
         if (plantEffectPrefab != null)
         {
-            Debug.Log("Menampilkan efek pukulan pada posisi: " + gameObject.transform.position);
-            // Buat instance dari prefab efek di lokasi pukulan dengan rotasi yang sesuai
             plantEffectPrefab.Play();
         }
-        if (!isRubuh)
-        {
-            health -= Mathf.Min(damage, health);
-            Debug.Log($"Pohon terkena damage. Sisa HP: {health}");
 
-            if (health <= 0)
-            {
-                StartCoroutine(FellTree());
-            }
+        // Kurangi HP
+        health -= Mathf.Min(damage, health);
+        Debug.Log($"Pohon terkena damage. Sisa HP: {health}");
+
+        if (health <= 0)
+        {
+            // Ini akan memblokir panggilan TakeDamage kedua yang datang milidetik kemudian.
+            isRubuh = true;
+
+            StartCoroutine(FellTree());
         }
     }
 
@@ -330,8 +305,20 @@ public class TreeBehavior : UniqueIdentifiableObject
             AkarPohon akarPohon = akar.GetComponent<AkarPohon>();
             akarPohon.IdObjectUtama = this.UniqueID;
             //GameObject akar = Instantiate(batangPohon, posisiPohon, Quaternion.identity);
-            SpriteRenderer akarSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-            akarSpriteRenderer.sprite = null;
+
+            Transform visualChild = transform.Find("Visual");
+
+            if (visualChild != null)
+            {
+                // Ambil komponen dari anak tersebut
+                spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = null;
+            }
+            else
+            {
+                Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!" + gameObject.name);
+            }
+            
         }
 
         //Spawn batang tumbang (di atas akar)
@@ -455,6 +442,12 @@ public class TreeBehavior : UniqueIdentifiableObject
         }
 
         isRubuh = false;
+    }
+
+    public void InstantlyDestroy()
+    {
+        // Kirim damage sebesar HP saat ini (pasti mati)
+        TakeDamage(9999);
     }
 
 
