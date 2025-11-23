@@ -29,6 +29,7 @@ public class NPCBehavior : MonoBehaviour
     public Transform hitboxTransform;
     private Vector3 lastPosition;
     private Vector2 lastMovedDirection = Vector2.right; // Default menghadap kanan (bisa diubah)
+    private Vector3? currentTargetDestination = null; // Gunakan nullable (tanda tanya) agar bisa null
     [Tooltip("Geser titik pusat lingkaran ke atas (agar sejajar badan, bukan kaki)")]
     public float verticalOffset = -2f; // Coba ubah angka ini di inspector (misal 0.5 atau 0.8)
 
@@ -166,6 +167,7 @@ public class NPCBehavior : MonoBehaviour
         for (int i = 0; i < waypoints.Length; i++)
         {
             Vector2 targetPosition = waypoints[i];
+            currentTargetDestination = targetPosition;
             Debug.Log($"{gameObject.name} [DEBUG] NPCMenuju Waypoint [{i}]: {targetPosition}. Posisi Saat Ini: {transform.position}");
 
             // Jika NPC masih dalam status cooldown teleport (isTeleporting = true),
@@ -375,25 +377,45 @@ public class NPCBehavior : MonoBehaviour
 
     void UpdateHitboxPosition()
     {
-        // Hitung pergerakan
-        Vector3 movementDelta = transform.position - lastPosition;
-        if (movementDelta.sqrMagnitude > 0.001f)
+        Vector3 directionToUse = lastMovedDirection; // Default pakai arah terakhir
+        bool hasNewDirection = false;
+
+        // PRIORITAS 1: Gunakan Target Tujuan (Jika sedang punya target)
+        // Ini mengatasi masalah NPC macet di depan pintu
+        if (currentTargetDestination.HasValue)
         {
-            lastMovedDirection = movementDelta.normalized;
+            Vector3 toTarget = currentTargetDestination.Value - transform.position;
+            if (toTarget.sqrMagnitude > 0.001f) // Cek jarak aman
+            {
+                directionToUse = toTarget.normalized;
+                hasNewDirection = true;
+            }
+        }
+        // PRIORITAS 2: Gunakan Gerakan Fisik (Jika tidak punya target spesifik / idle jalan-jalan)
+        else
+        {
+            Vector3 movementDelta = transform.position - lastPosition;
+            if (movementDelta.sqrMagnitude > 0.001f)
+            {
+                directionToUse = movementDelta.normalized;
+                hasNewDirection = true;
+            }
         }
 
+        // Simpan arah untuk frame berikutnya
+        if (hasNewDirection)
+        {
+            lastMovedDirection = directionToUse;
+        }
+
+        // --- BAGIAN PENERAPAN POSISI (Sama seperti sebelumnya) ---
         if (hitboxTransform != null)
         {
-            // Hitung posisi melingkar
             Vector3 finalPosition = lastMovedDirection * hitboxRadius;
-
-            // TERAPKAN OFFSET (Ditambah nilai negatif = Turun)
             finalPosition.y += verticalOffset;
 
-            // Terapkan ke Transform
             hitboxTransform.localPosition = finalPosition;
 
-            // Rotasi
             float angle = Mathf.Atan2(lastMovedDirection.y, lastMovedDirection.x) * Mathf.Rad2Deg;
             hitboxTransform.rotation = Quaternion.Euler(0, 0, angle);
         }

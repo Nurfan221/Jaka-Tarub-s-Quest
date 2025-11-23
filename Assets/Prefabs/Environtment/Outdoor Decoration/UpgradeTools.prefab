@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 884796383482698634}
   - component: {fileID: 6578110515854658798}
   - component: {fileID: 9073904500809376725}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: UpgradeTools
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,6 +278,10 @@ PrefabInstance:
     - target: {fileID: 5388214106243207399, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
       propertyPath: m_Name
       value: PetunjukPintu (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388214106243207399, guid: 9105efb44bd586042949da4ad3faba30, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

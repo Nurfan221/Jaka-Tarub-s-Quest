@@ -219,12 +219,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78cf7a5a3e6b26b4ebc874c9da8ac8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Open Smelt
+  promptMessage: Open Cook
   interactableUniqueID: {fileID: 8124508460909555166}
   animationFire: []
   resultItemSprite: {fileID: 3411637315986988222}
   frameRate: 0.1
-  typeCooking: 2
+  typeCooking: 1
   itemCook:
     itemName: 
     count: 0
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueID: 
   hardnessLevel: 3
-  typeObject: 23
+  typeObject: 25
   typePlant: 0
   arahObject: 0
   environmentType: 12

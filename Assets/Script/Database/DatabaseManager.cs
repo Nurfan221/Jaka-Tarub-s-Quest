@@ -463,6 +463,7 @@ public enum IdPintu
     Library,
     RumahFahri,
     KantorDesa,
+    RumahAmru,
     Dll
 }
 

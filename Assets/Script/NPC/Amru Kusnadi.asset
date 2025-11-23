@@ -19,15 +19,21 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 3632186851480370098, guid: 7cc09cfa565dd6f4fb2c006d3b457129, type: 3}
   schedules:
   - activityName: BerangkatKeSawah
     waypoints:
-    - {x: 65.1, y: -22}
+    - {x: -240.3, y: 91.7}
+    - {x: -239, y: 91.7}
+    - {x: -239, y: 85.5}
+    - {x: -246, y: 85.5}
+    - {x: -246, y: 77}
+    - {x: -249, y: 77}
+    - {x: -249, y: 75}
     - {x: 65.1, y: -25.25}
     - {x: 63, y: -25.25}
     - {x: 63, y: -11.5}
     - {x: 63, y: -3}
+    - {x: 60, y: -3}
     startTime: 5
   - activityName: PulangKerumah
     waypoints:
@@ -36,22 +42,37 @@ MonoBehaviour:
     - {x: 63, y: -25.25}
     - {x: 65.1, y: -25.25}
     - {x: 65.1, y: -22}
+    - {x: -249, y: 77}
+    - {x: -246, y: 77}
+    - {x: -246, y: 85}
+    - {x: -249, y: 85}
+    - {x: -249, y: 84}
     startTime: 9
   - activityName: KeSawah
     waypoints:
-    - {x: 65.1, y: -22}
+    - {x: -249, y: 84}
+    - {x: -249, y: 85}
+    - {x: -246, y: 85}
+    - {x: -246, y: 77}
+    - {x: -249, y: 75}
     - {x: 65.1, y: -25.25}
     - {x: 63, y: -25.25}
     - {x: 63, y: -11.5}
     - {x: 58, y: -9}
     startTime: 12
-  - activityName: KeSawah
+  - activityName: PulangKerumah
     waypoints:
     - {x: 58, y: -9}
     - {x: 63, y: -11.5}
     - {x: 63, y: -25.25}
     - {x: 65.1, y: -25.25}
     - {x: 65.1, y: -22}
+    - {x: -249, y: 77}
+    - {x: -246, y: 77}
+    - {x: -246, y: 85.5}
+    - {x: -239, y: 85.5}
+    - {x: -239, y: 91.7}
+    - {x: -240.3, y: 91.7}
     startTime: 18
   frendship:
     favoriteValue: 0

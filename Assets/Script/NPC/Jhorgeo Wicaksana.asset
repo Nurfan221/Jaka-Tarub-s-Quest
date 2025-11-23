@@ -19,15 +19,17 @@ MonoBehaviour:
   tanggalUltah: 25
   bulanUltah: 1
   npcSprite: {fileID: 0}
-  prefab: {fileID: 3632186851480370098, guid: b8e59eedf997cbc418d195d8516af9ff, type: 3}
   schedules:
   - activityName: PergiBerburu
     waypoints:
-    - {x: 47.37, y: -12}
-    - {x: 47.37, y: -14.5}
-    - {x: 42.18, y: -14.5}
-    - {x: 38.34, y: -10}
-    - {x: 38.34, y: -6.41}
+    - {x: -202, y: 85.7}
+    - {x: -201, y: 85.7}
+    - {x: -201, y: 83}
+    - {x: -209, y: 83}
+    - {x: -209, y: 81}
+    - {x: -211.5, y: 81}
+    - {x: -211.5, y: 77}
+    - {x: 39.5, y: -4}
     - {x: 44.65, y: 0}
     - {x: 44.65, y: 16.24}
     - {x: 49, y: 21}
@@ -48,14 +50,23 @@ MonoBehaviour:
     - {x: 58, y: -25.25}
     - {x: 58, y: -22}
     startTime: 14
-  - activityName: PulangKeRumah
+  - activityName: Nongkrong
     waypoints:
-    - {x: 61, y: -20}
-    - {x: 61, y: -25}
-    - {x: 43, y: -25}
-    - {x: 43, y: -15}
-    - {x: 47.5, y: -15}
-    - {x: 47.5, y: -12}
+    - {x: 58, y: -22}
+    - {x: 58, y: -25}
+    - {x: 42.5, y: -25}
+    - {x: 42.5, y: -20}
+    - {x: 43.5, y: -18.5}
+    - {x: 43.5, y: -15.5}
+    - {x: 39, y: -10}
+    - {x: 39.5, y: 0}
+    - {x: -211.5, y: 78}
+    - {x: -211.5, y: 81}
+    - {x: -209, y: 81}
+    - {x: -209, y: 83}
+    - {x: -201, y: 83}
+    - {x: -201, y: 85.7}
+    - {x: -202, y: 85.7}
     startTime: 18
   frendship:
     favoriteValue: 0

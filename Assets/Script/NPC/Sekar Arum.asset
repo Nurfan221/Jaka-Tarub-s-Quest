@@ -19,27 +19,53 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 3632186851480370098, guid: c3ffd2226927e7c4ca3c6aa572fbe842, type: 3}
   schedules:
-  - activityName: Membuka Toko
+  - activityName: Memasak
     waypoints:
-    - {x: 39.5, y: 0, z: 0}
+    - {x: -203, y: 85.7}
+    - {x: -204.29, y: 85.7}
+    - {x: -204.29, y: 83}
+    - {x: -209, y: 83}
+    - {x: -209, y: 89.3}
+    - {x: -205, y: 89.3}
+    - {x: -205, y: 91.3}
     startTime: 5
+  - activityName: MembukaToko
+    waypoints:
+    - {x: -205, y: 91.3}
+    - {x: -209, y: 89}
+    - {x: -209, y: 84.5}
+    - {x: -211.5, y: 84.5}
+    - {x: -211.5, y: 83.8}
+    startTime: 8
   - activityName: Mengobrol Ibu Ibu
     waypoints:
-    - {x: 39.5, y: 0, z: 0}
-    - {x: 38.5, y: -10, z: 0}
-    - {x: 41.5, y: -14, z: 0}
-    - {x: 47, y: -14, z: 0}
-    - {x: 47, y: -16, z: 0}
+    - {x: -211.5, y: 83.8}
+    - {x: -211.5, y: 84.5}
+    - {x: -209, y: 84.5}
+    - {x: -209, y: 81}
+    - {x: -211.5, y: 81}
+    - {x: -211.5, y: 76.5}
+    - {x: 39.5, y: -4}
+    - {x: 38.5, y: -10}
+    - {x: 41.5, y: -14}
+    - {x: 47, y: -14}
+    - {x: 47, y: -16}
     startTime: 14
   - activityName: Pulang
     waypoints:
-    - {x: 47, y: -16, z: 0}
-    - {x: 47, y: -14, z: 0}
-    - {x: 41.5, y: -14, z: 0}
-    - {x: 38.5, y: -10, z: 0}
-    - {x: 39.5, y: 0, z: 0}
+    - {x: 47, y: -16}
+    - {x: 47, y: -14}
+    - {x: 41.5, y: -14}
+    - {x: 38.5, y: -10}
+    - {x: 39.5, y: 0}
+    - {x: -211.5, y: 78}
+    - {x: -211.5, y: 81}
+    - {x: -209, y: 81}
+    - {x: -209, y: 83}
+    - {x: -204.29, y: 83}
+    - {x: -204.29, y: 85.7}
+    - {x: -203, y: 85.7}
     startTime: 18
   frendship:
     favoriteValue: 0
