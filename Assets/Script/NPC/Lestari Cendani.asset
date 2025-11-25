@@ -19,42 +19,46 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 3632186851480370098, guid: cfe83f5cc1ab99d42bcd70b0a2575b7a, type: 3}
   schedules:
   - activityName: Berangkat Bekerja
     waypoints:
-    - {x: 25, y: -21, z: 0}
-    - {x: 25, y: -23.5, z: 0}
-    - {x: 29.5, y: -23.5, z: 0}
-    - {x: 29.5, y: -26, z: 0}
-    - {x: 42.5, y: -26, z: 0}
-    - {x: 44, y: -25.25, z: 0}
-    - {x: 65.5, y: -25.25, z: 0}
-    - {x: 65.5, y: -36.5, z: 0}
-    - {x: 74.5, y: -36.5, z: 0}
-    - {x: 74.5, y: -29, z: 0}
+    - {x: 25, y: -23}
+    - {x: 29.5, y: -23}
+    - {x: 29.5, y: -26}
+    - {x: 42.5, y: -26}
+    - {x: 44, y: -25.25}
+    - {x: 65.5, y: -25.25}
+    - {x: 65.5, y: -36.5}
+    - {x: 74.5, y: -36.5}
+    - {x: 74.5, y: -29.62}
+    - {x: -161, y: -11}
+    - {x: -157.2, y: -11}
+    - {x: -157.2, y: -11.721}
     startTime: 6
+    hideOnArrival: 0
   - activityName: Mengobrol ibu ibu
     waypoints:
-    - {x: 74.5, y: -29, z: 0}
-    - {x: 74.5, y: -36.5, z: 0}
-    - {x: 65.5, y: -36.5, z: 0}
-    - {x: 65.5, y: -25.25, z: 0}
-    - {x: 42.5, y: -25.25, z: 0}
-    - {x: 42.5, y: -20.5, z: 0}
-    - {x: 44, y: -17.5, z: 0}
-    - {x: 47.5, y: -17.5, z: 0}
+    - {x: 17, y: -29}
+    - {x: 74.5, y: -36.5}
+    - {x: 65.5, y: -36.5}
+    - {x: 65.5, y: -25.25}
+    - {x: 42.5, y: -25.25}
+    - {x: 42.5, y: -20.5}
+    - {x: 44, y: -17.5}
+    - {x: 47.5, y: -17.5}
     startTime: 13
+    hideOnArrival: 0
   - activityName: Pulang
     waypoints:
-    - {x: 47.5, y: -17.5, z: 0}
-    - {x: 44, y: -17.5, z: 0}
-    - {x: 42.5, y: -20.5, z: 0}
-    - {x: 42.5, y: -25.25, z: 0}
-    - {x: 29.5, y: -25.25, z: 0}
-    - {x: 26.6, y: -25.25, z: 0}
-    - {x: 26.6, y: -21, z: 0}
+    - {x: 47.5, y: -17.5}
+    - {x: 44, y: -17.5}
+    - {x: 42.5, y: -20.5}
+    - {x: 42.5, y: -25.25}
+    - {x: 29.5, y: -25.25}
+    - {x: 26.6, y: -25.25}
+    - {x: 26.6, y: -21}
     startTime: 18
+    hideOnArrival: 0
   frendship:
     favoriteValue: 0
     likesValue: 0

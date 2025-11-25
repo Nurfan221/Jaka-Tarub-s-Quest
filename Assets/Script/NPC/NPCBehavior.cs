@@ -7,7 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 public class NPCBehavior : MonoBehaviour
 {
 
-    private NpcSO npcData;
+    public NpcSO npcData;
 
     public string npcName { get; private set; }
     public bool isLockedForQuest = false;
@@ -22,6 +22,7 @@ public class NPCBehavior : MonoBehaviour
     private Schedule currentActivity;
     private Coroutine movementCoroutine; // Tambahkan ini untuk mengelola coroutine
     public bool isTeleporting = false; // Flag penanda
+    public bool isHaveHouse = false;
 
 
     [Tooltip("Jarak hitbox dari pusat NPC")]
@@ -44,11 +45,16 @@ public class NPCBehavior : MonoBehaviour
 
     [Tooltip("Seberapa cepat emoticon akan berganti arah (dalam detik).")]
     public float wiggleSpeed;
+    private Coroutine wiggleCoroutine; // Simpan referensi coroutine agar bisa di-stop
 
     private void OnEnable()
     {
         // Mulai Coroutine saat emoticon ditampilkan.
-        StartCoroutine(WiggleRoutine());
+        if (emoticonTransform != null && emoticonTransform.gameObject.activeSelf)
+        {
+            // Mulai ulang animasinya
+            StartWiggleSafe();
+        }
     }
 
     // OnDisable dipanggil saat GameObject dinonaktifkan.
@@ -104,6 +110,17 @@ public class NPCBehavior : MonoBehaviour
         // Jika sedang bergerak, biarkan coroutine yang mengurusnya, tidak perlu di sini
     }
 
+    // Di dalam NPCBehavior.cs
+    public int GetStartingHour()
+    {
+        // Ambil jam mulai dari jadwal paling pertama
+        if (npcData != null && npcData.schedules.Length > 0)
+        {
+            // Asumsi array schedules sudah urut dari pagi ke malam
+            return npcData.schedules[0].startTime;
+        }
+        return 6; // Default jam 6 jika tidak punya jadwal
+    }
     // Perintah dari luar untuk melepaskan NPC kembali ke jadwal normalnya.
 
     public void ReturnToNormalSchedule()
@@ -112,6 +129,7 @@ public class NPCBehavior : MonoBehaviour
         isLockedForQuest = false;
 
         questOverrideDialogue = null;
+        //CheckSchedule();
         // NPC akan otomatis melanjutkan jadwalnya di frame Update berikutnya.
     }
     // NPC memeriksa jadwalnya sendiri berdasarkan waktu saat ini.
@@ -151,6 +169,7 @@ public class NPCBehavior : MonoBehaviour
 
         // Mulai coroutine pergerakan baru
         movementCoroutine = StartCoroutine(FollowWaypoints(currentActivity.waypoints));
+       
     }
 
     private IEnumerator FollowWaypoints(Vector2[] waypoints)
@@ -198,6 +217,17 @@ public class NPCBehavior : MonoBehaviour
 
         // Setelah selesai semua titik
         isMoving = false;
+
+
+        if (currentActivity != null)
+        {
+            // Jika jadwal ini mengharuskan NPC 'Masuk Ruangan' (Hide)
+            if (currentActivity.hideOnArrival)
+            {
+                Debug.Log($"NPC {npcName} sampai di tujuan dan masuk ke dalam (Hide).");
+                gameObject.SetActive(false);
+            }
+        }
         Debug.Log("{gameObject.name} [DEBUG] NPCSemua Waypoints selesai dilalui. isMoving = false.");
     }
     public void OverrideForQuest(Vector2 startPosition, Vector2 finishLocation, Dialogues newDialogue, string nameEmoticon)
@@ -236,6 +266,18 @@ public class NPCBehavior : MonoBehaviour
 
         CheckSchedule();
 
+    }
+
+    public Schedule GetScheduleForHour(int currentHour)
+    {
+        if (npcData == null || npcData.schedules == null) return null;
+
+     
+
+        return npcData.schedules
+            .Where(s => s.startTime <= currentHour)
+            .OrderByDescending(s => s.startTime)
+            .FirstOrDefault();
     }
 
     // FUNGSI BANTUAN UNTUK PERGERAKAN HALUS (COROUTINE) 
@@ -291,35 +333,66 @@ public class NPCBehavior : MonoBehaviour
 
 
 
+    private void StartWiggleSafe()
+    {
+        // Hentikan coroutine lama jika ada (mencegah double animation)
+        if (wiggleCoroutine != null) StopCoroutine(wiggleCoroutine);
+
+        // Mulai yang baru
+        wiggleCoroutine = StartCoroutine(WiggleRoutine());
+    }
+
     private IEnumerator WiggleRoutine()
     {
-        // Loop ini akan berjalan selamanya selama objek aktif.
         while (true)
         {
-            // Miringkan ke satu sisi (misal, 1 derajat pada sumbu Z).
-            // Kita menggunakan 'localRotation' karena ini adalah objek anak (child).
-            emoticonTransform.localRotation = Quaternion.Euler(0, 0, rotationAngle);
+            // Cek null safety di dalam loop jaga-jaga
+            if (emoticonTransform == null) yield break;
 
-            // Jeda sejenak.
+            emoticonTransform.localRotation = Quaternion.Euler(0, 0, rotationAngle);
             yield return new WaitForSeconds(wiggleSpeed);
 
-            // Miringkan ke sisi berlawanan (misal, -1 derajat pada sumbu Z).
             emoticonTransform.localRotation = Quaternion.Euler(0, 0, -rotationAngle);
-
-            //  Jeda sejenak lagi, lalu loop akan kembali ke awal.
             yield return new WaitForSeconds(wiggleSpeed);
         }
     }
 
     public void ShowEmoticon(string nameEmote)
     {
-        Debug.Log ($"NPC {this.npcName}: Menampilkan emoticon '{nameEmote}'");
+        Debug.Log($"NPC {this.npcName}: Menampilkan emoticon '{nameEmote}'");
+
         if (emoticonTransform != null)
         {
             emoticonTransform.gameObject.SetActive(true);
+
             SpriteRenderer sr = emoticonTransform.GetComponent<SpriteRenderer>();
-            sr.sprite = DatabaseManager.Instance.emoticonDatabase.emoticonDatabase.Find(e => e.emoticonName == nameEmote)?.emoticonSprite;
-            StartCoroutine(WiggleRoutine()); // Mulai gerakan wiggle
+            if (sr != null) // Safety check
+            {
+                var emoteData = DatabaseManager.Instance.emoticonDatabase.emoticonDatabase.Find(e => e.emoticonName == nameEmote);
+                if (emoteData != null)
+                {
+                    sr.sprite = emoteData.emoticonSprite;
+                }
+            }
+
+            // gameObject.activeInHierarchy mengecek apakah objek ini aktif di scene
+            if (gameObject.activeInHierarchy)
+            {
+                StartWiggleSafe();
+            }
+            else
+            {
+                Debug.Log($"NPC {this.npcName} sedang tidur. Emoticon disiapkan tapi animasi ditunda sampai bangun.");
+            }
+        }
+    }
+
+    public void HideEmoticon()
+    {
+        if (emoticonTransform != null)
+        {
+            emoticonTransform.gameObject.SetActive(false);
+            if (wiggleCoroutine != null) StopCoroutine(wiggleCoroutine);
         }
     }
     public void OnHitboxTriggerEnter(Collider2D collision)
@@ -353,12 +426,25 @@ public class NPCBehavior : MonoBehaviour
             Debug.Log($"[SENSOR] Hitbox mendeteksi akar: {collision.name}.");
             AkarPohon akarPohon = collision.GetComponent<AkarPohon>();
             if (akarPohon != null) akarPohon.InstantlyDestroy();
-        }else if (collision.CompareTag("Stone"))
+        }
+        else if (collision.CompareTag("Stone"))
         {
             Debug.Log($"[SENSOR] Hitbox mendeteksi batu: {collision.name}.");
             StoneBehavior rock = collision.GetComponent<StoneBehavior>();
             if (rock != null) rock.InstantlyDestroy();
         }
+        else if (collision.CompareTag("Bunga"))
+        {
+            Debug.Log($"[SENSOR] Hitbox mendeteksi semak: {collision.name}.");
+            EnvironmentBehavior environment = collision.GetComponent<EnvironmentBehavior>();
+            environment.DropItem();
+        }else if (collision.CompareTag("Jamur"))
+        {
+            Debug.Log($"[SENSOR] Hitbox mendeteksi Jamur: {collision.name}.");
+            EnvironmentBehavior environment = collision.GetComponent<EnvironmentBehavior>();
+            environment.DropItem();
+        }
+        
     }
    
 
@@ -380,7 +466,6 @@ public class NPCBehavior : MonoBehaviour
         Vector3 directionToUse = lastMovedDirection; // Default pakai arah terakhir
         bool hasNewDirection = false;
 
-        // PRIORITAS 1: Gunakan Target Tujuan (Jika sedang punya target)
         // Ini mengatasi masalah NPC macet di depan pintu
         if (currentTargetDestination.HasValue)
         {
@@ -391,7 +476,7 @@ public class NPCBehavior : MonoBehaviour
                 hasNewDirection = true;
             }
         }
-        // PRIORITAS 2: Gunakan Gerakan Fisik (Jika tidak punya target spesifik / idle jalan-jalan)
+        //Gunakan Gerakan Fisik (Jika tidak punya target spesifik / idle jalan-jalan)
         else
         {
             Vector3 movementDelta = transform.position - lastPosition;
@@ -408,7 +493,6 @@ public class NPCBehavior : MonoBehaviour
             lastMovedDirection = directionToUse;
         }
 
-        // --- BAGIAN PENERAPAN POSISI (Sama seperti sebelumnya) ---
         if (hitboxTransform != null)
         {
             Vector3 finalPosition = lastMovedDirection * hitboxRadius;
@@ -424,7 +508,6 @@ public class NPCBehavior : MonoBehaviour
     }
     private void OnDrawGizmosSelected()
     {
-        // Titik pusat lingkaran (Posisi NPC + Offset vertikal)
         // Jika verticalOffset negatif, titik ini akan turun.
         Vector3 centerPoint = transform.position + new Vector3(0, verticalOffset, 0);
 

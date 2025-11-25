@@ -19,43 +19,45 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 3632186851480370098, guid: 517244d909f884b40b273a02efa0fb67, type: 3}
   schedules:
   - activityName: Melamun
     waypoints:
-    - {x: 17, y: -8, z: 0}
-    - {x: 17, y: -9, z: 0}
+    - {x: 17, y: -8}
+    - {x: 17, y: -9}
     startTime: 5
+    hideOnArrival: 0
   - activityName: Pulang
     waypoints:
-    - {x: 17, y: -9, z: 0}
-    - {x: 29.5, y: -9, z: 0}
-    - {x: 29.5, y: -23, z: 0}
-    - {x: 26.6, y: -23, z: 0}
-    - {x: 26.6, y: -21, z: 0}
+    - {x: 17, y: -9}
+    - {x: 29.5, y: -9}
+    - {x: 29.5, y: -23}
+    - {x: 25, y: -23}
     startTime: 6
+    hideOnArrival: 1
   - activityName: Berangkat Kerja
     waypoints:
-    - {x: 26.6, y: -21, z: 0}
-    - {x: 26.6, y: -23, z: 0}
-    - {x: 38, y: -23, z: 0}
-    - {x: 38, y: -24, z: 0}
+    - {x: 25, y: -23}
+    - {x: 38, y: -23}
+    - {x: 38, y: -24}
     startTime: 14
+    hideOnArrival: 0
   - activityName: Pindah Tempat
     waypoints:
-    - {x: 38, y: -24, z: 0}
-    - {x: 38, y: -23, z: 0}
-    - {x: 29.6, y: -23, z: 0}
-    - {x: 30.25, y: -5, z: 0}
-    - {x: 30.25, y: -6, z: 0}
+    - {x: 38, y: -24}
+    - {x: 38, y: -23}
+    - {x: 29.6, y: -23}
+    - {x: 30.25, y: -5}
+    - {x: 30.25, y: -6}
     startTime: 20
+    hideOnArrival: 0
   - activityName: Pindah Tempat
     waypoints:
-    - {x: 30.25, y: -6, z: 0}
-    - {x: 30.25, y: -8, z: 0}
-    - {x: 17, y: -8, z: 0}
-    - {x: 17, y: -9, z: 0}
+    - {x: 30.25, y: -6}
+    - {x: 30.25, y: -8}
+    - {x: 17, y: -8}
+    - {x: 17, y: -9}
     startTime: 23
+    hideOnArrival: 0
   frendship:
     favoriteValue: 0
     likesValue: 0

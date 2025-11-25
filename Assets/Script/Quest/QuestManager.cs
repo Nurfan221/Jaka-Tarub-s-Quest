@@ -559,7 +559,11 @@ public class QuestManager : MonoBehaviour, ISaveable
         // karena semua item sudah diberikan (entah di tas atau di tanah).
 
         NPCBehavior behavior = NPCManager.Instance.GetActiveNpcByName(questStatus.npcName);
-        behavior.emoticonTransform.gameObject.SetActive(false);
+        if (behavior.emoticonTransform != null && behavior.emoticonTransform.gameObject.activeSelf)
+        {
+            // Mulai ulang animasinya
+            behavior.HideEmoticon();
+        }
 
         // Pastikan referensi DialogueSystem ada dan benar
         if (questStatus.finishDialogue != null)

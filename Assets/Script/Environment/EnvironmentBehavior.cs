@@ -89,7 +89,23 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
     public void GetItemDrop()
     {
 
-        ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.health, itemDrop.quality, transform.position + new Vector3(0, 0.5f, 0));
+        ItemData newItemData = new ItemData
+        {
+            itemName = itemDrop.itemName,
+            count = 1,
+            quality = itemDrop.quality,
+            itemHealth = itemDrop.health
+        };
+        ItemPool.Instance.AddItem(newItemData);
+
+        Destroy(gameObject);
+    }
+
+    public void DropItem()
+    {
+        Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(0.1f, 0.5f));
+        ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.health, itemDrop.quality, transform.position + offset, 1);
+
         Destroy(gameObject);
     }
 }

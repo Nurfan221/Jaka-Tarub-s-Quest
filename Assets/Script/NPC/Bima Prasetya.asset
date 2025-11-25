@@ -19,43 +19,66 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 3632186851480370098, guid: 3d3060afdd0173e498e5e2f164531e88, type: 3}
   schedules:
-  - activityName: 'Membuka Toko '
+  - activityName: Istirahat
     waypoints:
-    - {x: 44, y: -5, z: 0}
-    startTime: 8
+    - {x: -238, y: 57.7}
+    startTime: 4
+    hideOnArrival: 0
+  - activityName: Nongkrong
+    waypoints:
+    - {x: -238, y: 57.7}
+    - {x: -239.5, y: 57.7}
+    - {x: -239.5, y: 55}
+    - {x: -246, y: 55}
+    - {x: -246, y: 43.5}
+    - {x: 44, y: -8}
+    - {x: 54, y: -8}
+    - {x: 60, y: -5}
+    startTime: 6
+    hideOnArrival: 0
   - activityName: Berangkat Kerja
     waypoints:
-    - {x: 44, y: -5, z: 0}
-    - {x: 44, y: -7.5, z: 0}
-    - {x: 76, y: -7.5, z: 0}
-    - {x: 76, y: -5.7, z: 0}
-    - {x: 75.67, y: -5.7, z: 0}
-    startTime: 14
+    - {x: 60, y: -5}
+    - {x: 78, y: -5}
+    startTime: 9
+    hideOnArrival: 0
   - activityName: Pulang Kerja
     waypoints:
-    - {x: 75.67, y: -5.7, z: 0}
-    - {x: 76, y: -5.7, z: 0}
-    - {x: 76, y: -7.5, z: 0}
-    - {x: 44, y: -7.5, z: 0}
-    - {x: 44, y: -5, z: 0}
-    startTime: 17
+    - {x: 77, y: -5}
+    - {x: 60, y: -5}
+    - {x: 54, y: -8}
+    - {x: 44, y: -8}
+    - {x: 44, y: -5}
+    - {x: -246, y: 55}
+    - {x: -250, y: 55}
+    - {x: -250, y: 57.3}
+    startTime: 15
+    hideOnArrival: 0
   - activityName: Nongkrong
     waypoints:
-    - {x: 44, y: -5, z: 0}
-    - {x: 44, y: -7.5, z: 0}
-    - {x: 29.25, y: -7.5, z: 0}
-    - {x: 29.25, y: -5, z: 0}
-    - {x: 29.25, y: -6, z: 0}
+    - {x: -250, y: 57.3}
+    - {x: -250, y: 55}
+    - {x: -246, y: 55}
+    - {x: 44, y: -5}
+    - {x: 44, y: -7.5}
+    - {x: 29.25, y: -7.5}
+    - {x: 29.25, y: -5}
+    - {x: 29.25, y: -6}
     startTime: 19
-  - activityName: Nongkrong
+    hideOnArrival: 0
+  - activityName: Pulang
     waypoints:
-    - {x: 29.25, y: -6, z: 0}
-    - {x: 29.25, y: -7.5, z: 0}
-    - {x: 44, y: -7.5, z: 0}
-    - {x: 44, y: -5, z: 0}
+    - {x: 29.25, y: -6}
+    - {x: 29.25, y: -7.5}
+    - {x: 44, y: -7.5}
+    - {x: 44, y: -5}
+    - {x: -246, y: 55}
+    - {x: -239.5, y: 55}
+    - {x: -239.5, y: 57.7}
+    - {x: -238, y: 57.7}
     startTime: 22
+    hideOnArrival: 0
   frendship:
     favoriteValue: 0
     likesValue: 0

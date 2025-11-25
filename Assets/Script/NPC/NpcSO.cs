@@ -6,7 +6,9 @@ public class Schedule
 {
     public string activityName;
     public Vector2[] waypoints;
-    public float startTime;
+    public int startTime;
+    [Tooltip("Jika dicentang, NPC akan menghilang (masuk rumah) saat sampai di tujuan.")]
+    public bool hideOnArrival; //
     // Hapus 'hasStarted' dan 'isOngoing' dari sini, karena itu adalah data runtime
 }
 

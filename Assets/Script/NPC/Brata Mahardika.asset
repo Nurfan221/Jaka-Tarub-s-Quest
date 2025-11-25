@@ -19,46 +19,50 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 3632186851480370098, guid: 9d21bec4464f448478df21751137ec53, type: 3}
   schedules:
   - activityName: Membersihkan Makam
     waypoints:
-    - {x: 5.5, y: -49, z: 0}
-    - {x: 5.5, y: -52, z: 0}
-    - {x: 19.5, y: -42, z: 0}
-    - {x: 19.5, y: -35.5, z: 0}
-    - {x: 21, y: -35.5, z: 0}
+    - {x: 5.5, y: -51}
+    - {x: 5.5, y: -52}
+    - {x: 19.5, y: -42}
+    - {x: 19.5, y: -35.5}
+    - {x: 21, y: -35.5}
     startTime: 5
+    hideOnArrival: 0
   - activityName: Pulang
     waypoints:
-    - {x: 21, y: -35.5, z: 0}
-    - {x: 19.5, y: -35.5, z: 0}
-    - {x: 19.5, y: -42, z: 0}
-    - {x: 5.5, y: -52, z: 0}
-    - {x: 5.5, y: -49, z: 0}
-    startTime: 10
+    - {x: 21, y: -35.5}
+    - {x: 19.5, y: -35.5}
+    - {x: 19.5, y: -42}
+    - {x: 5.5, y: -52}
+    - {x: 5.5, y: -51}
+    startTime: 9
+    hideOnArrival: 1
   - activityName: Memotong Kayu
     waypoints:
-    - {x: 5.5, y: -49, z: 0}
-    - {x: 5.5, y: -52, z: 0}
-    - {x: 0, y: -52, z: 0}
-    startTime: 15
+    - {x: 5.5, y: -49}
+    - {x: 5.5, y: -52}
+    - {x: 0, y: -52}
+    startTime: 12
+    hideOnArrival: 0
   - activityName: Ketepi Sungai
     waypoints:
-    - {x: 0, y: -52, z: 0}
-    - {x: 0, y: -56, z: 0}
-    - {x: -24.5, y: -56, z: 0}
-    - {x: -24.5, y: -62.5, z: 0}
-    startTime: 18
+    - {x: 0, y: -52}
+    - {x: 0, y: -56}
+    - {x: -24.5, y: -56}
+    - {x: -24.5, y: -58}
+    startTime: 15
+    hideOnArrival: 0
   - activityName: Pulang
     waypoints:
-    - {x: -24.5, y: -62.5, z: 0}
-    - {x: -24.5, y: -56, z: 0}
-    - {x: 0, y: -56, z: 0}
-    - {x: 0, y: -52, z: 0}
-    - {x: 5.5, y: -52, z: 0}
-    - {x: 5.5, y: -49, z: 0}
-    startTime: 23
+    - {x: -24.5, y: -58}
+    - {x: -24.5, y: -56}
+    - {x: 0, y: -56}
+    - {x: 0, y: -52}
+    - {x: 5.5, y: -52}
+    - {x: 5.5, y: -51}
+    startTime: 19
+    hideOnArrival: 1
   frendship:
     favoriteValue: 0
     likesValue: 0

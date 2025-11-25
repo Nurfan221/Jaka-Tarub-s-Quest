@@ -464,6 +464,7 @@ public enum IdPintu
     RumahFahri,
     KantorDesa,
     RumahAmru,
+    RumahBima,
     Dll
 }
 
