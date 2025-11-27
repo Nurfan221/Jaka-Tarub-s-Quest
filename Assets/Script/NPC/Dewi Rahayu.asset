@@ -19,32 +19,29 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 3632186851480370098, guid: 9513d8e95fe27a346b3050236ee4c356, type: 3}
   schedules:
-  - activityName: Buka Warung
-    waypoints:
-    - {x: 96.5, y: -27, z: 0}
-    startTime: 10
   - activityName: Mengobrol Ibu Ibu
     waypoints:
-    - {x: 96.5, y: -27, z: 0}
-    - {x: 96.5, y: -31, z: 0}
-    - {x: 83.5, y: -31, z: 0}
-    - {x: 83.5, y: -25.25, z: 0}
-    - {x: 63, y: -25.25, z: 0}
-    - {x: 63, y: -16, z: 0}
-    - {x: 50, y: -16, z: 0}
+    - {x: 96.5, y: -29}
+    - {x: 96.5, y: -31}
+    - {x: 83.5, y: -31}
+    - {x: 83.5, y: -25.25}
+    - {x: 63, y: -25.25}
+    - {x: 63, y: -16}
+    - {x: 50, y: -16}
     startTime: 13
+    hideOnArrival: 0
   - activityName: Pulang
     waypoints:
-    - {x: 50, y: -16, z: 0}
-    - {x: 63, y: -16, z: 0}
-    - {x: 63, y: -25.25, z: 0}
-    - {x: -83.5, y: -25.25, z: 0}
-    - {x: -83.5, y: -31, z: 0}
-    - {x: 96.5, y: -31, z: 0}
-    - {x: 96.5, y: -27, z: 0}
+    - {x: 50, y: -16}
+    - {x: 63, y: -16}
+    - {x: 63, y: -25.25}
+    - {x: 83.5, y: -25.25}
+    - {x: 83.5, y: -31}
+    - {x: 96.5, y: -31}
+    - {x: 96.5, y: -29}
     startTime: 18
+    hideOnArrival: 1
   frendship:
     favoriteValue: 0
     likesValue: 0
