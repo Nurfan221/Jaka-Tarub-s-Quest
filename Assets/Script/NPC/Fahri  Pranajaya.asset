@@ -20,6 +20,11 @@ MonoBehaviour:
   bulanUltah: 0
   npcSprite: {fileID: 0}
   schedules:
+  - activityName: Istirahat
+    waypoints:
+    - {x: -163.748, y: 23.701}
+    startTime: 4
+    hideOnArrival: 0
   - activityName: PergiKepusatDesa
     waypoints:
     - {x: -163.748, y: 23.701}

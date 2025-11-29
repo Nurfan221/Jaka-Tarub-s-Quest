@@ -20,6 +20,11 @@ MonoBehaviour:
   bulanUltah: 0
   npcSprite: {fileID: 0}
   schedules:
+  - activityName: Istirahat
+    waypoints:
+    - {x: -203, y: 85.7}
+    startTime: 4
+    hideOnArrival: 0
   - activityName: Memasak
     waypoints:
     - {x: -203, y: 85.7}
@@ -30,6 +35,7 @@ MonoBehaviour:
     - {x: -205, y: 89.3}
     - {x: -205, y: 91.3}
     startTime: 5
+    hideOnArrival: 0
   - activityName: MembukaToko
     waypoints:
     - {x: -205, y: 91.3}
@@ -38,6 +44,7 @@ MonoBehaviour:
     - {x: -211.5, y: 84.5}
     - {x: -211.5, y: 83.8}
     startTime: 8
+    hideOnArrival: 0
   - activityName: Mengobrol Ibu Ibu
     waypoints:
     - {x: -211.5, y: 83.8}
@@ -52,6 +59,7 @@ MonoBehaviour:
     - {x: 47, y: -14}
     - {x: 47, y: -16}
     startTime: 14
+    hideOnArrival: 0
   - activityName: Pulang
     waypoints:
     - {x: 47, y: -16}
@@ -67,6 +75,7 @@ MonoBehaviour:
     - {x: -204.29, y: 85.7}
     - {x: -203, y: 85.7}
     startTime: 18
+    hideOnArrival: 0
   frendship:
     favoriteValue: 0
     likesValue: 0

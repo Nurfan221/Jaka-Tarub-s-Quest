@@ -20,6 +20,11 @@ MonoBehaviour:
   bulanUltah: 0
   npcSprite: {fileID: 0}
   schedules:
+  - activityName: PulangdanIstirahat
+    waypoints:
+    - {x: -164.6, y: 23.7}
+    startTime: 4
+    hideOnArrival: 0
   - activityName: PekerjaanRumah
     waypoints:
     - {x: -164.6, y: 23.7}
@@ -28,6 +33,7 @@ MonoBehaviour:
     - {x: -159, y: 20.98}
     - {x: -159, y: 23.5}
     startTime: 5
+    hideOnArrival: 0
   - activityName: PergiKeWarung
     waypoints:
     - {x: -159, y: 23.5}
@@ -41,6 +47,7 @@ MonoBehaviour:
     - {x: -203, y: 77}
     - {x: -203, y: 78}
     startTime: 8
+    hideOnArrival: 0
   - activityName: PulangKeRumah
     waypoints:
     - {x: -203, y: 78}
@@ -53,6 +60,7 @@ MonoBehaviour:
     - {x: 26.5, y: -2}
     - {x: -154, y: 23.4}
     startTime: 12
+    hideOnArrival: 0
   - activityName: MengurusTanaman
     waypoints:
     - {x: -154, y: 23.4}
@@ -62,6 +70,7 @@ MonoBehaviour:
     - {x: 22, y: -9}
     - {x: 22, y: -5.5}
     startTime: 15
+    hideOnArrival: 0
   - activityName: PulangdanIstirahat
     waypoints:
     - {x: 22, y: -5.5}
@@ -74,6 +83,7 @@ MonoBehaviour:
     - {x: -165.709, y: 23.7}
     - {x: -164.6, y: 23.7}
     startTime: 18
+    hideOnArrival: 0
   frendship:
     favoriteValue: 0
     likesValue: 0

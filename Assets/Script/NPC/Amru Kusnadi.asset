@@ -20,6 +20,11 @@ MonoBehaviour:
   bulanUltah: 0
   npcSprite: {fileID: 0}
   schedules:
+  - activityName: Istirahat
+    waypoints:
+    - {x: -240.3, y: 91.7}
+    startTime: 4
+    hideOnArrival: 0
   - activityName: BerangkatKeSawah
     waypoints:
     - {x: -240.3, y: 91.7}
@@ -35,6 +40,7 @@ MonoBehaviour:
     - {x: 63, y: -3}
     - {x: 60, y: -3}
     startTime: 5
+    hideOnArrival: 0
   - activityName: PulangKerumah
     waypoints:
     - {x: 63, y: -3}
@@ -48,6 +54,7 @@ MonoBehaviour:
     - {x: -249, y: 85}
     - {x: -249, y: 84}
     startTime: 9
+    hideOnArrival: 0
   - activityName: KeSawah
     waypoints:
     - {x: -249, y: 84}
@@ -60,6 +67,7 @@ MonoBehaviour:
     - {x: 63, y: -11.5}
     - {x: 58, y: -9}
     startTime: 12
+    hideOnArrival: 0
   - activityName: PulangKerumah
     waypoints:
     - {x: 58, y: -9}
@@ -74,6 +82,7 @@ MonoBehaviour:
     - {x: -239, y: 91.7}
     - {x: -240.3, y: 91.7}
     startTime: 18
+    hideOnArrival: 0
   frendship:
     favoriteValue: 0
     likesValue: 0

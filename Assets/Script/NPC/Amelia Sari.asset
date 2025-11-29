@@ -19,41 +19,76 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  prefab: {fileID: 3632186851480370098, guid: de302c73b78a63b4c9a24c30e00174a3, type: 3}
   schedules:
+  - activityName: Pulang kerumah
+    waypoints:
+    - {x: -203, y: 51}
+    startTime: 4
+    hideOnArrival: 0
+  - activityName: Makan
+    waypoints:
+    - {x: -203, y: 51}
+    - {x: -204.3, y: 51}
+    - {x: -204.3, y: 49}
+    - {x: -207.5, y: 49}
+    - {x: -207.5, y: 55.3}
+    startTime: 5
+    hideOnArrival: 0
   - activityName: Berangkat kerja
     waypoints:
-    - {x: 24.5, y: -14, z: 0}
-    - {x: 24.5, y: -16.5, z: 0}
-    - {x: 29.5, y: -16.5, z: 0}
-    - {x: 29.5, y: -26, z: 0}
-    - {x: 42, y: -26, z: 0}
-    - {x: 43.5, y: -25.5, z: 0}
-    - {x: 65.5, y: -25.5, z: 0}
-    - {x: 65.5, y: -36.5, z: 0}
-    - {x: 74.5, y: -36.5, z: 0}
-    - {x: 74.5, y: -29, z: 0}
+    - {x: -207.5, y: 55.3}
+    - {x: -207.5, y: 47}
+    - {x: -210.5, y: 47}
+    - {x: -210.5, y: 45}
+    - {x: 24.5, y: -16.5}
+    - {x: 29.5, y: -16.5}
+    - {x: 29.5, y: -26}
+    - {x: 42, y: -26}
+    - {x: 43.5, y: -25.5}
+    - {x: 65.5, y: -25.5}
+    - {x: 65.5, y: -36.5}
+    - {x: 74.5, y: -36.5}
+    - {x: 74.5, y: -29}
+    - {x: -157, y: -14.5}
+    - {x: -180.7, y: -14.5}
+    - {x: -180.7, y: -20.3}
+    - {x: -185, y: -20.3}
+    - {x: -185, y: -19}
     startTime: 6
-  - activityName: Berangkat kerja
+    hideOnArrival: 0
+  - activityName: 'Nongkrong '
     waypoints:
-    - {x: 74.5, y: -29, z: 0}
-    - {x: 74.5, y: -36.5, z: 0}
-    - {x: 65.5, y: -36.5, z: 0}
-    - {x: 65.5, y: -25.5, z: 0}
-    - {x: 39, y: -25.5, z: 0}
-    - {x: 39, y: -18, z: 0}
-    - {x: 37, y: -18, z: 0}
+    - {x: -185, y: -19}
+    - {x: -185, y: -20.3}
+    - {x: -180.7, y: -20.3}
+    - {x: -180.7, y: -14.5}
+    - {x: -157, y: -14.5}
+    - {x: -157, y: -19}
+    - {x: 74.5, y: -36.5}
+    - {x: 65.5, y: -36.5}
+    - {x: 65.5, y: -25.5}
+    - {x: 39, y: -25.5}
+    - {x: 39, y: -18}
+    - {x: 37, y: -18}
     startTime: 14
-  - activityName: Berangkat kerja
+    hideOnArrival: 0
+  - activityName: Pulang kerumah
     waypoints:
-    - {x: 37, y: -18, z: 0}
-    - {x: 37, y: -14.5, z: 0}
-    - {x: 29.5, y: -14.5, z: 0}
-    - {x: 29.5, y: -16.5, z: 0}
-    - {x: 24.5, y: -16.5, z: 0}
-    - {x: 24.5, y: -16.5, z: 0}
-    - {x: 24.5, y: -14, z: 0}
+    - {x: 37, y: -18}
+    - {x: 37, y: -14.5}
+    - {x: 29.5, y: -14.5}
+    - {x: 29.5, y: -16.5}
+    - {x: 24.5, y: -16.5}
+    - {x: 24.5, y: -16.5}
+    - {x: 24.5, y: -14}
+    - {x: -210.5, y: 47}
+    - {x: -207.5, y: 47}
+    - {x: -207.5, y: 49}
+    - {x: -204.3, y: 49}
+    - {x: -204.3, y: 51}
+    - {x: -203, y: 51}
     startTime: 18
+    hideOnArrival: 0
   frendship:
     favoriteValue: 0
     likesValue: 0

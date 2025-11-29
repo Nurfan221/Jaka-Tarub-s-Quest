@@ -20,6 +20,11 @@ MonoBehaviour:
   bulanUltah: 1
   npcSprite: {fileID: 0}
   schedules:
+  - activityName: Nongkrong
+    waypoints:
+    - {x: -202, y: 85.7}
+    startTime: 4
+    hideOnArrival: 0
   - activityName: PergiBerburu
     waypoints:
     - {x: -202, y: 85.7}
@@ -35,6 +40,7 @@ MonoBehaviour:
     - {x: 49, y: 21}
     - {x: 49, y: 35.93}
     startTime: 5
+    hideOnArrival: 0
   - activityName: Berburu
     waypoints:
     - {x: 49, y: 35.93}
@@ -42,6 +48,7 @@ MonoBehaviour:
     - {x: 77, y: 21}
     - {x: 77, y: 4}
     startTime: 9
+    hideOnArrival: 0
   - activityName: Nongkrong
     waypoints:
     - {x: 77, y: 4}
@@ -50,7 +57,8 @@ MonoBehaviour:
     - {x: 58, y: -25.25}
     - {x: 58, y: -22}
     startTime: 14
-  - activityName: Nongkrong
+    hideOnArrival: 0
+  - activityName: Pulang
     waypoints:
     - {x: 58, y: -22}
     - {x: 58, y: -25}
@@ -68,6 +76,7 @@ MonoBehaviour:
     - {x: -201, y: 85.7}
     - {x: -202, y: 85.7}
     startTime: 18
+    hideOnArrival: 0
   frendship:
     favoriteValue: 0
     likesValue: 0
