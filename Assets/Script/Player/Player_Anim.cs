@@ -1,108 +1,200 @@
 using System.Collections;
+using System.Collections.Generic; 
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Player_Anim : MonoBehaviour
 {
-    public Animator animator;
+    [Header("Master Animator (Badan Utama)")]
+    public Animator bodyAnimator; 
+
+    [Header("Assign semua bagian tubuh (Body, Armor, dll) ke sini")]
+    public List<Animator> layerAnimators = new List<Animator>();
+
     Player_Movement pm;
-    SpriteRenderer sr;
+
     public bool isAttacking;
     public bool isTakingDamage = false;
-    public Vector2 lastDirection = Vector2.down; // Default menghadap bawah
+    public Vector2 lastDirection = Vector2.down;
 
     private void Start()
     {
         pm = GetComponent<Player_Movement>();
-        sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        UpdateAnimation();
+        UpdateAnimationParameters();
     }
 
-    public void UpdateAnimation()
+    void LateUpdate()
     {
-        if (animator == null)
-        {
-            Debug.LogError("Animator belum di-assign!");
-            return;
-        }
+        SyncVisuals();
+    }
 
-        if (isTakingDamage) return; // Jangan ubah animasi saat terkena damage
+    public void UpdateAnimationParameters()
+    {
+        if (bodyAnimator == null) return;
 
-        Vector2 movement = pm.movementDirection.normalized; // Normalisasi vektor
+        if (isTakingDamage) return;
+
+        Vector2 movement = pm.movementDirection.normalized;
         bool isMoving = movement != Vector2.zero;
 
+        // Atur Parameter untuk Body 
         if (isMoving)
         {
             lastDirection = movement;
-            animator.SetFloat("MoveX", Mathf.Round(movement.x));
-            animator.SetFloat("MoveY", Mathf.Round(movement.y));
+            SetAnimParameters(bodyAnimator, movement.x, movement.y, 1f);
         }
         else
         {
-            animator.SetFloat("IdleX", Mathf.Round(lastDirection.x));
-            animator.SetFloat("IdleY", Mathf.Round(lastDirection.y));
+            SetAnimParameters(bodyAnimator, lastDirection.x, lastDirection.y, 0f);
         }
-        animator.SetFloat("Speed", isMoving ? 1f : 0f);
+
+        // Atur Parameter untuk Layer Lain (Slave) agar state machine-nya merespons
+        foreach (Animator anim in layerAnimators)
+        {
+            // Kita copy parameter yang sama persis ke baju/celana
+            anim.SetFloat("MoveX", bodyAnimator.GetFloat("MoveX"));
+            anim.SetFloat("MoveY", bodyAnimator.GetFloat("MoveY"));
+            anim.SetFloat("IdleX", bodyAnimator.GetFloat("IdleX"));
+            anim.SetFloat("IdleY", bodyAnimator.GetFloat("IdleY"));
+            anim.SetFloat("Speed", bodyAnimator.GetFloat("Speed"));
+
+            // Trigger attack/damage juga harus di-pass jika ada logic-nya di sini
+            // (Biasanya trigger dilakukan via method terpisah di bawah)
+        }
     }
 
-
-
-    // Fungsi untuk menyerang
-    public void PlayAttackAnimation()
+    // Helper function biar kodenya rapi
+    void SetAnimParameters(Animator anim, float x, float y, float speed)
     {
-        if (animator == null) return;
+        anim.SetFloat("MoveX", Mathf.Round(x));
+        anim.SetFloat("MoveY", Mathf.Round(y));
+        anim.SetFloat("IdleX", Mathf.Round(lastDirection.x)); // Pastikan idle direction juga terupdate
+        anim.SetFloat("IdleY", Mathf.Round(lastDirection.y));
+        anim.SetFloat("Speed", speed);
+    }
 
-        isAttacking = true;
-        animator.SetTrigger("Attack");
+    void SyncVisuals()
+    {
+        if (bodyAnimator == null || layerAnimators.Count == 0) return;
 
-        // Reset ke mode berjalan setelah animasi selesai
-        StartCoroutine(ResetAttackState());
+        // Ambil info state animasi dari Badan (Master) saat ini
+        AnimatorStateInfo masterState = bodyAnimator.GetCurrentAnimatorStateInfo(0);
+        int currentHash = masterState.fullPathHash;
+        float currentTime = masterState.normalizedTime; // Waktu putar (0.0 sampai 1.0)
+
+        foreach (Animator anim in layerAnimators)
+        {
+            AnimatorStateInfo slaveState = anim.GetCurrentAnimatorStateInfo(0);
+
+            // Jika animasinya beda ATAU waktunya terlalu jauh (desync), paksa samakan!
+            // Kita paksa baju untuk 'Play' state yang sama di waktu yang sama persis.
+            if (slaveState.fullPathHash != currentHash || Mathf.Abs(slaveState.normalizedTime - currentTime) > 0.02f)
+            {
+                anim.Play(currentHash, 0, currentTime);
+            }
+        }
+    }
+
+    // Fungsi Trigger (Serang/Hit)
+    public void PlayTriggerAnimation(string triggerName)
+    {
+        if (bodyAnimator == null) return;
+
+        // Trigger Master
+        bodyAnimator.SetTrigger(triggerName);
+
+        // Trigger Slaves
+        foreach (Animator anim in layerAnimators)
+        {
+            anim.SetTrigger(triggerName);
+        }
+
+        // Logic reset state bisa disesuaikan lagi jika perlu
     }
 
     public void PlayAnimation(string nameAnimation)
     {
-        if (animator == null) return;
+        if (bodyAnimator == null) return;
 
         isTakingDamage = true;
-        animator.SetTrigger(nameAnimation);
 
-        // Pastikan animasi take damage berjalan, lalu kembali ke idle
+        // Trigger Master (Badan)
+        bodyAnimator.SetTrigger(nameAnimation);
+
+        // Trigger Slaves (Baju, dll)
+        foreach (Animator anim in layerAnimators)
+        {
+            if (anim != null) anim.SetTrigger(nameAnimation);
+        }
+
         StartCoroutine(ResetTakeDamageState());
     }
+
     private IEnumerator ResetTakeDamageState()
     {
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        isTakingDamage = false;
-        UpdateAnimation(); // Kembalikan ke animasi normal
-    }
+        // Tunggu 1 frame agar Animator sempat transisi ke state baru
+        // Jika tidak, kita mungkin mengambil durasi animasi 'Idle' bukannya 'Hurt'
+        yield return null;
 
+        // Gunakan bodyAnimator sebagai satu-satunya acuan waktu
+        float duration = bodyAnimator.GetCurrentAnimatorStateInfo(0).length;
+
+        yield return new WaitForSeconds(duration);
+
+        isTakingDamage = false;
+
+        // Panggil fungsi update parameter agar kembali ke Idle/Run yang benar
+        UpdateAnimationParameters();
+    }
 
     private IEnumerator ResetAttackState()
     {
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        isAttacking = false;
-        UpdateAnimation();
-    }
-
-    public IEnumerator PlayAndWaitForAnimation(string stateName, int layer = 0)
-    {
-        animator.Play(stateName);
-
+        // Tunggu 1 frame agar state berpindah
         yield return null;
 
-        // Loop ini akan terus berjalan selama kondisi di dalamnya terpenuhi
-        while (animator.GetCurrentAnimatorStateInfo(layer).IsName(stateName) &&
-               animator.GetCurrentAnimatorStateInfo(layer).normalizedTime < 1.0f)
+        // Ambil durasi dari Master
+        float duration = bodyAnimator.GetCurrentAnimatorStateInfo(0).length;
+
+        yield return new WaitForSeconds(duration);
+
+        isAttacking = false;
+
+        UpdateAnimationParameters();
+    }
+
+    // Fungsi Play & Wait (Hard Sync Play)
+    public IEnumerator PlayAndWaitForAnimation(string stateName, int layer = 0)
+    {
+        if (bodyAnimator == null) yield break;
+
+        // Play di Master
+        bodyAnimator.Play(stateName, layer, 0f);
+
+        // Play di semua Slave (Force waktu ke 0 agar sinkron)
+        foreach (Animator anim in layerAnimators)
         {
-            // Tunggu frame berikutnya sebelum mengecek lagi
+            if (anim != null) anim.Play(stateName, layer, 0f);
+        }
+
+        yield return null; // Tunggu frame update
+
+        // Loop tunggu hanya memantau Master (Body)
+        // Kita tidak perlu mengecek layerAnimators karena mereka pasti durasinya sama
+        while (bodyAnimator.GetCurrentAnimatorStateInfo(layer).IsName(stateName) &&
+               bodyAnimator.GetCurrentAnimatorStateInfo(layer).normalizedTime < 1.0f)
+        {
+            // Opsional: Paksa sinkronisasi terus menerus jika animasi sangat panjang
+            // SyncVisuals(); 
+
             yield return null;
         }
 
         Debug.Log($"Animasi '{stateName}' telah selesai.");
-    }
 
+        // Kembalikan kontrol ke update normal
+        UpdateAnimationParameters();
+    }
 }

@@ -1,0 +1,962 @@
+fileFormatVersion: 2
+guid: c846ee2134967364ab4bde37378d5ded
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7647541824635338502
+    second: RambutJalan_0
+  - first:
+      213: 7116973508009721749
+    second: RambutJalan_1
+  - first:
+      213: -8424960705021490460
+    second: RambutJalan_2
+  - first:
+      213: -923174902477337700
+    second: RambutJalan_3
+  - first:
+      213: 2616748459678135015
+    second: RambutJalan_4
+  - first:
+      213: 6709849910183438419
+    second: RambutJalan_5
+  - first:
+      213: -8758093718606053325
+    second: RambutJalan_6
+  - first:
+      213: -271941224691148502
+    second: RambutJalan_7
+  - first:
+      213: -1739308135485215737
+    second: RambutJalan_8
+  - first:
+      213: 7030074497346755359
+    second: RambutJalan_9
+  - first:
+      213: -2292613584928525501
+    second: RambutJalan_10
+  - first:
+      213: 4217269324846667663
+    second: RambutJalan_11
+  - first:
+      213: 6724794305674971253
+    second: RambutJalan_12
+  - first:
+      213: -8934931616352853536
+    second: RambutJalan_13
+  - first:
+      213: -5750812616066682305
+    second: RambutJalan_14
+  - first:
+      213: 4166675859036750123
+    second: RambutJalan_15
+  - first:
+      213: 6360264151982661200
+    second: RambutJalan_16
+  - first:
+      213: -131174177981885682
+    second: RambutJalan_17
+  - first:
+      213: -73783043435647553
+    second: RambutJalan_18
+  - first:
+      213: -1142358247225337220
+    second: RambutJalan_19
+  - first:
+      213: -7073918495597582668
+    second: RambutJalan_20
+  - first:
+      213: -765937071563794157
+    second: RambutJalan_21
+  - first:
+      213: 9068172112920023577
+    second: RambutJalan_22
+  - first:
+      213: 706738705752206501
+    second: RambutJalan_23
+  - first:
+      213: -6433387970514597120
+    second: RambutJalan_24
+  - first:
+      213: -8645964463986303180
+    second: RambutJalan_25
+  - first:
+      213: -1383926763013340700
+    second: RambutJalan_26
+  - first:
+      213: -4329694405104729388
+    second: RambutJalan_27
+  - first:
+      213: -851078393493383142
+    second: RambutJalan_28
+  - first:
+      213: -9056246138004449538
+    second: RambutJalan_29
+  - first:
+      213: 5559361587464760160
+    second: RambutJalan_30
+  - first:
+      213: -6310465804249301731
+    second: RambutJalan_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RambutJalan_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 217
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60ff45665c6812a60800000000000000
+      internalID: 7647541824635338502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_1
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 219
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59ff8ccb2b194c260800000000000000
+      internalID: 7116973508009721749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_2
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 221
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eac19a40e6841b80800000000000000
+      internalID: -8424960705021490460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_3
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 217
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9b484041593033f0800000000000000
+      internalID: -923174902477337700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_4
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 217
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e27aa52cde805420800000000000000
+      internalID: 2616748459678135015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_5
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 219
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 358aba861fc2e1d50800000000000000
+      internalID: 6709849910183438419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_6
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 221
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33008e05a20057680800000000000000
+      internalID: -8758093718606053325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_7
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 217
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a29df7e95eed93cf0800000000000000
+      internalID: -271941224691148502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_8
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 145
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70ce47d477cbcd7e0800000000000000
+      internalID: -1739308135485215737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_9
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 147
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1bd2e62287df8160800000000000000
+      internalID: 7030074497346755359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_10
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 149
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 343b91f57100f20e0800000000000000
+      internalID: -2292613584928525501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_11
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 145
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8713ad5b10c68a30800000000000000
+      internalID: 4217269324846667663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_12
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 145
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5788351aac4435d50800000000000000
+      internalID: 6724794305674971253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_13
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 147
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e1a1e2c80fb00480800000000000000
+      internalID: -8934931616352853536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_14
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 149
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f32b28115620130b0800000000000000
+      internalID: -5750812616066682305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_15
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 145
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b21c4182e9103d930800000000000000
+      internalID: 4166675859036750123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_16
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 89
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05ed3905c82344850800000000000000
+      internalID: 6360264151982661200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_17
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 91
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e039fa5b7c9fd2ef0800000000000000
+      internalID: -131174177981885682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_18
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 93
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbd229186bed9fef0800000000000000
+      internalID: -73783043435647553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_19
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 89
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7a55e30a378520f0800000000000000
+      internalID: -1142358247225337220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_20
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 89
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b627d38b9464dd90800000000000000
+      internalID: -7073918495597582668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_21
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 91
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3191321aa48de55f0800000000000000
+      internalID: -765937071563794157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_22
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 93
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91293b0dd7e98dd70800000000000000
+      internalID: 9068172112920023577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_23
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 89
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ac2161cb17dec900800000000000000
+      internalID: 706738705752206501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_24
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 25
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00bc433f9b308b6a0800000000000000
+      internalID: -6433387970514597120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_25
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 27
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43f1277d02d530880800000000000000
+      internalID: -8645964463986303180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_26
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 29
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e10f6ff0fd4bcce0800000000000000
+      internalID: -1383926763013340700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_27
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 25
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d28cb5d0e5d9e3c0800000000000000
+      internalID: -4329694405104729388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_28
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 25
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1811d7d5bc5034f0800000000000000
+      internalID: -851078393493383142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_29
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 27
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef6ddb99e10c15280800000000000000
+      internalID: -9056246138004449538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_30
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 29
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06be9c6b8e1d62d40800000000000000
+      internalID: 5559361587464760160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutJalan_31
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 25
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1d787a09c8bc68a0800000000000000
+      internalID: -6310465804249301731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      RambutJalan_0: 7647541824635338502
+      RambutJalan_1: 7116973508009721749
+      RambutJalan_10: -2292613584928525501
+      RambutJalan_11: 4217269324846667663
+      RambutJalan_12: 6724794305674971253
+      RambutJalan_13: -8934931616352853536
+      RambutJalan_14: -5750812616066682305
+      RambutJalan_15: 4166675859036750123
+      RambutJalan_16: 6360264151982661200
+      RambutJalan_17: -131174177981885682
+      RambutJalan_18: -73783043435647553
+      RambutJalan_19: -1142358247225337220
+      RambutJalan_2: -8424960705021490460
+      RambutJalan_20: -7073918495597582668
+      RambutJalan_21: -765937071563794157
+      RambutJalan_22: 9068172112920023577
+      RambutJalan_23: 706738705752206501
+      RambutJalan_24: -6433387970514597120
+      RambutJalan_25: -8645964463986303180
+      RambutJalan_26: -1383926763013340700
+      RambutJalan_27: -4329694405104729388
+      RambutJalan_28: -851078393493383142
+      RambutJalan_29: -9056246138004449538
+      RambutJalan_3: -923174902477337700
+      RambutJalan_30: 5559361587464760160
+      RambutJalan_31: -6310465804249301731
+      RambutJalan_4: 2616748459678135015
+      RambutJalan_5: 6709849910183438419
+      RambutJalan_6: -8758093718606053325
+      RambutJalan_7: -271941224691148502
+      RambutJalan_8: -1739308135485215737
+      RambutJalan_9: 7030074497346755359
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

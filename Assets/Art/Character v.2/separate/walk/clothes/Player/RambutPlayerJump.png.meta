@@ -1,0 +1,650 @@
+fileFormatVersion: 2
+guid: 1135098ac70ee944eae6d2d7851a93ef
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1497525011245153230
+    second: RambutPlayerJump_0
+  - first:
+      213: -1505257911896232112
+    second: RambutPlayerJump_1
+  - first:
+      213: -2892094890169430220
+    second: RambutPlayerJump_2
+  - first:
+      213: 3950264782443136513
+    second: RambutPlayerJump_3
+  - first:
+      213: -8732950148053659305
+    second: RambutPlayerJump_4
+  - first:
+      213: 6302742191438228343
+    second: RambutPlayerJump_5
+  - first:
+      213: -8512126087914400491
+    second: RambutPlayerJump_6
+  - first:
+      213: -8593864022211986697
+    second: RambutPlayerJump_7
+  - first:
+      213: -4298607059832048758
+    second: RambutPlayerJump_8
+  - first:
+      213: 5802330085628018203
+    second: RambutPlayerJump_9
+  - first:
+      213: -98085569052789236
+    second: RambutPlayerJump_10
+  - first:
+      213: -591328624491701366
+    second: RambutPlayerJump_11
+  - first:
+      213: -2895801644899475079
+    second: RambutPlayerJump_12
+  - first:
+      213: -1146502386667171388
+    second: RambutPlayerJump_13
+  - first:
+      213: 2538460427298540244
+    second: RambutPlayerJump_14
+  - first:
+      213: -3097039791251641256
+    second: RambutPlayerJump_15
+  - first:
+      213: 8901844354636123929
+    second: RambutPlayerJump_16
+  - first:
+      213: -8784748735921589069
+    second: RambutPlayerJump_17
+  - first:
+      213: -6459789300379060647
+    second: RambutPlayerJump_18
+  - first:
+      213: 8888748199418545500
+    second: RambutPlayerJump_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RambutPlayerJump_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 217
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 234487ebfe8b73be0800000000000000
+      internalID: -1497525011245153230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_1
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 215
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05f241287ef3c1be0800000000000000
+      internalID: -1505257911896232112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_2
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 221
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43f8ab635073dd7d0800000000000000
+      internalID: -2892094890169430220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_3
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 225
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1064246e3e822d630800000000000000
+      internalID: 3950264782443136513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_4
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 217
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75111180c145ec680800000000000000
+      internalID: -8732950148053659305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_5
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 145
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77bea8731a6d77750800000000000000
+      internalID: 6302742191438228343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_6
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 143
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 515d6861c6aded980800000000000000
+      internalID: -8512126087914400491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_7
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 149
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fa7b0c34367cb880800000000000000
+      internalID: -8593864022211986697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_8
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 153
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8379b177a74854c0800000000000000
+      internalID: -4298607059832048758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_9
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 145
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1e7b678874068050800000000000000
+      internalID: 5802330085628018203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_10
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 89
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c063403d1b783aef0800000000000000
+      internalID: -98085569052789236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_11
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 87
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8bd6afbfbd2bc7f0800000000000000
+      internalID: -591328624491701366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_12
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 93
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97166cf1fbb00d7d0800000000000000
+      internalID: -2895801644899475079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_13
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 97
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c1d09c572ec610f0800000000000000
+      internalID: -1146502386667171388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_14
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 89
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4da048d2f4c6a3320800000000000000
+      internalID: 2538460427298540244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_15
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 25
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85c223bf7ba1505d0800000000000000
+      internalID: -3097039791251641256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_16
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 23
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91f07ebc644b98b70800000000000000
+      internalID: 8901844354636123929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_17
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 29
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b4f45a719d461680800000000000000
+      internalID: -8784748735921589069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_18
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 33
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95679035bd73a56a0800000000000000
+      internalID: -6459789300379060647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerJump_19
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 25
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c554c3c846d2b5b70800000000000000
+      internalID: 8888748199418545500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      RambutPlayerJump_0: -1497525011245153230
+      RambutPlayerJump_1: -1505257911896232112
+      RambutPlayerJump_10: -98085569052789236
+      RambutPlayerJump_11: -591328624491701366
+      RambutPlayerJump_12: -2895801644899475079
+      RambutPlayerJump_13: -1146502386667171388
+      RambutPlayerJump_14: 2538460427298540244
+      RambutPlayerJump_15: -3097039791251641256
+      RambutPlayerJump_16: 8901844354636123929
+      RambutPlayerJump_17: -8784748735921589069
+      RambutPlayerJump_18: -6459789300379060647
+      RambutPlayerJump_19: 8888748199418545500
+      RambutPlayerJump_2: -2892094890169430220
+      RambutPlayerJump_3: 3950264782443136513
+      RambutPlayerJump_4: -8732950148053659305
+      RambutPlayerJump_5: 6302742191438228343
+      RambutPlayerJump_6: -8512126087914400491
+      RambutPlayerJump_7: -8593864022211986697
+      RambutPlayerJump_8: -4298607059832048758
+      RambutPlayerJump_9: 5802330085628018203
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
