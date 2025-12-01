@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -24,6 +25,7 @@ public class StorageInteractable : Interactable, ISaveable
 
     public SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
     private int currentFrame = 0; // Indeks frame saat ini
+    
     public object CaptureState()
     {
         return new StorageSaveData
@@ -47,7 +49,17 @@ public class StorageInteractable : Interactable, ISaveable
     {
 
 
+        Transform visualChild = transform.Find("Visual");
 
+        if (visualChild != null)
+        {
+            // Ambil komponen dari anak tersebut
+            spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
+        }
         //AddItemToList();
 
     }

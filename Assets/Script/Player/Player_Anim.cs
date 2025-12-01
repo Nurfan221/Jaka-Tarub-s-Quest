@@ -10,6 +10,13 @@ public class Player_Anim : MonoBehaviour
     [Header("Assign semua bagian tubuh (Body, Armor, dll) ke sini")]
     public List<Animator> layerAnimators = new List<Animator>();
 
+
+    [Header("Sprite Renderers")]
+    public SpriteRenderer bodySR;
+    public SpriteRenderer pantsSR;
+    public SpriteRenderer clothSR; // Armor/Baju
+    public SpriteRenderer hairSR;
+
     Player_Movement pm;
 
     public bool isAttacking;
@@ -29,6 +36,7 @@ public class Player_Anim : MonoBehaviour
     void LateUpdate()
     {
         SyncVisuals();
+        UpdateLayerSorting();
     }
 
     public void UpdateAnimationParameters()
@@ -196,5 +204,32 @@ public class Player_Anim : MonoBehaviour
 
         // Kembalikan kontrol ke update normal
         UpdateAnimationParameters();
+    }
+
+    void UpdateLayerSorting()
+    {
+        // Cek arah terakhir (lastDirection)
+        // Jika Y lebih besar dari 0, berarti menghadap ATAS (Belakang)
+        if (lastDirection.y > 0.1f)
+        {
+
+            
+
+            bodySR.sortingOrder = 10;   // Dasar
+            pantsSR.sortingOrder = 11;  // Celana
+            clothSR.sortingOrder = 12;  // Baju di atas celana
+            hairSR.sortingOrder = 13;   // Rambut paling atas (menutupi punggung baju)
+
+           
+        }
+        else
+        {
+        
+
+            bodySR.sortingOrder = 6;
+            pantsSR.sortingOrder = 7;
+            clothSR.sortingOrder = 7;
+            hairSR.sortingOrder = 7;
+        }
     }
 }

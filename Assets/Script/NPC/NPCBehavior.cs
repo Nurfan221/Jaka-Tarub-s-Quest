@@ -193,7 +193,7 @@ public class NPCBehavior : MonoBehaviour
             // tahan dulu di sini. Jangan lanjut jalan dulu sampai cooldown selesai.
             while (isTeleporting)
             {
-                Debug.Log($"{gameObject.name} [DEBUG] NPCMenunggu cooldown teleport selesai... (Posisi: {transform.position})");
+                //Debug.Log($"{gameObject.name} [DEBUG] NPCMenunggu cooldown teleport selesai... (Posisi: {transform.position})");
                 yield return null; // Tunggu frame berikutnya
             }
 

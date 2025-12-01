@@ -16024,7 +16024,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee75d7af726da2d4ba88ef5f7c387086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 5182133446376496793}
+  bodyAnimator: {fileID: 0}
+  layerAnimators: []
+  bodySR: {fileID: 980333059859286017}
+  pantsSR: {fileID: 251218501870716667}
+  clothSR: {fileID: 3346749782709746103}
+  hairSR: {fileID: 3346749782709746103}
   isAttacking: 0
   isTakingDamage: 0
   lastDirection: {x: 0, y: -1}
