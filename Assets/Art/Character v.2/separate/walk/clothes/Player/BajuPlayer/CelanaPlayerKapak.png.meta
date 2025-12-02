@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 8d455577b5bff934ebe6b073a188fad0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7448105131196897132
+    second: CelanaPlayerKapak_0
+  - first:
+      213: 6190052436565920009
+    second: CelanaPlayerKapak_1
+  - first:
+      213: -536585994089482612
+    second: CelanaPlayerKapak_2
+  - first:
+      213: 2975015715237977582
+    second: CelanaPlayerKapak_3
+  - first:
+      213: -6028529366441098238
+    second: CelanaPlayerKapak_4
+  - first:
+      213: 9109002603088048796
+    second: CelanaPlayerKapak_5
+  - first:
+      213: 885752656077413852
+    second: CelanaPlayerKapak_6
+  - first:
+      213: -6744091916782808847
+    second: CelanaPlayerKapak_7
+  - first:
+      213: 7639978289738296513
+    second: CelanaPlayerKapak_8
+  - first:
+      213: 1671379152002672827
+    second: CelanaPlayerKapak_9
+  - first:
+      213: -5276552260094233336
+    second: CelanaPlayerKapak_10
+  - first:
+      213: 5032821343478688225
+    second: CelanaPlayerKapak_11
+  - first:
+      213: -4265661060769961948
+    second: CelanaPlayerKapak_12
+  - first:
+      213: -4591905706440254807
+    second: CelanaPlayerKapak_13
+  - first:
+      213: 7456912405113000496
+    second: CelanaPlayerKapak_14
+  - first:
+      213: 4966686990329013176
+    second: CelanaPlayerKapak_15
+  - first:
+      213: -6987490341508924445
+    second: CelanaPlayerKapak_16
+  - first:
+      213: -4292894851651467525
+    second: CelanaPlayerKapak_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 193
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6751c2b72cfc5760800000000000000
+      internalID: 7448105131196897132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 193
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9098d8e05eb77e550800000000000000
+      internalID: 6190052436565920009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_2
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 193
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c86b8de91e9ad88f0800000000000000
+      internalID: -536585994089482612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_3
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 193
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eedd6fbd701694920800000000000000
+      internalID: 2975015715237977582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_4
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 193
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20484435b7c565ca0800000000000000
+      internalID: -6028529366441098238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_5
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 133
+        width: 18
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c92fb2f1b9da96e70800000000000000
+      internalID: 9109002603088048796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_6
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 129
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdd5a580953da4c00800000000000000
+      internalID: 885752656077413852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_7
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 129
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f0d397222c2862a0800000000000000
+      internalID: -6744091916782808847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_8
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 129
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cc2c83b6c7a60a60800000000000000
+      internalID: 7639978289738296513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_9
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 129
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb8ec10cb7ee13710800000000000000
+      internalID: 1671379152002672827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_10
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 65
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8057c420dabe5c6b0800000000000000
+      internalID: -5276552260094233336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_11
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 65
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e92d0cc85c28d540800000000000000
+      internalID: 5032821343478688225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_12
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 65
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 428279c9dd35dc4c0800000000000000
+      internalID: -4265661060769961948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_13
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 65
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aa1a85c6164640c0800000000000000
+      internalID: -4591905706440254807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_14
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 1
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 032d6f3f2564c7760800000000000000
+      internalID: 7456912405113000496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_15
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 1
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b36d19c0873de440800000000000000
+      internalID: 4966686990329013176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_16
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 1
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eb33e24e82770f90800000000000000
+      internalID: -6987490341508924445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerKapak_17
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 1
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf6063d80e29c64c0800000000000000
+      internalID: -4292894851651467525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CelanaPlayerKapak_0: 7448105131196897132
+      CelanaPlayerKapak_1: 6190052436565920009
+      CelanaPlayerKapak_10: -5276552260094233336
+      CelanaPlayerKapak_11: 5032821343478688225
+      CelanaPlayerKapak_12: -4265661060769961948
+      CelanaPlayerKapak_13: -4591905706440254807
+      CelanaPlayerKapak_14: 7456912405113000496
+      CelanaPlayerKapak_15: 4966686990329013176
+      CelanaPlayerKapak_16: -6987490341508924445
+      CelanaPlayerKapak_17: -4292894851651467525
+      CelanaPlayerKapak_2: -536585994089482612
+      CelanaPlayerKapak_3: 2975015715237977582
+      CelanaPlayerKapak_4: -6028529366441098238
+      CelanaPlayerKapak_5: 9109002603088048796
+      CelanaPlayerKapak_6: 885752656077413852
+      CelanaPlayerKapak_7: -6744091916782808847
+      CelanaPlayerKapak_8: 7639978289738296513
+      CelanaPlayerKapak_9: 1671379152002672827
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

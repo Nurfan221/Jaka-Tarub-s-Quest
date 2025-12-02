@@ -1,0 +1,754 @@
+fileFormatVersion: 2
+guid: a1d3c3852bfc0694a9fa7bcc7ee3af40
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8150277297691265858
+    second: BajuPlayerKapak_0
+  - first:
+      213: 2835994796919717310
+    second: BajuPlayerKapak_1
+  - first:
+      213: 4666316179131726509
+    second: BajuPlayerKapak_2
+  - first:
+      213: -3173020987760351794
+    second: BajuPlayerKapak_3
+  - first:
+      213: -3475263577778561352
+    second: BajuPlayerKapak_4
+  - first:
+      213: -7628035938980763525
+    second: BajuPlayerKapak_5
+  - first:
+      213: 1466723358472861836
+    second: BajuPlayerKapak_6
+  - first:
+      213: -3254495160197489063
+    second: BajuPlayerKapak_7
+  - first:
+      213: 6752234239368013684
+    second: BajuPlayerKapak_8
+  - first:
+      213: -6655589198570662172
+    second: BajuPlayerKapak_9
+  - first:
+      213: -175370125223546695
+    second: BajuPlayerKapak_10
+  - first:
+      213: 5221446107798673771
+    second: BajuPlayerKapak_11
+  - first:
+      213: -4503111384058542034
+    second: BajuPlayerKapak_12
+  - first:
+      213: 1114007456347893020
+    second: BajuPlayerKapak_13
+  - first:
+      213: -8275727219897862106
+    second: BajuPlayerKapak_14
+  - first:
+      213: -42247815683344365
+    second: BajuPlayerKapak_15
+  - first:
+      213: -7881184088331257737
+    second: BajuPlayerKapak_16
+  - first:
+      213: 1297556749086200940
+    second: BajuPlayerKapak_17
+  - first:
+      213: -2900710400328003517
+    second: BajuPlayerKapak_18
+  - first:
+      213: 6957163161943097116
+    second: BajuPlayerKapak_19
+  - first:
+      213: -910452315289825928
+    second: BajuPlayerKapak_20
+  - first:
+      213: -4882548556671765441
+    second: BajuPlayerKapak_21
+  - first:
+      213: -9053628649894559619
+    second: BajuPlayerKapak_22
+  - first:
+      213: 2086677009456560735
+    second: BajuPlayerKapak_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BajuPlayerKapak_0
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 203
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24b81dd250a9b1170800000000000000
+      internalID: 8150277297691265858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_1
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 203
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebd7147fd3a7b5720800000000000000
+      internalID: 2835994796919717310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_2
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 197
+        width: 26
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daafdca77d512c040800000000000000
+      internalID: 4666316179131726509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_3
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 199
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec56fa7193a27f3d0800000000000000
+      internalID: -3173020987760351794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_4
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 199
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bed7a1503265cfc0800000000000000
+      internalID: -3475263577778561352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_5
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 205
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7863238ab5c32690800000000000000
+      internalID: -7628035938980763525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_6
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 205
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c88fa8d9f19da5410800000000000000
+      internalID: 1466723358472861836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_7
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 133
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95e533515e5b5d2d0800000000000000
+      internalID: -3254495160197489063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_8
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 133
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 477a2cd0441c4bd50800000000000000
+      internalID: 6752234239368013684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_9
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 135
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e6d44003e892a3a0800000000000000
+      internalID: -6655589198570662172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_10
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 135
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b0b5dddcc5f09df0800000000000000
+      internalID: -175370125223546695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_11
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 137
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b699f25129d467840800000000000000
+      internalID: 5221446107798673771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_12
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 69
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e284c210e0cb181c0800000000000000
+      internalID: -4503111384058542034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_13
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 69
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1da0c811efb57f00800000000000000
+      internalID: 1114007456347893020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_14
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 69
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 628f4ffa0f5b62d80800000000000000
+      internalID: -8275727219897862106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_15
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 71
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31878a1e5d7e96ff0800000000000000
+      internalID: -42247815683344365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_16
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 71
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 778fd85f3d860a290800000000000000
+      internalID: -7881184088331257737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_17
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 75
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6491311df8d10210800000000000000
+      internalID: 1297556749086200940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_18
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 5
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3401b20724b9eb7d0800000000000000
+      internalID: -2900710400328003517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_19
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 5
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1f3d00090fcc8060800000000000000
+      internalID: 6957163161943097116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_20
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 5
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87dc73a617c6d53f0800000000000000
+      internalID: -910452315289825928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_21
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 7
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f34bbf0e4f3bd3cb0800000000000000
+      internalID: -4882548556671765441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_22
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 7
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d704cba06bc0b5280800000000000000
+      internalID: -9053628649894559619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerKapak_23
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 11
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5af1a53fad55fc10800000000000000
+      internalID: 2086677009456560735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BajuPlayerKapak_0: 8150277297691265858
+      BajuPlayerKapak_1: 2835994796919717310
+      BajuPlayerKapak_10: -175370125223546695
+      BajuPlayerKapak_11: 5221446107798673771
+      BajuPlayerKapak_12: -4503111384058542034
+      BajuPlayerKapak_13: 1114007456347893020
+      BajuPlayerKapak_14: -8275727219897862106
+      BajuPlayerKapak_15: -42247815683344365
+      BajuPlayerKapak_16: -7881184088331257737
+      BajuPlayerKapak_17: 1297556749086200940
+      BajuPlayerKapak_18: -2900710400328003517
+      BajuPlayerKapak_19: 6957163161943097116
+      BajuPlayerKapak_2: 4666316179131726509
+      BajuPlayerKapak_20: -910452315289825928
+      BajuPlayerKapak_21: -4882548556671765441
+      BajuPlayerKapak_22: -9053628649894559619
+      BajuPlayerKapak_23: 2086677009456560735
+      BajuPlayerKapak_3: -3173020987760351794
+      BajuPlayerKapak_4: -3475263577778561352
+      BajuPlayerKapak_5: -7628035938980763525
+      BajuPlayerKapak_6: 1466723358472861836
+      BajuPlayerKapak_7: -3254495160197489063
+      BajuPlayerKapak_8: 6752234239368013684
+      BajuPlayerKapak_9: -6655589198570662172
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

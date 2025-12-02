@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 2186eef0880dcbb4382d404e11852726
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4942836374699835503
+    second: CelanaPlayerCangkul_0
+  - first:
+      213: -8546783963196580119
+    second: CelanaPlayerCangkul_1
+  - first:
+      213: 4101541150756730559
+    second: CelanaPlayerCangkul_2
+  - first:
+      213: -1450014458263393199
+    second: CelanaPlayerCangkul_3
+  - first:
+      213: -8218290037536981475
+    second: CelanaPlayerCangkul_4
+  - first:
+      213: 7785194217254160476
+    second: CelanaPlayerCangkul_5
+  - first:
+      213: 7170602034418278081
+    second: CelanaPlayerCangkul_6
+  - first:
+      213: -4353723355729235546
+    second: CelanaPlayerCangkul_7
+  - first:
+      213: 5408820119343563390
+    second: CelanaPlayerCangkul_8
+  - first:
+      213: 2417341905594805277
+    second: CelanaPlayerCangkul_9
+  - first:
+      213: -7371708455913755244
+    second: CelanaPlayerCangkul_10
+  - first:
+      213: 3438029501295875485
+    second: CelanaPlayerCangkul_11
+  - first:
+      213: 2919448011065595542
+    second: CelanaPlayerCangkul_12
+  - first:
+      213: -5835519873632871946
+    second: CelanaPlayerCangkul_13
+  - first:
+      213: 5037582215776757150
+    second: CelanaPlayerCangkul_14
+  - first:
+      213: 8279569466419849500
+    second: CelanaPlayerCangkul_15
+  - first:
+      213: -8666435776190839734
+    second: CelanaPlayerCangkul_16
+  - first:
+      213: -2195207034707907513
+    second: CelanaPlayerCangkul_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 209
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f600dd89e7b789440800000000000000
+      internalID: 4942836374699835503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_1
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 205
+        width: 72
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ee99ada449b36980800000000000000
+      internalID: -8546783963196580119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_2
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 205
+        width: 72
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb6708a12f99be830800000000000000
+      internalID: 4101541150756730559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_3
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 129
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15ca700688380ebe0800000000000000
+      internalID: -1450014458263393199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_4
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 129
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1ef973d0c4c2fd80800000000000000
+      internalID: -8218290037536981475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_5
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 131
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c580cd294e09a0c60800000000000000
+      internalID: 7785194217254160476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_6
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 129
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ced13f0f88138360800000000000000
+      internalID: 7170602034418278081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_7
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 131
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a1ff6bcca77493c0800000000000000
+      internalID: -4353723355729235546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_8
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 67
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e72857bcd3dff0b40800000000000000
+      internalID: 5408820119343563390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_9
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 67
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1ce4afc7af1c8120800000000000000
+      internalID: 2417341905594805277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_10
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 67
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49d6481673e62b990800000000000000
+      internalID: -7371708455913755244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_11
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 67
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d95dd00bd9556bf20800000000000000
+      internalID: 3438029501295875485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_12
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 67
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69619c78f76f38820800000000000000
+      internalID: 2919448011065595542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_13
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 3
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f95164c791140fa0800000000000000
+      internalID: -5835519873632871946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_14
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 3
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e95e232c55619e540800000000000000
+      internalID: 5037582215776757150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_15
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 3
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c19202b0090f6e270800000000000000
+      internalID: 8279569466419849500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_16
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 3
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a44886b0492aab780800000000000000
+      internalID: -8666435776190839734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CelanaPlayerCangkul_17
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 3
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74cebc725de0981e0800000000000000
+      internalID: -2195207034707907513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CelanaPlayerCangkul_0: 4942836374699835503
+      CelanaPlayerCangkul_1: -8546783963196580119
+      CelanaPlayerCangkul_10: -7371708455913755244
+      CelanaPlayerCangkul_11: 3438029501295875485
+      CelanaPlayerCangkul_12: 2919448011065595542
+      CelanaPlayerCangkul_13: -5835519873632871946
+      CelanaPlayerCangkul_14: 5037582215776757150
+      CelanaPlayerCangkul_15: 8279569466419849500
+      CelanaPlayerCangkul_16: -8666435776190839734
+      CelanaPlayerCangkul_17: -2195207034707907513
+      CelanaPlayerCangkul_2: 4101541150756730559
+      CelanaPlayerCangkul_3: -1450014458263393199
+      CelanaPlayerCangkul_4: -8218290037536981475
+      CelanaPlayerCangkul_5: 7785194217254160476
+      CelanaPlayerCangkul_6: 7170602034418278081
+      CelanaPlayerCangkul_7: -4353723355729235546
+      CelanaPlayerCangkul_8: 5408820119343563390
+      CelanaPlayerCangkul_9: 2417341905594805277
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

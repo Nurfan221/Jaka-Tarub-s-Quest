@@ -16,6 +16,7 @@ public class Player_Anim : MonoBehaviour
     public SpriteRenderer pantsSR;
     public SpriteRenderer clothSR; // Armor/Baju
     public SpriteRenderer hairSR;
+    public SpriteRenderer shoesSR;
 
     Player_Movement pm;
 
@@ -217,10 +218,12 @@ public class Player_Anim : MonoBehaviour
 
             bodySR.sortingOrder = 10;   // Dasar
             pantsSR.sortingOrder = 11;  // Celana
-            clothSR.sortingOrder = 12;  // Baju di atas celana
-            hairSR.sortingOrder = 13;   // Rambut paling atas (menutupi punggung baju)
+            clothSR.sortingOrder = 11;  // Baju di atas celana
+            hairSR.sortingOrder = 11;   // Rambut paling atas (menutupi punggung baju)
+            shoesSR.sortingOrder = 12;  // Sepatu paling atas
 
-           
+
+
         }
         else
         {
@@ -230,6 +233,7 @@ public class Player_Anim : MonoBehaviour
             pantsSR.sortingOrder = 7;
             clothSR.sortingOrder = 7;
             hairSR.sortingOrder = 7;
+            shoesSR.sortingOrder = 8;
         }
     }
 }

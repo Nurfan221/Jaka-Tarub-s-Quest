@@ -1,0 +1,624 @@
+fileFormatVersion: 2
+guid: d4782ce750c158742be295b575e36645
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7245257021489124051
+    second: BajuPlayerCangkul_0
+  - first:
+      213: 8288827614567856717
+    second: BajuPlayerCangkul_1
+  - first:
+      213: -8362717782368442673
+    second: BajuPlayerCangkul_2
+  - first:
+      213: -8935144130626258131
+    second: BajuPlayerCangkul_3
+  - first:
+      213: -2360791470359909711
+    second: BajuPlayerCangkul_4
+  - first:
+      213: 6545682808550360980
+    second: BajuPlayerCangkul_5
+  - first:
+      213: -3905963348984906125
+    second: BajuPlayerCangkul_6
+  - first:
+      213: 1853339179488873861
+    second: BajuPlayerCangkul_7
+  - first:
+      213: 6125591127624821225
+    second: BajuPlayerCangkul_8
+  - first:
+      213: 5388370961640043592
+    second: BajuPlayerCangkul_9
+  - first:
+      213: -4559128112517112205
+    second: BajuPlayerCangkul_10
+  - first:
+      213: 2821524330315319225
+    second: BajuPlayerCangkul_11
+  - first:
+      213: 3838675095504586070
+    second: BajuPlayerCangkul_12
+  - first:
+      213: -3655537092490884590
+    second: BajuPlayerCangkul_13
+  - first:
+      213: 4636691708438475178
+    second: BajuPlayerCangkul_14
+  - first:
+      213: -1477706099720724241
+    second: BajuPlayerCangkul_15
+  - first:
+      213: 7282435512930961190
+    second: BajuPlayerCangkul_16
+  - first:
+      213: -8360106038777224330
+    second: BajuPlayerCangkul_17
+  - first:
+      213: -3532790503628585392
+    second: BajuPlayerCangkul_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 211
+        width: 84
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d29340cfd25c8460800000000000000
+      internalID: 7245257021489124051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_1
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 211
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4af3c2acc4d70370800000000000000
+      internalID: 8288827614567856717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_2
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 211
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc626190c78a1fb80800000000000000
+      internalID: -8362717782368442673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_3
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 211
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2bfa1de0cdfff380800000000000000
+      internalID: -8935144130626258131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_4
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 133
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1baec6c6aa8cc3fd0800000000000000
+      internalID: -2360791470359909711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_5
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 133
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 497860875dfe6da50800000000000000
+      internalID: 6545682808550360980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_6
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 135
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37e3f0e570b3bc9c0800000000000000
+      internalID: -3905963348984906125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_7
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 135
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58d8fb11a2268b910800000000000000
+      internalID: 1853339179488873861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_8
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 137
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e9ac510da8720550800000000000000
+      internalID: 6125591127624821225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_9
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 71
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 844b59e37d657ca40800000000000000
+      internalID: 5388370961640043592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_10
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 71
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37e9bef0329bab0c0800000000000000
+      internalID: -4559128112517112205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_11
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 71
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b70199ed61182720800000000000000
+      internalID: 2821524330315319225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_12
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 71
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65580b349a6b54530800000000000000
+      internalID: 3838675095504586070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_13
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 71
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21a01dad16ce44dc0800000000000000
+      internalID: -3655537092490884590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_14
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 7
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa17976ea86d85040800000000000000
+      internalID: 4636691708438475178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_15
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 7
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe0e7bba1222e7be0800000000000000
+      internalID: -1477706099720724241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_16
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 7
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62780f7d388601560800000000000000
+      internalID: 7282435512930961190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_17
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 7
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 673e51af9dfeafb80800000000000000
+      internalID: -8360106038777224330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerCangkul_18
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 7
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 056485521c109fec0800000000000000
+      internalID: -3532790503628585392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BajuPlayerCangkul_0: 7245257021489124051
+      BajuPlayerCangkul_1: 8288827614567856717
+      BajuPlayerCangkul_10: -4559128112517112205
+      BajuPlayerCangkul_11: 2821524330315319225
+      BajuPlayerCangkul_12: 3838675095504586070
+      BajuPlayerCangkul_13: -3655537092490884590
+      BajuPlayerCangkul_14: 4636691708438475178
+      BajuPlayerCangkul_15: -1477706099720724241
+      BajuPlayerCangkul_16: 7282435512930961190
+      BajuPlayerCangkul_17: -8360106038777224330
+      BajuPlayerCangkul_18: -3532790503628585392
+      BajuPlayerCangkul_2: -8362717782368442673
+      BajuPlayerCangkul_3: -8935144130626258131
+      BajuPlayerCangkul_4: -2360791470359909711
+      BajuPlayerCangkul_5: 6545682808550360980
+      BajuPlayerCangkul_6: -3905963348984906125
+      BajuPlayerCangkul_7: 1853339179488873861
+      BajuPlayerCangkul_8: 6125591127624821225
+      BajuPlayerCangkul_9: 5388370961640043592
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
