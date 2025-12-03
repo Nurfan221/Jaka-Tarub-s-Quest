@@ -1,67 +1,79 @@
 fileFormatVersion: 2
-guid: 779ab27453dd098478544a964bd1a165
+guid: e47ae7176295591458f1ed3d62d7fa03
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2429083480784439349
-    second: RambutPlayerJump 1_0
+      213: 6615964643957545703
+    second: RambutPlayerPixkAxe_0
   - first:
-      213: -2396042281071005053
-    second: RambutPlayerJump 1_1
+      213: 7890295625112152030
+    second: RambutPlayerPixkAxe_1
   - first:
-      213: 4358188059991068499
-    second: RambutPlayerJump 1_2
+      213: -50998521563010570
+    second: RambutPlayerPixkAxe_2
   - first:
-      213: 4883580246306928588
-    second: RambutPlayerJump 1_3
+      213: -1620567243060457101
+    second: RambutPlayerPixkAxe_3
   - first:
-      213: -507427381961086175
-    second: RambutPlayerJump 1_4
+      213: 6152318793400421587
+    second: RambutPlayerPixkAxe_4
   - first:
-      213: -5826330149877518506
-    second: RambutPlayerJump 1_5
+      213: 5482832184062968471
+    second: RambutPlayerPixkAxe_5
   - first:
-      213: -7802598818025590
-    second: RambutPlayerJump 1_6
+      213: 4271452434255813747
+    second: RambutPlayerPixkAxe_6
   - first:
-      213: 8705382581107384638
-    second: RambutPlayerJump 1_7
+      213: 1585482104263596883
+    second: RambutPlayerPixkAxe_7
   - first:
-      213: -2941788431995226939
-    second: RambutPlayerJump 1_8
+      213: -7320929831426501074
+    second: RambutPlayerPixkAxe_8
   - first:
-      213: 4021533113272841155
-    second: RambutPlayerJump 1_9
+      213: 3757822462445810882
+    second: RambutPlayerPixkAxe_9
   - first:
-      213: -5706338685998851367
-    second: RambutPlayerJump 1_10
+      213: 7132595197153250985
+    second: RambutPlayerPixkAxe_10
   - first:
-      213: -5849617794177723889
-    second: RambutPlayerJump 1_11
+      213: -5416594411039006316
+    second: RambutPlayerPixkAxe_11
   - first:
-      213: -2541281006752826380
-    second: RambutPlayerJump 1_12
+      213: -8098266927432793213
+    second: RambutPlayerPixkAxe_12
   - first:
-      213: 5934397974648884443
-    second: RambutPlayerJump 1_13
+      213: 8462878861261104713
+    second: RambutPlayerPixkAxe_13
   - first:
-      213: -6047220009621387851
-    second: RambutPlayerJump 1_14
+      213: -6835936824639878976
+    second: RambutPlayerPixkAxe_14
   - first:
-      213: 9027402552805929927
-    second: RambutPlayerJump 1_15
+      213: 4467767415198585480
+    second: RambutPlayerPixkAxe_15
   - first:
-      213: 7108921313979738753
-    second: RambutPlayerJump 1_16
+      213: 3621359963303396076
+    second: RambutPlayerPixkAxe_16
   - first:
-      213: 4045827150222653036
-    second: RambutPlayerJump 1_17
+      213: 5486534916244066893
+    second: RambutPlayerPixkAxe_17
   - first:
-      213: 1609108641538784118
-    second: RambutPlayerJump 1_18
+      213: 3765107707462208678
+    second: RambutPlayerPixkAxe_18
   - first:
-      213: 5000592936316450109
-    second: RambutPlayerJump 1_19
+      213: 1607148343560120080
+    second: RambutPlayerPixkAxe_19
+  - first:
+      213: 7923769607702938474
+    second: RambutPlayerPixkAxe_20
+  - first:
+      213: -2605717902485529979
+    second: RambutPlayerPixkAxe_21
+  - first:
+      213: -8351173428369699139
+    second: RambutPlayerPixkAxe_22
+  - first:
+      213: 8023990369736769890
+    second: RambutPlayerPixkAxe_23
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -108,7 +120,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -170,7 +182,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RambutPlayerJump 1_0
+      name: RambutPlayerPixkAxe_0
       rect:
         serializedVersion: 2
         x: 19
@@ -185,20 +197,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bc7f21ea1792a4ed0800000000000000
-      internalID: -2429083480784439349
+      spriteID: 7ea12a17ac0a0db50800000000000000
+      internalID: 6615964643957545703
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_1
+      name: RambutPlayerPixkAxe_1
       rect:
         serializedVersion: 2
         x: 83
-        y: 215
-        width: 26
-        height: 18
+        y: 217
+        width: 10
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,20 +219,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 38232f97d3c8fbed0800000000000000
-      internalID: -2396042281071005053
+      spriteID: ed7e0a30116ff7d60800000000000000
+      internalID: 7890295625112152030
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_2
+      name: RambutPlayerPixkAxe_2
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 217
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f9aa266d11da4ff0800000000000000
+      internalID: -50998521563010570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerPixkAxe_3
       rect:
         serializedVersion: 2
         x: 147
-        y: 221
-        width: 26
-        height: 18
+        y: 219
+        width: 10
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +263,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 35fcd1c23f46b7c30800000000000000
-      internalID: 4358188059991068499
+      spriteID: 3715fb6bda69289e0800000000000000
+      internalID: -1620567243060457101
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_3
+      name: RambutPlayerPixkAxe_4
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 219
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dc8791a85d616550800000000000000
+      internalID: 6152318793400421587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerPixkAxe_5
       rect:
         serializedVersion: 2
         x: 211
-        y: 225
-        width: 26
-        height: 18
+        y: 219
+        width: 10
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,18 +307,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cc73d351c56f5c340800000000000000
-      internalID: 4883580246306928588
+      spriteID: 792072672dee61c40800000000000000
+      internalID: 5482832184062968471
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_4
+      name: RambutPlayerPixkAxe_6
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 219
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37c9bca9b5f374b30800000000000000
+      internalID: 4271452434255813747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerPixkAxe_7
       rect:
         serializedVersion: 2
         x: 275
-        y: 217
+        y: 219
         width: 26
         height: 18
       alignment: 0
@@ -273,14 +351,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 12b27ec0c7145f8f0800000000000000
-      internalID: -507427381961086175
+      spriteID: 35bde56d293c00610800000000000000
+      internalID: 1585482104263596883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_5
+      name: RambutPlayerPixkAxe_8
       rect:
         serializedVersion: 2
         x: 19
@@ -295,18 +373,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 65fe6601997b42fa0800000000000000
-      internalID: -5826330149877518506
+      spriteID: e2653443b15d66a90800000000000000
+      internalID: -7320929831426501074
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_6
+      name: RambutPlayerPixkAxe_9
       rect:
         serializedVersion: 2
         x: 83
-        y: 143
+        y: 145
         width: 26
         height: 28
       alignment: 0
@@ -317,17 +395,61 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a8f6025e39744eff0800000000000000
-      internalID: -7802598818025590
+      spriteID: 2c4f01bae97762430800000000000000
+      internalID: 3757822462445810882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_7
+      name: RambutPlayerPixkAxe_10
       rect:
         serializedVersion: 2
         x: 147
+        y: 147
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ae0afcaa811cf260800000000000000
+      internalID: 7132595197153250985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerPixkAxe_11
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 147
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49167add41464d4b0800000000000000
+      internalID: -5416594411039006316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerPixkAxe_12
+      rect:
+        serializedVersion: 2
+        x: 275
         y: 149
         width: 26
         height: 28
@@ -339,58 +461,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e3167cc955bbfc870800000000000000
-      internalID: 8705382581107384638
+      spriteID: 383031ec22d2d9f80800000000000000
+      internalID: -8098266927432793213
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_8
-      rect:
-        serializedVersion: 2
-        x: 211
-        y: 153
-        width: 26
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5c43292e10bac27d0800000000000000
-      internalID: -2941788431995226939
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RambutPlayerJump 1_9
-      rect:
-        serializedVersion: 2
-        x: 275
-        y: 145
-        width: 26
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3c3391d3f0b5fc730800000000000000
-      internalID: 4021533113272841155
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RambutPlayerJump 1_10
+      name: RambutPlayerPixkAxe_13
       rect:
         serializedVersion: 2
         x: 19
@@ -405,20 +483,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9da18f4d2330fc0b0800000000000000
-      internalID: -5706338685998851367
+      spriteID: 94661ae6c7f227570800000000000000
+      internalID: 8462878861261104713
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_11
+      name: RambutPlayerPixkAxe_14
       rect:
         serializedVersion: 2
         x: 83
-        y: 87
-        width: 26
-        height: 18
+        y: 89
+        width: 16
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -427,20 +505,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f029b3adb9bf1dea0800000000000000
-      internalID: -5849617794177723889
+      spriteID: 0c804542dafd121a0800000000000000
+      internalID: -6835936824639878976
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_12
+      name: RambutPlayerPixkAxe_15
       rect:
         serializedVersion: 2
-        x: 147
-        y: 93
-        width: 26
-        height: 18
+        x: 103
+        y: 89
+        width: 6
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -449,20 +527,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4fbfc0e736e8bbcd0800000000000000
-      internalID: -2541281006752826380
+      spriteID: 8821af9fac2b00e30800000000000000
+      internalID: 4467767415198585480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_13
+      name: RambutPlayerPixkAxe_16
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 91
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce2458823b7a14230800000000000000
+      internalID: 3621359963303396076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RambutPlayerPixkAxe_17
       rect:
         serializedVersion: 2
         x: 211
-        y: 97
+        y: 91
         width: 26
-        height: 18
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -471,18 +571,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bdc8eb224873b5250800000000000000
-      internalID: 5934397974648884443
+      spriteID: d42518aff66142c40800000000000000
+      internalID: 5486534916244066893
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_14
+      name: RambutPlayerPixkAxe_18
       rect:
         serializedVersion: 2
         x: 275
-        y: 89
+        y: 95
         width: 26
         height: 18
       alignment: 0
@@ -493,14 +593,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5b502e7d075f31ca0800000000000000
-      internalID: -6047220009621387851
+      spriteID: 6acce54f289504430800000000000000
+      internalID: 3765107707462208678
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_15
+      name: RambutPlayerPixkAxe_19
       rect:
         serializedVersion: 2
         x: 19
@@ -515,20 +615,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7c3b374eac6c74d70800000000000000
-      internalID: 9027402552805929927
+      spriteID: 017224747ecbd4610800000000000000
+      internalID: 1607148343560120080
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_16
+      name: RambutPlayerPixkAxe_20
       rect:
         serializedVersion: 2
         x: 83
-        y: 23
+        y: 25
         width: 26
-        height: 18
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -537,20 +637,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 18a27f73546f7a260800000000000000
-      internalID: 7108921313979738753
+      spriteID: a638b2de972e6fd60800000000000000
+      internalID: 7923769607702938474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_17
+      name: RambutPlayerPixkAxe_21
       rect:
         serializedVersion: 2
         x: 147
-        y: 29
-        width: 26
-        height: 18
+        y: 27
+        width: 24
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -559,20 +659,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c66f6af7b5aa52830800000000000000
-      internalID: 4045827150222653036
+      spriteID: 58a59759f51a6dbd0800000000000000
+      internalID: -2605717902485529979
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_18
+      name: RambutPlayerPixkAxe_22
       rect:
         serializedVersion: 2
         x: 211
-        y: 33
+        y: 27
         width: 26
-        height: 18
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -581,18 +681,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 67b3ee7b8c3b45610800000000000000
-      internalID: 1609108641538784118
+      spriteID: dbec758630caa1c80800000000000000
+      internalID: -8351173428369699139
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RambutPlayerJump 1_19
+      name: RambutPlayerPixkAxe_23
       rect:
         serializedVersion: 2
         x: 275
-        y: 25
+        y: 31
         width: 26
         height: 18
       alignment: 0
@@ -603,8 +703,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d35387308cca56540800000000000000
-      internalID: 5000592936316450109
+      spriteID: 261c0557ab0fa5f60800000000000000
+      internalID: 8023990369736769890
       vertices: []
       indices: 
       edges: []
@@ -623,26 +723,30 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      RambutPlayerJump 1_0: -2429083480784439349
-      RambutPlayerJump 1_1: -2396042281071005053
-      RambutPlayerJump 1_10: -5706338685998851367
-      RambutPlayerJump 1_11: -5849617794177723889
-      RambutPlayerJump 1_12: -2541281006752826380
-      RambutPlayerJump 1_13: 5934397974648884443
-      RambutPlayerJump 1_14: -6047220009621387851
-      RambutPlayerJump 1_15: 9027402552805929927
-      RambutPlayerJump 1_16: 7108921313979738753
-      RambutPlayerJump 1_17: 4045827150222653036
-      RambutPlayerJump 1_18: 1609108641538784118
-      RambutPlayerJump 1_19: 5000592936316450109
-      RambutPlayerJump 1_2: 4358188059991068499
-      RambutPlayerJump 1_3: 4883580246306928588
-      RambutPlayerJump 1_4: -507427381961086175
-      RambutPlayerJump 1_5: -5826330149877518506
-      RambutPlayerJump 1_6: -7802598818025590
-      RambutPlayerJump 1_7: 8705382581107384638
-      RambutPlayerJump 1_8: -2941788431995226939
-      RambutPlayerJump 1_9: 4021533113272841155
+      RambutPlayerPixkAxe_0: 6615964643957545703
+      RambutPlayerPixkAxe_1: 7890295625112152030
+      RambutPlayerPixkAxe_10: 7132595197153250985
+      RambutPlayerPixkAxe_11: -5416594411039006316
+      RambutPlayerPixkAxe_12: -8098266927432793213
+      RambutPlayerPixkAxe_13: 8462878861261104713
+      RambutPlayerPixkAxe_14: -6835936824639878976
+      RambutPlayerPixkAxe_15: 4467767415198585480
+      RambutPlayerPixkAxe_16: 3621359963303396076
+      RambutPlayerPixkAxe_17: 5486534916244066893
+      RambutPlayerPixkAxe_18: 3765107707462208678
+      RambutPlayerPixkAxe_19: 1607148343560120080
+      RambutPlayerPixkAxe_2: -50998521563010570
+      RambutPlayerPixkAxe_20: 7923769607702938474
+      RambutPlayerPixkAxe_21: -2605717902485529979
+      RambutPlayerPixkAxe_22: -8351173428369699139
+      RambutPlayerPixkAxe_23: 8023990369736769890
+      RambutPlayerPixkAxe_3: -1620567243060457101
+      RambutPlayerPixkAxe_4: 6152318793400421587
+      RambutPlayerPixkAxe_5: 5482832184062968471
+      RambutPlayerPixkAxe_6: 4271452434255813747
+      RambutPlayerPixkAxe_7: 1585482104263596883
+      RambutPlayerPixkAxe_8: -7320929831426501074
+      RambutPlayerPixkAxe_9: 3757822462445810882
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

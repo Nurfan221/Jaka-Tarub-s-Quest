@@ -1,0 +1,754 @@
+fileFormatVersion: 2
+guid: 32c0da88ad571f54d987584877c14bf5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6128164889498074192
+    second: BajuPlayerPickAxe_0
+  - first:
+      213: 8610800232737976988
+    second: BajuPlayerPickAxe_1
+  - first:
+      213: -8969260293933347824
+    second: BajuPlayerPickAxe_2
+  - first:
+      213: 6242379705708558910
+    second: BajuPlayerPickAxe_3
+  - first:
+      213: -311378679972127628
+    second: BajuPlayerPickAxe_4
+  - first:
+      213: 1283170387141468926
+    second: BajuPlayerPickAxe_5
+  - first:
+      213: -2937784929655433748
+    second: BajuPlayerPickAxe_6
+  - first:
+      213: 3415486267264321500
+    second: BajuPlayerPickAxe_7
+  - first:
+      213: 2076463417149812018
+    second: BajuPlayerPickAxe_8
+  - first:
+      213: -3806080857678639542
+    second: BajuPlayerPickAxe_9
+  - first:
+      213: -8012586944592032913
+    second: BajuPlayerPickAxe_10
+  - first:
+      213: -3979239558662958139
+    second: BajuPlayerPickAxe_11
+  - first:
+      213: 2145938062760395870
+    second: BajuPlayerPickAxe_12
+  - first:
+      213: -2780650015610561318
+    second: BajuPlayerPickAxe_13
+  - first:
+      213: -8244406572732826539
+    second: BajuPlayerPickAxe_14
+  - first:
+      213: -6513563507447109862
+    second: BajuPlayerPickAxe_15
+  - first:
+      213: 6013645404573031863
+    second: BajuPlayerPickAxe_16
+  - first:
+      213: 5136611363562812635
+    second: BajuPlayerPickAxe_17
+  - first:
+      213: 3110239660449505321
+    second: BajuPlayerPickAxe_18
+  - first:
+      213: 6157303381062139230
+    second: BajuPlayerPickAxe_19
+  - first:
+      213: -6736892251809100832
+    second: BajuPlayerPickAxe_20
+  - first:
+      213: -7413627679310269075
+    second: BajuPlayerPickAxe_21
+  - first:
+      213: 5568683484075692936
+    second: BajuPlayerPickAxe_22
+  - first:
+      213: 3335790905144221511
+    second: BajuPlayerPickAxe_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_0
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 203
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b3427c508264faa0800000000000000
+      internalID: -6128164889498074192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_1
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 203
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c92b2309035bf7770800000000000000
+      internalID: 8610800232737976988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_2
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 197
+        width: 26
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01c461aa849c68380800000000000000
+      internalID: -8969260293933347824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_3
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 199
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3abddfc44361a650800000000000000
+      internalID: 6242379705708558910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_4
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 199
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47c91a58db2cdabf0800000000000000
+      internalID: -311378679972127628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_5
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 205
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef22ed72bacbec110800000000000000
+      internalID: 1283170387141468926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_6
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 205
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce55469eb24ea37d0800000000000000
+      internalID: -2937784929655433748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_7
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 133
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd7c38ff9ae366f20800000000000000
+      internalID: 3415486267264321500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_8
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 133
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23dee40f97411dc10800000000000000
+      internalID: 2076463417149812018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_9
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 135
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4e86ab10a51e2bc0800000000000000
+      internalID: -3806080857678639542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_10
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 135
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6bc8ab50a29dc090800000000000000
+      internalID: -8012586944592032913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_11
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 137
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c356bd44b6e6c8c0800000000000000
+      internalID: -3979239558662958139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_12
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 69
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e54c2d46c47e7cd10800000000000000
+      internalID: 2145938062760395870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_13
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 69
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adc19d61b852969d0800000000000000
+      internalID: -2780650015610561318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_14
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 69
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55c3d5027ebf59d80800000000000000
+      internalID: -8244406572732826539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_15
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 71
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a17eaa4108c2b95a0800000000000000
+      internalID: -6513563507447109862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_16
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 71
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bd5cb042a2c47350800000000000000
+      internalID: 6013645404573031863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_17
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 75
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd4756af1d8e84740800000000000000
+      internalID: 5136611363562812635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_18
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 5
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 920ac6f0e7ac92b20800000000000000
+      internalID: 3110239660449505321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_19
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 5
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5d35826dc2237550800000000000000
+      internalID: 6157303381062139230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_20
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 5
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eb46d8c030c182a0800000000000000
+      internalID: -6736892251809100832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_21
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 7
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6535bd97e08d1990800000000000000
+      internalID: -7413627679310269075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_22
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 7
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8839ae6ef10f74d40800000000000000
+      internalID: 5568683484075692936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BajuPlayerPickAxe_23
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 11
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74f991a872c1b4e20800000000000000
+      internalID: 3335790905144221511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BajuPlayerPickAxe_0: -6128164889498074192
+      BajuPlayerPickAxe_1: 8610800232737976988
+      BajuPlayerPickAxe_10: -8012586944592032913
+      BajuPlayerPickAxe_11: -3979239558662958139
+      BajuPlayerPickAxe_12: 2145938062760395870
+      BajuPlayerPickAxe_13: -2780650015610561318
+      BajuPlayerPickAxe_14: -8244406572732826539
+      BajuPlayerPickAxe_15: -6513563507447109862
+      BajuPlayerPickAxe_16: 6013645404573031863
+      BajuPlayerPickAxe_17: 5136611363562812635
+      BajuPlayerPickAxe_18: 3110239660449505321
+      BajuPlayerPickAxe_19: 6157303381062139230
+      BajuPlayerPickAxe_2: -8969260293933347824
+      BajuPlayerPickAxe_20: -6736892251809100832
+      BajuPlayerPickAxe_21: -7413627679310269075
+      BajuPlayerPickAxe_22: 5568683484075692936
+      BajuPlayerPickAxe_23: 3335790905144221511
+      BajuPlayerPickAxe_3: 6242379705708558910
+      BajuPlayerPickAxe_4: -311378679972127628
+      BajuPlayerPickAxe_5: 1283170387141468926
+      BajuPlayerPickAxe_6: -2937784929655433748
+      BajuPlayerPickAxe_7: 3415486267264321500
+      BajuPlayerPickAxe_8: 2076463417149812018
+      BajuPlayerPickAxe_9: -3806080857678639542
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
