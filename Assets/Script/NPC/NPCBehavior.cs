@@ -8,6 +8,11 @@ public class NPCBehavior : MonoBehaviour
 {
 
     public NpcSO npcData;
+    [Header("Animator Parts")]
+    public Animator baju;
+    public Animator celana;
+    public Animator rambut;
+    public Animator sepatu;
 
     public string npcName { get; private set; }
     public bool isLockedForQuest = false;
@@ -82,8 +87,25 @@ public class NPCBehavior : MonoBehaviour
             Debug.LogWarning("Tidak bisa menemukan GameObject anak dengan nama 'Emoticon' pada NPC ini!", this.gameObject);
         }
     }
+    public void SetAnimators(
+       RuntimeAnimatorController bajuController,
+       RuntimeAnimatorController celanaController,
+       RuntimeAnimatorController rambutController,
+       RuntimeAnimatorController sepatuController)
+    {
+        if (baju != null) baju.runtimeAnimatorController = bajuController;
+        if (celana != null) celana.runtimeAnimatorController = celanaController;
+        if (rambut != null) rambut.runtimeAnimatorController = rambutController;
+        if (sepatu != null) sepatu.runtimeAnimatorController = sepatuController;
+    }
 
-
+    public void AutoFindAnimators()
+    {
+        baju = transform.Find("Baju")?.GetComponent<Animator>();
+        celana = transform.Find("Celana")?.GetComponent<Animator>();
+        rambut = transform.Find("Rambut")?.GetComponent<Animator>();
+        sepatu = transform.Find("Sepatu")?.GetComponent<Animator>();
+    }
     public void Initialize(NpcSO data)
     {
         this.npcData = data;

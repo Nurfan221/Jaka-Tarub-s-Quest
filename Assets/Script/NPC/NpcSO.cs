@@ -39,4 +39,11 @@ public class NpcSO : ScriptableObject
     //public GameObject prefab;
     public Schedule[] schedules;
     public FrendshipDefinition frendship;
+
+    [Header("animasi dan audio")]
+    public AnimatorOverrideController bajuAnimator;
+    public AnimatorOverrideController celanaAnimator;
+    public AnimatorOverrideController rambutAnimator;
+    public AnimatorOverrideController sepatuAnimator;
+
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class NPCManager : MonoBehaviour
@@ -47,10 +48,21 @@ public class NPCManager : MonoBehaviour
             GameObject npcObject = DatabaseManager.Instance.NPCWorldPrefab;
             GameObject npcGO = Instantiate(npcObject, wargaDesaParent);
             NPCBehavior behavior = npcGO.GetComponent<NPCBehavior>();
+            // Inisialisasi data NPC
+           
+
             if (behavior != null)
             {
                 // Berikan "identitas" pada NPC yang baru dibuat
+                behavior.AutoFindAnimators();
+
                 behavior.Initialize(data);
+                behavior.SetAnimators(
+                    data.bajuAnimator,
+                    data.celanaAnimator,
+                    data.rambutAnimator,
+                    data.sepatuAnimator
+                );
                 activeNpcs.Add(behavior);
             }
             int currentHour = TimeManager.Instance.hour;

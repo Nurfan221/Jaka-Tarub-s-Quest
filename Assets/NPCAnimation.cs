@@ -1,66 +1,114 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static NPCBehavior;
 
 public class NPCAnimation : MonoBehaviour
 {
-    [SerializeField] Animator animator; // Referensi ke NPC
-    [SerializeField] Animator bajuAnimation; //Referensi ke baju animator
-    public Vector2 lastDirection = Vector2.down; // Default menghadap bawah
-    private Vector2 previousPosition;
-    public SpriteRenderer baju;
-    public SpriteRenderer sr;
+    [Header("Master Animator (badan utama NPC)")]
+    public Animator bodyAnimator;
 
+    [Header("Animator bagian tubuh (otomatis terisi)")]
+    public List<Animator> layerAnimators = new List<Animator>();
 
-    private void Start()
+    public Vector2 lastDirection = Vector2.down;
+    private Vector2 previousPos;
+
+    private void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();  // Ambil SpriteRenderer untuk flip sprite
+        AutoFindAnimators();
     }
 
-    private void Update()
+    void Update()
     {
-        Vector2 movement = ((Vector2)transform.position - previousPosition).normalized;
+        Vector2 movement = ((Vector2)transform.position - previousPos).normalized;
 
-        // Update animasi berdasarkan gerakan
-        UpdateAnimation(movement);
-        // Simpan posisi sekarang sebagai referensi untuk frame berikutnya
-        previousPosition = transform.position;
+        UpdateAnimationParameters(movement);
+
+        previousPos = transform.position;
     }
 
-
-
-    public void UpdateAnimation(Vector2 movement)
+  
+    public void AutoFindAnimators()
     {
-        if (animator == null)
+        if (bodyAnimator == null)
+            bodyAnimator = GetComponentInChildren<Animator>();
+
+        layerAnimators.Clear();
+
+        string[] partNames = { "Baju", "Celana", "Rambut", "Sepatu" };
+
+        foreach (string name in partNames)
         {
-            Debug.LogError("Animator belum di-assign!");
-            return;
+            Transform t = transform.Find(name);
+            if (t != null)
+            {
+                Animator ani = t.GetComponent<Animator>();
+                if (ani != null) layerAnimators.Add(ani);
+            }
         }
+    }
+
+  
+    void UpdateAnimationParameters(Vector2 movement)
+    {
+        if (bodyAnimator == null) return;
 
         movement = movement.normalized;
         bool isMoving = movement != Vector2.zero;
 
         if (isMoving)
         {
-            // Simpan arah terakhir saat bergerak, agar animasi idle mengikuti arah ini
             lastDirection = movement;
 
-            // Set parameter untuk Blend Tree berjalan
-            animator.SetFloat("MoveX", Mathf.Round(movement.x)); // -1, 0, 1
-            animator.SetFloat("MoveY", Mathf.Round(movement.y));
+            SetAnim(bodyAnimator, movement.x, movement.y, 1f);
         }
         else
         {
-            // Gunakan arah terakhir saat idle
-            animator.SetFloat("IdleX", Mathf.Round(lastDirection.x));
-            animator.SetFloat("IdleY", Mathf.Round(lastDirection.y));
+            SetAnim(bodyAnimator, lastDirection.x, lastDirection.y, 0f);
         }
 
-        // Atur Speed untuk blend tree berjalan
-        animator.SetFloat("Speed", isMoving ? 1f : 0f);
+        // Copy parameter ke baju/celana/rambut/sepatu
+        foreach (Animator anim in layerAnimators)
+        {
+            anim.SetFloat("MoveX", bodyAnimator.GetFloat("MoveX"));
+            anim.SetFloat("MoveY", bodyAnimator.GetFloat("MoveY"));
+            anim.SetFloat("IdleX", bodyAnimator.GetFloat("IdleX"));
+            anim.SetFloat("IdleY", bodyAnimator.GetFloat("IdleY"));
+            anim.SetFloat("Speed", bodyAnimator.GetFloat("Speed"));
+        }
+
+        SyncVisuals();
     }
 
+    void SetAnim(Animator anim, float x, float y, float speed)
+    {
+        anim.SetFloat("MoveX", Mathf.Round(x));
+        anim.SetFloat("MoveY", Mathf.Round(y));
+        anim.SetFloat("IdleX", Mathf.Round(lastDirection.x));
+        anim.SetFloat("IdleY", Mathf.Round(lastDirection.y));
+        anim.SetFloat("Speed", speed);
+    }
+
+   
+    void SyncVisuals()
+    {
+        if (bodyAnimator == null) return;
+
+        AnimatorStateInfo m = bodyAnimator.GetCurrentAnimatorStateInfo(0);
+        int hash = m.fullPathHash;
+        float time = m.normalizedTime;
+
+        foreach (Animator anim in layerAnimators)
+        {
+            AnimatorStateInfo s = anim.GetCurrentAnimatorStateInfo(0);
+
+            if (s.fullPathHash != hash ||
+                Mathf.Abs(s.normalizedTime - time) > 0.02f)
+            {
+                anim.Play(hash, 0, time);
+            }
+        }
+    }
 
 
 }

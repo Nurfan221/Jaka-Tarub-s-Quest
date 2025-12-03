@@ -219,7 +219,7 @@ public class Player_Anim : MonoBehaviour
             bodySR.sortingOrder = 10;   // Dasar
             pantsSR.sortingOrder = 11;  // Celana
             clothSR.sortingOrder = 11;  // Baju di atas celana
-            hairSR.sortingOrder = 11;   // Rambut paling atas (menutupi punggung baju)
+            hairSR.sortingOrder = 13;   // Rambut paling atas (menutupi punggung baju)
             shoesSR.sortingOrder = 12;  // Sepatu paling atas
 
 
