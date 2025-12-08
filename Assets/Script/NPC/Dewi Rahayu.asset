@@ -19,6 +19,7 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
+  isAdult: 0
   schedules:
   - activityName: Mengobrol Ibu Ibu
     waypoints:
@@ -51,3 +52,7 @@ MonoBehaviour:
     like: []
     normal: []
     hate: []
+  bajuAnimator: {fileID: 22100000, guid: bfa00dc31db5d174d8d87297ac6d0f01, type: 2}
+  celanaAnimator: {fileID: 22100000, guid: 294e57dc8263b3a49bb935b2882a0806, type: 2}
+  rambutAnimator: {fileID: 22100000, guid: 1a7c8f3dc7c91054c87174711c3b0aed, type: 2}
+  sepatuAnimator: {fileID: 22100000, guid: 29cb35de1b2e8dc4ab893786db514178, type: 2}

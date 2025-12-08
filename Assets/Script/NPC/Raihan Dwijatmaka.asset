@@ -19,6 +19,7 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
+  isAdult: 0
   schedules:
   - activityName: Melamun
     waypoints:
@@ -67,3 +68,7 @@ MonoBehaviour:
     like: []
     normal: []
     hate: []
+  bajuAnimator: {fileID: 22100000, guid: 00a19ed633b14304f90913335f34be53, type: 2}
+  celanaAnimator: {fileID: 22100000, guid: 8679a6ae7aa3edd419bdd688764ad3b3, type: 2}
+  rambutAnimator: {fileID: 22100000, guid: 2b0c1d261f68c104aa4de58b70622e63, type: 2}
+  sepatuAnimator: {fileID: 22100000, guid: 3fa8f48ba91d9fa41bcf6757e06d58fa, type: 2}

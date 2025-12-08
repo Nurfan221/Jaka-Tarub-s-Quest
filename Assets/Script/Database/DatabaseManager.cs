@@ -589,7 +589,8 @@ public class DatabaseManager : MonoBehaviour
     [Tooltip("Prefab untuk objek Enemy")]
     public GameObject EnemyWorldPrefab;
     [Tooltip("Prefab untuk objek NPC")]
-    public GameObject NPCWorldPrefab;
+    public GameObject NPCAdultPrefab;
+    public GameObject NPCChildPrefab;
 
     [Space(10)]
     [Header("System & Save Data")]
@@ -843,5 +844,15 @@ public class DatabaseManager : MonoBehaviour
         return itemShopDatabase.shopTypeDatabases.FirstOrDefault(db => db.shopType == typeShop);
     }
 
-   
+   public GameObject GetNPCPrefab(bool isChild)
+    {
+        if (isChild)
+        {
+            return NPCChildPrefab;
+        }
+        else
+        {
+            return NPCAdultPrefab;
+        }
+    }
 }

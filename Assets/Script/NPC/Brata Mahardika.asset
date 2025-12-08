@@ -19,6 +19,7 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
+  isAdult: 0
   schedules:
   - activityName: Membersihkan Makam
     waypoints:
@@ -72,3 +73,7 @@ MonoBehaviour:
     like: []
     normal: []
     hate: []
+  bajuAnimator: {fileID: 22100000, guid: 658793ce33e069b4285e4edaff2a3867, type: 2}
+  celanaAnimator: {fileID: 22100000, guid: 5d80cd219cd42264ab4a2ce9383e0f3e, type: 2}
+  rambutAnimator: {fileID: 22100000, guid: 462e1829fa85e7a41b2c2a490af32c3d, type: 2}
+  sepatuAnimator: {fileID: 22100000, guid: ba98d3b515997e148a2729df6e887842, type: 2}

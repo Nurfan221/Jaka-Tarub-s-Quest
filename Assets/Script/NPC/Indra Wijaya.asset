@@ -19,6 +19,7 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
+  isAdult: 0
   schedules:
   - activityName: Berangkat Mancing
     waypoints:
@@ -76,3 +77,7 @@ MonoBehaviour:
     like: []
     normal: []
     hate: []
+  bajuAnimator: {fileID: 22100000, guid: 41fc67ee71c37ca4c9b2d9afbfa89bce, type: 2}
+  celanaAnimator: {fileID: 22100000, guid: 37ddac277557fb1469a6b308d73c7f83, type: 2}
+  rambutAnimator: {fileID: 22100000, guid: 29f753d52cdfd5e41ac547c681b3e913, type: 2}
+  sepatuAnimator: {fileID: 22100000, guid: 3fa8f48ba91d9fa41bcf6757e06d58fa, type: 2}

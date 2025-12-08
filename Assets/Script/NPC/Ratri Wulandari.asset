@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c301db3b016834e4dbbf2c7b2868cda7, type: 3}
+  m_Name: Ratri Wulandari
+  m_EditorClassIdentifier: 
+  npcName: 'Ratri Wulandari '
+  fullName: 'Ratri Wulandari '
+  pekerjaan: Ibu Rumah Tangga
+  hobi: Memasak
+  tanggalUltah: 0
+  bulanUltah: 0
+  npcSprite: {fileID: 0}
+  isAdult: 0
+  schedules:
+  - activityName: PulangdanIstirahat
+    waypoints:
+    - {x: -164.6, y: 23.7}
+    startTime: 4
+    hideOnArrival: 0
+  - activityName: PekerjaanRumah
+    waypoints:
+    - {x: -164.6, y: 23.7}
+    - {x: -165.709, y: 23.7}
+    - {x: -165.709, y: 20.98}
+    - {x: -159, y: 20.98}
+    - {x: -159, y: 23.5}
+    startTime: 5
+    hideOnArrival: 0
+  - activityName: PergiKeWarung
+    waypoints:
+    - {x: -159, y: 23.5}
+    - {x: -154, y: 20.72}
+    - {x: -154, y: 11}
+    - {x: 26.5, y: -4}
+    - {x: 26.5, y: -9}
+    - {x: 39.5, y: -9}
+    - {x: 39.5, y: 0}
+    - {x: -211, y: 77}
+    - {x: -203, y: 77}
+    - {x: -203, y: 78}
+    startTime: 8
+    hideOnArrival: 0
+  - activityName: PulangKeRumah
+    waypoints:
+    - {x: -203, y: 78}
+    - {x: -211.5, y: 78}
+    - {x: -211.5, y: 82}
+    - {x: -211, y: 77}
+    - {x: 39.5, y: -4}
+    - {x: 39.5, y: -9}
+    - {x: 26.5, y: -9}
+    - {x: 26.5, y: -2}
+    - {x: -154, y: 23.4}
+    startTime: 12
+    hideOnArrival: 0
+  - activityName: MengurusTanaman
+    waypoints:
+    - {x: -154, y: 23.4}
+    - {x: -154, y: 11}
+    - {x: 26.5, y: -4}
+    - {x: 26.5, y: -9}
+    - {x: 22, y: -9}
+    - {x: 22, y: -5.5}
+    startTime: 15
+    hideOnArrival: 0
+  - activityName: PulangdanIstirahat
+    waypoints:
+    - {x: 22, y: -5.5}
+    - {x: 22, y: -9}
+    - {x: 26.5, y: -9}
+    - {x: 26.5, y: -2}
+    - {x: -154, y: 21}
+    - {x: -159, y: 21}
+    - {x: -165.709, y: 21}
+    - {x: -165.709, y: 23.7}
+    - {x: -164.6, y: 23.7}
+    startTime: 18
+    hideOnArrival: 0
+  frendship:
+    favoriteValue: 0
+    likesValue: 0
+    normalValue: 0
+    hateValue: 0
+    favorites: []
+    like: []
+    normal: []
+    hate: []
+  bajuAnimator: {fileID: 22100000, guid: 6684bddd0181a3a4ba8d21ea8e49c91d, type: 2}
+  celanaAnimator: {fileID: 22100000, guid: 083f4b84a76785843a79de59454593b7, type: 2}
+  rambutAnimator: {fileID: 22100000, guid: dcce98069fff3fc4b82cf82512c917a3, type: 2}
+  sepatuAnimator: {fileID: 22100000, guid: 7ff669c7da2d2db4eaafec189e58c70e, type: 2}

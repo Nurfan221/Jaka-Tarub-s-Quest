@@ -45,11 +45,13 @@ public class NPCManager : MonoBehaviour
     {
         foreach (var data in allNpcDefinitions)
         {
-            GameObject npcObject = DatabaseManager.Instance.NPCWorldPrefab;
+            GameObject npcObject = DatabaseManager.Instance.GetNPCPrefab(data.isChild);
             GameObject npcGO = Instantiate(npcObject, wargaDesaParent);
             NPCBehavior behavior = npcGO.GetComponent<NPCBehavior>();
+            
+
             // Inisialisasi data NPC
-           
+
 
             if (behavior != null)
             {

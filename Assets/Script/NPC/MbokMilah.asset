@@ -19,6 +19,7 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
+  isAdult: 0
   schedules:
   - activityName: Istirahat
     waypoints:
@@ -68,3 +69,7 @@ MonoBehaviour:
     like: []
     normal: []
     hate: []
+  bajuAnimator: {fileID: 22100000, guid: 344925b5478f8db4e8779504b4449122, type: 2}
+  celanaAnimator: {fileID: 22100000, guid: 36841d2affecaaa45ba2fd236187954b, type: 2}
+  rambutAnimator: {fileID: 22100000, guid: 49130812ab59bc74c9ed9745e3acba1d, type: 2}
+  sepatuAnimator: {fileID: 22100000, guid: 29cb35de1b2e8dc4ab893786db514178, type: 2}

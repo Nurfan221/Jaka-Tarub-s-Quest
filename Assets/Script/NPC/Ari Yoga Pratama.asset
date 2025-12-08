@@ -19,6 +19,7 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
+  isChild: 1
   schedules:
   - activityName: Berangkat Sekolah
     waypoints:
@@ -66,3 +67,7 @@ MonoBehaviour:
     like: []
     normal: []
     hate: []
+  bajuAnimator: {fileID: 22100000, guid: 376dc11b0b4804f45aa62195cef57a6b, type: 2}
+  celanaAnimator: {fileID: 22100000, guid: 411a91aa6ac7b64409d58fdbb7b42cf2, type: 2}
+  rambutAnimator: {fileID: 22100000, guid: 511419929531db04fa62004b6c61c551, type: 2}
+  sepatuAnimator: {fileID: 22100000, guid: ba98d3b515997e148a2729df6e887842, type: 2}
