@@ -859,12 +859,8 @@ public class InventoryUI : MonoBehaviour
         // Simpan posisi player sekali saja
         Vector3 playerPosition = PlayerController.Instance.HandleGetPlayerPosition();
 
-        for (int i = 0; i < actualDropCount; i++)
-        {
-            // Beri sedikit offset acak agar item tidak menumpuk sempurna di satu titik
-            Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), 0.5f, UnityEngine.Random.Range(-0.2f, 0.2f));
-            ItemPool.Instance.DropItem(itemData.itemName, itemData.itemHealth, itemData.quality, playerPosition + offset);
-        }
+        Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), 0.5f, UnityEngine.Random.Range(-0.2f, 0.2f));
+        ItemPool.Instance.DropItem(itemData.itemName, itemData.itemHealth, itemData.quality, playerPosition + offset,actualDropCount);
 
         // Gunakan actualDropCount untuk perbandingan yang lebih aman.
         if (actualDropCount >= itemData.count)

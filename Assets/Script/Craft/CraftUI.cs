@@ -71,6 +71,7 @@ public class CraftUI : MonoBehaviour
         {
             Debug.LogError("Referensi ke QuantityPopupUI.Instance adalah null saat Start().");
         }
+
     }
     #endregion
 
@@ -434,13 +435,12 @@ public class CraftUI : MonoBehaviour
                 // Buat data refund
                 ItemData refundItem = new ItemData(ingredient.itemName, totalToRefund, ingredient.quality, ingredient.itemHealth);
 
-                // Masukkan kembali ke tas (Paksa masuk atau jatuhkan ke tanah jika perlu)
                 // Di sini kita asumsi AddItem pasti berhasil untuk refund karena kita baru saja menghapusnya
                 ItemPool.Instance.AddItem(refundItem);
             }
 
             // Tampilkan pesan error ke player
-            ShowErrorUI.Instance.ShowError("Inventaris Penuh! Crafting Dibatalkan.");
+            PlayerUI.Instance.ShowErrorUI("Inventaris Penuh! Crafting Dibatalkan.");
 
             // (Opsional) Refresh UI untuk memastikan tampilan inventaris benar kembali
              RefreshRecipeList();

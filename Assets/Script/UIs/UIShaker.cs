@@ -24,6 +24,7 @@ public class UIShaker : MonoBehaviour
 
     public void Shake()
     {
+        Debug.Log("memulai shake objek");
         originalPos = transform.localPosition;
 
         if (shakeRoutine != null)

@@ -427,7 +427,7 @@ public class AnimalBehavior : MonoBehaviour
             {
                 ItemData itemToDrop = new ItemData(dropitems[0].itemName, 1, dropitems[0].quality, dropitems[0].health);
                 Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
-                ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset);
+                ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset,1);
             }
         }
         else
@@ -458,20 +458,17 @@ public class AnimalBehavior : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < itemCount; i++)
+        int randomIndex = UnityEngine.Random.Range(startIndex, endIndex);
+        ItemData itemToDrop = new ItemData(dropitems[randomIndex].itemName, 1, dropitems[randomIndex].quality, randomIndex);
+        if (itemToDrop != null)
         {
-            int randomIndex = UnityEngine.Random.Range(startIndex, endIndex);
-            ItemData itemToDrop = new ItemData(dropitems[randomIndex].itemName, 1, dropitems[randomIndex].quality, randomIndex);
-            if (itemToDrop != null)
-            {
-                Debug.Log("nama item yang di drop adalah : " + itemToDrop.itemName);
-                Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
-                ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset);
-            }
-            else
-            {
-                Debug.LogWarning($"Item at index {randomIndex} is null.");
-            }
+            Debug.Log("nama item yang di drop adalah : " + itemToDrop.itemName);
+            Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
+            ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset, itemCount);
+        }
+        else
+        {
+            Debug.LogWarning($"Item at index {randomIndex} is null.");
         }
         Destroy(gameObject);
     }

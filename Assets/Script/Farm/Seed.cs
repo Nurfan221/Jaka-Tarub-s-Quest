@@ -62,37 +62,7 @@ public class Seed : MonoBehaviour
         }
     }
 
-    public void Harvest()
-    {
-        if (isReadyToHarvest)
-        {
-            // if (GameEventSystem.Instance.DoneDialogue_FirstKakRen && !GameEventSystem.Instance.DoneDialogue_FirstBandit)
-            //     Player_Quest.Instance.SetQuest("Cari sebilah pedang di samping rumah");
-
-            if (SoundManager.Instance != null)
-                SoundManager.Instance.PlaySound("Pick");
-            Debug.Log("Biji dipanen!");
-            // Drop item menggunakan ItemPool
-            ItemPool.Instance.DropItem(dropItem.itemName,dropItem.itemHealth, dropItem.quality, transform.position + new Vector3(0, 0.5f, 0));
-            // Atur ulang fase pertumbuhan ke awal dan lain-lain...
-
-            growthCount = 0;
-            spriteRenderer.sprite = growthSprites[growthCount];
-            isReadyToHarvest = false;
-            siram = true;
-
-            transform.GetChild(0).GetComponent<ParticleSystem>().Play();
-
-        }
-        else if (siram)
-        {
-            Debug.Log("Siram dulu bos");
-        }
-        else
-        {
-            Debug.Log("Biji belum siap dipanen bos");
-        }
-    }
+    
 
     public void Siram()
     {

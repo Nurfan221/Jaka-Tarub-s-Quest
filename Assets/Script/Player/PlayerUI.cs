@@ -93,6 +93,7 @@ public class PlayerUI : MonoBehaviour
     public float animationDuration = 0.5f; // Durasi animasi dalam detik
     public float targetHeight = 300f; // Ketinggian akhir UI
     public float startHeight = 0f; // Ketinggian awal UI
+    public ShowErrorUI errorUI;
 
     private bool isUIActive = false;
 
@@ -544,5 +545,10 @@ public class PlayerUI : MonoBehaviour
         questUI.anchoredPosition = new Vector2(questUI.anchoredPosition.x, targetPosY);
     }
 
+    public void ShowErrorUI(string message)
+    {
+        errorUI.gameObject.SetActive(true);
+        errorUI.ShowError(message, 2f, 0.5f);
+    }
 
 }

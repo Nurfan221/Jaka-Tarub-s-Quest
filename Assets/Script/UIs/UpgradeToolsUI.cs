@@ -79,7 +79,7 @@ public class UpgradeToolsUI : MonoBehaviour
         {
             Debug.Log("Syarat upgrade belum terpenuhi!");
             upgradeButton.GetComponent<UIShaker>().Shake(); // Efek guncangan!
-            ShowErrorUI.Instance.ShowError(errorMessage, 2f, 0.5f);
+            PlayerUI.Instance.ShowErrorUI(errorMessage);
 
             return;
         }
@@ -139,7 +139,7 @@ public class UpgradeToolsUI : MonoBehaviour
     {
 
         isDropping = false;
-        ShowErrorUI.Instance.ResetErrorUI();
+        PlayerUI.Instance.errorUI.ResetErrorUI();
         PlayUp(); // jalankan animasi naik
 
         // Tunggu hingga animasi selesai (sesuaikan durasi dengan animasi PlayUp)

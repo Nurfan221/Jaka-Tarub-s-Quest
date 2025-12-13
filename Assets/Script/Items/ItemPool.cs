@@ -61,7 +61,7 @@ public class ItemPool : MonoBehaviour
 
 
     // Asumsi fungsi ini ada di dalam ItemPool.cs
-    public void DropItem(string itemName, int healthItem, ItemQuality itemQuality, Vector2 pos, int count = 1, int level = 1)
+    public void DropItem(string itemName, int healthItem, ItemQuality itemQuality, Vector2 pos, int count, int level = 1)
     {
         Item itemDefinition = GetItemWithQuality(itemName, itemQuality);
         if (itemDefinition == null)

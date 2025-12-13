@@ -198,8 +198,9 @@ public class PlantSeed : UniqueIdentifiableObject
         if (isReadyToHarvest)
         {
             Debug.Log("Biji dipanen!");
+            int itemToDrop = Random.Range(0, 3);
 
-            ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.health, itemDrop.quality, transform.position + new Vector3(0, 0.5f, 0));
+            ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.health, itemDrop.quality, transform.position + new Vector3(0, 0.5f, 0), itemToDrop);
 
             FarmTile.Instance.OnPlantHarvested(this.UniqueID);
 

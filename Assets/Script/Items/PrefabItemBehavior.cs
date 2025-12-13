@@ -44,15 +44,12 @@ public class PrefabItemBehavior : MonoBehaviour
         // Hitung jumlah acak untuk setiap jenis item
         int woodCount = (int)Random.Range(minItemDrop, maxItemDrop + 1);
 
-       
+
 
         // Drop kayu
-        for (int i = 0; i < woodCount; i++)
-        {
-            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-            if (itemDrop != null)
-                ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.itemHealth,itemDrop.quality, transform.position + offset);
-        }
+        Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+        if (itemDrop != null)
+            ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.itemHealth, itemDrop.quality, transform.position + offset, woodCount);
 
 
 

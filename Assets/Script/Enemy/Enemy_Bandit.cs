@@ -540,7 +540,7 @@ public class Enemy_Bandit : MonoBehaviour
                     {
                         //Debug.Log("Item yang dijatuhkan: " + itemToDrop.name);
                         Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-                        ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset);
+                        ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset,1);
                     }
                 }
                 else

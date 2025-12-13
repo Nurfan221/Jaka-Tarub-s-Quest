@@ -71,14 +71,11 @@ public class AkarPohon : UniqueIdentifiableObject
         if (health <= 0)
         {
             ditebang = true;
-            for (int i = 0; i < woodCount; i++)
+            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
+            if (kayu != null)
             {
-                Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
-                if (kayu != null)
-                {
-                    Vector3 posisi = transform.position;
-                    ItemPool.Instance.DropItem(kayu.itemName, kayu.itemHealth, kayu.quality, posisi + offset);
-                }
+                Vector3 posisi = transform.position;
+                ItemPool.Instance.DropItem(kayu.itemName, kayu.itemHealth, kayu.quality, posisi + offset, woodCount);
             }
             MainEnvironmentManager.Instance.pohonManager.CheckTreefromSecondList(IdObjectUtama);
             StartCoroutine(PlayDelay());

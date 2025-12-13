@@ -393,52 +393,35 @@ public class TreeBehavior : UniqueIdentifiableObject
         Debug.Log($"Menjatuhkan item: Kayu={woodCount}, Getah={sapCount}, Daun={leafCount}, Seed={seedCount}");
 
         // Drop kayu
-        for (int i = 0; i < woodCount; i++)
+        Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
+        if (kayu != null)
         {
-            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
-            if (kayu != null)
-            {
-                ItemPool.Instance.DropItem(kayu.itemName,kayu.itemHealth, kayu.quality, posisi + offset   );
-            }
+            ItemPool.Instance.DropItem(kayu.itemName, kayu.itemHealth, kayu.quality, posisi + offset, woodCount);
         }
 
+
         // Drop getah
-        for (int i = 0; i < sapCount; i++)
+        if (getah != null)
         {
-            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
-            if (getah != null)
-            {
-                ItemPool.Instance.DropItem(getah.itemName, getah.itemHealth, getah.quality, posisi + offset);
-            }
+            ItemPool.Instance.DropItem(getah.itemName, getah.itemHealth, getah.quality, posisi + offset, sapCount);
         }
 
         // Drop daun
-        for (int i = 0; i < leafCount; i++)
+        if (daun != null)
         {
-            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
-            if (daun != null)
-            {
-                ItemPool.Instance.DropItem(daun.itemName, daun.itemHealth, daun.quality, posisi + offset);
-            }
+            ItemPool.Instance.DropItem(daun.itemName, daun.itemHealth, daun.quality, posisi + offset, woodCount);
         }
 
         // Drop Serat Tanaman
-        for (int i = 0; i < seratCount; i++)
+       
+        if (seratTanaman != null)
         {
-            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
-            if (seratTanaman != null)
-            {
-                ItemPool.Instance.DropItem(seratTanaman.itemName, seratTanaman.itemHealth, seratTanaman.quality, posisi + offset);
-            }
+            ItemPool.Instance.DropItem(seratTanaman.itemName, seratTanaman.itemHealth, seratTanaman.quality, posisi + offset, sapCount);
         }
         // Drop benih
-        for (int i = 0; i < seedCount; i++)
+        if (benih != null)
         {
-            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
-            if (benih != null)
-            {
-                ItemPool.Instance.DropItem(benih.itemName, benih.itemHealth, benih.quality, posisi + offset);
-            }
+            ItemPool.Instance.DropItem(benih.itemName, benih.itemHealth, benih.quality, posisi + offset, sapCount);
         }
 
         isRubuh = false;

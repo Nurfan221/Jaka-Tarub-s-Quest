@@ -39,8 +39,8 @@ public class ShopUI : MonoBehaviour
     public Transform buyUI;
     public Transform sellUI;
     public Button btnClose;
-    public Button gagalUI;
     public Transform deskripsiUI;
+    public String errorMessage;
 
     private Dictionary<string, int> itemSellCounts = new(); // Menyimpan jumlah item yang akan dibeli
     private Dictionary<string , int> itemBuyCounts = new();
@@ -87,10 +87,7 @@ public class ShopUI : MonoBehaviour
             RefreshShopUI(currentSeasonItems);
         });
 
-        gagalUI.onClick.AddListener(() =>
-        {
-            gagalUI.gameObject.SetActive(false);
-        });
+      
 
         btnClose.onClick.RemoveAllListeners();
         btnClose.onClick.AddListener(CloseShop);
@@ -116,7 +113,7 @@ public class ShopUI : MonoBehaviour
             SoundManager.Instance.PlaySound("Click");
 
         GameController.Instance.ShowPersistentUI(false);
-        GameController.Instance.PauseGame();
+        //GameController.Instance.PauseGame();
         gameObject.SetActive(true);
         RefreshShopUI(currentSeasonItems);
     }
@@ -132,16 +129,48 @@ public class ShopUI : MonoBehaviour
         gameObject.SetActive(false);
         GameController.Instance.ShowPersistentUI(true);
         gameObject.SetActive(false);
-        gagalUI.gameObject.SetActive(false); // Sembunyikan UI
     }
 
-   
 
 
 
 
+    public void UpdateSingleItemStock(string itemName, int newStockCount)
+    {
+        // Fungsi .Find() sangat cepat untuk mencari direct child
+        Transform itemSlot = contentBuyUI.Find(itemName);
 
-   
+        if (itemSlot != null)
+        {
+            Debug.Log($"objek ui dengan nama {itemName} ditemukan");
+
+            // Contoh: Jika Text ada di dalam child bernama "StockCountText"
+            TMP_Text stackCountText = itemSlot.GetChild(0).GetChild(1).GetComponent<TMP_Text>();
+
+
+            if (stackCountText != null)
+            {
+                stackCountText.gameObject.SetActive(true);
+                stackCountText.text = newStockCount.ToString();
+            }
+
+           
+
+            // Jika stok 0, apakah mau langsung dihapus atau dimatikan?
+            if (newStockCount <= 0)
+            {
+                
+
+                Destroy(itemSlot.gameObject);
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Item UI dengan nama {itemName} tidak ditemukan di dalam contentBuyUI!");
+        }
+    }
+
+
 
     private void RefreshShopUI(List<ItemData> items)
     {
@@ -277,15 +306,15 @@ public class ShopUI : MonoBehaviour
                     UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
                 }
             });
+            Button btnDeskripsi = itemSlot.GetComponent<Button>();
 
             Button buy = itemSlot.GetChild(4).GetComponent<Button>();
             buy.onClick.RemoveAllListeners();
             buy.onClick.AddListener(() =>
             {
-                BuyItem(itemShop, countText, itemBuyCounts);
+                BuyItem(itemShop, countText, itemBuyCounts, btnDeskripsi);
             });
 
-            Button btnDeskripsi = itemSlot.GetComponent<Button>();
             btnDeskripsi.onClick.RemoveAllListeners();
             btnDeskripsi.onClick.AddListener(() =>
             {
@@ -355,15 +384,15 @@ public class ShopUI : MonoBehaviour
                     UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
                 }
             });
+            Button btnDeskripsi = itemSlot.GetComponent<Button>();
 
             Button buy = itemSlot.GetChild(4).GetComponent<Button>();
             buy.onClick.RemoveAllListeners();
             buy.onClick.AddListener(() =>
             {
-                BuyItem(itemShop, countText, itemBuyCounts);
+                BuyItem(itemShop, countText, itemBuyCounts, btnDeskripsi);
             });
 
-            Button btnDeskripsi = itemSlot.GetComponent<Button>();
             btnDeskripsi.onClick.RemoveAllListeners();
             btnDeskripsi.onClick.AddListener(() =>
             {
@@ -383,81 +412,104 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    private void BuyItem(ItemData selectedItem, TMP_Text countText, Dictionary<string, int> itemCounts)
+    private void BuyItem(ItemData selectedItem, TMP_Text countText, Dictionary<string, int> itemCounts, Button templateBuyImage)
     {
-        Debug.Log("button beli item di tekan");
-        int remainingToBuy = itemCounts[selectedItem.itemName]; // Jumlah item yang ingin dibeli
-        Item item = ItemPool.Instance.GetItemWithQuality(selectedItem.itemName, selectedItem.quality);
-        if (GameEconomy.Instance.SpendMoney(remainingToBuy * item.BuyValue) && remainingToBuy <= selectedItem.count)
+        // Setup Data Awal
+        int amountToBuy = itemCounts[selectedItem.itemName]; // Simpan jumlah asli yang ingin dibeli
+        int remainingToProcess = amountToBuy;                // Variabel untuk diproses di logic inventory (akan berkurang jadi 0)
+
+        Item itemReference = ItemPool.Instance.GetItemWithQuality(selectedItem.itemName, selectedItem.quality);
+
+        // Cek Validasi (Uang Cukup & Stok Toko Cukup)
+        if (GameEconomy.Instance.SpendMoney(amountToBuy * itemReference.BuyValue) && amountToBuy <= selectedItem.count)
         {
-            // Cek apakah item sudah ada di inventory
-            ItemData inventoryItem = stats.inventory.Find(x => x.itemName == selectedItem.itemName);
+            Debug.Log($"Pembelian Berhasil: {selectedItem.itemName} x{amountToBuy}");
 
-            if (inventoryItem != null && inventoryItem.count < item.maxStackCount)
+          
+            //  Cek apakah bisa ditumpuk (Stacking) ke slot yang sudah ada
+            ItemData existingItem = stats.inventory.Find(x => x.itemName == selectedItem.itemName && x.count < itemReference.maxStackCount);
+
+            if (existingItem != null)
             {
-                int availableSpace = item.maxStackCount - inventoryItem.count;
-                int amountToAdd = Mathf.Min(availableSpace, remainingToBuy);
+                int availableSpace = itemReference.maxStackCount - existingItem.count;
+                int amountToAdd = Mathf.Min(availableSpace, remainingToProcess);
 
-                inventoryItem.count += amountToAdd;
-                remainingToBuy -= amountToAdd;
+                existingItem.count += amountToAdd;
+                remainingToProcess -= amountToAdd;
             }
 
-            // Jika masih ada sisa item, buat stack baru di inventory
-            while (remainingToBuy > 0 && stats.inventory.Count < stats.playerData.maxItem)
+            // Jika masih ada sisa, buat slot baru (New Stack)
+            while (remainingToProcess > 0)
             {
-                //Item newItem = Instantiate(selectedItem);
+                // Buat data item baru
                 ItemData newItem = new ItemData(selectedItem.itemName, 1, selectedItem.quality, selectedItem.itemHealth);
-                int amountToTake = Mathf.Min(remainingToBuy, item.maxStackCount);
+
+                int amountToTake = Mathf.Min(remainingToProcess, itemReference.maxStackCount);
                 newItem.count = amountToTake;
-                remainingToBuy -= amountToTake;
+                remainingToProcess -= amountToTake;
 
-                item.isStackable = newItem.count < item.maxStackCount;
-
+                // Coba masukkan ke tas
                 bool isSuccess = ItemPool.Instance.AddItem(newItem);
 
                 if (isSuccess)
                 {
-                    Debug.Log($"Menerima reward masuk tas: {newItem.itemName} x{newItem.count}");
+                    Debug.Log($"Masuk tas: {newItem.itemName} x{newItem.count}");
                 }
                 else
                 {
-                    // 2. JIKA GAGAL (Tas Penuh), JATUHKAN KE TANAH
-                    Debug.LogWarning($"Tas penuh! Menjatuhkan {newItem.itemName} ke tanah.");
+                    Debug.LogWarning($"Tas penuh! Menjatuhkan {newItem.itemName} x{newItem.count}");
 
-                    // Asumsi Anda punya fungsi untuk spawn item di dunia (World Item)
+                    string errorMsg = $"Tas penuh!! Drop Item {newItem.itemName}";
+                    PlayerUI.Instance.ShowErrorUI(errorMsg);
+
                     Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
                     Vector3 playerPosition = PlayerUI.Instance.player.transform.position;
-                    // Panggil fungsi drop item Anda (sesuaikan dengan sistem Anda)
-                    ItemPool.Instance.DropItem(newItem.itemName, newItem.itemHealth, newItem.quality, playerPosition + offset, 1);
-                    // Atau: Instantiate(itemReward.prefab, dropPosition, Quaternion.identity);
+
+                    ItemPool.Instance.DropItem(
+                        newItem.itemName,
+                        newItem.itemHealth,
+                        newItem.quality,
+                        playerPosition + offset,
+                        newItem.count 
+                    );
                 }
-                //stats.inventory.Add(newItem);
             }
 
-            Debug.Log("Nama item: " + selectedItem.itemName + " | Jumlah: " + itemCounts[selectedItem.itemName]);
-            Debug.Log("Total harga: " + (itemCounts[selectedItem.itemName] * item.BuyValue)); // Gunakan BuyValue!
+         
+            int currentShopStock = selectedItem.count - amountToBuy;
 
-            //Pastikan item hanya dihapus jika ada yang tersisa untuk dihapus
-            if (itemCounts[selectedItem.itemName] > 0)
+           
+            UpdateSingleItemStock(selectedItem.itemName, Mathf.Max(0, currentShopStock));
+
+            if (amountToBuy > 0)
             {
-                DeleteItemFromShop(selectedItem, itemCounts[selectedItem.itemName]);
+                DeleteItemFromShop(selectedItem, amountToBuy);
             }
 
             itemBuyCounts[selectedItem.itemName] = 1;
             UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
 
+            MechanicController.Instance.HandleUpdateInventory();
 
-            RefreshShopUI(currentSeasonItems);
         }
         else
         {
+         
+            Debug.Log("Gagal Beli: Uang kurang atau stok habis.");
+
+            // Reset Counter
             itemBuyCounts[selectedItem.itemName] = 1;
             UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
-            StartCoroutine(StartUIGagal());
-        }
 
-        MechanicController.Instance.HandleUpdateInventory();
-        //inventoryUI.UpdateSixItemDisplay();
+            // Efek Guncangan (Shake)
+            if (templateBuyImage != null)
+            {
+                var shaker = templateBuyImage.GetComponent<UIShaker>();
+                if (shaker != null) shaker.Shake();
+            }
+
+            PlayerUI.Instance.ShowErrorUI("Gagal melakukan transaksi Uang kurang atau stok habis.");
+        }
     }
 
 
@@ -602,16 +654,5 @@ public class ShopUI : MonoBehaviour
                 Destroy(child.gameObject);
         }
     }
-    private IEnumerator StartUIGagal()
-    {
-        gagalUI.gameObject.SetActive(true); // Tampilkan UI
-        yield return new WaitForSeconds(1f); // Tunggu 1 detik
-        gagalUI.gameObject.SetActive(false); // Sembunyikan UI
-        Button gagalbtn = gagalUI.GetComponent<Button>();
-
-        gagalbtn.onClick.AddListener(() =>
-        {
-            gagalUI.gameObject.SetActive(false);
-        });
-    }
+   
 }
