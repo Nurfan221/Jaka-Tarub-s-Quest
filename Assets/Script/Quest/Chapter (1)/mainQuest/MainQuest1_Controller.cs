@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // Ini adalah "wadah" untuk data setiap adegan. Letakkan di file yang sama.
@@ -39,7 +38,7 @@ public class QuestStateData
 // Ini adalah skrip "Sutradara" utama Anda
 public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi dari kelas dasar Anda
 {
-    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PamitUntukBerburu, PergiKeHutan, CariRusa, MunculkanHarimau, BerikanHasilBuruan, NasibSial, KembaliBerburu,NasibBuruk, KabarKesedihan, Selesai }
+    public enum MainQuest1State { BelumMulai, AdeganMimpi, ApaArtiMimpiItu, PerjodohanDenganLaraswati, PamitUntukBerburu, PergiKeHutan, CariRusa, MunculkanHarimau, BerikanHasilBuruan, NasibSial, KembaliBerburu, NasibBuruk, KabarKesedihan, Selesai }
 
     [Header("Progres Cerita")]
     [SerializeField] private MainQuest1State currentState = MainQuest1State.BelumMulai;
@@ -70,7 +69,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         DialogueSystem.OnDialogueEnded += HandleDialogueEnd;
         PlayerQuest.OnPlayerEnteredLocation += HandleLocationTrigger;
         AnimalBehavior.OnAnimalDied += HandleAnimalDied;
-        TimeManager.OnDayChanged += HandleDayChange ; // Misalnya, jika quest ini berhubungan dengan pergantian hari
+        TimeManager.OnDayChanged += HandleDayChange; // Misalnya, jika quest ini berhubungan dengan pergantian hari
         Player_Health.Sekarat += HandlePlayerSekarat; // Misalnya, jika quest ini berhubungan dengan kematian pemain
 
         //DialogueSystem.OnDialogueEnded += HandleDialogueTrigger;
@@ -142,13 +141,14 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             questData.CurrentStateName = safeState.ToString();
 
             Debug.Log($"[MainQuest1] ChangeState ke: {newState} (Restoring: {isRestoring}). Saved Checkpoint: {safeState}");
-        }else
+        }
+        else
         {
             Debug.LogWarning("[MainQuest1] questData adalah null! Tidak dapat menyimpan state.");
         }
 
-            // Ambil data untuk state ini
-            QuestStateData data = stateDataList.FirstOrDefault(s => s.state == newState);
+        // Ambil data untuk state ini
+        QuestStateData data = stateDataList.FirstOrDefault(s => s.state == newState);
 
         // Eksekusi Logika State
         switch (newState)
@@ -312,7 +312,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
     {
         // Tunggu satu frame agar semua proses inisialisasi state selesai.
         yield return null;
-        isChangingState = false; 
+        isChangingState = false;
     }
 
     private void HandleDialogueEnd()
@@ -353,7 +353,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 StartCoroutine(UseLoadingScreenUI(true));
                 break;
             default:
-                                Debug.Log("Tidak ada aksi khusus setelah dialog untuk adegan ini.");
+                Debug.Log("Tidak ada aksi khusus setelah dialog untuk adegan ini.");
                 break;
 
                 //case MainQuest1State.CariRusa:
@@ -374,7 +374,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
         ChangeState(MainQuest1State.NasibSial);
 
     }
-    
+
     private void HandleItemGive(ItemData itemDate)
     {
         // Logika untuk menangani item yang diberikan

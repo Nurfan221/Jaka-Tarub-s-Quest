@@ -1,4 +1,3 @@
-using UnityEngine;
 using System.Collections.Generic;
 
 // Atribut ini PENTING! Ia memberitahu Unity bahwa class ini bisa diubah

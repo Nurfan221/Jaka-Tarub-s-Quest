@@ -1,7 +1,7 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class UpgradeToolsUI : MonoBehaviour
 {
@@ -68,12 +68,12 @@ public class UpgradeToolsUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void TryUpgrade()
     {
-         //canUpgrade = (itemRequired != null && itemRequired.count > 0);
+        //canUpgrade = (itemRequired != null && itemRequired.count > 0);
 
         if (!upgradeToolsInteractable.canUpgrade)
         {
@@ -88,7 +88,7 @@ public class UpgradeToolsUI : MonoBehaviour
         DoUpgrade();
     }
 
-   
+
     private bool IsUpgradeRequirementIncomplete()
     {
         bool isToolEmpty = upgradeToolsInteractable.itemToUpgrade == null || string.IsNullOrEmpty(upgradeToolsInteractable.itemToUpgrade.itemName) || upgradeToolsInteractable.itemToUpgrade.count <= 0;
@@ -119,7 +119,8 @@ public class UpgradeToolsUI : MonoBehaviour
         if (isDropping)
         {
             StartCoroutine(CloseUpgradeCoroutine());
-        }else
+        }
+        else
         {
             //  Kembalikan UI utama
             GameController.Instance.ShowPersistentUI(true);
@@ -129,8 +130,8 @@ public class UpgradeToolsUI : MonoBehaviour
 
             isClosing = false;
         }
-            
-     
+
+
 
 
     }
@@ -198,14 +199,15 @@ public class UpgradeToolsUI : MonoBehaviour
 
                 ItemData currentItemData = itemData;
                 //theItem.GetComponent<Button>().onClick.AddListener(() => OnClickItemInInventory());
-            }else
+            }
+            else
             {
                 Debug.Log("Item " + item.itemName + " bukan kategori tools, tidak ditampilkan di inventory upgrade tools UI.");
             }
 
         }
 
-       
+
     }
 
     public void OnClickItemInInventory(UpgradeToolsDatabase upgradeToolsDatabase)
@@ -301,7 +303,7 @@ public class UpgradeToolsUI : MonoBehaviour
             SetImageAlpha(itemRequiredImage, 1f);
         }
 
-   
+
 
         if (IsUpgradeRequirementIncomplete())
         {
@@ -588,7 +590,7 @@ public class UpgradeToolsUI : MonoBehaviour
         else
             stats.inventory.Add(new ItemData(toolName, 1, ItemQuality.Normal, db.itemToolRequired.health));
     }
-    
+
 
 
 }

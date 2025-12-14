@@ -1,7 +1,6 @@
 // Di MainQuestSO.cs
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq; // Tambahkan ini untuk menggunakan .FirstOrDefault()
 
 [CreateAssetMenu(fileName = "New Main Quest", menuName = "Quest System/Main Quest")]
 public class MainQuestSO : ScriptableObject
@@ -22,6 +21,6 @@ public class MainQuestSO : ScriptableObject
     public GameObject questControllerPrefab;
 
 
-    
+
 }
 

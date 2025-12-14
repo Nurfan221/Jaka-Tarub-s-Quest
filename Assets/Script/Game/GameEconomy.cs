@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 
@@ -75,5 +72,5 @@ public class GameEconomy : MonoBehaviour // Attach this to a persistent game obj
         {
             Debug.LogWarning("Money Text UI element is not assigned!");
         }
-    }   
+    }
 }

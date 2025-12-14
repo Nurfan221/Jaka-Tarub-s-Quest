@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimalSpawner : MonoBehaviour
@@ -164,12 +162,12 @@ public class AnimalSpawner : MonoBehaviour
 
     private Vector2 GetSpawnPosition()
     {
-       int randomPositionPoint = Random.Range(0, spawnPoint.Length);
+        int randomPositionPoint = Random.Range(0, spawnPoint.Length);
         return spawnPoint[randomPositionPoint];
     }
 
     // Fungsi tambahan untuk memeriksa apakah sebuah titik berada di dalam poligon
-  
+
 
     public void DeleteEnemiesFromArray()
     {

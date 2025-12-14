@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +18,7 @@ public class ShopInteractable : Interactable, ISaveable
         // Berlangganan ke event saat objek aktif
         TimeManager.OnDayChanged += HandleNewDay;
         TimeManager.OnSeasonChanged += HandleNewSeason;
-    
+
     }
 
     private void OnDisable()
@@ -27,7 +26,7 @@ public class ShopInteractable : Interactable, ISaveable
         // Selalu berhenti berlangganan saat objek nonaktif untuk menghindari error
         TimeManager.OnDayChanged -= HandleNewDay;
         TimeManager.OnSeasonChanged -= HandleNewSeason;
-       
+
     }
 
     public object CaptureState()
@@ -73,7 +72,8 @@ public class ShopInteractable : Interactable, ISaveable
 
             // Anda bisa menambahkan Debug.Log di sini jika perlu
             MainEnvironmentManager.Instance.RegisterShop(this);
-        }else
+        }
+        else
         {
             Debug.Log("mainenvironment kosong bro ");
         }

@@ -13,6 +13,17 @@ public class TongSampahInteractable : Interactable
     {
         isFull = false;
         //spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        Transform visualChild = transform.Find("Visual");
+
+        if (visualChild != null)
+        {
+            // Ambil komponen dari anak tersebut
+            spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
+        }
         spriteRenderer.sprite = spriteKosong;
 
     }
@@ -20,7 +31,7 @@ public class TongSampahInteractable : Interactable
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void TongFull(ItemData sampah)
@@ -42,7 +53,7 @@ public class TongSampahInteractable : Interactable
 
     protected override void Interact()
     {
-       if (isFull)
+        if (isFull)
         {
             // Di dalam CookUI / Result Button Listener
             bool isSuccess = ItemPool.Instance.AddItem(sampahItem);
@@ -58,7 +69,7 @@ public class TongSampahInteractable : Interactable
                 // Jangan hapus, biarkan di tungku
                 Debug.Log("Tas penuh, item tetap di tungku.");
             }
-           
+
         }
     }
 

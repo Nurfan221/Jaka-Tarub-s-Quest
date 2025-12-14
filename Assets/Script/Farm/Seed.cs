@@ -24,7 +24,7 @@ public class Seed : MonoBehaviour
         StartCoroutine(Grow());
     }
 
-      // Fungsi untuk inisialisasi properti Seed berdasarkan Item
+    // Fungsi untuk inisialisasi properti Seed berdasarkan Item
     //public void InitializeSeed(string itemName, GameObject itemDropPrefab)
     //{
     //    namaSeed = itemName;
@@ -62,7 +62,7 @@ public class Seed : MonoBehaviour
         }
     }
 
-    
+
 
     public void Siram()
     {

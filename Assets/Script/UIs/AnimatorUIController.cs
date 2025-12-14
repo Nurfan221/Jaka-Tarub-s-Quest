@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEditor.Animations;
 
 public class AnimatorUIController : MonoBehaviour
 {
@@ -23,13 +21,13 @@ public class AnimatorUIController : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void AnimateSaveButton()

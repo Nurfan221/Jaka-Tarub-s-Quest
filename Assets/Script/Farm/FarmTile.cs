@@ -32,8 +32,9 @@ public class FarmTile : MonoBehaviour, ISaveable
 
         if (DatabaseManager.Instance != null)
         {
-            databaseManager = DatabaseManager.Instance.farmData_SO; 
-        }else
+            databaseManager = DatabaseManager.Instance.farmData_SO;
+        }
+        else
         {
             Debug.LogError("DatabaseManager Instance is null! Please ensure DatabaseManager is initialized before FarmTile.");
         }
@@ -124,7 +125,7 @@ public class FarmTile : MonoBehaviour, ISaveable
     public void AdvanceDay(bool isRaining)
     {
         // Munculkan Hama Secara Acak (jika tidak hujan)
-       TrySpawningPests();
+        TrySpawningPests();
 
 
         //Debug.Log("--- Memulai Hari Baru (Tanggal: " + timeManager.date + ")Hujan: " + isRaining);
@@ -283,7 +284,8 @@ public class FarmTile : MonoBehaviour, ISaveable
                     plant.isWatered = true;
                     plant.UpdateParticleEffect();
                 }
-            }else
+            }
+            else
             {
                 Debug.Log($"[DEBUG] Melewati tile di {tileData.tilePosition}: Sudah disiram atau terinfeksi.");
             }
@@ -300,10 +302,10 @@ public class FarmTile : MonoBehaviour, ISaveable
         if (plant.isReadyToHarvest)
         {
             PlantInteractable plantInteractable = plant.GetComponent<PlantInteractable>();
-            plantInteractable.promptMessage = "Panen"+ tileData.plantID;
+            plantInteractable.promptMessage = "Panen" + tileData.plantID;
             return;
         }
-        
+
 
         tileData.growthProgress++;
         plant.growthTimer = tileData.growthProgress;
@@ -372,7 +374,7 @@ public class FarmTile : MonoBehaviour, ISaveable
         return plant;
     }
 
-    
+
 
     public void OnPlantHarvested(string plantTargetID)
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class TemplateMainQuest 
+public class TemplateMainQuest
 {
     public string questName;
     [TextArea(3, 5)]

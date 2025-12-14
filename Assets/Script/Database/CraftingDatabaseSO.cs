@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static DatabaseManager;
 
 [CreateAssetMenu(fileName = "CraftingDatabase", menuName = "Database/Crafting Recipe Database")]
 public class CraftingDatabaseSO : ScriptableObject

@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class NPCManager : MonoBehaviour
@@ -182,7 +180,7 @@ public class NPCManager : MonoBehaviour
     {
         Debug.Log($"Mencoba menambahkan dialog untuk NPC: {npcName}");
         NPCBehavior npc = GetActiveNpcByName(npcName);
-        if (npc != null && newDialogue!= null)
+        if (npc != null && newDialogue != null)
         {
             npc.questOverrideDialogue = newDialogue;
             npc.isLockedForQuest = true; // Kunci NPC untuk quest

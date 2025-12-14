@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework.Interfaces;
 using UnityEngine;
 
 public class NPCInteractable : Interactable
@@ -32,11 +29,11 @@ public class NPCInteractable : Interactable
 
         npcBehavior = gameObject.GetComponent<NPCBehavior>();
 
-        
+
     }
 
-   protected override void Interact()
-   {
+    protected override void Interact()
+    {
         if (npcBehavior.isLockedForQuest)
         {
             DialogueSystem.Instance.npcName = npcBehavior.npcName;
@@ -70,7 +67,7 @@ public class NPCInteractable : Interactable
         }
 
 
-   }
+    }
 
 
 

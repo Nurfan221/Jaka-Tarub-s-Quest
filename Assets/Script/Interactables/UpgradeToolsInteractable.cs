@@ -1,4 +1,3 @@
-using NUnit.Framework.Interfaces;
 using UnityEngine;
 
 public class UpgradeToolsInteractable : Interactable, ISaveable
@@ -29,13 +28,13 @@ public class UpgradeToolsInteractable : Interactable, ISaveable
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public object CaptureState()
@@ -52,7 +51,7 @@ public class UpgradeToolsInteractable : Interactable, ISaveable
 
     public void RestoreState(object state)
     {
-        
+
         // Coba cast 'state' yang datang kembali ke tipe aslinya.
         var loadedData = state as UpgradeToolsSaveData;
 
@@ -74,11 +73,12 @@ public class UpgradeToolsInteractable : Interactable, ISaveable
     {
         if (!startedUpgrade)
         {
-           
+
             MechanicController.Instance.HandleOpenUpgradeTools(this);
-        }else
+        }
+        else
         {
-          Debug.Log("Upgrade sedang berlangsung, tunggu hingga selesai!");
+            Debug.Log("Upgrade sedang berlangsung, tunggu hingga selesai!");
             if (finishUpgrade)
             {
                 // Di dalam CookUI / Result Button Listener
@@ -101,7 +101,7 @@ public class UpgradeToolsInteractable : Interactable, ISaveable
                     // Jangan hapus, biarkan di tungku
                     Debug.Log("Tas penuh, item tetap di tungku.");
                 }
-               
+
             }
             else
             {
@@ -136,9 +136,10 @@ public class UpgradeToolsInteractable : Interactable, ISaveable
         {
             UpdateSpriteHasil();
             finishUpgrade = true;
-        }else
+        }
+        else
         {
-             Debug.Log("Upgrade masih dalam proses, harap tunggu hingga selesai."); 
-        }    
+            Debug.Log("Upgrade masih dalam proses, harap tunggu hingga selesai.");
+        }
     }
 }

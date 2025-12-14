@@ -1,11 +1,7 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI; // Tambahkan ini untuk Button
-using TMPro;
-using static UnityEditor.Progress;
-using NUnit.Framework.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -28,7 +24,7 @@ public class PlayerUI : MonoBehaviour
             DontDestroyOnLoad(this.gameObject.transform.root.gameObject);
         }
 
-         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
+        // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
             stats = PlayerController.Instance;
@@ -156,7 +152,7 @@ public class PlayerUI : MonoBehaviour
             Debug.LogError("switchUseItemImage is not assigned.");
         }
 
-        if(imageEquippedUI != null)
+        if (imageEquippedUI != null)
         {
             Button buttonAttack = imageEquippedUI.GetComponent<Button>();
             buttonAttack.onClick.AddListener(() =>
@@ -248,7 +244,7 @@ public class PlayerUI : MonoBehaviour
                 stats.equippedItemData[0].itemHealth -= 1;
                 UpdateEquippedWeaponUI();
             }
-           
+
         }
         else
         {
@@ -268,9 +264,9 @@ public class PlayerUI : MonoBehaviour
         // this.playerInventory = GameController.Instance.playerInventory;
     }
 
-   
 
-  
+
+
     public void UpdateEquippedWeaponUI()
     {
         ItemData activeWeaponData;
@@ -321,7 +317,7 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-   
+
     public void UpdateItemUseUI()
     {
         ItemData activeItemData;
@@ -344,7 +340,7 @@ public class PlayerUI : MonoBehaviour
     }
 
 
-   
+
     private void UpdateSingleIcon(Image targetImage, ItemData itemData)
     {
         // Pastikan referensi UI tidak null
@@ -373,10 +369,10 @@ public class PlayerUI : MonoBehaviour
             }
         }
 
-       
+
 
     }
-    
+
     public void ToggleWeapon()
 
     {

@@ -1,7 +1,7 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro; // Gunakan ini jika Anda memakai TextMeshPro
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ItemDragandDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
@@ -29,7 +29,7 @@ public class ItemDragandDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
-  
+
 
     public void OnBeginDrag(PointerEventData eventData)
     {

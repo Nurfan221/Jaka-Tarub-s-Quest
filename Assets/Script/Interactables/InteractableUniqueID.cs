@@ -1,8 +1,6 @@
-using UnityEngine;
-
 public class InteractableUniqueID : UniqueIdentifiableObject
-{ 
-    
+{
+
     //  Implementasi dari Kontrak IUniqueIdentifiable 
     public EnvironmentHardnessLevel hardnessLevel;
     public TypeObject typeObject;
@@ -48,12 +46,12 @@ public class InteractableUniqueID : UniqueIdentifiableObject
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

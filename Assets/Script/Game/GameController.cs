@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Tilemaps;
-using static UnityEditor.Progress;
 
 public enum GameState { Playing, Paused, InDialogue, Loading }
 public class GameController : MonoBehaviour
@@ -73,7 +70,7 @@ public class GameController : MonoBehaviour
 
     }
 
-  
+
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -143,7 +140,7 @@ public class GameController : MonoBehaviour
 
             StorageSystem.Instance.environmentList.Add(storageData); // Tambahkan data ke daftar di StorageSystem
 
-           
+
         }
 
         StorageSystem.Instance.AddStorageFromEnvironmentList();
@@ -243,8 +240,8 @@ public class GameController : MonoBehaviour
     [ContextMenu("Load Game")]
     public void LoadGame()
     {
-  
-   
+
+
         GameSaveData saveData = SaveDataManager.Instance.LoadGame();
 
         // Cek apakah ada data yang berhasil di-load
@@ -303,19 +300,19 @@ public class GameController : MonoBehaviour
                 ReturnQueueStoneActive(saveData.queueRespownStone);
             }
 
-          
+
             if (saveData.savedHoedTilesList != null && saveData.savedHoedTilesList.Count > 0)
             {
                 RestoreFarmStateFromData(saveData.savedHoedTilesList);
             }
 
-            if(saveData.itemShopSaveData != null && saveData.itemShopSaveData.Count > 0)
+            if (saveData.itemShopSaveData != null && saveData.itemShopSaveData.Count > 0)
             {
                 Debug.Log("GameController: Membangun item shop dari file save" + saveData.itemShopSaveData.Count);
                 BuildItemToSeelFromSaveData(saveData.itemShopSaveData);
             }
 
-            if (saveData.savedQuestList != null&& saveData.savedQuestList.Count > 0)
+            if (saveData.savedQuestList != null && saveData.savedQuestList.Count > 0)
             {
                 //QuestManager.Instance.RestoreQuestStateFromData(saveData.savedQuestList);
                 QuestManager.Instance.RestoreState(saveData.savedQuestList);
@@ -352,7 +349,7 @@ public class GameController : MonoBehaviour
         }
     }
 
- 
+
 
 
     public void GoToMainMenu()
@@ -391,7 +388,7 @@ public class GameController : MonoBehaviour
             treesManager.environmentList = new List<TreePlacementData>(
                 DatabaseManager.Instance.worldTreeDatabase.initialTreePlacements
             );
-            treesManager.SpawnAllTrees(); 
+            treesManager.SpawnAllTrees();
         }
 
         GenerateDefaultEnvirontment();
@@ -435,7 +432,7 @@ public class GameController : MonoBehaviour
         {
             if (savedItem.isGrow)
             {
-               
+
 
                 treesManager.RestoreState(savedItem);
             }
@@ -524,15 +521,15 @@ public class GameController : MonoBehaviour
         // Terapkan Penalti (Logika Game)
         Debug.Log(isPingsan ? "Pemain pingsan karena kelelahan!" : "Pemain pingsan karena sekarat!");
 
-        
+
         // Jika ada logika save atau next day, lakukan di sini saat layar gelap
-    
+
         // Matikan kontrol pemain agar tidak bisa gerak saat proses pingsan
 
         // Tentukan Teks dan Dialog berdasarkan kondisi
         string judulKeadaan;
         string deskripsiKeadaan;
-        Dialogues dialogToPlay; 
+        Dialogues dialogToPlay;
 
         if (isPingsan)
         {
@@ -564,12 +561,12 @@ public class GameController : MonoBehaviour
         playerTransform.position = lokasiPerawatan;
         Debug.Log("Memindahkan pemain ke lokasi perawatan: " + playerTransform.position);
 
-      
+
 
         // Tunggu sebentar agar pemain sempat membaca teks loading / transisi terasa halus
         yield return new WaitForSecondsRealtime(2.0f);
 
-       
+
         //DialogueSystem.Instance.HandlePlayDialogue(dialog);
         DialogueSystem.Instance.HandlePlayDialogue(dialog);
         TimeManager.Instance.AdvanceToNextDay();

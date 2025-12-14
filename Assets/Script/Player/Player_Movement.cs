@@ -1,6 +1,5 @@
-using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player_Movement : MonoBehaviour
@@ -24,11 +23,11 @@ public class Player_Movement : MonoBehaviour
     void Start()
     {
         // "Halo Kantor Pusat, saya Karyawan baru di cabang ini. Ini data saya."
-        
+
     }
 
     // OnDestroy berjalan tepat sebelum objek ini dihancurkan (misal saat pindah scene).
-   
+
     private void Awake()
     {
         //controller = GetComponent<PlayerController>();
@@ -62,7 +61,7 @@ public class Player_Movement : MonoBehaviour
         UpdateFacePosition();
     }
 
-   
+
     public void SetMovementDirection(Vector2 direction)
     {
         this.movementDirection = direction;
@@ -73,16 +72,17 @@ public class Player_Movement : MonoBehaviour
 
     }
 
-   
+
     public void TriggerDash()
     {
         // Cek ke "Otak" apakah kita punya cukup stamina
         //&& Player_Health.Instance.SpendStamina(controller.dashStamina)
-        if (!isDashing && PlayerController.Instance.HandleSpendStamina(PlayerController.Instance.playerData.dashStamina)  )
+        if (!isDashing && PlayerController.Instance.HandleSpendStamina(PlayerController.Instance.playerData.dashStamina))
         {
-            
+
             StartCoroutine(DashCoroutine());
-        }else
+        }
+        else
         {
             return;
         }
@@ -122,7 +122,7 @@ public class Player_Movement : MonoBehaviour
         dashParticle.Play();
 
         // Ambil data dash dari "Otak"
-        float force =stats.dashForce;
+        float force = stats.dashForce;
         Vector2 dashDirection = lastDirection; // Dash ke arah hadap terakhir
 
         rb.linearVelocity = Vector2.zero; // Hentikan gerakan sebelumnya

@@ -1,17 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-using UnityEngine.Rendering;
-using UnityEditor.SceneManagement;
-using static UnityEditorInternal.VersionControl.ListControl;
-using System.Runtime.ConstrainedExecution;
+using UnityEngine;
 
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+
 
 
 
@@ -87,7 +79,7 @@ public class BatuManager : MonoBehaviour, ISaveable
         //ProcessRespawnQueue();
     }
 
-   
+
 
     public object CaptureState()
     {
@@ -133,7 +125,7 @@ public class BatuManager : MonoBehaviour, ISaveable
         respawnQueue.Clear();
         respawnQueue = loadedData.ToList();
 
-       
+
     }
 
 

@@ -1,8 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 public class BuffScrollController : MonoBehaviour
@@ -21,7 +17,7 @@ public class BuffScrollController : MonoBehaviour
     public float waktuActiveBuffDamage;
     public float sisaWaktuActiveBuffDamage;
     public bool isBuffDamage;
-   
+
 
     [Header("buff protection")]
     public int jumlahBuffProtection;

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Mono.Cecil.Cil;
 using UnityEngine;
 
 
@@ -10,7 +9,7 @@ public class SpawnerManager : MonoBehaviour
     public List<AnimalSpawner> animalSpawnersList = new List<AnimalSpawner>();
     public List<Item> itemStorageEnemy = new List<Item>();
     public int minItemStorage = 4;
-    public int maxItemStorage =  6;
+    public int maxItemStorage = 6;
     public bool isMainQuest1Active = false;
 
     private void Awake()
@@ -43,7 +42,8 @@ public class SpawnerManager : MonoBehaviour
         {
             ActivateSingleRandomAnimalSpawner();
 
-        }else
+        }
+        else
         {
             ActivateAnimalSpawnersBasedOnLuck(luck);
 
@@ -110,7 +110,7 @@ public class SpawnerManager : MonoBehaviour
             indexes[randomIndex] = temp;
         }
 
-   
+
         // lebih sedikit dari activeSpawnerCount (misal: hanya ada 5 spawner)
         int countToActivate = Mathf.Min(activeSpawnerCount, enemySpawnerList.Count);
 
@@ -301,10 +301,11 @@ public class SpawnerManager : MonoBehaviour
             {
                 Debug.Log("Ditemukan Spawner dengan id : " + spawner.UniqueID);
                 return spawner;
-            }else
+            }
+            else
             {
                 Debug.Log("tidak ditemukan spawner dengan id : " + id);
-            }    
+            }
         }
         return null;
     }

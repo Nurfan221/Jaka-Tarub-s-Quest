@@ -1,10 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class KuburanInteractable : Interactable
 {
@@ -51,7 +47,7 @@ public class KuburanInteractable : Interactable
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     protected override void Interact()
@@ -61,7 +57,7 @@ public class KuburanInteractable : Interactable
         //// Mulai animasi
         //StartAnimationOpen();
         // Panggil OpenStorage setelah animasi selesai
-        if (stats.equipped1 == true )
+        if (stats.equipped1 == true)
         {
             // Jika ya, fokus pada item di slot pertama [0]
             ItemData itemDiSlotPertama = stats.equippedItemData[0];
@@ -87,7 +83,7 @@ public class KuburanInteractable : Interactable
 
             }
         }
-       
+
     }
 
 
@@ -97,7 +93,17 @@ public class KuburanInteractable : Interactable
 
         isKotor = true;
         notifikasi.SetActive(true);
-        spriteRenderer.sprite = spritesKuburan[1]; // Ganti ke sprite kotor
+        Transform visualChild = transform.Find("Visual");
+
+        if (visualChild != null)
+        {
+            // Ambil komponen dari anak tersebut
+            spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
+        }
         StartCoroutine(PlayNotifikationAnimation()); // Mulai animasi notifikasi
 
         promptMessage = "Bersihkan Kuburan";
@@ -125,7 +131,7 @@ public class KuburanInteractable : Interactable
         {
             // Tampilkan loading screen sementara proses pembersihan
             StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false)); // Ini akan memanggil PlayLoadingAnimation() dan PauseGame()
-                                                               // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik
+                                                                                // Beri waktu tunggu minimal untuk pengalaman pengguna yang baik
             yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
             LoadingScreenUI.Instance.HideLoading();
 

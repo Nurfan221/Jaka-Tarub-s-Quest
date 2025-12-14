@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class FenceBehavior : MonoBehaviour
 {
@@ -124,7 +124,7 @@ public class FenceBehavior : MonoBehaviour
 
         // Tandai gerbang sebagai terbuka setelah animasi selesai
         isGateOpen = true;
-        
+
         Debug.Log("Gerbang terbuka!");
         if (boxCollider2D != null)
         {

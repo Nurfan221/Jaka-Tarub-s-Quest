@@ -10,7 +10,7 @@ public class DayNightCycle : MonoBehaviour
     {
         // Menghitung waktu yang telah berlalu
         time += Time.deltaTime;
-        
+
         // Normalisasi waktu ke antara 0 dan 1
         float normalizedTime = time / dayDuration;
 

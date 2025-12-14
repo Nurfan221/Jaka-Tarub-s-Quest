@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static DatabaseManager;
 
 [Serializable]
 public class IngredientSlots
@@ -304,7 +302,7 @@ public class CraftUI : MonoBehaviour
     }
 
 
-    
+
     // Fungsi ini dipanggil di DisplaySelectedRecipe tetapi belum ada.
     private int CountItemsInInventory(Item itemToCount)
     {
@@ -325,7 +323,7 @@ public class CraftUI : MonoBehaviour
         return totalCount;
     }
 
-    
+
     // Fungsi ini untuk memperbaiki logika 'maxPossible = 10' di SelectRecipe.
     private int CalculateMaxCraftAmount()
     {
@@ -443,7 +441,7 @@ public class CraftUI : MonoBehaviour
             PlayerUI.Instance.ShowErrorUI("Inventaris Penuh! Crafting Dibatalkan.");
 
             // (Opsional) Refresh UI untuk memastikan tampilan inventaris benar kembali
-             RefreshRecipeList();
+            RefreshRecipeList();
         }
     }
 
@@ -496,5 +494,5 @@ public class CraftUI : MonoBehaviour
         }
     }
 
-   
+
 }

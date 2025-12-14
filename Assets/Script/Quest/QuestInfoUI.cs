@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static MiniQuest;
-using static QuestManager;
 
 public class QuestInfoUI : MonoBehaviour
 {
@@ -180,7 +178,7 @@ public class QuestInfoUI : MonoBehaviour
 
         //for (int i = 0; i < quest.Count; i++)
         //{
-            
+
 
         //}
     }
@@ -301,7 +299,7 @@ public class QuestInfoUI : MonoBehaviour
                 foreach (Item itemQuest in miniQuest.itemsQuest)
                 {
                     //fullDescription += $" {itemQuest.stackCount} buah {itemQuest.itemName} kepada {miniQuest.npc.name} "; // Menggunakan itemName atau field lainnya dari Item
-                                                                                                                          //Instansiasi UI untuk Quest
+                    //Instansiasi UI untuk Quest
                     Transform itemQuestDetail = Instantiate(itemQuestContentGo, itemQuestSlotTemplate);
                     itemQuestDetail.gameObject.SetActive(true);
 

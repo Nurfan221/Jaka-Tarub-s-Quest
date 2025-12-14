@@ -1,15 +1,8 @@
 
 using System;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-using NUnit.Framework.Interfaces;
-using TMPro;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
-using static QuestManager;
-using static UnityEditor.Progress;
 
 
 public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -195,9 +188,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 {
                     stats.inventory.Remove(itemData);
                     // Jika stack count habis, hapus item dari inventory
-                   
+
                 }
-                
+
 
                 rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal
 

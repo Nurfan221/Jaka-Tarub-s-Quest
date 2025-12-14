@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq; // Tambahkan ini
+﻿using System.Linq; // Tambahkan ini
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -74,7 +71,7 @@ public class CookUI : MonoBehaviour
     public int maxQuantityFuel = 5; // max bahan bakar berdasarkan item fuel
     private Coroutine fireAnimationCoroutine; // Menyimpan referensi ke coroutine animasi api
 
-   
+
     private void Start()
     {
         if (itemCookTemplate != null)
@@ -138,7 +135,7 @@ public class CookUI : MonoBehaviour
                         Debug.Log("Tas penuh, item tetap di tungku.");
                     }
                     // cek apakah tungku masih aktif memasak
-                   
+
 
                     RefreshSlots();
                     interactableInstance.UpdateSpriteHasil();
@@ -218,7 +215,8 @@ public class CookUI : MonoBehaviour
                     ItemData currentItemData = itemData;
                     theItem.GetComponent<Button>().onClick.AddListener(() => OnClickItemInInventory(currentItemData));
                 }
-            } else if (typeCooking == TypeCooking.SmeltCook)
+            }
+            else if (typeCooking == TypeCooking.SmeltCook)
             {
                 Debug.Log("Menampilkan item smelt: ");
                 if (item.IsInCategory(ItemCategory.Smelt) || item.IsInCategory(ItemCategory.Fuel)) // jika membuka smelt objek tampilkan item dengan category smelt Tampilkan juga fuel
@@ -416,7 +414,7 @@ public class CookUI : MonoBehaviour
                     // Jangan hapus, biarkan di tungku
                     Debug.Log("Tas penuh, item tetap di tungku.");
                 }
-               
+
             }
             // Jika hanya 1 item, kembalikan semuanya
             else if (interactableInstance.itemCook.count == 1)
@@ -433,7 +431,7 @@ public class CookUI : MonoBehaviour
                     // Jangan hapus, biarkan di tungku
                     Debug.Log("Tas penuh, item tetap di tungku.");
                 }
-               
+
             }
 
             isCookReady = false;
@@ -459,7 +457,7 @@ public class CookUI : MonoBehaviour
     }
 
 
-    
+
 
     public void BindToCook(CookInteractable interactable)
     {
@@ -532,11 +530,12 @@ public class CookUI : MonoBehaviour
     {
         Image fillImage = resultCookTemplate.GetChild(0).GetComponent<Image>();
         fillImage.sprite = resultData.sprite;
-        if(interactableInstance.itemResult.count> 0)
+        if (interactableInstance.itemResult.count > 0)
         {
             fillImage.color = new Color(1, 1, 1, 1f);
-        }else
-                    {
+        }
+        else
+        {
             fillImage.color = new Color(1, 1, 1, 0.5f);
         }
         fillImage.gameObject.SetActive(true);
@@ -572,7 +571,7 @@ public class CookUI : MonoBehaviour
     }
 
 
-  
+
     //private IEnumerator PlayFireAnimation()
     //{
     //    while (true) // Loop tanpa batas (animasi berulang)

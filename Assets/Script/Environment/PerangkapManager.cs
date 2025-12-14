@@ -52,13 +52,13 @@ public class PerangkapManager : MonoBehaviour, ISaveable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
@@ -118,10 +118,10 @@ public class PerangkapManager : MonoBehaviour, ISaveable
                 perangkapBehavior.GetRandomAnimal();
             }
 
-                // Jika perlu inisialisasi visual / state internal, panggil metode ready
-                // misal: perangkapBehavior.InitializeFromSave(perangkapData);
+            // Jika perlu inisialisasi visual / state internal, panggil metode ready
+            // misal: perangkapBehavior.InitializeFromSave(perangkapData);
 
-                Debug.Log($"[PerangkapManager] Perangkap {perangkapData.id} dipasang di {perangkapData.perangkapPosition} (isFull={perangkapData.isfull}).");
+            Debug.Log($"[PerangkapManager] Perangkap {perangkapData.id} dipasang di {perangkapData.perangkapPosition} (isFull={perangkapData.isfull}).");
         }
     }
 

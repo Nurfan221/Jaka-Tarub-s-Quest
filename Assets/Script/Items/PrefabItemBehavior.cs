@@ -1,6 +1,4 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class PrefabItemBehavior : MonoBehaviour
 {
@@ -23,7 +21,7 @@ public class PrefabItemBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void TakeDamage(int damage)

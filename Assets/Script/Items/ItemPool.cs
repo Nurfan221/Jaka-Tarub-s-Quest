@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 [Serializable]
 public class ItemCategoryGroup
@@ -19,7 +17,7 @@ public class ItemPool : MonoBehaviour
 
     [SerializeField] public List<Item> items; // Ini adalah list TEMPLATE
     public List<ItemCategoryGroup> itemCategoryGroups = new List<ItemCategoryGroup>();
-    
+
 
     private void Awake()
     {
@@ -92,7 +90,7 @@ public class ItemPool : MonoBehaviour
         }
 
 
-        
+
 
         Transform visualChild = droppedItemGO.transform.Find("Visual");
 
@@ -125,7 +123,7 @@ public class ItemPool : MonoBehaviour
         }
     }
 
-   
+
 
     public void AddItemCategories()
     {
@@ -363,7 +361,7 @@ public class ItemPool : MonoBehaviour
                     DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, playerPosition + offset, 1);
                 }
             }
-           
+
             // Tandai item ini untuk dihapus dari inventaris
             itemsToRemove.Add(itemToDrop);
         }

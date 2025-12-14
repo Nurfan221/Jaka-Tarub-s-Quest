@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems; // Untuk EventSystem
 
 public class PlayerInteractable : MonoBehaviour
 {

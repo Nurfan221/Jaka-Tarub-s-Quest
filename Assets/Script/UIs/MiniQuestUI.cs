@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static MiniQuest;
@@ -21,7 +20,7 @@ public class MiniQuestUI : MonoBehaviour
 
     public void Start()
     {
-        
+
     }
     public void Open()
     {
@@ -46,7 +45,7 @@ public class MiniQuestUI : MonoBehaviour
 
     private void Close()
     {
-      
+
         GameController.Instance.ResumeGame();
         // Tutup UI Storage
         gameObject.SetActive(false);
@@ -102,7 +101,7 @@ public class MiniQuestUI : MonoBehaviour
             questInfoUI.AddMiniQuestActive(questData);
             buttonTake.gameObject.SetActive(false);
         });
-        reward.text = $"Hadiah yang kamu dapatkan : {questData.rewardQuest.ToString()} Tod" ;
+        reward.text = $"Hadiah yang kamu dapatkan : {questData.rewardQuest.ToString()} Tod";
     }
 
 
@@ -117,17 +116,17 @@ public class MiniQuestUI : MonoBehaviour
 
     public void TakeMiniQuest(int id)
     {
-        foreach(var quest in miniQuest.miniQuestLists)
+        foreach (var quest in miniQuest.miniQuestLists)
         {
             if (quest.questID == id)
             {
                 quest.questActive = true;
 
-                
+
             }
         }
 
-        switch(id)
+        switch (id)
         {
             case 0:
                 bgActiveQuest2.gameObject.SetActive(true);
@@ -138,11 +137,11 @@ public class MiniQuestUI : MonoBehaviour
             default:
                 bgActiveQuest1.gameObject.SetActive(false);
                 bgActiveQuest2.gameObject.SetActive(false);
-                break ;
+                break;
 
 
         }
     }
 
-    
+
 }

@@ -1,11 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 
@@ -30,7 +25,7 @@ public class StoneBehavior : UniqueIdentifiableObject
     public float health; // Kesehatan batu
     public bool isLucky;
     public int dayToRespawn;
-    public bool diHancurkan = false;    
+    public bool diHancurkan = false;
 
 
     [Header("Drop Tiers & Balancing")]
@@ -155,7 +150,7 @@ public class StoneBehavior : UniqueIdentifiableObject
     public void TakeDamage(int damage)
     {
         if (diHancurkan) return;
-       
+
         if (hitEffectPrefab != null)
         {
             Debug.Log("Menampilkan efek pukulan pada posisi: " + gameObject.transform.position);

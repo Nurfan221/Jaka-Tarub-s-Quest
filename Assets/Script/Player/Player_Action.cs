@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
-using UnityEngine.UI;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 // Enum bantuan untuk membuat kode lebih mudah dibaca
 
@@ -125,7 +120,7 @@ public class Player_Action : MonoBehaviour
 
     }
 
-   
+
 
 
 

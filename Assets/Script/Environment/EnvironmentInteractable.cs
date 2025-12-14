@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class EnvironmentInteractable : Interactable
 {
     public EnvironmentBehavior envBehavior; // Changed to public to be accessible
@@ -14,7 +12,7 @@ public class EnvironmentInteractable : Interactable
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     protected override void Interact()

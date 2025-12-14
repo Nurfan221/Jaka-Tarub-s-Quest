@@ -6,7 +6,7 @@ using UnityEngine;
 public class StorageSystem : MonoBehaviour
 {
 
-    
+
     public static StorageSystem Instance { get; private set; }
     //public StorageUI StorageUI { get; private set; }
 

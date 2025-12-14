@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static MainQuest1_Controller;
 
 public abstract class MainQuestController : MonoBehaviour
 {
@@ -40,13 +39,13 @@ public abstract class MainQuestController : MonoBehaviour
         Debug.Log($"Memulai Main Quest: {questName}");
     }
 
-  
+
     public abstract void UpdateQuest();
 
-  
+
     public abstract void SetInitialState(System.Enum state);
 
-  
+
     public bool IsComplete()
     {
         return isQuestComplete;

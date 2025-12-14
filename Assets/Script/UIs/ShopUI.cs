@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using NUnit.Framework.Interfaces;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static TimeManager;
-using static UnityEditor.Progress;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class ShopUI : MonoBehaviour
 {
@@ -43,7 +36,7 @@ public class ShopUI : MonoBehaviour
     public String errorMessage;
 
     private Dictionary<string, int> itemSellCounts = new(); // Menyimpan jumlah item yang akan dibeli
-    private Dictionary<string , int> itemBuyCounts = new();
+    private Dictionary<string, int> itemBuyCounts = new();
 
     private PlayerController stats;
     private void Awake()
@@ -87,7 +80,7 @@ public class ShopUI : MonoBehaviour
             RefreshShopUI(currentSeasonItems);
         });
 
-      
+
 
         btnClose.onClick.RemoveAllListeners();
         btnClose.onClick.AddListener(CloseShop);
@@ -100,12 +93,13 @@ public class ShopUI : MonoBehaviour
         if (typeShop == TypeShop.ItemShop)
         {
             categoryItemShop = ItemCategory.PlantSeed;
-        }else if(typeShop == TypeShop.FoodShop)
+        }
+        else if (typeShop == TypeShop.FoodShop)
         {
             categoryItemShop = ItemCategory.Food;
         }
-            // hubungkan interactable ke ui 
-            shopInteractable = interactable; 
+        // hubungkan interactable ke ui 
+        shopInteractable = interactable;
         itemToSell = new List<ItemData>(itemSell);
         currentSeasonItems.Clear();
         currentSeasonItems = new List<ItemData>(itemsToDisplay);
@@ -154,12 +148,12 @@ public class ShopUI : MonoBehaviour
                 stackCountText.text = newStockCount.ToString();
             }
 
-           
+
 
             // Jika stok 0, apakah mau langsung dihapus atau dimatikan?
             if (newStockCount <= 0)
             {
-                
+
 
                 Destroy(itemSlot.gameObject);
             }
@@ -276,7 +270,7 @@ public class ShopUI : MonoBehaviour
             //Inisialisasi jumlah item yang akan dibeli
             if (!itemBuyCounts.ContainsKey(itemShop.itemName))
                 itemBuyCounts[itemShop.itemName] = 1;
-            
+
             TMP_Text countText = itemSlot.GetChild(2).GetComponent<TMP_Text>();
             UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
 
@@ -425,7 +419,7 @@ public class ShopUI : MonoBehaviour
         {
             Debug.Log($"Pembelian Berhasil: {selectedItem.itemName} x{amountToBuy}");
 
-          
+
             //  Cek apakah bisa ditumpuk (Stacking) ke slot yang sudah ada
             ItemData existingItem = stats.inventory.Find(x => x.itemName == selectedItem.itemName && x.count < itemReference.maxStackCount);
 
@@ -470,15 +464,15 @@ public class ShopUI : MonoBehaviour
                         newItem.itemHealth,
                         newItem.quality,
                         playerPosition + offset,
-                        newItem.count 
+                        newItem.count
                     );
                 }
             }
 
-         
+
             int currentShopStock = selectedItem.count - amountToBuy;
 
-           
+
             UpdateSingleItemStock(selectedItem.itemName, Mathf.Max(0, currentShopStock));
 
             if (amountToBuy > 0)
@@ -494,7 +488,7 @@ public class ShopUI : MonoBehaviour
         }
         else
         {
-         
+
             Debug.Log("Gagal Beli: Uang kurang atau stok habis.");
 
             // Reset Counter
@@ -542,13 +536,14 @@ public class ShopUI : MonoBehaviour
             GameEconomy.Instance.GainMoney((item.SellValue * remainingToStore));
             DeleteItemFromInventory(selectedItem, remainingToStore);
             RefreshShopUI(currentSeasonItems);
-        }else
+        }
+        else
         {
             Debug.LogError("anda menjual item yang salah");
         }
     }
 
-    private void DeleteItemFromInventory(ItemData selectedItem,int selectedItemCount)
+    private void DeleteItemFromInventory(ItemData selectedItem, int selectedItemCount)
     {
         int remainingToRemove = selectedItemCount; // Jumlah yang ingin dihapus
 
@@ -654,5 +649,5 @@ public class ShopUI : MonoBehaviour
                 Destroy(child.gameObject);
         }
     }
-   
+
 }

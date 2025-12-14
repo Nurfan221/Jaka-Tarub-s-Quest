@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public enum Lokasi
 {
@@ -43,7 +43,7 @@ public class LocationManager : MonoBehaviour
 
     void Start()
     {
-       
+
     }
 
     // Update is called once per frame
@@ -116,7 +116,7 @@ public class LocationManager : MonoBehaviour
                     inDanau = false;
                     //questManager.currentMainQuest.currentQuestState = MainQuest1State.Pulang;
                     //questManager.NextQuestState();
-                    mainQuestDanau = false ;
+                    mainQuestDanau = false;
                     exitDanauScene = true;
                 }
                 inDanau = false;

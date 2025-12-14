@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class FlowerInteractable : Interactable
 {
     public EnvironmentBehavior envBehavior; // Changed to public to be accessible
@@ -28,5 +24,5 @@ public class FlowerInteractable : Interactable
         envBehavior.GetItemDrop();
     }
 
-    
+
 }

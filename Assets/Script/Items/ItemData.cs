@@ -1,5 +1,4 @@
 // Ini BUKAN MonoBehaviour. Ini hanya sebuah struktur data sederhana.
-using UnityEngine;
 [System.Serializable]
 public class ItemData
 {

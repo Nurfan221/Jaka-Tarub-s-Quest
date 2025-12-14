@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class SignInteractable : Interactable
 {
     //public string SignName;
@@ -7,7 +5,7 @@ public class SignInteractable : Interactable
 
     private void Start()
     {
-      
+
     }
 
     protected override void Interact()

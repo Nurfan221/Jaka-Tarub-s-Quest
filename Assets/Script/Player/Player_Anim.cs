@@ -1,11 +1,11 @@
 using System.Collections;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Anim : MonoBehaviour
 {
     [Header("Master Animator (Badan Utama)")]
-    public Animator bodyAnimator; 
+    public Animator bodyAnimator;
 
     [Header("Assign semua bagian tubuh (Body, Armor, dll) ke sini")]
     public List<Animator> layerAnimators = new List<Animator>();
@@ -214,7 +214,7 @@ public class Player_Anim : MonoBehaviour
         if (lastDirection.y > 0.1f)
         {
 
-            
+
 
             bodySR.sortingOrder = 10;   // Dasar
             pantsSR.sortingOrder = 11;  // Celana
@@ -227,7 +227,7 @@ public class Player_Anim : MonoBehaviour
         }
         else
         {
-        
+
 
             bodySR.sortingOrder = 6;
             pantsSR.sortingOrder = 7;

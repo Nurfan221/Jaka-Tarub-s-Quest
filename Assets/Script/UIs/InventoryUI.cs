@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework.Interfaces;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Animations;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -41,9 +34,9 @@ public class InventoryUI : MonoBehaviour
     public Button openInventory;
     public Button btnHapus;
     public Button closeInventoryButton;  // Drag and drop the close button in the inspector
-           
 
-[Header("Item Description")]
+
+    [Header("Item Description")]
     public GameObject frontSide; // Drag the front side GameObject here
     public GameObject backSide;  // Drag the back side GameObject here
     public bool Description = false;
@@ -76,7 +69,7 @@ public class InventoryUI : MonoBehaviour
     // [SerializeField] private Image attackHUDImage;
 
 
-    
+
     private PlayerController stats;
     private PlayerData_SO playerData;
 
@@ -154,7 +147,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-      
+
     }
     public void OpenInventory()
     {
@@ -171,7 +164,7 @@ public class InventoryUI : MonoBehaviour
         SetInventory(); // Update UI when inventory is opened
 
 
-       
+
     }
 
     public void CloseInventory()
@@ -483,7 +476,7 @@ public class InventoryUI : MonoBehaviour
                 {
                     Debug.Log($"Item adalah item combat Checking health for item: {item.itemName} with health {stats.inventory[i].itemHealth}/{item.maxhealth}");
                     float percentage = ((float)stats.inventory[i].itemHealth / item.maxhealth) * 100f;
-                    
+
 
                     // Gunakan if-else if untuk rentang nilai
                     if (percentage > 75) // Termasuk 100%
@@ -494,7 +487,7 @@ public class InventoryUI : MonoBehaviour
                     else if (percentage > 50) // Rentang 51% - 75%
                     {
                         healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[1].sprites; // Set sprite indikator kesehatan
-                         Debug.Log($"Item health is medium: {percentage}%");
+                        Debug.Log($"Item health is medium: {percentage}%");
                     }
                     else if (percentage > 25) // Rentang 26% - 50%
                     {
@@ -510,7 +503,8 @@ public class InventoryUI : MonoBehaviour
                         healthIndicatorImage.sprite = spriteImageTemplate.imagePersens[4].sprites; // Set sprite indikator kesehatan
                         Debug.Log($"Item health is critical: {percentage}%");
                     }
-                }else
+                }
+                else
                 {
                     healthIndicatorImage.gameObject.SetActive(false);
                 }
@@ -534,7 +528,7 @@ public class InventoryUI : MonoBehaviour
         itemAction.onClick.AddListener(() =>
         {
             Debug.Log("itemAction clicked");
-         
+
             PlayerController.Instance.HandleEquipItem(item);
 
 
@@ -606,7 +600,7 @@ public class InventoryUI : MonoBehaviour
                 //}
                 break;
             case "QuestInfo":
-                 QuestInfoUI questInfoUI = menuPanels[menu].panelInventory.GetComponent<QuestInfoUI>();
+                QuestInfoUI questInfoUI = menuPanels[menu].panelInventory.GetComponent<QuestInfoUI>();
                 foreach (var quest in QuestManager.Instance.questActive)
                 {
                     //questInfoUI.DisplayActiveQuest(quest.sideQuests);
@@ -713,7 +707,7 @@ public class InventoryUI : MonoBehaviour
             Debug.Log("Tas penuh, item tetap di tungku.");
             // Opsional: Munculkan teks "Tas Penuh!"
         }
-       
+
         //itemImage.gameObject.SetActive(false);
         RefreshInventoryItems();
         UpdateSixItemDisplay();
@@ -742,7 +736,7 @@ public class InventoryUI : MonoBehaviour
         if (heldItem != null) return;
 
         // Cek apakah item yang di-drag punya data
-        ItemData itemData =PlayerController.Instance.HandleGetItem(itemToDrag.index);
+        ItemData itemData = PlayerController.Instance.HandleGetItem(itemToDrag.index);
         Item itemUse = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
         if (itemData == null) return; // Jangan drag slot kosong
 
@@ -775,7 +769,7 @@ public class InventoryUI : MonoBehaviour
             // Jika targetIndex valid (>= 0), lakukan swap
             if (targetIndex >= 0)
             {
-              SwapItems(heldItem.index, targetIndex);
+                SwapItems(heldItem.index, targetIndex);
             }
             // Jika tidak, berarti item dibuang (logika RemoveItem sudah dipanggil oleh TrashZone)
 
@@ -844,23 +838,23 @@ public class InventoryUI : MonoBehaviour
         //contohItem = itemUse; // Simpan contoh item untuk referensi
         if (itemUse == null)
         {
-            if(itemUse.itemDropName == null)
+            if (itemUse.itemDropName == null)
             {
                 Debug.LogError($"Item '{itemData.itemName}' tidak memiliki prefab untuk di-drop.");
                 return;
             }
-           Debug.LogWarning($"Item '{itemData.itemName}' tidak ditemukan dalam database.");
+            Debug.LogWarning($"Item '{itemData.itemName}' tidak ditemukan dalam database.");
             return;
         }
 
-       
+
         int actualDropCount = Mathf.Min(quantityToRemove, itemData.count);
 
         // Simpan posisi player sekali saja
         Vector3 playerPosition = PlayerController.Instance.HandleGetPlayerPosition();
 
         Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), 0.5f, UnityEngine.Random.Range(-0.2f, 0.2f));
-        ItemPool.Instance.DropItem(itemData.itemName, itemData.itemHealth, itemData.quality, playerPosition + offset,actualDropCount);
+        ItemPool.Instance.DropItem(itemData.itemName, itemData.itemHealth, itemData.quality, playerPosition + offset, actualDropCount);
 
         // Gunakan actualDropCount untuk perbandingan yang lebih aman.
         if (actualDropCount >= itemData.count)

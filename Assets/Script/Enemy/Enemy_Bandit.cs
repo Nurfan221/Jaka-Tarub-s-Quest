@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using static UnityEngine.GraphicsBuffer;
 
 public class Enemy_Bandit : MonoBehaviour
 {
@@ -24,7 +22,7 @@ public class Enemy_Bandit : MonoBehaviour
     private Collider2D spawnerCollider; // Collider dari Spawner
     public Transform hitboxTransform;
     public Transform target;
-    
+
 
     //[ STATE VARIABLES ]//
     [Header("State Variables")]
@@ -42,10 +40,10 @@ public class Enemy_Bandit : MonoBehaviour
     //[ DROP ITEM SETTINGS ]//
     [Header("Drop Item Settings")]
     public Item[] dropitems; // Array item yang bisa dijatuhkan
-                                   //element 0 harus selalu di isi dengan prefab item normal
-                                   //element 1 harus selalu di isi dengan prefab item normal
-                                   //element 3 harus selalu di isi dengan prefab item normal
-                                   //element 4 dan seterusnya boleh di isi dengan barang spesial milik enemy yang akan di drop
+                             //element 0 harus selalu di isi dengan prefab item normal
+                             //element 1 harus selalu di isi dengan prefab item normal
+                             //element 3 harus selalu di isi dengan prefab item normal
+                             //element 4 dan seterusnya boleh di isi dengan barang spesial milik enemy yang akan di drop
 
     [Tooltip("Minimal dan maksimal item normal yang bisa dijatuhkan.")]
     public int minNormalItem = 1;
@@ -171,7 +169,7 @@ public class Enemy_Bandit : MonoBehaviour
             yield return StartCoroutine(MoveToTarget(targetPosition)); // Bergerak ke target
 
             isMoving = false;
-            
+
             yield return new WaitForSeconds(0.5f); // Tunggu satu detik sebelum lanjut ke titik selanjutnya
             currentStep++; // Lanjut ke langkah berikutnya dalam jalur
         }
@@ -296,7 +294,7 @@ public class Enemy_Bandit : MonoBehaviour
         return avoidanceDirection;
     }
 
-  
+
 
     void UpdateHitboxPosition()
     {
@@ -409,7 +407,7 @@ public class Enemy_Bandit : MonoBehaviour
             StopAllCoroutines(); // Hentikan semua gerakan sebelum kembali ke Spawner
             StartCoroutine(BackToSpawner()); // Jalankan coroutine dengan aman
 
-            
+
         }
     }
 
@@ -441,7 +439,7 @@ public class Enemy_Bandit : MonoBehaviour
 
         isMoving = false;
         // Tentukan jalur pertama kali
-      
+
 
 
     }
@@ -540,7 +538,7 @@ public class Enemy_Bandit : MonoBehaviour
                     {
                         //Debug.Log("Item yang dijatuhkan: " + itemToDrop.name);
                         Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-                        ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset,1);
+                        ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset, 1);
                     }
                 }
                 else

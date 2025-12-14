@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static NPCManager;
-using static UnityEditor.Progress;
 
 public class NPCListUI : MonoBehaviour
 {

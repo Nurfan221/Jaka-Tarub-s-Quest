@@ -1,12 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using NUnit.Framework.Interfaces;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class Player_Inventory : MonoBehaviour
 {
@@ -14,10 +7,10 @@ public class Player_Inventory : MonoBehaviour
 
 
 
- 
 
-     public bool inventoryOpened;
-     public bool inventoryClosed;
+
+    public bool inventoryOpened;
+    public bool inventoryClosed;
     //[SerializeField] MiniGameHewanUI miniGameHewanUI;
 
     [SerializeField] ParticleSystem healParticle;
@@ -56,38 +49,38 @@ public class Player_Inventory : MonoBehaviour
 
     private void Start()
     {
-     
+
         //inventoryButton.onClick.AddListener(ToggleInventory); // Add listener to button
         //closeInventoryButton.onClick.AddListener(CloseInventory); // Add listener to close button
 
- // Pastikan switchWeaponImage tidak null
-       
+        // Pastikan switchWeaponImage tidak null
+
         //stats.equippedItemData[0].itemName = stats.emptyItemTemplate.itemName;
         //stats.equippedItemData[1].itemName = stats.emptyItemTemplate.itemName;
         //stats.itemUseData[0].itemName = stats.emptyItemTemplate.itemName;
         //stats.itemUseData[1].itemName = stats.emptyItemTemplate.itemName;
     }
 
-   private void Update()
+    private void Update()
     {
-        
 
 
-             
 
-           
+
+
+
     }
 
 
-   
 
 
 
 
 
-   
 
-  
+
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Cek apakah objek yang disentuh memiliki tag "ItemDrop"
@@ -114,7 +107,7 @@ public class Player_Inventory : MonoBehaviour
                     // Jangan hapus, biarkan di tungku
                     Debug.Log("Tas penuh, item tetap di tungku.");
                 }
-              
+
             }
             else
             {
@@ -122,27 +115,27 @@ public class Player_Inventory : MonoBehaviour
             }
 
         }
-        else if(other.CompareTag("Animal"))
+        else if (other.CompareTag("Animal"))
         {
             Debug.Log("animal terdeteksi");
             AnimalBehavior animalBehavior = other.GetComponent<AnimalBehavior>();
             if (animalBehavior != null && animalBehavior.isAnimalEvent)
             {
                 //miniGameHewanUI.Open(other.gameObject);
-                
+
             }
 
             //AnimalBehavior animalBehavior = other.GetComponent<AnimalBehavior>();
             //animalBehavior.DropItem();
         }
-       
+
     }
 
 
 
 
 
-  
+
 
     public void EquipItem(ItemData itemToEquip)
     {
@@ -197,12 +190,12 @@ public class Player_Inventory : MonoBehaviour
                     Debug.Log("Tas penuh, item tetap di tungku.");
                     // Opsional: Munculkan teks "Tas Penuh!"
                 }
-               
+
             }
         }
 
         // JIKA ITEM ADALAH ITEM GUNA (HEAL/BUFF)
-        else if(itemTemplate.IsInType(ItemType.Melee_Combat) || itemTemplate.IsInType(ItemType.Ranged_Combat))
+        else if (itemTemplate.IsInType(ItemType.Melee_Combat) || itemTemplate.IsInType(ItemType.Ranged_Combat))
         {
             Debug.Log($"Item '{itemToEquip.itemName}' adalah Senjata. Memasang ke slot combat.");
 
@@ -210,7 +203,7 @@ public class Player_Inventory : MonoBehaviour
 
             if (equipmentList[0].itemName == "Empty")
             {
-                
+
                 equipmentList[0] = itemToEquip;
                 stats.inventory.Remove(itemToEquip);
             }
@@ -235,7 +228,7 @@ public class Player_Inventory : MonoBehaviour
                     // Jangan hapus, biarkan di tungku
                     Debug.Log("Tas penuh, item tetap di tungku.");
                 }
-               
+
             }
         }
         else
@@ -253,7 +246,7 @@ public class Player_Inventory : MonoBehaviour
     }
 
 
-  
+
 
 
     // Use which quick slot (1,2)
@@ -262,17 +255,18 @@ public class Player_Inventory : MonoBehaviour
         int which;
         if (stats.itemUse1)
         {
-             which= 0;
-        }else
+            which = 0;
+        }
+        else
         {
             which = 1;
         }
         // Making sure there is an item in the quick slot
         ItemData item = stats.itemUseData[which];
-        if (item == null || item.itemName == "Empty" )
+        if (item == null || item.itemName == "Empty")
         {
             print("No item bish");
-            return; 
+            return;
         }
 
         // Using them from inventory
@@ -294,12 +288,12 @@ public class Player_Inventory : MonoBehaviour
         PlayerUI.Instance.UpdateItemUseUI();
     }
 
-   
+
 }
 
-    
 
-   
 
-    
+
+
+
 

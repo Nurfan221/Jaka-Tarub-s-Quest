@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using UnityEngine;
 [System.Serializable]
 public class RecipeCooking
@@ -459,7 +458,7 @@ public enum IdPintu
     Rumah,
     ItemShop,
     FoodShop,
-    ToolsUpgrade, 
+    ToolsUpgrade,
     Library,
     RumahFahri,
     KantorDesa,
@@ -844,7 +843,7 @@ public class DatabaseManager : MonoBehaviour
         return itemShopDatabase.shopTypeDatabases.FirstOrDefault(db => db.shopType == typeShop);
     }
 
-   public GameObject GetNPCPrefab(bool isChild)
+    public GameObject GetNPCPrefab(bool isChild)
     {
         if (isChild)
         {

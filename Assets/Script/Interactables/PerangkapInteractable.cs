@@ -16,7 +16,7 @@ public class PerangkapInteractable : Interactable
 
     private void OnEnable()
     {
-       
+
 
         // Jika PerangkapBehavior punya event onStateChanged (mis. OnFullChanged), subscribe di sini:
         if (perangkapBehavior != null)

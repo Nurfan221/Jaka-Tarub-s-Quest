@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BanditHitbox : MonoBehaviour
@@ -60,7 +59,7 @@ public class BanditHitbox : MonoBehaviour
 
 
             yield return new WaitForSeconds(jedaSerangan);
-            
+
 
             // Jika player keluar dari hitbox, hentikan serangan
             if (!playerDiHitbox)

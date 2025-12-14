@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
-using TreeEditor;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 
 
@@ -47,7 +39,7 @@ public class TreesManager : MonoBehaviour, ISaveable
     void Start()
     {
 
-  
+
         //RegisterAllGameObject();
 
         parentEnvironment = gameObject.transform;
@@ -78,7 +70,7 @@ public class TreesManager : MonoBehaviour, ISaveable
                 initialStage = nextStage, // gunakan stage yang sudah ditingkatkan
                 isGrow = respawnItem.isGrow,
             });
-        Debug.Log($"Menangkap data antrian respawn pohon : {nextStage}");
+            Debug.Log($"Menangkap data antrian respawn pohon : {nextStage}");
         }
 
         return saveTreeQueue;
@@ -109,7 +101,7 @@ public class TreesManager : MonoBehaviour, ISaveable
             sudahTumbang = data.sudahTumbang,
             initialStage = data.initialStage,
             isGrow = data.isGrow
-            
+
         });
 
     }
@@ -313,7 +305,7 @@ public class TreesManager : MonoBehaviour, ISaveable
         secondListTrees.Add(data);
     }
 
-  
+
 
     public void CheckDataInSecondList(string id)
     {
@@ -545,7 +537,7 @@ public class TreesManager : MonoBehaviour, ISaveable
                 // Munculkan pohon dan jadikan anak dari kontainer editor
                 GameObject treeInstance = Instantiate(objectPohon, treeData.position, Quaternion.identity);
 
-                
+
 
                 // Transfer data penting agar pohonnya "tahu" siapa dirinya
                 TreeBehavior behavior = treeInstance.GetComponent<TreeBehavior>();

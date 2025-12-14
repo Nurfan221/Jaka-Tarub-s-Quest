@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Player_Health : MonoBehaviour
 {
@@ -19,7 +18,7 @@ public class Player_Health : MonoBehaviour
 
     private void Awake()
     {
-      
+
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {
@@ -48,17 +47,17 @@ public class Player_Health : MonoBehaviour
     {
 
 
-         stats.health = (int)Mathf.Clamp(stats.health, 0, stats.currentHealthCap);
-         stats.stamina = Mathf.Clamp(stats.stamina, 0, stats.currentStaminaCap);
+        stats.health = (int)Mathf.Clamp(stats.health, 0, stats.currentHealthCap);
+        stats.stamina = Mathf.Clamp(stats.stamina, 0, stats.currentStaminaCap);
 
         PlayerUI.Instance.healthUI.fillAmount = (float)stats.health / playerData.maxHealth;
-        PlayerUI.Instance.staminaUI.fillAmount =  stats.stamina / playerData.maxStamina;
+        PlayerUI.Instance.staminaUI.fillAmount = stats.stamina / playerData.maxStamina;
 
-        float regenRate =  stats.isInGrief ? playerData.staminaRegenRate * 0.7f : playerData.staminaRegenRate;
+        float regenRate = stats.isInGrief ? playerData.staminaRegenRate * 0.7f : playerData.staminaRegenRate;
 
-        if (stats.stamina <  stats.currentStaminaCap)
+        if (stats.stamina < stats.currentStaminaCap)
         {
-             stats.stamina += regenRate * Time.deltaTime;
+            stats.stamina += regenRate * Time.deltaTime;
             PlayerUI.Instance.UpdateStaminaDisplay(stats.stamina, playerData.maxStamina);
         }
     }
@@ -67,16 +66,16 @@ public class Player_Health : MonoBehaviour
     void UpdateCaps()
     {
         // Penalti untuk health HANYA berasal dari 'grief'.
-        float healthPenalty = stats.isInGrief ?  stats.currentGriefPenalty : 0;
-         stats.currentHealthCap = Mathf.RoundToInt(playerData.maxHealth * (1f - healthPenalty / 100f));
+        float healthPenalty = stats.isInGrief ? stats.currentGriefPenalty : 0;
+        stats.currentHealthCap = Mathf.RoundToInt(playerData.maxHealth * (1f - healthPenalty / 100f));
 
         // Penalti untuk stamina bisa berasal dari 'grief' DAN 'fatigue'.
-        float staminaPenalty = (stats.isInGrief ?  stats.currentGriefPenalty : 0) + stats.currentFatiguePenalty;
-        stats.currentStaminaCap =  playerData.maxStamina * (1f - staminaPenalty / 100f);
+        float staminaPenalty = (stats.isInGrief ? stats.currentGriefPenalty : 0) + stats.currentFatiguePenalty;
+        stats.currentStaminaCap = playerData.maxStamina * (1f - staminaPenalty / 100f);
 
         // Pastikan cap tidak di bawah nilai minimum (misal 10) untuk mencegah bug.
-         stats.currentHealthCap = Mathf.Max(stats.currentHealthCap, 10);
-        stats.currentStaminaCap = Mathf.Max( stats.currentStaminaCap, 10);
+        stats.currentHealthCap = Mathf.Max(stats.currentHealthCap, 10);
+        stats.currentStaminaCap = Mathf.Max(stats.currentStaminaCap, 10);
     }
 
 
@@ -172,7 +171,7 @@ public class Player_Health : MonoBehaviour
         Die();
     }
 
-    public void Heal(int healthAmount, int staminaAmount )
+    public void Heal(int healthAmount, int staminaAmount)
     {
         // Simpan nilai lama untuk perbandingan
         int oldHealth = stats.health;
@@ -183,7 +182,7 @@ public class Player_Health : MonoBehaviour
         stats.currentStaminaCap = Mathf.Clamp(stats.currentStaminaCap + staminaAmount, 0, playerData.maxStamina);
 
 
-      
+
     }
 
 
@@ -238,7 +237,7 @@ public class Player_Health : MonoBehaviour
         Debug.Log($"Player lelah! Penalti stamina sekarang: {stats.currentFatiguePenalty}%");
     }
 
-   
+
     public void ReverseHealthandStamina()
     {
         // Kelelahan pulih sepenuhnya setelah tidur
@@ -309,7 +308,7 @@ public class Player_Health : MonoBehaviour
         stats.health -= healthPenalty;
     }
 
-   
 
-   
+
+
 }

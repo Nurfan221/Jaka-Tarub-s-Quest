@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +12,7 @@ public class GiveCountContainer : MonoBehaviour
 
     public Button yes;
     public Button no;
-    
+
     private ItemDragHandler itemDragHandler; // Tambahkan referensi ke ItemDragHandler
 
     void Start()
@@ -24,16 +22,17 @@ public class GiveCountContainer : MonoBehaviour
 
         UpdateQuantityText(itemQuantitySlider.value);
         itemQuantitySlider.onValueChanged.AddListener(UpdateQuantityText);
-        
-        yes.GetComponent<Button>().onClick.AddListener(() => {
+
+        yes.GetComponent<Button>().onClick.AddListener(() =>
+        {
             // Ambil nilai terbaru dari slider untuk countGift
-            countGift = (int)itemQuantitySlider.value; 
-            Debug.Log("NIlai count gift"+ countGift);
+            countGift = (int)itemQuantitySlider.value;
+            Debug.Log("NIlai count gift" + countGift);
             // Panggil metode di ItemDragHandler untuk mengupdate itemCount
             itemDragHandler.UpdateItemCount(countGift);
             SetCountInactive();
         });
-        
+
         no.GetComponent<Button>().onClick.AddListener(() => SetCountInactive());
     }
 

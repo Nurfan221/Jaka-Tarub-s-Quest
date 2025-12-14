@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -83,7 +82,7 @@ public class Enemy_Spawner : UniqueIdentifiableObject
         }
 
 
-      
+
 
     }
 
@@ -135,7 +134,7 @@ public class Enemy_Spawner : UniqueIdentifiableObject
             enemies.Remove(enemy);
 
         Item itemDrop = ItemPool.Instance.GetItemWithQuality("PakaianBandit", ItemQuality.Normal);
-            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+        Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
         if (enemies.Count == 0)
         {
             //ItemPool.Instance.DropItem(itemDrop.itemName,itemDrop.health, itemDrop.quality, transform.position + offset);

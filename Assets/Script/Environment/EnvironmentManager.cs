@@ -1,12 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using System.Linq;
 
 
 
@@ -49,7 +42,8 @@ public class EnvironmentManager : MonoBehaviour, ISaveable
         if (isGameObjectManager)
         {
             RegisterAllGameObject();
-        }else
+        }
+        else
         {
             RegisterAllObject();
         }
@@ -109,10 +103,11 @@ public class EnvironmentManager : MonoBehaviour, ISaveable
     public void HandleNewDay()
     {
         float dayLuck = TimeManager.Instance.GetDayLuck();
-        if(isJanganAcak)
+        if (isJanganAcak)
         {
             //return;
-        }else
+        }
+        else
         {
             SpawnFromEnvironmentList(dayLuck);
         }
@@ -151,10 +146,10 @@ public class EnvironmentManager : MonoBehaviour, ISaveable
     public void RegisterAllGameObject()
     {
         gameObjectsList.Clear();
-        
+
         for (int i = 0; i < parentEnvironment.childCount; i++)
         {
-          GameObject gameObject = parentEnvironment.GetChild(i).gameObject;
+            GameObject gameObject = parentEnvironment.GetChild(i).gameObject;
             gameObjectsList.Add(gameObject);
         }
 
@@ -180,7 +175,7 @@ public class EnvironmentManager : MonoBehaviour, ISaveable
             Transform child = parentEnvironment.GetChild(i);
             if (Vector3.Distance(child.position, position) < tolerance)
             {
-         
+
                 return true; // Sudah ada objek di dekat posisi
             }
         }

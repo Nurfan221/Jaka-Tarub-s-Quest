@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoadingScreenUI : MonoBehaviour
@@ -19,7 +16,7 @@ public class LoadingScreenUI : MonoBehaviour
     private int currentFrame = 0; // Indeks frame saat ini
 
     private Coroutine animationCoroutine;
-    private Coroutine moveCoroutine; 
+    private Coroutine moveCoroutine;
 
     [SerializeField] string[] tips;
     [Header("UI Animation")]

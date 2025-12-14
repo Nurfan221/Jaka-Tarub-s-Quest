@@ -9,8 +9,8 @@ public class GlowEffect : MonoBehaviour
         // Mendapatkan komponen Particle System dari objek ini
         glowingParticles = GetComponentInChildren<ParticleSystem>();
 
-       
-        
+
+
     }
 
     // Fungsi untuk memulai efek particle jika diperlukan (misalnya ketika objek diambil)

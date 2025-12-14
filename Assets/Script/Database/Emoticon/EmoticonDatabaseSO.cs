@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "EmoticonDatabase", menuName = "Database/Emoticon Database")]
 public class EmoticonDatabaseSO : ScriptableObject

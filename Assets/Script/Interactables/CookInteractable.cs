@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CookInteractable : Interactable, ISaveable
@@ -76,8 +75,8 @@ public class CookInteractable : Interactable, ISaveable
 
         if (loadedData != null)
         {
-            itemCook  = loadedData.itemCook;
-            fuelCook  = loadedData.fuelCook;
+            itemCook = loadedData.itemCook;
+            fuelCook = loadedData.fuelCook;
             itemResult = loadedData.itemResult;
             quantityFuel = loadedData.quantityFuel;
 

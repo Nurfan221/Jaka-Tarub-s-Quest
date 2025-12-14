@@ -1,6 +1,5 @@
-using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ClockManager : MonoBehaviour
@@ -24,7 +23,7 @@ public class ClockManager : MonoBehaviour
     //[SerializeField] private TimeManager timeManager;
     //[SerializeField] GameEconomy gameEconomy;
 
-  
+
     private void OnEnable()
     {
         TimeManager.OnTimeChanged += UpdateDateTime;

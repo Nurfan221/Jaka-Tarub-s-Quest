@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class NPCBehavior : MonoBehaviour
 {
@@ -191,7 +189,7 @@ public class NPCBehavior : MonoBehaviour
 
         // Mulai coroutine pergerakan baru
         movementCoroutine = StartCoroutine(FollowWaypoints(currentActivity.waypoints));
-       
+
     }
 
     private IEnumerator FollowWaypoints(Vector2[] waypoints)
@@ -294,7 +292,7 @@ public class NPCBehavior : MonoBehaviour
     {
         if (npcData == null || npcData.schedules == null) return null;
 
-     
+
 
         return npcData.schedules
             .Where(s => s.startTime <= currentHour)
@@ -460,15 +458,16 @@ public class NPCBehavior : MonoBehaviour
             //Debug.Log($"[SENSOR] Hitbox mendeteksi semak: {collision.name}.");
             EnvironmentBehavior environment = collision.GetComponent<EnvironmentBehavior>();
             environment.DropItem();
-        }else if (collision.CompareTag("Jamur"))
+        }
+        else if (collision.CompareTag("Jamur"))
         {
             //Debug.Log($"[SENSOR] Hitbox mendeteksi Jamur: {collision.name}.");
             EnvironmentBehavior environment = collision.GetComponent<EnvironmentBehavior>();
             environment.DropItem();
         }
-        
+
     }
-   
+
 
     // Fungsi ini akan dipanggil oleh PintuManager setelah memindahkan posisi
     public void StartTeleportCooldown()

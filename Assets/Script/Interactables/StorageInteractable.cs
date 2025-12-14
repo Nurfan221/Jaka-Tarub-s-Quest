@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class StorageInteractable : Interactable, ISaveable
 {
@@ -25,7 +23,7 @@ public class StorageInteractable : Interactable, ISaveable
 
     public SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
     private int currentFrame = 0; // Indeks frame saat ini
-    
+
     public object CaptureState()
     {
         return new StorageSaveData

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -131,7 +129,7 @@ public class TrashManager : MonoBehaviour
         //finalItemCount = Mathf.Min(finalItemCount, candidatePool.Count);
 
         var shuffledPool = candidatePool.OrderBy(x => UnityEngine.Random.value).ToList();
-        for(int i = 0; i < shuffledPool.Count; i++)
+        for (int i = 0; i < shuffledPool.Count; i++)
         {
             sampahList.Add(shuffledPool[i]);
         }

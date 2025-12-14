@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -68,10 +66,10 @@ public class ItemGetPanelManager : MonoBehaviour
 
     }
 
-   
+
 
     // Coroutine untuk menyembunyikan UI (kebalikan dari AnimateShowUI)
-  
+
     //private IEnumerator AnimateShowUI(Transform objekTarnsform)
     //{
     //    objekTarnsform.gameObject.SetActive(true);

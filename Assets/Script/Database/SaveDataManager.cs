@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NUnit.Framework.Interfaces;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -91,7 +90,7 @@ public class SaveDataManager : MonoBehaviour
         }
     }
 
-   
+
 
     private GameSaveData LoadFromFile()
     {
@@ -127,7 +126,7 @@ public class SaveDataManager : MonoBehaviour
             // Pengecekan kedua: Apakah ini pemain?
             else if (saveable is PlayerController player)
             {
-                    Debug.Log("[SAVE] Ditemukan PlayerController. Memanggil CaptureState...");
+                Debug.Log("[SAVE] Ditemukan PlayerController. Memanggil CaptureState...");
                 if (player.CaptureState() is PlayerSaveData playerData)
                 {
                     // Anda mungkin tidak perlu ID untuk pemain jika hanya ada satu,
@@ -214,11 +213,12 @@ public class SaveDataManager : MonoBehaviour
                 Debug.Log("[SAVE] Ditemukan BatuManager. Memanggil CaptureState...");
                 if (stone.CaptureState() is List<StoneRespawnSaveData> queueData)
                 {
-                    
+
                     saveData.queueRespownStone = queueData;
                     Debug.Log("Data pemain telah ditangkap untuk StoneManager." + queueData.Count);
                 }
-            } else if (saveable is TimeManager time)
+            }
+            else if (saveable is TimeManager time)
             {
                 Debug.Log("[SAVE] Ditemukan TimeManager. Memanggil CaptureState...");
                 if (time.CaptureState() is TimeSaveData timeData)
@@ -226,7 +226,8 @@ public class SaveDataManager : MonoBehaviour
                     saveData.timeSaveData = timeData;
                     Debug.Log($"Data waktu telah ditangkap untuk penyimpanan. total hari = {saveData.timeSaveData.totalHari} hari ke-{saveData.timeSaveData.hari} tanggal ke-{saveData.timeSaveData.date} minggu ke-{saveData.timeSaveData.minggu} ");
                 }
-            } else if (saveable is FarmTile hoedTile)
+            }
+            else if (saveable is FarmTile hoedTile)
             {
                 Debug.Log("[SAVE] Ditemukan TiledHoedManager. Memanggil CaptureState...");
                 if (hoedTile.CaptureState() is List<HoedTileData> hoedTiles)
@@ -234,7 +235,8 @@ public class SaveDataManager : MonoBehaviour
                     saveData.savedHoedTilesList = hoedTiles;
                     Debug.Log("Data Hoed Tile telah ditangkap untuk penyimpanan." + hoedTiles.Count);
                 }
-            }else if (saveable is ShopInteractable shopInteractable)
+            }
+            else if (saveable is ShopInteractable shopInteractable)
             {
                 Debug.Log("[Save] Ditemukan ShopInteractable, memanggil CaptureState...");
 
@@ -266,7 +268,8 @@ public class SaveDataManager : MonoBehaviour
                     saveData.upgradeToolsSaveData = upgradeSaveData;
                     Debug.Log($"Data UpgradeToolsInteractable berhasil ditangkap. {upgradeSaveData.upgradeToolsDatabase.toolsName} siap untuk upgrade.");
                 }
-            }else if (saveable is PerangkapManager perangkapManager)
+            }
+            else if (saveable is PerangkapManager perangkapManager)
             {
                 Debug.Log("[SAVE] Ditemukan PerangkapManager. Memanggil CaptureState...");
                 if (perangkapManager.CaptureState() is List<PerangkapSaveData> perangkapData)

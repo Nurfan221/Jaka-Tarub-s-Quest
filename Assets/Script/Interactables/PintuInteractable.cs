@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PintuInteractable : Interactable
 {
     //[SerializeField] PintuManager pintuManager;

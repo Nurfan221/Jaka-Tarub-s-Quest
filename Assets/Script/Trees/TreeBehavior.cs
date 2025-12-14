@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -25,7 +24,7 @@ public class TreeBehavior : UniqueIdentifiableObject
     [Header("Logika Tanam Pohon")]
     public ParticleSystem plantEffectPrefab; // Efek partikel saat menanam
     public GrowthTree currentStage = GrowthTree.Seed;
-    public TypePlant typePlant; 
+    public TypePlant typePlant;
     public GameObject growthObject; // Gambar untuk tiap tahap pertumbuhan
     public float growthTime; // Waktu total untuk mencapai tahap akhir
     public string nameEnvironment;
@@ -47,16 +46,16 @@ public class TreeBehavior : UniqueIdentifiableObject
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer untuk mengganti gambar
 
     //logika menentukan jumlah minimal dan maksimal dari item yang akan di jatuhkan 
-    public int minWood ;  // Jumlah minimum kayu
+    public int minWood;  // Jumlah minimum kayu
     public int maxWood;  // Jumlah maksimum kayu
     public int minSap;   // Jumlah minimum getah
     public int maxSap;   // Jumlah maksimum getah
     public int minLeaf;  // Jumlah minimum daun
     public int maxLeaf;  // Jumlah maksimum daun
-    public int minSeratTanaman; 
+    public int minSeratTanaman;
     public int maxSeratTanaman;
 
-    
+
 
 
 
@@ -87,7 +86,7 @@ public class TreeBehavior : UniqueIdentifiableObject
 
     #endregion
 
-      
+
     private void Start()
     {
         Transform visualChild = transform.Find("Visual");
@@ -108,7 +107,7 @@ public class TreeBehavior : UniqueIdentifiableObject
 
     }
 
-  
+
 
 
 
@@ -289,7 +288,7 @@ public class TreeBehavior : UniqueIdentifiableObject
         Destroy(pohonAsli);
     }
 
-   
+
 
     private IEnumerator FellTree()
     {
@@ -328,7 +327,7 @@ public class TreeBehavior : UniqueIdentifiableObject
         Destroy(gameObject);
     }
 
-  
+
     // serta mengembalikan ukuran objek ke normal (Scale 1)
     private void DisablePopUp(GameObject targetObj)
     {
@@ -391,7 +390,7 @@ public class TreeBehavior : UniqueIdentifiableObject
     private IEnumerator BounceEffect(Transform target, float groundAngle)
     {
         // Sedikit membal (contoh: dari -90 ke -85 lalu balik -90)
-        float bounceAngle = groundAngle + 5f; 
+        float bounceAngle = groundAngle + 5f;
         float bounceTime = 0.2f;
         float t = 0;
 
@@ -399,11 +398,11 @@ public class TreeBehavior : UniqueIdentifiableObject
         Quaternion groundRot = Quaternion.Euler(0, 0, groundAngle);
         Quaternion bounceRot = Quaternion.Euler(0, 0, bounceAngle);
 
-        while(t < 1f)
+        while (t < 1f)
         {
             t += Time.deltaTime / bounceTime;
             // PingPong effect sederhana
-            target.rotation = Quaternion.Lerp(groundRot, bounceRot, Mathf.Sin(t * Mathf.PI)); 
+            target.rotation = Quaternion.Lerp(groundRot, bounceRot, Mathf.Sin(t * Mathf.PI));
             yield return null;
         }
         target.rotation = groundRot;
@@ -457,7 +456,7 @@ public class TreeBehavior : UniqueIdentifiableObject
         }
 
         // Drop Serat Tanaman
-       
+
         if (seratTanaman != null)
         {
             ItemPool.Instance.DropItem(seratTanaman.itemName, seratTanaman.itemHealth, seratTanaman.quality, posisi + offset, sapCount);

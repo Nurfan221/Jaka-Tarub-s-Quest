@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static QuestManager;
 
 public class DialogueSystem : MonoBehaviour
-{   
+{
     public static DialogueSystem Instance;
     public string npcName;
 
@@ -35,14 +34,14 @@ public class DialogueSystem : MonoBehaviour
             Instance = this;
     }
 
-    
+
 
     private void Update()
     {
-        
+
     }
 
-    
+
 
     public void CheckDialogue()
     {
@@ -134,7 +133,7 @@ public class DialogueSystem : MonoBehaviour
         print("End of conversations");
         currentDialogues.AfterDialogue();
 
-      
+
         dialogueUI.SetActive(false);
         GameController.Instance.ResumeGame();
         StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
@@ -174,7 +173,7 @@ public class DialogueSystem : MonoBehaviour
 
     }
 
-      public void PlayClickSound()
+    public void PlayClickSound()
     {
         SoundManager.Instance.PlaySound("Click");
     }

@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
 using UnityEngine;
 
 public enum KategoriItem
@@ -19,7 +17,7 @@ public class MiniQuest : MonoBehaviour
     [Serializable]
     public class MiniQuestList
     {
-        public int questID; 
+        public int questID;
         public string judulQuest;
         public List<Item> itemsQuest = new List<Item>();
         public int DateMiniQuest;

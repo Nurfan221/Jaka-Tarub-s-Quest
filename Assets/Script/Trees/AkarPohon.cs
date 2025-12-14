@@ -1,6 +1,5 @@
-using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 public class AkarPohon : UniqueIdentifiableObject
 {
     //  Implementasi dari Kontrak IUniqueIdentifiable 
@@ -52,11 +51,11 @@ public class AkarPohon : UniqueIdentifiableObject
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void TakeDamage(int damage)
     {
-        if(ditebang) return;
+        if (ditebang) return;
         if (hitEffectPrefab != null)
         {
             Debug.Log("Menampilkan efek pukulan pada posisi: " + gameObject.transform.position);
@@ -83,7 +82,7 @@ public class AkarPohon : UniqueIdentifiableObject
 
     }
 
-   public IEnumerator PlayDelay()
+    public IEnumerator PlayDelay()
     {
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);

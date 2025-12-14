@@ -1,13 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.IO; // Penting untuk operasi file
 using System.Linq;
-using System.Xml;
-using JetBrains.Annotations;
-using NUnit.Framework.Interfaces;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 //using UnityEngine.UIElements;
 
@@ -23,7 +17,7 @@ public class QuestManager : MonoBehaviour, ISaveable
     // Cukup seret semua aset ChapterSO Anda ke sini.
     public List<ChapterSO> allChapters;
     public Dialogues dialogueIfItemNotComplate;
-  
+
     public int currentChapterQuestIndex = 1;
 
     [Header("Status Quest Pemain")]
@@ -145,7 +139,7 @@ public class QuestManager : MonoBehaviour, ISaveable
                 SetNextMainQuest(activeQuestData);
                 StartMainQuest(activeQuestData, prefab);
             }
-           
+
         }
         else
         {
@@ -175,7 +169,7 @@ public class QuestManager : MonoBehaviour, ISaveable
                     }
                 }
             }
-           
+
         }
 
 
@@ -194,7 +188,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         if (TimeManager.Instance.date == mainQuestActive.dateToActivate &&
         TimeManager.Instance.bulan == mainQuestActive.monthToActivate)
         {
-           GameObject prefab = GetMainQuestPrefabByName(mainQuestActive.questName);
+            GameObject prefab = GetMainQuestPrefabByName(mainQuestActive.questName);
             Debug.Log($"Memulai Main Quest yang tertunda: {mainQuestActive.questName}");
             StartMainQuest(mainQuestActive, prefab);
         }
@@ -276,7 +270,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         }
         Debug.Log($"Mengaktifkan Side Quest: {questToActivate.questName}");
 
-       
+
         //OnQuestLogUpdated?.Invoke();
         CreateTemplateQuest();
 
@@ -308,7 +302,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         }
 
 
-       
+
     }
 
     public int ProcessItemGivenToNPC(ItemData givenItemData, string npcName)
@@ -418,7 +412,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         foreach (var questStatus in questActive)
         {
             // Tampilkan hanya jika belum selesai
-           foreach(var sideQuest in questStatus.sideQuests)
+            foreach (var sideQuest in questStatus.sideQuests)
             {
                 if (sideQuest.questProgress != QuestProgress.Completed)
                 {
@@ -436,14 +430,14 @@ public class QuestManager : MonoBehaviour, ISaveable
 
 
                         //    jika karena suatu alasan NPC tidak ditemukan.
-                        if (npcTargetQuest != null )
+                        if (npcTargetQuest != null)
                         {
                             // Jika ditemukan, Anda sekarang memiliki akses penuh ke komponen NPCBehavior-nya
                             //    dan bisa memanggil semua metode publiknya.
                             Debug.Log($"NPC {sideQuest.npcName} ditemukan! Memberi perintah untuk pindah...");
 
 
-                          
+
                             npcTargetQuest.itemQuestToGive = sideQuest.NPCItem;
                             npcTargetQuest.isGivenItemForQuest = true;
                             Debug.Log("itemQuestToGive" + npcTargetQuest.itemQuestToGive.itemName + "jumlah item : " + npcTargetQuest.itemQuestToGive.ToString());
@@ -463,13 +457,14 @@ public class QuestManager : MonoBehaviour, ISaveable
                             enemy_Spawner.gameObject.SetActive(true);
                             Debug.Log("mengaktifkan spawner quest di " + sideQuest.spawnerToActivate);
 
-                        }else
+                        }
+                        else
                         {
                             Debug.LogError("spawner tidak ditemukan " + sideQuest.spawnerToActivate);
                         }
                     }
 
-                    if(sideQuest.startLocateNpcQuest != Vector2.zero && sideQuest.finishLocateNpcQuest != Vector2.zero)
+                    if (sideQuest.startLocateNpcQuest != Vector2.zero && sideQuest.finishLocateNpcQuest != Vector2.zero)
                     {
                         npcTargetQuest.transform.position = sideQuest.startLocateNpcQuest;
                         // Panggil metode yang sudah kita siapkan di NPCBehavior
@@ -492,7 +487,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         }
     }
 
- 
+
     public void InstantiateQuestUI(string questName, string objectiveInfo)
     {
         Transform questTransform = Instantiate(templateQuest, contentTemplate);
@@ -511,7 +506,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         }
     }
 
- 
+
 
     // Fungsi untuk menyelesaikan quest
     public void CompleteQuest(TemplateQuest questStatus)
@@ -584,7 +579,7 @@ public class QuestManager : MonoBehaviour, ISaveable
             Debug.Log($"Chapter {parentChapter.chapterName}: {parentChapter.completedSideQuestCount} / {parentChapter.totalSideQuestsRequired} side quest selesai.");
 
             //Cek apakah sudah selesai SEMUA DAN main quest BELUM aktif
-            if (parentChapter.completedSideQuestCount >= parentChapter.totalSideQuestsRequired )
+            if (parentChapter.completedSideQuestCount >= parentChapter.totalSideQuestsRequired)
             {
                 if (parentChapter.IsMainQuestEmpty())
                 {
@@ -614,11 +609,11 @@ public class QuestManager : MonoBehaviour, ISaveable
                         SetNextMainQuest(newMainQuest);
                         parentChapter.mainQuest = newMainQuest;
                         parentChapter.isMainQuestActive = true;
-                        
+
                         Debug.Log("cek main quest di chapter aktif " + parentChapter.mainQuest.questName);
-                                       // (Opsional) Langsung panggil StartMainQuest jika Anda mau,
-                                       // atau biarkan CheckForNewQuests() yang menanganinya
-                                       // StartMainQuest(chapterAsset.mainQuest); 
+                        // (Opsional) Langsung panggil StartMainQuest jika Anda mau,
+                        // atau biarkan CheckForNewQuests() yang menanganinya
+                        // StartMainQuest(chapterAsset.mainQuest); 
                     }
                     else
                     {
@@ -630,7 +625,7 @@ public class QuestManager : MonoBehaviour, ISaveable
                     // Ini akan mencegah main quest dibuat berulang kali
                     Debug.Log("Main quest sudah aktif, tidak perlu membuat lagi.");
                 }
-               
+
             }
         }
 
@@ -705,7 +700,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         if (IsMainQuestActiveEmpty() && activeMainQuestController == null)
         {
             mainQuestActive = mainQuest;
-            
+
             Debug.Log($"Main Quest '{mainQuest.questName}' disiapkan untuk dimulai pada tanggal {mainQuest.dateToActivate}.");
         }
     }

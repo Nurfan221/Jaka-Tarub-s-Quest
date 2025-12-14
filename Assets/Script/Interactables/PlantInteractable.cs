@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PlantInteractable : Interactable
 {
     public PlantSeed plantSeed; // Changed to public to be accessible

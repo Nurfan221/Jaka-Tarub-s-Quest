@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
 
 
 public class EnvironmentBehavior : UniqueIdentifiableObject
-{ 
+{
     //  Implementasi dari Kontrak IUniqueIdentifiable 
     public EnvironmentHardnessLevel hardnessLevel;
     public TypeObject typeObject;
@@ -38,7 +36,7 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
     public override string GetBaseName()
     {
         // Ambil nama dasar dari variabel yang bisa diatur di Inspector.
-        if (typePlant == TypePlant.None && arahObject != ArahObject.None )
+        if (typePlant == TypePlant.None && arahObject != ArahObject.None)
         {
             return arahObject.ToString();
         }

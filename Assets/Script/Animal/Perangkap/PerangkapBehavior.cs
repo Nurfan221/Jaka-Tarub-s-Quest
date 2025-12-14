@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
-using Unity.VisualScripting;
+
 using UnityEngine;
 
 public class PerangkapBehavior : UniqueIdentifiableObject
-{   
+{
     public EnvironmentHardnessLevel hardnessLevel;
     public TypeObject typeObject;
     public TypePlant typePlant;
@@ -79,7 +76,7 @@ public class PerangkapBehavior : UniqueIdentifiableObject
     {
 
     }
-    
+
     public void NewDay()
     {
         if (IsFull)
@@ -122,7 +119,7 @@ public class PerangkapBehavior : UniqueIdentifiableObject
         itemTertangkap = itemPerangkap[randomIndex];
         Debug.Log($"[Perangkap] Menangkap hewan: {itemTertangkap.itemName} (Luck={dayLuck:F2}, Index={randomIndex})");
 
-        _isFull = true; 
+        _isFull = true;
         HandlePerangkapFull(IsFull);
         UpdatePerangkapInListManager();
     }
@@ -132,7 +129,8 @@ public class PerangkapBehavior : UniqueIdentifiableObject
         if (full)
         {
             spriteRenderer.sprite = itemTertangkap.sprite;
-        }else
+        }
+        else
         {
             spriteRenderer.sprite = null;
         }
@@ -176,7 +174,7 @@ public class PerangkapBehavior : UniqueIdentifiableObject
     {
         if (!IsFull)
         {
-            
+
             Debug.Log("Mengambil perangkap kosong.");
             // Logika untuk mengambil perangkap kosong
             ItemData itemData = new ItemData
@@ -185,7 +183,7 @@ public class PerangkapBehavior : UniqueIdentifiableObject
                 count = 1,
                 quality = ItemQuality.Normal,
                 itemHealth = perangkapHealth
-            }; 
+            };
             bool isSuccess = ItemPool.Instance.AddItem(itemData);
 
             if (isSuccess)
@@ -213,7 +211,7 @@ public class PerangkapBehavior : UniqueIdentifiableObject
     {
         if (IsFull)
         {
-            
+
             // Logika untuk mengambil hewan dari perangkap
             Debug.Log("Mengambil hewan dari perangkap.");
             _isFull = false;
@@ -244,7 +242,7 @@ public class PerangkapBehavior : UniqueIdentifiableObject
                 // Opsional: Munculkan teks "Tas Penuh!"
             }
             //ItemPool.Instance.AddItem(itemData);
-          
+
 
         }
         else

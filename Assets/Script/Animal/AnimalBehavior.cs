@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum AnimalType { Pasif, Agresif, isQuest }
@@ -34,7 +32,7 @@ public class AnimalBehavior : MonoBehaviour
     [Header("Tipe Perilaku Hewan")]
     public AnimalType tipeHewan = AnimalType.Pasif;
     public Transform currentTarget;
-    public string itemTriggerName ;
+    public string itemTriggerName;
 
     [Header("Logika Serangan")]
     public float attackRange = 1.5f;
@@ -259,7 +257,7 @@ public class AnimalBehavior : MonoBehaviour
                     // Tunggu durasi animasi 'Rebahan'
                     yield return new WaitForSeconds(jedaAnimasi);
                 }
-                else if(nextState == "Rebahan")
+                else if (nextState == "Rebahan")
                 {
                     // Tunggu animasi 'Duduk' selesai
                     yield return new WaitForSeconds(jedaAnimasi);
@@ -315,7 +313,7 @@ public class AnimalBehavior : MonoBehaviour
             //Debug.Log($"{namaHewan}      {collision.gameObject.name}");
             StartCoroutine(PlayRandomAnimationPeriodically()); // Mulai animasi acak setelah tabrakan
 
-        }    
+        }
     }
 
     // FixedUpdate() baru untuk menangani fisika
@@ -427,7 +425,7 @@ public class AnimalBehavior : MonoBehaviour
             {
                 ItemData itemToDrop = new ItemData(dropitems[0].itemName, 1, dropitems[0].quality, dropitems[0].health);
                 Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
-                ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset,1);
+                ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset, 1);
             }
         }
         else
@@ -749,7 +747,7 @@ public class AnimalBehavior : MonoBehaviour
         }
     }
 
-  
+
 
     public void JalankanLogikaSerangan()
     {

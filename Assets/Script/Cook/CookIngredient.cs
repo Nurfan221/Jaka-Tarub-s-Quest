@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 
 public class CookIngredient : MonoBehaviour
@@ -67,7 +66,7 @@ public class CookIngredient : MonoBehaviour
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() =>
             {
-                
+
                 // Toggle mode lihat resep
                 if (!checkRecipes)
                 {
@@ -128,7 +127,7 @@ public class CookIngredient : MonoBehaviour
 
             }
         }
-          
+
     }
 
     private void DisplayIngredientInSlot(GameObject itemCraftSlot, Item ingredient, float count)

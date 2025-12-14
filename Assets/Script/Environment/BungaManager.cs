@@ -1,14 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
-using TreeEditor;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 
 
@@ -21,11 +12,11 @@ public class BungaManager : MonoBehaviour
 
     public Transform parentEnvironment;
     public List<EnvironmentSaveData> environmentList = new List<EnvironmentSaveData>();
- 
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-   
+
     public void RegisterAllObject()
     {
         environmentList.Clear();
@@ -39,10 +30,10 @@ public class BungaManager : MonoBehaviour
 
             EnvironmentSaveData data = new EnvironmentSaveData
             {
-               environmentId = envBehavior.UniqueID,
-               typePlant = envBehavior.typePlant,
-               typeObject = envBehavior.typeObject,
-               environmentPosition = child.position
+                environmentId = envBehavior.UniqueID,
+                typePlant = envBehavior.typePlant,
+                typeObject = envBehavior.typeObject,
+                environmentPosition = child.position
             };
 
             environmentList.Add(data);
@@ -53,7 +44,7 @@ public class BungaManager : MonoBehaviour
 
     public void RandomSpawnFlower()
     {
-        if (parentEnvironment == null )
+        if (parentEnvironment == null)
         {
             Debug.LogError("Parent Environment atau Spawn Container belum diatur di Inspector!");
             return;

@@ -1,7 +1,7 @@
-using UnityEngine;
-using UnityEngine.Events;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
 
 public enum Days
 {
@@ -43,7 +43,7 @@ public class TimeManager : MonoBehaviour, ISaveable
 
 
 
-   
+
 
     [Header("Logika Waktu")]
     public int secondsIncrease = 10;
@@ -76,7 +76,7 @@ public class TimeManager : MonoBehaviour, ISaveable
     public static event System.Action OnDayChanged;
     public static event System.Action OnSeasonChanged;
 
-    
+
 
 
     private void Start()
@@ -181,7 +181,7 @@ public class TimeManager : MonoBehaviour, ISaveable
 
         if (hour >= 25)
         {
-           
+
             hour = 1;
 
             // Panggil fungsi pingsan Anda di sini
