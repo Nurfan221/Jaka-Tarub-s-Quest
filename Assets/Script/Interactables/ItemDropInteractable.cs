@@ -30,12 +30,6 @@ public class ItemDropInteractable : Interactable
     }
     private void Start()
     {
-
-       
-        //promptMessage = "Inventory Full";
-        //GetComponent<SpriteRenderer>().sprite = item.sprite;
-        itemdata.count = 1;
-
         StartCoroutine(ActivatePickupAfterDelay());
     }
 

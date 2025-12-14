@@ -459,7 +459,7 @@ public class ShopUI : MonoBehaviour
                 {
                     Debug.LogWarning($"Tas penuh! Menjatuhkan {newItem.itemName} x{newItem.count}");
 
-                    string errorMsg = $"Tas penuh!! Drop Item {newItem.itemName}";
+                    string errorMsg = $"Tas penuh!! Drop Item {newItem.itemName} sejumlah {newItem.count}";
                     PlayerUI.Instance.ShowErrorUI(errorMsg);
 
                     Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
@@ -508,7 +508,7 @@ public class ShopUI : MonoBehaviour
                 if (shaker != null) shaker.Shake();
             }
 
-            PlayerUI.Instance.ShowErrorUI("Gagal melakukan transaksi Uang kurang atau stok habis.");
+            PlayerUI.Instance.ShowErrorUI("Gagal melakukan transaksi Uang kurang atau stok habis. ");
         }
     }
 

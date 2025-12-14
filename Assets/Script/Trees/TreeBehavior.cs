@@ -31,9 +31,17 @@ public class TreeBehavior : UniqueIdentifiableObject
     public string nameEnvironment;
     public string namaPohon;
     public bool isRubuh;
-    public GameObject tumbangSprite; // Gambar batang pohon yang tumbang
-    public GameObject akarPohonPrefab; // Prefab akar pohon yang muncul setelah pohon tumbang
 
+    [Header("Animation Settings")]
+    public AnimationCurve fallCurve;       // Kurva jatuh (bikin melengkung naik di inspector)
+    public float fallDuration = 1.0f;
+
+
+    [Header("Visual References")]
+    public GameObject akarPohonPrefab;
+    public GameObject tumbangSpritePrefab; // Pastikan Pivot sprite ini di "Bottom"
+    public SpriteRenderer visualPohonAsli; // Assign visual child pohon di sini
+    public Collider2D treeCollider;        // Assign collider pohon di sini
     public float growthSpeed; // Waktu jeda antar tahap pertumbuhan
     public int daysSincePlanting = 1; // Hari sejak pohon ditanam
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer untuk mengganti gambar
@@ -82,10 +90,21 @@ public class TreeBehavior : UniqueIdentifiableObject
       
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        Transform visualChild = transform.Find("Visual");
 
+        if (visualChild != null)
+        {
+            // Ambil komponen dari anak tersebut
+            visualPohonAsli = visualChild.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
+        }
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
         //OnTreeChoppedDown();
-        plantEffectPrefab= gameObject.GetComponentInChildren<ParticleSystem>();
+        plantEffectPrefab = gameObject.GetComponentInChildren<ParticleSystem>();
 
     }
 
@@ -284,7 +303,7 @@ public class TreeBehavior : UniqueIdentifiableObject
     //        tumbangSprite = stageData.batangPrefab;
     //        akarPohonPrefab = stageData.AkarPrefab;
 
-            
+
     //    }
     //    else
     //    {
@@ -292,95 +311,141 @@ public class TreeBehavior : UniqueIdentifiableObject
     //    }
     //}
 
-
     private IEnumerator FellTree()
     {
         isRubuh = true;
         Vector3 posisiPohon = transform.position;
 
-        //Spawn akar di posisi pohon
+        if (treeCollider != null) treeCollider.enabled = false;
+        if (visualPohonAsli != null) visualPohonAsli.enabled = false;
+
         if (akarPohonPrefab != null)
         {
             GameObject akar = Instantiate(akarPohonPrefab, posisiPohon, Quaternion.identity, MainEnvironmentManager.Instance.pohonManager.transform);
-            AkarPohon akarPohon = akar.GetComponent<AkarPohon>();
-            akarPohon.IdObjectUtama = this.UniqueID;
-            //GameObject akar = Instantiate(batangPohon, posisiPohon, Quaternion.identity);
 
-            Transform visualChild = transform.Find("Visual");
+            // [FIX ANIMASI] Matikan efek PopUp untuk akar
+            DisablePopUp(akar);
 
-            if (visualChild != null)
-            {
-                // Ambil komponen dari anak tersebut
-                spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = null;
-            }
-            else
-            {
-                Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!" + gameObject.name);
-            }
-            
+            AkarPohon komponenAkar = akar.GetComponent<AkarPohon>();
+            if (komponenAkar != null) komponenAkar.IdObjectUtama = this.UniqueID;
         }
 
-        //Spawn batang tumbang (di atas akar)
-        if (tumbangSprite != null)
+        if (tumbangSpritePrefab != null)
         {
-            GameObject batang = Instantiate(tumbangSprite, posisiPohon, Quaternion.identity);
-            batang.transform.SetParent(gameObject.transform); 
-            yield return StartCoroutine(RotateFalling(batang.transform));
+            GameObject batang = Instantiate(tumbangSpritePrefab, posisiPohon, Quaternion.identity);
+            batang.transform.SetParent(MainEnvironmentManager.Instance.pohonManager.transform);
+
+            DisablePopUp(batang);
+
+            float targetRotation = -90f;
+            yield return StartCoroutine(AnimateFallingLog(batang.transform, targetRotation));
+
+            Destroy(batang, 0.5f);
         }
 
-        //EnvironmentManager environmentManager = plantsContainer.gameObject.GetComponent<EnvironmentManager>();
+        DropResources(posisiPohon);
+        HandleRespawnData();
+        Destroy(gameObject);
+    }
 
-        //if (environmentManager != null)
-        //{
-        //    Vector2 posisiPohon2D = new Vector2(transform.position.x, transform.position.y);
-        //    //foreach (var cekLokasiObjek in environmentManager.environmentList)
-        //    //{
-        //    //    Vector2 posisiCek2D = new Vector2(cekLokasiObjek.position.x, cekLokasiObjek.position.y);
-        //    //    if (Vector2.Distance(posisiPohon2D, posisiCek2D) < 0.1f && nameEnvironment == cekLokasiObjek.TreeID)
-        //    //    {
-        //    //        cekLokasiObjek.isGrowing = false;
-        //    //    }
-        //    //}
-        //}
-        int daysToWait = UnityEngine.Random.Range(2, 6); // Menunggu 2 sampai 5 hari
-        int respawn = TimeManager.Instance.date + daysToWait; // Asumsi Anda punya data hari saat ini
-        Debug.Log(" total hari respawn : " + respawn);
-        TreePlacementData treePlacementData = new TreePlacementData
+  
+    // serta mengembalikan ukuran objek ke normal (Scale 1)
+    private void DisablePopUp(GameObject targetObj)
+    {
+        // Cari script PopUpAnimation di objek ini atau anaknya (karena ada di child "Visual")
+        PopUpAnimation popUp = targetObj.GetComponentInChildren<PopUpAnimation>();
+
+        if (popUp != null)
+        {
+            // Kita ambil referensi transform visualnya dulu sebelum hapus script
+            Transform visualTransform = popUp.transform;
+
+            // Hapus script animasinya agar tidak jalan
+            Destroy(popUp);
+
+            // PENTING: Paksa reset scale ke 1.
+            // Karena biasanya script PopUp mengubah scale jadi 0 di awal (Awake/Start).
+            // Jika tidak di-reset, objeknya akan invisible.
+            visualTransform.localScale = Vector3.one;
+        }
+    }
+
+    private IEnumerator AnimateFallingLog(Transform targetInfo, float targetAngle)
+    {
+        float timer = 0f;
+        Quaternion startRotation = targetInfo.rotation;
+        Quaternion endRotation = Quaternion.Euler(0, 0, targetAngle);
+
+        while (timer < fallDuration)
+        {
+            timer += Time.deltaTime;
+
+            // Hitung progress waktu (0.0 sampai 1.0)
+            float normalizedTime = timer / fallDuration;
+
+            // Ambil nilai dari kurva
+            float curveValue = fallCurve.Evaluate(normalizedTime);
+
+            // Terapkan rotasi
+            targetInfo.rotation = Quaternion.Lerp(startRotation, endRotation, curveValue);
+
+            // Jika curveValue sudah mencapai 1 (atau sangat dekat), artinya pohon sudah di tanah.
+            // Paksa keluar dari loop jatuh agar bounce langsung jalan.
+            if (curveValue >= 0.99f)
+            {
+                // Pastikan posisi sudah pol di endRotation sebelum break
+                targetInfo.rotation = endRotation;
+                break;
+            }
+
+            yield return null;
+        }
+
+        // Pastikan rotasi final pas (safety net)
+        targetInfo.rotation = endRotation;
+
+        // Sekarang Bounce akan langsung jalan begitu pohon menyentuh tanah
+        // Tanpa menunggu sisa timer yang tidak perlu
+        yield return BounceEffect(targetInfo, targetAngle);
+    }
+
+    private IEnumerator BounceEffect(Transform target, float groundAngle)
+    {
+        // Sedikit membal (contoh: dari -90 ke -85 lalu balik -90)
+        float bounceAngle = groundAngle + 5f; 
+        float bounceTime = 0.2f;
+        float t = 0;
+
+        // Naik Dikit
+        Quaternion groundRot = Quaternion.Euler(0, 0, groundAngle);
+        Quaternion bounceRot = Quaternion.Euler(0, 0, bounceAngle);
+
+        while(t < 1f)
+        {
+            t += Time.deltaTime / bounceTime;
+            // PingPong effect sederhana
+            target.rotation = Quaternion.Lerp(groundRot, bounceRot, Mathf.Sin(t * Mathf.PI)); 
+            yield return null;
+        }
+        target.rotation = groundRot;
+    }
+
+    private void HandleRespawnData()
+    {
+        int daysToWait = UnityEngine.Random.Range(2, 6);
+        int respawnDate = TimeManager.Instance.date + daysToWait;
+
+        TreePlacementData treeData = new TreePlacementData
         {
             TreeID = this.UniqueID,
-            dayToRespawn = respawn,
-            position = this.gameObject.transform.position,
+            dayToRespawn = respawnDate,
+            position = transform.position,
             typePlant = this.typePlant,
             sudahTumbang = this.isRubuh,
             initialStage = this.currentStage
         };
-        MainEnvironmentManager.Instance.pohonManager.AddSecondListTrees(treePlacementData);
-        //Hancurkan pohon asli
-        Destroy(gameObject);
-
-        //(Opsional) Drop item kayu, getah, dll.
-        DropResources(posisiPohon);
+        MainEnvironmentManager.Instance.pohonManager.AddSecondListTrees(treeData);
     }
-
-    private IEnumerator RotateFalling(Transform target)
-    {
-        float duration = 1.5f;
-        float elapsed = 0f;
-        float startZ = 0f;
-        float endZ = -90f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float z = Mathf.Lerp(startZ, endZ, elapsed / duration);
-            target.rotation = Quaternion.Euler(0, 0, z);
-            yield return null;
-        }
-
-        target.rotation = Quaternion.Euler(0, 0, endZ);
-    }
-
     private void DropResources(Vector3 posisi)
     {
         // Hitung jumlah random untuk masing-masing item

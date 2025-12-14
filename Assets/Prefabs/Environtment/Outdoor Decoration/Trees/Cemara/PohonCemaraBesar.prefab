@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3358023806408393524}
   - component: {fileID: 1888632240794282398}
   - component: {fileID: 7111364941028505943}
-  - component: {fileID: -7796876432215970106}
+  - component: {fileID: -9073594770170821027}
   m_Layer: 0
   m_Name: PohonCemaraBesar
   m_TagString: Tree
@@ -189,8 +189,35 @@ MonoBehaviour:
   nameEnvironment: PohonCemaraBesar
   namaPohon: BenihCemara
   isRubuh: 0
-  tumbangSprite: {fileID: 5090815853600988913, guid: a47b5e913b6ef6f41a1fc5a97d3c4526, type: 3}
+  fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fallDuration: 2
   akarPohonPrefab: {fileID: 1599877733878797977, guid: 19e51cf2380fad5418aa0b55499e2737, type: 3}
+  tumbangSpritePrefab: {fileID: 5090815853600988913, guid: a47b5e913b6ef6f41a1fc5a97d3c4526, type: 3}
+  visualPohonAsli: {fileID: 1888632240794282398}
+  treeCollider: {fileID: 3358023806408393524}
   growthSpeed: 1
   daysSincePlanting: 1
   minWood: 2
@@ -201,7 +228,7 @@ MonoBehaviour:
   maxLeaf: 3
   minSeratTanaman: 2
   maxSeratTanaman: 3
---- !u!114 &-7796876432215970106
+--- !u!114 &-9073594770170821027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

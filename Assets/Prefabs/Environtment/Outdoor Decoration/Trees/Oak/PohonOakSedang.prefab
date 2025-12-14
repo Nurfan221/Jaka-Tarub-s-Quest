@@ -189,8 +189,35 @@ MonoBehaviour:
   nameEnvironment: PohonOakSedang
   namaPohon: BenihOak
   isRubuh: 0
-  tumbangSprite: {fileID: 5090815853600988913, guid: 3b1652ea73776b84a8dc1a7189cba891, type: 3}
+  fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fallDuration: 2
   akarPohonPrefab: {fileID: 1599877733878797977, guid: bab1e45e45a49c7498f7645b04241138, type: 3}
+  tumbangSpritePrefab: {fileID: 5090815853600988913, guid: 3b1652ea73776b84a8dc1a7189cba891, type: 3}
+  visualPohonAsli: {fileID: 1888632240794282398}
+  treeCollider: {fileID: 3358023806408393524}
   growthSpeed: 1
   daysSincePlanting: 1
   minWood: 3

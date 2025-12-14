@@ -297,7 +297,6 @@ public class StoneBehavior : UniqueIdentifiableObject
         int daysToWait = UnityEngine.Random.Range(2, 6);
         dayToRespawn = TimeManager.Instance.date + daysToWait;
 
-        // --- DEBUG RESPAWN ---
         Debug.Log($"Batu akan respawn dalam {daysToWait} hari, yaitu pada hari ke-{dayToRespawn}.");
 
         BatuManager.Instance.ScheduleRespawn(UniqueID, dayToRespawn);
