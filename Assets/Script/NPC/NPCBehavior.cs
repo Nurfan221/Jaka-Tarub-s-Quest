@@ -147,7 +147,7 @@ public class NPCBehavior : MonoBehaviour
 
     public void ReturnToNormalSchedule()
     {
-        Debug.Log($"NPC {this.name} kembali ke jadwal normal.");
+        //Debug.Log($"NPC {this.name} kembali ke jadwal normal.");
         isLockedForQuest = false;
 
         questOverrideDialogue = null;
@@ -196,11 +196,11 @@ public class NPCBehavior : MonoBehaviour
 
     private IEnumerator FollowWaypoints(Vector2[] waypoints)
     {
-        Debug.Log($"{gameObject.name} [DEBUG] NPCMemulai FollowWaypoints. Jumlah titik: {waypoints.Length}");
+        //Debug.Log($"{gameObject.name} [DEBUG] NPCMemulai FollowWaypoints. Jumlah titik: {waypoints.Length}");
 
         if (waypoints == null || waypoints.Length == 0)
         {
-            Debug.LogWarning("{gameObject.name} [DEBUG] NPCWaypoints kosong! Berhenti.");
+            //Debug.LogWarning("{gameObject.name} [DEBUG] NPCWaypoints kosong! Berhenti.");
             isMoving = false;
             yield break;
         }
@@ -209,7 +209,7 @@ public class NPCBehavior : MonoBehaviour
         {
             Vector2 targetPosition = waypoints[i];
             currentTargetDestination = targetPosition;
-            Debug.Log($"{gameObject.name} [DEBUG] NPCMenuju Waypoint [{i}]: {targetPosition}. Posisi Saat Ini: {transform.position}");
+            //Debug.Log($"{gameObject.name} [DEBUG] NPCMenuju Waypoint [{i}]: {targetPosition}. Posisi Saat Ini: {transform.position}");
 
             // Jika NPC masih dalam status cooldown teleport (isTeleporting = true),
             // tahan dulu di sini. Jangan lanjut jalan dulu sampai cooldown selesai.
@@ -225,7 +225,7 @@ public class NPCBehavior : MonoBehaviour
                 // Jika tiba-tiba teleport aktif SAAT sedang berjalan
                 if (isTeleporting)
                 {
-                    Debug.Log("{gameObject.name} [DEBUG] NPCTeleport terdeteksi saat bergerak! Membatalkan waypoint ini.");
+                    //Debug.Log("{gameObject.name} [DEBUG] NPCTeleport terdeteksi saat bergerak! Membatalkan waypoint ini.");
                     // waypoint berikutnya tidak akan langsung di-skip.
                     break;
                 }
@@ -234,7 +234,7 @@ public class NPCBehavior : MonoBehaviour
                 yield return null; // Tunggu satu frame
             }
 
-            Debug.Log($"{gameObject.name} [DEBUG] NPCSelesai dengan Waypoint [{i}] atau di-skip karena teleport.");
+            //Debug.Log($"{gameObject.name} [DEBUG] NPCSelesai dengan Waypoint [{i}] atau di-skip karena teleport.");
         }
 
         // Setelah selesai semua titik
@@ -246,7 +246,7 @@ public class NPCBehavior : MonoBehaviour
             // Jika jadwal ini mengharuskan NPC 'Masuk Ruangan' (Hide)
             if (currentActivity.hideOnArrival)
             {
-                Debug.Log($"NPC {npcName} sampai di tujuan dan masuk ke dalam (Hide).");
+                //Debug.Log($"NPC {npcName} sampai di tujuan dan masuk ke dalam (Hide).");
                 gameObject.SetActive(false);
             }
         }
@@ -427,7 +427,7 @@ public class NPCBehavior : MonoBehaviour
             PintuInteractable pintu = collision.GetComponent<PintuInteractable>();
             if (pintu != null)
             {
-                Debug.Log($"[SENSOR] Hitbox mendeteksi pintu: {collision.name}. Memulai Teleport...");
+                //Debug.Log($"[SENSOR] Hitbox mendeteksi pintu: {collision.name}. Memulai Teleport...");
 
                 // Langsung kunci NPC SEKARANG JUGA sebelum memanggil Manager.
                 // Ini menjamin saat NPC mendarat di tujuan, statusnya sudah isTeleporting = true.
@@ -439,30 +439,30 @@ public class NPCBehavior : MonoBehaviour
         }
         if (collision.CompareTag("Tree"))
         {
-            Debug.Log($"[SENSOR] Hitbox mendeteksi pohon: {collision.name}.");
+            //Debug.Log($"[SENSOR] Hitbox mendeteksi pohon: {collision.name}.");
             TreeBehavior tree = collision.GetComponent<TreeBehavior>();
             if (tree != null) tree.InstantlyDestroy();
         }
         else if (collision.CompareTag("AkarPohon"))
         {
-            Debug.Log($"[SENSOR] Hitbox mendeteksi akar: {collision.name}.");
+            //Debug.Log($"[SENSOR] Hitbox mendeteksi akar: {collision.name}.");
             AkarPohon akarPohon = collision.GetComponent<AkarPohon>();
             if (akarPohon != null) akarPohon.InstantlyDestroy();
         }
         else if (collision.CompareTag("Stone"))
         {
-            Debug.Log($"[SENSOR] Hitbox mendeteksi batu: {collision.name}.");
+            //Debug.Log($"[SENSOR] Hitbox mendeteksi batu: {collision.name}.");
             StoneBehavior rock = collision.GetComponent<StoneBehavior>();
             if (rock != null) rock.InstantlyDestroy();
         }
         else if (collision.CompareTag("Bunga"))
         {
-            Debug.Log($"[SENSOR] Hitbox mendeteksi semak: {collision.name}.");
+            //Debug.Log($"[SENSOR] Hitbox mendeteksi semak: {collision.name}.");
             EnvironmentBehavior environment = collision.GetComponent<EnvironmentBehavior>();
             environment.DropItem();
         }else if (collision.CompareTag("Jamur"))
         {
-            Debug.Log($"[SENSOR] Hitbox mendeteksi Jamur: {collision.name}.");
+            //Debug.Log($"[SENSOR] Hitbox mendeteksi Jamur: {collision.name}.");
             EnvironmentBehavior environment = collision.GetComponent<EnvironmentBehavior>();
             environment.DropItem();
         }

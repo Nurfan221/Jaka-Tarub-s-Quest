@@ -48,7 +48,8 @@ public class NPCManager : MonoBehaviour
             GameObject npcObject = DatabaseManager.Instance.GetNPCPrefab(data.isChild);
             GameObject npcGO = Instantiate(npcObject, wargaDesaParent);
             NPCBehavior behavior = npcGO.GetComponent<NPCBehavior>();
-            
+            NPCInteractable interactable = npcGO.GetComponent<NPCInteractable>();
+
 
             // Inisialisasi data NPC
 
@@ -66,6 +67,11 @@ public class NPCManager : MonoBehaviour
                     data.sepatuAnimator
                 );
                 activeNpcs.Add(behavior);
+            }
+
+            if (interactable != null)
+            {
+                interactable.promptMessage = data.npcName;
             }
             int currentHour = TimeManager.Instance.hour;
             int wakeUpTime = behavior.GetStartingHour();

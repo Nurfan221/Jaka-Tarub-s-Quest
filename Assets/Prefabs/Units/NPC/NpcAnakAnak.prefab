@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 3149731949982193558}
   - component: {fileID: 1522165594464081912}
   - component: {fileID: 2517617769778707667}
+  - component: {fileID: 552909447145124103}
   m_Layer: 12
   m_Name: NpcAnakAnak
   m_TagString: Untagged
@@ -449,6 +450,18 @@ MonoBehaviour:
   - {fileID: 371202038601016561}
   - {fileID: 4771780338333503740}
   lastDirection: {x: 0, y: -1}
+--- !u!210 &552909447145124103
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3632186851480370098}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 3
+  m_SortAtRoot: 0
 --- !u!1 &4003906448872007791
 GameObject:
   m_ObjectHideFlags: 0

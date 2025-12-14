@@ -289,27 +289,7 @@ public class TreeBehavior : UniqueIdentifiableObject
         Destroy(pohonAsli);
     }
 
-    // Contoh di dalam skrip TreeBehavior.cs atau sejenisnya
-
-    //public void OnTreeChoppedDown()
-    //{
-    //    // Panggil fungsi untuk mendapatkan "paket" data untuk tahap saat ini.
-    //    GrowthStageTrees stageData = DatabaseManager.Instance.GetGrowthStageData(this.namaPohon, this.currentStage);
-
-    //    //  Lakukan pengecekan untuk memastikan data ditemukan.
-    //    if (stageData != null)
-    //    {
-    //        // Gunakan datanya. Anda sekarang bisa mengakses semua prefab dari "paket" tersebut.
-    //        tumbangSprite = stageData.batangPrefab;
-    //        akarPohonPrefab = stageData.AkarPrefab;
-
-
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("Gagal mendapatkan data tahap pertumbuhan untuk pohon ini!");
-    //    }
-    //}
+   
 
     private IEnumerator FellTree()
     {
@@ -363,7 +343,6 @@ public class TreeBehavior : UniqueIdentifiableObject
             // Hapus script animasinya agar tidak jalan
             Destroy(popUp);
 
-            // PENTING: Paksa reset scale ke 1.
             // Karena biasanya script PopUp mengubah scale jadi 0 di awal (Awake/Start).
             // Jika tidak di-reset, objeknya akan invisible.
             visualTransform.localScale = Vector3.one;
