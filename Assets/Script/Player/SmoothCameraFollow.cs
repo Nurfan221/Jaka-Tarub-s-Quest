@@ -54,4 +54,17 @@ public class SmoothCameraFollow : MonoBehaviour // Follow plyaer with damping
             particleHujan.Stop();
         }
     }
+
+    public void SnapToTarget()
+    {
+        if (target == null) return;
+
+        // Pindah instan ke posisi target + offset
+        transform.position = target.position + offset;
+
+        // PENTING: Matikan sisa momentum (kecepatan) dari SmoothDamp sebelumnya
+        velocity = Vector3.zero;
+
+        Debug.Log("Kamera dipaksa pindah instan (Snap) ke player.");
+    }
 }

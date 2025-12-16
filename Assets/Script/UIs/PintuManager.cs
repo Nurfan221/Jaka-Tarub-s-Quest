@@ -53,6 +53,7 @@ public class PintuManager : MonoBehaviour
                     Debug.Log("Posisi Pintu Masuk (pintuOut): " + pintuTujuan.pintuIn);
                     Debug.Log("posisi player sebelum pindah : " + player.transform.position);
                     player.transform.position = pintuTujuan.pintuOut;
+                    SmoothCameraFollow.Instance.SnapToTarget();
                     Debug.Log("posisi player di pindahkan ke : " + player.transform.position);
                     StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
                     SmoothCameraFollow.Instance.EnterHouse(true);
@@ -64,6 +65,7 @@ public class PintuManager : MonoBehaviour
 
                     Debug.Log("posisi player sebelum pindah : " + player.transform.position);
                     player.transform.position = pintuTujuan.pintuIn;
+                    SmoothCameraFollow.Instance.SnapToTarget();
                     Debug.Log("posisi player di pindahkan ke : " + player.transform.position);
                     StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
                     SmoothCameraFollow.Instance.EnterHouse(false);

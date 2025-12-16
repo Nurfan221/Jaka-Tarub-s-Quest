@@ -39,7 +39,18 @@ public class FarmTile : MonoBehaviour, ISaveable
             Debug.LogError("DatabaseManager Instance is null! Please ensure DatabaseManager is initialized before FarmTile.");
         }
         plantPrefab = DatabaseManager.Instance.plantWorldPrefab;
+        TilemapCollider2D tileCol = GetComponent<TilemapCollider2D>();
 
+        if (tileCol != null)
+        {
+            // Ini adalah perintah code untuk "Mencentang Kotak" yang hilang itu
+            tileCol.usedByComposite = true;
+            Debug.Log("FORCE FIX: Berhasil mengaktifkan Used By Composite via Script!");
+        }
+        else
+        {
+            Debug.LogError("FORCE FIX GAGAL: Tidak ditemukan TilemapCollider2D di objek ini!");
+        }
 
     }
 

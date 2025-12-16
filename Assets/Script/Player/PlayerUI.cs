@@ -287,33 +287,36 @@ public class PlayerUI : MonoBehaviour
         UpdateSingleIcon(imageEquippedUI, activeWeaponData);
         Image capacityBarImage = equippedUI.transform.Find("capacityBarItem").GetComponent<Image>();
         Item itemWeaponActive = ItemPool.Instance.GetItemWithQuality(activeWeaponData.itemName, activeWeaponData.quality);
-        float percentage = ((float)activeWeaponData.itemHealth / itemWeaponActive.maxhealth) * 100f;
+        if (activeWeaponData.itemName != stats.playerData.emptyItemTemplate.itemName)
+        {
+            float percentage = ((float)activeWeaponData.itemHealth / itemWeaponActive.maxhealth) * 100f;
 
 
-        // Gunakan if-else if untuk rentang nilai
-        if (percentage > 75) // Termasuk 100%
-        {
-            capacityBarImage.sprite = spriteImageTemplate.imagePersens[0].sprites; // Set sprite indikator kesehatan
-            Debug.Log($"Item health is high: {percentage}%");
-        }
-        else if (percentage > 50) // Rentang 51% - 75%
-        {
-            capacityBarImage.sprite = spriteImageTemplate.imagePersens[1].sprites; // Set sprite indikator kesehatan
-            Debug.Log($"Item health is medium: {percentage}%");
-        }
-        else if (percentage > 25) // Rentang 26% - 50%
-        {
-            capacityBarImage.sprite = spriteImageTemplate.imagePersens[2].sprites; // Set sprite indikator kesehatan
-            Debug.Log($"Item health is low: {percentage}%");
-        }
-        else if (percentage > 10) // Rentang 11% - 25%
-        {
-            capacityBarImage.sprite = spriteImageTemplate.imagePersens[3].sprites; // Set sprite indikator kesehatan   
-        }
-        else // Rentang 0% - 25%
-        {
-            capacityBarImage.sprite = spriteImageTemplate.imagePersens[4].sprites; // Set sprite indikator kesehatan
-            Debug.Log($"Item health is critical: {percentage}%");
+            // Gunakan if-else if untuk rentang nilai
+            if (percentage > 75) // Termasuk 100%
+            {
+                capacityBarImage.sprite = spriteImageTemplate.imagePersens[0].sprites; // Set sprite indikator kesehatan
+                Debug.Log($"Item health is high: {percentage}%");
+            }
+            else if (percentage > 50) // Rentang 51% - 75%
+            {
+                capacityBarImage.sprite = spriteImageTemplate.imagePersens[1].sprites; // Set sprite indikator kesehatan
+                Debug.Log($"Item health is medium: {percentage}%");
+            }
+            else if (percentage > 25) // Rentang 26% - 50%
+            {
+                capacityBarImage.sprite = spriteImageTemplate.imagePersens[2].sprites; // Set sprite indikator kesehatan
+                Debug.Log($"Item health is low: {percentage}%");
+            }
+            else if (percentage > 10) // Rentang 11% - 25%
+            {
+                capacityBarImage.sprite = spriteImageTemplate.imagePersens[3].sprites; // Set sprite indikator kesehatan   
+            }
+            else // Rentang 0% - 25%
+            {
+                capacityBarImage.sprite = spriteImageTemplate.imagePersens[4].sprites; // Set sprite indikator kesehatan
+                Debug.Log($"Item health is critical: {percentage}%");
+            }
         }
     }
 

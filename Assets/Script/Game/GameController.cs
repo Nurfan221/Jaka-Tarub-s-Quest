@@ -90,14 +90,19 @@ public class GameController : MonoBehaviour
             if (IsNewGame)
             {
                 Debug.Log($"Scene '{mainGameSceneName}' dimuat. Memulai sebagai Game Baru...");
+                Debug.Log("GameController: Membangun dunia baru dari Peta Awal...");
                 GenerateDefaultWorld();
+                FindObjectOfType<PlayerController>()?.InitializeForNewGame();
+                FindObjectOfType<PlayerController>()?.StartPlayerPosition(latestPlayerPos);
                 IsNewGame = false; // Reset "catatan"
+
             }
             else
             {
                 Debug.Log($"Scene '{mainGameSceneName}' dimuat. Melanjutkan dari Save File...");
                 LoadGame();
             }
+            SmoothCameraFollow.Instance.SnapToTarget();
         }
 
 

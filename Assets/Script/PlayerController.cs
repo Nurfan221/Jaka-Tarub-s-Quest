@@ -141,6 +141,11 @@ public class PlayerController : MonoBehaviour, ISaveable
         // PlayerUI.Instance.UpdateAllUI();
     }
 
+    public void StartPlayerPosition(Vector2 startPosition)
+    {
+        ActivePlayer.transform.position = startPosition;
+        Debug.Log($"Player dimulai di posisi: {startPosition}");
+    }
     public void InitializeForNewGame()
     {
         Debug.Log("Menginisialisasi Player untuk game baru dari PlayerData_SO...");
@@ -181,7 +186,6 @@ public class PlayerController : MonoBehaviour, ISaveable
 
         Debug.Log("Inisialisasi Pemain Selesai.");
     }
-    // CONTOH FUNGSI PERINTAH
 
 
     public void HandleMovement(Vector2 direction)

@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 1851154126}
   - component: {fileID: 1851154127}
   - component: {fileID: 1851154128}
+  - component: {fileID: 1851154129}
   m_Layer: 0
   m_Name: GameControlManager
   m_TagString: Untagged
@@ -151,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c02650208d9d2540b46ac7e6195d097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  latestPlayerPos: {x: -185, y: -12}
+  latestPlayerPos: {x: -152, y: 77.7}
   playerName: 
   enablePlayerInput: 0
   tilemap: {fileID: 0}
@@ -283,6 +284,18 @@ MonoBehaviour:
     tahun: 0
   questControllerPrefab:
   - {fileID: 7144715889913139730, guid: 46817a00f24647948b47276462426db1, type: 3}
+--- !u!114 &1851154129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851154123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc57dc988cb2b224e9e3ce0956116293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FrameRateManager
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06f5d42dba24a6498e9243dbd3a8dda, type: 3}
   m_Name: JakaTarub
   m_EditorClassIdentifier: 
-  walkSpd: 5
+  walkSpd: 3
   dashStamina: 30
   dashDistance: 20
   dashForce: 20
@@ -28,12 +28,12 @@ MonoBehaviour:
     quality: 0
     itemHealth: 0
   equippedWeaponTemplate:
-    itemName: Cangkul
-    count: 1
+    itemName: Empty
+    count: 0
     quality: 0
     itemHealth: 0
   equippedItemTemplate:
-    itemName: 
+    itemName: Empty
     count: 0
     quality: 0
     itemHealth: 0

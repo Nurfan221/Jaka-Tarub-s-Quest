@@ -82,7 +82,7 @@ public class LoadingScreenUI : MonoBehaviour
         Debug.Log("[SetLoadingandTimer] Memulai loading screen..." + achievementText);
         isAnimating = true;
         ShowLoading(achievement, achievementText);
-        yield return new WaitForSecondsRealtime(1.5f); // Jeda minimal 1.5 detik agar tips terbaca
+        yield return new WaitForSecondsRealtime(2f); // Jeda minimal 1.5 detik agar tips terbaca
         LoadingScreenUI.Instance.HideLoading();
     }
 
