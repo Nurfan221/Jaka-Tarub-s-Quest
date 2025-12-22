@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7057871296556573875}
   - component: {fileID: 648529286410309539}
   - component: {fileID: -2238876471720191996}
+  - component: {fileID: 8276201592905830112}
   m_Layer: 0
   m_Name: Stone_Stone_VeryHard_A
   m_TagString: Stone
@@ -107,43 +108,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
-  itemDropMines:
-  - itemName: Batu
-    count: 1
-    quality: 0
-    itemHealth: 0
-  - itemName: CoalOre
-    count: 1
-    quality: 0
-    itemHealth: 0
-  - itemName: CopperOre
-    count: 1
-    quality: 0
-    itemHealth: 0
-  - itemName: IronOre
-    count: 1
-    quality: 0
-    itemHealth: 0
+  itemDropMines: []
   hitEffectPrefab: {fileID: 416280218566542200}
   nameStone: Stone_Stone_VeryHard_A
   stoneType: 2
   environmentHardnessLevel: 4
-  stoneAnimation:
-  - {fileID: 6403163858679429358, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
-  - {fileID: 4173018289627400308, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
-  - {fileID: 651135943791249256, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
-  - {fileID: -9214515202847400230, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
-  - {fileID: 1451376041264858180, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
-  - {fileID: -7085001749042906605, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
-  - {fileID: -303902461451481744, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
-  - {fileID: -1984176748466978555, guid: baaa8ffc7a66a3c4a86ee1ddfd639ce9, type: 3}
-  frameRate: 0.1
   minHasil: 4
   maxHasil: 5
   health: 100
   isLucky: 0
   dayToRespawn: 0
   diHancurkan: 0
+  stoneAnimatorController: {fileID: 22100000, guid: 1c46447e50fa48242a7cde0a002fad25, type: 2}
+  srVisualChild: {fileID: 0}
   maxRareDropsLimit: 2
   commonTierItems:
   - itemName: Batu
@@ -247,6 +224,28 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   startYOffset: -2
+--- !u!95 &8276201592905830112
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562009284141931606}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 1c46447e50fa48242a7cde0a002fad25, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5629639240774162740
 PrefabInstance:
   m_ObjectHideFlags: 0

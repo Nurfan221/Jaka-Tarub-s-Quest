@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 
 
@@ -14,8 +16,6 @@ public class StoneBehavior : UniqueIdentifiableObject
     public string nameStone;
     public TypeObject stoneType;
     public EnvironmentHardnessLevel environmentHardnessLevel;
-    public Sprite[] stoneAnimation;
-    public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
 
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
     private int currentFrame = 0; // Indeks frame saat ini
@@ -27,6 +27,11 @@ public class StoneBehavior : UniqueIdentifiableObject
     public int dayToRespawn;
     public bool diHancurkan = false;
 
+    [Header("Animation Settings")]
+    // Masukkan file Override Animator Controller yang spesifik untuk batu ini
+    public RuntimeAnimatorController stoneAnimatorController;
+    public SpriteRenderer srVisualChild;
+    private Animator stoneAnimator;
 
     [Header("Drop Tiers & Balancing")]
     [Tooltip("Batas maksimal item langka yang bisa didapat dari satu batu, untuk menjaga keseimbangan.")]
@@ -76,19 +81,53 @@ public class StoneBehavior : UniqueIdentifiableObject
     public void Start()
     {
         hitEffectPrefab = gameObject.GetComponentInChildren<ParticleSystem>();
+        
+        SetupVisualComponent();
+
+
+
+        //StartCoroutine(PlayStoneAnimation()); // Mulai animasi
+
+    }
+
+    private void SetupVisualComponent()
+    {
         Transform visualChild = transform.Find("Visual");
+        Debug.Log("memanggil fungsi setup component visual");
 
         if (visualChild != null)
         {
-            // Ambil komponen dari anak tersebut
-            spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+            Debug.Log("ya component visual ditemukan");
+            // 1. Ambil SpriteRenderer (Code lama kamu)
+            srVisualChild = visualChild.GetComponent<SpriteRenderer>();
+
+            // 2. TAMBAHKAN Component Animator secara manual lewat code
+            // Kita cek dulu biar ga double, kalau belum ada baru tambah
+            stoneAnimator = visualChild.GetComponent<Animator>();
+            if (stoneAnimator == null)
+            {
+                stoneAnimator = visualChild.gameObject.AddComponent<Animator>();
+            }
+
+            // 3. Pasang "Kaset" (Controller) ke dalam Animator
+            if (stoneAnimatorController != null)
+            {
+
+                stoneAnimator.runtimeAnimatorController = stoneAnimatorController;
+            }
+            else
+            {
+                Debug.LogError("Lupa memasukkan stoneAnimatorController di Inspector!");
+            }
+
+            // 4. PENTING: Setting Anti-Lag (Culling Mode)
+            // Karena ini lewat code, kita harus set manual agar tidak lag di kota
+            stoneAnimator.cullingMode = AnimatorCullingMode.CullCompletely;
         }
         else
         {
-            Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
+            Debug.LogError("ohhh tidak component visual tidak ditemukan anda dongok");
         }
-        StartCoroutine(PlayStoneAnimation()); // Mulai animasi
-
     }
 
     private void CategorizeItemsIntoTiers()
@@ -134,18 +173,7 @@ public class StoneBehavior : UniqueIdentifiableObject
         Debug.Log($"[LOAD] Batu {nameStone} memiliki {itemDropMines.Count} hasil tambang yang mungkin.");
     }
 
-    private IEnumerator PlayStoneAnimation()
-    {
-        while (true) // Loop tanpa batas (animasi berulang)
-        {
-            if (stoneAnimation.Length > 0) // Pastikan array sprite tidak kosong
-            {
-                spriteRenderer.sprite = stoneAnimation[currentFrame]; // Setel sprite saat ini
-                currentFrame = (currentFrame + 1) % stoneAnimation.Length; // Pindah ke frame berikutnya (loop)
-            }
-            yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
-        }
-    }
+   
 
     public void TakeDamage(int damage)
     {

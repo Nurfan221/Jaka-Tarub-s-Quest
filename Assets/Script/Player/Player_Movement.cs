@@ -18,11 +18,10 @@ public class Player_Movement : MonoBehaviour
     public bool isDashing = false;
     private PlayerData_SO stats;
     public bool IsMoving { get; private set; } // Properti publik yang bisa dibaca skrip lain
-
+    public bool ifDisturbed; // Menandai jika pemain sedang terganggu (misal terkena knockback)
     // Start berjalan sekali saat objek ini dibuat di scene baru.
     void Start()
     {
-        // "Halo Kantor Pusat, saya Karyawan baru di cabang ini. Ini data saya."
 
     }
 
@@ -46,8 +45,8 @@ public class Player_Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Hanya bergerak jika tidak sedang melakukan aksi lain seperti dash
-        if (!isDashing)
+        // Jangan paksa velocity 0 di sini kalau mau ada fitur Knockback.
+        if (!isDashing && !ifDisturbed)
         {
             HandleMovement();
         }
@@ -132,5 +131,31 @@ public class Player_Movement : MonoBehaviour
         yield return new WaitForSeconds(0.3f); // Anda bisa membuat ini menjadi variabel di PlayerController
 
         isDashing = false;
+    }
+
+    public void Disturbed(float delayTime)
+    {
+        // Jika sudah disturbed, jangan ditumpuk (opsional)
+        if (ifDisturbed) return;
+
+        StartCoroutine(DisturbRoutine(delayTime));
+    }
+
+   
+    private IEnumerator DisturbRoutine(float time)
+    {
+        ifDisturbed = true;
+        IsMoving = false;
+
+        // Paksa berhenti total agar tidak ada sisa momentum (sliding)
+        rb.linearVelocity = Vector2.zero;
+
+        Debug.Log("Player berhenti bergerak selama: " + time + " detik.");
+
+        yield return new WaitForSeconds(time);
+
+        ifDisturbed = false;
+        IsMoving = movementDirection.magnitude > 0.1f;
+        Debug.Log("Player bisa jalan lagi.");
     }
 }

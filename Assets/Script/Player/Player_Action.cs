@@ -170,6 +170,10 @@ public class Player_Action : MonoBehaviour
     {
         if (combatMode && canAttack)
         {
+            if (PlayerController.Instance.ActivePlayer.Movement.IsMoving == true)
+            {
+                
+            }
             Attack();
         }
     }
@@ -391,7 +395,7 @@ public class Player_Action : MonoBehaviour
     public void Attack()
     {
         Debug.Log("Tombol attack ditekan");
-
+        PlayerController.Instance.ActivePlayer.Movement.Disturbed(0.5f);
         Item itemToAttack = ItemPool.Instance.GetItemWithQuality(
             playerData.equippedWeaponTemplate.itemName,
             playerData.equippedWeaponTemplate.quality

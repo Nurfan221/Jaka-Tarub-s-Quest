@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7057871296556573875}
   - component: {fileID: 648529286410309539}
   - component: {fileID: -4724548224843492358}
+  - component: {fileID: 2624646257796195191}
   m_Layer: 0
   m_Name: Stone_Stone_Medium_B
   m_TagString: Stone
@@ -107,35 +108,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
-  itemDropMines:
-  - itemName: Batu
-    count: 1
-    quality: 0
-    itemHealth: 0
-  - itemName: CoalOre
-    count: 1
-    quality: 0
-    itemHealth: 0
+  itemDropMines: []
   hitEffectPrefab: {fileID: 5851676649146228571}
   nameStone: Stone_Stone__Medium_B
   stoneType: 2
   environmentHardnessLevel: 2
-  stoneAnimation:
-  - {fileID: 6703084373706385848, guid: 6ecb4a39c65cc7c42baf5585d10400cc, type: 3}
-  - {fileID: -7934921165325521576, guid: 6ecb4a39c65cc7c42baf5585d10400cc, type: 3}
-  - {fileID: 5103984521764242021, guid: 6ecb4a39c65cc7c42baf5585d10400cc, type: 3}
-  - {fileID: -2831850717157866787, guid: 6ecb4a39c65cc7c42baf5585d10400cc, type: 3}
-  - {fileID: 5027610552535077253, guid: 6ecb4a39c65cc7c42baf5585d10400cc, type: 3}
-  - {fileID: -594704742, guid: 6ecb4a39c65cc7c42baf5585d10400cc, type: 3}
-  - {fileID: -2120216595, guid: 6ecb4a39c65cc7c42baf5585d10400cc, type: 3}
-  - {fileID: 1797287494, guid: 6ecb4a39c65cc7c42baf5585d10400cc, type: 3}
-  frameRate: 0.1
   minHasil: 3
   maxHasil: 5
   health: 50
   isLucky: 0
   dayToRespawn: 0
   diHancurkan: 0
+  stoneAnimatorController: {fileID: 22100000, guid: 1ee55b0538499cc469c01516037b40c7, type: 2}
+  srVisualChild: {fileID: 0}
   maxRareDropsLimit: 2
   commonTierItems: []
   uncommonTierItems:
@@ -231,6 +216,28 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   startYOffset: -2
+--- !u!95 &2624646257796195191
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7562009284141931606}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 1ee55b0538499cc469c01516037b40c7, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1933107744400786711
 PrefabInstance:
   m_ObjectHideFlags: 0

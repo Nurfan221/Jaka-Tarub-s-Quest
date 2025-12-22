@@ -45,6 +45,24 @@ public class Player_Anim : MonoBehaviour
         if (bodyAnimator == null) return;
 
         if (isTakingDamage) return;
+        if (pm.ifDisturbed)
+        {
+            // 1. Set parameter Master ke Idle (Speed 0)
+            SetAnimParameters(bodyAnimator, lastDirection.x, lastDirection.y, 0f);
+
+            // 2. Wajib Sync ke Slave (Baju, Celana, dll) juga!
+            foreach (Animator anim in layerAnimators)
+            {
+                anim.SetFloat("Speed", 0f);
+                anim.SetFloat("MoveX", bodyAnimator.GetFloat("MoveX"));
+                anim.SetFloat("MoveY", bodyAnimator.GetFloat("MoveY"));
+                anim.SetFloat("IdleX", bodyAnimator.GetFloat("IdleX"));
+                anim.SetFloat("IdleY", bodyAnimator.GetFloat("IdleY"));
+            }
+
+            // Baru setelah parameternya di-nol-kan, kita return agar tidak baca input gerakan
+            return;
+        }
 
         Vector2 movement = pm.movementDirection.normalized;
         bool isMoving = movement != Vector2.zero;

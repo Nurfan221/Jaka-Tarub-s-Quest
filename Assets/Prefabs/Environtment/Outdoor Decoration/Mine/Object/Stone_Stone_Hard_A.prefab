@@ -124,22 +124,14 @@ MonoBehaviour:
   nameStone: Stone_Stone_Hard_A
   stoneType: 2
   environmentHardnessLevel: 3
-  stoneAnimation:
-  - {fileID: 8634735989486108777, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: -1285751726934154449, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: 8394446161846293014, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: -7548031542147728232, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: 6161726829266164557, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: -1566700280, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: 788949051, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  - {fileID: -86480837, guid: 3636243d99988a341ba761aafb50b0ad, type: 3}
-  frameRate: 0.1
   minHasil: 4
   maxHasil: 5
   health: 75
   isLucky: 0
   dayToRespawn: 0
   diHancurkan: 0
+  stoneAnimatorController: {fileID: 22100000, guid: 484b65836f7f99c41a83036af16ab82e, type: 2}
+  srVisualChild: {fileID: 0}
   maxRareDropsLimit: 2
   commonTierItems:
   - itemName: Batu

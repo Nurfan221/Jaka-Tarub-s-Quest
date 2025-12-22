@@ -107,39 +107,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
-  itemDropMines:
-  - itemName: Batu
-    count: 1
-    quality: 0
-    itemHealth: 0
-  - itemName: CoalOre
-    count: 1
-    quality: 0
-    itemHealth: 0
-  - itemName: CopperOre
-    count: 1
-    quality: 0
-    itemHealth: 0
-  - itemName: IronOre
-    count: 1
-    quality: 0
-    itemHealth: 0
-  - itemName: GoldOre
-    count: 1
-    quality: 0
-    itemHealth: 0
+  itemDropMines: []
   hitEffectPrefab: {fileID: 211618867832749427}
   nameStone: Gold_Gold_Extreme_A
   stoneType: 6
   environmentHardnessLevel: 5
-  stoneAnimation: []
-  frameRate: 0.1
   minHasil: 5
   maxHasil: 6
   health: 120
   isLucky: 0
   dayToRespawn: 0
   diHancurkan: 0
+  stoneAnimatorController: {fileID: 0}
+  srVisualChild: {fileID: 0}
   maxRareDropsLimit: 2
   commonTierItems:
   - itemName: Batu

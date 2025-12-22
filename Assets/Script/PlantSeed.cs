@@ -33,6 +33,7 @@ public class PlantSeed : UniqueIdentifiableObject
     public Item plantSeedItem; // Referensi ke item benih
 
     // Data Internal
+    public SpriteRenderer spriteRenderer; // Referensi ke komponen SpriteRenderer
     public float growthTimer = 0; // Menghitung progres pertumbuhan (dalam hari)
     public int insectTime = 0; // Menghitung berapa lama tanaman terinfeksi
 
@@ -68,6 +69,11 @@ public class PlantSeed : UniqueIdentifiableObject
     }
 
     #endregion
+
+    private void Awake()
+    {
+       
+    }
     private void Start()
     {
         // Cari GameObject anak berdasarkan NAMA, lalu ambil komponen ParticleSystem-nya.
@@ -98,11 +104,24 @@ public class PlantSeed : UniqueIdentifiableObject
             harvestParticle = harvestTransform.GetComponent<ParticleSystem>();
         }
 
+        Transform visualChild = transform.Find("Visual");
+
+        if (visualChild != null)
+        {
+            // Ambil komponen dari anak tersebut
+            spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
+        }
         // Hitung waktu jeda pertumbuhan jika belum di-set
         if (growthSpeed <= 0 && growthImages.Length > 0)
         {
             growthSpeed = growthTime / growthImages.Length;
         }
+
+       
         UpdateParticleEffect();
     }
     public void Initialize()
@@ -134,14 +153,24 @@ public class PlantSeed : UniqueIdentifiableObject
             // DEBUGGING LOG
             Debug.Log($"[DEBUG] UpdateSprite: Mengganti sprite ke growthImages[{stageIndex}]. Nama Sprite: {growthImages[stageIndex].name}");
             // AKHIR DEBUGGING
-            GetComponent<SpriteRenderer>().sprite = growthImages[stageIndex];
+            Transform visualChild = transform.Find("Visual");
+
+            if (visualChild != null)
+            {
+                // Ambil komponen dari anak tersebut
+                spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+            }
+            else
+            {
+                Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
+            }
+            spriteRenderer.sprite = growthImages[stageIndex];
         }
         else
         {
-            // DEBUGGING LOG
+            
             Debug.LogError($"[DEBUG] UpdateSprite GAGAL: Index {stageIndex} di luar jangkauan array growthImages (panjang: {growthImages.Length}).");
             Debug.LogError($"[DEBUG] nilai currentStage = {(int)currentStage} dan nilai growthImages =   (panjang: {growthImages.Length}).");
-            // AKHIR DEBUGGING
         }
     }
 
