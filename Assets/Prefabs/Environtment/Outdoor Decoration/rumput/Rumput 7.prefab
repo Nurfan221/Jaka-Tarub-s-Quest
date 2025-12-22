@@ -110,18 +110,9 @@ MonoBehaviour:
   typePlant: 0
   arahObject: 0
   environmentType: 7
-  rumputAnimation:
-  - {fileID: 5372811265991399144, guid: bdf288f223e01b042913a2cd7ddbe9f4, type: 3}
-  - {fileID: -4891077721595709106, guid: bdf288f223e01b042913a2cd7ddbe9f4, type: 3}
-  - {fileID: 7415959192253560757, guid: bdf288f223e01b042913a2cd7ddbe9f4, type: 3}
-  - {fileID: 9215400269077551327, guid: bdf288f223e01b042913a2cd7ddbe9f4, type: 3}
-  - {fileID: 1058016788580928116, guid: bdf288f223e01b042913a2cd7ddbe9f4, type: 3}
-  - {fileID: -1278657252, guid: bdf288f223e01b042913a2cd7ddbe9f4, type: 3}
-  - {fileID: -1948526420, guid: bdf288f223e01b042913a2cd7ddbe9f4, type: 3}
-  - {fileID: -104115326, guid: bdf288f223e01b042913a2cd7ddbe9f4, type: 3}
-  frameRate: 0.2
   nameEnvironment: 
   itemDrop: {fileID: 0}
+  stoneAnimatorController: {fileID: 22100000, guid: 991a847d9d94ac24fa153d15e9abe2f5, type: 2}
 --- !u!114 &3317693196127563932
 MonoBehaviour:
   m_ObjectHideFlags: 0

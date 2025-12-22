@@ -17,8 +17,6 @@ public class StoneBehavior : UniqueIdentifiableObject
     public TypeObject stoneType;
     public EnvironmentHardnessLevel environmentHardnessLevel;
 
-    private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
-    private int currentFrame = 0; // Indeks frame saat ini
     public int minHasil;
     public int maxHasil;
 
@@ -98,10 +96,8 @@ public class StoneBehavior : UniqueIdentifiableObject
         if (visualChild != null)
         {
             Debug.Log("ya component visual ditemukan");
-            // 1. Ambil SpriteRenderer (Code lama kamu)
             srVisualChild = visualChild.GetComponent<SpriteRenderer>();
 
-            // 2. TAMBAHKAN Component Animator secara manual lewat code
             // Kita cek dulu biar ga double, kalau belum ada baru tambah
             stoneAnimator = visualChild.GetComponent<Animator>();
             if (stoneAnimator == null)
@@ -109,7 +105,6 @@ public class StoneBehavior : UniqueIdentifiableObject
                 stoneAnimator = visualChild.gameObject.AddComponent<Animator>();
             }
 
-            // 3. Pasang "Kaset" (Controller) ke dalam Animator
             if (stoneAnimatorController != null)
             {
 
@@ -120,7 +115,6 @@ public class StoneBehavior : UniqueIdentifiableObject
                 Debug.LogError("Lupa memasukkan stoneAnimatorController di Inspector!");
             }
 
-            // 4. PENTING: Setting Anti-Lag (Culling Mode)
             // Karena ini lewat code, kita harus set manual agar tidak lag di kota
             stoneAnimator.cullingMode = AnimatorCullingMode.CullCompletely;
         }

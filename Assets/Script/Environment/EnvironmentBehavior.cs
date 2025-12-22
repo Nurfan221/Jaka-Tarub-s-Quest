@@ -10,14 +10,15 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
     public TypePlant typePlant;
     public ArahObject arahObject;
     public EnvironmentType environmentType;
-    //Animation idle 
-    public Sprite[] rumputAnimation;
-    public float frameRate = 0.3f; // Waktu per frame (kecepatan animasi)
 
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
-    private int currentFrame = 0; // Indeks frame saat ini
     public string nameEnvironment;
     public Item itemDrop;
+
+    [Header("Animation Settings")]
+    // Masukkan file Override Animator Controller yang spesifik untuk batu ini
+    public RuntimeAnimatorController stoneAnimatorController;
+    private Animator stoneAnimator;
 
     #region Unique ID Implementation
 
@@ -56,33 +57,45 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
     #endregion
     public void Start()
     {
+        SetupVisualComponent();
+    }
+
+    private void SetupVisualComponent()
+    {
         Transform visualChild = transform.Find("Visual");
+        Debug.Log("memanggil fungsi setup component visual");
 
         if (visualChild != null)
         {
-            // Ambil komponen dari anak tersebut
+            Debug.Log("ya component visual ditemukan");
             spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+
+            // Kita cek dulu biar ga double, kalau belum ada baru tambah
+            stoneAnimator = visualChild.GetComponent<Animator>();
+            if (stoneAnimator == null)
+            {
+                stoneAnimator = visualChild.gameObject.AddComponent<Animator>();
+            }
+
+            if (stoneAnimatorController != null)
+            {
+
+                stoneAnimator.runtimeAnimatorController = stoneAnimatorController;
+            }
+            else
+            {
+                Debug.LogError("Lupa memasukkan stoneAnimatorController di Inspector!");
+            }
+
+            // Karena ini lewat code, kita harus set manual agar tidak lag di kota
+            stoneAnimator.cullingMode = AnimatorCullingMode.CullCompletely;
         }
         else
         {
-            Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!" + gameObject.name);
-        }
-        StartCoroutine(PlayrumputAnimation()); // Mulai animasi
-    }
-
-    private IEnumerator PlayrumputAnimation()
-    {
-        while (true) // Loop tanpa batas (animasi berulang)
-        {
-            if (rumputAnimation.Length > 0) // Pastikan array sprite tidak kosong
-            {
-
-                spriteRenderer.sprite = rumputAnimation[currentFrame]; // Setel sprite saat ini
-                currentFrame = (currentFrame + 1) % rumputAnimation.Length; // Pindah ke frame berikutnya (loop)
-            }
-            yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
+            Debug.LogError("ohhh tidak component visual tidak ditemukan anda dongok");
         }
     }
+
 
     public void GetItemDrop()
     {
