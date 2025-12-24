@@ -113,18 +113,10 @@ MonoBehaviour:
   typePlant: 0
   arahObject: 0
   environmentType: 8
-  rumputAnimation:
-  - {fileID: 3066779294536387729, guid: 0f1a208b093d3a04f851bc7ca807375a, type: 3}
-  - {fileID: -3257622711127739074, guid: 0f1a208b093d3a04f851bc7ca807375a, type: 3}
-  - {fileID: -8064034678406961977, guid: 0f1a208b093d3a04f851bc7ca807375a, type: 3}
-  - {fileID: -1889310976952682105, guid: 0f1a208b093d3a04f851bc7ca807375a, type: 3}
-  - {fileID: -4018377224095358813, guid: 0f1a208b093d3a04f851bc7ca807375a, type: 3}
-  - {fileID: 2842326939648682177, guid: 0f1a208b093d3a04f851bc7ca807375a, type: 3}
-  - {fileID: -7471947856677433684, guid: 0f1a208b093d3a04f851bc7ca807375a, type: 3}
-  - {fileID: -3351527725333669144, guid: 0f1a208b093d3a04f851bc7ca807375a, type: 3}
-  frameRate: 0.1
+  useAnimation: 0
   nameEnvironment: 
   itemDrop: {fileID: 0}
+  stoneAnimatorController: {fileID: 0}
 --- !u!114 &875132793960531145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +182,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0

@@ -510,7 +510,19 @@ public class InventoryUI : MonoBehaviour
                 }
 
 
-
+                Button button = itemInDisplay.GetComponent<Button>();
+                if (button != null)
+                {
+                    ItemData currentItemData = stats.inventory[i];
+                    button.onClick.RemoveAllListeners();
+                    button.onClick.AddListener(() =>
+                    {
+                        Debug.Log($"Item {item.itemName} clicked in 6-item display");
+                        //SetDescription(currentItemData);
+                        //ShowDescription();
+                        SimpleUIEquppedToggle.Instance.TekanTombol(currentItemData);
+                    });
+                }
             }
         }
     }

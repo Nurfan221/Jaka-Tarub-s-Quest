@@ -83,6 +83,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             Debug.LogError("EnvironmentManager tidak ditemukan saat Start!");
         }
+
+        
     }
 
 
