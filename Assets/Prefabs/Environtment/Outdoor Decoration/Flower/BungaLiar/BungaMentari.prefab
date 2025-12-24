@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 3248506871542303108, guid: a804cb26081e4a94abfe4db3f8abaa86, type: 3}
+  m_Sprite: {fileID: -6498066330943334490, guid: e44909bd8e177d449876b2a6c6f81fa9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,16 +112,10 @@ MonoBehaviour:
   typePlant: 9
   arahObject: 0
   environmentType: 0
-  rumputAnimation:
-  - {fileID: 2940100041870876891, guid: a804cb26081e4a94abfe4db3f8abaa86, type: 3}
-  - {fileID: 534943578264401101, guid: a804cb26081e4a94abfe4db3f8abaa86, type: 3}
-  - {fileID: 6108597609691630551, guid: a804cb26081e4a94abfe4db3f8abaa86, type: 3}
-  - {fileID: 1267845064520677823, guid: a804cb26081e4a94abfe4db3f8abaa86, type: 3}
-  - {fileID: 6336724689779525440, guid: a804cb26081e4a94abfe4db3f8abaa86, type: 3}
-  - {fileID: 3248506871542303108, guid: a804cb26081e4a94abfe4db3f8abaa86, type: 3}
-  frameRate: 0.2
+  useAnimation: 1
   nameEnvironment: BungaMentari
   itemDrop: {fileID: 11400000, guid: 283b07bae4d92ff4d9d5418e793eca28, type: 2}
+  stoneAnimatorController: {fileID: 22100000, guid: c3d3171f3bbe713408d17be9490dc785, type: 2}
 --- !u!61 &5817962037388929403
 BoxCollider2D:
   m_ObjectHideFlags: 0

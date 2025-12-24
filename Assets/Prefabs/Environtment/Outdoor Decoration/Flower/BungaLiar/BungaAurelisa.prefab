@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 8112516231474022800, guid: 615906cced2045240b700435d3772e6c, type: 3}
+  m_Sprite: {fileID: -7799544855312961510, guid: 97019d6c8fbcb124c9a42f7e237ed13e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,16 +112,10 @@ MonoBehaviour:
   typePlant: 6
   arahObject: 0
   environmentType: 0
-  rumputAnimation:
-  - {fileID: 2304590976490955289, guid: 615906cced2045240b700435d3772e6c, type: 3}
-  - {fileID: -854478953058316596, guid: 615906cced2045240b700435d3772e6c, type: 3}
-  - {fileID: 9151960184182602527, guid: 615906cced2045240b700435d3772e6c, type: 3}
-  - {fileID: -2602883371417784970, guid: 615906cced2045240b700435d3772e6c, type: 3}
-  - {fileID: 521395233233187071, guid: 615906cced2045240b700435d3772e6c, type: 3}
-  - {fileID: 8112516231474022800, guid: 615906cced2045240b700435d3772e6c, type: 3}
-  frameRate: 0.2
+  useAnimation: 1
   nameEnvironment: BungaAurelisa
   itemDrop: {fileID: 11400000, guid: b39c74a7ad46f304196411e11926e49f, type: 2}
+  stoneAnimatorController: {fileID: 22100000, guid: 6309692a6704a7c4daac16efab1ffa30, type: 2}
 --- !u!61 &5817962037388929403
 BoxCollider2D:
   m_ObjectHideFlags: 0

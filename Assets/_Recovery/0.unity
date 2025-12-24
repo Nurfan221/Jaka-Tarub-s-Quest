@@ -1,0 +1,303 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+OcclusionCullingSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: 0.25
+    backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
+--- !u!104 &2
+RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 10
+  m_Fog: 0
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.01
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SkyboxMaterial: {fileID: 0}
+  m_HaloStrength: 0.5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
+  m_UseRadianceAmbientProbe: 0
+--- !u!157 &3
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 0
+    m_EnableRealtimeLightmaps: 0
+  m_LightmapEditorSettings:
+    serializedVersion: 12
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_AtlasSize: 1024
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
+    m_Padding: 2
+    m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
+    m_TextureCompression: 1
+    m_ReflectionCompression: 2
+    m_MixedBakeMode: 2
+    m_BakeBackend: 1
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 1
+    m_PVRDenoiserTypeDirect: 1
+    m_PVRDenoiserTypeIndirect: 1
+    m_PVRDenoiserTypeAO: 1
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVREnvironmentMIS: 1
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 1
+    m_PVRFilteringGaussRadiusAO: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
+  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingSettings: {fileID: 0}
+--- !u!196 &4
+NavMeshSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    serializedVersion: 3
+    agentTypeID: 0
+    agentRadius: 0.5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: 0.4
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    minRegionArea: 2
+    manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    buildHeightMesh: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
+    debug:
+      m_Flags: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!1 &1851154123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1851154125}
+  - component: {fileID: 1851154124}
+  - component: {fileID: 1851154126}
+  - component: {fileID: 1851154127}
+  - component: {fileID: 1851154128}
+  - component: {fileID: 1851154129}
+  m_Layer: 0
+  m_Name: GameControlManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1851154124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851154123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c02650208d9d2540b46ac7e6195d097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  latestPlayerPos: {x: -152, y: 77.7}
+  playerName: 
+  enablePlayerInput: 0
+  tilemap: {fileID: 0}
+  canPause: 1
+  gamePaused: 0
+  currentState: 0
+  lokasiPerawatan: {x: -185, y: -13}
+  dialogPingsan: {fileID: 11400000, guid: ca9acf50d763d434fa0e1900ec2406c8, type: 2}
+  dialogSekarat: {fileID: 11400000, guid: 90829c4a9c523204192f78b4c8246f74, type: 2}
+--- !u!4 &1851154125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851154123}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 870.53375, y: 515.95416, z: -5.8226314}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1851154126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851154123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25944691a454d55439e59aae810784fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainGameSceneName: MainGameScene
+--- !u!114 &1851154127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851154123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffffa809aadeb2e448b65e111741baae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuSceneName: MainMenu
+--- !u!114 &1851154128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851154123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257b1e780f1f6e24ab7bc5544316d942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftingDatabase: {fileID: 11400000, guid: 247105586ee62a34ab98c64cde2271af, type: 2}
+  cookingDatabase: {fileID: 11400000, guid: ab57c9d15faf1234691e34c8ab4f91f3, type: 2}
+  itemShopDatabase: {fileID: 11400000, guid: 61df195f40e759d468d8175af778bbf7, type: 2}
+  storageDatabase: {fileID: 11400000, guid: 14f22e1274fb82e45b11ac970faa1f65, type: 2}
+  worldTreeDatabase: {fileID: 11400000, guid: d6db586e87c31de46bc0760a2e5ea583, type: 2}
+  worldStoneDatabase: {fileID: 11400000, guid: 2d38dd1cadc69b147809d86050d7ff16, type: 2}
+  environmentDatabase: {fileID: 11400000, guid: 8e673a0d79ce630408d5fab07376faea, type: 2}
+  sampahDatabase: {fileID: 11400000, guid: e07207c4ff7633e439df47f3c344cdc7, type: 2}
+  upgradeToolsDatabase: {fileID: 11400000, guid: ca4e0a457dddff34cb3115b790ffffdc, type: 2}
+  farmData_SO: {fileID: 11400000, guid: 73795b77998d91e4190c31ac190c71f4, type: 2}
+  spriteDatabase: {fileID: 11400000, guid: c42a311dcbd50c146ba627f7cd96ffc2, type: 2}
+  emoticonDatabase: {fileID: 11400000, guid: 623dc0e3ff44f084f8814ec3d0f8c832, type: 2}
+  templateTreesObject: {fileID: 11400000, guid: 16971a1dba179b9439e725823376f96b, type: 2}
+  listPintu:
+  - lokasiName: RumahJaka
+    idPintu: 1
+    pintuIn: {x: -14, y: 6}
+    pintuOut: {x: -157.5, y: 72}
+  - lokasiName: ItemShop
+    idPintu: 2
+    pintuIn: {x: 39.5, y: -2}
+    pintuOut: {x: -211.5, y: 77}
+  - lokasiName: FoodShop
+    idPintu: 3
+    pintuIn: {x: 24.5, y: -16}
+    pintuOut: {x: -211, y: 46}
+  - lokasiName: Library
+    idPintu: 5
+    pintuIn: {x: 33.5, y: -7.5}
+    pintuOut: {x: -164, y: 45}
+  - lokasiName: RumahFahri
+    idPintu: 6
+    pintuIn: {x: 26.5, y: -4}
+    pintuOut: {x: -154, y: 11}
+  - lokasiName: TokoMamat
+    idPintu: 4
+    pintuIn: {x: 54, y: -20}
+    pintuOut: {x: -210, y: 13}
+  - lokasiName: KantorDesa
+    idPintu: 7
+    pintuIn: {x: 74.5, y: -32}
+    pintuOut: {x: -157.54, y: -18.5}
+  - lokasiName: RumahAmru
+    idPintu: 8
+    pintuIn: {x: 65, y: -24}
+    pintuOut: {x: -249, y: 76}
+  - lokasiName: RumahBima
+    idPintu: 9
+    pintuIn: {x: 44, y: -6}
+    pintuOut: {x: -246, y: 44}
+  itemWorldPrefab: {fileID: 4459120725376062254, guid: fcf6058b0a7c2534a9ee6e4538b1ab04, type: 3}
+  plantWorldPrefab: {fileID: 2120680195082938319, guid: 1b9eff35e73337c42be7a10f3901c222, type: 3}
+  storageWorldPrefab: {fileID: 5454017072709228803, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
+  furnanceWorldPrefab: {fileID: 8687371611602760786, guid: ccd682afe2d4aa043b01ae37338ba200, type: 3}
+  perangkapWorldPrefab: {fileID: 4992219504839692284, guid: 704fea7ce88ee2c49a1cfa225bd6472f, type: 3}
+  peleburWorldPrefab: {fileID: 8687371611602760786, guid: 017bb7b06de6b68489608caa73f0b856, type: 3}
+  komporWorldPrefab: {fileID: 8687371611602760786, guid: ccd682afe2d4aa043b01ae37338ba200, type: 3}
+  EnemyWorldPrefab: {fileID: 1784783501594626427, guid: 39e0a5c4b0e9b704ea70f36a83fd4360, type: 3}
+  NPCAdultPrefab: {fileID: 3632186851480370098, guid: b747942da01865a4ea8d215266b4f27b, type: 3}
+  NPCChildPrefab: {fileID: 3632186851480370098, guid: 3c5fc1183684d8d40b02084ed2df389b, type: 3}
+  timeManagerDatabase:
+    totalHari: 0
+    hari: 0
+    date: 0
+    minggu: 0
+    bulan: 0
+    tahun: 0
+  questControllerPrefab:
+  - {fileID: 7144715889913139730, guid: 46817a00f24647948b47276462426db1, type: 3}
+--- !u!114 &1851154129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851154123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc57dc988cb2b224e9e3ce0956116293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FrameRateManager
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 1851154125}

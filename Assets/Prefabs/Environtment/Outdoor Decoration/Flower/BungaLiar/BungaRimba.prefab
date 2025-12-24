@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -4743256196173360213, guid: 0f04360dabd74f741848bfac80830855, type: 3}
+  m_Sprite: {fileID: 6129512452458786402, guid: 73e8a41fc89f50147ae5d9df45cd2d85, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,16 +112,10 @@ MonoBehaviour:
   typePlant: 10
   arahObject: 0
   environmentType: 0
-  rumputAnimation:
-  - {fileID: -5193805509294268398, guid: 0f04360dabd74f741848bfac80830855, type: 3}
-  - {fileID: 4285765978910053380, guid: 0f04360dabd74f741848bfac80830855, type: 3}
-  - {fileID: -6922983916978738965, guid: 0f04360dabd74f741848bfac80830855, type: 3}
-  - {fileID: 6163923962971735083, guid: 0f04360dabd74f741848bfac80830855, type: 3}
-  - {fileID: -3503982557988263907, guid: 0f04360dabd74f741848bfac80830855, type: 3}
-  - {fileID: -4743256196173360213, guid: 0f04360dabd74f741848bfac80830855, type: 3}
-  frameRate: 0.2
+  useAnimation: 1
   nameEnvironment: BungaRimba
   itemDrop: {fileID: 11400000, guid: 5d39f9aafcce956418b488d06b221122, type: 2}
+  stoneAnimatorController: {fileID: 22100000, guid: 0be22781850a95f47aed3cf12d21559d, type: 2}
 --- !u!61 &5817962037388929403
 BoxCollider2D:
   m_ObjectHideFlags: 0

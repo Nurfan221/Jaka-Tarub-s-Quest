@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 
@@ -10,6 +9,7 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
     public TypePlant typePlant;
     public ArahObject arahObject;
     public EnvironmentType environmentType;
+    public bool useAnimation;
 
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
     public string nameEnvironment;
@@ -57,7 +57,11 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
     #endregion
     public void Start()
     {
-        SetupVisualComponent();
+        if (useAnimation)
+        {
+            SetupVisualComponent();
+
+        }
     }
 
     private void SetupVisualComponent()
@@ -76,15 +80,18 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
             {
                 stoneAnimator = visualChild.gameObject.AddComponent<Animator>();
             }
-
-            if (stoneAnimatorController != null)
+            if (useAnimation)
             {
-
-                stoneAnimator.runtimeAnimatorController = stoneAnimatorController;
-            }
-            else
-            {
-                Debug.LogError("Lupa memasukkan stoneAnimatorController di Inspector!");
+                // Jika butuh animasi, baru kita cek apakah controllernya sudah dipasang
+                if (stoneAnimatorController != null)
+                {
+                    stoneAnimator.runtimeAnimatorController = stoneAnimatorController;
+                }
+                else
+                {
+                    // Niatnya mau pakai animasi (useAnimation = true), tapi lupa pasang controller.
+                    Debug.LogError($"Gawat! {typeObject} disetting pakai animasi, tapi stoneAnimatorController-nya kosong!");
+                }
             }
 
             // Karena ini lewat code, kita harus set manual agar tidak lag di kota
@@ -92,7 +99,7 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
         }
         else
         {
-            Debug.LogError("ohhh tidak component visual tidak ditemukan anda dongok");
+            Debug.LogError("ohhh tidak component visual tidak ditemukan");
         }
     }
 

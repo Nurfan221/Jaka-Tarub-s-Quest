@@ -108,11 +108,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
-  itemDropMines: []
+  itemDropMines:
+  - itemName: Batu
+    count: 1
+    quality: 0
+    itemHealth: 0
   hitEffectPrefab: {fileID: 8326941259298120494}
   nameStone: Stone_Stone__Soft_A
   stoneType: 2
   environmentHardnessLevel: 1
+  useAnimation: 1
   minHasil: 1
   maxHasil: 2
   health: 20

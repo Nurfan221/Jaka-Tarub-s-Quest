@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -7758524535556295958, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
+  m_Sprite: {fileID: 4611967268883733253, guid: 5f2f12e811334d6418a6c159d21e5721, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,16 +112,10 @@ MonoBehaviour:
   typePlant: 13
   arahObject: 0
   environmentType: 0
-  rumputAnimation:
-  - {fileID: -7758524535556295958, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
-  - {fileID: 8032385547397731467, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
-  - {fileID: 2612352250356994252, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
-  - {fileID: -3385879227149483842, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
-  - {fileID: -3251944440344461081, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
-  - {fileID: 863105036728425896, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
-  frameRate: 0.2
+  useAnimation: 1
   nameEnvironment: JamurBulanBiru
   itemDrop: {fileID: 11400000, guid: a18cead96c51a5745b465cfae2a6b1f2, type: 2}
+  stoneAnimatorController: {fileID: 22100000, guid: 3450c35771a016d4089e6f5aeb0e78a9, type: 2}
 --- !u!114 &843619207050050708
 MonoBehaviour:
   m_ObjectHideFlags: 0

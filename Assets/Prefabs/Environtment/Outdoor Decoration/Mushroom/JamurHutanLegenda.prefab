@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 2669348960057063661, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
+  m_Sprite: {fileID: -2359483481355316188, guid: f0b73c0240e673f408991687e33eced1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,16 +112,10 @@ MonoBehaviour:
   typePlant: 14
   arahObject: 0
   environmentType: 0
-  rumputAnimation:
-  - {fileID: 2669348960057063661, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
-  - {fileID: 4807741936759909809, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
-  - {fileID: -2064849966606169483, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
-  - {fileID: -4292852095813093452, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
-  - {fileID: -2250069472613918916, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
-  - {fileID: 4684772192963936397, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
-  frameRate: 0.2
+  useAnimation: 1
   nameEnvironment: JamurHutanLegenda
   itemDrop: {fileID: 11400000, guid: eff3e0063443bce4eaa37f9d07e80ad2, type: 2}
+  stoneAnimatorController: {fileID: 22100000, guid: c9bcda6c6223a5d4bb8207b3f2925a02, type: 2}
 --- !u!114 &552677607930193202
 MonoBehaviour:
   m_ObjectHideFlags: 0

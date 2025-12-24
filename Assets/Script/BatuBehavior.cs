@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
 
 
@@ -16,6 +13,7 @@ public class StoneBehavior : UniqueIdentifiableObject
     public string nameStone;
     public TypeObject stoneType;
     public EnvironmentHardnessLevel environmentHardnessLevel;
+    public bool useAnimation;
 
     public int minHasil;
     public int maxHasil;
@@ -79,9 +77,12 @@ public class StoneBehavior : UniqueIdentifiableObject
     public void Start()
     {
         hitEffectPrefab = gameObject.GetComponentInChildren<ParticleSystem>();
-        
-        SetupVisualComponent();
 
+        if (useAnimation)
+        {
+         SetupVisualComponent();
+
+        }
 
 
         //StartCoroutine(PlayStoneAnimation()); // Mulai animasi
@@ -92,27 +93,30 @@ public class StoneBehavior : UniqueIdentifiableObject
     {
         Transform visualChild = transform.Find("Visual");
         Debug.Log("memanggil fungsi setup component visual");
-
+      
         if (visualChild != null)
         {
             Debug.Log("ya component visual ditemukan");
             srVisualChild = visualChild.GetComponent<SpriteRenderer>();
-
+            
             // Kita cek dulu biar ga double, kalau belum ada baru tambah
             stoneAnimator = visualChild.GetComponent<Animator>();
             if (stoneAnimator == null)
             {
                 stoneAnimator = visualChild.gameObject.AddComponent<Animator>();
             }
-
-            if (stoneAnimatorController != null)
+            if (useAnimation)
             {
-
-                stoneAnimator.runtimeAnimatorController = stoneAnimatorController;
-            }
-            else
-            {
-                Debug.LogError("Lupa memasukkan stoneAnimatorController di Inspector!");
+                // Jika butuh animasi, baru kita cek apakah controllernya sudah dipasang
+                if (stoneAnimatorController != null)
+                {
+                    stoneAnimator.runtimeAnimatorController = stoneAnimatorController;
+                }
+                else
+                {
+                    // Niatnya mau pakai animasi (useAnimation = true), tapi lupa pasang controller.
+                    Debug.LogError($"Gawat! {stoneType} disetting pakai animasi, tapi stoneAnimatorController-nya kosong!");
+                }
             }
 
             // Karena ini lewat code, kita harus set manual agar tidak lag di kota
