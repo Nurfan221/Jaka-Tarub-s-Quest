@@ -57,6 +57,8 @@ public class PintuManager : MonoBehaviour
                     Debug.Log("posisi player di pindahkan ke : " + player.transform.position);
                     StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
                     SmoothCameraFollow.Instance.EnterHouse(true);
+                    ClockManager.Instance.isIndoors = true;
+                    ClockManager.Instance.UpdateDateTime();
                 }
                 else
                 {
@@ -69,6 +71,8 @@ public class PintuManager : MonoBehaviour
                     Debug.Log("posisi player di pindahkan ke : " + player.transform.position);
                     StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
                     SmoothCameraFollow.Instance.EnterHouse(false);
+                    ClockManager.Instance.isIndoors = false;
+                    ClockManager.Instance.UpdateDateTime();
                 }
 
 

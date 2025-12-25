@@ -78,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -396163373
+  m_SortingLayer: 5
   m_SortingOrder: 4
   m_Sprite: {fileID: 5436682909327123787, guid: ecdc594b12beaa4469ca71d1ee7119e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -110,18 +110,10 @@ MonoBehaviour:
   typePlant: 0
   arahObject: 0
   environmentType: 0
-  rumputAnimation:
-  - {fileID: 5436682909327123787, guid: ecdc594b12beaa4469ca71d1ee7119e4, type: 3}
-  - {fileID: 1539987420, guid: ecdc594b12beaa4469ca71d1ee7119e4, type: 3}
-  - {fileID: 440612671, guid: ecdc594b12beaa4469ca71d1ee7119e4, type: 3}
-  - {fileID: -261801448, guid: ecdc594b12beaa4469ca71d1ee7119e4, type: 3}
-  - {fileID: -202244341, guid: ecdc594b12beaa4469ca71d1ee7119e4, type: 3}
-  - {fileID: 1504731695, guid: ecdc594b12beaa4469ca71d1ee7119e4, type: 3}
-  - {fileID: 257354736, guid: ecdc594b12beaa4469ca71d1ee7119e4, type: 3}
-  - {fileID: 1780677654, guid: ecdc594b12beaa4469ca71d1ee7119e4, type: 3}
-  frameRate: 0.1
+  useAnimation: 0
   nameEnvironment: Fountain
   itemDrop: {fileID: 0}
+  stoneAnimatorController: {fileID: 0}
 --- !u!114 &-5254147060673937213
 MonoBehaviour:
   m_ObjectHideFlags: 0

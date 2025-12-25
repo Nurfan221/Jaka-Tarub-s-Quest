@@ -42,7 +42,6 @@ public class PlayerUI : MonoBehaviour
     public GameObject pauseUI;
 
     [Header("Environment penting dalam game")]
-    public Light sunlight;
     public Transform player;
 
 

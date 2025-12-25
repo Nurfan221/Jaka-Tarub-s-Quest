@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5365388021736372849}
   - component: {fileID: 8204194015257329924}
   - component: {fileID: 8753991768299431060}
-  - component: {fileID: 875132793960531145}
   - component: {fileID: 8986608510113964804}
   - component: {fileID: 8447794282174610450}
   - component: {fileID: -3993791555557647129}
@@ -81,8 +80,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -396163373
+  m_SortingLayer: 5
   m_SortingOrder: 6
   m_Sprite: {fileID: 1766815786915520619, guid: 16094e5523213a149a7ca288c693cff3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -117,21 +116,6 @@ MonoBehaviour:
   nameEnvironment: 
   itemDrop: {fileID: 0}
   stoneAnimatorController: {fileID: 0}
---- !u!114 &875132793960531145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3889454340021637116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37f15381b9251b049b3ea9316eccf418, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  torchLight: {fileID: 8986608510113964804}
-  nightStart: 17
-  nightEnd: 6
 --- !u!108 &8986608510113964804
 Light:
   m_ObjectHideFlags: 0

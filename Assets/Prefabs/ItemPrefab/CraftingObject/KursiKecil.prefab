@@ -79,8 +79,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -396163373
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -4822843431627522031, guid: f54b7fc5d3ec9e840a0d9b413664d5fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -111,10 +111,10 @@ MonoBehaviour:
   typePlant: 0
   arahObject: 0
   environmentType: 9
-  rumputAnimation: []
-  frameRate: 0.3
+  useAnimation: 0
   nameEnvironment: 
   itemDrop: {fileID: 0}
+  stoneAnimatorController: {fileID: 0}
 --- !u!61 &1997978786736526689
 BoxCollider2D:
   m_ObjectHideFlags: 0
