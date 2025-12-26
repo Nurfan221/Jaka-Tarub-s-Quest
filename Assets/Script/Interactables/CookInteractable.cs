@@ -5,9 +5,7 @@ using UnityEngine;
 public class CookInteractable : Interactable, ISaveable
 {
     public InteractableUniqueID interactableUniqueID;
-    public Sprite[] animationFire;
     public SpriteRenderer resultItemSprite;
-    public float frameRate = 0.1f; // Waktu per frame (kecepatan animasi)
 
     private SpriteRenderer spriteRenderer; // Komponen SpriteRenderer
     private int currentFrame = 0; // Indeks frame saat ini
@@ -30,7 +28,11 @@ public class CookInteractable : Interactable, ISaveable
 
     private CookingDatabaseSO cookingDatabase;
 
-
+    [Header("Animation Settings")]
+    // Masukkan file Override Animator Controller yang spesifik untuk batu ini
+    public RuntimeAnimatorController stoneAnimatorController;
+    private Animator stoneAnimator;
+    public bool useAnimation;
 
 
     private void Start()
@@ -47,8 +49,13 @@ public class CookInteractable : Interactable, ISaveable
         {
             Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
         }
-        StartCoroutine(PlayFireAnimation()); // Mulai animasi
         UpdateSpriteHasil();
+
+        if (useAnimation)
+        {
+            SetupVisualComponent();
+
+        }
     }
 
 
@@ -90,19 +97,45 @@ public class CookInteractable : Interactable, ISaveable
             Debug.LogWarning("Gagal merestorasi data quest: data tidak valid atau corrupt.");
         }
     }
-    private IEnumerator PlayFireAnimation()
+
+    private void SetupVisualComponent()
     {
-        while (true) // Loop tanpa batas (animasi berulang)
+        Transform visualChild = transform.Find("Visual");
+        Debug.Log("memanggil fungsi setup component visual");
+
+        if (visualChild != null)
         {
-            if (animationFire.Length > 0) // Pastikan array sprite tidak kosong
+            Debug.Log("ya component visual ditemukan");
+            spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+
+            // Kita cek dulu biar ga double, kalau belum ada baru tambah
+            stoneAnimator = visualChild.GetComponent<Animator>();
+            if (stoneAnimator == null)
             {
-                spriteRenderer.sprite = animationFire[currentFrame]; // Setel sprite saat ini
-                currentFrame = (currentFrame + 1) % animationFire.Length; // Pindah ke frame berikutnya (loop)
+                stoneAnimator = visualChild.gameObject.AddComponent<Animator>();
             }
-            yield return new WaitForSeconds(frameRate); // Tunggu sebelum beralih ke frame berikutnya
+            if (useAnimation)
+            {
+                // Jika butuh animasi, baru kita cek apakah controllernya sudah dipasang
+                if (stoneAnimatorController != null)
+                {
+                    stoneAnimator.runtimeAnimatorController = stoneAnimatorController;
+                }
+                else
+                {
+                    // Niatnya mau pakai animasi (useAnimation = true), tapi lupa pasang controller.
+                    Debug.LogError($"Gawat! {typeCooking} disetting pakai animasi, tapi stoneAnimatorController-nya kosong!");
+                }
+            }
+
+            // Karena ini lewat code, kita harus set manual agar tidak lag di kota
+            stoneAnimator.cullingMode = AnimatorCullingMode.CullCompletely;
+        }
+        else
+        {
+            Debug.LogError("ohhh tidak component visual tidak ditemukan");
         }
     }
-
 
     protected override void Interact()
     {

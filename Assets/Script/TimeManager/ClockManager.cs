@@ -4,62 +4,51 @@ using UnityEngine.UI;
 
 public class ClockManager : MonoBehaviour
 {
-
     public static ClockManager Instance { get; private set; }
+
+    [Header("UI References")]
     public TextMeshProUGUI Date, Time, Season;
-    public Image weatherSprite;
-    public Sprite[] weatherSprites;
-    public bool isIndoors = true; // Apakah pemain sedang di dalam ruangan?
 
-    public float nightIntensity = 0.05f;  // Malam lebih gelap
-    public float dayIntensity = 1.5f;     // Siang lebih terang
-    public AnimationCurve dayNightCurve;  // Untuk transisi halus
+    [Header("System Settings")]
+    public bool isIndoors = false; // Set true jika masuk rumah
 
-    [Header("Color Settings")]
-    // Subuh: Alpha 100 (dari 255) -> 0.4f
-    public Color morningColor = new Color(1f, 1f, 0.9f, 0.1f);
+    // Kita tidak mewarnai SpriteOverlay, tapi mewarnai Background Kamera Cahaya
+    [Header("Light System")]
+    public Camera lightCamera; // TARIK OBJEK "LightCamera" KE SINI!
 
-    // Siang: Alpha 0 (dari 255) -> 0f (Bening Total)
-    public Color noonColor = new Color(1f, 1f, 1f, 0f);
+    [Header("Color Settings (Multiply Logic)")]
 
-    // Sore: Alpha 128 (dari 255) -> 0.5f (Setengah transparan)
-    public Color eveningColor = new Color(0.7f, 0.4f, 0.2f, 0.3f);
+    // Subuh: Sedikit gelap agak oranye
+    public Color morningColor = new Color(0.8f, 0.8f, 0.7f, 1f);
 
-    // Malam: Alpha 150 (dari 255) -> ~0.6f
-    // Ini settingan yang kamu minta (agar tidak terlalu gelap)
-    public Color nightColor = new Color(0.05f, 0.05f, 0.25f, 0.6f);
+    // Siang: PUTIH MUTLAK (Agar gambar game asli terlihat 100%)
+    public Color noonColor = Color.white;
 
-    // Hujan: Alpha 120 (dari 255) -> ~0.47f
-    public Color rainColor = new Color(0.2f, 0.3f, 0.4f, 0.47f);
+    // Sore: Agak Oranye Kemerahan
+    public Color eveningColor = new Color(0.8f, 0.6f, 0.4f, 1f);
+
+    // Malam: Biru Tua Gelap (Semakin gelap warnanya, semakin gelap gamenya)
+    public Color nightColor = new Color(0.05f, 0.05f, 0.25f, 1f);
+
+    // Hujan: Abu-abu kebiruan
+    public Color rainColor = new Color(0.4f, 0.5f, 0.6f, 1f);
 
     private Color targetColor;
 
-    [Header("The 'Mika Ajaib' Overlay")]
-    // Masukkan Image UI yang menutupi layar di sini
-    public SpriteRenderer darknessOverlay; // Masukkan objek Darkness_Cutout
-
-    //[SerializeField] private TimeManager timeManager;
-    //[SerializeField] GameEconomy gameEconomy;
-
+    [Header("Minimap Settings")]
+    public RawImage minimapOverlay;
+    public Color mapNightColor = new Color(0.36f, 0.39f, 0.69f, 1f);
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
-
         }
         else
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        //float progress = Mathf.InverseLerp(4, 6, 4);
-        //targetColor = Color.Lerp(nightColor, morningColor, progress);
-        //if (darknessOverlay != null)
-        //{
-        //    darknessOverlay.color = targetColor;
-        //    //darknessOverlay.al
-        //}
     }
 
     private void OnEnable()
@@ -72,93 +61,93 @@ public class ClockManager : MonoBehaviour
         TimeManager.OnTimeChanged -= UpdateDateTime;
     }
 
-
     public void UpdateDateTime()
     {
-        Date.text = TimeManager.Instance.GetFormattedDate();
-        Time.text = TimeManager.Instance.GetFormattedTime();
-        Season.text = TimeManager.Instance.GetCurrentSeason().ToString();
+        // Update Teks UI
+        if (Date != null) Date.text = TimeManager.Instance.GetFormattedDate();
+        if (Time != null) Time.text = TimeManager.Instance.GetFormattedTime();
+        if (Season != null) Season.text = TimeManager.Instance.GetCurrentSeason().ToString();
 
-        // itung Waktu
+        // Hitung Waktu Desimal
         int minutes = TimeManager.Instance.minutes;
         float hour = TimeManager.Instance.hour + (minutes / 60f);
 
-        // LOGIKA MIKA AJAIB (Overlay)
+        // LOGIKA WARNA (Targeting Background Camera)
         if (isIndoors)
         {
-            // Jika di dalam, PAKSA warna jadi Bening/Siang
+            // Di dalam rumah terang (Putih = Normal)
             targetColor = noonColor;
-        }else
+        }
+        else
         {
             bool isRaining = TimeManager.Instance.isRain;
 
             if (isRaining)
             {
-                // Jika hujan, langsung pakai warna mendung (Mika abu-abu)
                 targetColor = rainColor;
             }
             else
             {
-                // Logika Transisi Waktu (Lerp Warna + Alpha sekaligus)
-
+                // -- FASE WAKTU --
                 if (hour >= 0 && hour < 4) // Tengah Malam - Subuh
                 {
                     targetColor = nightColor;
                 }
-                else if (hour >= 4 && hour < 6) // Subuh (Gelap -> Oranye)
+                else if (hour >= 4 && hour < 6) // Subuh
                 {
                     float progress = Mathf.InverseLerp(4, 6, hour);
                     targetColor = Color.Lerp(nightColor, morningColor, progress);
                 }
-                else if (hour >= 6 && hour < 10) // Pagi (Oranye -> Bening/Siang)
+                else if (hour >= 6 && hour < 10) // Pagi -> Siang
                 {
                     float progress = Mathf.InverseLerp(6, 10, hour);
                     targetColor = Color.Lerp(morningColor, noonColor, progress);
                 }
-                else if (hour >= 10 && hour < 15)
+                else if (hour >= 10 && hour < 15) // Siang Bolong (Terang)
                 {
-                    targetColor = noonColor; // Alpha 0
+                    targetColor = noonColor;
                 }
-
-                // FASE 5: Menuju Sore (15:00 - 17:00)
-                // Kita geser targetnya, jam 5 sore (17:00) harus sudah FULL Oranye
-                else if (hour >= 15 && hour < 17)
+                else if (hour >= 15 && hour < 17) // Menuju Sore
                 {
                     float progress = Mathf.InverseLerp(15, 17, hour);
                     targetColor = Color.Lerp(noonColor, eveningColor, progress);
                 }
-
-                // FASE 6: Senja / Maghrib (17:00 - 19:00)
-                // INI KUNCINYA: Transisi ke malam dimulai SEJAK JAM 17:00
-                else if (hour >= 17 && hour < 19)
+                else if (hour >= 17 && hour < 19) // Maghrib (Senja -> Malam)
                 {
                     float progress = Mathf.InverseLerp(17, 19, hour);
                     targetColor = Color.Lerp(eveningColor, nightColor, progress);
-
-                    // HASIL VISUAL:
-                    // Jam 17:00 = Oranye
-                    // Jam 18:00 = Campuran Oranye & Biru (Ungu/Remang Maghrib) -> PAS!
-                    // Jam 19:00 = Biru Tua (Gelap)
                 }
-
-                // FASE 7: Malam Larut (19:00 - 24:00)
-                else
+                else // Malam Larut
                 {
                     targetColor = nightColor;
                 }
             }
         }
 
-
-        // TERAPKAN KE MIKA (Image UI)
-        if (darknessOverlay != null)
+        // TERAPKAN WARNA KE BACKGROUND CAMERA
+        if (lightCamera != null)
         {
-            darknessOverlay.color = targetColor;
+            lightCamera.backgroundColor = targetColor;
         }
 
+        if (minimapOverlay != null)
+        {
+            Color miniMapColor = targetColor;
 
+            // Jika Siang (Putih), Minimap harus Bening (Alpha 0) agar peta terlihat jelas
+            if (targetColor == noonColor)
+            {
+                miniMapColor.a = 0.5f;
+            }
+            else
+            {
+                miniMapColor = mapNightColor;
+                // Jika Malam/Sore, gunakan Opacity yang lebih rendah (misal 0.5)
+                // Agar peta tetap terlihat walau sedang malam
+                miniMapColor.a = 1f;
+            }
+
+            minimapOverlay.color = miniMapColor;
+        }
     }
-
-
-
 }
