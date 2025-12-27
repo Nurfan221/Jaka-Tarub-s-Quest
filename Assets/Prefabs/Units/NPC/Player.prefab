@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1470490779707007282}
   - component: {fileID: 2894083938365035279}
   - component: {fileID: 9045560372139348553}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Baju
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6568946450462913767}
   - component: {fileID: 4164604753266701662}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Emoticon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +417,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1707807141
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10297,7 +10297,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1707807141
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -10374,7 +10374,7 @@ GameObject:
   - component: {fileID: 2037302324392484720}
   - component: {fileID: 251218501870716667}
   - component: {fileID: 8915074991460197737}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Celana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10600,7 +10600,7 @@ GameObject:
   - component: {fileID: 5049930209928189858}
   - component: {fileID: 3346749782709746103}
   - component: {fileID: 4030447364811924842}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Rambut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15719,7 +15719,7 @@ GameObject:
   - component: {fileID: 4206108621129794940}
   - component: {fileID: 4613960908276644625}
   - component: {fileID: 1669505427641919158}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Sepatu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15918,7 +15918,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -45341917
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 6
   m_Sprite: {fileID: 1090217281897295437, guid: 16aeb89c5eef8ba4c9fe2b8a37a3381c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -16155,9 +16155,9 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8129610806355446646}
   m_Enabled: 1
-  m_SortingLayerID: 1707807141
-  m_SortingLayer: 3
-  m_SortingOrder: 3
+  m_SortingLayerID: -45341917
+  m_SortingLayer: 1
+  m_SortingOrder: 6
   m_SortAtRoot: 0
 --- !u!1 &8149360684410479211
 GameObject:

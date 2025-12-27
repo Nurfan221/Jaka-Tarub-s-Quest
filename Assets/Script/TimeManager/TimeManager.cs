@@ -86,6 +86,7 @@ public class TimeManager : MonoBehaviour, ISaveable
         //OnDayChanged?.Invoke(); // Mengirim totalHari ke semua pohon
         //UpdateDay();
         SetRainChance(currentSeason);
+        OnTimeChanged?.Invoke();
 
     }
 

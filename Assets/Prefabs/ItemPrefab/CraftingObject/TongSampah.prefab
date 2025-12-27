@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7516260134663813860}
   - component: {fileID: 1070724797207335093}
   - component: {fileID: 4703779917972532033}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GrowingParticle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,8 +604,8 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    gravitySource: 0
-    maxNumParticles: 1000
+    gravitySource: 1
+    maxNumParticles: 5
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -4803,7 +4803,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1910421821
-  m_SortingLayer: 3
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -4931,7 +4931,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -396163373
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: 6951114633567200485, guid: cf83dd2644dc21a4187dbd5e63159d2d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -171,7 +171,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -396163373
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 6
   m_Sprite: {fileID: 3066779294536387729, guid: 0f1a208b093d3a04f851bc7ca807375a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -205,7 +205,7 @@ MonoBehaviour:
   useAnimation: 0
   nameEnvironment: 
   itemDrop: {fileID: 0}
-  stoneAnimatorController: {fileID: 0}
+  stoneAnimatorController: {fileID: 22100000, guid: ed82220c7f484d04cbf602e9f2a4925e, type: 2}
 --- !u!61 &8447794282174610450
 BoxCollider2D:
   m_ObjectHideFlags: 0

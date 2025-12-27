@@ -73,56 +73,58 @@ public class ClockManager : MonoBehaviour
         float hour = TimeManager.Instance.hour + (minutes / 60f);
 
         // LOGIKA WARNA (Targeting Background Camera)
-        if (isIndoors)
+        //if (isIndoors)
+        //{
+        //    // Di dalam rumah terang (Putih = Normal)
+        //    targetColor = morningColor;
+        //}
+        //if
+        //{
+
+        //}
+        bool isRaining = TimeManager.Instance.isRain;
+
+        if (isRaining)
         {
-            // Di dalam rumah terang (Putih = Normal)
-            targetColor = noonColor;
+            targetColor = rainColor;
         }
         else
         {
-            bool isRaining = TimeManager.Instance.isRain;
-
-            if (isRaining)
+            // -- FASE WAKTU --
+            if (hour >= 0 && hour < 4) // Tengah Malam - Subuh
             {
-                targetColor = rainColor;
+                targetColor = nightColor;
             }
-            else
+            else if (hour >= 4 && hour < 6) // Subuh
             {
-                // -- FASE WAKTU --
-                if (hour >= 0 && hour < 4) // Tengah Malam - Subuh
-                {
-                    targetColor = nightColor;
-                }
-                else if (hour >= 4 && hour < 6) // Subuh
-                {
-                    float progress = Mathf.InverseLerp(4, 6, hour);
-                    targetColor = Color.Lerp(nightColor, morningColor, progress);
-                }
-                else if (hour >= 6 && hour < 10) // Pagi -> Siang
-                {
-                    float progress = Mathf.InverseLerp(6, 10, hour);
-                    targetColor = Color.Lerp(morningColor, noonColor, progress);
-                }
-                else if (hour >= 10 && hour < 15) // Siang Bolong (Terang)
-                {
-                    targetColor = noonColor;
-                }
-                else if (hour >= 15 && hour < 17) // Menuju Sore
-                {
-                    float progress = Mathf.InverseLerp(15, 17, hour);
-                    targetColor = Color.Lerp(noonColor, eveningColor, progress);
-                }
-                else if (hour >= 17 && hour < 19) // Maghrib (Senja -> Malam)
-                {
-                    float progress = Mathf.InverseLerp(17, 19, hour);
-                    targetColor = Color.Lerp(eveningColor, nightColor, progress);
-                }
-                else // Malam Larut
-                {
-                    targetColor = nightColor;
-                }
+                float progress = Mathf.InverseLerp(4, 6, hour);
+                targetColor = Color.Lerp(nightColor, morningColor, progress);
+            }
+            else if (hour >= 6 && hour < 10) // Pagi -> Siang
+            {
+                float progress = Mathf.InverseLerp(6, 10, hour);
+                targetColor = Color.Lerp(morningColor, noonColor, progress);
+            }
+            else if (hour >= 10 && hour < 15) // Siang Bolong (Terang)
+            {
+                targetColor = noonColor;
+            }
+            else if (hour >= 15 && hour < 17) // Menuju Sore
+            {
+                float progress = Mathf.InverseLerp(15, 17, hour);
+                targetColor = Color.Lerp(noonColor, eveningColor, progress);
+            }
+            else if (hour >= 17 && hour < 19) // Maghrib (Senja -> Malam)
+            {
+                float progress = Mathf.InverseLerp(17, 19, hour);
+                targetColor = Color.Lerp(eveningColor, nightColor, progress);
+            }
+            else // Malam Larut
+            {
+                targetColor = nightColor;
             }
         }
+
 
         // TERAPKAN WARNA KE BACKGROUND CAMERA
         if (lightCamera != null)
