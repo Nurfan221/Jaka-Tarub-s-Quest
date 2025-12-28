@@ -17,7 +17,7 @@ MonoBehaviour:
   quality: 0
   types: 32
   categories: 528
-  sprite: {fileID: 5854087196701661308, guid: 7112c987a8fcfbd49aece7b67d11086c, type: 3}
+  sprite: {fileID: 4287883432407279012, guid: e17e4941c3b022a43a1e9d602254158c, type: 3}
   itemDescription: Jamur dengan warna-warna cerah yang memancarkan aura keceriaan.
     Mengonsumsinya dapat meningkatkan semangat dan kebahagiaan. Namun hati-hati dengan
     saudaranya
@@ -33,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -46,9 +46,9 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: JamurKeceriaan
   namePrefab: JamurKeceriaan
   growthTime: 0
   growthImages: []
+  seedType: 0

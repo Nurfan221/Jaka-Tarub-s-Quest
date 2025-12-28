@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8753991768299431060}
   - component: {fileID: 8447794282174610450}
   - component: {fileID: -3993791555557647129}
-  m_Layer: 14
+  m_Layer: 9
   m_Name: Torch 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3bfa95106347c5d47b329713037e7c4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,10 +112,10 @@ MonoBehaviour:
   typePlant: 0
   arahObject: 0
   environmentType: 8
-  useAnimation: 0
+  useAnimation: 1
   nameEnvironment: 
   itemDrop: {fileID: 0}
-  stoneAnimatorController: {fileID: 0}
+  stoneAnimatorController: {fileID: 22100000, guid: da4ab9a0910b9c5418dedd6915271ba7, type: 2}
 --- !u!61 &8447794282174610450
 BoxCollider2D:
   m_ObjectHideFlags: 0

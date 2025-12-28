@@ -17,7 +17,7 @@ MonoBehaviour:
   quality: 0
   types: 32
   categories: 528
-  sprite: {fileID: 2669348960057063661, guid: 18ef0cbffc979b04488dcb7a8a75ebf1, type: 3}
+  sprite: {fileID: -2359483481355316188, guid: f0b73c0240e673f408991687e33eced1, type: 3}
   itemDescription: Jamur langka yang hanya ditemukan di bagian terdalam hutan-hutan
     kuno. Memiliki tekstur yang kuat dan digunakan untuk menambah daya tahan tubuh.
     Legenda mengatakan bahwa jamur ini bisa memberikan kekuatan dan keberanian luar
@@ -34,7 +34,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -47,9 +47,9 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: JamurHutanLegenda
   namePrefab: JamurHutanLegenda
   growthTime: 0
   growthImages: []
+  seedType: 0

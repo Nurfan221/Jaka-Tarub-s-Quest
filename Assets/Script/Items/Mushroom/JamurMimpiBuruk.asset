@@ -17,7 +17,7 @@ MonoBehaviour:
   quality: 0
   types: 32
   categories: 528
-  sprite: {fileID: 2028944655150960835, guid: 8aa13b11700bacf4da1c726f7d98f4d7, type: 3}
+  sprite: {fileID: -2689592446844858075, guid: 600091a614bb08e41a6fd162366e1c12, type: 3}
   itemDescription: warna ungu dari jamur ini seperti menandakan efek ilusi dan mimpi
     buruk saat dikonsumsi. Digunakan dengan sangat hati-hati dalam ramuan untuk mengecoh
     musuh atau menguji keberanian
@@ -33,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -46,9 +46,9 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: JamurMimpiBuruk
   namePrefab: JamurMimpiBuruk
   growthTime: 0
   growthImages: []
+  seedType: 0

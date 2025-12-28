@@ -8,6 +8,9 @@ public class Player_Movement : MonoBehaviour
     public Rigidbody2D rb;
     //public PlayerController controller; // Referensi ke "Otak"
     public Transform facePlayer;
+    [Tooltip("Geser titik pusat lingkaran ke atas (agar sejajar badan, bukan kaki)")]
+    public float verticalOffset = -2f; // Coba ubah angka ini di inspector (misal 0.5 atau 0.8)
+    public float hitboxRadius = 1.0f;
     [SerializeField] private ParticleSystem dashParticle;
     [SerializeField] public Transform face; // Untuk arah dash
     public float jarakOffsetSerang = 1.0f;
@@ -112,6 +115,18 @@ public class Player_Movement : MonoBehaviour
             face.localPosition = direction * jarakOffsetSerang;
         }
 
+        if (face != null)
+        {
+            Vector3 finalPosition = lastDirection * hitboxRadius;
+            finalPosition.y += verticalOffset;
+
+            face.localPosition = finalPosition;
+
+            float angle = Mathf.Atan2(lastDirection.y, lastDirection.x) * Mathf.Rad2Deg;
+            face.rotation = Quaternion.Euler(0, 0, angle);
+        }
+
+
 
     }
 
@@ -157,5 +172,23 @@ public class Player_Movement : MonoBehaviour
         ifDisturbed = false;
         IsMoving = movementDirection.magnitude > 0.1f;
         Debug.Log("Player bisa jalan lagi.");
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Jika verticalOffset negatif, titik ini akan turun.
+        Vector3 centerPoint = transform.position + new Vector3(0, verticalOffset, 0);
+
+        // Gambar Lingkaran Lintasan (Kuning)
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(centerPoint, hitboxRadius);
+
+        // Gambar Hitbox Aktual (Merah)
+        if (face != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(centerPoint, face.position);
+            Gizmos.DrawWireSphere(face.position, 0.2f);
+        }
     }
 }

@@ -17,7 +17,7 @@ MonoBehaviour:
   quality: 0
   types: 32
   categories: 528
-  sprite: {fileID: -4296686907146779548, guid: 9445d83ef8c9d0a409a7decd81469d64, type: 3}
+  sprite: {fileID: -3301173728799240292, guid: c6719dd5e2bdc4742ab7b5eaacf24f39, type: 3}
   itemDescription: 'Jamur ini memancarkan Warna merah yang kuat seperti api yang
     menyala. Namun jangan di coba untuk memakan langsung jamur ini '
   QuantityFuel: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -45,9 +45,9 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: JamurApiTerang
   namePrefab: JamurApiTerang
   growthTime: 0
   growthImages: []
+  seedType: 0

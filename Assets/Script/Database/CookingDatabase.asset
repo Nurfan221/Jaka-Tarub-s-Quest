@@ -23,6 +23,11 @@ MonoBehaviour:
     ingredientCount: 1
     result: {fileID: 11400000, guid: 36d2ddb112a350d4da05b5a3bb31952f, type: 2}
     resultCount: 1
+  - recipeName: TelurDadat
+    ingredient: {fileID: 11400000, guid: b2afd192f68f7c0409b076e15c62c405, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 788c9ddcdaabed74bb502f4e6e1ce0e8, type: 2}
+    resultCount: 1
   smeltRecipes:
   - recipeName: CopperIngot
     ingredient: {fileID: 11400000, guid: 5957d9a95df37d048a60d7a16b1a83e7, type: 2}

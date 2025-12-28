@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI; // Tambahkan ini untuk Button
 
 public class PlayerUI : MonoBehaviour
@@ -38,7 +39,6 @@ public class PlayerUI : MonoBehaviour
 
     [Header("References to other managers")]
     public GameObject[] persistentUI;
-    public GameObject playeyDiedUI;
     public GameObject pauseUI;
 
     [Header("Environment penting dalam game")]
@@ -58,16 +58,20 @@ public class PlayerUI : MonoBehaviour
     public Button weaponSlider;  // Slider untuk memilih senjata
     public Button itemSlider; // slider untuk mengganti item 
     public TMP_Text moneyText; // Reference to a UI Text element to display money
-    public Button buttonSetting;
-
-
-
     public TMP_Text promptText;
     public Button promptButton; // Tambahkan ini, Button untuk membungkus promptText
     //public Transform capacityUseItem;
     public Button switchWeaponImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     public Button switchUseItemImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     public SpriteImageTemplate spriteImageTemplate;
+
+    [Header("Setting Button")]
+    public Button buttonSetting;
+    public Button resumeSetting;
+    public Button goMainMenu;
+
+
+   
 
     [Header("Inventory UI")]
     public Button inventoryButton;  // Drag and drop the button in the inspector
@@ -190,6 +194,26 @@ public class PlayerUI : MonoBehaviour
             {
                 Debug.Log("Button Setting Clicked");
                 GameController.Instance.PauseWithUI();
+            });
+        }
+
+        if (resumeSetting != null)
+        {
+            resumeSetting.onClick.AddListener(() =>
+            {
+                Debug.Log("Button Resume Clicked");
+                pauseUI.gameObject.SetActive(false);
+                GameController.Instance.ResumeGame();
+            });
+        }
+
+        if (goMainMenu != null)
+        {
+            goMainMenu.onClick.AddListener(() =>
+            {
+                Debug.Log("Button Go Main Menu Clicked");
+                pauseUI.gameObject.SetActive(false);
+                SceneManager.LoadScene("MainMenu");
             });
         }
 

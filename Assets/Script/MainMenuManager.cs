@@ -7,7 +7,9 @@ public class MainMenuManager : MonoBehaviour
     public Button newGameButton;
     public Button loadGameButton;
     public Button quitGameButton;
-
+    public Transform quitConfirmPanel;
+    public Button confirmQuit;
+    public Button cancelQuit;
     void Start()
     {
         // Pastikan semua tombol terhubung
@@ -57,8 +59,9 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnQuitGameClicked()
     {
-        Debug.Log("Tombol Quit Game ditekan.");
-        Application.Quit();
+        quitConfirmPanel.gameObject.SetActive(true);
+        confirmQuit.onClick.AddListener(QuitGame);
+        cancelQuit.onClick.AddListener(() => quitConfirmPanel.gameObject.SetActive(false));
     }
 
     public void QuitGame()

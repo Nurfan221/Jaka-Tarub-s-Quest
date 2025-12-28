@@ -363,11 +363,7 @@ public class GameController : MonoBehaviour
         Destroy(transform.root.gameObject);
     }
 
-    public void PlayerDied()
-    {
-        PauseGame();
-        PlayerUI.Instance.playeyDiedUI.SetActive(true);
-    }
+
 
     public void Restart()
     {

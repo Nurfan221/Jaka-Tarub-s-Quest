@@ -80,7 +80,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 5760272475989258228, guid: 436b91e5706d2404282b924c9ea0f917, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   typePlant: 0
   arahObject: 0
   environmentType: 7
+  useAnimation: 0
   nameEnvironment: 
   itemDrop: {fileID: 0}
   stoneAnimatorController: {fileID: 22100000, guid: 81c438257ddb7ba4580da446657d2759, type: 2}

@@ -293,12 +293,12 @@ public class CookInteractable : Interactable, ISaveable
     {
         if (itemResult != null && itemResult.count > 0)
         {
-            resultItemSprite.gameObject.SetActive(true);
+            //resultItemSprite.gameObject.SetActive(true);
             resultItemSprite.sprite = ItemPool.Instance.GetItemWithQuality(itemResult.itemName, itemResult.quality).sprite;
         }
         else
         {
-            resultItemSprite.gameObject.SetActive(false);
+            //resultItemSprite.gameObject.SetActive(false);
             resultItemSprite.sprite = null;
         }
     }

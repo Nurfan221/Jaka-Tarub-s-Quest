@@ -17,7 +17,7 @@ MonoBehaviour:
   quality: 0
   types: 32
   categories: 528
-  sprite: {fileID: -7758524535556295958, guid: b3e7e18ab2bf192478224117add208c4, type: 3}
+  sprite: {fileID: 4611967268883733253, guid: 5f2f12e811334d6418a6c159d21e5721, type: 3}
   itemDescription: Jamur ini memiliki warna biru yang memikat dan hanya tumbuh di
     malam hari. Dikenal memiliki khasiat menenangkan dan memberikan kekuatan magis.
   QuantityFuel: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -45,9 +45,9 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: JamurBulanBiru
   namePrefab: JamurBulanBiru
   growthTime: 0
   growthImages: []
+  seedType: 0

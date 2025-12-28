@@ -97,10 +97,10 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
             // Karena ini lewat code, kita harus set manual agar tidak lag di kota
             stoneAnimator.cullingMode = AnimatorCullingMode.CullCompletely;
         }
-        else
-        {
-            Debug.LogError("ohhh tidak component visual tidak ditemukan");
-        }
+        //else
+        //{
+        //    Debug.LogError("ohhh tidak component visual tidak ditemukan");
+        //}
     }
 
 

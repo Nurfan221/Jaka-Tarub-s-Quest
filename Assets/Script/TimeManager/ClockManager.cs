@@ -86,7 +86,16 @@ public class ClockManager : MonoBehaviour
 
         if (isRaining)
         {
-            targetColor = rainColor;
+
+             if (hour >= 17 && hour < 19) // Maghrib (Senja -> Malam)
+            {
+                float progress = Mathf.InverseLerp(16, 19, hour);
+                targetColor = Color.Lerp(rainColor, nightColor, progress);
+            }
+            else // Malam Larut
+            {
+                targetColor = rainColor;
+            }
         }
         else
         {
