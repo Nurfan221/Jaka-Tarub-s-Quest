@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d7e486bfab14f04e8d172458b045859, type: 3}
+  m_Name: GameMusicLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::MusicLibrary
+  mainMenuMusic: {fileID: 8300000, guid: b7799bebd04ca914ca8d2e448b301537, type: 3}
+  indoorMusic: {fileID: 8300000, guid: 6edbf0adad1224cf3bbf946d5bb7a980, type: 3}
+  nightMusicBackgrount:
+  - {fileID: 8300000, guid: ad1dff04ffad35d4392904012483407d, type: 3}
+  - {fileID: 8300000, guid: 211651790ff11c34591b916de308101a, type: 3}
+  - {fileID: 8300000, guid: fb273957e7edc6a4fb4bc7a4449bd241, type: 3}
+  seasonTracks:
+  - name: Musim Panas
+    season: 1
+    sunnyMusicList:
+    - {fileID: 8300000, guid: b5d347d40539a41b29f81c9804a520de, type: 3}
+    - {fileID: 8300000, guid: 4fd4c897893e94a30ba7a39c8a240f15, type: 3}
+    - {fileID: 8300000, guid: 63a18a5479e3b4050aca04ef5f34f401, type: 3}
+    rainMusicList:
+    - {fileID: 8300000, guid: 9992442b96eb64474bbcdec630901215, type: 3}
+    - {fileID: 8300000, guid: 7d60b1de9e6474fc3ae5cdc46963aaac, type: 3}
+    - {fileID: 8300000, guid: d23f9b8af8fe04ff78c86e35f059b288, type: 3}
+  - name: Musim Hujan
+    season: 0
+    sunnyMusicList:
+    - {fileID: 8300000, guid: b5d347d40539a41b29f81c9804a520de, type: 3}
+    - {fileID: 8300000, guid: 4fd4c897893e94a30ba7a39c8a240f15, type: 3}
+    - {fileID: 8300000, guid: 63a18a5479e3b4050aca04ef5f34f401, type: 3}
+    rainMusicList:
+    - {fileID: 8300000, guid: 9992442b96eb64474bbcdec630901215, type: 3}
+    - {fileID: 8300000, guid: 7d60b1de9e6474fc3ae5cdc46963aaac, type: 3}
+    - {fileID: 8300000, guid: d23f9b8af8fe04ff78c86e35f059b288, type: 3}
+  sfxList:
+  - soundName: TakeItem
+    clip: {fileID: 8300000, guid: 398657db497e64a41a2e7753adc07a26, type: 3}
+    volume: 1
+  - soundName: Watering
+    clip: {fileID: 8300000, guid: a1639679a82e03d43ac4481ed48823cb, type: 3}
+    volume: 1

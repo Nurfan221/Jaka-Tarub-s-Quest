@@ -1,93 +1,212 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+
 
 public class SoundManager : MonoBehaviour
 {
-    [System.Serializable]
-    public class SoundEffect
-    {
-        public string soundName;
-        public AudioClip clip;
-    }
-
     public static SoundManager Instance;
+    [Header("Audio Sources (Wajib 2 Deck)")]
+    public AudioSource sourceA; // Drag AudioSource 1 ke sini
+    public AudioSource sourceB; // Drag AudioSource 2 ke sini
+    public AudioSource sfxSource;
 
-    public List<SoundEffect> soundEffects;
-    public List<SoundEffect> bgmTracks;
+    [Header("Data Source")]
+    public MusicLibrary audioLibrary; // Tarik ScriptableObject ke sini!
 
-    private AudioSource sfxSource;
-    private AudioSource bgmSource;
+    private Dictionary<SoundName, SoundEffect> sfxDictionary;
+
+    [Header("Settings")]
+    public string mainMenuSceneName = "MainMenu";
+    public string gameplaySceneName = "MainGameScene";
+    private bool isSourceAPlaying = false;
+    public float fadeDuration = 2f; // Durasi transisi (detik)
+    public float gapDuration = 1.0f;  // LAMA HENING (Jeda antara lagu)
+    [Range(0f, 1f)] public float maxVolume = 1.0f; // Batas maksimal volume musik
+
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); // Agar tidak hancur saat pindah dari Bootstrapper
         }
         else
         {
             Destroy(gameObject);
-            return;
         }
 
-        sfxSource = gameObject.AddComponent<AudioSource>();
-        bgmSource = gameObject.AddComponent<AudioSource>();
-        bgmSource.loop = true;
+        InitializeDictionary();
     }
 
-    public void PlaySound(string soundName)
+    private void OnEnable()
     {
-        SoundEffect sfx = soundEffects.Find(s => s.soundName == soundName);
-        if (sfx != null && sfx.clip != null)
+        // Kita "Daftar" ke Event Unity: "Kabari saya kalau scene selesai loading"
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        // Jangan lupa "Un-daftar" saat objek mati agar tidak memory leak
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // Fungsi ini OTOMATIS dipanggil Unity setiap kali pindah scene
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Cek nama Scene yang baru saja dimuat
+        if (scene.name == mainMenuSceneName)
         {
-            sfxSource.PlayOneShot(sfx.clip);
+            PlayMusic(audioLibrary.mainMenuMusic, 0);
+        }
+        //else if (scene.name != "Bootstrapper")
+        //{
+        //    // Logic Gameplay Music
+        //    bool isIndoors = scene.name.Contains("House"); // Sesuaikan logika kamu
+        //    CheckGameplayMusic(isIndoors);
+        //}
+        else if (scene.name == gameplaySceneName)
+        {
+            // Logic Gameplay Music
+            bool isIndoors = true; // selalu true karena setiap load gameplay scene adalah di dalam rumah
+            CheckGameplayMusic(isIndoors);
+        }
+    }
+
+    private void InitializeDictionary()
+    {
+        sfxDictionary = new Dictionary<SoundName, SoundEffect>();
+
+        // Ambil data dari LIBRARY, bukan dari List lokal
+        if (audioLibrary != null && audioLibrary.sfxList != null)
+        {
+            foreach (var sfx in audioLibrary.sfxList)
+            {
+                // Parsing String ke Enum
+                if (System.Enum.TryParse(sfx.soundName, out SoundName resultEnum))
+                {
+                    if (!sfxDictionary.ContainsKey(resultEnum))
+                    {
+                        sfxDictionary.Add(resultEnum, sfx);
+                    }
+                }
+            }
+        }
+    }
+
+    public void PlaySound(SoundName name, bool varyPitch = false)
+    {
+        if (sfxDictionary.ContainsKey(name))
+        {
+            SoundEffect sfx = sfxDictionary[name];
+
+            if (varyPitch) sfxSource.pitch = Random.Range(0.85f, 1.15f);
+            else sfxSource.pitch = 1f;
+
+            sfxSource.PlayOneShot(sfx.clip, sfx.volume);
+            Debug.Log("Playing SFX: " + name.ToString());
         }
         else
         {
-            Debug.LogWarning("Sound not found: " + soundName);
+            Debug.LogWarning("SFX not found in dictionary: " + name.ToString());
         }
     }
-
-    public void PlayBGM(string bgmName)
+    public void CheckGameplayMusic(bool isIndoors, float delay = 0f)
     {
-        SoundEffect bgm = bgmTracks.Find(b => b.soundName == bgmName);
-        if (bgm != null && bgm.clip != null && bgmSource.clip != bgm.clip)
+        // Ambil data dari TimeManager (pastikan TimeManager juga DontDestroyOnLoad)
+        // Contoh logika pengambilan data:
+        Season currentSeason = TimeManager.Instance.currentSeason;
+        WeatherType currentWeather = TimeManager.Instance.isRain ? WeatherType.Raining : WeatherType.Sunny;
+
+        // Ambil klip dari Library
+        AudioClip clipToPlay = audioLibrary.GetClip(currentSeason, currentWeather, isIndoors);
+
+        if (clipToPlay != null)
         {
-            bgmSource.clip = bgm.clip;
-            bgmSource.Play();
+            // Teruskan delay ke fungsi PlayMusic
+            PlayMusic(clipToPlay, delay);
         }
-        else if (bgm == null)
+    }
+    public void PlayMusic(AudioClip newClip, float delay)
+    {
+        // Tentukan siapa yang aktif sekarang, siapa yang selanjutnya
+        AudioSource activeSource = isSourceAPlaying ? sourceA : sourceB;
+        AudioSource nextSource = isSourceAPlaying ? sourceB : sourceA;
+
+        // Cek: Kalau lagunya SAMA, jangan di-restart (biar gak aneh)
+        if (activeSource.clip == newClip && activeSource.isPlaying) return;
+
+        // Hentikan crossfade sebelumnya jika ada (biar gak tabrakan)
+        StopAllCoroutines();
+
+        // Mulai proses transisi halus
+        StartCoroutine(FadeRoutine(activeSource, nextSource, newClip, delay));
+    }
+
+    private IEnumerator FadeRoutine(AudioSource outgoing, AudioSource incoming, AudioClip newClip, float delay)
+    {
+        if (delay > 0)
         {
-            Debug.LogWarning("BGM not found: " + bgmName);
+            // Script akan "tidur" di sini selama sekian detik
+            // Musik lama tetap main, musik baru belum mulai.
+            yield return new WaitForSeconds(delay);
         }
-    }
+        // Setup Deck Baru (Incoming)
+        incoming.clip = newClip;
+        incoming.volume = 0f; // Mulai dari bisu
+        //incoming.Play();
 
-    public void Stop(string soundName)
-    {
-        if (bgmSource.clip != null && bgmSource.isPlaying && bgmSource.clip.name == soundName)
+        float timer = 0f;
+
+        while (timer < fadeDuration)
         {
-            bgmSource.Stop();
+            timer += Time.deltaTime;
+            float progress = timer / fadeDuration;
+
+            // Turun dari Max ke 0
+            outgoing.volume = Mathf.Lerp(maxVolume, 0f, progress);
+
+            yield return null;
         }
-        else if (sfxSource.isPlaying && sfxSource.clip != null && sfxSource.clip.name == soundName)
+
+        // Pastikan lagu lama benar-benar mati & stop
+        outgoing.volume = 0f;
+        outgoing.Stop();
+
+
+        // Di sini suasana akan sunyi senyap selama 1 detik (sesuai settingan)
+        if (gapDuration > 0)
         {
-            sfxSource.Stop();
+            yield return new WaitForSeconds(gapDuration);
         }
-    }
 
-    public void StopBGM()
-    {
-        bgmSource.Stop();
-    }
 
-    public void SetMusicVolume(float volume)
-    {
-        bgmSource.volume = volume;
-    }
+        // Setup lagu baru
+        incoming.clip = newClip;
+        incoming.volume = 0f; // Mulai dari bisu
+        incoming.Play();
 
-    // Tambahkan metode untuk mengatur volume SFX jika diperlukan
-    public void SetSFXVolume(float volume)
-    {
-        sfxSource.volume = volume;
+        timer = 0f; // Reset timer untuk dipakai lagi!
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            float progress = timer / fadeDuration;
+
+            // Naik dari 0 ke Max
+            incoming.volume = Mathf.Lerp(0f, maxVolume, progress);
+
+            yield return null;
+        }
+
+        // Finalisasi volume lagu baru
+        incoming.volume = maxVolume;
+
+        // Tukar status Deck aktif
+        isSourceAPlaying = !isSourceAPlaying;
     }
 }

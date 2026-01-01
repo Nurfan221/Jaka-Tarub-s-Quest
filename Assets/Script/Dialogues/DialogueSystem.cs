@@ -175,7 +175,7 @@ public class DialogueSystem : MonoBehaviour
 
     public void PlayClickSound()
     {
-        SoundManager.Instance.PlaySound("Click");
+        //SoundManager.Instance.PlaySound("Click");
     }
 
     public IEnumerator WaitForDialogueToEnd()

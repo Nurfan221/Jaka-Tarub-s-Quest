@@ -104,7 +104,7 @@ public class ShopUI : MonoBehaviour
         currentSeasonItems.Clear();
         currentSeasonItems = new List<ItemData>(itemsToDisplay);
         if (SoundManager.Instance != null)
-            SoundManager.Instance.PlaySound("Click");
+            //SoundManager.Instance.PlaySound("Click");
 
         GameController.Instance.ShowPersistentUI(false);
         //GameController.Instance.PauseGame();

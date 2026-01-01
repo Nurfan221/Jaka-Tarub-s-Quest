@@ -34,7 +34,7 @@ public class ItemDropInteractable : Interactable
     protected override void Interact()
     {
         if (SoundManager.Instance != null)
-            SoundManager.Instance.PlaySound("Pick");
+            //SoundManager.Instance.PlaySound("Pick");
         Debug.Log(itemdata.itemName + " di ambil.");
         //Player_Inventory.Instance.AddItem(ItemPool.Instance.GetItem(item.itemName));
         //if (item.type == ItemType.Quest) { GetComponent<QuestQuanta>().Take(); }

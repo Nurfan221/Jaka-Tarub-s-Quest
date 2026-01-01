@@ -38,7 +38,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayClickSound()
     {
-        SoundManager.Instance.PlaySound("Click");
+        //SoundManager.Instance.PlaySound("Click");
     }
 
     private void OnNewGameClicked()

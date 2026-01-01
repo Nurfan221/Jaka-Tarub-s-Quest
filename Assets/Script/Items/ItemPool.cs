@@ -249,6 +249,7 @@ public class ItemPool : MonoBehaviour
             // Tampilkan Popup "Mendapatkan Item"
             // Kita buat dummy data agar UI menampilkan angka yang jujur (totalAdded), bukan angka awal
             ItemData dataForUI = new ItemData(itemDataToAdd.itemName, totalAdded, itemDataToAdd.quality, itemDataToAdd.itemHealth);
+            SoundManager.Instance.PlaySound(SoundName.TakeItem);
             ItemGetPanelManager.Instance.ShowItems(dataForUI);
 
             // Debug info

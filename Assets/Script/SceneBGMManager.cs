@@ -8,7 +8,7 @@ public class SceneBGMManager : MonoBehaviour
     {
         if (SoundManager.Instance != null)
         {
-            SoundManager.Instance.PlayBGM(bgmName);
+            //SoundManager.Instance.PlayBGM(bgmName);
         }
     }
 }

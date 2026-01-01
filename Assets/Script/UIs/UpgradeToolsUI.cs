@@ -107,7 +107,7 @@ public class UpgradeToolsUI : MonoBehaviour
         this.upgradeToolsInteractable = upgradeToolsInteractable;
 
         if (SoundManager.Instance != null)
-            SoundManager.Instance.PlaySound("Click");
+            //SoundManager.Instance.PlaySound("Click");
         GameController.Instance.ShowPersistentUI(false);
         gameObject.SetActive(true);
         RefreshSlots();

@@ -160,19 +160,19 @@ public class GameController : MonoBehaviour
             switch (currentSceneName)
             {
                 case "Village":
-                    SoundManager.Instance.StopBGM();
-                    SoundManager.Instance.PlayBGM("VillageBGM");
+                    //SoundManager.Instance.StopBGM();
+                    //SoundManager.Instance.PlayBGM("VillageBGM");
                     //  SoundManager.Instance.Stop("BGMDanau");
 
                     break;
                 case "Forest":
-                    SoundManager.Instance.StopBGM();
-                    SoundManager.Instance.PlayBGM("BGMDanau");
-                    SoundManager.Instance.PlayBGM("ForestBGM");
+                    //SoundManager.Instance.StopBGM();
+                    //SoundManager.Instance.PlayBGM("BGMDanau");
+                    //SoundManager.Instance.PlayBGM("ForestBGM");
                     break;
                 default:
-                    SoundManager.Instance.StopBGM();
-                    SoundManager.Instance.PlayBGM("DefaultBGM");
+                    //SoundManager.Instance.StopBGM();
+                    //SoundManager.Instance.PlayBGM("DefaultBGM");
                     break;
             }
         }

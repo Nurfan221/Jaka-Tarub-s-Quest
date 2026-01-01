@@ -170,7 +170,7 @@ public class InventoryUI : MonoBehaviour
     public void CloseInventory()
     {
         if (SoundManager.Instance != null)
-            SoundManager.Instance.PlaySound("Click");
+            //SoundManager.Instance.PlaySound("Click");
 
         isInventoryOpen = false;
 

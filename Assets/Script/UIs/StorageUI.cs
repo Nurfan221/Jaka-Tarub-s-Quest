@@ -81,7 +81,7 @@ public class StorageUI : MonoBehaviour
         this.theStorage = storage;
 
         if (SoundManager.Instance != null)
-            SoundManager.Instance.PlaySound("Click");
+            //SoundManager.Instance.PlaySound("Click");
 
         //GameController.Instance.ShowPersistentUI(false);
         //GameController.Instance.PauseGame();

@@ -29,6 +29,6 @@ public class VolumeSetting : MonoBehaviour
 
     public void SetMusicVolume(float volume)
     {
-        SoundManager.Instance.SetMusicVolume(volume);
+        //SoundManager.Instance.SetMusicVolume(volume);
     }
 }

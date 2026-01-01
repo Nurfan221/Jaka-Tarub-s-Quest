@@ -99,7 +99,7 @@ public class ClockManager : MonoBehaviour
         }
         else
         {
-            // -- FASE WAKTU --
+            //  FASE WAKTU 
             if (hour >= 0 && hour < 4) // Tengah Malam - Subuh
             {
                 targetColor = nightColor;
