@@ -266,7 +266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6568946450462913767
 Transform:
   m_ObjectHideFlags: 0
@@ -10487,6 +10487,7 @@ GameObject:
   - component: {fileID: 5267948243186387236}
   - component: {fileID: 980333059859286017}
   - component: {fileID: 5182133446376496793}
+  - component: {fileID: 1554730109556714090}
   m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
@@ -10589,6 +10590,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1554730109556714090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597510261033801724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 567a3648fcbe87c47bf42f228e51b108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FootstepController
+  tilemaps:
+  - {fileID: 0}
+  soundLibrary: {fileID: 11400000, guid: 3b701e6a3fd63a74ab399afb4e3c68c6, type: 2}
 --- !u!1 &5650322478971501241
 GameObject:
   m_ObjectHideFlags: 0
@@ -15629,7 +15645,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3bfa95106347c5d47b329713037e7c4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16018,6 +16034,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   facePlayer: {fileID: 0}
+  verticalOffset: -0.5
+  hitboxRadius: 1.5
   dashParticle: {fileID: 3862012485650969772}
   face: {fileID: 3446040036883624188}
   jarakOffsetSerang: 1

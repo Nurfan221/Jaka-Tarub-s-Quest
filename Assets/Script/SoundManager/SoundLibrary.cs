@@ -4,4 +4,8 @@ public enum SoundName
     None,
     TakeItem,
     Watering,
+    StepGrass,
+    StepStone,
+    StepWood,
+    StepDirt,
 }

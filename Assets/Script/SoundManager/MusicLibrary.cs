@@ -11,7 +11,6 @@ public class SeasonTrack
     public string name;
     public Season season;
 
-    // UBAH DARI 'AudioClip' MENJADI 'AudioClip[]' (Array)
     [Header("Music Collections")]
     public AudioClip[] sunnyMusicList;
     public AudioClip[] rainMusicList;

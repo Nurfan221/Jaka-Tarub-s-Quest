@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Enemy_Bandit : MonoBehaviour
 {
-    //[ MOVEMENT SETTINGS ]//
     [Header("Movement Settings")]
     public float moveSpeed = 2f;
     private float moveDistance = 3f; // Jarak yang ditempuh setiap kali bergerak
@@ -13,7 +12,12 @@ public class Enemy_Bandit : MonoBehaviour
     private bool isReturning = false; // Status untuk mencegah bandit keluar terus-menerus
     private int currentStep = 0; // Langkah saat ini dalam jalur NPC
 
-    //[ COMPONENT REFERENCES ]//
+    [Header("Animator Parts")]
+    public Animator baju;
+    public Animator celana;
+    public Animator rambut;
+    public Animator sepatu;
+
     [Header("Component References")]
     public Rigidbody2D rb; // Rigidbody2D untuk physics-based movement
     public SpriteRenderer spriteRenderer;
@@ -24,7 +28,6 @@ public class Enemy_Bandit : MonoBehaviour
     public Transform target;
 
 
-    //[ STATE VARIABLES ]//
     [Header("State Variables")]
     public bool isStory;
     public bool isAttacking;
@@ -37,7 +40,6 @@ public class Enemy_Bandit : MonoBehaviour
     private Coroutine currentCoroutine;
     private Coroutine chaseCoroutine;
 
-    //[ DROP ITEM SETTINGS ]//
     [Header("Drop Item Settings")]
     public Item[] dropitems; // Array item yang bisa dijatuhkan
                              //element 0 harus selalu di isi dengan prefab item normal
@@ -56,7 +58,6 @@ public class Enemy_Bandit : MonoBehaviour
     // Drop rates untuk masing-masing item (0 = 70%, 1 = 50%, dst.)
     private float[] dropRates = { 0.7f, 0.5f, 0.3f, 0.1f, 0.05f };
 
-    //[ MOVEMENT LOGIC ]//
     [Header("Movement Logic")]
     // Array arah pergerakan utama
     private Vector2[] moveDirections = new Vector2[]
@@ -551,5 +552,5 @@ public class Enemy_Bandit : MonoBehaviour
         enemy_Spawner.RemoveEnemyFromList(gameObject);
         Destroy(gameObject);
     }
-
+    
 }

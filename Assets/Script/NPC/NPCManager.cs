@@ -47,7 +47,13 @@ public class NPCManager : MonoBehaviour
             GameObject npcGO = Instantiate(npcObject, wargaDesaParent);
             NPCBehavior behavior = npcGO.GetComponent<NPCBehavior>();
             NPCInteractable interactable = npcGO.GetComponent<NPCInteractable>();
+            GameObject spriteObject = npcGO.transform.Find("Sprite").gameObject;
+            FootstepController footstep = spriteObject.GetComponent<FootstepController>();
 
+            if (footstep != null)
+            {
+                footstep.tilemaps = PlayerUI.Instance.tilemapLayerPlayer;
+            }
 
             // Inisialisasi data NPC
 

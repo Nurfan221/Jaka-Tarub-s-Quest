@@ -12,6 +12,7 @@ public class NPCAnimation : MonoBehaviour
     public Vector2 lastDirection = Vector2.down;
     private Vector2 previousPos;
 
+
     private void Awake()
     {
         AutoFindAnimators();

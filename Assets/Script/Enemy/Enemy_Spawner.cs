@@ -110,6 +110,16 @@ public class Enemy_Spawner : UniqueIdentifiableObject
         //newEnemy.GetComponent<Enemy_Health>().theSpawner = this;
         newEnemy.gameObject.SetActive(true);
         Enemy_Bandit enemy_Bandit = newEnemy.GetComponent<Enemy_Bandit>();
+        GameObject spriteObject = enemy_Bandit.transform.Find("Sprite").gameObject;
+        FootstepController footstep = spriteObject.GetComponent<FootstepController>();
+
+        if (footstep != null)
+        {
+            footstep.tilemaps = PlayerUI.Instance.tilemapLayerPlayer;
+        }else
+        {
+            Debug.LogError("FootstepController component not found on Sprite child of Enemy_Bandit.");
+        }
         if (enemy_Bandit != null)
         {
             enemy_Bandit.spawner = this.gameObject;

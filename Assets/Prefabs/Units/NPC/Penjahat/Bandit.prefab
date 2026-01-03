@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 384596820446899677}
   - component: {fileID: 5220702406883704092}
-  - component: {fileID: 1104418368416202517}
   m_Layer: 12
   m_Name: Sepatu
   m_TagString: Untagged
@@ -91,28 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1104418368416202517
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189525240664465973}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &210467811436173762
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +101,7 @@ GameObject:
   - component: {fileID: 2410583175017891489}
   - component: {fileID: 5233699151906893805}
   - component: {fileID: 3279692506625446105}
+  - component: {fileID: 5785577048613690959}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -226,6 +204,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5785577048613690959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210467811436173762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 567a3648fcbe87c47bf42f228e51b108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FootstepController
+  tilemaps: {fileID: 0}
+  soundLibrary: {fileID: 11400000, guid: 3b701e6a3fd63a74ab399afb4e3c68c6, type: 2}
 --- !u!1 &1675131909256849042
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,6 +387,7 @@ GameObject:
   - component: {fileID: 5429784632542161058}
   - component: {fileID: 859651828533797181}
   - component: {fileID: 4210990874787353170}
+  - component: {fileID: 759254452354048587}
   m_Layer: 0
   m_Name: Bandit
   m_TagString: Bandit
@@ -441,6 +434,10 @@ MonoBehaviour:
   isMoving: 0
   isAvoiding: 0
   isChasing: 0
+  baju: {fileID: 5967035227978787011}
+  celana: {fileID: 0}
+  rambut: {fileID: 5266610635566579998}
+  sepatu: {fileID: 0}
   rb: {fileID: 5429784632542161058}
   spriteRenderer: {fileID: 5233699151906893805}
   animator: {fileID: 3279692506625446105}
@@ -554,6 +551,23 @@ MonoBehaviour:
   maxHealth: 50
   health: 50
   enemy_Bandit: {fileID: 4740615744942993778}
+--- !u!114 &759254452354048587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784783501594626427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a5a424588e01349bd734d04fa84c7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCAnimation
+  bodyAnimator: {fileID: 3279692506625446105}
+  layerAnimators:
+  - {fileID: 5967035227978787011}
+  - {fileID: 5266610635566579998}
+  lastDirection: {x: 0, y: -1}
 --- !u!1 &2049766901101339516
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,7 +578,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1370705661158748038}
   - component: {fileID: 6153425171111769604}
-  - component: {fileID: 8820096454067945963}
   m_Layer: 12
   m_Name: Celana
   m_TagString: Untagged
@@ -645,28 +658,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &8820096454067945963
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2049766901101339516}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3270210204953498775
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,12 +879,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 8935726143831586934, guid: bc702fdf3e53df6438e8d442c9fcb094, type: 3}
+  m_Sprite: {fileID: 1888015289376280242, guid: 8082044105f763743a3a212863c7f430, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.000319, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -909,7 +900,7 @@ Animator:
   m_GameObject: {fileID: 4098067257487274404}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 19c211f0c70663740a4ec841c4e5c95f, type: 2}
+  m_Controller: {fileID: 22100000, guid: c20df23a9a4f06047a31d220a9eb5009, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1198,7 +1189,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -2767550449343350596, guid: efd28e0f80babe541a455e9305e02db8, type: 3}
+  m_Sprite: {fileID: -7746351705208119339, guid: f9db4b147afacbb4a84701fb966e37e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1219,7 +1210,7 @@ Animator:
   m_GameObject: {fileID: 7013582112681282616}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 8c435a284f7dd464cb11747b881ee413, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

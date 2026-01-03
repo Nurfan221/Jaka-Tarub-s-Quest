@@ -22,14 +22,9 @@ public class SoundManagerEditor : Editor
     {
         string enumName = "SoundName";
 
-        // --- PERHATIKAN BARIS INI ---
-        // Pastikan ini mengarah ke "SoundLibrary.cs", JANGAN "MusicLibrary.cs"
         string filePath = "Assets/Script/SoundManager/SoundLibrary.cs";
 
-        // Jika script kamu ada di dalam folder SoundManager, pathnya mungkin:
-        // "Assets/Script/SoundManager/SoundLibrary.cs" 
-        // (Sesuaikan dengan struktur folder proyekmu!)
-        // ----------------------------
+     
 
         StringBuilder sb = new StringBuilder();
 

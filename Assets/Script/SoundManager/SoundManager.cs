@@ -10,12 +10,12 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
     [Header("Audio Sources (Wajib 2 Deck)")]
-    public AudioSource sourceA; // Drag AudioSource 1 ke sini
-    public AudioSource sourceB; // Drag AudioSource 2 ke sini
+    public AudioSource sourceA; 
+    public AudioSource sourceB; 
     public AudioSource sfxSource;
 
     [Header("Data Source")]
-    public MusicLibrary audioLibrary; // Tarik ScriptableObject ke sini!
+    public MusicLibrary audioLibrary; 
 
     private Dictionary<SoundName, SoundEffect> sfxDictionary;
 
@@ -25,7 +25,8 @@ public class SoundManager : MonoBehaviour
     private bool isSourceAPlaying = false;
     public float fadeDuration = 2f; // Durasi transisi (detik)
     public float gapDuration = 1.0f;  // LAMA HENING (Jeda antara lagu)
-    [Range(0f, 1f)] public float maxVolume = 1.0f; // Batas maksimal volume musik
+    [Range(0f, 1f)] public float musicMasterVolume = 0.3f; // Settingan kecil untuk background
+    [Range(0f, 1f)] public float sfxMasterVolume = 1.0f;   // Settingan besar untuk efek
 
 
     private void Awake()
@@ -107,7 +108,9 @@ public class SoundManager : MonoBehaviour
             if (varyPitch) sfxSource.pitch = Random.Range(0.85f, 1.15f);
             else sfxSource.pitch = 1f;
 
-            sfxSource.PlayOneShot(sfx.clip, sfx.volume);
+
+            float finalVolume = sfx.volume * sfxMasterVolume;
+            sfxSource.PlayOneShot(sfx.clip, finalVolume);
             Debug.Log("Playing SFX: " + name.ToString());
         }
         else
@@ -117,8 +120,6 @@ public class SoundManager : MonoBehaviour
     }
     public void CheckGameplayMusic(bool isIndoors, float delay = 0f)
     {
-        // Ambil data dari TimeManager (pastikan TimeManager juga DontDestroyOnLoad)
-        // Contoh logika pengambilan data:
         Season currentSeason = TimeManager.Instance.currentSeason;
         WeatherType currentWeather = TimeManager.Instance.isRain ? WeatherType.Raining : WeatherType.Sunny;
 
@@ -158,7 +159,7 @@ public class SoundManager : MonoBehaviour
         // Setup Deck Baru (Incoming)
         incoming.clip = newClip;
         incoming.volume = 0f; // Mulai dari bisu
-        //incoming.Play();
+        incoming.Play();
 
         float timer = 0f;
 
@@ -168,7 +169,7 @@ public class SoundManager : MonoBehaviour
             float progress = timer / fadeDuration;
 
             // Turun dari Max ke 0
-            outgoing.volume = Mathf.Lerp(maxVolume, 0f, progress);
+            outgoing.volume = Mathf.Lerp(musicMasterVolume, 0f, progress);
 
             yield return null;
         }
@@ -198,13 +199,13 @@ public class SoundManager : MonoBehaviour
             float progress = timer / fadeDuration;
 
             // Naik dari 0 ke Max
-            incoming.volume = Mathf.Lerp(0f, maxVolume, progress);
+            incoming.volume = Mathf.Lerp(0f, musicMasterVolume, progress);
 
             yield return null;
         }
 
         // Finalisasi volume lagu baru
-        incoming.volume = maxVolume;
+        incoming.volume = musicMasterVolume; // Pastikan mentok di limit music
 
         // Tukar status Deck aktif
         isSourceAPlaying = !isSourceAPlaying;

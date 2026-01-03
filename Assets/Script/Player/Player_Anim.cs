@@ -47,10 +47,10 @@ public class Player_Anim : MonoBehaviour
         if (isTakingDamage) return;
         if (pm.ifDisturbed)
         {
-            // 1. Set parameter Master ke Idle (Speed 0)
+            // Set parameter Master ke Idle (Speed 0)
             SetAnimParameters(bodyAnimator, lastDirection.x, lastDirection.y, 0f);
 
-            // 2. Wajib Sync ke Slave (Baju, Celana, dll) juga!
+            // Wajib Sync ke Slave (Baju, Celana, dll) juga!
             foreach (Animator anim in layerAnimators)
             {
                 anim.SetFloat("Speed", 0f);
@@ -116,7 +116,6 @@ public class Player_Anim : MonoBehaviour
         {
             AnimatorStateInfo slaveState = anim.GetCurrentAnimatorStateInfo(0);
 
-            // Jika animasinya beda ATAU waktunya terlalu jauh (desync), paksa samakan!
             // Kita paksa baju untuk 'Play' state yang sama di waktu yang sama persis.
             if (slaveState.fullPathHash != currentHash || Mathf.Abs(slaveState.normalizedTime - currentTime) > 0.02f)
             {
@@ -208,7 +207,6 @@ public class Player_Anim : MonoBehaviour
 
         yield return null; // Tunggu frame update
 
-        // Loop tunggu hanya memantau Master (Body)
         // Kita tidak perlu mengecek layerAnimators karena mereka pasti durasinya sama
         while (bodyAnimator.GetCurrentAnimatorStateInfo(layer).IsName(stateName) &&
                bodyAnimator.GetCurrentAnimatorStateInfo(layer).normalizedTime < 1.0f)

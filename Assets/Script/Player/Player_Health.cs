@@ -149,7 +149,6 @@ public class Player_Health : MonoBehaviour
         StartCoroutine(ApplyKnockback(attackerPosition));
         StartCoroutine(TakeDamageVisual());
 
-        // CEK KEMATIAN:
         if (stats.health <= 0)
         {
             // Serangan musuh ke-2 yang masuk setelah baris ini akan ditolak oleh "if (isDead) return;" di atas.

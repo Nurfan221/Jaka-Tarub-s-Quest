@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI; // Tambahkan ini untuk Button
 
 public class PlayerUI : MonoBehaviour
@@ -70,8 +71,8 @@ public class PlayerUI : MonoBehaviour
     public Button resumeSetting;
     public Button goMainMenu;
 
-
-   
+    [Header("Tilemap Layer")]
+    public Tilemap tilemapLayerPlayer;
 
     [Header("Inventory UI")]
     public Button inventoryButton;  // Drag and drop the button in the inspector
