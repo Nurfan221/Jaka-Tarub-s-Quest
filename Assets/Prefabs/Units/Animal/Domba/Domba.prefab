@@ -56,6 +56,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -77,6 +79,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
@@ -174,7 +177,7 @@ Animator:
   m_GameObject: {fileID: 8466065145438896573}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 951b52a5be219f8428e55e53194b5818, type: 2}
+  m_Controller: {fileID: 22100000, guid: 8fd3bcd7ffebaff45aeb2ead5c00a567, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -198,61 +201,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cdab25f66972f94480edfca2fb7f3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalIdle:
-  - {fileID: -6294243155114217349, guid: 67994d6ba15916f4387cc44beb934f3c, type: 3}
-  - {fileID: -5772777664047436682, guid: 67994d6ba15916f4387cc44beb934f3c, type: 3}
-  animationStates:
-  - stateName: Idle
-    availableStates:
-    - JalanKanan
-    - JalanKiri
-    - Duduk
-    - Makan
-  - stateName: JalanKanan
-    availableStates:
-    - Idle
-    - Duduk
-    - Makan
-  - stateName: JalanKiri
-    availableStates:
-    - Idle
-    - Makan
-    - Duduk
-  - stateName: Duduk
-    availableStates:
-    - Rebahan
-    - Berdiri
-  - stateName: Rebahan
-    availableStates:
-    - TidurNyenyak
-  - stateName: TidurNyenyak
-    availableStates:
-    - Berdiri
-  - stateName: Berdiri
-    availableStates:
-    - Idle
-  - stateName: Makan
-    availableStates:
-    - Idle
-    - Mengunyah
-  - stateName: Mengunyah
-    availableStates:
-    - Makan
-    - Idle
-  currentState: Idle
+  transitions:
+  - currentState: 0
+    possibleNextStates: 01000000020000000300000007000000
+  - currentState: 1
+    possibleNextStates: 0100000002000000030000000700000000000000
+  - currentState: 2
+    possibleNextStates: 0100000002000000030000000700000000000000
+  - currentState: 3
+    possibleNextStates: 0100000002000000030000000700000000000000
+  currentState: 0
   jedaAnimasi: 3
   isMoving: 0
   isAnimalQuest: 0
   moveSpeed: 1
   isAnimalEvent: 1
   rb: {fileID: 0}
+  movementDirection: {x: 0, y: 0}
+  lastDirection: {x: 0, y: 0}
   tipeHewan: 0
   currentTarget: {fileID: 0}
   itemTriggerName: 
   attackRange: 1.5
   attackCooldown: 2
+  wanderRadius: 4
   zonaSerangTransform: {fileID: 0}
-  jarakOffsetSerang: 1
+  verticalOffset: 0
+  hitboxRadius: 1
   animalAnimator: {fileID: 779017872243086411}
   animalRenderer: {fileID: -4335485848235824116}
   detectionRadius: 0

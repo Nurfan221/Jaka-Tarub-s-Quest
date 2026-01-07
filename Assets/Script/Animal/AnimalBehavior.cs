@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 public enum AnimalType { Pasif, Agresif, isQuest }
-public enum AnimalState { Idle, Wandering, Eating, Sleeping, Mengejar, Attack, Run}
+public enum AnimalState { Idle, Wandering, Eating, Sleeping, Mengejar, Attack, Run, Duduk}
 
 [System.Serializable]
 public class StateTransition
@@ -18,7 +18,9 @@ public class AnimalBehavior : MonoBehaviour
 {
     [Header("Animasi dan Transisi")]
     public StateTransition[] transitions;
-
+    [Header("Sensor Mata")]
+    public float detectionRadius = 5f; // Tetap pakai float biar ringan
+    public LayerMask targetLayer;
 
     public AnimalState currentState = AnimalState.Idle;
     public float jedaAnimasi = 3f;
@@ -42,7 +44,7 @@ public class AnimalBehavior : MonoBehaviour
     public float attackCooldown = 2f;
     private float lastAttackTime = 0f;
     public float wanderRadius = 4;
-
+    public int attackDamage = 10;
 
     [Header("Komponen Serangan")]
     public Transform zonaSerangTransform;
@@ -55,7 +57,6 @@ public class AnimalBehavior : MonoBehaviour
     public SpriteRenderer animalRenderer;
 
     [Header("Logika Deteksi")]
-    public float detectionRadius;
     // Variable untuk mencegah spam coroutine (Wajib ada di Class scope)
     private Coroutine roamingCoroutine;
 
@@ -95,9 +96,11 @@ public class AnimalBehavior : MonoBehaviour
             currentState = AnimalState.Idle;
             animalAnimator.Play("Idle");
             roamingCoroutine = StartCoroutine(ThinkProcess());
+            StartCoroutine(DetectTargetRoutine());
         }
         else if (tipeHewan == AnimalType.isQuest)
         {
+            StartCoroutine(DetectTargetRoutine());
             // Jika diawal sudah isQuest, langsung coba kejar player
             if (playerTransform == null)
             {
@@ -122,131 +125,155 @@ public class AnimalBehavior : MonoBehaviour
 
     private void Update()
     {
-        UpdateZonaSerangPosition();
-        // Logika untuk AnimalType.Agresif dan AnimalType.isQuest
+
         if (currentTarget == null)
         {
-            // Jika tadinya sedang mengejar/menyerang, dan tiba-tiba target hilang
-            // Kita paksa reset state
-            if (tipeHewan != AnimalType.Pasif)
+            // 2. Filter: Kita hanya peduli jika hewan sedang "Sibuk" (Mengejar/Attack).
+            // Kalau dia lagi Idle/Wandering dan target null, itu normal (gak perlu direset).
+            if (currentState == AnimalState.Mengejar || currentState == AnimalState.Attack)
             {
+                Debug.Log("Waduh, target hilang saat dikejar! Reset dulu.");
+
+                // A. RESET STATUS (Kembali ke kondisi awal)
+                // ??? (Set currentState jadi Idle)
+                // ??? (Pastikan isMoving jadi false)
+                // ??? (Mainkan animasi "Idle" biar gak stuck di pose lari/gigit)
+
                 currentState = AnimalState.Idle;
-
-                if (!animalAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-                {
-                    animalAnimator.Play("Idle");
-                }
-
                 isMoving = false;
+                animalAnimator.Play("Idle");
 
-                // Hanya jalankan coroutine JIKA belum ada yang berjalan (null)
+
+                // B. MATIKAN FISIKA (Rem Tangan)
+                // Biar hewan gak 'meluncur' terus karena sisa tenaga dorong
+                // ??? (Set velocity rigidbody jadi 0)
+                rb.linearVelocity = Vector2.zero;
+
+                // C. NYALAKAN OTAK JALAN-JALAN (ThinkProcess)
+                // Ingat, waktu kita mulai mengejar, kita mematikan 'roamingCoroutine'.
+                // Sekarang kita harus nyalakan lagi, kalau tidak hewan akan patung selamanya.
+                // Clue: Cek dulu apakah roamingCoroutine kosong, baru StartCoroutine.
                 if (roamingCoroutine == null)
                 {
-
-                    Debug.Log("eh cari kegiatan lain dong");
-                    //roamingCoroutine = StartCoroutine(PlayRandomAnimationPeriodically());
+                    roamingCoroutine = StartCoroutine(ThinkProcess());
                 }
+
+                // ??? (Tulis logika restart coroutine ThinkProcess di sini)
             }
 
-            return; // Stop, jangan lanjut ke bawah
+            // 3. KELUAR DARI FUNGSI (Safety Stop)
+            // Kita tidak mau kode di bawah (yang butuh currentTarget) dijalankan.
+            // ??? (Tulis perintah untuk menghentikan fungsi Update saat ini juga)
+            return;
         }
+        UpdateZonaSerangPosition();
 
 
-        // Matikan mode jalan-jalan santai karena kita punya urusan (Mengejar/Menyerang)
-        if (roamingCoroutine != null)
+
+        // --- LOGIKA AGRESIF UTAMA ---
+        // Kita hanya jalankan ini kalau tipe Agresif dan PUNYA target
+        if (tipeHewan == AnimalType.Agresif && currentTarget != null)
         {
-            StopCoroutine(roamingCoroutine);
-            roamingCoroutine = null;
-        }
+            // 1. Hitung Jarak ke Target
+            float distance = Vector2.Distance(transform.position, currentTarget.position);
 
-        // Jika tipe hewan adalah isQuest dan targetnya bukan ItemDrop,
-        // dia hanya akan mengikuti player tanpa menyerang.
-        //if (tipeHewan == AnimalType.isQuest && currentTarget.CompareTag("ItemDrop") == false)
-        //{
-        //    // Pastikan currentTarget adalah player (jika Anda ingin selalu mengikuti player)
-        //    if (currentTarget.CompareTag("Player"))
-        //    {
-        //        float distanceToPlayer = Vector2.Distance(transform.position, currentTarget.position);
-        //        if (distanceToPlayer > attackRange) // Jika masih di luar jarak serang
-        //        {
-        //            currentState = "Mengejar";
-        //            ChaseTargetFixedUpdate();
-        //        }
-        //        else // Sudah dekat dengan player
-        //        {
-        //            currentState = AnimalState.Idle;// Berhenti mengejar, tetap di tempat
-        //            isMoving = false;
-        //            animalAnimator.Play("Idle"); // Animasi idle
-        //        }
-        //    }
-        //    else
-        //    {
-        //        // Jika isQuest punya target selain player/itemdrop (misal hewan lain), hapus targetnya.
-        //        // Ini untuk memastikan isQuest hanya fokus ke player atau ItemDrop.
-        //        currentTarget = null;
-        //        currentState = AnimalState.Idle;
-        //        StartCoroutine(PlayRandomAnimationPeriodically());
-        //    }
-        //    return; // Hentikan Update untuk isQuest jika tidak ada ItemDrop
-        //}
+            // 2. LOGIKA PERCABANGAN STATE (Mengejar vs Menyerang)
 
-        // Logika Agresif (hanya untuk AnimalType.Agresif) atau isQuest yang mengejar ItemDrop
-        if (tipeHewan == AnimalType.Agresif || (tipeHewan == AnimalType.isQuest && currentTarget.CompareTag("ItemDrop")))
-        {
-
-            float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
-
-            if (distanceToTarget <= attackRange)
+            // KASUS A: Target Masih Jauh (Di luar jangkauan serang)
+            if (distance > attackRange)
             {
-                currentState = AnimalState.Attack; // Atau "MengambilItem" jika targetnya ItemDrop
+                // ??? (Apa yang harus dilakukan di sini?)
+                // Clue: 
+                // 1. Set currentState jadi apa?
+                // 2. Apakah isMoving true atau false?
+                // 3. Panggil fungsi gerak yang mana? (Ingat, gerak fisik harus dipanggil terus menerus)
+
+                currentState = AnimalState.Mengejar;
+                isMoving = true;
             }
+            // KASUS B: Target Sudah Dekat (Di dalam jangkauan serang)
             else
             {
-                currentState = AnimalState.Mengejar;
+                // ??? (Apa yang harus dilakukan di sini?)
+                // Clue:
+                // 1. Set currentState jadi apa?
+                // 2. Apakah hewan boleh bergerak saat menyerang? (isMoving?)
+                // 3. Panggil fungsi logika serangan yang mana?
+                currentState = AnimalState.Attack;
+                isMoving = false;
+
+                // Tambahkan REM TANGAN biar gak meluncur (sliding) saat mukul
+                rb.linearVelocity = Vector2.zero;
+                JalankanLogikaSerangan();
             }
 
-            switch (currentState)
+            // 3. CEK APAKAH TARGET KABUR (Give Up Logic)
+            // Jika target lari terlalu jauh (misal detectionRadius + 3 meter)
+            if (distance > detectionRadius + 3f)
             {
-                case AnimalState.Mengejar:
-                    ChaseTargetFixedUpdate();
-                    break;
-                case AnimalState.Attack: // Ini akan dipanggil juga jika isQuest mencapai ItemDrop
-                    // Untuk isQuest yang mencapai ItemDrop, kita akan "mengambil" itemnya
-                    if (tipeHewan == AnimalType.isQuest && currentTarget.CompareTag("ItemDrop"))
-                    {
-                        Debug.Log($"{namaHewan} (Quest) telah mencapai item: {currentTarget.name}. Mengambilnya!");
-                        OnAnimalPickItem?.Invoke(); // Panggil event jika ada yang mendengarkan
-                        // Hancurkan item atau nonaktifkan
-                        Destroy(currentTarget.gameObject);
-                        currentTarget = null; // Hapus target
-                        currentState = AnimalState.Idle; // Kembali ke idle setelah mengambil item
-                    }
-                    else // Ini untuk AnimalType.Agresif yang menyerang
-                    {
-                        //JalankanLogikaSerangan();
-                    }
-                    isMoving = false;
-                    animalAnimator.Play("Idle");
-                    break;
+                // ??? (Tulis logika menyerah di sini: Reset target, Reset state, Mulai roaming lagi)
+                currentTarget = null;
+                currentState = AnimalState.Idle;
+                animalAnimator.Play("Idle");
+                isMoving = false;
+                rb.linearVelocity = Vector2.zero;
+                if (roamingCoroutine == null)
+                {
+                    roamingCoroutine = StartCoroutine(ThinkProcess());
+                }
             }
         }
     }
 
-   
+    private void FixedUpdate()
+    {
+        if (currentState == AnimalState.Mengejar && currentTarget != null)
+        {
+            ChaseTargetFixedUpdate();
+        }
+    }
+
 
     // Coroutine baru untuk pergerakan yang lebih aman
     private IEnumerator MoveToTargetWithPhysics(Vector2 targetPosition, float speed)
     {
-        while (Vector2.Distance(rb.position, targetPosition) > 0.1f)
+        float stuckTimer = 0f;
+        float timeToConsiderStuck = 1.0f; // Jika 1 detik gak gerak, dianggap stuck
+        Vector2 lastPosition = rb.position;
+
+        // Loop gerakan
+        while (Vector2.Distance(rb.position, targetPosition) > 0.5f) // Jarak toleransi sedikit diperbesar
         {
-            // MovePosition() harus di FixedUpdate()
-            // Jadi kita hanya perlu mengarahkan hewan di sini
             Vector2 direction = (targetPosition - rb.position).normalized;
             rb.linearVelocity = direction * speed;
 
-            yield return null; // Tunggu satu frame
+            // Hitung jarak perpindahan sejak frame terakhir
+            float distanceMoved = Vector2.Distance(rb.position, lastPosition);
+
+            // Jika geraknya sedikit sekali (hampir diam) padahal velocity ada
+            if (distanceMoved < (speed * Time.deltaTime * 0.1f))
+            {
+                stuckTimer += Time.deltaTime;
+                if (stuckTimer > timeToConsiderStuck)
+                {
+                    Debug.Log($"{namaHewan} NYETUCK! Membatalkan jalur ini.");
+                    rb.linearVelocity = Vector2.zero;
+                    yield break; // kalau tidak bergerak berarti menabrak sesuatu. Keluar dari coroutine
+                }
+            }
+            else
+            {
+                // Kalau gerak lancar, reset timer
+                stuckTimer = 0f;
+            }
+
+            // Simpan posisi frame ini untuk dicek di frame depan
+            lastPosition = rb.position;
+
+            yield return null;
         }
-        rb.linearVelocity = Vector2.zero; // Hentikan gerakan setelah sampai
+
+        rb.linearVelocity = Vector2.zero; // Berhenti mulus
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -260,15 +287,7 @@ public class AnimalBehavior : MonoBehaviour
         }
     }
 
-    // FixedUpdate() baru untuk menangani fisika
-    void FixedUpdate()
-    {
-        if (isMoving && currentTarget != null)
-        {
-            ChaseTargetFixedUpdate();
-        }
-        // Jika tidak mengejar, gerakan acak akan dihandle oleh coroutine MoveToTargetWithPhysics
-    }
+   
 
 
     public void ChangeAnimalType(AnimalType animalType)
@@ -327,6 +346,8 @@ public class AnimalBehavior : MonoBehaviour
             // 2. Lakukan kegiatan tersebut (Jalan-jalan, Makan, atau Diam)
             if (nextAction == AnimalState.Wandering) yield return StartCoroutine(DoWandering());
             else if (nextAction == AnimalState.Eating) yield return StartCoroutine(DoEatingSequence());
+            else if (nextAction == AnimalState.Sleeping) yield return  StartCoroutine(DoSleep()); // Implementasi tidur bisa ditambahkan nanti
+            else if (nextAction == AnimalState.Duduk) yield return  StartCoroutine(DoSit());
             else yield return StartCoroutine(DoIdle());
         }
     }
@@ -355,74 +376,68 @@ public class AnimalBehavior : MonoBehaviour
     }
     public IEnumerator DoWandering()
     {
-        Debug.Log($"{namaHewan} memutuskan untuk jalan-jalan santai.");
+        Debug.Log($"{namaHewan} mencoba jalan-jalan.");
 
-
-        // Ambil posisi sekarang
+        //tentukan seberapa jauh dia akan jalan
+        float distanceToWander = UnityEngine.Random.Range((wanderRadius/2), wanderRadius);
+        // Tentukan Tujuan Awal
         Vector2 currentPos = transform.position;
-
-        // Cari titik acak dalam lingkaran radius X
-        // Random.insideUnitCircle akan menghasilkan Vector2 acak antara (-1,-1) sampai (1,1)
-        Vector2 randomOffset = UnityEngine.Random.insideUnitCircle * wanderRadius;
-
-        // Tentukan target akhir
+        Vector2 randomOffset = UnityEngine.Random.insideUnitCircle * distanceToWander;
         Vector2 targetPosition = currentPos + randomOffset;
 
-
-
         isMoving = true;
+        UpdateAnimationDirection(targetPosition); 
 
-        // Cek arah untuk menentukan animasi Kanan/Kiri
-        if (targetPosition.x > transform.position.x)
-        {
-            animalRenderer.flipX = true; // Hadap Kanan
-            animalAnimator.Play("JalanKanan"); // Atau "Jalan"
-        }
-        else
-        {
-            animalRenderer.flipX = false; // Hadap Kiri
-            animalAnimator.Play("JalanKiri");
-        }
+        // Kita tunggu sampai dia sampai ATAU dia menyerah (stuck)
+        yield return StartCoroutine(MoveToTargetWithPhysics(targetPosition, moveSpeed));
 
+       
 
-
-        // Selama jarak ke target masih jauh (> 0.1f), teruslah bergerak
-        while (Vector2.Distance(transform.position, targetPosition) > 0.1f)
-        {
-            // Pindahkan posisi sedikit demi sedikit ke arah target
-            // MoveTowards menjamin pergerakan yang mulus dan berhenti tepat di target
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-            // PENTING: Tunggu frame berikutnya, jangan macetkan game
-            yield return null;
-        }
-
-
-
-        // Sudah sampai, hentikan animasi
         isMoving = false;
         animalAnimator.Play("Idle");
 
-        Debug.Log($"{namaHewan} sampai di tujuan jalan-jalannya.");
-
-        // Tambahan: Istirahat sebentar setelah capek jalan (misal 1-2 detik)
+        // Istirahat
         yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 2f));
     }
-    public float getRandomWalkAnimal()
+
+    // Helper kecil biar code rapi
+    private void UpdateAnimationDirection(Vector2 target)
     {
-        return UnityEngine.Random.Range(0f, 4f);
+        if (target.x > transform.position.x)
+        {
+            animalRenderer.flipX = true;
+            animalAnimator.Play("JalanKanan");
+        }
+        else
+        {
+            animalRenderer.flipX = false;
+            animalAnimator.Play("JalanKiri");
+        }
     }
+
+    private void UpdateAnimationRun(Vector2 target, string runAnimationName)
+    {
+        if (target.x > transform.position.x)
+        {
+            animalRenderer.flipX = true;
+            animalAnimator.Play(runAnimationName);
+        }
+        else
+        {
+            animalRenderer.flipX = false;
+            animalAnimator.Play(runAnimationName);
+        }
+    }
+
     private IEnumerator DoEatingSequence()
     {
         currentState = AnimalState.Eating; // Kunci state biar gak diganggu
 
-        // Tahap 1: Menunduk (Persiapan)
-        animalAnimator.Play("Makan");
-        yield return new WaitForSeconds(1.5f); // Tunggu animasi nunduk
 
-        // Tahap 2: Mengunyah (Looping)
+        yield return StartCoroutine(PlayAndWait("Makan"));
+
         animalAnimator.Play("Mengunyah");
-        float durasiMakan = UnityEngine.Random.Range(4f, 6f); // Makan selama 3-6 detik
+        float durasiMakan = UnityEngine.Random.Range(2f, 4f); // Makan selama 3-6 detik
         yield return new WaitForSeconds(durasiMakan);
 
        
@@ -432,10 +447,54 @@ public class AnimalBehavior : MonoBehaviour
         currentState = AnimalState.Idle;
     }
 
+    public IEnumerator DoSleep()
+    {
+        currentState = AnimalState.Eating; // Kunci state biar gak diganggu
+
+        yield return StartCoroutine(PlayAndWait("Duduk"));
+
+        yield return StartCoroutine(PlayAndWait("Rebahan"));
+
+        animalAnimator.Play("TidurNyenyak");
+        float durasiMakan = UnityEngine.Random.Range(2f, 4f); // Tidur selama 3-6 detik
+        yield return new WaitForSeconds(durasiMakan);
+
+
+
+        currentState = AnimalState.Idle;
+    }
+    public IEnumerator DoSit()
+    {
+        currentState = AnimalState.Eating; // Kunci state biar gak diganggu
+
+        yield return StartCoroutine(PlayAndWait("Duduk"));
+
+        animalAnimator.Play("Rebahan");
+        float durasiRebahan = UnityEngine.Random.Range(2f, 4f); // Makan selama 3-6 detik
+        yield return new WaitForSeconds(durasiRebahan);
+
+        yield return StartCoroutine(PlayAndWait("Berdiri"));
 
 
 
 
+        currentState = AnimalState.Idle;
+    }
+
+
+    private IEnumerator PlayAndWait(string stateName)
+    {
+        animalAnimator.Play(stateName);
+
+        // Tanpa ini, Unity masih membaca info animasi yang LAMA (sebelum diganti)
+        yield return null;
+
+        // Ambil informasi state yang sedang berjalan di Layer 0
+        AnimatorStateInfo info = animalAnimator.GetCurrentAnimatorStateInfo(0);
+
+        //Ambil durasi (length) animasi tersebut dan tunggu
+        yield return new WaitForSeconds(info.length);
+    }
 
     public void DropItem()
     {
@@ -752,23 +811,7 @@ public class AnimalBehavior : MonoBehaviour
         }
     }
 
-    private void ChaseTargetFixedUpdate()
-    {
-        movementDirection = (currentTarget.position - transform.position).normalized;
-        rb.MovePosition(rb.position + movementDirection * moveSpeed * Time.fixedDeltaTime);
 
-        // Logika flip dan animasi tetap di sini
-        if (movementDirection.x > 0)
-        {
-            animalRenderer.flipX = true;
-            animalAnimator.Play("JalanKanan");
-        }
-        else if (movementDirection.x < 0)
-        {
-            animalRenderer.flipX = false;
-            animalAnimator.Play("JalanKiri");
-        }
-    }
 
     public void SetMovementDirection(Vector2 direction)
     {
@@ -796,69 +839,250 @@ public class AnimalBehavior : MonoBehaviour
             return; // Hentikan fungsi jika hewan adalah quest
         }
 
-        // Logika serangan HANYA untuk AnimalType.Agresif
-        if (Time.time < lastAttackTime + attackCooldown)
-        {
-            return;
-        }
+     
 
-        lastAttackTime = Time.time;
 
-        if (currentTarget != null)
+        if (currentTarget != null && tipeHewan == AnimalType.Agresif)
         {
             Debug.Log($"{namaHewan} sedang memberikan damage ke {currentTarget.name}");
 
-            if (currentTarget.CompareTag("Animal"))
-            {
-                AnimalBehavior targetBehavior = currentTarget.GetComponent<AnimalBehavior>();
-                if (targetBehavior != null)
-                {
-                    targetBehavior.TakeDamage(10);
-                }
-            }
-            else if (currentTarget.CompareTag("Player"))
-            {
-                Player_Health player_Health = currentTarget.GetComponent<Player_Health>();
-                if (player_Health != null)
-                {
-                    player_Health.TakeDamage(20, zonaSerangTransform.position);
-                    player_Health.CheckSekarat();
-                }
-            }
+            if (Time.time < lastAttackTime + attackCooldown) return;
+
+            lastAttackTime = Time.time;
+
+            // Jangan kasih damage disini! Biarkan Animation Event yang memanggil PerformAttack()
+            animalAnimator.Play("Attack");
+
+            // Stop gerakan saat menyerang biar gak meluncur (sliding)
+            isMoving = false;
         }
     }
 
     private void UpdateZonaSerangPosition()
     {
-        // Cek Null & Tipe Hewan
-        if (zonaSerangTransform == null || currentTarget == null) return;
-        if (tipeHewan != AnimalType.Agresif) return;
+        // Safety check
+        if (zonaSerangTransform == null) return;
 
-        // Update lastDirection jika hewan sedang bergerak
-        //  zona serang tetap menghadap ke arah terakhir
-        if (movementDirection.magnitude > 0.1f)
+        // Tentukan Titik Pusat Rotasi (Misal: Dada/Kepala hewan)
+        Vector3 centerPoint = transform.position + new Vector3(0, verticalOffset, 0);
+
+        Vector2 directionToLook;
+
+        //Jika punya target, pandangan (Zona Serang) KUNCI ke Target!
+        if (currentTarget != null)
         {
-            lastDirection = movementDirection.normalized;
+            // Hitung arah dari Saya ke Musuh
+            directionToLook = (currentTarget.position - transform.position).normalized;
+
+            // Update lastDirection agar saat musuh mati, kita tetap menghadap ke sana
+            lastDirection = directionToLook;
+        }
+        // Jika tidak ada target tapi sedang jalan, ikut arah jalan
+        else if (movementDirection.magnitude > 0.1f)
+        {
+            directionToLook = movementDirection.normalized;
+            lastDirection = directionToLook;
+        }
+        //  Jika diam dan tidak ada target, pakai arah terakhir
+        else
+        {
+            // Pastikan tidak error jika lastDirection 0 (default kanan)
+            if (lastDirection == Vector2.zero) lastDirection = Vector2.right;
+            directionToLook = lastDirection;
         }
 
-        // Cek safety agar tidak error jika lastDirection masih (0,0) di awal game
-        if (lastDirection == Vector2.zero) return;
+       
 
-        // itung Posisi Zona Serang
-        // Rumus: Arah Terakhir * Jarak Serang
-        Vector3 finalPosition = lastDirection * attackRange;
-
-        // Tambahkan Vertical Offset (Penting untuk game Top-Down agar hitbox pas di badan/kepala, bukan di kaki)
-        finalPosition.y += verticalOffset;
+        Vector3 orbitPosition = centerPoint + (Vector3)(directionToLook * attackRange);
 
         // Terapkan Posisi
-        zonaSerangTransform.localPosition = finalPosition;
+        zonaSerangTransform.position = orbitPosition;
 
-        //  Hitung Rotasi (Agar area serang memutar mengikuti arah hadap)
-        float angle = Mathf.Atan2(lastDirection.y, lastDirection.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(directionToLook.y, directionToLook.x) * Mathf.Rad2Deg;
         zonaSerangTransform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
+    public void PerformAttack()
+    {
+     
+
+        // Kita cek area di sekitar zonaSerangTransform dengan radius hitboxRadius
+        Collider2D[] hits = Physics2D.OverlapCircleAll(zonaSerangTransform.position, hitboxRadius, targetLayer);
+
+        foreach (Collider2D hit in hits)
+        {
+            // Hindari memukul diri sendiri
+            if (hit.gameObject == this.gameObject) continue;
+
+
+            // Cek jika kena Player
+            if (hit.CompareTag("Player"))
+            {
+                Player_Health playerHealth = hit.GetComponent<Player_Health>();
+                if (playerHealth != null)
+                {
+                    // Berikan damage + efek knockback (posisi penyerang dikirim untuk arah mental)
+                    playerHealth.TakeDamage(attackDamage, transform.position);
+                    Debug.Log($"{namaHewan} berhasil menggigit Player!");
+                }
+            }
+            // Cek jika kena Hewan Lain (Mangsa)
+            else if (hit.CompareTag("Animal"))
+            {
+                AnimalBehavior prey = hit.GetComponent<AnimalBehavior>();
+                // Pastikan hanya menyerang jika targetnya Pasif (atau musuh)
+                if (prey != null && prey.tipeHewan == AnimalType.Pasif)
+                {
+                    prey.TakeDamage(attackDamage);
+                    Debug.Log($"{namaHewan} berhasil menggigit {prey.namaHewan}!");
+                }
+            }
+        }
+    }
+
+    private IEnumerator DetectTargetRoutine()
+    {
+        //  scan setiap 0.5 detik 
+        WaitForSeconds scanInterval = new WaitForSeconds(0.5f);
+
+        while (true)
+        {
+          
+            if ((tipeHewan == AnimalType.Agresif || tipeHewan == AnimalType.isQuest) && currentTarget == null)
+            {
+                FindClosestTarget();
+            }
+
+            yield return scanInterval;
+        }
+    }
+
+    private void FindClosestTarget()
+    {
+        Debug.Log($"{namaHewan} sedang mencari target di sekitar...");
+        // Cari semua objek di dalam lingkaran radius
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRadius, targetLayer);
+
+        float closestDistance = Mathf.Infinity;
+        Transform potentialTarget = null;
+
+        foreach (Collider2D hit in hits)
+        {
+            // Hindari mendeteksi diri sendiri
+            if (hit.gameObject == this.gameObject) continue;
+
+            bool isValidTarget = false;
+
+            // Jika Saya Agresif Cari Player ATAU Hewan Pasif
+            if (tipeHewan == AnimalType.Agresif)
+            {
+                if (hit.CompareTag("Player")) isValidTarget = true;
+                else if (hit.CompareTag("Animal"))
+                {
+                    AnimalBehavior otherAnimal = hit.GetComponent<AnimalBehavior>();
+                    // cari hewan tipe pasif saja
+                    if (otherAnimal != null && otherAnimal.tipeHewan == AnimalType.Pasif)
+                    {
+                        isValidTarget = true;
+                    }
+                }
+            }
+            // Jika Saya Quest Cari Player saja (untuk diikuti)
+            else if (tipeHewan == AnimalType.isQuest)
+            {
+                if (hit.CompareTag("Player")) isValidTarget = true;
+            }
+
+            if (isValidTarget)
+            {
+                float dist = Vector2.Distance(transform.position, hit.transform.position);
+
+                // Jika ini lebih dekat dari kandidat sebelumnya, simpan ini
+                if (dist < closestDistance)
+                {
+                    closestDistance = dist;
+                    potentialTarget = hit.transform;
+                }
+            }
+        }
+
+        // Jika mata berhasil menemukan target yang valid
+        if (potentialTarget != null)
+        {
+            Debug.Log($"{namaHewan} melihat target baru: {potentialTarget.name}");
+            currentTarget = potentialTarget;
+
+            // Ubah state jadi mengejar
+            currentState = AnimalState.Mengejar;
+
+            // Hentikan jalan-jalan santai (Wandering)
+            if (roamingCoroutine != null)
+            {
+                StopCoroutine(roamingCoroutine);
+                roamingCoroutine = null;
+            }
+        }
+    }
+
+    private void ChaseTargetFixedUpdate()
+    {
+        // 1. SAFETY CHECK
+        // Pastikan target masih ada. Kalau null, return (keluar).
+        if (currentTarget == null)
+        {
+            // ??? (Tulis logika stop gerakan di sini biar gak 'meluncur' sisa inersia)
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        // 2. HITUNG JARAK (REM)
+        // Gunakan Vector2.Distance()
+        float distance = Vector2.Distance(transform.position, currentTarget.position); // ??? (Isi rumus jarak di sini)
+
+        // 3. LOGIKA GERAK
+        // Jika jarak masih jauh (lebih besar dari attackRange), kita kejar!
+        if (distance > attackRange)
+        {
+            // A. Tentukan Arah (KOMPAS)
+            // Rumus: (PosisiTarget - PosisiSaya).normalized
+            Vector2 direction = (currentTarget.position - transform.position).normalized; // ??? (Isi rumus arah di sini)
+            if (Mathf.Abs(direction.x) > 0.1f)
+            {
+                // B. Update Arah Hadap (FLIP) & Animasi
+                SetMovementDirection(direction);
+                UpdateAnimationDirection(direction);
+            }
+            else
+            {
+                // Jika X sangat kecil (gerak vertikal lurus ke atas/bawah), 
+                // Kita TETAP update lastDirection untuk Zona Serang, tapi visual flip tidak perlu dipaksa
+                // agar tidak berkedip-kedip.
+
+                // Opsional: Tetap simpan arah Y saja
+                SetMovementDirection(new Vector2(0, direction.y));
+            }
+            // B. Update Arah Hadap (FLIP)
+            // Biar codingan rapi, panggil fungsi helper yang sudah ada
+            // ??? (Panggil fungsi SetMovementDirection(direction) punya Anda)
+
+            // C. Gerakkan Fisika (MESIN)
+            // Rumus: Arah * Kecepatan (moveSpeed)
+            rb.linearVelocity = direction * moveSpeed; // ??? (Isi rumus velocity di sini)
+
+            // D. Pastikan Variable Animasi Nyala
+            isMoving = true;
+        }
+        else
+        {
+            // 4. SUDAH DEKAT (STOP)
+            // Matikan mesin
+            rb.linearVelocity = Vector2.zero;
+            isMoving = false;
+            animalAnimator.Play("Idle");
+
+            // (Opsional) Play animasi Idle jika mau
+        }
+    }
     private void OnDrawGizmosSelected()
     {
         // Jika verticalOffset negatif, titik ini akan turun.
@@ -874,6 +1098,19 @@ public class AnimalBehavior : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawLine(centerPoint, zonaSerangTransform.position);
             Gizmos.DrawWireSphere(zonaSerangTransform.position, 0.2f);
+        }
+
+        // Gambar Lingkaran Deteksi (Sensor Mata) - WARNA HIJAU
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(centerPoint, detectionRadius);
+
+        // Gambar Zona Serang (Hitbox) - WARNA MERAH (Dari kode Anda sebelumnya)
+        if (zonaSerangTransform != null)
+        {
+            // Hitung titik tengah visual offset
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(centerPoint, hitboxRadius);
         }
     }
 }
