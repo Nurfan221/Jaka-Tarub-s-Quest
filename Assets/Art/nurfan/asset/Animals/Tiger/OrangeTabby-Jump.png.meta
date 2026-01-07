@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: 8378a2bdf7d29f54e8da9a0ec315a3db
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6755569568358461790
+    second: OrangeTabby-Jump_0
+  - first:
+      213: 3398228194076430569
+    second: OrangeTabby-Jump_1
+  - first:
+      213: 2006133645351353601
+    second: OrangeTabby-Jump_2
+  - first:
+      213: -8403225785487010124
+    second: OrangeTabby-Jump_3
+  - first:
+      213: 7072953669454260831
+    second: OrangeTabby-Jump_4
+  - first:
+      213: 7478781244478244995
+    second: OrangeTabby-Jump_5
+  - first:
+      213: 2100943699595761136
+    second: OrangeTabby-Jump_6
+  - first:
+      213: -1026776241625769896
+    second: OrangeTabby-Jump_7
+  - first:
+      213: -3179595353237923097
+    second: OrangeTabby-Jump_8
+  - first:
+      213: -3487464119204646360
+    second: OrangeTabby-Jump_9
+  - first:
+      213: -4652824289696305411
+    second: OrangeTabby-Jump_10
+  - first:
+      213: 7883001746747873516
+    second: OrangeTabby-Jump_11
+  - first:
+      213: -3247513717451650074
+    second: OrangeTabby-Jump_12
+  - first:
+      213: 7155526901787098737
+    second: OrangeTabby-Jump_13
+  - first:
+      213: -7053918502427388978
+    second: OrangeTabby-Jump_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 0
+        width: 33
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ae0e8625456f32a0800000000000000
+      internalID: -6755569568358461790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_1
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 0
+        width: 34
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e094a5b98ee82f20800000000000000
+      internalID: 3398228194076430569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_2
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 0
+        width: 34
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10d7027ebe737db10800000000000000
+      internalID: 2006133645351353601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_3
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 0
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b6d4a89baeb16b80800000000000000
+      internalID: -8403225785487010124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_4
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 0
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5aed9463ed282260800000000000000
+      internalID: 7072953669454260831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_5
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 2
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 388caf5eae7f9c760800000000000000
+      internalID: 7478781244478244995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_6
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 6
+        width: 37
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f5108bd92d082d10800000000000000
+      internalID: 2100943699595761136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_7
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 7
+        width: 38
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 858d516c27820c1f0800000000000000
+      internalID: -1026776241625769896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_8
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 4
+        width: 39
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ea55c85fdecfd3d0800000000000000
+      internalID: -3179595353237923097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_9
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 0
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 822f2e76cd90a9fc0800000000000000
+      internalID: -3487464119204646360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_10
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 0
+        width: 35
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfea752d5f8dd6fb0800000000000000
+      internalID: -4652824289696305411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_11
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 0
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce8d0be925c066d60800000000000000
+      internalID: 7883001746747873516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_12
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 0
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eb0614ea738ee2d0800000000000000
+      internalID: -3247513717451650074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_13
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 0
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17e75c93ec98d4360800000000000000
+      internalID: 7155526901787098737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeTabby-Jump_14
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec3924cce727b1e90800000000000000
+      internalID: -7053918502427388978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      OrangeTabby-Jump_0: -6755569568358461790
+      OrangeTabby-Jump_1: 3398228194076430569
+      OrangeTabby-Jump_10: -4652824289696305411
+      OrangeTabby-Jump_11: 7883001746747873516
+      OrangeTabby-Jump_12: -3247513717451650074
+      OrangeTabby-Jump_13: 7155526901787098737
+      OrangeTabby-Jump_14: -7053918502427388978
+      OrangeTabby-Jump_2: 2006133645351353601
+      OrangeTabby-Jump_3: -8403225785487010124
+      OrangeTabby-Jump_4: 7072953669454260831
+      OrangeTabby-Jump_5: 7478781244478244995
+      OrangeTabby-Jump_6: 2100943699595761136
+      OrangeTabby-Jump_7: -1026776241625769896
+      OrangeTabby-Jump_8: -3179595353237923097
+      OrangeTabby-Jump_9: -3487464119204646360
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
