@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6107261338196856245}
   - component: {fileID: 779017872243086411}
   - component: {fileID: 1993785535319985087}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Domba
   m_TagString: Animal
   m_Icon: {fileID: 0}
@@ -210,6 +210,10 @@ MonoBehaviour:
     possibleNextStates: 0100000002000000030000000700000000000000
   - currentState: 3
     possibleNextStates: 0100000002000000030000000700000000000000
+  detectionRadius: 0
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
   currentState: 0
   jedaAnimasi: 3
   isMoving: 0
@@ -225,12 +229,12 @@ MonoBehaviour:
   attackRange: 1.5
   attackCooldown: 2
   wanderRadius: 4
+  attackDamage: 10
   zonaSerangTransform: {fileID: 0}
   verticalOffset: 0
   hitboxRadius: 1
   animalAnimator: {fileID: 779017872243086411}
   animalRenderer: {fileID: -4335485848235824116}
-  detectionRadius: 0
   namaHewan: Domba
   health: 10
   maxHealth: 20

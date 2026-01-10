@@ -143,37 +143,45 @@ public class Player_Anim : MonoBehaviour
 
     public void PlayAnimation(string nameAnimation)
     {
+        // 1. Guard Clause
+        if (isTakingDamage) return;
         if (bodyAnimator == null) return;
 
         isTakingDamage = true;
 
-        // Trigger Master (Badan)
-        bodyAnimator.SetTrigger(nameAnimation);
+        // 2. KIRIM PARAMETER KHUSUS DAMAGE
+        // Ini memberi tahu Animator: "Hei, arah serangan datang dari X,Y ini lho!"
+        bodyAnimator.SetFloat("TakeDamageX", lastDirection.x);
+        bodyAnimator.SetFloat("TakeDamageY", lastDirection.y);
 
-        // Trigger Slaves (Baju, dll)
+        // 3. UPDATE SLAVES (Baju, Rambut, dll)
+        // PENTING: Animator baju juga harus punya parameter TakeDamageX/Y di dalamnya!
         foreach (Animator anim in layerAnimators)
         {
-            if (anim != null) anim.SetTrigger(nameAnimation);
+            if (anim != null)
+            {
+                anim.SetFloat("TakeDamageX", lastDirection.x);
+                anim.SetFloat("TakeDamageY", lastDirection.y);
+            }
         }
+
+        // 4. JALANKAN TRIGGER
+        bodyAnimator.SetTrigger(nameAnimation);
 
         StartCoroutine(ResetTakeDamageState());
     }
 
     private IEnumerator ResetTakeDamageState()
     {
-        // Tunggu 1 frame agar Animator sempat transisi ke state baru
-        // Jika tidak, kita mungkin mengambil durasi animasi 'Idle' bukannya 'Hurt'
-        yield return null;
+        yield return null; // Tunggu 1 frame (Penting!)
 
-        // Gunakan bodyAnimator sebagai satu-satunya acuan waktu
+        // Ambil durasi animasi saat ini (harapannya animasi 'Hurt')
         float duration = bodyAnimator.GetCurrentAnimatorStateInfo(0).length;
 
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(duration); // Tunggu sampai animasi selesai
 
-        isTakingDamage = false;
-
-        // Panggil fungsi update parameter agar kembali ke Idle/Run yang benar
-        UpdateAnimationParameters();
+        isTakingDamage = false; 
+        UpdateAnimationParameters(); // Kembali ke Idle
     }
 
     private IEnumerator ResetAttackState()
@@ -252,4 +260,6 @@ public class Player_Anim : MonoBehaviour
             shoesSR.sortingOrder = 8;
         }
     }
+
+    
 }

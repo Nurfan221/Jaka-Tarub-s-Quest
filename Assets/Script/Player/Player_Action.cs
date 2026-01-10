@@ -348,7 +348,7 @@ public class Player_Action : MonoBehaviour
     public void PlayActionAnimation_NoWait(string actionType)
     {
         if (animator == null) return;
-
+        
         string triggerName = actionType;
         if (faceDirection.y > 0.5f) triggerName += "Atas";
         else if (faceDirection.y < -0.5f) triggerName += "Bawah";

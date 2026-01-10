@@ -128,77 +128,53 @@ public class AnimalBehavior : MonoBehaviour
 
         if (currentTarget == null)
         {
-            // 2. Filter: Kita hanya peduli jika hewan sedang "Sibuk" (Mengejar/Attack).
             // Kalau dia lagi Idle/Wandering dan target null, itu normal (gak perlu direset).
             if (currentState == AnimalState.Mengejar || currentState == AnimalState.Attack)
             {
                 Debug.Log("Waduh, target hilang saat dikejar! Reset dulu.");
 
-                // A. RESET STATUS (Kembali ke kondisi awal)
-                // ??? (Set currentState jadi Idle)
-                // ??? (Pastikan isMoving jadi false)
-                // ??? (Mainkan animasi "Idle" biar gak stuck di pose lari/gigit)
+              
 
                 currentState = AnimalState.Idle;
                 isMoving = false;
                 animalAnimator.Play("Idle");
 
 
-                // B. MATIKAN FISIKA (Rem Tangan)
-                // Biar hewan gak 'meluncur' terus karena sisa tenaga dorong
-                // ??? (Set velocity rigidbody jadi 0)
+               
                 rb.linearVelocity = Vector2.zero;
 
-                // C. NYALAKAN OTAK JALAN-JALAN (ThinkProcess)
-                // Ingat, waktu kita mulai mengejar, kita mematikan 'roamingCoroutine'.
-                // Sekarang kita harus nyalakan lagi, kalau tidak hewan akan patung selamanya.
-                // Clue: Cek dulu apakah roamingCoroutine kosong, baru StartCoroutine.
+             
                 if (roamingCoroutine == null)
                 {
                     roamingCoroutine = StartCoroutine(ThinkProcess());
                 }
 
-                // ??? (Tulis logika restart coroutine ThinkProcess di sini)
             }
 
-            // 3. KELUAR DARI FUNGSI (Safety Stop)
-            // Kita tidak mau kode di bawah (yang butuh currentTarget) dijalankan.
-            // ??? (Tulis perintah untuk menghentikan fungsi Update saat ini juga)
+          
             return;
         }
         UpdateZonaSerangPosition();
 
 
 
-        // --- LOGIKA AGRESIF UTAMA ---
+     
         // Kita hanya jalankan ini kalau tipe Agresif dan PUNYA target
         if (tipeHewan == AnimalType.Agresif && currentTarget != null)
         {
-            // 1. Hitung Jarak ke Target
             float distance = Vector2.Distance(transform.position, currentTarget.position);
 
-            // 2. LOGIKA PERCABANGAN STATE (Mengejar vs Menyerang)
 
-            // KASUS A: Target Masih Jauh (Di luar jangkauan serang)
             if (distance > attackRange)
             {
-                // ??? (Apa yang harus dilakukan di sini?)
-                // Clue: 
-                // 1. Set currentState jadi apa?
-                // 2. Apakah isMoving true atau false?
-                // 3. Panggil fungsi gerak yang mana? (Ingat, gerak fisik harus dipanggil terus menerus)
+               
 
                 currentState = AnimalState.Mengejar;
                 isMoving = true;
             }
-            // KASUS B: Target Sudah Dekat (Di dalam jangkauan serang)
             else
             {
-                // ??? (Apa yang harus dilakukan di sini?)
-                // Clue:
-                // 1. Set currentState jadi apa?
-                // 2. Apakah hewan boleh bergerak saat menyerang? (isMoving?)
-                // 3. Panggil fungsi logika serangan yang mana?
+              
                 currentState = AnimalState.Attack;
                 isMoving = false;
 
@@ -207,7 +183,6 @@ public class AnimalBehavior : MonoBehaviour
                 JalankanLogikaSerangan();
             }
 
-            // 3. CEK APAKAH TARGET KABUR (Give Up Logic)
             // Jika target lari terlalu jauh (misal detectionRadius + 3 meter)
             if (distance > detectionRadius + 3f)
             {
@@ -415,20 +390,6 @@ public class AnimalBehavior : MonoBehaviour
         }
     }
 
-    private void UpdateAnimationRun(Vector2 target, string runAnimationName)
-    {
-        if (target.x > transform.position.x)
-        {
-            animalRenderer.flipX = true;
-            animalAnimator.Play(runAnimationName);
-        }
-        else
-        {
-            animalRenderer.flipX = false;
-            animalAnimator.Play(runAnimationName);
-        }
-    }
-
     private IEnumerator DoEatingSequence()
     {
         currentState = AnimalState.Eating; // Kunci state biar gak diganggu
@@ -498,59 +459,97 @@ public class AnimalBehavior : MonoBehaviour
 
     public void DropItem()
     {
-        int normalItemCount = UnityEngine.Random.Range(minNormalItem, maxNormalItem + 1);
+        // Tentukan berapa kali drop
+        int dropItemCount = UnityEngine.Random.Range(2, 4); // 2 atau 3 kali
 
         if (isAnimalQuest)
         {
-            // Drop item quest (biasanya 1)
+            // Logika Quest (Tetap sama, biasanya fix index 0)
             if (dropitems.Length > 0)
             {
-                ItemData itemToDrop = new ItemData(dropitems[0].itemName, 1, dropitems[0].quality, dropitems[0].health);
-                Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
-                ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset, 1);
+                // Drop Quest Item
+                SpawnSingleItem(dropitems[0], 1);
             }
         }
         else
         {
-            // Drop item normal
-            DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
+            
+            int limitNormal = Mathf.Min(3, dropitems.Length);
+            DropItemsByType(dropItemCount, minNormalItem, maxNormalItem, 0, limitNormal);
 
-            // Jika punya item spesial, drop juga secara terpisah
             if (dropitems.Length > 3)
             {
-                int specialItemCount = UnityEngine.Random.Range(minSpecialItem, maxSpecialItem + 1);
-                DropItemsByType(3, dropitems.Length, specialItemCount);
+                int specialItemCount = 1; // Biasanya item spesial cuma drop 1 kali loop
+
+                DropItemsByType(specialItemCount, minSpecialItem, maxSpecialItem, 3, dropitems.Length);
             }
         }
+
+    }
+
+    // Helper kecil untuk spawn single item (biar kode Quest bersih)
+    private void SpawnSingleItem(Item itemData, int count)
+    {
+        if (itemData == null) return;
+        Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
+        ItemPool.Instance.DropItem(itemData.itemName, itemData.health, itemData.quality, transform.position + offset, count);
     }
 
 
-    private void DropItemsByType(int startIndex, int endIndex, int itemCount)
+    private void DropItemsByType(int dropItemCount, int minItem, int maxItem, int startIndex, int endIndex)
     {
-        if (dropitems == null || dropitems.Length == 0)
-        {
-            Debug.LogWarning("Drop items array is empty or null.");
-            return;
-        }
-        if (startIndex < 0 || endIndex > dropitems.Length || startIndex >= endIndex)
-        {
-            Debug.LogError($"Invalid index range: startIndex={startIndex}, endIndex={endIndex}, arrayLength={dropitems.Length}");
-            return;
-        }
+        // Safety Check: Pastikan array ada isinya
+        if (dropitems == null || dropitems.Length == 0) return;
 
-        int randomIndex = UnityEngine.Random.Range(startIndex, endIndex);
-        ItemData itemToDrop = new ItemData(dropitems[randomIndex].itemName, 1, dropitems[randomIndex].quality, randomIndex);
-        if (itemToDrop != null)
+        // Kita kunci endIndex agar tidak error OutOfRange
+        endIndex = Mathf.Min(endIndex, dropitems.Length);
+    
+        // Safety Check: Jika start lebih besar dari end, batalkan
+        if (startIndex >= endIndex) return;
+
+        for (int i = 0; i < dropItemCount; i++)
         {
-            Debug.Log("nama item yang di drop adalah : " + itemToDrop.itemName);
-            Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
-            ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset, itemCount);
+            int indexRandomItem = 0;
+            // Gunakan parameter startIndex dan endIndex, bukan angka manual (0, 3)
+            if (startIndex == 0 && (endIndex - startIndex) >= 3)
+            {
+                int roll = UnityEngine.Random.Range(0, 100); // Acak angka 0 s/d 99
+
+                if (roll < 50)
+                {
+                    indexRandomItem = 0; // 50% Peluang (0-49) -> Item Utama (Daging)
+                }
+                else if (roll < 80) // 50 + 30 = 80
+                {
+                    indexRandomItem = 1; // 30% Peluang (50-79) -> Item Kedua
+                }
+                else
+                {
+                    indexRandomItem = 2; // 20% Peluang (80-99) -> Item Ketiga (Langka)
+                }
+            }
+            else
+            {
+                // Untuk item Spesial (Index 3++) atau jika item kurang dari 3, pakai acak rata
+                indexRandomItem = UnityEngine.Random.Range(startIndex, endIndex);
+            }
+
+            // Tentukan jumlah tumpukan (Stack)
+            int stackCount = UnityEngine.Random.Range(minItem, maxItem + 1);
+
+            // Ambil Data Item
+            ItemData sourceItem = new ItemData(dropitems[indexRandomItem].itemName, stackCount, dropitems[indexRandomItem].quality, 0);
+
+            // Spawn Item
+            ItemData itemToDrop = new ItemData(sourceItem.itemName, stackCount, sourceItem.quality, 0);
+        
+            if (itemToDrop != null)
+            {
+                Debug.Log($"Dropping {itemToDrop.itemName} (Index: {indexRandomItem})");
+                Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
+                ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset, itemToDrop.count);
+            }
         }
-        else
-        {
-            Debug.LogWarning($"Item at index {randomIndex} is null.");
-        }
-        Destroy(gameObject);
     }
 
 
@@ -767,49 +766,7 @@ public class AnimalBehavior : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        // Jika yang keluar adalah target saat ini
-        if (other.transform == currentTarget)
-        {
-            // Jika hewan adalah isQuest dan targetnya adalah ItemDrop yang baru diambil
-            if (tipeHewan == AnimalType.isQuest && other.CompareTag("ItemDrop"))
-            {
-                Debug.Log($"{namaHewan} (Quest) sudah 'mengambil' ItemDrop. Kembali Idle.");
-                currentTarget = null;
-                currentState = AnimalState.Idle;
-                return;
-            }
-
-            // Hitung jarak saat ini
-            float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
-
-            // HANYA JIKA jaraknya lebih besar dari radius deteksi utama kita,
-            // barulah kita anggap target benar-benar hilang.
-            if (distanceToTarget > detectionRadius)
-            {
-                Debug.Log($"{namaHewan} kehilangan jejak targetnya karena terlalu jauh.");
-                currentTarget = null;
-                currentState = AnimalState.Idle;
-
-                // Untuk hewan isQuest, setelah kehilangan target (selain itemdrop),
-                // mungkin kita ingin dia kembali mengejar player
-                if (tipeHewan == AnimalType.isQuest && playerTransform != null)
-                {
-                    Debug.Log($"{namaHewan} (Quest) kembali fokus pada Player.");
-                    currentTarget = playerTransform;
-                    currentState = AnimalState.Mengejar;
-                }
-                else // Jika bukan isQuest atau tidak ada player
-                {
-                }
-            }
-            else
-            {
-                Debug.Log($"Target keluar dari trigger kecil, tapi masih dalam jangkauan deteksi. Pengejaran dilanjutkan.");
-            }
-        }
-    }
+  
 
 
 
@@ -1026,55 +983,37 @@ public class AnimalBehavior : MonoBehaviour
 
     private void ChaseTargetFixedUpdate()
     {
-        // 1. SAFETY CHECK
         // Pastikan target masih ada. Kalau null, return (keluar).
         if (currentTarget == null)
         {
-            // ??? (Tulis logika stop gerakan di sini biar gak 'meluncur' sisa inersia)
             rb.linearVelocity = Vector2.zero;
             return;
         }
 
-        // 2. HITUNG JARAK (REM)
-        // Gunakan Vector2.Distance()
-        float distance = Vector2.Distance(transform.position, currentTarget.position); // ??? (Isi rumus jarak di sini)
+        float distance = Vector2.Distance(transform.position, currentTarget.position); 
 
-        // 3. LOGIKA GERAK
         // Jika jarak masih jauh (lebih besar dari attackRange), kita kejar!
         if (distance > attackRange)
         {
-            // A. Tentukan Arah (KOMPAS)
-            // Rumus: (PosisiTarget - PosisiSaya).normalized
-            Vector2 direction = (currentTarget.position - transform.position).normalized; // ??? (Isi rumus arah di sini)
+            Vector2 direction = (currentTarget.position - transform.position).normalized; 
             if (Mathf.Abs(direction.x) > 0.1f)
             {
-                // B. Update Arah Hadap (FLIP) & Animasi
                 SetMovementDirection(direction);
-                UpdateAnimationDirection(direction);
+                UpdateAnimationDirection(zonaSerangTransform.position);
             }
             else
             {
-                // Jika X sangat kecil (gerak vertikal lurus ke atas/bawah), 
-                // Kita TETAP update lastDirection untuk Zona Serang, tapi visual flip tidak perlu dipaksa
-                // agar tidak berkedip-kedip.
-
-                // Opsional: Tetap simpan arah Y saja
                 SetMovementDirection(new Vector2(0, direction.y));
+                UpdateAnimationDirection(zonaSerangTransform.position);
             }
-            // B. Update Arah Hadap (FLIP)
-            // Biar codingan rapi, panggil fungsi helper yang sudah ada
-            // ??? (Panggil fungsi SetMovementDirection(direction) punya Anda)
-
-            // C. Gerakkan Fisika (MESIN)
+           
             // Rumus: Arah * Kecepatan (moveSpeed)
             rb.linearVelocity = direction * moveSpeed; // ??? (Isi rumus velocity di sini)
 
-            // D. Pastikan Variable Animasi Nyala
             isMoving = true;
         }
         else
         {
-            // 4. SUDAH DEKAT (STOP)
             // Matikan mesin
             rb.linearVelocity = Vector2.zero;
             isMoving = false;

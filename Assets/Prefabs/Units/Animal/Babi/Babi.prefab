@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6107261338196856245}
   - component: {fileID: 779017872243086411}
   - component: {fileID: 1993785535319985087}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Babi
   m_TagString: Animal
   m_Icon: {fileID: 0}
@@ -56,6 +56,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -77,6 +79,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
@@ -198,62 +201,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cdab25f66972f94480edfca2fb7f3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalIdle: []
-  animationStates:
-  - stateName: Idle
-    availableStates:
-    - JalanKanan
-    - JalanKiri
-    - Duduk
-    - Makan
-  - stateName: JalanKanan
-    availableStates:
-    - Idle
-    - Makan
-    - Duduk
-  - stateName: JalanKiri
-    availableStates:
-    - Idle
-    - Makan
-    - Duduk
-  - stateName: Duduk
-    availableStates:
-    - Rebahan
-    - Berdiri
-  - stateName: Rebahan
-    availableStates:
-    - TidurNyenyak
-  - stateName: TidurNyenyak
-    availableStates:
-    - Berdiri
-  - stateName: Berdiri
-    availableStates:
-    - Idle
-  - stateName: Makan
-    availableStates:
-    - Idle
-    - Mengunyah
-  - stateName: Mengunyah
-    availableStates:
-    - Makan
-    - Idle
-  currentState: Idle
+  transitions:
+  - currentState: 0
+    possibleNextStates: 0000000001000000020000000300000007000000
+  - currentState: 1
+    possibleNextStates: 0000000001000000020000000300000007000000
+  - currentState: 2
+    possibleNextStates: 0000000001000000020000000300000007000000
+  - currentState: 3
+    possibleNextStates: 0000000001000000020000000300000007000000
+  - currentState: 7
+    possibleNextStates: 0000000001000000020000000300000007000000
+  detectionRadius: 0
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  currentState: 0
   jedaAnimasi: 3
   isMoving: 0
   isAnimalQuest: 0
   moveSpeed: 1
   isAnimalEvent: 0
   rb: {fileID: 0}
+  movementDirection: {x: 0, y: 0}
+  lastDirection: {x: 0, y: 0}
   tipeHewan: 0
   currentTarget: {fileID: 0}
   itemTriggerName: 
   attackRange: 1.5
   attackCooldown: 2
+  wanderRadius: 4
+  attackDamage: 10
   zonaSerangTransform: {fileID: 0}
-  jarakOffsetSerang: 1
+  verticalOffset: 0
+  hitboxRadius: 1
   animalAnimator: {fileID: 779017872243086411}
   animalRenderer: {fileID: -4335485848235824116}
-  detectionRadius: 0
   namaHewan: Sapi
   health: 30
   maxHealth: 30

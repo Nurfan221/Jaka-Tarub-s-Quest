@@ -347,14 +347,14 @@ public class PlayerController : MonoBehaviour, ISaveable
             return null;
         }
 
-        // 1. Validasi: Pastikan indeks yang diminta berada dalam jangkauan list inventory.
+        // Pastikan indeks yang diminta berada dalam jangkauan list inventory.
         if (index < 0 || index >= inventory.Count)
         {
             Debug.LogWarning($"Percobaan mengambil item pada indeks di luar jangkauan: {index}");
             return null; // Kembalikan null karena indeks tidak valid
         }
 
-        // 2. Langsung ambil dan kembalikan ItemData pada indeks yang benar.
+        // Langsung ambil dan kembalikan ItemData pada indeks yang benar.
         // Tidak perlu menggunakan loop.
         ItemData itemData = inventory[index];
         return itemData;
@@ -399,7 +399,14 @@ public class PlayerController : MonoBehaviour, ISaveable
 
     public void HandlePlayAnimation(string nameAnimation)
     {
-        ActivePlayer.Player_Anim.PlayAnimation(nameAnimation);
+        if(ActivePlayer.Player_Anim.isTakingDamage)
+        {
+            return;
+        }else
+        {
+            ActivePlayer.Player_Anim.PlayAnimation(nameAnimation);
+
+        }
     }
 
 
