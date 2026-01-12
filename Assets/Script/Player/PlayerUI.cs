@@ -162,8 +162,7 @@ public class PlayerUI : MonoBehaviour
             buttonAttack.onClick.AddListener(() =>
             {
                 Debug.Log("Button Attack Clicked");
-                //PlayerController.Instance.HandleAttackButton();
-                PlayerController.Instance.HandlePlayAnimation("TakeDamage");
+                PlayerController.Instance.HandleAttackButton();
 
             });
             Debug.Log("Button Attack Ditemukan");

@@ -315,10 +315,8 @@ public class AnimalBehavior : MonoBehaviour
         
         while (true) // Loop selamanya
         {
-            // 1. Pilih kegiatan selanjutnya secara acak
             AnimalState nextAction = GetRandomNextState(currentState);
 
-            // 2. Lakukan kegiatan tersebut (Jalan-jalan, Makan, atau Diam)
             if (nextAction == AnimalState.Wandering) yield return StartCoroutine(DoWandering());
             else if (nextAction == AnimalState.Eating) yield return StartCoroutine(DoEatingSequence());
             else if (nextAction == AnimalState.Sleeping) yield return  StartCoroutine(DoSleep()); // Implementasi tidur bisa ditambahkan nanti

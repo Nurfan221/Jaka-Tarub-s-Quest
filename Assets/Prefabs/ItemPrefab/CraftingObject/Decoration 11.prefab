@@ -158,10 +158,10 @@ MonoBehaviour:
   typePlant: 0
   arahObject: 0
   environmentType: 7
-  useAnimation: 0
+  useAnimation: 1
   nameEnvironment: 
   itemDrop: {fileID: 0}
-  stoneAnimatorController: {fileID: 0}
+  stoneAnimatorController: {fileID: 22100000, guid: b0e31ee114603124986d49051eccb7ce, type: 2}
 --- !u!114 &5364195692436467510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 849891477331339776}
   - component: {fileID: 2168820490953160634}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Cahaya_Pemanis_Outher
   m_TagString: Untagged
   m_Icon: {fileID: 0}

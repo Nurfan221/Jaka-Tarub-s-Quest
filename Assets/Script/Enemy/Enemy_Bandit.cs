@@ -1,556 +1,596 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
+public enum BanditState
+{
+    Idle,
+    Patroli,
+    KejarTarget,
+    Serang,
+    Kabur
+}
 public class Enemy_Bandit : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    public float moveSpeed = 2f;
-    private float moveDistance = 3f; // Jarak yang ditempuh setiap kali bergerak
+    [Tooltip("Jarak hitbox dari pusat NPC")]
+    public Transform hitboxTransform;
+    [Tooltip("Geser titik pusat lingkaran ke atas (agar sejajar badan, bukan kaki)")]
+
+
+    [Header("State Machine")]
+    public BanditState currentState = BanditState.Idle;
+
+    [Header("Sensor Mata")]
+    public float detectionRadius = 5f; // Tetap pakai float biar ringan
+    public LayerMask targetLayer;
+
+    [Header("References")]
+    public float jedaAnimasi = 3f;
     public bool isMoving;
-    public bool isAvoiding = false;
-    public bool isChasing = false;
-    private bool isReturning = false; // Status untuk mencegah bandit keluar terus-menerus
-    private int currentStep = 0; // Langkah saat ini dalam jalur NPC
+    public float moveSpeed; 
+    public Rigidbody2D rb; // Tambahkan referensi Rigidbody2D
+    public List<Vector2> rutePatroli = new List<Vector2>(4);
+    public Vector2 movementDirection;
+    public Vector2 lastDirection;
+    private Coroutine roamingCoroutine;
+
+
+    [Header("Logika Serangan")]
+    public float attackRange = 1.5f;
+    public float attackCooldown = 2f;
+    private float lastAttackTime = 0f;
+    public float wanderRadius = 4;
+    public int attackDamage = 10;
+    public bool attackInProgress = false;
+    public bool isTakingDamage = false;
+
+    public Transform zonaSerangTransform;
+
+    [Header("Komponen Serangan")]
+
+    public float verticalOffset = -2f; // Coba ubah angka ini di inspector (misal 0.5 atau 0.8)
+    public float hitboxRadius = 1.0f;
+    public Transform currentTarget;
 
     [Header("Animator Parts")]
-    public Animator baju;
-    public Animator celana;
-    public Animator rambut;
-    public Animator sepatu;
+    public Animator spriteBadan;
+    public List<Animator> layerAnimators = new List<Animator>();
 
-    [Header("Component References")]
-    public Rigidbody2D rb; // Rigidbody2D untuk physics-based movement
-    public SpriteRenderer spriteRenderer;
-    public Animator animator;
-    public GameObject spawner; // Referensi ke Spawner
-    private Collider2D spawnerCollider; // Collider dari Spawner
-    public Transform hitboxTransform;
-    public Transform target;
-
-
-    [Header("State Variables")]
-    public bool isStory;
-    public bool isAttacking;
-    public bool isDead;
-    public bool isEnemyQuest;
-    public Vector2 lastDirection = Vector2.down; // Default menghadap bawah
-    private Vector2 previousPosition;
-    public Vector2 targetPosition;
-    public Vector2 lastCollisionPoint; // Menyimpan posisi terakhir sentuhan dengan objek
-    private Coroutine currentCoroutine;
-    private Coroutine chaseCoroutine;
-
-    [Header("Drop Item Settings")]
-    public Item[] dropitems; // Array item yang bisa dijatuhkan
-                             //element 0 harus selalu di isi dengan prefab item normal
-                             //element 1 harus selalu di isi dengan prefab item normal
-                             //element 3 harus selalu di isi dengan prefab item normal
-                             //element 4 dan seterusnya boleh di isi dengan barang spesial milik enemy yang akan di drop
-
-    [Tooltip("Minimal dan maksimal item normal yang bisa dijatuhkan.")]
-    public int minNormalItem = 1;
-    public int maxNormalItem = 2;
-
-    [Tooltip("Minimal dan maksimal item spesial yang bisa dijatuhkan.")]
-    public int minSpecialItem = 0;
-    public int maxSpecialItem = 1;
-
-    // Drop rates untuk masing-masing item (0 = 70%, 1 = 50%, dst.)
-    private float[] dropRates = { 0.7f, 0.5f, 0.3f, 0.1f, 0.05f };
-
-    [Header("Movement Logic")]
-    // Array arah pergerakan utama
-    private Vector2[] moveDirections = new Vector2[]
-    {
-        new Vector2(-1, 0),  // Kiri
-        new Vector2(1, 0),   // Kanan
-        new Vector2(0, 1),   // Atas
-        new Vector2(0, -1)   // Bawah
-    };
-
-    public Vector2[] pergerakanNPC; // Jalur pergerakan NPC
-    public int jumlahPergerakanTarget = 5; // Jumlah langkah sebelum reset jalur
 
     private void Start()
     {
-        if (hitboxTransform == null)
-        {
-            //Debug.LogWarning("Hitbox kosong wak");
-        }
-
-        if (spawner != null)
-        {
-            spawnerCollider = spawner.GetComponent<Collider2D>();
-            if (spawnerCollider == null)
-            {
-                //Debug.LogError("Spawner tidak memiliki Collider2D! Pastikan menambahkan BoxCollider2D dan aktifkan 'isTrigger'.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Spawner tidak ditemukan! Pastikan bandit memiliki referensi ke Spawner.");
-        }
-
-        // Inisialisasi array pergerakan
-        pergerakanNPC = new Vector2[jumlahPergerakanTarget];
-
-        rb = GetComponent<Rigidbody2D>(); // Pastikan rb mendapatkan Rigidbody2D dari GameObject
-
-        // Tentukan jalur pertama kali
-        PushtoArrayPergerakanNPC();
-
-        // Mulai proses pergerakan NPC
-        StartCoroutine(FollowPath());
+        rb = GetComponent<Rigidbody2D>(); // Pastikan ambil komponen fisik
+        roamingCoroutine = StartCoroutine(ThinkProcess());
+        StartCoroutine(DetectTargetRoutine());
     }
-
 
     private void Update()
     {
-        // Hitung arah gerakan dari posisi sebelumnya
-        Vector2 movement = ((Vector2)transform.position - previousPosition).normalized;
-
-        // Update animasi berdasarkan gerakan
-        UpdateAnimation(movement);
-
-        // Simpan posisi sekarang sebagai referensi untuk frame berikutnya
-        previousPosition = transform.position;
-        UpdateHitboxPosition();
-    }
-
-
-    // Fungsi untuk mendapatkan arah acak
-    private Vector2 GetRandomDirection()
-    {
-        int randomIndex = Random.Range(0, moveDirections.Length);
-        Vector2 chosenDirection = moveDirections[randomIndex];
-
-        if (randomIndex == 0 || randomIndex == 1)
+        UpdateZonaSerangPosition();
+        // Kita hanya jalankan ini kalau tipe Agresif dan PUNYA target
+        if (currentTarget != null)
         {
-            float verticalOffset = Random.Range(-0.5f, 0.5f);
-            chosenDirection += new Vector2(0, verticalOffset);
-        }
-        else if (randomIndex == 2 || randomIndex == 3)
-        {
-            float horizontalOffset = Random.Range(-0.5f, 0.5f);
-            chosenDirection += new Vector2(horizontalOffset, 0);
-        }
-
-        chosenDirection = chosenDirection.normalized;
-
-        //Debug.Log("Arah gerakan bandit: " + chosenDirection); // Debugging
-        return chosenDirection;
-    }
+            float distance = Vector2.Distance(transform.position, currentTarget.position);
 
 
-    // Fungsi untuk mengisi array pergerakan NPC
-    private void PushtoArrayPergerakanNPC()
-    {
-        for (int i = 0; i < jumlahPergerakanTarget; i++)
-        {
-            pergerakanNPC[i] = GetRandomDirection();
-        }
-    }
-
-    // Coroutine untuk mengikuti jalur yang sudah dibuat
-    private IEnumerator FollowPath()
-    {
-        while (true)
-        {
-            if (currentStep >= pergerakanNPC.Length) // Jika sudah mencapai akhir jalur
+            if (distance > attackRange)
             {
-                yield return new WaitForSeconds(Random.Range(2f, 5f)); // Tunggu sebelum memilih jalur baru
-                PushtoArrayPergerakanNPC(); // Buat jalur baru
-                currentStep = 0; // Reset langkah ke awal
-            }
-
-            Vector2 direction = pergerakanNPC[currentStep]; // Ambil arah dari array
-            targetPosition = (Vector2)transform.position + (direction * moveDistance); // Tentukan tujuan
-
-            isMoving = true;
-            yield return StartCoroutine(MoveToTarget(targetPosition)); // Bergerak ke target
-
-            isMoving = false;
-
-            yield return new WaitForSeconds(0.5f); // Tunggu satu detik sebelum lanjut ke titik selanjutnya
-            currentStep++; // Lanjut ke langkah berikutnya dalam jalur
-        }
-    }
-
-    // Fungsi untuk memindahkan NPC ke target
-    private IEnumerator MoveToTarget(Vector2 targetPos)
-    {
-        while (Vector2.Distance(transform.position, targetPos) > 0.1f) // Jika belum sampai tujuan
-        {
-            transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-    }
-
-    // Fungsi untuk mengatur animasi berdasarkan arah gerakan
-    public void UpdateAnimation(Vector2 movement)
-    {
-        if (animator == null)
-        {
-            //Debug.LogError("Animator belum di-assign!");
-            return;
-        }
-
-        movement = movement.normalized;
-        bool isMoving = movement != Vector2.zero;
-
-        if (isMoving)
-        {
-            // Simpan arah terakhir saat bergerak, agar animasi idle mengikuti arah ini
-            lastDirection = movement;
-
-            // Set parameter untuk Blend Tree berjalan
-            animator.SetFloat("MoveX", Mathf.Round(movement.x)); // -1, 0, 1
-            animator.SetFloat("MoveY", Mathf.Round(movement.y));
-        }
-        else
-        {
-            // Gunakan arah terakhir saat idle
-            animator.SetFloat("IdleX", Mathf.Round(lastDirection.x));
-            animator.SetFloat("IdleY", Mathf.Round(lastDirection.y));
-        }
-
-        // Atur Speed untuk blend tree berjalan
-        animator.SetFloat("Speed", isMoving ? 1f : 0f);
-    }
 
 
-
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Environment") || collision.gameObject.CompareTag("Tree") || collision.gameObject.CompareTag("Stone"))
-        {
-            //Debug.Log("Nabrak Objek: " + collision.gameObject.name);
-
-            // Jika bandit sedang mengejar player, hentikan pengejaran
-            if (isChasing)
-            {
-                StopChasing(); // Hentikan pengejaran
-                isChasing = false; // Set status tidak mengejar
+                currentState = BanditState.KejarTarget;
                 isMoving = true;
-            }
-
-            // Jika bandit masih bergerak dan belum menghindar
-            if (isMoving && !isAvoiding)
-            {
-                isAvoiding = true;
-                StopAllCoroutines(); // Hentikan semua coroutine agar bandit tidak terus mengejar
-
-                //Debug.Log("Nabrak masee berenti dulu ");
-
-                // Jalankan fungsi menghindar
-                StartCoroutine(DelayBeforeAvoiding(collision));
-            }
-        }
-    }
-
-
-    private IEnumerator DelayBeforeAvoiding(Collision2D collision)
-    {
-        yield return new WaitForSeconds(2f); // Bandit berhenti selama 2 detik
-
-        //Debug.Log("Mulai menghindar...");
-
-        // Ambil arah menghindar
-        Vector2 avoidanceDirection = GetAvoidanceDirection(collision.transform.position);
-
-        // Isi array pergerakan dengan arah baru agar NPC menjauh
-        for (int i = 0; i < pergerakanNPC.Length; i++)
-        {
-            pergerakanNPC[i] = avoidanceDirection;
-        }
-
-        // Reset langkah ke awal agar NPC langsung mengikuti jalur baru
-        currentStep = 0;
-        isAvoiding = false; // Selesai menghindar, bisa bergerak lagi
-
-        // Mulai kembali coroutine pergerakan
-        StartCoroutine(FollowPath());
-
-        // Tentukan ulang jalur pergerakan NPC
-        PushtoArrayPergerakanNPC();
-        // Mulai proses pergerakan NPC
-        StartCoroutine(FollowPath());
-
-    }
-
-
-    private Vector2 GetAvoidanceDirection(Vector2 collisionPoint)
-    {
-        // Hitung arah menjauh dari titik tabrakan
-        Vector2 avoidanceDirection = ((Vector2)transform.position - collisionPoint).normalized;
-
-        // Pastikan NPC tidak diam, jika hasilnya nol, beri arah acak
-        if (avoidanceDirection == Vector2.zero)
-        {
-            avoidanceDirection = GetRandomDirection();
-        }
-
-        //Debug.Log("Arah menghindar: " + avoidanceDirection);
-        return avoidanceDirection;
-    }
-
-
-
-    void UpdateHitboxPosition()
-    {
-        if (target != null)
-        {
-            Vector2 direction = (target.position - transform.position).normalized;
-
-            // Ambil ukuran Collider2D bandit (untuk memastikan hitbox berada di luar collider)
-            Collider2D banditCollider = GetComponent<Collider2D>();
-            if (banditCollider != null)
-            {
-                Vector2 banditSize = banditCollider.bounds.extents; // Ukuran setengah dari collider
-                float offsetX = banditSize.x + 0.2f; // Offset ke depan
-                float offsetY = banditSize.y + 0.2f; // Offset ke atas/bawah
-
-                // Atur posisi hitbox di luar collider bandit
-                Vector3 hitboxOffset = new Vector3(direction.x * offsetX, direction.y * offsetY, 0);
-                hitboxTransform.localPosition = hitboxOffset;
             }
             else
             {
-                //Debug.LogWarning("Collider2D tidak ditemukan pada bandit!");
+
+                currentState = BanditState.Serang;
+                isMoving = false;
+
+                // Tambahkan REM TANGAN biar gak meluncur (sliding) saat mukul
+                rb.linearVelocity = Vector2.zero;
+                JalankanLogikaSerangan();
             }
 
-            // Simpan arah terakhir hitbox
-            lastDirection = direction;
-        }
-    }
-
-    public void SetTarget(Transform newTarget)
-    {
-        if (newTarget == null)
-        {
-            //Debug.LogError("SetTarget() dipanggil tapi newTarget NULL!");
-            return;
-        }
-
-        //Debug.Log("Bandit mulai mengejar target: " + newTarget.name);
-
-        target = newTarget;
-        isChasing = true;
-        isReturning = false;
-
-        StopAllCoroutines(); // Hentikan semua coroutine lain
-        StartCoroutine(ChaseTarget());
-    }
-
-    public void StartChasing()
-    {
-        StopChasing(); // Hentikan coroutine sebelumnya jika ada
-        if (!isAttacking) // Hanya mulai pengejaran jika tidak sedang menyerang
-        {
-            chaseCoroutine = StartCoroutine(ChaseTarget());
-        }
-    }
-
-
-    public void StopChasing()
-    {
-        if (chaseCoroutine != null)
-        {
-            StopCoroutine(chaseCoroutine);
-            chaseCoroutine = null;
-            //Debug.Log("Pengejaran dihentikan karena menabrak objek!");
-        }
-    }
-
-
-
-    public IEnumerator ChaseTarget()
-    {
-        //Debug.Log("ChaseTarget() dijalankan!");
-
-        while (isChasing)
-        {
-            if (target != null && !isAttacking) // Cegah pergerakan saat menyerang
+            // Jika target lari terlalu jauh (misal detectionRadius + 3 meter)
+            if (distance > detectionRadius + 3f)
             {
-                //Debug.Log("Mengejar " + target.name + " ke " + target.position);
-                Vector2 direction = (target.position - transform.position).normalized;
-                transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+                // ??? (Tulis logika menyerah di sini: Reset target, Reset state, Mulai roaming lagi)
+                currentTarget = null;
+                currentState = BanditState.Idle;
+                spriteBadan.Play("Idle");
+                isMoving = false;
+                rb.linearVelocity = Vector2.zero;
+                if (roamingCoroutine == null)
+                {
+                    roamingCoroutine = StartCoroutine(ThinkProcess());
+                }
             }
-            else if (isAttacking)
-            {
-                //Debug.Log("Bandit sedang menyerang, hentikan pengejaran.");
-                yield break; // Hentikan coroutine pengejaran
-            }
-
-            yield return null;
         }
-
-        //Debug.Log("Berhenti mengejar");
     }
-
-
-
-    private void OnTriggerExit2D(Collider2D collision)
+    private void FixedUpdate()
     {
-        if (!gameObject.activeInHierarchy) // Cek apakah bandit masih aktif
+        if (currentState == BanditState.KejarTarget && currentTarget != null)
         {
-            //Debug.LogWarning("Bandit dinonaktifkan, tidak bisa menjalankan coroutine!");
-            return;
+            ChaseTargetFixedUpdate();
         }
+    }
+    private IEnumerator ThinkProcess()
+    {
 
-        if (collision.gameObject == spawner && !isReturning)
+        while (true) // Loop selamanya
         {
-            //Debug.Log("Bandit keluar dari area! Kembali ke dalam.");
-            isReturning = true;
-            isChasing = false; // Hentikan pengejaran
+           
+            BanditState nextAction = GetRandomNextState(currentState);
 
-            StopAllCoroutines(); // Hentikan semua gerakan sebelum kembali ke Spawner
-            StartCoroutine(BackToSpawner()); // Jalankan coroutine dengan aman
-
-
+            if (nextAction == BanditState.Patroli) yield return StartCoroutine(DoWandering());
+          
+            else yield return StartCoroutine(DoIdle());
         }
     }
 
-
-
-    private IEnumerator BackToSpawner()
+    public BanditState GetRandomNextState(BanditState stateSaatIni)
     {
-        // Mulai bergerak kembali ke spawner
-        while (isReturning) // Loop hanya berjalan jika sedang kembali
+        int randomIndex = Random.Range(0, 2); // Hasilnya 0 atau 1
+
+        if (randomIndex == 0) return BanditState.Idle;
+        else return BanditState.Patroli;
+    }
+    public IEnumerator DoIdle()
+    {
+        Debug.Log($"Bandit memutuskan untuk beristirahat sejenak.");
+        isMoving = false;
+        spriteBadan.Play("Idle");
+        float idleDuration = Random.Range(4f, 6f);
+        yield return new WaitForSeconds(idleDuration);
+    }
+    public IEnumerator DoWandering()
+    {
+        Debug.Log($"Bandit memutuskan untuk Patroli.");
+
+        // 1. BERSIHKAN RUTE LAMA (Wajib!)
+        rutePatroli.Clear();
+
+        // 2. TENTUKAN BERAPA TITIK
+        int jumlahTitik = Random.Range(1, 4); // Minimal 1 titik, maksimal 3
+
+        // 3. TENTUKAN TITIK AWAL ACUAN (Gunakan posisi FISIK saat ini, bukan Direction!)
+        Vector2 titikAcuan = rb.position;
+
+        // 4. BUAT RUTE BARU
+        for (int i = 0; i < jumlahTitik; i++)
         {
-            transform.position = Vector2.MoveTowards(transform.position, spawner.transform.position, moveSpeed * Time.deltaTime);
+            // Cari titik baru berdasarkan titik acuan terakhir
+            Vector2 titikBaru = GetRandomPoint(titikAcuan);
+            rutePatroli.Add(titikBaru);
 
-            // Jika sudah dekat dengan spawner, hentikan kembali
-            if (Vector2.Distance(transform.position, spawner.transform.position) < 0.1f)
-            {
-                isReturning = false;
-                // Debug.Log("Bandit kembali ke spawner!");
+            // Titik acuan digeser ke titik baru, biar jalurnya nyambung (A -> B -> C)
+            titikAcuan = titikBaru;
+        }
 
-                yield return new WaitForSeconds(1);
-                PushtoArrayPergerakanNPC();
+        isMoving = true;
 
-                // Mulai proses pergerakan NPC
-                StartCoroutine(FollowPath());
-                yield break; // Keluar dari coroutine
-            }
-
-            yield return null;
+        // 5. JALANKAN FISIKA
+        foreach (var rute in rutePatroli)
+        {
+            yield return StartCoroutine(MoveToTargetWithPhysics(rute, moveSpeed));
         }
 
         isMoving = false;
-        // Tentukan jalur pertama kali
 
-
-
+        // (Opsional) Play Animasi Idle sebentar sebelum mikir lagi
+        if (spriteBadan != null) spriteBadan.Play("Idle");
+        yield return new WaitForSeconds(1f);
     }
-
-
-
-    private void StopCurrentCoroutine()
+    private IEnumerator MoveToTargetWithPhysics(Vector2 targetPosition, float speed)
     {
-        if (currentCoroutine != null)
+        float stuckTimer = 0f;
+        float timeToConsiderStuck = 1.0f;
+        Vector2 previousFramePosition = rb.position;
+
+        while (Vector2.Distance(rb.position, targetPosition) > 0.5f)
         {
-            StopCoroutine(currentCoroutine);
-            currentCoroutine = null;
-        }
-    }
+            // 1. HITUNG ARAH YANG DIINGINKAN (INTENTION)
+            Vector2 directionToTarget = (targetPosition - rb.position).normalized;
 
+            // --- PERBAIKAN DISINI ---
+            // Kita paksa variabel ini berisi arah "Niat", bukan hasil fisika.
+            // Walaupun menabrak tembok, directionToTarget tetap bernilai 1 (tetap berusaha maju).
+            this.movementDirection = directionToTarget;
 
-    public void PlayActionAnimation(string actionType)
-    {
-        if (animator == null)
-        {
-            //Debug.LogError("Animator belum di-assign!");
-            return;
-        }
+            // 2. DORONG FISIKA
+            rb.linearVelocity = directionToTarget * speed;
 
-        // Pastikan animasi tidak terganggu sebelum selesai
-        StartCoroutine(WaitForAnimation(actionType));
-    }
+            yield return null;
 
-    private IEnumerator WaitForAnimation(string actionType)
-    {
-        // Tentukan arah berdasarkan posisi face
-        string triggerName = actionType;
+            // 3. LOGIKA STUCK (Tetap pakai posisi asli untuk mendeteksi macet)
+            Vector2 currentPos = rb.position;
+            float distanceMoved = (currentPos - previousFramePosition).magnitude;
 
-        if (lastDirection.y > 0.5f) triggerName += "Atas";
-        else if (lastDirection.y < -0.5f) triggerName += "Bawah";
-        else if (lastDirection.x > 0.5f) triggerName += "Kanan";
-        else if (lastDirection.x < -0.5f) triggerName += "Kiri";
+            // Panggil update animasi
+            UpdateAnimationParameters();
 
-        animator.SetTrigger(triggerName);
-
-        // Tunggu sampai animasi selesai sebelum mengubah state ke Idle
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-
-        animator.ResetTrigger(triggerName); // Reset Trigger setelah animasi selesai
-    }
-
-
-    public void DropItem()
-    {
-
-        //if (dropitems == null || dropitems.Length < 3)
-        //{
-        //    Debug.LogWarning("Drop items array is not properly configured. Ensure at least 3 items exist.");
-        //    return;
-        //}
-        int normalItemCount = Random.Range(minNormalItem, maxNormalItem + 1);
-        DropItemsByType(0, Mathf.Min(3, dropitems.Length), normalItemCount);
-        if (dropitems.Length > 3) // Jika ada special items
-        {
-            int specialItemCount = Random.Range(minSpecialItem, maxSpecialItem + 1);
-            DropItemsByType(3, dropitems.Length, specialItemCount);
-        }
-    }
-    // Fungsi untuk menjatuhkan item berdasarkan rentang index tertentu
-    private void DropItemsByType(int startIndex, int endIndex, int itemCount)
-    {
-        if (dropitems == null || dropitems.Length == 0)
-        {
-            //Debug.LogWarning("Drop items array is empty or null.");
-            return;
-        }
-
-        if (startIndex < 0 || endIndex > dropitems.Length || startIndex >= endIndex)
-        {
-            //Debug.LogError($"Invalid index range: startIndex={startIndex}, endIndex={endIndex}, arrayLength={dropitems.Length}");
-            return;
-        }
-
-        if (!isEnemyQuest)
-        {
-            for (int i = 0; i < itemCount; i++)
+            if (distanceMoved < (speed * Time.deltaTime * 0.1f))
             {
-                int randomIndex = Random.Range(startIndex, endIndex);
-                ItemData itemToDrop = new ItemData
+                stuckTimer += Time.deltaTime;
+                if (stuckTimer > timeToConsiderStuck)
                 {
-                    itemName = dropitems[randomIndex].itemName,
-                    count = 1,
-                    quality = ItemQuality.Normal,
-                    itemHealth = dropitems[randomIndex].health,
-                };
-
-                // Periksa apakah item ini lolos drop rate
-                if (Random.value <= dropRates[randomIndex]) // Random.value menghasilkan angka antara 0-1
-                {
-                    if (itemToDrop != null)
-                    {
-                        //Debug.Log("Item yang dijatuhkan: " + itemToDrop.name);
-                        Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-                        ItemPool.Instance.DropItem(itemToDrop.itemName, itemToDrop.itemHealth, itemToDrop.quality, transform.position + offset, 1);
-                    }
+                    Debug.Log($"Bandit NYETUCK! Membatalkan jalur ini.");
+                    rb.linearVelocity = Vector2.zero;
+                    break; // Keluar loop
                 }
-                else
+            }
+            else
+            {
+                stuckTimer = 0f;
+            }
+
+            previousFramePosition = currentPos;
+        }
+
+        // SELESAI
+        rb.linearVelocity = Vector2.zero;
+        this.movementDirection = Vector2.zero; // Reset ke 0 agar kembali Idle
+        UpdateAnimationParameters();
+    }
+
+    private Vector2 GetRandomPoint(Vector2 lastPosition)
+    {
+        float randomX = Random.Range(-5f, 5f);
+        float randomY = Random.Range(-5f, 5f);
+        return lastPosition + new Vector2(randomX, randomY);
+    }
+
+    public void UpdateAnimationParameters()
+    {
+        if (spriteBadan == null) return;
+        if (isTakingDamage) return;
+
+        // --- KEMBALI MENGGUNAKAN VARIABEL GLOBAL ---
+        // Karena movementDirection sekarang diisi oleh "directionToTarget" di coroutine,
+        // nilainya akan stabil meskipun fisik musuh tertahan tembok.
+        Vector2 inputGerak = this.movementDirection;
+
+        // Gunakan threshold sangat kecil karena inputGerak adalah hasil normalized (pasti 0 atau 1)
+        bool isMoving = inputGerak.magnitude > 0.01f;
+
+        float speed = 0f;
+
+        if (isMoving)
+        {
+            speed = 1f;
+
+            // Input gerak sudah normalized dari coroutine, jadi aman langsung dipakai
+            lastDirection = inputGerak;
+
+            // Tidak perlu Normalisasi lagi karena directionToTarget sudah normalized
+            SetAnimParameters(spriteBadan, inputGerak.x, inputGerak.y, speed);
+        }
+        else
+        {
+            speed = 0f;
+            SetAnimParameters(spriteBadan, lastDirection.x, lastDirection.y, speed);
+        }
+
+        // Sinkronisasi ke Layer Animator lain (jika ada baju/senjata)
+        foreach (Animator anim in layerAnimators)
+        {
+            if (anim == null) continue;
+
+            anim.SetFloat("MoveX", spriteBadan.GetFloat("MoveX"));
+            anim.SetFloat("MoveY", spriteBadan.GetFloat("MoveY"));
+            anim.SetFloat("IdleX", spriteBadan.GetFloat("IdleX"));
+            anim.SetFloat("IdleY", spriteBadan.GetFloat("IdleY"));
+            anim.SetFloat("Speed", speed);
+        }
+    }
+
+    void SetAnimParameters(Animator anim, float x, float y, float speed)
+    {
+        anim.SetFloat("MoveX", Mathf.Round(x));
+        anim.SetFloat("MoveY", Mathf.Round(y));
+        anim.SetFloat("IdleX", Mathf.Round(lastDirection.x)); // Pastikan idle direction juga terupdate
+        anim.SetFloat("IdleY", Mathf.Round(lastDirection.y));
+        anim.SetFloat("Speed", speed);
+    }
+
+
+    private IEnumerator DetectTargetRoutine()
+    {
+        //  scan setiap 0.5 detik 
+        WaitForSeconds scanInterval = new WaitForSeconds(0.5f);
+
+        while (true)
+        {
+
+            if ( currentTarget == null)
+            {
+                FindClosestTarget();
+            }
+
+            yield return scanInterval;
+        }
+    }
+
+    private void FindClosestTarget()
+    {
+        Debug.Log($"Bandit sedang mencari target di sekitar...");
+        // Cari semua objek di dalam lingkaran radius
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRadius, targetLayer);
+
+        float closestDistance = Mathf.Infinity;
+        Transform potentialTarget = null;
+
+        foreach (Collider2D hit in hits)
+        {
+            // Hindari mendeteksi diri sendiri
+            if (hit.gameObject == this.gameObject) continue;
+
+            bool isValidTarget = false;
+
+            // Jika Saya Agresif Cari Player ATAU Hewan Pasif
+            if (hit.CompareTag("Player") || hit.CompareTag("Animal"))
+            {
+                isValidTarget = true;
+            }
+            
+           
+
+            if (isValidTarget)
+            {
+                float dist = Vector2.Distance(transform.position, hit.transform.position);
+
+                // Jika ini lebih dekat dari kandidat sebelumnya, simpan ini
+                if (dist < closestDistance)
                 {
-                    Debug.Log("Item " + itemToDrop.itemName + " tidak jatuh karena gagal drop rate.");
+                    closestDistance = dist;
+                    potentialTarget = hit.transform;
                 }
             }
         }
-        Enemy_Spawner enemy_Spawner = spawner.GetComponent<Enemy_Spawner>();
-        enemy_Spawner.RemoveEnemyFromList(gameObject);
-        Destroy(gameObject);
+
+        // Jika mata berhasil menemukan target yang valid
+        if (potentialTarget != null)
+        {
+            Debug.Log($"Bandit melihat target baru: {potentialTarget.name}");
+            currentTarget = potentialTarget;
+
+            // Ubah state jadi mengejar
+            currentState = BanditState.KejarTarget;
+
+            // Hentikan jalan-jalan santai (Wandering)
+            if (roamingCoroutine != null)
+            {
+                StopCoroutine(roamingCoroutine);
+                roamingCoroutine = null;
+            }
+        }
     }
-    
+   
+    private void UpdateZonaSerangPosition()
+    {
+        // Safety check
+        if (zonaSerangTransform == null) return;
+
+        // Tentukan Titik Pusat Rotasi (Misal: Dada/Kepala hewan)
+        Vector3 centerPoint = transform.position + new Vector3(0, verticalOffset, 0);
+
+        Vector2 directionToLook;
+
+        //Jika punya target, pandangan (Zona Serang) KUNCI ke Target!
+        if (currentTarget != null)
+        {
+            // Hitung arah dari Saya ke Musuh
+            directionToLook = (currentTarget.position - transform.position).normalized;
+
+            // Update lastDirection agar saat musuh mati, kita tetap menghadap ke sana
+            lastDirection = directionToLook;
+        }
+        // Jika tidak ada target tapi sedang jalan, ikut arah jalan
+        else if (movementDirection.magnitude > 0.1f)
+        {
+            directionToLook = movementDirection.normalized;
+            lastDirection = directionToLook;
+        }
+        //  Jika diam dan tidak ada target, pakai arah terakhir
+        else
+        {
+            // Pastikan tidak error jika lastDirection 0 (default kanan)
+            if (lastDirection == Vector2.zero) lastDirection = Vector2.right;
+            directionToLook = lastDirection;
+        }
+
+
+
+        Vector3 orbitPosition = centerPoint + (Vector3)(directionToLook * attackRange);
+
+        // Terapkan Posisi
+        zonaSerangTransform.position = orbitPosition;
+
+        float angle = Mathf.Atan2(directionToLook.y, directionToLook.x) * Mathf.Rad2Deg;
+        zonaSerangTransform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+    public void JalankanLogikaSerangan()
+    {
+        if (currentTarget != null)
+        {
+            // Cek Cooldown
+            if (Time.time < lastAttackTime + attackCooldown) return;
+
+            lastAttackTime = Time.time;
+
+            // Stop gerakan agar tidak "sliding" saat memukul
+            isMoving = false;
+            rb.linearVelocity = Vector2.zero; // Pastikan fisik berhenti total
+
+            // Jalankan Animasi
+            // HAPUS PerformAttack() dari sini agar damage tidak keluar duluan!
+            PlayActionAnimation_NoWait("Pedang");
+
+            Debug.Log($"Bandit memulai animasi serangan ke {currentTarget.name}");
+        }
+    }
+
+    public void PlayActionAnimation_NoWait(string actionType)
+    {
+        if (spriteBadan == null) return;
+
+        // Flag ini berguna jika anda punya logika untuk mencegah gerak saat attackInProgress
+        // attackInProgress = true; 
+
+        string triggerName = actionType;
+
+        // --- PERBAIKAN LOGIKA ARAH ---
+        // Jangan pakai posisi transform, pakai 'lastDirection' dari script movement
+        // Asumsi: lastDirection.x dan lastDirection.y bernilai -1, 0, atau 1
+
+        if (Mathf.Abs(lastDirection.y) > Mathf.Abs(lastDirection.x)) // Lebih dominan vertikal
+        {
+            if (lastDirection.y > 0) triggerName += "Atas";
+            else triggerName += "Bawah";
+        }
+        else // Lebih dominan horizontal (atau diam)
+        {
+            if (lastDirection.x > 0) triggerName += "Kanan";
+            else triggerName += "Kiri"; // Default ke Kiri jika x < 0
+        }
+
+        // Fallback jika lastDirection (0,0) -> Default Kanan/Bawah tergantung preferensi
+        if (lastDirection == Vector2.zero) triggerName += "Bawah";
+
+        // Trigger Animasi
+        spriteBadan.SetTrigger(triggerName);
+
+        foreach (Animator anim in layerAnimators)
+        {
+            if (anim != null) anim.SetTrigger(triggerName);
+        }
+
+        // PENTING: Posisikan zonaSerangTransform mengikuti arah serangan
+        UpdateAttackPosition();
+    }
+
+    // Fungsi tambahan untuk memindah posisi hitbox (zonaSerangTransform)
+    void UpdateAttackPosition()
+    {
+        if (zonaSerangTransform == null) return;
+
+        // Jarak hitbox dari pusat badan
+        float distance = 1.0f;
+
+        // Pindahkan hitbox ke arah hadap terakhir
+        zonaSerangTransform.localPosition = lastDirection * distance;
+    }
+
+    // FUNGSI INI DIPANGGIL OLEH ANIMATION EVENT DI UNITY
+    public void PerformAttack()
+    {
+        Debug.Log("Pedang mendarat! Mengecek hit...");
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(zonaSerangTransform.position, hitboxRadius, targetLayer);
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.gameObject == this.gameObject) continue;
+
+            if (hit.CompareTag("Player"))
+            {
+                Player_Health playerHealth = hit.GetComponent<Player_Health>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(attackDamage, transform.position);
+                }
+            }
+            else if (hit.CompareTag("Animal"))
+            {
+                AnimalBehavior prey = hit.GetComponent<AnimalBehavior>();
+                if (prey != null && prey.tipeHewan == AnimalType.Pasif)
+                {
+                    prey.TakeDamage(attackDamage);
+                }
+            }
+        }
+    }
+
+    private void ChaseTargetFixedUpdate()
+    {
+        // Pastikan target masih ada. Kalau null, return (keluar).
+        if (currentTarget == null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        float distance = Vector2.Distance(transform.position, currentTarget.position);
+
+        // Jika jarak masih jauh (lebih besar dari attackRange), kita kejar!
+        if (distance > attackRange)
+        {
+            Vector2 direction = (currentTarget.position - transform.position).normalized;
+            if (Mathf.Abs(direction.x) > 0.1f)
+            {
+                SetMovementDirection(direction);
+                UpdateAnimationParameters();
+            }
+            else
+            {
+                SetMovementDirection(new Vector2(0, direction.y));
+                UpdateAnimationParameters();
+            }
+
+            // Rumus: Arah * Kecepatan (moveSpeed)
+            rb.linearVelocity = direction * moveSpeed; // ??? (Isi rumus velocity di sini)
+
+            isMoving = true;
+        }
+        else
+        {
+            // Matikan mesin
+            rb.linearVelocity = Vector2.zero;
+            isMoving = false;
+            spriteBadan.Play("Idle");
+
+            // (Opsional) Play animasi Idle jika mau
+        }
+    }
+    public void SetMovementDirection(Vector2 direction)
+    {
+        this.movementDirection = direction;
+        if (direction.magnitude > 0.1f)
+        {
+            this.lastDirection = direction.normalized; // Simpan arah yang sudah dinormalisasi
+        }
+
+    }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        // Jika verticalOffset negatif, titik ini akan turun.
+        Vector3 centerPoint = transform.position + new Vector3(0, verticalOffset, 0);
+
+        // Gambar Lingkaran Lintasan (Kuning)
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(centerPoint, hitboxRadius);
+
+        // Gambar Hitbox Aktual (Merah)
+        if (zonaSerangTransform != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(centerPoint, zonaSerangTransform.position);
+            Gizmos.DrawWireSphere(zonaSerangTransform.position, 0.2f);
+        }
+
+        // Gambar Lingkaran Deteksi (Sensor Mata) - WARNA HIJAU
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(centerPoint, detectionRadius);
+
+        // Gambar Zona Serang (Hitbox) - WARNA MERAH (Dari kode Anda sebelumnya)
+        if (zonaSerangTransform != null)
+        {
+            // Hitung titik tengah visual offset
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(centerPoint, hitboxRadius);
+        }
+    }
 }

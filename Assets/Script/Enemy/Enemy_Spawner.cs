@@ -110,8 +110,7 @@ public class Enemy_Spawner : UniqueIdentifiableObject
         //newEnemy.GetComponent<Enemy_Health>().theSpawner = this;
         newEnemy.gameObject.SetActive(true);
         Enemy_Bandit enemy_Bandit = newEnemy.GetComponent<Enemy_Bandit>();
-        GameObject spriteObject = enemy_Bandit.transform.Find("Sprite").gameObject;
-        FootstepController footstep = spriteObject.GetComponent<FootstepController>();
+        FootstepController footstep = enemy_Bandit.GetComponent<FootstepController>();
 
         if (footstep != null)
         {
@@ -122,7 +121,7 @@ public class Enemy_Spawner : UniqueIdentifiableObject
         }
         if (enemy_Bandit != null)
         {
-            enemy_Bandit.spawner = this.gameObject;
+            //enemy_Bandit.spawner = this.gameObject;
         }
 
         enemies.Add(newEnemy);

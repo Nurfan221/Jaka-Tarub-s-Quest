@@ -143,19 +143,16 @@ public class Player_Anim : MonoBehaviour
 
     public void PlayAnimation(string nameAnimation)
     {
-        // 1. Guard Clause
         if (isTakingDamage) return;
         if (bodyAnimator == null) return;
 
         isTakingDamage = true;
 
-        // 2. KIRIM PARAMETER KHUSUS DAMAGE
-        // Ini memberi tahu Animator: "Hei, arah serangan datang dari X,Y ini lho!"
+        // Kasih tau sprite arah mana yang kena damage
         bodyAnimator.SetFloat("TakeDamageX", lastDirection.x);
         bodyAnimator.SetFloat("TakeDamageY", lastDirection.y);
 
-        // 3. UPDATE SLAVES (Baju, Rambut, dll)
-        // PENTING: Animator baju juga harus punya parameter TakeDamageX/Y di dalamnya!
+        // Animator baju juga harus punya parameter TakeDamageX/Y di dalamnya!
         foreach (Animator anim in layerAnimators)
         {
             if (anim != null)
@@ -165,7 +162,6 @@ public class Player_Anim : MonoBehaviour
             }
         }
 
-        // 4. JALANKAN TRIGGER
         bodyAnimator.SetTrigger(nameAnimation);
 
         StartCoroutine(ResetTakeDamageState());

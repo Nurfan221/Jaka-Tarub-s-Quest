@@ -720,7 +720,8 @@ MonoBehaviour:
   gameplaySceneName: MainGameScene
   fadeDuration: 1
   gapDuration: 0.5
-  maxVolume: 0.3
+  musicMasterVolume: 0
+  sfxMasterVolume: 1
 --- !u!4 &2046478100
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class Enemy_Health : MonoBehaviour
 {
     public float maxHealth = 100f;
@@ -13,9 +13,10 @@ public class Enemy_Health : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        //enemy_Bandit.PlayAnimation("TakeDamage");
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth); // Pastikan tidak kurang dari 0 atau lebih dari maxHealth
-
+        //enemy_Bandit.Run();
         if (health <= 0)
         {
             Die();
@@ -24,8 +25,10 @@ public class Enemy_Health : MonoBehaviour
 
     void Die()
     {
-        enemy_Bandit.DropItem();
+        //enemy_Bandit.DropItem();
         Debug.Log(gameObject.name + " has died.");
         Destroy(gameObject);
     }
+   
+
 }
