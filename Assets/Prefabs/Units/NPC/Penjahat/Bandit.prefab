@@ -141,10 +141,11 @@ GameObject:
   - component: {fileID: 1435156099782381967}
   - component: {fileID: 4740615744942993778}
   - component: {fileID: 5429784632542161058}
-  - component: {fileID: 859651828533797181}
   - component: {fileID: 4210990874787353170}
   - component: {fileID: 3189302869170366362}
   - component: {fileID: 1167140148326250407}
+  - component: {fileID: 2927802229859647598}
+  - component: {fileID: 5931000819952107001}
   m_Layer: 0
   m_Name: Bandit
   m_TagString: Bandit
@@ -219,7 +220,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -6598157826907344803, guid: 290953d4afa323d43a0801b55a19bced, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -227,7 +228,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4740615744942993778
@@ -247,23 +248,25 @@ MonoBehaviour:
   detectionRadius: 5
   targetLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 8200
   jedaAnimasi: 3
   isMoving: 0
   moveSpeed: 2
+  isDead: 0
   rb: {fileID: 5429784632542161058}
   rutePatroli: []
   movementDirection: {x: 0, y: 0}
   lastDirection: {x: 0, y: 0}
-  attackRange: 1
+  myCollider: {fileID: 2927802229859647598}
   attackCooldown: 2
   wanderRadius: 4
   attackDamage: 10
-  attackInProgress: 0
   isTakingDamage: 0
+  isAttackReady: 1
+  isAttackInProgress: 0
   zonaSerangTransform: {fileID: 9059205712248525652}
   verticalOffset: -0.3
-  hitboxRadius: 0.67
+  hitboxRadius: 1.5
   currentTarget: {fileID: 0}
   spriteBadan: {fileID: 3189302869170366362}
   layerAnimators:
@@ -296,52 +299,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &859651828533797181
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1784783501594626427}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.3354516}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1.3438253}
-  m_EdgeRadius: 0
 --- !u!114 &4210990874787353170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,6 +351,58 @@ MonoBehaviour:
   tilemaps: {fileID: 0}
   soundLibrary: {fileID: 11400000, guid: 3b701e6a3fd63a74ab399afb4e3c68c6, type: 2}
   hearingDistance: 15
+--- !u!70 &2927802229859647598
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784783501594626427}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.030979156, y: -0.32722664}
+  m_Size: {x: 0.76332855, y: 1.3678875}
+  m_Direction: 0
+--- !u!114 &5931000819952107001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784783501594626427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af1786e182f5194aad555654717ce5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnockbackSystem
+  thrust: 5
+  knockbackDuration: 0.5
+  rb: {fileID: 5429784632542161058}
 --- !u!1 &2062152747233376279
 GameObject:
   m_ObjectHideFlags: 0

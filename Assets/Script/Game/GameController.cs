@@ -554,30 +554,75 @@ public class GameController : MonoBehaviour
     // Coroutine utama untuk menangani urutan kejadian
     private IEnumerator ProcessPassOutSequence(string judul, string deskripsi, Dialogues dialog)
     {
-        // Pastikan fungsi SetLoadingandTimer mendukung parameter judul & deskripsi
+        //  Mulai Loading Screen
         yield return StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(true, judul));
 
-        //  Logika saat Layar Gelap (Pindahkan Pemain & Reset Waktu)
-        Transform playerTransform = PlayerController.Instance.ActivePlayer.transform;
-        playerTransform.position = lokasiPerawatan;
-        Debug.Log("Memindahkan pemain ke lokasi perawatan: " + playerTransform.position);
 
-
-
-        // Tunggu sebentar agar pemain sempat membaca teks loading / transisi terasa halus
-        yield return new WaitForSecondsRealtime(2.0f);
-
-
-        //DialogueSystem.Instance.HandlePlayDialogue(dialog);
-        DialogueSystem.Instance.HandlePlayDialogue(dialog);
+        // Pindah Hari
         TimeManager.Instance.AdvanceToNextDay();
+
+        // Reset Darah/Stamina & Input (Pastikan input masih terkunci di fungsi ini)
         PlayerController.Instance.HandlePlayerPingsan();
 
-        GameEconomy.Instance.LostMoney(200); // Memotong uang 200
+        // Hukuman
+        GameEconomy.Instance.LostMoney(200);
         ItemPool.Instance.DropRandomItemsOnPassOut();
+
+        // Save Game (Penting dilakukan setelah semua perubahan data)
         SaveDataManager.Instance.SaveGame();
 
 
+        // LOGIKA VISUAL (Pindah Posisi & Siapkan Sprite)
+        Transform playerTransform = PlayerController.Instance.ActivePlayer.transform;
+        Rigidbody2D rb = playerTransform.GetComponent<Rigidbody2D>();
+        playerTransform.position = lokasiPerawatan;
+        Debug.Log("Pemain di RS: " + playerTransform.position);
+
+        // Ambil semua sprite
+        List<SpriteRenderer> allSprites = new List<SpriteRenderer>();
+        allSprites.Add(playerTransform.GetComponent<SpriteRenderer>());
+        allSprites.AddRange(playerTransform.GetComponentsInChildren<SpriteRenderer>());
+
+        // Pastikan sprite benar-benar transparan (0) sebelum mulai fade-in
+        foreach (SpriteRenderer sr in allSprites)
+        {
+            if (sr != null)
+            {
+                Color c = sr.color;
+                c.a = 0f; // Paksa 0
+                sr.color = c;
+            }
+        }
+
+        // ANIMASI FADE IN (Muncul Perlahan di Kasur RS)
+        float fadeDuration = 1.5f;
+        float timer = 0f;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(0f, 1f, timer / fadeDuration);
+
+            foreach (SpriteRenderer sr in allSprites)
+            {
+                if (sr != null)
+                {
+                    Color c = sr.color;
+                    c.a = newAlpha;
+                    sr.color = c;
+                }
+            }
+            yield return null;
+        }
+
+        // Tunggu sebentar biar estetik
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        rb.linearVelocity = Vector2.zero;
+        // Munculkan Dialog (Sekarang HP sudah penuh, jadi aman dilihat)
+        DialogueSystem.Instance.HandlePlayDialogue(dialog);
+        
     }
 
     // atau disesuaikan jika masih dipakai skrip lain)

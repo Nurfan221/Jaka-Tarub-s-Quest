@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Player_Health : MonoBehaviour
@@ -14,7 +16,8 @@ public class Player_Health : MonoBehaviour
     public SpriteRenderer sr;
     private PlayerController stats;
     private PlayerData_SO playerData;
-    private bool isDead = false;
+    public bool isDead = false;
+    private bool isTakingDamage = false;
 
     private void Awake()
     {
@@ -128,7 +131,7 @@ public class Player_Health : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage, Vector2 attackerPosition)
+    public void TakeDamage(int damage, Transform attackerPosition)
     {
         // Jika pemain sudah ditandai mati (atau sedang proses mati), tolak damage baru.
         // Ini mencegah fungsi Die() dipanggil berulang kali oleh musuh yang menyerang bersamaan.
@@ -146,13 +149,12 @@ public class Player_Health : MonoBehaviour
 
         // Animasi & Visual (Tetap jalankan ini meskipun akan mati, agar terlihat impact-nya)
         PlayerController.Instance.HandlePlayAnimation("TakeDamage");
-        StartCoroutine(ApplyKnockback(attackerPosition));
+        SetKnockbackStatus(true, attackerPosition);
         StartCoroutine(TakeDamageVisual());
 
         if (stats.health <= 0)
         {
             // Serangan musuh ke-2 yang masuk setelah baris ini akan ditolak oleh "if (isDead) return;" di atas.
-            isDead = true;
 
             // Panggil proses kematian dengan jeda
             StartCoroutine(ProcessDeathSequence());
@@ -249,22 +251,29 @@ public class Player_Health : MonoBehaviour
         stats.stamina = stats.currentStaminaCap; // Isi stamina sampai batas yang sudah pulih
     }
 
-    private IEnumerator ApplyKnockback(Vector2 attackerPosition)
+    public void SetKnockbackStatus(bool status, Transform attackerPosition)
     {
-        Vector2 knockbackDirection = ((Vector2)transform.position - attackerPosition).normalized;
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            float knockbackForce = 1f;
-            rb.linearVelocity = Vector2.zero;
-            rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
-        }
-        Player_Movement movement = GetComponent<Player_Movement>();
-        if (movement != null) movement.enabled = false;
-        yield return new WaitForSeconds(0.3f);
-        if (movement != null) movement.enabled = true;
-    }
+        isTakingDamage = status;
 
+        if (status == true)
+        {
+            PlayerController.Instance.ActivePlayer.Movement.ifDisturbed = true;
+
+            KnockbackSystem knockback = GetComponent<KnockbackSystem>();
+
+            if (knockback != null && attackerPosition != null)
+            {
+                knockback.PlayKnockback(attackerPosition, () =>
+                {
+                    Debug.Log("Knockback selesai via Callback");
+                    isTakingDamage = false;
+                    PlayerController.Instance.ActivePlayer.Movement.ifDisturbed = false;
+                    GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+                });
+            }
+        }
+       
+    }
     IEnumerator TakeDamageVisual()
     {
         float startTime = Time.time;
@@ -276,13 +285,7 @@ public class Player_Health : MonoBehaviour
     }
 
     [ContextMenu("KILL")]
-    void Die()
-    {
-        Debug.Log("Player Died");
-        //GameController.Instance.PlayerDied();
-        GameController.Instance.StartPassOutSequence(false);
-        isDead = false; // Reset flag kematian untuk memungkinkan respawn
-    }
+
 
     public void CheckSekarat()
     {
@@ -297,6 +300,7 @@ public class Player_Health : MonoBehaviour
         }
     }
 
+   
     public void PlayerPingsan()
     {
         int healthPenalty = Mathf.CeilToInt(stats.health * 0.8f);
@@ -305,9 +309,98 @@ public class Player_Health : MonoBehaviour
 
         stats.currentStaminaCap -= staminaPenalty;
         stats.health -= healthPenalty;
+
+
+        PlayerController.Instance.ActivePlayer.Health.isDead = false;
+        PlayerController.Instance.ActivePlayer.Player_Anim.isTakingDamage = false;
+
+        Animator anim = PlayerController.Instance.ActivePlayer.Player_Anim.bodyAnimator;
+        List<Animator> layers = PlayerController.Instance.ActivePlayer.Player_Anim.layerAnimators;
+
+        if (anim != null)
+        {
+            // Paksa masuk ke state "Idle" detik ini juga
+            anim.Play("Idle");
+            anim.Rebind(); // Opsional: Reset total animator jika macet parah
+            anim.Update(0f); // Paksa update frame
+        }
+
+        // Lakukan hal yang sama untuk Baju/Celana (Slave)
+        foreach (Animator layer in layers)
+        {
+            if (layer != null)
+            {
+                layer.Play("Idle");
+                layer.Rebind();
+                layer.Update(0f);
+            }
+        }
     }
 
 
+    public void Die()
+    {
+        if (isDead) return;
+        isDead = true;
 
+        Debug.Log("Player Mati!");
+
+        PlayerController.Instance.ActivePlayer.Movement.ifDisturbed = true;
+        StopAllCoroutines();
+        PlayerController.Instance.ActivePlayer.Movement.rb.linearVelocity = Vector2.zero;
+        PlayerController.Instance.ActivePlayer.Movement.rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        Collider2D myCollider = GetComponent<Collider2D>();
+        if (myCollider != null) myCollider.enabled = false;
+        else GetComponent<Collider2D>().enabled = false;
+
+        PlayerController.Instance.HandlePlayAnimation("Die");
+
+        StartCoroutine(DeathSequenceRoutine());
+
+       
+    }
+
+    private IEnumerator DeathSequenceRoutine()
+    {
+        // Ini memberi waktu bagi player untuk melihat animasi "Die" sampai selesai.
+        yield return new WaitForSeconds(2f);
+
+       
+
+       
+
+        float fadeDuration = 1.5f;
+        float timer = 0f;
+
+        List<SpriteRenderer> allSprites = new List<SpriteRenderer>();
+        allSprites.Add(GetComponent<SpriteRenderer>());
+        allSprites.AddRange(GetComponentsInChildren<SpriteRenderer>());
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(1f, 0f, timer / fadeDuration);
+
+            foreach (SpriteRenderer sr in allSprites)
+            {
+                if (sr != null)
+                {
+                    Color c = sr.color;
+                    c.a = newAlpha;
+                    sr.color = c;
+                }
+            }
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+        // Panggil ini SETELAH menunggu 0.5 detik.
+        if (GameController.Instance != null)
+        {
+            GameController.Instance.StartPassOutSequence(false);
+        }
+
+    }
 
 }

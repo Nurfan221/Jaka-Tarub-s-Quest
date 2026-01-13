@@ -399,15 +399,10 @@ public class PlayerController : MonoBehaviour, ISaveable
 
     public void HandlePlayAnimation(string nameAnimation)
     {
-        if(ActivePlayer.Player_Anim.isTakingDamage)
-        {
-            return;
-        }else
-        {
-            ActivePlayer.Player_Anim.PlayAnimation(nameAnimation);
+        ActivePlayer.Player_Anim.PlayAnimation(nameAnimation);
 
-        }
     }
+
 
 
 

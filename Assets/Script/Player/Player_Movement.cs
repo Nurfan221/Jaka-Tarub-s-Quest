@@ -174,6 +174,23 @@ public class Player_Movement : MonoBehaviour
         Debug.Log("Player bisa jalan lagi.");
     }
 
+    // Taruh ini di script Player_Movement atau PlayerController Anda
+    public void SetKnockbackStatus(bool status)
+    {
+        // Cukup ubah bool 'ifDisturbed' atau matikan input
+        if (PlayerController.Instance != null)
+        {
+            // Jika status = true (kena mental), maka ifDisturbed = true (gak bisa gerak)
+            PlayerController.Instance.ActivePlayer.Movement.ifDisturbed = status;
+
+            // Opsional: Reset velocity biar gak licin kalau statusnya false (selesai knockback)
+            if (status == false)
+            {
+                GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+            }
+        }
+    }
+
     private void OnDrawGizmosSelected()
     {
         // Jika verticalOffset negatif, titik ini akan turun.

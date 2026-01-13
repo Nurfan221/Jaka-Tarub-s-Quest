@@ -44,13 +44,14 @@ public class Player_Anim : MonoBehaviour
     {
         if (bodyAnimator == null) return;
 
+        //  Jika sedang tergebug, JANGAN update apa-apa.
+        // Biarkan animasi tergebug main sampai selesai.
         if (isTakingDamage) return;
+
+        // Ini terjadi jika durasi Knockback lebih lama dari durasi animasi sakit.
         if (pm.ifDisturbed)
         {
-            // Set parameter Master ke Idle (Speed 0)
             SetAnimParameters(bodyAnimator, lastDirection.x, lastDirection.y, 0f);
-
-            // Wajib Sync ke Slave (Baju, Celana, dll) juga!
             foreach (Animator anim in layerAnimators)
             {
                 anim.SetFloat("Speed", 0f);
@@ -59,8 +60,6 @@ public class Player_Anim : MonoBehaviour
                 anim.SetFloat("IdleX", bodyAnimator.GetFloat("IdleX"));
                 anim.SetFloat("IdleY", bodyAnimator.GetFloat("IdleY"));
             }
-
-            // Baru setelah parameternya di-nol-kan, kita return agar tidak baca input gerakan
             return;
         }
 
@@ -88,12 +87,10 @@ public class Player_Anim : MonoBehaviour
             anim.SetFloat("IdleY", bodyAnimator.GetFloat("IdleY"));
             anim.SetFloat("Speed", bodyAnimator.GetFloat("Speed"));
 
-            // Trigger attack/damage juga harus di-pass jika ada logic-nya di sini
-            // (Biasanya trigger dilakukan via method terpisah di bawah)
+            
         }
     }
 
-    // Helper function biar kodenya rapi
     void SetAnimParameters(Animator anim, float x, float y, float speed)
     {
         anim.SetFloat("MoveX", Mathf.Round(x));
@@ -107,16 +104,16 @@ public class Player_Anim : MonoBehaviour
     {
         if (bodyAnimator == null || layerAnimators.Count == 0) return;
 
-        // Ambil info state animasi dari Badan (Master) saat ini
+        if (isTakingDamage || isAttacking) return;
+
         AnimatorStateInfo masterState = bodyAnimator.GetCurrentAnimatorStateInfo(0);
         int currentHash = masterState.fullPathHash;
-        float currentTime = masterState.normalizedTime; // Waktu putar (0.0 sampai 1.0)
+        float currentTime = masterState.normalizedTime;
 
         foreach (Animator anim in layerAnimators)
         {
             AnimatorStateInfo slaveState = anim.GetCurrentAnimatorStateInfo(0);
 
-            // Kita paksa baju untuk 'Play' state yang sama di waktu yang sama persis.
             if (slaveState.fullPathHash != currentHash || Mathf.Abs(slaveState.normalizedTime - currentTime) > 0.02f)
             {
                 anim.Play(currentHash, 0, currentTime);
@@ -143,16 +140,23 @@ public class Player_Anim : MonoBehaviour
 
     public void PlayAnimation(string nameAnimation)
     {
-        if (isTakingDamage) return;
+        if (isTakingDamage && nameAnimation != "Die") return;
         if (bodyAnimator == null) return;
 
         isTakingDamage = true;
 
-        // Kasih tau sprite arah mana yang kena damage
+        // Pastikan saat kena damage, parameter jalan dimatikan paksa
+        // agar Animator tidak bingung mau lari atau sakit.
+        bodyAnimator.SetFloat("Speed", 0f);
+        foreach (Animator anim in layerAnimators)
+        {
+            if (anim != null) anim.SetFloat("Speed", 0f);
+        }
+
+        // Set Arah Damage
         bodyAnimator.SetFloat("TakeDamageX", lastDirection.x);
         bodyAnimator.SetFloat("TakeDamageY", lastDirection.y);
 
-        // Animator baju juga harus punya parameter TakeDamageX/Y di dalamnya!
         foreach (Animator anim in layerAnimators)
         {
             if (anim != null)
@@ -162,22 +166,47 @@ public class Player_Anim : MonoBehaviour
             }
         }
 
+        // Trigger
         bodyAnimator.SetTrigger(nameAnimation);
+        Debug.Log($"Memainkan animasi: {nameAnimation}");
+        foreach (Animator anim in layerAnimators)
+        {
+            if (anim != null) anim.SetTrigger(nameAnimation);
+        }
 
-        StartCoroutine(ResetTakeDamageState());
+        if (nameAnimation != "Die")
+        {
+            // Hentikan coroutine lama jika ada (biar tidak tumpang tindih)
+            StopAllCoroutines();
+            StartCoroutine(ResetTakeDamageState());
+        }
     }
 
     private IEnumerator ResetTakeDamageState()
     {
-        yield return null; // Tunggu 1 frame (Penting!)
+        // Tunggu sampai Unity benar-benar memulai transisi
+        yield return null;
 
-        // Ambil durasi animasi saat ini (harapannya animasi 'Hurt')
-        float duration = bodyAnimator.GetCurrentAnimatorStateInfo(0).length;
+        float duration = 0.5f; // Default fallback
 
-        yield return new WaitForSeconds(duration); // Tunggu sampai animasi selesai
+        // Jika Animator sedang transisi (Run -> TakeDamage), 
+        // durasi yang benar ada di "NextState", bukan "CurrentState".
+        if (bodyAnimator.IsInTransition(0))
+        {
+            duration = bodyAnimator.GetNextAnimatorStateInfo(0).length;
+        }
+        else
+        {
+            duration = bodyAnimator.GetCurrentAnimatorStateInfo(0).length;
+        }
 
-        isTakingDamage = false; 
-        UpdateAnimationParameters(); // Kembali ke Idle
+        // Tunggu sesuai durasi animasi
+        yield return new WaitForSeconds(duration);
+
+        isTakingDamage = false;
+
+        // Kembalikan kontrol
+        UpdateAnimationParameters();
     }
 
     private IEnumerator ResetAttackState()

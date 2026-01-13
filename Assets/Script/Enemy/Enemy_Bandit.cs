@@ -8,7 +8,8 @@ public enum BanditState
     Patroli,
     KejarTarget,
     Serang,
-    Kabur
+    Kabur,
+    Mati
 }
 public class Enemy_Bandit : MonoBehaviour
 {
@@ -27,22 +28,25 @@ public class Enemy_Bandit : MonoBehaviour
     [Header("References")]
     public float jedaAnimasi = 3f;
     public bool isMoving;
-    public float moveSpeed; 
+    public float moveSpeed;
+    public bool isDead;
     public Rigidbody2D rb; // Tambahkan referensi Rigidbody2D
     public List<Vector2> rutePatroli = new List<Vector2>(4);
     public Vector2 movementDirection;
     public Vector2 lastDirection;
     private Coroutine roamingCoroutine;
+    [Header("Death Settings")]
+    public Collider2D myCollider;
 
 
     [Header("Logika Serangan")]
-    public float attackRange = 1.5f;
     public float attackCooldown = 2f;
     private float lastAttackTime = 0f;
     public float wanderRadius = 4;
     public int attackDamage = 10;
-    public bool attackInProgress = false;
     public bool isTakingDamage = false;
+    public bool isAttackReady = true;
+    public bool isAttackInProgress = false;
 
     public Transform zonaSerangTransform;
 
@@ -67,39 +71,44 @@ public class Enemy_Bandit : MonoBehaviour
     private void Update()
     {
         UpdateZonaSerangPosition();
-        // Kita hanya jalankan ini kalau tipe Agresif dan PUNYA target
-        if (currentTarget != null)
+
+        // Pastikan punya target & logic siap
+        if (currentTarget != null && isAttackReady && !isDead)
         {
             float distance = Vector2.Distance(transform.position, currentTarget.position);
 
-
-            if (distance > attackRange)
+            if (distance > hitboxRadius)
             {
-
-
-                currentState = BanditState.KejarTarget;
-                isMoving = true;
+                // jika target tidak null dan jarak lebih dari hitboxRadius kejar
+                if (currentState != BanditState.KejarTarget)
+                {
+                    currentState = BanditState.KejarTarget;
+                    isMoving = true;
+                }
             }
             else
             {
-
+                // Pastikan ubah state dulu sebelum serang
                 currentState = BanditState.Serang;
                 isMoving = false;
-
-                // Tambahkan REM TANGAN biar gak meluncur (sliding) saat mukul
+                roamingCoroutine = null; // Pastikan coroutine roaming dihentikan
+                //  Matikan gerak fisik
                 rb.linearVelocity = Vector2.zero;
+
+              
                 JalankanLogikaSerangan();
             }
 
-            // Jika target lari terlalu jauh (misal detectionRadius + 3 meter)
+            // Cek apakah target sudah jauh banget (lepas dari deteksi)
             if (distance > detectionRadius + 3f)
             {
-                // ??? (Tulis logika menyerah di sini: Reset target, Reset state, Mulai roaming lagi)
+                // Reset ke Idle / Patroli
                 currentTarget = null;
                 currentState = BanditState.Idle;
                 spriteBadan.Play("Idle");
                 isMoving = false;
                 rb.linearVelocity = Vector2.zero;
+
                 if (roamingCoroutine == null)
                 {
                     roamingCoroutine = StartCoroutine(ThinkProcess());
@@ -114,17 +123,62 @@ public class Enemy_Bandit : MonoBehaviour
             ChaseTargetFixedUpdate();
         }
     }
+
+    private void LateUpdate()
+    {
+        SyncVisuals();
+    }
+
+    void SyncVisuals()
+    {
+        if (spriteBadan == null || layerAnimators.Count == 0) return;
+
+        AnimatorStateInfo masterState = spriteBadan.GetCurrentAnimatorStateInfo(0);
+
+        int masterHash = masterState.fullPathHash; // ID Animasi (misal: Run_Right)
+        float masterTime = masterState.normalizedTime; // Waktu jalan (0.0 - 1.0)
+
+        // terapkan ke semua SLAVE (Baju, dll)
+        foreach (Animator anim in layerAnimators)
+        {
+            if (anim == null) continue;
+
+            AnimatorStateInfo slaveState = anim.GetCurrentAnimatorStateInfo(0);
+
+            // Cek apakah Slave berbeda dengan Master?
+            // Beda State ATAU Beda Waktu lebih dari toleransi kecil
+            bool isDifferentState = slaveState.fullPathHash != masterHash;
+            bool isTimeDesynced = Mathf.Abs(slaveState.normalizedTime - masterTime) > 0.02f; // Toleransi 0.02 detik
+
+            if (isDifferentState || isTimeDesynced)
+            {
+                // Paksa slave mainkan animasi Master di waktu yang sama persis
+                anim.Play(masterHash, 0, masterTime);
+            }
+        }
+    }
     private IEnumerator ThinkProcess()
     {
-
         while (true) // Loop selamanya
         {
-           
-            BanditState nextAction = GetRandomNextState(currentState);
+         
+            if (currentState == BanditState.KejarTarget || currentState == BanditState.Serang)
+            {
+                yield return null; // Tunggu 1 frame, lalu cek lagi (Looping idle)
+                continue; 
+            }
 
-            if (nextAction == BanditState.Patroli) yield return StartCoroutine(DoWandering());
-          
-            else yield return StartCoroutine(DoIdle());
+            BanditState nextAction = GetRandomNextState(currentState);
+            currentState = nextAction;
+            Debug.Log($"Bandit memutuskan untuk beralih ke state: {nextAction}");
+            if (nextAction == BanditState.Patroli)
+            {
+                yield return StartCoroutine(DoWandering());
+            }
+            else
+            {
+                yield return StartCoroutine(DoIdle());
+            }
         }
     }
 
@@ -147,39 +201,44 @@ public class Enemy_Bandit : MonoBehaviour
     {
         Debug.Log($"Bandit memutuskan untuk Patroli.");
 
-        // 1. BERSIHKAN RUTE LAMA (Wajib!)
         rutePatroli.Clear();
-
-        // 2. TENTUKAN BERAPA TITIK
-        int jumlahTitik = Random.Range(1, 4); // Minimal 1 titik, maksimal 3
-
-        // 3. TENTUKAN TITIK AWAL ACUAN (Gunakan posisi FISIK saat ini, bukan Direction!)
+        int jumlahTitik = Random.Range(1, 4);
         Vector2 titikAcuan = rb.position;
 
-        // 4. BUAT RUTE BARU
         for (int i = 0; i < jumlahTitik; i++)
         {
-            // Cari titik baru berdasarkan titik acuan terakhir
             Vector2 titikBaru = GetRandomPoint(titikAcuan);
             rutePatroli.Add(titikBaru);
-
-            // Titik acuan digeser ke titik baru, biar jalurnya nyambung (A -> B -> C)
             titikAcuan = titikBaru;
         }
 
         isMoving = true;
 
-        // 5. JALANKAN FISIKA
         foreach (var rute in rutePatroli)
         {
+            if (currentState != BanditState.Patroli)
+            {
+                yield break; 
+            }
+
+            // Jalankan pergerakan
             yield return StartCoroutine(MoveToTargetWithPhysics(rute, moveSpeed));
+
+            // Setelah sampai di satu titik, cek lagi (barangkali berubah pas di jalan)
+            if (currentState != BanditState.Patroli)
+            {
+                yield break; 
+            }
         }
 
         isMoving = false;
 
-        // (Opsional) Play Animasi Idle sebentar sebelum mikir lagi
-        if (spriteBadan != null) spriteBadan.Play("Idle");
-        yield return new WaitForSeconds(1f);
+        // Cek lagi sebelum idle
+        if (currentState == BanditState.Patroli)
+        {
+            if (spriteBadan != null) spriteBadan.Play("Idle");
+            yield return new WaitForSeconds(1f);
+        }
     }
     private IEnumerator MoveToTargetWithPhysics(Vector2 targetPosition, float speed)
     {
@@ -189,20 +248,26 @@ public class Enemy_Bandit : MonoBehaviour
 
         while (Vector2.Distance(rb.position, targetPosition) > 0.5f)
         {
-            // 1. HITUNG ARAH YANG DIINGINKAN (INTENTION)
+
+            if (currentState != BanditState.Patroli)
+            {
+                rb.linearVelocity = Vector2.zero; // Rem mendadak
+                yield break; // Hentikan coroutine ini
+            }
+            
+            //perhitungan arah yang diinginkan
             Vector2 directionToTarget = (targetPosition - rb.position).normalized;
 
-            // --- PERBAIKAN DISINI ---
-            // Kita paksa variabel ini berisi arah "Niat", bukan hasil fisika.
+            //  paksa variabel ini berisi arah "Niat", bukan hasil fisika.
             // Walaupun menabrak tembok, directionToTarget tetap bernilai 1 (tetap berusaha maju).
             this.movementDirection = directionToTarget;
 
-            // 2. DORONG FISIKA
+            // dorongan fisika
             rb.linearVelocity = directionToTarget * speed;
 
             yield return null;
 
-            // 3. LOGIKA STUCK (Tetap pakai posisi asli untuk mendeteksi macet)
+            // logika stak (Tetap pakai posisi asli untuk mendeteksi macet)
             Vector2 currentPos = rb.position;
             float distanceMoved = (currentPos - previousFramePosition).magnitude;
 
@@ -216,7 +281,7 @@ public class Enemy_Bandit : MonoBehaviour
                 {
                     Debug.Log($"Bandit NYETUCK! Membatalkan jalur ini.");
                     rb.linearVelocity = Vector2.zero;
-                    break; // Keluar loop
+                    break;
                 }
             }
             else
@@ -227,7 +292,6 @@ public class Enemy_Bandit : MonoBehaviour
             previousFramePosition = currentPos;
         }
 
-        // SELESAI
         rb.linearVelocity = Vector2.zero;
         this.movementDirection = Vector2.zero; // Reset ke 0 agar kembali Idle
         UpdateAnimationParameters();
@@ -242,11 +306,12 @@ public class Enemy_Bandit : MonoBehaviour
 
     public void UpdateAnimationParameters()
     {
+        if (currentState == BanditState.Mati || isDead) return;
         if (spriteBadan == null) return;
         if (isTakingDamage) return;
+        if (isAttackInProgress) return;
 
-        // --- KEMBALI MENGGUNAKAN VARIABEL GLOBAL ---
-        // Karena movementDirection sekarang diisi oleh "directionToTarget" di coroutine,
+      
         // nilainya akan stabil meskipun fisik musuh tertahan tembok.
         Vector2 inputGerak = this.movementDirection;
 
@@ -401,7 +466,7 @@ public class Enemy_Bandit : MonoBehaviour
 
 
 
-        Vector3 orbitPosition = centerPoint + (Vector3)(directionToLook * attackRange);
+        Vector3 orbitPosition = centerPoint + (Vector3)(directionToLook * hitboxRadius);
 
         // Terapkan Posisi
         zonaSerangTransform.position = orbitPosition;
@@ -411,8 +476,11 @@ public class Enemy_Bandit : MonoBehaviour
     }
     public void JalankanLogikaSerangan()
     {
-        if (currentTarget != null)
+      
+        Debug.Log("Bandit mencoba melakukan serangan...");
+        if (currentTarget != null && isAttackReady)
         {
+
             // Cek Cooldown
             if (Time.time < lastAttackTime + attackCooldown) return;
 
@@ -420,11 +488,13 @@ public class Enemy_Bandit : MonoBehaviour
 
             // Stop gerakan agar tidak "sliding" saat memukul
             isMoving = false;
+            isAttackReady = false;
+            isAttackInProgress = true;
             rb.linearVelocity = Vector2.zero; // Pastikan fisik berhenti total
-
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
             // Jalankan Animasi
-            // HAPUS PerformAttack() dari sini agar damage tidak keluar duluan!
-            PlayActionAnimation_NoWait("Pedang");
+            PlayActionAnimation_NoWait("Sword");
+            //spriteBadan.Play("SwordAtas");
 
             Debug.Log($"Bandit memulai animasi serangan ke {currentTarget.name}");
         }
@@ -434,41 +504,74 @@ public class Enemy_Bandit : MonoBehaviour
     {
         if (spriteBadan == null) return;
 
-        // Flag ini berguna jika anda punya logika untuk mencegah gerak saat attackInProgress
-        // attackInProgress = true; 
+        // Reset speed agar tidak lari di tempat
+        spriteBadan.SetFloat("Speed", 0f);
 
+        // Tentukan Nama Trigger
         string triggerName = actionType;
-
-        // --- PERBAIKAN LOGIKA ARAH ---
-        // Jangan pakai posisi transform, pakai 'lastDirection' dari script movement
-        // Asumsi: lastDirection.x dan lastDirection.y bernilai -1, 0, atau 1
-
-        if (Mathf.Abs(lastDirection.y) > Mathf.Abs(lastDirection.x)) // Lebih dominan vertikal
+        if (actionType != "Die")
         {
-            if (lastDirection.y > 0) triggerName += "Atas";
-            else triggerName += "Bawah";
+            // Hanya jalankan logika arah jika BUKAN animasi mati
+            if (Mathf.Abs(lastDirection.y) > Mathf.Abs(lastDirection.x))
+            {
+                if (lastDirection.y > 0) triggerName += "Atas";
+                else triggerName += "Bawah";
+            }
+            else
+            {
+                if (lastDirection.x > 0) triggerName += "Kanan";
+                else triggerName += "Kiri";
+            }
         }
-        else // Lebih dominan horizontal (atau diam)
-        {
-            if (lastDirection.x > 0) triggerName += "Kanan";
-            else triggerName += "Kiri"; // Default ke Kiri jika x < 0
-        }
 
-        // Fallback jika lastDirection (0,0) -> Default Kanan/Bawah tergantung preferensi
-        if (lastDirection == Vector2.zero) triggerName += "Bawah";
-
-        // Trigger Animasi
-        spriteBadan.SetTrigger(triggerName);
-
+    
+        // Ini memastikan kondisi bersih di setiap serangan.
+        spriteBadan.ResetTrigger(triggerName);
         foreach (Animator anim in layerAnimators)
         {
-            if (anim != null) anim.SetTrigger(triggerName);
+            if (anim != null) anim.ResetTrigger(triggerName);
         }
 
-        // PENTING: Posisikan zonaSerangTransform mengikuti arah serangan
+        spriteBadan.SetTrigger(triggerName);
+        foreach (Animator anim in layerAnimators)
+        {
+            if (anim != null)
+            {
+                anim.SetFloat("Speed", 0f);
+                anim.SetTrigger(triggerName);
+            }
+        }
+
         UpdateAttackPosition();
+
+        // Jangan andalkan Animation Event untuk reset status 'isAttackInProgress'
+        if (actionType != "Die")
+        {
+            StartCoroutine(ResetAttackStateRoutine());
+        }
     }
 
+    private IEnumerator ResetAttackStateRoutine()
+    {
+        yield return null;
+
+        // (Pastikan kita ambil durasi NextState jika sedang transisi, atau CurrentState)
+        AnimatorStateInfo info = spriteBadan.GetCurrentAnimatorStateInfo(0);
+        if (spriteBadan.IsInTransition(0))
+        {
+            info = spriteBadan.GetNextAnimatorStateInfo(0);
+        }
+
+        // Tunggu sampai animasi SELESAI
+        yield return new WaitForSeconds(info.length);
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        // BARU lepaskan kunci logika
+        isAttackInProgress = false;
+        isAttackReady = true;
+
+        // Update parameter sekali lagi agar langsung transisi ke Idle/Run
+        UpdateAnimationParameters();
+    }
     // Fungsi tambahan untuk memindah posisi hitbox (zonaSerangTransform)
     void UpdateAttackPosition()
     {
@@ -481,7 +584,6 @@ public class Enemy_Bandit : MonoBehaviour
         zonaSerangTransform.localPosition = lastDirection * distance;
     }
 
-    // FUNGSI INI DIPANGGIL OLEH ANIMATION EVENT DI UNITY
     public void PerformAttack()
     {
         Debug.Log("Pedang mendarat! Mengecek hit...");
@@ -497,7 +599,7 @@ public class Enemy_Bandit : MonoBehaviour
                 Player_Health playerHealth = hit.GetComponent<Player_Health>();
                 if (playerHealth != null)
                 {
-                    playerHealth.TakeDamage(attackDamage, transform.position);
+                    playerHealth.TakeDamage(attackDamage, this.transform);
                 }
             }
             else if (hit.CompareTag("Animal"))
@@ -509,48 +611,34 @@ public class Enemy_Bandit : MonoBehaviour
                 }
             }
         }
+     
     }
 
+  
     private void ChaseTargetFixedUpdate()
     {
-        // Pastikan target masih ada. Kalau null, return (keluar).
+        // Pastikan target masih ada
         if (currentTarget == null)
         {
             rb.linearVelocity = Vector2.zero;
             return;
         }
 
-        float distance = Vector2.Distance(transform.position, currentTarget.position);
 
-        // Jika jarak masih jauh (lebih besar dari attackRange), kita kejar!
-        if (distance > attackRange)
-        {
-            Vector2 direction = (currentTarget.position - transform.position).normalized;
-            if (Mathf.Abs(direction.x) > 0.1f)
-            {
-                SetMovementDirection(direction);
-                UpdateAnimationParameters();
-            }
-            else
-            {
-                SetMovementDirection(new Vector2(0, direction.y));
-                UpdateAnimationParameters();
-            }
 
-            // Rumus: Arah * Kecepatan (moveSpeed)
-            rb.linearVelocity = direction * moveSpeed; // ??? (Isi rumus velocity di sini)
+        Vector2 direction = (currentTarget.position - transform.position).normalized;
 
-            isMoving = true;
-        }
+        // Update arah hadap (Animation Parameters)
+        if (Mathf.Abs(direction.x) > 0.1f)
+            SetMovementDirection(direction); // Fungsi helper arah anda
         else
-        {
-            // Matikan mesin
-            rb.linearVelocity = Vector2.zero;
-            isMoving = false;
-            spriteBadan.Play("Idle");
+            SetMovementDirection(new Vector2(0, direction.y));
 
-            // (Opsional) Play animasi Idle jika mau
-        }
+        UpdateAnimationParameters(); // Sinkronisasi animasi jalan
+
+        // Gerakkan Fisik
+        rb.linearVelocity = direction * moveSpeed;
+        isMoving = true;
     }
     public void SetMovementDirection(Vector2 direction)
     {
@@ -561,8 +649,108 @@ public class Enemy_Bandit : MonoBehaviour
         }
 
     }
+    public void SetKnockbackStatus(bool status, Transform attackerPosition)
+    {
+        // Jika status true (sedang knockback), kita anggap seperti TakingDamage
+        isTakingDamage = status;
+
+        if (status == true)
+        {
+            // Matikan logic gerak 
+            isMoving = false;
+
+            // Jika dia sedang ancang-ancang nyerang, batalkan!
+            isAttackInProgress = false;
+            StopCoroutine("ResetAttackStateRoutine"); // Matikan timer serangan jika ada
+
+          
+            // Buka kunci posisi (FreezeAll) agar bisa didorong oleh Knockback!
+            // Kembalikan ke FreezeRotation saja (agar tidak muter-muter)
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            // Reset velocity (biar dorongannya fresh dari 0)
+            rb.linearVelocity = Vector2.zero;
+
+            KnockbackSystem knockback = GetComponent<KnockbackSystem>();
+
+            if (knockback != null && attackerPosition != null)
+            {
+                knockback.PlayKnockback(attackerPosition, () =>
+                {
+                    Debug.Log("Knockback selesai via Callback");
+                    isTakingDamage = false;
+                    PlayerController.Instance.ActivePlayer.Movement.ifDisturbed = false;
+                    GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+                });
+            }
+        }
+    }
 
 
+    public void Die()
+    {
+        if (isDead) return; // Mencegah mati 2 kali
+        isDead = true;
+        currentState = BanditState.Mati;
+
+        Debug.Log("Bandit Mati!");
+
+        // Matikan Semua Logika & Fisika
+        isMoving = false;
+        isAttackReady = false;
+
+        // Stop Coroutine Pikir & Jalan
+        StopAllCoroutines();
+
+        // Matikan Fisika (Biar tidak didorong-dorong lagi)
+        rb.linearVelocity = Vector2.zero;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll; // Kunci di tempat
+
+        // Matikan Collider (Supaya player bisa jalan melewati mayat)
+        if (myCollider != null) myCollider.enabled = false;
+        else GetComponent<Collider2D>().enabled = false;
+
+        
+        // Pastikan Anda punya trigger "Die" di Animator Controller
+        PlayActionAnimation_NoWait("Die");
+
+        // Mulai Proses Menghilang (Tunggu 2 detik, lalu fade out)
+        StartCoroutine(DeathSequenceRoutine());
+    }
+
+    private IEnumerator DeathSequenceRoutine()
+    {
+        // Tunggu mayat tergeletak sebentar (misal 2 detik)
+        yield return new WaitForSeconds(2f);
+
+        float fadeDuration = 1.5f;
+        float timer = 0f;
+
+        // Kumpulkan semua sprite renderer (Badan + Baju + Celana + dll)
+        List<SpriteRenderer> allSprites = new List<SpriteRenderer>();
+        allSprites.Add(GetComponent<SpriteRenderer>()); // Badan utama
+        allSprites.AddRange(GetComponentsInChildren<SpriteRenderer>()); // Anak-anaknya
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(1f, 0f, timer / fadeDuration); // Hitung transparansi
+
+            // Ubah alpha semua layer
+            foreach (SpriteRenderer sr in allSprites)
+            {
+                if (sr != null)
+                {
+                    Color c = sr.color;
+                    c.a = newAlpha;
+                    sr.color = c;
+                }
+            }
+            yield return null;
+        }
+
+        Destroy(gameObject);
+    }
     private void OnDrawGizmosSelected()
     {
         // Jika verticalOffset negatif, titik ini akan turun.

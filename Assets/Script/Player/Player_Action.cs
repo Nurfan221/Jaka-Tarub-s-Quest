@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TMPro.Examples.ObjectSpin;
 
 // Enum bantuan untuk membuat kode lebih mudah dibaca
 
@@ -38,6 +39,8 @@ public class Player_Action : MonoBehaviour
     [SerializeField] ParticleSystem buffParticle;
 
     float damageMult = 1;
+    public string actionType = "";
+    public int damage = 0;
     #endregion
 
     #region QUICK_SLOTS
@@ -248,6 +251,16 @@ public class Player_Action : MonoBehaviour
         // Ini adalah bagian kuncinya. Kita menunggu Coroutine animasi selesai.
         yield return StartCoroutine(WaitForAnimation(actionType));
 
+        this.actionType = actionType;
+        this.damage = damage;
+
+    }
+
+    public void PerformAttack()
+    {
+         Debug.Log("PerformAttack dipanggil dari animasi!");
+        // Fungsi ini bisa dipanggil dari event animasi
+
         // Kode ini dijamin baru akan berjalan setelah WaitForAnimation selesai.
         Debug.Log("Animasi selesai, menjalankan deteksi damage!");
         DetectAndDamageObjects(actionType, damage);
@@ -282,7 +295,7 @@ public class Player_Action : MonoBehaviour
             { "Sabit", new List<System.Action<GameObject>> { obj => obj.GetComponent<PlantSeed>()?.Harvest() } },
             { "Sword", new List<System.Action<GameObject>>
                 {
-                    obj => obj.GetComponent<Enemy_Health>()?.TakeDamage(damage),
+                    obj => obj.GetComponent<Enemy_Health>()?.TakeDamage(damage,gameObject.transform),
                     obj => obj.GetComponent<AnimalBehavior>()?.TakeDamage(damage)
                 }
             }

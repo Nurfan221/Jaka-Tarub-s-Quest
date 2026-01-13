@@ -21,7 +21,7 @@ public class ProjectileWeapons : MonoBehaviour
     {
         if (collision.gameObject.layer == 7)
         {
-            collision.GetComponent<Enemy_Health>().TakeDamage(10);
+            collision.GetComponent<Enemy_Health>().TakeDamage(10, gameObject.transform);
         }
         else if (collision.gameObject.layer == ignoreThis)
         {

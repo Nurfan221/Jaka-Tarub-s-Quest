@@ -10486,15 +10486,13 @@ GameObject:
   m_Component:
   - component: {fileID: 5267948243186387236}
   - component: {fileID: 980333059859286017}
-  - component: {fileID: 5182133446376496793}
-  - component: {fileID: 1554730109556714090}
   m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5267948243186387236
 Transform:
   m_ObjectHideFlags: 0
@@ -10568,43 +10566,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5182133446376496793
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5597510261033801724}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b5a5dc57f67ea5241961740ab585289c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1554730109556714090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5597510261033801724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 567a3648fcbe87c47bf42f228e51b108, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FootstepController
-  tilemaps:
-  - {fileID: 0}
-  soundLibrary: {fileID: 11400000, guid: 3b701e6a3fd63a74ab399afb4e3c68c6, type: 2}
 --- !u!1 &5650322478971501241
 GameObject:
   m_ObjectHideFlags: 0
@@ -15858,6 +15819,9 @@ GameObject:
   - component: {fileID: 8171202124435529208}
   - component: {fileID: 5597701639971909365}
   - component: {fileID: -6451357087419444319}
+  - component: {fileID: 5884029662961137605}
+  - component: {fileID: 8868479987730775828}
+  - component: {fileID: 6183385384998281116}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -15896,7 +15860,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8129610806355446646}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -15933,18 +15897,18 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -45341917
-  m_SortingLayer: 1
-  m_SortingOrder: 6
-  m_Sprite: {fileID: 1090217281897295437, guid: 16aeb89c5eef8ba4c9fe2b8a37a3381c, type: 3}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
+  m_Sprite: {fileID: -6598157826907344803, guid: 290953d4afa323d43a0801b55a19bced, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.22}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &8418900748277695495
@@ -15984,10 +15948,10 @@ BoxCollider2D:
   m_Offset: {x: -0.002971083, y: -0.3603871}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 2, y: 2}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -16055,7 +16019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 132dedbacd33c80409d249375caddc2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 5182133446376496793}
+  animator: {fileID: 8868479987730775828}
   hitBoxRenderer: {fileID: 8032780791927186798}
   combatMode: 1
   canAttack: 1
@@ -16065,6 +16029,8 @@ MonoBehaviour:
   playerPosition: {x: 0, y: 0}
   canSpecialAttack: 1
   buffParticle: {fileID: 6111915780568683359}
+  actionType: 
+  damage: 0
   quickSlotCD: 2.04
   face: {fileID: 3446040036883624188}
 --- !u!114 &4187796554494207513
@@ -16094,13 +16060,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee75d7af726da2d4ba88ef5f7c387086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodyAnimator: {fileID: 5182133446376496793}
+  bodyAnimator: {fileID: 8868479987730775828}
   layerAnimators:
   - {fileID: 9045560372139348553}
   - {fileID: 8915074991460197737}
   - {fileID: 1669505427641919158}
   - {fileID: 4030447364811924842}
-  bodySR: {fileID: 980333059859286017}
+  bodySR: {fileID: 8831596829291859742}
   pantsSR: {fileID: 251218501870716667}
   clothSR: {fileID: 2894083938365035279}
   hairSR: {fileID: 3346749782709746103}
@@ -16177,6 +16143,58 @@ SortingGroup:
   m_SortingLayer: 1
   m_SortingOrder: 6
   m_SortAtRoot: 0
+--- !u!114 &5884029662961137605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8129610806355446646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af1786e182f5194aad555654717ce5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnockbackSystem
+  thrust: 5
+  knockbackDuration: 0.5
+  rb: {fileID: 2696770339627116132}
+--- !u!95 &8868479987730775828
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8129610806355446646}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b5a5dc57f67ea5241961740ab585289c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6183385384998281116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8129610806355446646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 567a3648fcbe87c47bf42f228e51b108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FootstepController
+  tilemaps: {fileID: 0}
+  soundLibrary: {fileID: 11400000, guid: 3b701e6a3fd63a74ab399afb4e3c68c6, type: 2}
+  hearingDistance: 15
 --- !u!1 &8149360684410479211
 GameObject:
   m_ObjectHideFlags: 0

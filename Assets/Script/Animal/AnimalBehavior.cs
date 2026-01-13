@@ -877,7 +877,7 @@ public class AnimalBehavior : MonoBehaviour
                 if (playerHealth != null)
                 {
                     // Berikan damage + efek knockback (posisi penyerang dikirim untuk arah mental)
-                    playerHealth.TakeDamage(attackDamage, transform.position);
+                    playerHealth.TakeDamage(attackDamage, this.transform);
                     Debug.Log($"{namaHewan} berhasil menggigit Player!");
                 }
             }
