@@ -19,6 +19,25 @@ public class Player_Health : MonoBehaviour
     public bool isDead = false;
     private bool isTakingDamage = false;
 
+    private void OnEnable()
+    {
+        TimeManager.OnHourChanged += UpdateHour;
+    }
+    private void OnDisable()
+    {
+        TimeManager.OnHourChanged -= UpdateHour;
+    }
+    public void UpdateHour()
+    {
+        // Cek setiap jam apakah kondisi sekarat terpenuhi
+        int hour = TimeManager.Instance.hour;
+        if (hour == 2)
+        {
+            // Menjelang tengah malam, persiapkan untuk hari baru
+            Die(true);
+        }
+
+    }
     private void Awake()
     {
 
@@ -146,7 +165,7 @@ public class Player_Health : MonoBehaviour
 
         // Update UI
         PlayerUI.Instance.UpdateHealthDisplay(stats.health, playerData.maxHealth);
-
+        SoundManager.Instance.PlaySound(SoundName.TerlukaSfx);
         // Animasi & Visual (Tetap jalankan ini meskipun akan mati, agar terlihat impact-nya)
         PlayerController.Instance.HandlePlayAnimation("TakeDamage");
         SetKnockbackStatus(true, attackerPosition);
@@ -154,7 +173,6 @@ public class Player_Health : MonoBehaviour
 
         if (stats.health <= 0)
         {
-            // Serangan musuh ke-2 yang masuk setelah baris ini akan ditolak oleh "if (isDead) return;" di atas.
 
             // Panggil proses kematian dengan jeda
             StartCoroutine(ProcessDeathSequence());
@@ -169,7 +187,7 @@ public class Player_Health : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         // Jalankan logika kematian yang sebenarnya
-        Die();
+        Die(false);
     }
 
     public void Heal(int healthAmount, int staminaAmount)
@@ -338,11 +356,11 @@ public class Player_Health : MonoBehaviour
     }
 
 
-    public void Die()
+    public void Die(bool isPengsan)
     {
         if (isDead) return;
         isDead = true;
-
+        SoundManager.Instance.PlaySound(SoundName.TewasSfx);
         Debug.Log("Player Mati!");
 
         PlayerController.Instance.ActivePlayer.Movement.ifDisturbed = true;
@@ -356,12 +374,12 @@ public class Player_Health : MonoBehaviour
 
         PlayerController.Instance.HandlePlayAnimation("Die");
 
-        StartCoroutine(DeathSequenceRoutine());
+        StartCoroutine(DeathSequenceRoutine(isPengsan));
 
        
     }
 
-    private IEnumerator DeathSequenceRoutine()
+    private IEnumerator DeathSequenceRoutine(bool isPengsan)
     {
         // Ini memberi waktu bagi player untuk melihat animasi "Die" sampai selesai.
         yield return new WaitForSeconds(2f);
@@ -398,7 +416,7 @@ public class Player_Health : MonoBehaviour
         // Panggil ini SETELAH menunggu 0.5 detik.
         if (GameController.Instance != null)
         {
-            GameController.Instance.StartPassOutSequence(false);
+            GameController.Instance.StartPassOutSequence(isPengsan);
         }
 
     }

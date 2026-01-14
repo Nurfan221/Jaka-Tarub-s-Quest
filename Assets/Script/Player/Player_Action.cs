@@ -361,8 +361,32 @@ public class Player_Action : MonoBehaviour
     public void PlayActionAnimation_NoWait(string actionType)
     {
         if (animator == null) return;
-        
+
+        switch (actionType)
+        {
+            case "Menebang":
+                SoundManager.Instance.PlaySound(SoundName.KapakSfx);
+                break;
+            case "PickAxe":
+                SoundManager.Instance.PlaySound(SoundName.SwordSfx);
+                break;
+            case "Sabit":
+            case "Sword":
+                SoundManager.Instance.PlaySound(SoundName.SwordSfx);
+                break;
+            case "Mencangkul":
+                SoundManager.Instance.PlaySound(SoundName.CangkulSfx);
+                break;
+            case "PenyiramTanaman":
+                break;
+            default:
+                Debug.LogWarning($"Action type '{actionType}' tidak dikenali untuk animasi.");
+                return;
+        }
+
+        // Karena sudah lolos validasi di atas, sekarang aman untuk meracik nama trigger
         string triggerName = actionType;
+
         if (faceDirection.y > 0.5f) triggerName += "Atas";
         else if (faceDirection.y < -0.5f) triggerName += "Bawah";
         else if (faceDirection.x > 0.5f) triggerName += "Kanan";

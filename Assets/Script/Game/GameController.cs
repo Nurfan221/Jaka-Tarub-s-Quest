@@ -568,17 +568,27 @@ public class GameController : MonoBehaviour
         GameEconomy.Instance.LostMoney(200);
         ItemPool.Instance.DropRandomItemsOnPassOut();
 
+        //pindahkan player ke lokasi rumah sakit\
+        Transform playerTransform = PlayerController.Instance.ActivePlayer.transform;
+        Rigidbody2D rb = playerTransform.GetComponent<Rigidbody2D>();
+        // set disturbed ke false agar tidak terganggu saat bergerak
+        PlayerController.Instance.ActivePlayer.Movement.ifDisturbed = false;
+        playerTransform.position = lokasiPerawatan;
         // Save Game (Penting dilakukan setelah semua perubahan data)
         SaveDataManager.Instance.SaveGame();
 
 
-        // LOGIKA VISUAL (Pindah Posisi & Siapkan Sprite)
-        Transform playerTransform = PlayerController.Instance.ActivePlayer.transform;
-        Rigidbody2D rb = playerTransform.GetComponent<Rigidbody2D>();
-        playerTransform.position = lokasiPerawatan;
+      
         Debug.Log("Pemain di RS: " + playerTransform.position);
 
-        // Ambil semua sprite
+        // Cek dulu apakah ada collidernya
+        Collider2D playerCollider = playerTransform.GetComponent<Collider2D>();
+        if (playerCollider != null)
+        {
+            playerCollider.enabled = true;
+        }
+        // Jika Anda punya collider di child object, gunakan GetComponentsInChildren<Collider2D>()
+
         List<SpriteRenderer> allSprites = new List<SpriteRenderer>();
         allSprites.Add(playerTransform.GetComponent<SpriteRenderer>());
         allSprites.AddRange(playerTransform.GetComponentsInChildren<SpriteRenderer>());
@@ -594,7 +604,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        // ANIMASI FADE IN (Muncul Perlahan di Kasur RS)
+        // jalankan animasi fade-in
         float fadeDuration = 1.5f;
         float timer = 0f;
 
@@ -618,8 +628,12 @@ public class GameController : MonoBehaviour
         // Tunggu sebentar biar estetik
         yield return new WaitForSecondsRealtime(1.0f);
 
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        rb.linearVelocity = Vector2.zero;
+        // Reset Constraints (Agar bisa gerak lagi setelah dialog)
+        if (rb != null)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            rb.linearVelocity = Vector2.zero;
+        }
         // Munculkan Dialog (Sekarang HP sudah penuh, jadi aman dilihat)
         DialogueSystem.Instance.HandlePlayDialogue(dialog);
         

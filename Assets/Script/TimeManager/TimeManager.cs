@@ -186,9 +186,7 @@ public class TimeManager : MonoBehaviour, ISaveable
             hour = 1;
 
             // Panggil fungsi pingsan Anda di sini
-            GameController.Instance.StartPassOutSequence(true);
         }
-
 
         OnTimeChanged?.Invoke();
     }

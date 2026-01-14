@@ -164,6 +164,7 @@ public class ItemPool : MonoBehaviour
 
     public bool AddItem(ItemData itemDataToAdd)
     {
+        SoundManager.Instance.PlaySound(SoundName.TakeItem);
         // Validasi Awal: Cek apakah data item valid
         if (itemDataToAdd == null || itemDataToAdd.count <= 0)
         {
@@ -249,7 +250,6 @@ public class ItemPool : MonoBehaviour
             // Tampilkan Popup "Mendapatkan Item"
             // Kita buat dummy data agar UI menampilkan angka yang jujur (totalAdded), bukan angka awal
             ItemData dataForUI = new ItemData(itemDataToAdd.itemName, totalAdded, itemDataToAdd.quality, itemDataToAdd.itemHealth);
-            SoundManager.Instance.PlaySound(SoundName.TakeItem);
             ItemGetPanelManager.Instance.ShowItems(dataForUI);
 
             // Debug info

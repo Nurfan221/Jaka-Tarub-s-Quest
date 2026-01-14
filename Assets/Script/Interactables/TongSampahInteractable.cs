@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class TongSampahInteractable : Interactable
@@ -55,23 +56,29 @@ public class TongSampahInteractable : Interactable
     {
         if (isFull)
         {
+            SoundManager.Instance.PlaySound(SoundName.MulungSfx);
             // Di dalam CookUI / Result Button Listener
-            bool isSuccess = ItemPool.Instance.AddItem(sampahItem);
 
-            if (isSuccess)
-            {
-                // Hapus item dari tungku
-                isFull = false;
-                TongKosong();
-            }
-            else
-            {
-                // Jangan hapus, biarkan di tungku
-                Debug.Log("Tas penuh, item tetap di tungku.");
-            }
-
+            StartCoroutine(DelayedTongKosong(0.5f));
         }
     }
 
+    private IEnumerator DelayedTongKosong(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        bool isSuccess = ItemPool.Instance.AddItem(sampahItem);
+
+        if (isSuccess)
+        {
+            // Hapus item dari tungku
+            isFull = false;
+            TongKosong();
+        }
+        else
+        {
+            // Jangan hapus, biarkan di tungku
+            Debug.Log("Tas penuh, item tetap di tungku.");
+        }
+    }
 
 }

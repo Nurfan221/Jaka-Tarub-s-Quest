@@ -41,7 +41,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: d23f9b8af8fe04ff78c86e35f059b288, type: 3}
   sfxList:
   - soundName: TakeItem
-    clip: {fileID: 8300000, guid: 398657db497e64a41a2e7753adc07a26, type: 3}
+    clip: {fileID: 8300000, guid: e71a76054a9fffb469a8062187f343ce, type: 3}
     volume: 1
   - soundName: Watering
     clip: {fileID: 8300000, guid: a1639679a82e03d43ac4481ed48823cb, type: 3}
@@ -57,4 +57,22 @@ MonoBehaviour:
     volume: 1
   - soundName: StepWood
     clip: {fileID: 8300000, guid: 5683cfeeb3b70284baee46dc12f1bc62, type: 3}
+    volume: 1
+  - soundName: SwordSfx
+    clip: {fileID: 8300000, guid: d7f6ebfe1bc05df458fcdf05aa5b4a6a, type: 3}
+    volume: 1
+  - soundName: KapakSfx
+    clip: {fileID: 8300000, guid: 17632a92c41506f43a8e96337a42cb7d, type: 3}
+    volume: 1
+  - soundName: CangkulSfx
+    clip: {fileID: 8300000, guid: e68c69d9dfc70b143ac748e38c10297a, type: 3}
+    volume: 1
+  - soundName: MulungSfx
+    clip: {fileID: 8300000, guid: 229103c525081ab41bd3ca39949ae2dc, type: 3}
+    volume: 1
+  - soundName: TerlukaSfx
+    clip: {fileID: 8300000, guid: 5f61de9d68878e7439819d93eb04c1ee, type: 3}
+    volume: 1
+  - soundName: TewasSfx
+    clip: {fileID: 8300000, guid: 80e99f294d5750f498d1c626fb074bab, type: 3}
     volume: 1

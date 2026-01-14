@@ -60,6 +60,9 @@ public class Enemy_Bandit : MonoBehaviour
     public Animator spriteBadan;
     public List<Animator> layerAnimators = new List<Animator>();
 
+    
+    [Header("Settings")]
+    public float hearingDistance = 15f; // Jarak maksimal suara terdengar (sesuaikan dengan ukuran layar)
 
     private void Start()
     {
@@ -493,11 +496,36 @@ public class Enemy_Bandit : MonoBehaviour
             rb.linearVelocity = Vector2.zero; // Pastikan fisik berhenti total
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             // Jalankan Animasi
+            TriggerSound();
             PlayActionAnimation_NoWait("Sword");
             //spriteBadan.Play("SwordAtas");
 
             Debug.Log($"Bandit memulai animasi serangan ke {currentTarget.name}");
         }
+    }
+
+    public void TriggerSound()
+    {
+
+        // Ambil posisi Kamera Utama
+        Vector3 cameraPos = Camera.main.transform.position;
+        // Ambil posisi Karakter ini
+        Vector3 myPos = transform.position;
+
+        // Hitung Jarak (Abaikan sumbu Z karena ini game 2D)
+        cameraPos.z = 0;
+        myPos.z = 0;
+
+        float distance = Vector3.Distance(myPos, cameraPos);
+
+        //  Kalau kejauhan, BATALKAN suara.
+        if (distance > hearingDistance)
+        {
+            return; // Stop di sini, jangan mainkan suara
+        }
+        SoundManager.Instance.PlaySound(SoundName.SwordSfx);
+
+
     }
 
     public void PlayActionAnimation_NoWait(string actionType)
