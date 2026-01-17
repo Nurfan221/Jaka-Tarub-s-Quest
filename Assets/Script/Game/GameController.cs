@@ -568,7 +568,7 @@ public class GameController : MonoBehaviour
         GameEconomy.Instance.LostMoney(200);
         ItemPool.Instance.DropRandomItemsOnPassOut();
 
-        //pindahkan player ke lokasi rumah sakit\
+        //pindahkan player ke lokasi rumah sakit
         Transform playerTransform = PlayerController.Instance.ActivePlayer.transform;
         Rigidbody2D rb = playerTransform.GetComponent<Rigidbody2D>();
         // set disturbed ke false agar tidak terganggu saat bergerak

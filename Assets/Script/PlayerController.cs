@@ -4,8 +4,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, ISaveable
 {
     [Header("Player State (Runtime)")]
-    public int health;
-    public int currentHealthCap;
+    public float health;
+    public float currentHealthCap;
     public float stamina;
     public float currentStaminaCap;
     public bool isInGrief;

@@ -36,10 +36,10 @@ public class CookUI : MonoBehaviour
     public Transform itemCookTemplate;
     public Transform fuelCookTemplate;
     public Transform resultCookTemplate;
-    public Transform fireCookTemplate;
+    public Animator fireCookAnimator;
+    public Image fireImage;
     public Slider fuelSlider;
     public Image fireCookImage;
-    public Sprite[] fireCookSprite;
     public Sprite fireNotActive;
     public Image quantityFuelImage;
     public Sprite[] quantityFuelSprite;
@@ -65,11 +65,9 @@ public class CookUI : MonoBehaviour
 
     [Header("Animation Settings")]
     //Animation idle 
-    public float frameRate = 0.2f; // Waktu per frame (kecepatan animasi)
-    private int currentFrame = 0; // Indeks frame saat ini
+
     public bool isFireActive = false;
     public int maxQuantityFuel = 5; // max bahan bakar berdasarkan item fuel
-    private Coroutine fireAnimationCoroutine; // Menyimpan referensi ke coroutine animasi api
 
 
     private void Start()
@@ -118,15 +116,14 @@ public class CookUI : MonoBehaviour
                         // Hentikan api hanya jika benar-benar tidak masak
                         if (!interactableInstance.isCooking && isFireActive)
                         {
+                            
                             isFireActive = false;
                             Debug.Log("Menghentikan animasi api karena memasak selesai.");
-
-                            if (fireAnimationCoroutine != null)
+                            if(fireCookAnimator != null)
                             {
-                                StopCoroutine(fireAnimationCoroutine);
-                                fireAnimationCoroutine = null;
-                                fireCookImage.sprite = fireNotActive;
+                                fireCookAnimator.SetBool("SetAnimation", false);
                             }
+                            fireImage.sprite = fireNotActive;
                         }
                     }
                     else
@@ -538,8 +535,15 @@ public class CookUI : MonoBehaviour
         {
             fillImage.color = new Color(1, 1, 1, 0.5f);
         }
+
+        if (fireCookAnimator != null)
+        {
+            fireCookAnimator.SetBool("SetAnimation", true);
+        }
+
         fillImage.gameObject.SetActive(true);
     }
+
 
     private void HandleProgressUpdate(float progress)
     {

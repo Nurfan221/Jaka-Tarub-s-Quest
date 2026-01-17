@@ -164,7 +164,6 @@ public class ItemPool : MonoBehaviour
 
     public bool AddItem(ItemData itemDataToAdd)
     {
-        SoundManager.Instance.PlaySound(SoundName.TakeItem);
         // Validasi Awal: Cek apakah data item valid
         if (itemDataToAdd == null || itemDataToAdd.count <= 0)
         {
@@ -192,6 +191,7 @@ public class ItemPool : MonoBehaviour
                     slot.quality == itemDataToAdd.quality &&
                     slot.count < itemTemplate.maxStackCount)
                 {
+
                     // Hitung berapa ruang kosong di slot ini
                     int availableSpace = itemTemplate.maxStackCount - slot.count;
 
@@ -230,7 +230,7 @@ public class ItemPool : MonoBehaviour
                 itemDataToAdd.quality,
                 itemDataToAdd.itemHealth
             );
-
+            
             // Masukkan ke list inventory
             PlayerController.Instance.inventory.Add(newSlot);
 
@@ -257,6 +257,7 @@ public class ItemPool : MonoBehaviour
             {
                 Debug.LogWarning($"Inventaris penuh sebagian! Masuk: {totalAdded}, Terbuang: {amountLeft}");
             }
+            SoundManager.Instance.PlaySound(SoundName.TakeItem);
 
             return true; // BERHASIL (Setidaknya sebagian masuk)
         }

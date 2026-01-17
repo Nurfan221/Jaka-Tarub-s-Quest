@@ -29,6 +29,7 @@ public class ItemDropInteractable : Interactable
     private void Start()
     {
         StartCoroutine(ActivatePickupAfterDelay());
+        promptMessage = itemdata.itemName;
     }
 
     protected override void Interact()
@@ -50,7 +51,8 @@ public class ItemDropInteractable : Interactable
         else
         {
             // Jangan hapus, biarkan di tungku
-            Debug.Log("Tas penuh, item tetap di tungku.");
+            Debug.Log("Tas penuh, item tidak bisa di ambil  .");
+            PlayerUI.Instance.ShowErrorUI("Tas penuh, item tidak bisa di ambil.");
         }
 
     }
@@ -106,4 +108,6 @@ public class ItemDropInteractable : Interactable
 
         Debug.Log($"Item '{this.name}' sekarang bisa diambil! Collider diaktifkan kembali.");
     }
+
+
 }

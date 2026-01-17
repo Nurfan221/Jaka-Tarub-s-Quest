@@ -22,17 +22,17 @@ MonoBehaviour:
     langsung atau dijadikan bahan dasar untuk membuat kue dan minuman.
   QuantityFuel: 0
   maxhealth: 0
-  health: 0
+  health: 200
   waktuBuffDamage: 0
   buffDamage: 0
   waktuBuffSprint: 0
   buffSprint: 0
   waktuBuffProtection: 0
   buffProtection: 0
-  countHeal: 0
-  countStamina: 0
+  countHeal: 20
+  countStamina: 10
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -45,10 +45,9 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: Strawberry
   namePrefab: Strawberry
   growthTime: 0
   growthImages: []
-  growthObject: []
+  seedType: 0

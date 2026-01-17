@@ -65,6 +65,8 @@ public class PlayerUI : MonoBehaviour
     public Button switchWeaponImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     public Button switchUseItemImage; // Referensi ke Image yang digunakan untuk mengganti senjata
     public SpriteImageTemplate spriteImageTemplate;
+    
+    
 
     [Header("Setting Button")]
     public Button buttonSetting;
@@ -102,6 +104,9 @@ public class PlayerUI : MonoBehaviour
         spriteImageTemplate = DatabaseManager.Instance.GetSpriteTempalte("HealthItemUI");
         imageItemUse = itemUseUI.transform.Find("UseButton").GetComponent<Image>();
         imageEquippedUI = equippedUI.transform.Find("AttackButton").GetComponent<Image>();
+
+
+        
         UpdateEquippedWeaponUI();
         UpdateItemUseUI();
         // Setup listener untuk tombol-tombol
@@ -309,40 +314,10 @@ public class PlayerUI : MonoBehaviour
         // Simpan data ini ke "Papan Pengumuman" agar sistem lain tahu
         playerData.equippedWeaponTemplate = activeWeaponData;
 
-        UpdateSingleIcon(imageEquippedUI, activeWeaponData);
-        Image capacityBarImage = equippedUI.transform.Find("capacityBarItem").GetComponent<Image>();
-        Item itemWeaponActive = ItemPool.Instance.GetItemWithQuality(activeWeaponData.itemName, activeWeaponData.quality);
-        if (activeWeaponData.itemName != stats.playerData.emptyItemTemplate.itemName)
-        {
-            float percentage = ((float)activeWeaponData.itemHealth / itemWeaponActive.maxhealth) * 100f;
+        UpdateSingleIcon(equippedUI,imageEquippedUI, activeWeaponData);
+        
 
-
-            // Gunakan if-else if untuk rentang nilai
-            if (percentage > 75) // Termasuk 100%
-            {
-                capacityBarImage.sprite = spriteImageTemplate.imagePersens[0].sprites; // Set sprite indikator kesehatan
-                Debug.Log($"Item health is high: {percentage}%");
-            }
-            else if (percentage > 50) // Rentang 51% - 75%
-            {
-                capacityBarImage.sprite = spriteImageTemplate.imagePersens[1].sprites; // Set sprite indikator kesehatan
-                Debug.Log($"Item health is medium: {percentage}%");
-            }
-            else if (percentage > 25) // Rentang 26% - 50%
-            {
-                capacityBarImage.sprite = spriteImageTemplate.imagePersens[2].sprites; // Set sprite indikator kesehatan
-                Debug.Log($"Item health is low: {percentage}%");
-            }
-            else if (percentage > 10) // Rentang 11% - 25%
-            {
-                capacityBarImage.sprite = spriteImageTemplate.imagePersens[3].sprites; // Set sprite indikator kesehatan   
-            }
-            else // Rentang 0% - 25%
-            {
-                capacityBarImage.sprite = spriteImageTemplate.imagePersens[4].sprites; // Set sprite indikator kesehatan
-                Debug.Log($"Item health is critical: {percentage}%");
-            }
-        }
+      
     }
 
 
@@ -361,7 +336,7 @@ public class PlayerUI : MonoBehaviour
         // Simpan data ini ke "Papan Pengumuman"
         playerData.equippedItemTemplate = activeItemData;
 
-        UpdateSingleIcon(imageItemUse, activeItemData);
+        UpdateSingleIcon(equippedUI, imageItemUse, activeItemData);
         TMP_Text capacityBarImage = itemUseUI.transform.Find("ItemCount").GetComponent<TMP_Text>();
         capacityBarImage.text = activeItemData.count.ToString();
 
@@ -369,8 +344,14 @@ public class PlayerUI : MonoBehaviour
 
 
 
-    private void UpdateSingleIcon(Image targetImage, ItemData itemData)
+    private void UpdateSingleIcon(Image imageUtama,Image targetImage, ItemData itemData)
     {
+        Image capacityBarImage = equippedUI.transform.Find("capacityBarItem").GetComponent<Image>();
+
+        if (imageUtama != null)
+        {
+            imageUtama.sprite = DatabaseManager.Instance.defaultSprite;
+        }
         // Pastikan referensi UI tidak null
         if (targetImage == null) return;
 
@@ -379,19 +360,66 @@ public class PlayerUI : MonoBehaviour
         {
             // Jika kosong, sembunyikan ikonnya
             targetImage.gameObject.SetActive(false);
+            if (imageUtama == itemUseUI)
+            {
+                itemUseUI.sprite = DatabaseManager.Instance.defaultItemUseSprite;
+                equippedUI.sprite = DatabaseManager.Instance.defaultEquipSprite;
+                capacityBarImage.sprite = spriteImageTemplate.imagePersens[4].sprites; // Set sprite indikator kesehatan
+                Debug.Log($"Item health is critical: {itemData.itemHealth}%");
+            }
+            else if (imageUtama == equippedUI)
+            {
+                equippedUI.sprite = DatabaseManager.Instance.defaultEquipSprite;
+                itemUseUI.sprite = DatabaseManager.Instance.defaultItemUseSprite;
+                capacityBarImage.sprite = spriteImageTemplate.imagePersens[4].sprites; // Set sprite indikator kesehatan
+                Debug.Log($"Item health is critical: {itemData.itemHealth}%");
+            }
         }
         else
         {
             // Jika terisi, dapatkan data visualnya dari ItemDatabase
             Item itemSO = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
+
             if (itemSO != null)
             {
                 // Tampilkan ikonnya
                 targetImage.sprite = itemSO.sprite;
                 targetImage.gameObject.SetActive(true);
+                if (itemData.itemName != stats.playerData.emptyItemTemplate.itemName)
+                {
+                    float percentage = ((float)itemData.itemHealth / itemSO.maxhealth) * 100f;
+
+
+                    // Gunakan if-else if untuk rentang nilai
+                    if (percentage > 75) // Termasuk 100%
+                    {
+                        capacityBarImage.sprite = spriteImageTemplate.imagePersens[0].sprites; // Set sprite indikator kesehatan
+                        Debug.Log($"Item health is high: {percentage}%");
+                    }
+                    else if (percentage > 50) // Rentang 51% - 75%
+                    {
+                        capacityBarImage.sprite = spriteImageTemplate.imagePersens[1].sprites; // Set sprite indikator kesehatan
+                        Debug.Log($"Item health is medium: {percentage}%");
+                    }
+                    else if (percentage > 25) // Rentang 26% - 50%
+                    {
+                        capacityBarImage.sprite = spriteImageTemplate.imagePersens[2].sprites; // Set sprite indikator kesehatan
+                        Debug.Log($"Item health is low: {percentage}%");
+                    }
+                    else if (percentage > 10) // Rentang 11% - 25%
+                    {
+                        capacityBarImage.sprite = spriteImageTemplate.imagePersens[3].sprites; // Set sprite indikator kesehatan   
+                    }
+                    else // Rentang 0% - 25%
+                    {
+                        capacityBarImage.sprite = spriteImageTemplate.imagePersens[4].sprites; // Set sprite indikator kesehatan
+                        Debug.Log($"Item health is critical: {percentage}%");
+                    }
+                }
             }
             else
             {
+              
                 // Jika data tidak ditemukan di database, sembunyikan untuk mencegah error
                 targetImage.gameObject.SetActive(false);
             }

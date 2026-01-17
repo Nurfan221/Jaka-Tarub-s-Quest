@@ -184,18 +184,37 @@ public class NPCManager : MonoBehaviour
 
     public void AddDialogueForNPCQuest(string npcName, Dialogues newDialogue)
     {
-        Debug.Log($"Mencoba menambahkan dialog untuk NPC: {npcName}");
+        Debug.Log($"[1] Mencoba menambahkan dialog untuk NPC: {npcName}");
+
         NPCBehavior npc = GetActiveNpcByName(npcName);
-        if (npc != null && newDialogue != null)
+
+        // Cek satu per satu untuk debug yang jelas
+        if (npc == null)
+        {
+            Debug.LogError($"[GAGAL] NPC '{npcName}' tidak ditemukan di Scene/List Active NPC.");
+            return;
+        }
+
+        if (newDialogue == null)
+        {
+            Debug.LogError($"[GAGAL] Dialogue untuk NPC '{npcName}' bernilai NULL.");
+            return;
+        }
+
+        // Jika sampai sini, berarti NPC dan Dialogue AMAN
+        try
         {
             npc.questOverrideDialogue = newDialogue;
-            npc.isLockedForQuest = true; // Kunci NPC untuk quest
+            npc.isLockedForQuest = true;
+
+            // Bungkus ini dengan pengecekan
             npc.ShowEmoticon("Peringatan");
-            Debug.Log($"NPC {npcName} dikunci untuk quest dengan dialog baru.");
+
+            Debug.Log($"[SUKSES] NPC {npcName} dikunci untuk quest.");
         }
-        else
+        catch (System.Exception e)
         {
-            Debug.LogWarning($"NPC dengan nama {npcName} tidak ditemukan.");
+            Debug.LogError($"[CRASH] Terjadi error saat setup NPC {npcName}: {e.Message}\n{e.StackTrace}");
         }
     }
 

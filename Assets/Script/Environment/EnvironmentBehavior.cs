@@ -86,6 +86,7 @@ public class EnvironmentBehavior : UniqueIdentifiableObject
                 if (stoneAnimatorController != null)
                 {
                     stoneAnimator.runtimeAnimatorController = stoneAnimatorController;
+                    stoneAnimator.SetBool("SetAnimation", true);
                 }
                 else
                 {

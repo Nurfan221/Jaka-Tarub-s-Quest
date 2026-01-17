@@ -10,8 +10,8 @@ public class PlayerData_SO : ScriptableObject
     public float dashForce = 5;
 
     [Header("HEALTH & STAMINA DASAR")]
-    public int maxHealth = 100;
-    public int maxStamina = 100;
+    public float maxHealth = 100;
+    public float maxStamina = 100;
     public float staminaRegenRate = 15;
 
     [Header("Emotional Cap System")]

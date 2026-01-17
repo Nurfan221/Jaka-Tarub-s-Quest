@@ -257,7 +257,16 @@ MonoBehaviour:
   rutePatroli: []
   movementDirection: {x: 0, y: 0}
   lastDirection: {x: 0, y: 0}
+  lootTable:
+  - {fileID: 11400000, guid: 124bb59f573d69c498c9e644c327ab91, type: 2}
+  - {fileID: 11400000, guid: dd265b010f604c540907f5ff131e8f85, type: 2}
+  - {fileID: 11400000, guid: 5ea4325b64294ef44952ed669d71bc0e, type: 2}
+  - {fileID: 11400000, guid: 311fd2602cafc4b48b469ef094e0d7d4, type: 2}
+  - {fileID: 11400000, guid: 13e8e0b6a29e8b04c9bc989d1d560b81, type: 2}
+  minLoot: 1
+  maxLoot: 3
   myCollider: {fileID: 2927802229859647598}
+  spawnerReference: {fileID: 0}
   attackCooldown: 2
   wanderRadius: 4
   attackDamage: 10
@@ -272,6 +281,7 @@ MonoBehaviour:
   layerAnimators:
   - {fileID: 5967035227978787011}
   - {fileID: 5266610635566579998}
+  hearingDistance: 15
 --- !u!50 &5429784632542161058
 Rigidbody2D:
   serializedVersion: 5

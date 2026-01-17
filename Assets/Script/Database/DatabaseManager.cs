@@ -142,8 +142,8 @@ public class PlayerSaveData
     public Vector3 position;
 
     // Data Health & Stamina
-    public int health;
-    public int currentHealthCap;
+    public float health;
+    public float currentHealthCap;
     public float stamina;
     public float currentStaminaCap;
 
@@ -568,7 +568,9 @@ public class DatabaseManager : MonoBehaviour
     public GrowthTreesDatabase templateTreesObject;
     [Tooltip("Database template untuk Pintu")]
     public List<ArrayPintu> listPintu;
-
+    public Sprite defaultSprite;
+    public Sprite defaultItemUseSprite;
+    public Sprite defaultEquipSprite;
 
     [Space(10)]
     [Header("World Prefabs")]

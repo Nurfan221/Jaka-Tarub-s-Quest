@@ -35,8 +35,12 @@ public class Enemy_Bandit : MonoBehaviour
     public Vector2 movementDirection;
     public Vector2 lastDirection;
     private Coroutine roamingCoroutine;
+    public List<Item> lootTable = new List<Item>();
+    public int minLoot = 1;
+    public int maxLoot = 3;
     [Header("Death Settings")]
     public Collider2D myCollider;
+    public GameObject spawnerReference;
 
 
     [Header("Logika Serangan")]
@@ -173,7 +177,6 @@ public class Enemy_Bandit : MonoBehaviour
 
             BanditState nextAction = GetRandomNextState(currentState);
             currentState = nextAction;
-            Debug.Log($"Bandit memutuskan untuk beralih ke state: {nextAction}");
             if (nextAction == BanditState.Patroli)
             {
                 yield return StartCoroutine(DoWandering());
@@ -381,7 +384,6 @@ public class Enemy_Bandit : MonoBehaviour
 
     private void FindClosestTarget()
     {
-        Debug.Log($"Bandit sedang mencari target di sekitar...");
         // Cari semua objek di dalam lingkaran radius
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRadius, targetLayer);
 
@@ -419,7 +421,6 @@ public class Enemy_Bandit : MonoBehaviour
         // Jika mata berhasil menemukan target yang valid
         if (potentialTarget != null)
         {
-            Debug.Log($"Bandit melihat target baru: {potentialTarget.name}");
             currentTarget = potentialTarget;
 
             // Ubah state jadi mengejar
@@ -480,7 +481,6 @@ public class Enemy_Bandit : MonoBehaviour
     public void JalankanLogikaSerangan()
     {
       
-        Debug.Log("Bandit mencoba melakukan serangan...");
         if (currentTarget != null && isAttackReady)
         {
 
@@ -500,7 +500,6 @@ public class Enemy_Bandit : MonoBehaviour
             PlayActionAnimation_NoWait("Sword");
             //spriteBadan.Play("SwordAtas");
 
-            Debug.Log($"Bandit memulai animasi serangan ke {currentTarget.name}");
         }
     }
 
@@ -721,7 +720,6 @@ public class Enemy_Bandit : MonoBehaviour
         isDead = true;
         currentState = BanditState.Mati;
 
-        Debug.Log("Bandit Mati!");
 
         // Matikan Semua Logika & Fisika
         isMoving = false;
@@ -777,7 +775,89 @@ public class Enemy_Bandit : MonoBehaviour
             yield return null;
         }
 
+        Enemy_Spawner spawner = spawnerReference.GetComponent<Enemy_Spawner>();
+        if (spawner != null)
+        {
+            spawner.RemoveEnemyFromList(this.gameObject);
+        }
+        HandleDropItem();
         Destroy(gameObject);
+    }
+
+    public void HandleDropItem()
+    {
+        // Pastikan list tidak kosong
+        if (lootTable == null || lootTable.Count == 0) return;
+
+        int lootCount = Random.Range(minLoot, maxLoot + 1);
+
+        for (int i = 0; i < lootCount; i++)
+        {
+            int selectedIndex = GetIndexByPercentage();
+
+            // Ambil itemnya
+            Item itemToDrop = lootTable[selectedIndex];
+
+            // Buat Datanya
+            ItemData itemDataDrop = new ItemData
+            {
+                itemName = itemToDrop.itemName,
+                count = 1,
+                quality = itemToDrop.quality,
+                itemHealth = itemToDrop.maxhealth
+            };
+
+            Debug.Log($"Bandit drop index [{selectedIndex}]: {itemDataDrop.itemName}");
+
+            Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(0.1f, 0.5f));
+            ItemPool.Instance.DropItem(
+                itemDataDrop.itemName,
+                itemDataDrop.itemHealth,
+                itemDataDrop.quality,
+                transform.position + offset,
+                itemDataDrop.count
+            );
+
+        }
+    }
+
+    // Fungsi Logika Persentase (70% - 20% - 10%)
+    private int GetIndexByPercentage()
+    {
+        // Acak angka 0 sampai 100
+        int roll = Random.Range(0, 100);
+        int chosenIndex = 0;
+
+        // Jika roll 0-69 (70% peluang)
+        if (roll < 70)
+        {
+            // Target: Index 0 atau 1
+            // (Random.Range int itu param kedua exclusive, jadi tulis 2 biar dapet 0 atau 1)
+            chosenIndex = Random.Range(0, 2);
+        }
+        // Jika roll 70-89 (20% peluang)
+        else if (roll < 90)
+        {
+            // Target: Index 2, 3, atau 4
+            // (Saya lebarkan dari index 2 supaya tidak ada item yang terlewat/bolong)
+            chosenIndex = Random.Range(2, 5);
+        }
+        // Jika roll 90-99 (10% peluang)
+        else
+        {
+            // Target: Index 5 ke atas (sampai habis)
+            chosenIndex = Random.Range(5, lootTable.Count);
+        }
+
+     
+
+        if (chosenIndex >= lootTable.Count)
+        {
+            // Jika index yang dipilih kegedean, paksa ambil item paling terakhir yang ada
+            chosenIndex = lootTable.Count - 1;
+        }
+
+        return chosenIndex;
     }
     private void OnDrawGizmosSelected()
     {

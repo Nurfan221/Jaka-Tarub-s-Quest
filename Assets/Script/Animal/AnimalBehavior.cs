@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public enum AnimalType { Pasif, Agresif, isQuest }

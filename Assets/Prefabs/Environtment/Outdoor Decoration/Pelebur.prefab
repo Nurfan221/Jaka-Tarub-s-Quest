@@ -263,11 +263,11 @@ MonoBehaviour:
     count: 0
     quality: 0
     itemHealth: 0
-  isCooking: 1
+  isCooking: 0
   currentProgress: 0
   quantityFuel: 0
   stoneAnimatorController: {fileID: 22100000, guid: 550415ea138bd794ab8d422d61d9017a, type: 2}
-  useAnimation: 0
+  useAnimation: 1
 --- !u!114 &8124508460909555166
 MonoBehaviour:
   m_ObjectHideFlags: 0

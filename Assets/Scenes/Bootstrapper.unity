@@ -652,6 +652,9 @@ MonoBehaviour:
     idPintu: 9
     pintuIn: {x: 44, y: -6}
     pintuOut: {x: -246, y: 44}
+  defaultSprite: {fileID: -6224951202788470988, guid: dc880605de865f8469c5dfa8bbca978f, type: 3}
+  defaultItemUseSprite: {fileID: 2272705811511776599, guid: a96adf774547c164aa90c3689682538a, type: 3}
+  defaultEquipSprite: {fileID: 7129171327988134186, guid: 1a0b1d17f4038cd43a2c0386d057e19a, type: 3}
   itemWorldPrefab: {fileID: 4459120725376062254, guid: fcf6058b0a7c2534a9ee6e4538b1ab04, type: 3}
   plantWorldPrefab: {fileID: 2120680195082938319, guid: 1b9eff35e73337c42be7a10f3901c222, type: 3}
   storageWorldPrefab: {fileID: 5454017072709228803, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}

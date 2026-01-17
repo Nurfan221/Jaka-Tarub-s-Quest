@@ -121,7 +121,7 @@ public class Enemy_Spawner : UniqueIdentifiableObject
         }
         if (enemy_Bandit != null)
         {
-            //enemy_Bandit.spawner = this.gameObject;
+            enemy_Bandit.spawnerReference = this.gameObject;
         }
 
         enemies.Add(newEnemy);
@@ -142,13 +142,11 @@ public class Enemy_Spawner : UniqueIdentifiableObject
         if (enemies.Contains(enemy))
             enemies.Remove(enemy);
 
-        Item itemDrop = ItemPool.Instance.GetItemWithQuality("PakaianBandit", ItemQuality.Normal);
-        Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+       
         if (enemies.Count == 0)
         {
-            //ItemPool.Instance.DropItem(itemDrop.itemName,itemDrop.health, itemDrop.quality, transform.position + offset);
-            //spawnCount = 0;
-            //gameObject.SetActive(false);
+            spawnCount = 0;
+            gameObject.SetActive(false);
 
             storageEnemies.UnlockStorage();
         }

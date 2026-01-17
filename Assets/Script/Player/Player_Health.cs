@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Player_Health : MonoBehaviour
@@ -69,10 +68,10 @@ public class Player_Health : MonoBehaviour
     {
 
 
-        stats.health = (int)Mathf.Clamp(stats.health, 0, stats.currentHealthCap);
+        stats.health = Mathf.Clamp(stats.health, 0, stats.currentHealthCap);
         stats.stamina = Mathf.Clamp(stats.stamina, 0, stats.currentStaminaCap);
 
-        PlayerUI.Instance.healthUI.fillAmount = (float)stats.health / playerData.maxHealth;
+        PlayerUI.Instance.healthUI.fillAmount = stats.health / playerData.maxHealth;
         PlayerUI.Instance.staminaUI.fillAmount = stats.stamina / playerData.maxStamina;
 
         float regenRate = stats.isInGrief ? playerData.staminaRegenRate * 0.7f : playerData.staminaRegenRate;
@@ -82,6 +81,13 @@ public class Player_Health : MonoBehaviour
             stats.stamina += regenRate * Time.deltaTime;
             PlayerUI.Instance.UpdateStaminaDisplay(stats.stamina, playerData.maxStamina);
         }
+
+        if (stats.health < stats.currentHealthCap)
+        {
+            stats.health += regenRate * Time.deltaTime;
+            PlayerUI.Instance.UpdateHealthDisplay(stats.health, playerData.maxHealth);
+        }
+
     }
 
 
@@ -161,7 +167,7 @@ public class Player_Health : MonoBehaviour
             damage -= BuffScrollController.Instance.jumlahBuffProtection;
 
         damage = Mathf.Max(0, damage);
-        stats.health -= damage;
+        stats.currentHealthCap -= damage;
 
         // Update UI
         PlayerUI.Instance.UpdateHealthDisplay(stats.health, playerData.maxHealth);
@@ -193,11 +199,11 @@ public class Player_Health : MonoBehaviour
     public void Heal(int healthAmount, int staminaAmount)
     {
         // Simpan nilai lama untuk perbandingan
-        int oldHealth = stats.health;
+        float oldHealth = stats.health;
         float oldStamina = stats.currentStaminaCap;
 
         // Lakukan proses penyembuhan
-        stats.health = Mathf.Clamp(stats.health + healthAmount, 0, stats.currentHealthCap);
+        stats.currentHealthCap = Mathf.Clamp(stats.currentHealthCap + healthAmount, 0, playerData.maxHealth);
         stats.currentStaminaCap = Mathf.Clamp(stats.currentStaminaCap + staminaAmount, 0, playerData.maxStamina);
 
 

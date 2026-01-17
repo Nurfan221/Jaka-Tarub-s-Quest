@@ -161,6 +161,7 @@ public class CookInteractable : Interactable, ISaveable
 
         if (itemCook == null || !hasFuel)
         {
+            stoneAnimator.SetBool("SetAnimation", false);
             Debug.LogWarning("Pastikan item masak dan bahan bakar terisi sebelum memasak.");
             return; // Berhenti jika tidak ada item atau tidak ada bahan bakar sama sekali
         }
@@ -205,10 +206,14 @@ public class CookInteractable : Interactable, ISaveable
 
             // Mulai Coroutine dan simpan referensinya
             StartCooking(foundRecipe);
+            stoneAnimator.SetBool("SetAnimation", true);
+
         }
         else
         {
             Debug.LogWarning("Tidak ada resep yang cocok untuk item ini.");
+            stoneAnimator.SetBool("SetAnimation", false);
+
             return;
         }
     }

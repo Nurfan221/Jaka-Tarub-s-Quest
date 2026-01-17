@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -75,7 +76,6 @@ public class QuestManager : MonoBehaviour, ISaveable
         Debug.Log("[SAVE-CAPTURE] QuestManager menangkap data quest aktif...");
 
         // Buat "salinan" baru dari list questActive.
-        // Ini adalah 'snapshot' data Anda saat ini.
         var snapshot = new List<ChapterQuestActiveDatabase>(questActive);
         return snapshot;
     }
@@ -84,23 +84,78 @@ public class QuestManager : MonoBehaviour, ISaveable
     {
         Debug.Log("[LOAD-RESTORE] QuestManager merestorasi data quest aktif...");
         questActive.Clear();
-        // Coba cast 'state' yang datang kembali ke tipe aslinya.
+
         var loadedData = state as List<ChapterQuestActiveDatabase>;
 
         if (loadedData != null)
         {
-            //  Ganti list 'questActive' saat ini dengan data dari file save.
             questActive = loadedData;
 
             Debug.Log($"Data quest berhasil direstorasi. {questActive.Count} chapter aktif dimuat.");
             RestoreActiveQuestLogic();
-            // Anda sudah punya fungsi ini, jadi kita panggil saja.
-            CreateTemplateQuest();
+            ReconnectQuestReferences();
+            // Gunakan Coroutine untuk menunggu NPC siap.
+            StartCoroutine(WaitAndInitializeQuests());
         }
         else
         {
             Debug.LogWarning("Gagal merestorasi data quest: data tidak valid atau corrupt.");
         }
+    }
+    private void ReconnectQuestReferences()
+    {
+        Debug.Log("[RE-LINK] Memulai penyambungan ulang referensi aset ScriptableObject...");
+
+        // Loop semua chapter yang ada di Save Data (questActive)
+        foreach (var activeChapter in questActive)
+        {
+            // Cari Referensi Chapter Asli di Database (allChapters) berdasarkan ID
+            ChapterSO originalChapter = allChapters.Find(c => c.chapterID == activeChapter.chapterID);
+
+            if (originalChapter == null)
+            {
+                Debug.LogError($"[ERROR] Chapter ID {activeChapter.chapterID} tidak ditemukan di Database allChapters!");
+                continue;
+            }
+
+            //  Perbaiki setiap Side Quest di chapter ini
+            foreach (var loadedQuest in activeChapter.sideQuests)
+            {
+                // Cari blueprint asli quest ini berdasarkan Nama
+                QuestSO originalQuest = originalChapter.sideQuests.Find(q => q.questName == loadedQuest.questName);
+
+                if (originalQuest != null)
+                {
+                    loadedQuest.startDialogue = originalQuest.startDialogue;
+                    loadedQuest.finishDialogue = originalQuest.finishDialogue;
+                    loadedQuest.NPCItem = originalQuest.NPCItem;
+                    loadedQuest.itemRewards = originalQuest.itemRewards; // List item juga perlu direferensikan ulang
+
+                    // Jangan reset progress (count), cukup referensi asetnya saja
+
+                    Debug.Log($"[SUKSES] Referensi dialog untuk quest '{loadedQuest.questName}' berhasil dipulihkan.");
+                }
+                else
+                {
+                    Debug.LogWarning($"Quest '{loadedQuest.questName}' ada di Save Data tapi tidak ditemukan di Database Chapter Asli.");
+                }
+            }
+
+            // Perbaiki Main Quest (Jika ada dan aktif)
+            if (activeChapter.isMainQuestActive && activeChapter.mainQuest != null)
+            {
+                
+            }
+        }
+    }
+    private IEnumerator WaitAndInitializeQuests()
+    {
+        yield return new WaitForEndOfFrame();
+
+    
+
+        Debug.Log("Inisialisasi Quest tertunda dijalankan (Menunggu NPC Load)...");
+        CreateTemplateQuest();
     }
     // Di dalam QuestManager.cs
     private void RestoreActiveQuestLogic()
@@ -237,8 +292,7 @@ public class QuestManager : MonoBehaviour, ISaveable
 
             newChapter.totalSideQuestsRequired = totalQuests; // Simpan totalnya
             newChapter.completedSideQuestCount = 0; // Mulai dari 0
-            newChapter.mainQuest = null; // Main quest belum aktif
-                                         // ---------------------
+            newChapter.mainQuest = null; 
 
             newChapter.sideQuests.Add(questCopy);
             questActive.Add(newChapter);

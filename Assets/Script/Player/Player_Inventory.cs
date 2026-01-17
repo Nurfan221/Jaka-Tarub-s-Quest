@@ -86,32 +86,24 @@ public class Player_Inventory : MonoBehaviour
         // Cek apakah objek yang disentuh memiliki tag "ItemDrop"
         if (other.CompareTag("ItemDrop"))
         {
-            if (stats.inventory.Count < stats.playerData.maxItem)
+            Debug.Log("terdeteksi item drop");
+            // Ambil data dari PrefabItemBehavior jika ada
+            ItemDropInteractable itemDropInteractable = other.GetComponent<ItemDropInteractable>();
+            ItemData itemData = itemDropInteractable.itemdata;
+
+            // Di dalam CookUI / Result Button Listener
+            bool isSuccess = ItemPool.Instance.AddItem(itemData);
+
+            if (isSuccess)
             {
-                Debug.Log("terdeteksi item drop");
-                // Ambil data dari PrefabItemBehavior jika ada
-                ItemDropInteractable itemDropInteractable = other.GetComponent<ItemDropInteractable>();
-                ItemData itemData = itemDropInteractable.itemdata;
-
-                // Di dalam CookUI / Result Button Listener
-                bool isSuccess = ItemPool.Instance.AddItem(itemData);
-
-                if (isSuccess)
-                {
-                    // Hapus item dari tungku
-                    MechanicController.Instance.HandleUpdateInventory();
-                    Destroy(other.gameObject);
-                }
-                else
-                {
-                    // Jangan hapus, biarkan di tungku
-                    Debug.Log("Tas penuh, item tetap di tungku.");
-                }
-
+                // Hapus item dari tungku
+                MechanicController.Instance.HandleUpdateInventory();
+                Destroy(other.gameObject);
             }
             else
             {
-                return;
+                // Jangan hapus, biarkan di tungku
+                Debug.Log("Tas penuh, item tetap di tungku.");
             }
 
         }
