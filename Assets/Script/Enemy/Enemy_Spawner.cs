@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +13,9 @@ public class Enemy_Spawner : UniqueIdentifiableObject
 
     public bool CanSpawn = true;
     public bool drawSpawnRadius;
-    public float spawnRadius = 2f;
+    public float spawnRadius = 10f;
     public float spawnCD = 2f;
+    public float verticalOffset = -2f; // Coba ubah angka ini di inspector (misal 0.5 atau 0.8)
     float spawnTimer;
 
     public int spawnCount;
@@ -137,27 +139,76 @@ public class Enemy_Spawner : UniqueIdentifiableObject
         return spawnPosition;
     }
 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        // Cek apakah yang keluar itu adalah Enemy?
+        if (other.CompareTag("Bandit"))
+        {
+            // Cek apakah enemy ini milik spawner ini (ada di list?)
+            if (enemies.Contains(other.gameObject))
+            {
+                Debug.Log($"{other.name} kabur keluar area spawner!");
+
+                // Hapus dari list atau hancurkan
+               Enemy_Bandit banditScript = other.GetComponent<Enemy_Bandit>();
+                if (banditScript != null && !banditScript.isReturning)
+                {
+                    Debug.Log($"{other.name} kabur! Memaksa pulang.");
+
+                    // Panggil StartCoroutine DARI script si Bandit
+                    banditScript.StartCoroutine(banditScript.BackToSpawner(transform.position));
+                }
+            }
+        }
+    }
     public void RemoveEnemyFromList(GameObject enemy)
     {
-        if (enemies.Contains(enemy))
-            enemies.Remove(enemy);
+        // Optimasi: Remove mengembalikan true/false, jadi tidak perlu cek Contains dulu
+        if (enemies.Remove(enemy))
+        {
+            // Jika berhasil dihapus, cek apakah habis
+            if (enemies.Count == 0)
+            {
+                // Panggil Coroutine untuk urutan kemenangan yang rapi
+                StartCoroutine(VictorySequence());
+            }
+        }
+    }
+
+    private IEnumerator VictorySequence()
+    {
+        SoundEffect getSound = SoundManager.Instance.GetSfx(SoundName.Victory);
 
        
-        if (enemies.Count == 0)
-        {
-            spawnCount = 0;
-            gameObject.SetActive(false);
+        SoundManager.Instance.PlayMusic(getSound.clip, 0);
 
+        if (storageEnemies != null)
+        {
             storageEnemies.UnlockStorage();
         }
 
+        yield return new WaitForSeconds(getSound.clip.length + 0.5f);
+
+        SoundManager.Instance.CheckGameplayMusic(ClockManager.Instance.isIndoors, 1.0f); // Fade in 1 detik biar halus
+
+        spawnCount = 0;
+
+        
+
+        //gameObject.SetActive(false);
     }
 #if UNITY_EDITOR
     #region DEBUG
     private void OnDrawGizmos()
     {
+        // Jika verticalOffset negatif, titik ini akan turun.
+        Vector3 centerPoint = transform.position + new Vector3(0, verticalOffset, 0);
         if (drawSpawnRadius)
             Gizmos.DrawWireSphere(transform.position, spawnRadius);
+
+        // Gambar Lingkaran Deteksi (Sensor Mata) - WARNA HIJAU
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(centerPoint, spawnRadius);
     }
     #endregion
 #endif

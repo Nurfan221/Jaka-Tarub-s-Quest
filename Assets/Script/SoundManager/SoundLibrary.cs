@@ -14,4 +14,5 @@ public enum SoundName
     MulungSfx,
     TerlukaSfx,
     TewasSfx,
+    Victory,
 }

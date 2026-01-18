@@ -46,22 +46,13 @@ public class PintuManager : MonoBehaviour
 
     private IEnumerator EnterAreaRoutine(IdPintu idPintu, bool isPintuIn)
     {
-        // --- TAHAP 1: MATIKAN INPUT PLAYER (Opsional tapi bagus) ---
-        // PlayerMovement.Instance.canMove = false; 
+      
 
-        // --- TAHAP 2: LAYAR MENGGELAP (Fade Out) ---
-        // Panggil fungsi loading screen untuk menutup layar
-        // Jika fungsi LoadingScreenUI anda return IEnumerator, pakai 'yield return StartCoroutine(...)'
-        // Jika tidak, kita pakai timer manual.
-
-        // Asumsi: StartPassOutSequence / SetLoadingandTimer memicu layar jadi hitam
         StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
 
-        // TUNGGU SAMPAI LAYAR HITAM TOTAL (Misal durasi fade UI anda 1 detik)
         yield return new WaitForSeconds(1.0f);
 
 
-        // --- TAHAP 3: LOGIKA PERPINDAHAN (Terjadi di balik layar hitam) ---
 
         foreach (var pintuTujuan in databaseManager.listPintu)
         {
@@ -87,9 +78,7 @@ public class PintuManager : MonoBehaviour
                 // Update Waktu/Cahaya
                 ClockManager.Instance.UpdateDateTime();
 
-                // --- TAHAP 4: MUSIK ---
-                // Kita beri sedikit delay (0.5 detik) agar musik baru masuk 
-                // TEPAT saat layar mulai perlahan terang kembali.
+             
             }
         }
 
@@ -97,10 +86,7 @@ public class PintuManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
 
-        // --- TAHAP 5: LAYAR MENYALA KEMBALI (Fade In) ---
-        //StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
-
-        // PlayerMovement.Instance.canMove = true;
+      
     }
 
     public void NPCEnterArea(IdPintu idPintu, bool isPintuIn, GameObject npcObject)

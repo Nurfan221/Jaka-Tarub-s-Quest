@@ -7,6 +7,7 @@ public enum BanditState
     Idle,
     Patroli,
     KejarTarget,
+    KembaliKePosisi,
     Serang,
     Kabur,
     Mati
@@ -30,6 +31,8 @@ public class Enemy_Bandit : MonoBehaviour
     public bool isMoving;
     public float moveSpeed;
     public bool isDead;
+    public bool isReturning = false;
+    public bool isHit = false;
     public Rigidbody2D rb; // Tambahkan referensi Rigidbody2D
     public List<Vector2> rutePatroli = new List<Vector2>(4);
     public Vector2 movementDirection;
@@ -255,17 +258,15 @@ public class Enemy_Bandit : MonoBehaviour
         while (Vector2.Distance(rb.position, targetPosition) > 0.5f)
         {
 
-            if (currentState != BanditState.Patroli)
+            if (currentState != BanditState.Patroli && currentState != BanditState.KembaliKePosisi)
             {
-                rb.linearVelocity = Vector2.zero; // Rem mendadak
-                yield break; // Hentikan coroutine ini
+                rb.linearVelocity = Vector2.zero;
+                yield break;
             }
-            
+
             //perhitungan arah yang diinginkan
             Vector2 directionToTarget = (targetPosition - rb.position).normalized;
 
-            //  paksa variabel ini berisi arah "Niat", bukan hasil fisika.
-            // Walaupun menabrak tembok, directionToTarget tetap bernilai 1 (tetap berusaha maju).
             this.movementDirection = directionToTarget;
 
             // dorongan fisika
@@ -742,6 +743,59 @@ public class Enemy_Bandit : MonoBehaviour
 
         // Mulai Proses Menghilang (Tunggu 2 detik, lalu fade out)
         StartCoroutine(DeathSequenceRoutine());
+    }
+    public IEnumerator BackToSpawner(Vector2 posisiKembali)
+    {
+        isReturning = true;
+        isMoving = true; // Anggap dia sedang bergerak (pulang)
+
+        // Hentikan roaming yang lama
+        if (roamingCoroutine != null)
+        {
+            StopCoroutine(roamingCoroutine);
+            roamingCoroutine = null;
+        }
+
+        Debug.Log("Bandit: 'Waduh kejauhan, pulang dulu ah...'");
+
+        // gunakan loop selama jarak masih jauh, ini lebih aman daripada bool
+        //while (Vector2.Distance(transform.position, posisiKembali) > 0.1f)
+        //{
+
+        //    // pakai Rigidbody2D (Biar gak tembus tembok)
+        //    Vector2 newPos = Vector2.MoveTowards(rb.position, posisiKembali, moveSpeed * Time.deltaTime);
+        //    rb.MovePosition(newPos);
+
+
+        //    // Jika tiba-tiba dipukul pemain, batalkan pulang
+        //     if (isHit) { isReturning = false; yield break; }
+
+        //    yield return null; // Tunggu frame berikutnya
+        //}
+
+        currentState = BanditState.KembaliKePosisi;
+        yield return StartCoroutine(MoveToTargetWithPhysics(posisiKembali, moveSpeed));
+
+        // Setelah sampai di satu titik, cek lagi (barangkali berubah pas di jalan)
+        if (currentState != BanditState.Patroli)
+        {
+            yield break;
+        }
+
+
+        transform.position = posisiKembali; // Snap posisi biar pas
+        isReturning = false;
+        isMoving = false;
+
+        // Jeda sebentar sebelum mulai patroli lagi
+        yield return new WaitForSeconds(1f);
+
+        // Kembali ke rutinitas normal (Roaming)
+        if (roamingCoroutine == null)
+        {
+            roamingCoroutine = StartCoroutine(ThinkProcess());
+        }
+
     }
 
     private IEnumerator DeathSequenceRoutine()

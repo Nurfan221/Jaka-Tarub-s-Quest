@@ -99,6 +99,21 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public SoundEffect GetSfx(SoundName name)
+    {
+        if (sfxDictionary.ContainsKey(name))
+        {
+            SoundEffect sfx = sfxDictionary[name];
+            Debug.Log("SFX Found: " + name.ToString());
+            return sfx;
+        }
+        else
+        {
+            Debug.LogWarning("SFX not found in dictionary: " + name.ToString());
+            return null;
+        }
+    }
+
     public void PlaySound(SoundName name, bool varyPitch = false)
     {
         if (sfxDictionary.ContainsKey(name))
