@@ -231,6 +231,7 @@ MonoBehaviour:
   attackRange: 1.5
   attackCooldown: 2
   wanderRadius: 10
+  attackDamage: 10
   zonaSerangTransform: {fileID: 0}
   verticalOffset: -0.4
   hitboxRadius: 1
@@ -240,11 +241,11 @@ MonoBehaviour:
   health: 10
   maxHealth: 20
   dropitems:
-  - {fileID: 11400000, guid: 16c336a800e62b64494af8c2012d5956, type: 2}
+  - {fileID: 11400000, guid: 7e4611946c6eea94cbd1596c4e603976, type: 2}
   - {fileID: 11400000, guid: 88276d41723949341be7363298f1e5ca, type: 2}
   - {fileID: 11400000, guid: aba5470497747d840af6e61174a9a8f7, type: 2}
-  minNormalItem: 1
-  maxNormalItem: 2
+  minNormalItem: 2
+  maxNormalItem: 3
   minSpecialItem: 0
   maxSpecialItem: 1
   playerTransform: {fileID: 0}

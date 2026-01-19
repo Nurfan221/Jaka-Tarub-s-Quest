@@ -176,7 +176,7 @@ public class Player_Health : MonoBehaviour
         PlayerController.Instance.HandlePlayAnimation("TakeDamage");
         SetKnockbackStatus(true, attackerPosition);
         StartCoroutine(TakeDamageVisual());
-
+        CheckSekarat();
         if (stats.health <= 0)
         {
 

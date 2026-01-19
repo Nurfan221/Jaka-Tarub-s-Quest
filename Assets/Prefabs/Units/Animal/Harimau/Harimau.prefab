@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7330193961385445059}
   - component: {fileID: 2898186048964429505}
   - component: {fileID: 8251027408987824660}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: ZonaSerang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 6107261338196856245}
   - component: {fileID: 779017872243086411}
   - component: {fileID: 1993785535319985087}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: Harimau
   m_TagString: Animal
   m_Icon: {fileID: 0}
@@ -376,7 +376,7 @@ MonoBehaviour:
   detectionRadius: 5
   targetLayer:
     serializedVersion: 2
-    m_Bits: 8200
+    m_Bits: 8456
   currentState: 0
   jedaAnimasi: 3
   isMoving: 0
@@ -388,11 +388,11 @@ MonoBehaviour:
   lastDirection: {x: 0, y: 0}
   tipeHewan: 1
   currentTarget: {fileID: 0}
-  itemTriggerName: 
+  itemTriggerName: DagingRusaSpesial
   attackRange: 1
   attackCooldown: 2
   wanderRadius: 10
-  attackDamage: 10
+  attackDamage: 30
   zonaSerangTransform: {fileID: 2321242050391969502}
   verticalOffset: -0.7
   hitboxRadius: 1.27
@@ -402,11 +402,10 @@ MonoBehaviour:
   health: 30
   maxHealth: 30
   dropitems:
-  - {fileID: 4459120725376062254, guid: 05bed41abe792fd459a4b938cbadca05, type: 3}
-  - {fileID: 4459120725376062254, guid: d314e55a290abd34a83d81dabd074443, type: 3}
-  - {fileID: 4459120725376062254, guid: 603e2ee1c4c31c849a12d854d986843f, type: 3}
-  - {fileID: 4459120725376062254, guid: 3e5d53a94294c734ab5cc9bb92c77dd3, type: 3}
-  - {fileID: 4459120725376062254, guid: 6698b5aef210925498de544f97a87bbb, type: 3}
+  - {fileID: 11400000, guid: f81f0f4680ff90d40bbf5ff8a6d21c02, type: 2}
+  - {fileID: 11400000, guid: 88276d41723949341be7363298f1e5ca, type: 2}
+  - {fileID: 11400000, guid: 8e5934840ba99884a97c5122d1e24a20, type: 2}
+  - {fileID: 11400000, guid: aba5470497747d840af6e61174a9a8f7, type: 2}
   minNormalItem: 1
   maxNormalItem: 2
   minSpecialItem: 0

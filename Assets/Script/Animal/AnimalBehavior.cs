@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public enum AnimalType { Pasif, Agresif, isQuest }
@@ -109,7 +110,6 @@ public class AnimalBehavior : MonoBehaviour
             {
                 currentTarget = playerTransform;
                 currentState = AnimalState.Mengejar; // Akan mengejar player
-                StopAllCoroutines(); // Hentikan perilaku pasif
                 Debug.Log($"{namaHewan} (Quest) mulai mengikuti Player.");
             }
             else
@@ -185,7 +185,6 @@ public class AnimalBehavior : MonoBehaviour
             // Jika target lari terlalu jauh (misal detectionRadius + 3 meter)
             if (distance > detectionRadius + 3f)
             {
-                // ??? (Tulis logika menyerah di sini: Reset target, Reset state, Mulai roaming lagi)
                 currentTarget = null;
                 currentState = AnimalState.Idle;
                 animalAnimator.Play("Idle");
@@ -197,6 +196,47 @@ public class AnimalBehavior : MonoBehaviour
                 }
             }
         }
+
+        if (tipeHewan == AnimalType.isQuest && currentTarget != null)
+        {
+            float distance = Vector2.Distance(transform.position, currentTarget.position);
+
+            if (distance > attackRange)
+            {
+                if (currentState != AnimalState.Mengejar)
+                {
+                    currentState = AnimalState.Mengejar;
+                    isMoving = true;
+                }
+            }
+            else
+            {
+                if (currentState != AnimalState.Attack)
+                {
+                    currentState = AnimalState.Attack;
+                    isMoving = false;
+
+                    Debug.Log("Ah ada mangsa nih serang ahhhh > . ..");
+
+                    rb.linearVelocity = Vector2.zero;
+
+                    if (currentTarget.CompareTag("Player"))
+                    {
+                        JalankanLogikaSerangan();
+                    }
+                    else if (currentTarget.CompareTag("ItemDrop"))
+                    {
+                        Debug.Log("Harimau quest berhasil mencapai item drop!");
+                        Destroy(currentTarget.gameObject);
+                        OnAnimalPickItem?.Invoke();
+                        currentTarget = null;
+                        currentState = AnimalState.Idle;
+                    }
+                }
+            }
+        }
+
+
     }
 
     private void FixedUpdate()
@@ -270,7 +310,6 @@ public class AnimalBehavior : MonoBehaviour
         if (tipeHewan == AnimalType.isQuest)
         {
             //Debug.Log("Animal type changed to isQuest. Stopping current coroutines.");
-            StopAllCoroutines(); // Hentikan semua coroutine sebelumnya
 
             // Set target ke player secara langsung saat diubah menjadi isQuest
             if (playerTransform == null)
@@ -652,117 +691,6 @@ public class AnimalBehavior : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (tipeHewan == AnimalType.isQuest && currentTarget != null && currentTarget.CompareTag("ItemDrop"))
-        {
-            Debug.Log($"Harimau (Quest) sudah mengejar {currentTarget.name}. Mengabaikan collider lain: {other.name}");
-            return; // Hentikan eksekusi seluruh fungsi OnTriggerEnter2D
-        }
-        // Jika hewan adalah isQuest
-        if (tipeHewan == AnimalType.isQuest)
-        {
-            // Pertama, coba dapatkan komponen ItemDropInteractable dari objek yang masuk trigger
-            ItemDropInteractable itemDrop = other.GetComponent<ItemDropInteractable>();
-
-            // Cek apakah komponen ItemDropInteractable ada DAN tag-nya sesuai
-            if (itemDrop != null && other.CompareTag("ItemDrop"))
-            {
-                // Jika itemDrop ada dan tag-nya sesuai, cek apakah itemName-nya "DagingDomba"
-                if (itemDrop.itemdata.itemName == itemTriggerName)
-                {
-                    Debug.Log($"{namaHewan} (Quest) melihat item quest: {other.name}!");
-                    currentTarget = other.transform; // Set target ke item drop
-                    currentState = AnimalState.Mengejar; // Ubah state menjadi mengejar
-                    StopAllCoroutines(); // Hentikan perilaku lain (misal mengikuti player)
-                    return; // Penting: hentikan eksekusi lebih lanjut karena target sudah ditemukan
-                }
-                else
-                {
-                    // ItemDropInteractable ada, tag-nya sesuai, tapi bukan "DagingDomba".
-                    // Harimau harus diam atau kembali ke perilaku sebelumnya jika ada.
-                    Debug.Log($"{namaHewan} (Quest) mendeteksi item lain: {other.name}, tapi bukan 'DagingDombaSpesial'. Tetap diam.");
-                    // Pastikan tidak ada target lain yang sedang dikejar jika ini terjadi
-                    // Jika sebelumnya mengejar player, biarkan tetap mengejar player sampai daging domba muncul
-                    // atau ubah currentTarget = null; currentState = AnimalState.Idle; jika ingin dia berhenti total.
-                    // Untuk skenario "diam sampai ada item yang benar", kita harus berhenti mengejar player.
-                    if (currentTarget != null && currentTarget.CompareTag("Player"))
-                    {
-                        currentTarget = null;
-                        currentState = AnimalState.Idle;
-                        animalAnimator.Play("Idle"); // Pastikan animasinya idle
-                        StopAllCoroutines(); // Berhenti dari pengejaran player
-                    }
-                    return; // Penting: hentikan eksekusi lebih lanjut
-                }
-            }
-            else if (other.CompareTag("Player")) // Jika bukan item drop yang relevan, cek apakah itu player
-            {
-                // Jika hewan isQuest mendeteksi Player
-                // Jangan ubah target jika sudah fokus ke ItemDrop yang benar (sudah dihandle di awal fungsi)
-                Debug.Log($"{namaHewan} (Quest) mendeteksi Player: {other.name}!");
-                currentTarget = other.transform; // Set target ke player
-                currentState = AnimalState.Mengejar; // Mulai mengejar player
-                StopAllCoroutines(); // Hentikan perilaku acak jika ada
-                return; // Penting: hentikan eksekusi lebih lanjut
-            }
-            else
-            {
-                // other tidak memiliki komponen ItemDropInteractable, atau tag-nya tidak "Untagged" atau "ItemDrop",
-                // dan juga bukan "Player". Harimau harus diam.
-                Debug.Log($"{namaHewan} (Quest) mendeteksi objek non-item quest: {other.name}. Tetap diam.");
-                // Pastikan tidak ada target yang sedang dikejar (terutama player)
-                if (currentTarget != null && currentTarget.CompareTag("Player"))
-                {
-                    currentTarget = null;
-                    currentState = AnimalState.Idle;    
-                    animalAnimator.Play("Idle");
-                    StopAllCoroutines();
-                }
-                return; // Penting: hentikan eksekusi lebih lanjut
-            }
-        }
-
-        // Jika bukan isQuest, atau isQuest tapi targetnya bukan ItemDrop, lanjutkan ke logika lain.
-        if (tipeHewan == AnimalType.Pasif) return;
-
-        // Jangan ubah target jika sudah ada target kecuali untuk kasus ItemDrop di atas.
-        // Jika currentTarget sudah ItemDrop, jangan ganti ke Player/Animal lain.
-        if (currentTarget != null && currentTarget.CompareTag("ItemDrop")) return;
-
-
-        if (other.CompareTag("Animal") || other.CompareTag("Player"))
-        {
-            // Untuk AnimalType.isQuest, dia akan mengikuti player, bukan menyerang animal lain
-            if (tipeHewan == AnimalType.isQuest && other.CompareTag("Player"))
-            {
-                Debug.Log($"{namaHewan} (Quest) mendeteksi Player: {other.name}!");
-                currentTarget = other.transform; // Set target ke player
-                currentState = AnimalState.Mengejar; // Mulai mengejar player
-                StopAllCoroutines(); // Hentikan perilaku acak jika ada
-            }
-            else if (tipeHewan == AnimalType.Agresif) // Logika agresif hanya untuk tipe Agresif
-            {
-                AnimalBehavior otherAnimal = other.GetComponent<AnimalBehavior>();
-
-                if (otherAnimal != null && otherAnimal != this && otherAnimal.tipeHewan == AnimalType.Pasif)
-                {
-                    Debug.Log($"{namaHewan} (Agresif) melihat mangsa: {other.name}!");
-                    currentTarget = other.transform;
-                    currentState = AnimalState.Mengejar;
-                    StopAllCoroutines();
-                }
-                else if (other.CompareTag("Player")) // Agresif juga menyerang Player
-                {
-                    Debug.Log($"{namaHewan} (Agresif) melihat Player: {other.name}!");
-                    currentTarget = other.transform;
-                    currentState = AnimalState.Mengejar;
-                    StopAllCoroutines();
-                }
-            }
-        }
-    }
-
   
 
 
@@ -896,87 +824,152 @@ public class AnimalBehavior : MonoBehaviour
 
     private IEnumerator DetectTargetRoutine()
     {
-        //  scan setiap 0.5 detik 
+        
+        // scan setiap 0.5 detik 
         WaitForSeconds scanInterval = new WaitForSeconds(0.5f);
 
         while (true)
         {
-          
-            if ((tipeHewan == AnimalType.Agresif || tipeHewan == AnimalType.isQuest) && currentTarget == null)
+            bool shouldScan = false;
+
+            if (currentTarget == null)
+            {
+                shouldScan = true;
+            }
+           
+            else if (tipeHewan == AnimalType.isQuest && currentTarget.CompareTag("Player"))
+            {
+                shouldScan = true;
+            }
+
+            // Jalankan Scan jika memenuhi syarat
+            if (shouldScan)
             {
                 FindClosestTarget();
             }
 
+            Debug.Log($"{namaHewan} menunggu untuk scan target lagi...");
             yield return scanInterval;
         }
     }
 
     private void FindClosestTarget()
     {
-        Debug.Log($"{namaHewan} sedang mencari target di sekitar...");
-        // Cari semua objek di dalam lingkaran radius
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRadius, targetLayer);
+        // Jika sudah punya target dan targetnya adalah ItemDrop (sedang makan/mengejar daging),
+        // jangan cari target baru (Player/Lainnya) agar tidak teralihkan.
+        if (tipeHewan == AnimalType.isQuest && currentTarget != null && currentTarget.CompareTag("ItemDrop"))
+        {
+            return;
+        }
 
-        float closestDistance = Mathf.Infinity;
-        Transform potentialTarget = null;
+        // Debug.Log($"{namaHewan} sedang mencari target di sekitar...");
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRadius, targetLayer);
+        if (hits.Length == 0) Debug.LogWarning($"{namaHewan}: Tidak melihat apapun di radius {detectionRadius}");
+        // Variabel untuk Target Normal (Player, Mangsa, Musuh)
+        float closestNormalDist = Mathf.Infinity;
+        Transform bestNormalTarget = null;
+
+        // Variabel KHUSUS untuk Target Prioritas (Item Quest)
+        float closestItemDist = Mathf.Infinity;
+        Transform bestItemTarget = null;
 
         foreach (Collider2D hit in hits)
         {
-            // Hindari mendeteksi diri sendiri
-            if (hit.gameObject == this.gameObject) continue;
-
-            bool isValidTarget = false;
-
-            // Jika Saya Agresif Cari Player ATAU Hewan Pasif
+            if (hit.gameObject == this.gameObject) continue; // Skip diri sendiri
+             Debug.Log($"{namaHewan} melihat: {hit.name} | Tag: {hit.tag} | Layer: {LayerMask.LayerToName(hit.gameObject.layer)}");
             if (tipeHewan == AnimalType.Agresif)
             {
-                if (hit.CompareTag("Player")) isValidTarget = true;
+                bool isValidNormal = false;
+
+                if (hit.CompareTag("Player")) isValidNormal = true;
+                else if (hit.CompareTag("Bandit")) isValidNormal = true;
                 else if (hit.CompareTag("Animal"))
                 {
                     AnimalBehavior otherAnimal = hit.GetComponent<AnimalBehavior>();
-                    // cari hewan tipe pasif saja
+                    // Agresif menyerang hewan Pasif
                     if (otherAnimal != null && otherAnimal.tipeHewan == AnimalType.Pasif)
                     {
-                        isValidTarget = true;
+                        isValidNormal = true;
                     }
-                }else if (hit.CompareTag("Bandit"))
+                }
+
+                // Hitung jarak untuk target normal
+                if (isValidNormal)
                 {
-                    isValidTarget = true;
+                    float dist = Vector2.Distance(transform.position, hit.transform.position);
+                    if (dist < closestNormalDist)
+                    {
+                        closestNormalDist = dist;
+                        bestNormalTarget = hit.transform;
+                    }
                 }
             }
-            // Jika Saya Quest Cari Player saja (untuk diikuti)
             else if (tipeHewan == AnimalType.isQuest)
             {
-                if (hit.CompareTag("Player")) isValidTarget = true;
-            }
-
-            if (isValidTarget)
-            {
-                float dist = Vector2.Distance(transform.position, hit.transform.position);
-
-                // Jika ini lebih dekat dari kandidat sebelumnya, simpan ini
-                if (dist < closestDistance)
+                // cek Apakah Ini Item Drop Spesial? (PRIORITAS TINGGI)
+                if (hit.CompareTag("ItemDrop"))
                 {
-                    closestDistance = dist;
-                    potentialTarget = hit.transform;
+                    ItemDropInteractable itemDrop = hit.GetComponent<ItemDropInteractable>();
+                    // Cek nama item sesuai requirement quest (misal: "DagingDomba")
+                    if (itemDrop != null && itemDrop.itemdata.itemName == itemTriggerName)
+                    {
+                        float dist = Vector2.Distance(transform.position, hit.transform.position);
+                        if (dist < closestItemDist)
+                        {
+                            closestItemDist = dist;
+                            bestItemTarget = hit.transform;
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log($"{namaHewan} (Quest) menemukan ItemDrop tapi bukan yang dicari: {itemDrop.itemdata.itemName}");
+                    }
                 }
+                // Cek Apakah Ini Player? (PRIORITAS RENDAH)
+                //else if (hit.CompareTag("Player"))
+                //{
+                //    float dist = Vector2.Distance(transform.position, hit.transform.position);
+                //    if (dist < closestNormalDist)
+                //    {
+                //        closestNormalDist = dist;
+                //        bestNormalTarget = hit.transform;
+                //    }
+                //}
             }
         }
 
-        // Jika mata berhasil menemukan target yang valid
-        if (potentialTarget != null)
+
+        Transform finalTarget = null;
+
+        // Jika Hewan Quest menemukan Item Spesial, ITU YANG DIPILIH (Abaikan Player walau Player lebih dekat)
+        if (tipeHewan == AnimalType.isQuest && bestItemTarget != null)
         {
-            Debug.Log($"{namaHewan} melihat target baru: {potentialTarget.name}");
-            currentTarget = potentialTarget;
+            finalTarget = bestItemTarget;
+            Debug.Log($"{namaHewan} (Quest) menemukan ITEM PRIORITAS: {finalTarget.name}");
+        }
+        // Jika tidak ada Item Spesial, atau Tipe Agresif, ambil target normal terdekat
+        else if (bestNormalTarget != null)
+        {
+            finalTarget = bestNormalTarget;
+        }
 
-            // Ubah state jadi mengejar
-            currentState = AnimalState.Mengejar;
-
-            // Hentikan jalan-jalan santai (Wandering)
-            if (roamingCoroutine != null)
+        // Eksekusi jika target ditemukan
+        if (finalTarget != null)
+        {
+            // Jika target berubah, atau sebelumnya tidak punya target
+            if (currentTarget != finalTarget)
             {
-                StopCoroutine(roamingCoroutine);
-                roamingCoroutine = null;
+                Debug.Log($"{namaHewan} mengunci target: {finalTarget.name}");
+                currentTarget = finalTarget;
+                currentState = AnimalState.Mengejar;
+
+                // Stop animasi jalan-jalan/idle
+                if (roamingCoroutine != null)
+                {
+                    StopCoroutine(roamingCoroutine);
+                    roamingCoroutine = null;
+                }
+               
             }
         }
     }

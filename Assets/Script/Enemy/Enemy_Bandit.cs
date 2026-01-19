@@ -399,12 +399,19 @@ public class Enemy_Bandit : MonoBehaviour
             bool isValidTarget = false;
 
             // Jika Saya Agresif Cari Player ATAU Hewan Pasif
-            if (hit.CompareTag("Player") || hit.CompareTag("Animal"))
+            if (hit.CompareTag("Player") )
             {
                 isValidTarget = true;
+            }else if (hit.CompareTag("Animal"))
+            {
+                AnimalBehavior animal = hit.GetComponent<AnimalBehavior>();
+                if (animal != null && animal.tipeHewan == AnimalType.Pasif)
+                {
+                    isValidTarget = true;
+                }
             }
-            
-           
+
+
 
             if (isValidTarget)
             {
