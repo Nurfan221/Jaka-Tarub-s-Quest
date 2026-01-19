@@ -176,7 +176,7 @@ public class AnimalBehavior : MonoBehaviour
               
                 currentState = AnimalState.Attack;
                 isMoving = false;
-
+                Debug.Log("Ah ada mangsa nih serang ahhhh > . ..");
                 // Tambahkan REM TANGAN biar gak meluncur (sliding) saat mukul
                 rb.linearVelocity = Vector2.zero;
                 JalankanLogikaSerangan();
@@ -939,6 +939,9 @@ public class AnimalBehavior : MonoBehaviour
                     {
                         isValidTarget = true;
                     }
+                }else if (hit.CompareTag("Bandit"))
+                {
+                    isValidTarget = true;
                 }
             }
             // Jika Saya Quest Cari Player saja (untuk diikuti)

@@ -87,6 +87,7 @@ public class TimeManager : MonoBehaviour, ISaveable
         //UpdateDay();
         SetRainChance(currentSeason);
         OnTimeChanged?.Invoke();
+        OnDayChanged?.Invoke();
 
     }
 

@@ -17,7 +17,7 @@ public class QuantityPopupUI : MonoBehaviour
     [SerializeField] private Button plusButton;
     [SerializeField] private Button minusButton;
     [SerializeField] private Button maxButton;
-    [SerializeField] private Button minButton; // --- TOMBOL BARU ---
+    [SerializeField] private Button minButton;
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
 
@@ -107,7 +107,7 @@ public class QuantityPopupUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Cancel()
+    public void Cancel()
     {
         onCancel.Invoke();
         gameObject.SetActive(false);

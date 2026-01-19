@@ -87,6 +87,7 @@ public class SpawnerManager : MonoBehaviour
             if (spawner != null && !spawner.isQuestSpawner)
             {
                 spawner.gameObject.SetActive(false);
+                spawner.isSpawnerUnlocked = false;
             }
         }
 
@@ -127,6 +128,7 @@ public class SpawnerManager : MonoBehaviour
             if (enemySpawnerList[indexToActivate] != null && !spawner.isQuestSpawner)
             {
                 enemySpawnerList[indexToActivate].gameObject.SetActive(true);
+                spawner.isSpawnerUnlocked = true;
                 StorageInteractable storage = spawner.storageEnemies;
 
                 if (storage != null)
@@ -196,7 +198,6 @@ public class SpawnerManager : MonoBehaviour
             {
                 // Aktifkan GameObject
                 spawner.gameObject.SetActive(true);
-
                 Debug.Log($"[SpawnerManager - Animal] Spawner Hewan '{spawner.name}' diaktifkan.");
             }
         }

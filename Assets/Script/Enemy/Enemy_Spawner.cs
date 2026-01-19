@@ -18,8 +18,10 @@ public class Enemy_Spawner : UniqueIdentifiableObject
     public float verticalOffset = -2f; // Coba ubah angka ini di inspector (misal 0.5 atau 0.8)
     float spawnTimer;
 
-    public int spawnCount;
-    public int maxSpawnCount = 5;
+    [Header("Daily Settings")]
+    public int maxDailyEnemies = 5; // Jatah maksimal per hari
+    public int enemiesSpawnedToday = 0; // Counter yang akan di-reset tiap pagi
+    public bool isSpawnerUnlocked = false; // Set true jika pemain sudah membuka area ini
     public GameObject enemyPrefab;
     public List<GameObject> enemies;
     public bool canOpenStorage = false;
@@ -61,10 +63,51 @@ public class Enemy_Spawner : UniqueIdentifiableObject
     }
 
     #endregion
+
+    private void OnEnable()
+    {
+        TimeManager.OnDayChanged += HandleNewDay;
+    }
+
+    private void OnDisable()
+    {
+        TimeManager.OnDayChanged -= HandleNewDay;
+    }
     // Start is called before the first frame update
     void Start()
     {
         enemyPrefab = DatabaseManager.Instance.EnemyWorldPrefab;
+        
+
+        HandleNewDay();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!isSpawnerUnlocked) return;
+
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer >= spawnCD)
+        {
+            if (enemiesSpawnedToday < maxDailyEnemies && CanSpawn)
+            {
+                SpawnSingleEnemy();
+                spawnTimer = 0f;
+            }
+            else
+            {
+                CanSpawn = false;
+            }
+        }
+    }
+
+    public void HandleNewDay()
+    {
+        enemiesSpawnedToday = 0;
+        CanSpawn = true;
+        enemies.Clear();
         foreach (Transform child in transform)
         {
             Enemy_Bandit enemy_Bandit = child.GetComponent<Enemy_Bandit>();
@@ -74,59 +117,37 @@ public class Enemy_Spawner : UniqueIdentifiableObject
 
             }
         }
-
-        // Pastikan list referensi juga kosong
-        enemies.Clear();
-        for (int i = 0; i < spawnCount; i++)
-        {
-            if (CanSpawn)
-                SpawnEnemy();
-        }
-
-
-
-
     }
 
-    // Update is called once per frame
-    void Update()
+    void SpawnSingleEnemy()
     {
-        if (spawnCount < maxSpawnCount && CanSpawn)
-
-        {
-            spawnTimer += Time.deltaTime;
-            if (spawnTimer > spawnCD)
-            {
-                spawnTimer = 0;
-                SpawnEnemy();
-                spawnCount++;
-            }
-        }
-    }
-
-    void SpawnEnemy()
-    {
-
+        // Instansiasi
         GameObject newEnemy = Instantiate(enemyPrefab, transform);
         newEnemy.transform.localPosition = GetSpawnPosition();
-        //newEnemy.GetComponent<Enemy_Health>().theSpawner = this;
         newEnemy.gameObject.SetActive(true);
-        Enemy_Bandit enemy_Bandit = newEnemy.GetComponent<Enemy_Bandit>();
-        FootstepController footstep = enemy_Bandit.GetComponent<FootstepController>();
 
-        if (footstep != null)
-        {
-            footstep.tilemaps = PlayerUI.Instance.tilemapLayerPlayer;
-        }else
-        {
-            Debug.LogError("FootstepController component not found on Sprite child of Enemy_Bandit.");
-        }
+        // Setup Komponen
+        Enemy_Bandit enemy_Bandit = newEnemy.GetComponent<Enemy_Bandit>();
+
+        // Safety Check & Assignment
         if (enemy_Bandit != null)
         {
             enemy_Bandit.spawnerReference = this.gameObject;
+
+            FootstepController footstep = enemy_Bandit.GetComponent<FootstepController>();
+            if (footstep != null)
+            {
+                footstep.tilemaps = PlayerUI.Instance.tilemapLayerPlayer;
+            }
+            else
+            {
+                Debug.LogError($"FootstepController hilang di prefab {newEnemy.name}");
+            }
         }
 
         enemies.Add(newEnemy);
+        enemiesSpawnedToday++;
+
     }
 
     // Helper function returns randomized position inside spawnRadius
@@ -151,7 +172,7 @@ public class Enemy_Spawner : UniqueIdentifiableObject
 
                 // Hapus dari list atau hancurkan
                Enemy_Bandit banditScript = other.GetComponent<Enemy_Bandit>();
-                if (banditScript != null && !banditScript.isReturning)
+                if (banditScript != null && !banditScript.isReturning )
                 {
                     Debug.Log($"{other.name} kabur! Memaksa pulang.");
 
@@ -177,6 +198,7 @@ public class Enemy_Spawner : UniqueIdentifiableObject
 
     private IEnumerator VictorySequence()
     {
+
         SoundEffect getSound = SoundManager.Instance.GetSfx(SoundName.Victory);
 
        
@@ -191,7 +213,7 @@ public class Enemy_Spawner : UniqueIdentifiableObject
 
         SoundManager.Instance.CheckGameplayMusic(ClockManager.Instance.isIndoors, 1.0f); // Fade in 1 detik biar halus
 
-        spawnCount = 0;
+        enemiesSpawnedToday = 0;
 
         
 

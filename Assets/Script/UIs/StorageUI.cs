@@ -53,7 +53,6 @@ public class StorageUI : MonoBehaviour
             return;
         }
 
-        // --- Pendaftaran Listener ---
         closeStorageButton.onClick.AddListener(CloseStorage);
         storeAllButton.onClick.AddListener(StoreAllItems);
         takeAllButton.onClick.AddListener(TakeAllItems);
@@ -99,6 +98,8 @@ public class StorageUI : MonoBehaviour
 
         //GameController.Instance.ResumeGame();
         //GameController.Instance.ShowPersistentUI(true);
+        HandlePopupCancellation();
+        QuantityPopupUI.Instance.Cancel();
         gameObject.SetActive(false);
     }
     #endregion
