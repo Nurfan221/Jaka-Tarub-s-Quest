@@ -162,21 +162,15 @@ public class Enemy_Spawner : UniqueIdentifiableObject
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        // Cek apakah yang keluar itu adalah Enemy?
         if (other.CompareTag("Bandit"))
         {
-            // Cek apakah enemy ini milik spawner ini (ada di list?)
             if (enemies.Contains(other.gameObject))
             {
-                Debug.Log($"{other.name} kabur keluar area spawner!");
+                Enemy_Bandit banditScript = other.GetComponent<Enemy_Bandit>();
 
-                // Hapus dari list atau hancurkan
-               Enemy_Bandit banditScript = other.GetComponent<Enemy_Bandit>();
-                if (banditScript != null && !banditScript.isReturning )
+                if (banditScript != null && banditScript.isActiveAndEnabled && !banditScript.isReturning)
                 {
                     Debug.Log($"{other.name} kabur! Memaksa pulang.");
-
-                    // Panggil StartCoroutine DARI script si Bandit
                     banditScript.StartCoroutine(banditScript.BackToSpawner(transform.position));
                 }
             }

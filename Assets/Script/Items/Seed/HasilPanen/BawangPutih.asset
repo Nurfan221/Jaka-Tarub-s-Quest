@@ -15,11 +15,11 @@ MonoBehaviour:
   itemID: 63
   itemName: BawangPutih
   quality: 0
-  types: 2
-  categories: 520
+  rarity: 0
+  types: 262146
+  categories: 1049096
   sprite: {fileID: -1264567601, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Bawang putih yang kuat baunya, kaya akan rasa dan manfaat. Digunakan
-    untuk meningkatkan rasa dalam masakan dan sering digunakan dalam ramuan penyembuh.
+  itemDescription: Aromanya tajam dan gurih. Rahasia kelezatan masakan rrumahan.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,12 +43,13 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 0
+  BuyValue: 60
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: BawangPutih
   namePrefab: BawangPutih
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
   growthImages: []
-  growthObject: []
+  seedType: 0

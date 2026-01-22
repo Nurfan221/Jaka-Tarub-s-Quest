@@ -15,12 +15,12 @@ MonoBehaviour:
   itemID: 18
   itemName: BenihStrawberry
   quality: 0
-  types: 8
-  categories: 1024
+  rarity: 3
+  types: 262152
+  categories: 525312
   sprite: {fileID: -238553951, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Benih strawberry ini akan menghasilkan buah manis yang siap dipanen
-    dalam 5 hari. Tanam di tempat yang cerah dan beri perawatan baik agar hasilnya
-    optimal.
+  itemDescription: Bibit buah beri dari dataran tinggi. Butuh udara sejuk dan kasih
+    sayang.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -44,13 +44,14 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 50
-  SellValue: 20
-  BurningTime: 0
+  BuyValue: 1000
+  SellValue: 0
   CookTime: 0
   itemDropName: Strawberry
   namePrefab: 
-  growthTime: 4
+  growthTime: 10
+  canRegrow: 0
+  regrowTime: 0
   growthImages:
   - {fileID: -889635872, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -855130179, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}

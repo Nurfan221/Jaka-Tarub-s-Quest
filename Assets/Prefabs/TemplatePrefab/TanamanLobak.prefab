@@ -4922,7 +4922,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 3009418962734956380, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5006,6 +5006,7 @@ MonoBehaviour:
   growthSpeed: 0
   namaSeed: 
   seedType: 0
+  rarity: 0
   hardnessLevel: 1
   dropItem: 
   plantSeedItem: {fileID: 0}

@@ -15,11 +15,11 @@ MonoBehaviour:
   itemID: 6
   itemName: BenihCabai
   quality: 0
-  types: 8
-  categories: 1024
+  rarity: 2
+  types: 262152
+  categories: 525312
   sprite: {fileID: 7382632509033152633, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Benih cabai yang tajam ini membutuhkan tanah yang hangat dan banyak
-    sinar matahari. Dalam waktu 8 hari, cabai pedas akan siap dipanen.
+  itemDescription: Biji kecil yang menyimpan potensi pedas luar biasa. Panen melimpah!
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,13 +43,14 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 0
+  BuyValue: 400
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: Cabai
   namePrefab: 
-  growthTime: 4
+  growthTime: 9
+  canRegrow: 0
+  regrowTime: 0
   growthImages:
   - {fileID: -8196019274189321588, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: 173242361, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}

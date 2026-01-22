@@ -15,12 +15,12 @@ MonoBehaviour:
   itemID: 4
   itemName: BenihBawangPutih
   quality: 0
-  types: 8
-  categories: 1024
+  rarity: 1
+  types: 262152
+  categories: 525312
   sprite: {fileID: -8299483747074381786, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Benih bawang putih ini siap untuk ditanam di kebunmu. Dengan perawatan
-    yang tepat, setelah 9 hari, bawang putihnya akan tumbuh subur dan siap digunakan
-    dalam berbagai masakan.
+  itemDescription: Bibit bawang putih pilihan. Katanya bisa mengusir roh jahat (dan
+    vampir).
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -44,13 +44,14 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 50
-  SellValue: 20
-  BurningTime: 0
+  BuyValue: 60
+  SellValue: 0
   CookTime: 0
   itemDropName: BawangPutih
   namePrefab: 
-  growthTime: 4
+  growthTime: 5
+  canRegrow: 0
+  regrowTime: 0
   growthImages:
   - {fileID: -5475576212554502086, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: 7146819434937582957, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}

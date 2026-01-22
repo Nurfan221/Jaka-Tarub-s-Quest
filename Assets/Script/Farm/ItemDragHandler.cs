@@ -324,9 +324,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // Cek apakah tile sudah tertanami
             foreach (var lokasihoedTile in farmTile.hoedTilesList)
             {
-                if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.isPlanted == true)  // Membandingkan dengan Vector3Int
+                if (lokasihoedTile.tilePosition == cellPosition )  // Membandingkan dengan Vector3Int
                 {
-                    bool berhasil = PlacePestisida(cellPosition);
+                    bool berhasil = TryUseItemOnTile(cellPosition);
 
                     if (berhasil)
                     {
@@ -456,6 +456,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             seedComponent.isWatered = TimeManager.Instance.isRain;
             seedComponent.seedType = seedItem.seedType;
             seedComponent.plantSeedItem = seedItem; // Simpan referensi ke item benih
+            seedComponent.rarity = seedItem.rarity;
             seedComponent.ForceGenerateUniqueID();
             //seedComponent.plantLocation = spawnPosition;
         }
@@ -659,7 +660,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 
 
-    public bool PlacePestisida(Vector3Int cellPosition)
+    public bool TryUseItemOnTile(Vector3Int cellPosition)
     {
         Debug.Log("Memanggil fungsi place pestisida");
 
@@ -715,11 +716,44 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             else
             {
                 Debug.Log("Tanaman tidak memiliki serangga atau tidak ada komponen PlantSeed.");
+
             }
         }
         else
         {
             Debug.Log("Tanaman tidak ditemukan di posisi: " + cellPosition);
+            HoedTileData hoedTileData = farmTile.GetTileData(cellPosition);
+            if (hoedTileData != null && !hoedTileData.hasFertilizer)
+            {
+                foreach (ItemData itemData in stats.inventory)
+                {
+                    Item item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
+
+                    // Cek apakah item yang di-drag adalah PUPUK
+                    if (string.Equals(item.itemName, itemInDrag, StringComparison.OrdinalIgnoreCase) &&
+                        item.IsInCategory(ItemCategory.Pupuk) && // Sesuaikan kategori pupuk 
+                        item.IsInType(ItemType.Pestisida)) // Pastikan tipe item adalah Pestisida
+                    {
+                        // Kurangi Inventory
+                        itemData.count--;
+                        if (itemData.count <= 0)
+                        {
+                            stats.inventory.Remove(itemData);
+                        }
+
+                        // Eksekusi Logika Pupuk
+                        FarmTile.Instance.BeriPupuk(cellPosition);
+                        MechanicController.Instance.HandleUpdateInventory();
+
+                        Debug.Log("Berhasil memberi pupuk ke tanah kosong!");
+                        return true; // Berhasil
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("HoedTileData TIDAK ditemukan untuk posisi: " + cellPosition);
+            }
         }
 
         return false;

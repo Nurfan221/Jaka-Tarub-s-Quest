@@ -15,11 +15,12 @@ MonoBehaviour:
   itemID: 76
   itemName: PaprikaMerah
   quality: 0
-  types: 2
-  categories: 520
+  rarity: 0
+  types: 262146
+  categories: 1049096
   sprite: {fileID: -7476513998378615185, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Paprika merah yang manis dan kaya akan rasa. Mengandung banyak
-    vitamin dan cocok untuk menambah cita rasa pada hidangan.
+  itemDescription: Raja dari segala paprika. Manis, juicy, dan penuh nutrisi. Harganya
+    setara rasanya.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,12 +44,13 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 0
+  BuyValue: 350
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: PaprikaMerah
   namePrefab: PaprikaMerah
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
   growthImages: []
-  growthObject: []
+  seedType: 0

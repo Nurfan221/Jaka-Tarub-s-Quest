@@ -15,11 +15,11 @@ MonoBehaviour:
   itemID: 67
   itemName: Jagung
   quality: 0
-  types: 2
-  categories: 520
+  rarity: 0
+  types: 262146
+  categories: 1049096
   sprite: {fileID: -877960174360110181, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Jagung yang matang dengan sempurna, siap untuk dipanen. Menjadi
-    sumber makanan yang mengenyangkan dan bisa diolah menjadi berbagai hidangan.
+  itemDescription: Jagung manis  Enak dibakar malam-malam sambil jaga pos ronda.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,12 +43,13 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 0
+  BuyValue: 50
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: Jagung
   namePrefab: Jagung
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
   growthImages: []
-  growthObject: []
+  seedType: 0

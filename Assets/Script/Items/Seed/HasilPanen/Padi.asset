@@ -15,11 +15,12 @@ MonoBehaviour:
   itemID: 73
   itemName: Padi
   quality: 0
-  types: 2
-  categories: 520
+  rarity: 0
+  types: 262146
+  categories: 1049096
   sprite: {fileID: 6208842792875286600, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Padi yang matang, siap dipanen dan menjadi bahan dasar makanan
-    pokok. Dengan perawatan yang baik, padi ini akan memberi hasil yang melimpah.
+  itemDescription: Bulir emas yang sudah dipisahkan. Tinggal ditanak jadi nasi hangat.
+    Nyam!
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,11 +44,13 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 90
-  SellValue: 90
-  BurningTime: 0
+  BuyValue: 15
+  SellValue: 0
   CookTime: 0
   itemDropName: Padi
   namePrefab: Padi
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
   growthImages: []
+  seedType: 0

@@ -15,11 +15,11 @@ MonoBehaviour:
   itemID: 9
   itemName: BenihKentang
   quality: 0
-  types: 8
-  categories: 1024
+  rarity: 1
+  types: 262152
+  categories: 525312
   sprite: {fileID: -990410821, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Benih kentang ini cocok untuk tanah yang subur. Dalam 9 hari,
-    tanaman kentang akan menghasilkan umbi yang bisa dimasak dengan berbagai cara.
+  itemDescription: Potongan umbi mata tunas. Tanam dalam-dalam agar hasilnya banyak.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,13 +43,14 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 50
-  SellValue: 20
-  BurningTime: 0
+  BuyValue: 70
+  SellValue: 0
   CookTime: 0
   itemDropName: Kentang
   namePrefab: 
-  growthTime: 4
+  growthTime: 6
+  canRegrow: 0
+  regrowTime: 0
   growthImages:
   - {fileID: -2131477995, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -319977418, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}

@@ -15,11 +15,11 @@ MonoBehaviour:
   itemID: 21
   itemName: BenihUbiUngu
   quality: 0
-  types: 8
-  categories: 1024
+  rarity: 3
+  types: 262152
+  categories: 525312
   sprite: {fileID: 3599117755426302611, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Benih ubi merah ini akan menghasilkan umbi yang manis dan kaya
-    rasa setelah 9 hari. Tanam di tanah subur dan pastikan mendapat cukup air.
+  itemDescription: Bibit ubi bangsawan. Warnanya cantik dan butuh tanah gembur.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,13 +43,14 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 50
-  SellValue: 20
-  BurningTime: 0
+  BuyValue: 300
+  SellValue: 0
   CookTime: 0
   itemDropName: UbiUngu
   namePrefab: 
-  growthTime: 4
+  growthTime: 8
+  canRegrow: 0
+  regrowTime: 0
   growthImages:
   - {fileID: -4204251336133087135, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -8316093039233801710, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}

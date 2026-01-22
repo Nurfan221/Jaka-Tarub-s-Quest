@@ -15,11 +15,11 @@ MonoBehaviour:
   itemID: 23
   itemName: BenihWortel
   quality: 0
-  types: 8
-  categories: 1024
+  rarity: 0
+  types: 262152
+  categories: 525312
   sprite: {fileID: -5135470581713205809, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Benih wortel ini tumbuh cepat dan siap dipanen dalam waktu 7 hari.
-    Tanam di tanah subur dan beri perhatian agar wortel tumbuh dengan baik.
+  itemDescription: Bibit wortel oranye cerah. Tumbuh cepat dan tidak rewel.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,13 +43,14 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 50
-  SellValue: 20
-  BurningTime: 0
+  BuyValue: 45
+  SellValue: 0
   CookTime: 0
   itemDropName: Wortel
   namePrefab: 
   growthTime: 4
+  canRegrow: 0
+  regrowTime: 0
   growthImages:
   - {fileID: -3586709431004978821, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: 8655191246718753649, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}

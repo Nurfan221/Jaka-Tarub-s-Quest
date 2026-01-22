@@ -21,7 +21,11 @@ public enum ItemType
     PenggarukSampah = 16384,
     Sabit = 32768,
     Perangkap = 65536,
-    Pelebur = 131072
+    Pelebur = 131072,
+    ItemShop = 262144,
+    FoodAndDrink = 524288,
+
+
 
 }
 
@@ -47,15 +51,27 @@ public enum ItemCategory
     Smelt = 32768,
     tools = 65536,
     Ingot = 131072,
+    Pupuk = 262144,
+    Seed = 524288,
+    Produce = 1048576,
+}
+
+public enum ItemRarity
+{
+    Common,
+    Uncommon,
+    Rare,
+    Epic,
+    Legendary
 }
 
 public enum ItemQuality
 {
-    Normal = 0,   // Bintang 1
-    Baik = 1,     // Bintang 2
-    Sempurna = 2  // Bintang 3
+    Broken,  // Rusak/Busuk
+    Normal,
+    Good,
+    Perfect
 }
-
 [CreateAssetMenu(menuName = "Make an Item")]
 public class Item : ScriptableObject
 {
@@ -63,6 +79,7 @@ public class Item : ScriptableObject
     public int itemID;
     public string itemName;
     public ItemQuality quality;
+    public ItemRarity rarity;
     public ItemType types;
     public ItemCategory categories;
     public Sprite sprite;
@@ -111,6 +128,8 @@ public class Item : ScriptableObject
     // Seed Properties (khusus untuk benih)
     [Header("SEED PROPERTIES")]
     public float growthTime; // Lama pertumbuhan dalam hari
+    public bool canRegrow; // Apakah tanaman bisa tumbuh
+    public float regrowTime; // Lama waktu untuk tumbuh kembali setelah dipanen
     public Sprite[] growthImages; // Gambar untuk tiap tahap pertumbuhan
     public SeedType seedType; // Jenis benih (misal: sayuran, buah, dll)
     //public GameObject plantPrefab; // Prefab tanaman yang akan tumbuh dari benih
@@ -125,6 +144,8 @@ public class Item : ScriptableObject
     {
         return (types & type) == type;
     }
+
+    
 
 
 }

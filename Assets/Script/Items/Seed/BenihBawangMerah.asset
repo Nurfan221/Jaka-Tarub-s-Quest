@@ -15,12 +15,11 @@ MonoBehaviour:
   itemID: 3
   itemName: BenihBawangMerah
   quality: 0
-  types: 8
-  categories: 1024
+  rarity: 1
+  types: 262152
+  categories: 525312
   sprite: {fileID: 332597446, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Benih bawang merah ini membutuhkan tanah yang kaya nutrisi untuk
-    tumbuh. Setelah 6 hari, bawang merah akan siap dipanen dengan rasa ringan dan
-    aroma yang khas.
+  itemDescription: Umbi lapis yang kuat. Aromanya sudah tercium bahkan dari bibitnya.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -33,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -44,13 +43,14 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 50
-  SellValue: 20
-  BurningTime: 0
+  BuyValue: 60
+  SellValue: 0
   CookTime: 0
   itemDropName: BawangMerah
   namePrefab: 
-  growthTime: 4
+  growthTime: 5
+  canRegrow: 0
+  regrowTime: 0
   growthImages:
   - {fileID: 450580160, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -1281155106, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}

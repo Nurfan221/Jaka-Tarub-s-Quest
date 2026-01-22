@@ -15,11 +15,12 @@ MonoBehaviour:
   itemID: 78
   itemName: Timun
   quality: 0
-  types: 2
-  categories: 520
+  rarity: 0
+  types: 262146
+  categories: 1049096
   sprite: {fileID: -1808789067199627710, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Timun segar dengan kulit hijau dan daging yang renyah. Menjadi
-    bahan penting dalam salad dan menyegarkan saat cuaca panas.
+  itemDescription: Segar dan berair. Teman setia nasi goreng atau sekadar masker
+    wajah alami.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,12 +44,13 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 0
+  BuyValue: 15
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: Timun
   namePrefab: Timun
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
   growthImages: []
-  growthObject: []
+  seedType: 0

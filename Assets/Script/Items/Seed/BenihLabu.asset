@@ -15,11 +15,11 @@ MonoBehaviour:
   itemID: 11
   itemName: BenihLabu
   quality: 0
-  types: 8
-  categories: 1024
+  rarity: 3
+  types: 262152
+  categories: 525312
   sprite: {fileID: -2568639942751428513, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Benih labu ini membutuhkan tanah yang luas dan banyak sinar matahari.
-    Setelah 10 hari, tanaman labu akan menghasilkan buah besar yang siap dipanen.
+  itemDescription: Benih labu raksasa. Siapkan lahan luas karena dia butuh ruang!
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,13 +43,14 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 50
-  SellValue: 20
-  BurningTime: 0
+  BuyValue: 800
+  SellValue: 0
   CookTime: 0
   itemDropName: Labu
   namePrefab: 
-  growthTime: 4
+  growthTime: 14
+  canRegrow: 0
+  regrowTime: 0
   growthImages:
   - {fileID: -2091771526141317569, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -2715320023988108468, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}

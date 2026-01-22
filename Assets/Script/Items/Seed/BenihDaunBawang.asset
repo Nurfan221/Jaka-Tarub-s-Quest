@@ -15,12 +15,11 @@ MonoBehaviour:
   itemID: 7
   itemName: BenihDaunBawang
   quality: 0
-  types: 8
-  categories: 1024
+  rarity: 0
+  types: 262152
+  categories: 525312
   sprite: {fileID: -1220697262, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Benih daun bawang kecil ini tumbuh cepat dan akan siap dipanen
-    dalam waktu 5 hari. Tanam di tanah yang subur dan beri sedikit perhatian untuk
-    hasil yang optimal.
+  itemDescription: Bibit sayuran hijau yang aromatik. Tumbuh subur di segala musim.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -33,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -44,13 +43,14 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 50
-  SellValue: 20
-  BurningTime: 0
+  BuyValue: 30
+  SellValue: 0
   CookTime: 0
   itemDropName: DaunBawang
   namePrefab: 
   growthTime: 4
+  canRegrow: 0
+  regrowTime: 0
   growthImages:
   - {fileID: 889301160, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -1999476474, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}

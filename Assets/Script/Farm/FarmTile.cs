@@ -385,6 +385,62 @@ public class FarmTile : MonoBehaviour, ISaveable
         return plant;
     }
 
+    public HoedTileData GetTileData(Vector3Int tilePosition)
+    {
+        return hoedTilesList.Find(t => t.tilePosition == tilePosition);
+    }
+
+    public void BeriPupuk(Vector3Int tilePosition)
+    {
+        HoedTileData tileData = hoedTilesList.Find(t => t.tilePosition == tilePosition);
+        if (tileData != null)
+        {
+            Debug.Log($"Memberi pupuk pada tile di posisi {tilePosition}.");
+            tileData.hasFertilizer = true;
+
+            // Panggil fungsi helper agar rapi dan bisa dipakai ulang saat menyiram
+            UpdateTileVisual(tilePosition, tileData);
+        }
+        else
+        {
+            Debug.LogWarning($"Tile tidak ditemukan di {tilePosition}.");
+        }
+    }
+
+    // Fungsi Helper untuk mengatur gambar tanah berdasarkan status Data
+    private void UpdateTileVisual(Vector3Int pos, HoedTileData data)
+    {
+        TileBase tileToSet = null;
+
+        if (data.watered)
+        {
+            // Jika Basah DAN Ada Pupuk -> Pakai gambar tanah basah berpupuk
+            if (data.hasFertilizer)
+            {
+                tileToSet = databaseManager.fertilezerTileWatered; // Anda butuh aset ini!
+            }
+            // Jika Basah saja -> Pakai gambar tanah basah
+            else
+            {
+                tileToSet = databaseManager.wateredTile;
+            }
+        }
+        else // Jika Kering
+        {
+            // Jika Kering DAN Ada Pupuk
+            if (data.hasFertilizer)
+            {
+                tileToSet = databaseManager.fertilizerTile;
+            }
+            // Jika Kering Biasa
+            else
+            {
+                tileToSet = databaseManager.emptySoilTile;
+            }
+        }
+
+        tilemap.SetTile(pos, tileToSet);
+    }
 
 
     public void OnPlantHarvested(string plantTargetID)
@@ -454,6 +510,7 @@ public class FarmTile : MonoBehaviour, ISaveable
                         seedComponent.currentStage = tileData.currentStage;
                         seedComponent.plantSeedItem = tileData.plantSeedItem;
                         seedComponent.isReadyToHarvest = tileData.isReadyToHarvest;
+                        seedComponent.rarity = itemTemplate.rarity;
 
                         // Panggil Initialize untuk final setup
                         seedComponent.Initialize();

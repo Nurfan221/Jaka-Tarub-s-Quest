@@ -15,12 +15,12 @@ MonoBehaviour:
   itemID: 19
   itemName: BenihTimun
   quality: 0
-  types: 8
-  categories: 1024
+  rarity: 0
+  types: 262152
+  categories: 525312
   sprite: {fileID: -20208297663288649, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Benih timun ini menghasilkan buah yang segar dan renyah setelah
-    6 hari. Tanam di tanah yang subur dan beri sedikit perhatian agar tumbuh dengan
-    baik.
+  itemDescription: Bibit tanaman merambat. Pasang lanjaran agar buahnya menggantung
+    rapi.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -45,12 +45,13 @@ MonoBehaviour:
   isStackable: 1
   maxStackCount: 32
   BuyValue: 50
-  SellValue: 20
-  BurningTime: 0
+  SellValue: 0
   CookTime: 0
   itemDropName: Timun
   namePrefab: 
-  growthTime: 4
+  growthTime: 6
+  canRegrow: 0
+  regrowTime: 0
   growthImages:
   - {fileID: 7090712951712807319, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -2117537998, guid: 1b2c1f1d2a5aa8943bfd72cc4effbc6e, type: 3}

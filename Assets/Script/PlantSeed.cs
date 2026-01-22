@@ -21,6 +21,8 @@ public class PlantSeed : UniqueIdentifiableObject
     public bool isWatered = false;
     public bool isReadyToHarvest = false;
     public bool isInfected = false;
+    public bool hasFertilizer = false;
+    public bool isWithered = false; // Dicek dari timer telat panen
 
     [Header("Plant Attributes")]
     public Sprite[] growthImages;
@@ -28,6 +30,7 @@ public class PlantSeed : UniqueIdentifiableObject
     public float growthSpeed; // Jeda hari antar tahap pertumbuhan
     public string namaSeed;
     public SeedType seedType;
+    public ItemRarity rarity;
     public EnvironmentHardnessLevel hardnessLevel;
     public string dropItem;
     public Item plantSeedItem; // Referensi ke item benih

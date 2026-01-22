@@ -15,12 +15,12 @@ MonoBehaviour:
   itemID: 61
   itemName: Anggur
   quality: 0
-  types: 2
-  categories: 513
+  rarity: 0
+  types: 262146
+  categories: 1049089
   sprite: {fileID: -1761243223, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
-  itemDescription: Anggur yang tumbuh subur di kebunmu, penuh dengan rasa manis yang
-    segar. Digunakan dalam berbagai hidangan atau bisa dibuat menjadi anggur fermentasi
-    yang menghangatkan hati.
+  itemDescription: Bulir-bulir ungu yang melambangkan kekayaan. Rasanya seperti meminum
+    nektar para dewa. Sangat mahal!
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -44,12 +44,13 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 0
+  BuyValue: 1100
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: Anggur
   namePrefab: Anggur
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
   growthImages: []
-  growthObject: []
+  seedType: 0

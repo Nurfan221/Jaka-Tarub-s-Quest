@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
+  m_Name: Pupuk
+  m_EditorClassIdentifier: 
+  itemID: 95
+  itemName: Pupuk
+  quality: 0
+  rarity: 1
+  types: 136
+  categories: 262144
+  sprite: {fileID: 6492291968588292749, guid: c618fe8a33f5f0d45a3d5cc36528aa0c, type: 3}
+  itemDescription: Gunakan pupuk ini untuk mengurangi waktu pertumbuhan Tanaman dan
+    meningkatkan kemungkinan menumbuhkan buah quality tinggi
+  QuantityFuel: 0
+  maxhealth: 10
+  health: 10
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
+  isItemCombat: 0
+  level: 0
+  MaxLevel: 0
+  Damage: 0
+  AreaOfEffect: 0
+  SpecialAttackCD: 0
+  SpecialAttackStamina: 0
+  UpgradeCost: 0
+  UseStamina: 0
+  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  isStackable: 1
+  maxStackCount: 32
+  BuyValue: 5
+  SellValue: 2
+  CookTime: 0
+  itemDropName: 
+  namePrefab: 
+  growthTime: 0
+  growthImages: []
+  seedType: 0

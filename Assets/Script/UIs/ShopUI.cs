@@ -23,7 +23,7 @@ public class ShopUI : MonoBehaviour
     public Transform contentBuyUI;
     public Transform templateBuyUI;
     public TypeShop currentTypeShop;
-    public ItemCategory categoryItemShop;
+    public ItemType TypeItemShop;
 
 
     [Header("Daftar Button dan UI")]
@@ -92,11 +92,11 @@ public class ShopUI : MonoBehaviour
         currentTypeShop = typeShop;
         if (typeShop == TypeShop.ItemShop)
         {
-            categoryItemShop = ItemCategory.PlantSeed;
+            TypeItemShop = ItemType.ItemShop;
         }
         else if (typeShop == TypeShop.FoodShop)
         {
-            categoryItemShop = ItemCategory.Food;
+            TypeItemShop = ItemType.FoodAndDrink;
         }
         // hubungkan interactable ke ui 
         shopInteractable = interactable;
@@ -179,7 +179,7 @@ public class ShopUI : MonoBehaviour
         {
 
             Item item = ItemPool.Instance.GetItemWithQuality(itemData.itemName, itemData.quality);
-            if (item.categories == categoryItemShop)
+            if (item.IsInType(TypeItemShop))
             {
                 Transform itemSlot = Instantiate(templateSellUI, contentSellUI);
                 itemSlot.gameObject.SetActive(true);
@@ -192,7 +192,7 @@ public class ShopUI : MonoBehaviour
                 imageItem.sprite = item.sprite;
 
                 itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.itemName;
-                itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + item.SellValue;
+                itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + CalculateSellPrice(item);
 
                 //Inisialisasi jumlah item yang akan dijual
                 if (!itemSellCounts.ContainsKey(item.itemName))
@@ -265,7 +265,7 @@ public class ShopUI : MonoBehaviour
             stackCountText.text = itemShop.count.ToString();
             imageItem.sprite = item.sprite;
             itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.itemName;
-            itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + item.BuyValue;
+            itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + CalculateShopResellPrice(item);
 
             //Inisialisasi jumlah item yang akan dibeli
             if (!itemBuyCounts.ContainsKey(itemShop.itemName))
@@ -513,7 +513,7 @@ public class ShopUI : MonoBehaviour
     {
         Item item = ItemPool.Instance.GetItemWithQuality(selectedItem.itemName, selectedItem.quality);
 
-        if (item.categories == categoryItemShop)
+        if (item.IsInType(TypeItemShop))
         {
             int remainingToStore = itemCounts[selectedItem.itemName]; // Jumlah item yang ingin dipindahkan
 
@@ -648,6 +648,39 @@ public class ShopUI : MonoBehaviour
             if (child != template)
                 Destroy(child.gameObject);
         }
+    }
+
+    public static int CalculateSellPrice(Item item)
+    {
+        // Logika: Barang bekas, harga turun (Depresiasi).
+        if (item.IsInCategory(ItemCategory.Seed))
+        {
+            // Diskon 25% (Jadi player cuma dapat 75% uangnya kembali)
+            return Mathf.RoundToInt(item.BuyValue * 0.75f);
+        }
+
+        // Logika: Ini bisnis utama player, harga sesuai tabel profit (Full Price).
+        else if (item.IsInCategory(ItemCategory.Produce))
+        {
+            // Faktor Kualitas bisa dimasukkan di sini nanti
+            return item.BuyValue;
+        }
+
+        else
+        {
+            return Mathf.RoundToInt(item.BuyValue * 0.5f);
+        }
+    }
+
+    // Fungsi tambahan untuk NPC menjual barang panen ke Player (Buyback mahal)
+    public static int CalculateShopResellPrice(Item item)
+    {
+        if (item.IsInCategory(ItemCategory.Produce))
+        {
+            // Kalau NPC jual Wortel, harganya 2x lipat harga dasar
+            return item.BuyValue * 2;
+        }
+        return item.BuyValue; // Default
     }
 
 }
