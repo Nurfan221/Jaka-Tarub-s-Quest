@@ -3,6 +3,8 @@ using UnityEngine;
 public class MiniQuestInteractable : Interactable
 {
     [SerializeField] MiniQuestUI miniQuestUI;
+    public bool isObjectBroken = true;
+    public Dialogues brokenObjectDialogue;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,9 +16,18 @@ public class MiniQuestInteractable : Interactable
     {
 
     }
+
     protected override void Interact()
     {
-        miniQuestUI.Open();
+        if (isObjectBroken)
+        {
+            DialogueSystem.Instance.HandlePlayDialogue(brokenObjectDialogue);
+        }
+        else
+        {
+            miniQuestUI.Open();
+
+        }
     }
 
 }

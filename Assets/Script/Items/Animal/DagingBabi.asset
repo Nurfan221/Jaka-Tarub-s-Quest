@@ -18,7 +18,8 @@ MonoBehaviour:
   types: 0
   categories: 514
   sprite: {fileID: 6085073277765740532, guid: 22ca46a4b54c021448c2f2ff9de9c5aa, type: 3}
-  itemDescription: 
+  itemDescription: Daging berlemak yang didapat dari berburu di hutan. Didapat dari
+    babi yang menyeruduk sembarangan. Lemaknya tebal dan gurih.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -31,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 0
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -44,7 +45,6 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 5
   itemDropName: 
   namePrefab: 

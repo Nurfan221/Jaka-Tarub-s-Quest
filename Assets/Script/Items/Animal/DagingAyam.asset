@@ -18,7 +18,8 @@ MonoBehaviour:
   types: 8
   categories: 514
   sprite: {fileID: -493298249393069735, guid: 22ca46a4b54c021448c2f2ff9de9c5aa, type: 3}
-  itemDescription: 
+  itemDescription: Daging unggas segar. Bahan makanan pokok yang mudah diolah. Makanan
+    sejuta umat Tidak ada yang menolak makan ini.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -31,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -44,7 +45,6 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 5
   itemDropName: 
   namePrefab: 
