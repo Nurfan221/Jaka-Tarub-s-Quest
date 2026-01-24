@@ -122,7 +122,8 @@ public class HoedTileData
     public bool hasFertilizer = false;
     public float fertilizerStrength;
     public bool isWithered = false; // Dicek dari timer telat panen
-
+    public float reGrowTimer = 0; // menghitung progres pertumbuhan setelah dipanen
+    public bool isRegrow = false;
     //public HoedTileData(Vector3Int pos, int time)
     //{
     //    tilePosition = pos;

@@ -23,6 +23,7 @@ public class PlantSeed : UniqueIdentifiableObject
     public bool isInfected = false;
     public bool hasFertilizer = false;
     public bool isWithered = false; // Dicek dari timer telat panen
+    public bool isRegrow = false;
 
     [Header("Plant Attributes")]
     public Sprite[] growthImages;
@@ -38,6 +39,7 @@ public class PlantSeed : UniqueIdentifiableObject
     // Data Internal
     public SpriteRenderer spriteRenderer; // Referensi ke komponen SpriteRenderer
     public float growthTimer = 0; // Menghitung progres pertumbuhan (dalam hari)
+    public float reGrowTimer = 0; // menghitung progres pertumbuhan setelah dipanen
     public int insectTime = 0; // Menghitung berapa lama tanaman terinfeksi
 
     public Vector3 plantLocation;
@@ -79,9 +81,7 @@ public class PlantSeed : UniqueIdentifiableObject
     }
     private void Start()
     {
-        // Cari GameObject anak berdasarkan NAMA, lalu ambil komponen ParticleSystem-nya.
-        // Pastikan nama "WaterParticle", "GrowParticle", dan "InsectParticle" 
-        // sama persis dengan nama GameObject anak di dalam prefab PlantSeed.
+      
 
         Transform waterTransform = transform.Find("WaterParticle");
         if (waterTransform != null)
@@ -145,57 +145,60 @@ public class PlantSeed : UniqueIdentifiableObject
             Debug.Log($"[DEBUG] {namaSeed} di {plantLocation} BERTUMBUH ke tahap: {currentStage}. Memanggil UpdateSprite().");
             UpdateSprite(); // Panggilan ini sudah benar
         }
+
+   
     }
 
 
-    public void UpdateSprite()
+    public void UpdateSprite(int spriteIndex)
     {
-        int stageIndex = (int)currentStage;
-        if (stageIndex >= 0 && stageIndex <= growthImages.Length)
+        // Validasi Index
+        if (spriteIndex >= 0 && spriteIndex < growthImages.Length) // Pakai '<' bukan '<=' karena array mulai dari 0
         {
-            // DEBUGGING LOG
-            Debug.Log($"[DEBUG] UpdateSprite: Mengganti sprite ke growthImages[{stageIndex}]. Nama Sprite: {growthImages[stageIndex].name}");
-            // AKHIR DEBUGGING
+            // Debug.Log($"[DEBUG] Mengganti sprite ke index: {spriteIndex}");
+
             Transform visualChild = transform.Find("Visual");
 
             if (visualChild != null)
             {
-                // Ambil komponen dari anak tersebut
                 spriteRenderer = visualChild.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.sprite = growthImages[spriteIndex];
+                }
             }
             else
             {
-                Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
+                Debug.LogError("Gawat! Tidak ada anak bernama 'Visual'!");
             }
-            spriteRenderer.sprite = growthImages[stageIndex];
         }
         else
         {
-            
-            Debug.LogError($"[DEBUG] UpdateSprite GAGAL: Index {stageIndex} di luar jangkauan array growthImages (panjang: {growthImages.Length}).");
-            Debug.LogError($"[DEBUG] nilai currentStage = {(int)currentStage} dan nilai growthImages =   (panjang: {growthImages.Length}).");
+            Debug.LogError($"[DEBUG] UpdateSprite GAGAL: Index {spriteIndex} di luar batas array images.");
         }
+    }
+
+    public void UpdateSprite()
+    {
+        // Kita lempar nilai enum yang dikonversi ke int ke fungsi utama di atas
+        UpdateSprite((int)currentStage);
     }
 
 
     public void UpdateParticleEffect()
     {
-        // Pastikan semua particle system ada
-        if (growEffect == null || waterEffect == null || insectEffect == null) return;
+        // Safety Check
+        if (growEffect == null || waterEffect == null || insectEffect == null || harvestParticle == null) return;
 
-        // Nonaktifkan semua dulu untuk kebersihan
         growEffect.Stop();
         waterEffect.Stop();
         insectEffect.Stop();
+        harvestParticle.Stop(); 
 
         if (isReadyToHarvest)
         {
-            // Disarankan menggunakan efek berbeda untuk siap panen (misal: berkilau)
-            // Untuk sementara, kita gunakan waterEffect sebagai tanda.
-            //waterEffect.Play();
             harvestParticle.Play();
         }
-
         else if (isInfected)
         {
             insectEffect.Play();
@@ -204,9 +207,8 @@ public class PlantSeed : UniqueIdentifiableObject
         {
             growEffect.Play();
         }
-        else // Kering dan belum siap panen
+        else // Kering
         {
-            // Menampilkan efek "butuh air"
             waterEffect.Play();
         }
     }
@@ -227,22 +229,112 @@ public class PlantSeed : UniqueIdentifiableObject
     public void Harvest()
     {
         Item itemDrop = ItemPool.Instance.GetItem(dropItem);
+        if (itemDrop == null)
+        {
+            Debug.LogError($"Harvest Gagal: Item '{dropItem}' tidak ditemukan di ItemPool!");
+            return;
+        }
+
         if (isReadyToHarvest)
         {
-            Debug.Log("Biji dipanen!");
-            int itemToDrop = Random.Range(0, 3);
+            Debug.Log($"Tanaman {plantSeedItem.itemName} dipanen!");
 
+            // Jika min=1, max=3 -> Range(1, 4) -> Hasil: 1, 2, atau 3.
+            int itemToDrop = Random.Range(plantSeedItem.minDropHarvest, plantSeedItem.maxDropHarvest + 1);
+
+            // Drop Item
             ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.health, itemDrop.quality, transform.position + new Vector3(0, 0.5f, 0), itemToDrop);
 
-            FarmTile.Instance.OnPlantHarvested(this.UniqueID);
+            if (plantSeedItem.canRegrow)
+            {
+                // Fungsi ini akan mereset visual dan memundurkan timer secara otomatis.
+                PlantReGrow();
 
-            Destroy(gameObject);
+                // Biarkan PlantReGrow yang mengatur timer.
+            }
+            else
+            {
+                // Lapor dulu ke Tile bahwa tanaman ini hilang (kosongkan data tile)
+                FarmTile.Instance.OnPlantHarvested(this.UniqueID);
+
+                // Baru hancurkan objek visualnya
+                Destroy(gameObject);
+            }
         }
         else
         {
-            Debug.Log("Biji belum siap dipanen bos");
+            Debug.Log("Tanaman belum siap dipanen bos.");
         }
     }
+
+    public void PlantReGrow()
+    {
+        if (!isReadyToHarvest) return;
+        if (isRegrow)
+        {
+            reGrowTimer++;
+            PlantSeed plantSeed = gameObject.GetComponent<PlantSeed>();
+            FarmTile.Instance.OnRegrowHarvested(plantSeed);
+        }
+        // Reset Status
+        isReadyToHarvest = false;
+        isRegrow = true;
+        if(TimeManager.Instance.isRain)
+        {
+            isWatered = true;
+        }else
+        {
+            isWatered = false;
+        }    
+
+
+
+            growthTimer = growthTimer - plantSeedItem.regrowSpeed;
+
+        // Safety: Jangan sampai minus
+        growthTimer = Mathf.Max(1f, growthTimer);
+
+      
+
+        float originalTotalTime = plantSeedItem.growthTime;
+        int totalImages = growthImages.Length;
+
+        // Hitung persentase progress saat ini
+        float currentProgressPercent = growthTimer / originalTotalTime;
+
+        // Konversi ke index gambar
+        int targetSpriteIndex = Mathf.FloorToInt(currentProgressPercent * totalImages);
+
+        // Safety: Pastikan index valid dan minimal 1 (jangan jadi biji)
+        targetSpriteIndex = Mathf.Clamp(targetSpriteIndex, 1, totalImages - 1);
+
+        // Update Gambar
+        UpdateSprite(targetSpriteIndex);
+
+        // Update Enum (Sesuai gambar)
+        if (targetSpriteIndex >= totalImages - 1)
+        {
+            // Harusnya gak masuk sini, tapi buat safety
+            currentStage = GrowthStage.ReadyToHarvest;
+        }
+        else if (targetSpriteIndex > 1)
+        {
+            currentStage = GrowthStage.MaturePlant;
+        }
+        else
+        {
+            currentStage = GrowthStage.YoungPlant;
+        }
+
+        if(reGrowTimer >= plantSeedItem.regrowTime)
+        {
+            Destroy(gameObject);
+        }
+
+        UpdateParticleEffect();
+        Debug.Log($"Regrow Simpel: Timer diset ke {growthTimer}. Gambar mundur ke index {targetSpriteIndex}.");
+    }
+
 
     public void CureInfection()
     {

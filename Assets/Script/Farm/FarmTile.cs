@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static TileSoundLibrary;
 
 public class FarmTile : MonoBehaviour, ISaveable
 {
@@ -98,6 +100,8 @@ public class FarmTile : MonoBehaviour, ISaveable
                 isReadyToHarvest = respawnItem.isReadyToHarvest,
                 hasFertilizer = respawnItem.hasFertilizer,
                 fertilizerStrength = respawnItem.fertilizerStrength,
+                isRegrow = respawnItem.isRegrow,
+                reGrowTimer = respawnItem.reGrowTimer
             });
         }
 
@@ -120,6 +124,8 @@ public class FarmTile : MonoBehaviour, ISaveable
             isReadyToHarvest = data.isReadyToHarvest,
             hasFertilizer = data.hasFertilizer,
             fertilizerStrength = data.fertilizerStrength,
+            isRegrow = data.isRegrow,
+            reGrowTimer = data.reGrowTimer
 
         });
         Debug.Log("[LOAD] Merestorasi data antrian respawn tanaman..." + hoedTilesList.Count);
@@ -324,7 +330,7 @@ public class FarmTile : MonoBehaviour, ISaveable
 
 
         tileData.growthProgress++;
-        plant.growthTimer = tileData.growthProgress;
+        plant.growthTimer++;
         Debug.Log($"[DEBUG] {plant.namaSeed} di {tileData.tilePosition}: Progress tumbuh menjadi {tileData.growthProgress}, Butuh {plant.growthTime} total.");
 
         // Cek apakah sudah waktunya panen
@@ -477,6 +483,28 @@ public class FarmTile : MonoBehaviour, ISaveable
         }
     }
 
+    public void OnRegrowHarvested(PlantSeed plantSeed)
+    {
+        // Cari data tile yang sesuai di dalam list
+        HoedTileData tileData = hoedTilesList.Find(t => t.plantID == plantSeed.UniqueID);
+
+        if (tileData != null)
+        {
+            tileData.isReadyToHarvest = false;
+            tileData.isRegrow = plantSeed.isRegrow;
+            tileData.reGrowTimer = plantSeed.reGrowTimer;
+            tileData.currentStage = plantSeed.currentStage;
+            tileData.growthProgress = (int)plantSeed.growthTimer;
+        }
+
+        //Hapus referensi tanaman dari dictionary tanaman aktif
+        if (activePlants.ContainsKey(tileData.tilePosition))
+        {
+
+            activePlants.Remove(tileData.tilePosition);
+        }
+    }
+
     public void RestoreFarmStateList()
     {
         if (hoedTilesList == null || tilemap == null) return;
@@ -517,7 +545,8 @@ public class FarmTile : MonoBehaviour, ISaveable
                         seedComponent.isReadyToHarvest = tileData.isReadyToHarvest;
                         seedComponent.rarity = itemTemplate.rarity;
                         seedComponent.hasFertilizer = tileData.hasFertilizer;
-
+                        seedComponent.isRegrow = tileData.isRegrow;
+                        seedComponent.reGrowTimer = tileData.reGrowTimer;
 
                         // Panggil Initialize untuk final setup
                         seedComponent.Initialize();
