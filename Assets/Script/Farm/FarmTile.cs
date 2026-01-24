@@ -96,6 +96,8 @@ public class FarmTile : MonoBehaviour, ISaveable
                 growthProgress = respawnItem.growthProgress,
                 currentStage = respawnItem.currentStage,
                 isReadyToHarvest = respawnItem.isReadyToHarvest,
+                hasFertilizer = respawnItem.hasFertilizer,
+                fertilizerStrength = respawnItem.fertilizerStrength,
             });
         }
 
@@ -116,6 +118,8 @@ public class FarmTile : MonoBehaviour, ISaveable
             growthProgress = data.growthProgress,
             currentStage = data.currentStage,
             isReadyToHarvest = data.isReadyToHarvest,
+            hasFertilizer = data.hasFertilizer,
+            fertilizerStrength = data.fertilizerStrength,
 
         });
         Debug.Log("[LOAD] Merestorasi data antrian respawn tanaman..." + hoedTilesList.Count);
@@ -237,8 +241,8 @@ public class FarmTile : MonoBehaviour, ISaveable
 
         if (plant == null || (!plant.isInfected && !plant.isReadyToHarvest))
         {
-            tilemap.SetTile(tileToWater, databaseManager.wateredTile);
             hoedTile.watered = true;
+            UpdateTileVisual(tileToWater, hoedTile);
             // Catat kapan terakhir disiram
             //hoedTile.hoedTime = timeManager.date;
 
@@ -286,9 +290,10 @@ public class FarmTile : MonoBehaviour, ISaveable
             DryOutWateredTile(tileData, plant);
             if (!tileData.watered && !tileData.isInfected)
             {
-                tilemap.SetTile(tileData.tilePosition, databaseManager.wateredTile);
+                //tilemap.SetTile(tileData.tilePosition, databaseManager.wateredTile);
                 tileData.watered = true;
                 //tileData.hoedTime = timeManager.date; // Update waktu siram
+                UpdateTileVisual(tileData.tilePosition, tileData);
 
                 if (plant != null && !plant.isInfected && !plant.isReadyToHarvest)
                 {
@@ -390,13 +395,14 @@ public class FarmTile : MonoBehaviour, ISaveable
         return hoedTilesList.Find(t => t.tilePosition == tilePosition);
     }
 
-    public void BeriPupuk(Vector3Int tilePosition)
+    public void BeriPupuk(Vector3Int tilePosition, float newfertilizerStrength)
     {
         HoedTileData tileData = hoedTilesList.Find(t => t.tilePosition == tilePosition);
         if (tileData != null)
         {
             Debug.Log($"Memberi pupuk pada tile di posisi {tilePosition}.");
             tileData.hasFertilizer = true;
+            tileData.fertilizerStrength = newfertilizerStrength;
 
             // Panggil fungsi helper agar rapi dan bisa dipakai ulang saat menyiram
             UpdateTileVisual(tilePosition, tileData);
@@ -477,8 +483,7 @@ public class FarmTile : MonoBehaviour, ISaveable
 
         foreach (HoedTileData tileData in hoedTilesList)
         {
-            Tile targetTile = tileData.watered ? databaseManager.wateredTile : databaseManager.hoeedTile;
-            tilemap.SetTile(tileData.tilePosition, targetTile);
+            UpdateTileVisual(tileData.tilePosition, tileData);
 
             if (tileData.isPlanted && !string.IsNullOrEmpty(tileData.plantID))
             {
@@ -511,6 +516,8 @@ public class FarmTile : MonoBehaviour, ISaveable
                         seedComponent.plantSeedItem = tileData.plantSeedItem;
                         seedComponent.isReadyToHarvest = tileData.isReadyToHarvest;
                         seedComponent.rarity = itemTemplate.rarity;
+                        seedComponent.hasFertilizer = tileData.hasFertilizer;
+
 
                         // Panggil Initialize untuk final setup
                         seedComponent.Initialize();

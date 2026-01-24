@@ -258,48 +258,35 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Fungsi untuk memeriksa posisi item selama drag
     private void CheckItemPositionDuringDrag()
     {
-        // Ambil posisi mouse di Screen Space
         Vector3 screenPosition = Input.mousePosition;
-
-        // Konversi posisi dari Screen Space ke World Space
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, Mathf.Abs(Camera.main.transform.position.z)));
-
-        // Mengubah posisi world ke posisi tilemap
         Vector3Int cellPosition = FarmTile.Instance.tilemap.WorldToCell(worldPosition);
-        // Mengecek tile pada posisi ini
-        TileBase currentTile = FarmTile.Instance.tilemap.GetTile(cellPosition);
 
-        if ((currentTile == statsFarm.hoeedTile || currentTile == statsFarm.wateredTile))
+        // "Tolong carikan saya data tile di list yang posisinya SAMA dengan mouse saya"
+        HoedTileData targetTile = farmTile.hoedTilesList.Find(t => t.tilePosition == cellPosition);
+
+
+        // Skenario A: Tile tidak ditemukan (Belum dicangkul) -> Pulang
+        if (targetTile == null)
         {
-            // Cek apakah tile sudah tertanami
-            foreach (var lokasihoedTile in farmTile.hoedTilesList)
-            {
-                if (lokasihoedTile.tilePosition == cellPosition && lokasihoedTile.isPlanted == true)  // Membandingkan dengan Vector3Int
-                {
-                    return;
-                }
-            }
-
-            // Debug.Log("Item sedang di atas tile yang dicangkul dan belum ada tanaman.");
-            // Tanam benih pada tile yang valid
-            CekSeed(cellPosition); // Menjalankan logika menanam benih
-
-            MechanicController.Instance.HandleUpdateInventory();
-        }
-        //else if (currentTile == farmTile.grassTile)
-        //{
-        //    Debug.Log("Item sedang di atas tile tanah.");
-        //    Debug.Log("item yang di drag adalah : " + itemInDrag);
-        //    CheckPrefabItem(cellPosition); // Menjalankan logika sesuai tile tanah
-        //}
-        else
-        {
-            //Debug.Log("Item tidak berada di posisi yang valid.");
+            Debug.Log("Tanah belum dicangkul!");
+            return;
         }
 
+        // Skenario B: Tile sudah ada tanamannya -> Pulang
+        if (targetTile.isPlanted)
+        {
+            Debug.Log("Sudah ada tanaman di sini!");
+            return;
+        }
 
+       
+
+        Debug.Log("Posisi valid! Menanam benih...");
+
+        CekSeed(cellPosition); // Spawn Visual Tanaman
+        MechanicController.Instance.HandleUpdateInventory(); // Kurangi Inventory
     }
-
 
 
 
@@ -429,49 +416,87 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Fungsi untuk menanam benih
     private void PlantSeed(Vector3Int cellPosition, Item seedItem)
     {
-        // Konversi posisi tile ke World Space
         Vector3 spawnPosition = FarmTile.Instance.tilemap.GetCellCenterWorld(cellPosition);
-
-        // Konversi spawnPosition menjadi Vector3Int untuk perbandingan yang tepat
-        Vector3Int spawnPositionInt = new Vector3Int(Mathf.FloorToInt(spawnPosition.x), Mathf.FloorToInt(spawnPosition.y), Mathf.FloorToInt(spawnPosition.z));
-
-        // Inisiasi prefab tanaman di posisi world yang sesuai dengan tile
         GameObject plant = Instantiate(plantPrefab, spawnPosition, Quaternion.identity);
-        plant.name = "Tanaman " + seedItem.itemName; // Memberi nama pada objek tanaman yang diinst
-        PlantInteractable plantInteractable = plant.GetComponent<PlantInteractable>();
-        plantInteractable.promptMessage = "Tanaman " + seedItem.itemName;
+        plant.name = $"Tanaman {seedItem.itemName}";
 
-        // Set parent prefab tanaman ke plantsContainer
+        // Setup Parent & Container
         plant.transform.SetParent(MainEnvironmentManager.Instance.plantContainer.transform);
         FarmTile.Instance.activePlants.Add(cellPosition, plant);
-        // Mendapatkan komponen Seed dari prefab tanaman
-        PlantSeed seedComponent = plant.GetComponent<PlantSeed>();
-        if (seedComponent != null)
+
+        // Setup Interactable
+        PlantInteractable plantInteractable = plant.GetComponent<PlantInteractable>();
+        if (plantInteractable != null)
         {
-            // Mengatur nilai namaSeed, dropItem, dan growthImages
-            seedComponent.namaSeed = seedItem.itemName;
-            seedComponent.dropItem = seedItem.itemDropName;
-            seedComponent.growthImages = seedItem.growthImages; // Simpan growthImages ke komponen Seed
-            seedComponent.growthTime = seedItem.growthTime; // Simpan growthTime ke komponen Seed
-            seedComponent.isWatered = TimeManager.Instance.isRain;
-            seedComponent.seedType = seedItem.seedType;
-            seedComponent.plantSeedItem = seedItem; // Simpan referensi ke item benih
-            seedComponent.rarity = seedItem.rarity;
-            seedComponent.ForceGenerateUniqueID();
-            //seedComponent.plantLocation = spawnPosition;
+            plantInteractable.promptMessage = $"Tanaman {seedItem.itemName}";
         }
 
-        // Memeriksa apakah ada tile yang dicangkul dan menambahkan plantStatus
-        foreach (var lokasihoedTile in farmTile.hoedTilesList)
+        PlantSeed seedComponent = plant.GetComponent<PlantSeed>();
+
+        if (seedComponent != null)
         {
-            if (lokasihoedTile.tilePosition == spawnPositionInt)  // Membandingkan dengan Vector3Int
+            // Copy data dasar dari Item Benih
+            seedComponent.namaSeed = seedItem.itemName;
+            seedComponent.dropItem = seedItem.itemDropName;
+            seedComponent.growthImages = seedItem.growthImages;
+            seedComponent.growthTime = seedItem.growthTime; 
+            seedComponent.seedType = seedItem.seedType;
+            seedComponent.plantSeedItem = seedItem;
+            seedComponent.rarity = seedItem.rarity;
+
+            // Logika Hujan
+            seedComponent.isWatered = TimeManager.Instance.isRain;
+
+            // Generate ID agar siap disimpan ke TileData
+            seedComponent.ForceGenerateUniqueID();
+        }
+
+        HoedTileData tileData = FarmTile.Instance.hoedTilesList.Find(t => t.tilePosition == cellPosition);
+
+        if (tileData != null)
+        {
+            tileData.isPlanted = true;
+            tileData.growthProgress = 0;
+
+            // Sekarang aman mengambil ID karena ForceGenerateUniqueID sudah dipanggil di atas
+            if (seedComponent != null)
             {
-                lokasihoedTile.isPlanted = true;
-                lokasihoedTile.growthProgress = 0;
-                lokasihoedTile.plantID = seedComponent.UniqueID;
-                lokasihoedTile.plantSeedItem = seedItem;
+                tileData.plantID = seedComponent.UniqueID;
+            }
+
+            tileData.plantSeedItem = seedItem;
+
+            if (tileData.hasFertilizer && seedComponent != null)
+            {
+                seedComponent.hasFertilizer = true;
+
+                float fertilizerStrength = tileData.fertilizerStrength;
+
+                float newGrowthTime = ApplyFertilizer(fertilizerStrength, seedComponent.growthTime);
+                seedComponent.growthTime = newGrowthTime;
+
+                Debug.Log($"Tanaman {seedItem.itemName} mendapat efek pupuk! Waktu tumbuh berkurang menjadi: {seedComponent.growthTime}");
             }
         }
+        else
+        {
+            Debug.LogError($"Gagal menanam! Data tanah tidak ditemukan di posisi {cellPosition}");
+            // Opsional: Destroy(plant) jika data tanah error agar tidak ada tanaman 'hantu'
+        }
+    }
+    public float ApplyFertilizer(float percentage, float growthTime)
+    {
+        if (percentage > 0 && growthTime > 0)
+        {
+            // Rumus Diskon Waktu
+            float multiplier = 1f - (percentage / 100f);
+            float newTime = growthTime * multiplier;
+
+            int hariFix = Mathf.FloorToInt(newTime);
+            // Pastikan minimal 1 hari (agar tidak error/instan panen)
+            return Mathf.Max(1f, hariFix);
+        }
+        return growthTime;
     }
 
 
@@ -742,7 +767,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                         }
 
                         // Eksekusi Logika Pupuk
-                        FarmTile.Instance.BeriPupuk(cellPosition);
+                        FarmTile.Instance.BeriPupuk(cellPosition, item.persentasePupuk);
+
                         MechanicController.Instance.HandleUpdateInventory();
 
                         Debug.Log("Berhasil memberi pupuk ke tanah kosong!");

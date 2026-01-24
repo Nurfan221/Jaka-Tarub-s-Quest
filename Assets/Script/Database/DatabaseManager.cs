@@ -120,6 +120,7 @@ public class HoedTileData
     public bool isReadyToHarvest;
     public int revertDelay;
     public bool hasFertilizer = false;
+    public float fertilizerStrength;
     public bool isWithered = false; // Dicek dari timer telat panen
 
     //public HoedTileData(Vector3Int pos, int time)

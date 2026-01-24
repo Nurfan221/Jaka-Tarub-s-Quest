@@ -121,10 +121,10 @@ public class PlantSeed : UniqueIdentifiableObject
         // Hitung waktu jeda pertumbuhan jika belum di-set
         if (growthSpeed <= 0 && growthImages.Length > 0)
         {
-            growthSpeed = growthTime / growthImages.Length;
+            float speedGrowth = growthTime / growthImages.Length;
+            growthSpeed = Mathf.Max(1f, speedGrowth);
         }
-
-       
+               
         UpdateParticleEffect();
     }
     public void Initialize()

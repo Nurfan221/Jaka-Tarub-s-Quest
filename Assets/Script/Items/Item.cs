@@ -130,6 +130,7 @@ public class Item : ScriptableObject
     public float growthTime; // Lama pertumbuhan dalam hari
     public bool canRegrow; // Apakah tanaman bisa tumbuh
     public float regrowTime; // Lama waktu untuk tumbuh kembali setelah dipanen
+    public float persentasePupuk; // Persentase pengaruh pupuk terhadap pertumbuhan
     public Sprite[] growthImages; // Gambar untuk tiap tahap pertumbuhan
     public SeedType seedType; // Jenis benih (misal: sayuran, buah, dll)
     //public GameObject plantPrefab; // Prefab tanaman yang akan tumbuh dari benih

@@ -22,8 +22,8 @@ public class Player_Action : MonoBehaviour
     [Header("COMBAT")]
     public bool combatMode = false;
     public bool canAttack = true;
-    [SerializeField] GameObject normalAttackHitArea;
-    [SerializeField] GameObject specialAttackHitArea;
+    public GameObject normalAttackHitArea;
+    public GameObject specialAttackHitArea;
     public Vector2 faceDirection;
     public Vector2 playerPosition;
 
