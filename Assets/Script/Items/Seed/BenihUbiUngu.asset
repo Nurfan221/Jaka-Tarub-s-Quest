@@ -51,6 +51,10 @@ MonoBehaviour:
   growthTime: 8
   canRegrow: 0
   regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 1
+  maxDropHarvest: 0
   growthImages:
   - {fileID: -4204251336133087135, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}
   - {fileID: -8316093039233801710, guid: 6698e77bae6d6ca4ba324eb50041e8ad, type: 3}

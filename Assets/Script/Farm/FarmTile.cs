@@ -23,6 +23,7 @@ public class FarmTile : MonoBehaviour, ISaveable
 
     private void Awake()
     {
+        activePlants = new Dictionary<Vector3Int, GameObject>();
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -59,7 +60,7 @@ public class FarmTile : MonoBehaviour, ISaveable
     private void Start()
     {
 
-        //RestoreFarmStateFromData();
+        //RestoreFarmStateList();
         HandleNewDay();
     }
 
@@ -225,45 +226,32 @@ public class FarmTile : MonoBehaviour, ISaveable
         }
     }
 
+    // Di FarmTile.cs
+
     public void WaterTile(Vector3 playerPosition, Vector3 faceDirection)
     {
         Vector3Int tileToWater = tilemap.WorldToCell(playerPosition + faceDirection);
         HoedTileData hoedTile = hoedTilesList.Find(t => t.tilePosition == tileToWater);
 
+        if (hoedTile == null || hoedTile.watered) return;
 
-        if (hoedTile == null)
-        {
-            Debug.Log($"[DEBUG] Gagal menyiram di {tileToWater}: Tile ini tidak pernah dicangkul.");
-            return;
-        }
-        if (hoedTile.watered)
-        {
-            Debug.Log($"[DEBUG] Gagal menyiram di {tileToWater}: Tile ini SUDAH dalam keadaan basah.");
-            return;
-        }
-
-
+        // Ambil tanaman
         PlantSeed plant = GetPlantAtPosition(tileToWater)?.GetComponent<PlantSeed>();
 
-        if (plant == null || (!plant.isInfected && !plant.isReadyToHarvest))
-        {
-            hoedTile.watered = true;
-            UpdateTileVisual(tileToWater, hoedTile);
-            // Catat kapan terakhir disiram
-            //hoedTile.hoedTime = timeManager.date;
+        // Update Data Tanah (Pasti)
+        hoedTile.watered = true;
+        UpdateTileVisual(tileToWater, hoedTile);
+        Debug.Log($"[DEBUG] Berhasil menyiram tile di {tileToWater}.");
 
-            if (plant != null)
+        // Update Data Tanaman (Jika ada)
+        if (plant != null)
+        {
+            // Cek kondisi tanaman sebelum menyiram
+            if (!plant.isInfected && !plant.isReadyToHarvest)
             {
                 plant.isWatered = true;
                 plant.UpdateParticleEffect();
-            }
-            Debug.Log($"[DEBUG] Berhasil menyiram tile di {tileToWater}.");
-        }
-        else
-        {
-            if (plant != null)
-            {
-                Debug.Log($"[DEBUG] Gagal menyiram di {tileToWater}: Tanaman terinfeksi (isInfected: {plant.isInfected}) atau siap panen (isReadyToHarvest: {plant.isReadyToHarvest}).");
+                Debug.Log($"[DEBUG] Tanaman {plant.namaSeed} ikut disiram.");
             }
         }
     }
@@ -275,6 +263,7 @@ public class FarmTile : MonoBehaviour, ISaveable
         {
             tileData.watered = false;
             tilemap.SetTile(tileData.tilePosition, databaseManager.hoeedTile);
+            UpdateTileVisual(tileData.tilePosition, tileData);
             Debug.Log($"[DEBUG] Memeriksa tile di {tileData.tilePosition} untuk mengeringkan...");
 
             if (plant != null)
@@ -317,6 +306,11 @@ public class FarmTile : MonoBehaviour, ISaveable
 
     private void ProcessPlantGrowth(HoedTileData tileData, PlantSeed plant)
     {
+        if (tileData.watered != plant.isWatered)
+        {
+            plant.isWatered = tileData.watered;
+            plant.UpdateParticleEffect(); // Refresh visual
+        }
         // Hanya tumbuh jika disiram
         if (!plant.isWatered) return;
 
@@ -329,8 +323,10 @@ public class FarmTile : MonoBehaviour, ISaveable
         }
 
 
-        tileData.growthProgress++;
+        
         plant.growthTimer++;
+
+        tileData.growthProgress = (int)plant.growthTimer;
         Debug.Log($"[DEBUG] {plant.namaSeed} di {tileData.tilePosition}: Progress tumbuh menjadi {tileData.growthProgress}, Butuh {plant.growthTime} total.");
 
         // Cek apakah sudah waktunya panen
@@ -497,16 +493,12 @@ public class FarmTile : MonoBehaviour, ISaveable
             tileData.growthProgress = (int)plantSeed.growthTimer;
         }
 
-        //Hapus referensi tanaman dari dictionary tanaman aktif
-        if (activePlants.ContainsKey(tileData.tilePosition))
-        {
-
-            activePlants.Remove(tileData.tilePosition);
-        }
+       
     }
 
     public void RestoreFarmStateList()
     {
+        activePlants.Clear();
         if (hoedTilesList == null || tilemap == null) return;
 
         foreach (HoedTileData tileData in hoedTilesList)
@@ -557,8 +549,10 @@ public class FarmTile : MonoBehaviour, ISaveable
                         seedComponent.isReadyToHarvest = true;
                         plantInteractable.promptMessage = "Panen " + tileData.plantSeedItem.seedType;
                     }
-
-                    activePlants[tileData.tilePosition] = plantObject;
+                    if (!activePlants.ContainsKey(tileData.tilePosition))
+                    {
+                        activePlants.Add(tileData.tilePosition, plantObject);
+                    }
                 }
             }
         }

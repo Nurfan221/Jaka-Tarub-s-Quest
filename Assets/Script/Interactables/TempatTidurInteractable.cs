@@ -19,9 +19,10 @@ public class TempatTidurInteractable : Interactable
     {
         Debug.Log("Pemain memilih untuk tidur.");
 
-        SaveDataManager.Instance.SaveGame();
 
         TimeManager.Instance.AdvanceToNextDay();
+        SaveDataManager.Instance.SaveGame();
+
         StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
 
 

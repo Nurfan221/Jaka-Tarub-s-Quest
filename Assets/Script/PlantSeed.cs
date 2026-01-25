@@ -240,8 +240,7 @@ public class PlantSeed : UniqueIdentifiableObject
             Debug.Log($"Tanaman {plantSeedItem.itemName} dipanen!");
 
             // Jika min=1, max=3 -> Range(1, 4) -> Hasil: 1, 2, atau 3.
-            int itemToDrop = Random.Range(plantSeedItem.minDropHarvest, plantSeedItem.maxDropHarvest + 1);
-
+            int itemToDrop = GetWeightedDropCount(plantSeedItem.minDropHarvest, plantSeedItem.maxDropHarvest);
             // Drop Item
             ItemPool.Instance.DropItem(itemDrop.itemName, itemDrop.health, itemDrop.quality, transform.position + new Vector3(0, 0.5f, 0), itemToDrop);
 
@@ -267,54 +266,42 @@ public class PlantSeed : UniqueIdentifiableObject
         }
     }
 
+
     public void PlantReGrow()
     {
         if (!isReadyToHarvest) return;
-        if (isRegrow)
-        {
-            reGrowTimer++;
-            PlantSeed plantSeed = gameObject.GetComponent<PlantSeed>();
-            FarmTile.Instance.OnRegrowHarvested(plantSeed);
-        }
-        // Reset Status
+
+        Debug.Log("Memulai proses Regrow...");
+
         isReadyToHarvest = false;
-        isRegrow = true;
-        if(TimeManager.Instance.isRain)
-        {
-            isWatered = true;
-        }else
-        {
-            isWatered = false;
-        }    
+
+        // Jika hujan, otomatis ter-siram untuk besok. Jika tidak, kering.
+        isWatered = TimeManager.Instance.isRain;
 
 
+        // Rumus Aman: Timer = Total Waktu Tumbuh - Waktu Regrow
+        float timeToRewind = plantSeedItem.regrowTime;
 
-            growthTimer = growthTimer - plantSeedItem.regrowSpeed;
 
-        // Safety: Jangan sampai minus
-        growthTimer = Mathf.Max(1f, growthTimer);
+        growthTimer = plantSeedItem.growthTime - timeToRewind;
 
-      
+        // Safety clamp
+        growthTimer = Mathf.Max(0f, growthTimer);
+
 
         float originalTotalTime = plantSeedItem.growthTime;
         int totalImages = growthImages.Length;
 
-        // Hitung persentase progress saat ini
         float currentProgressPercent = growthTimer / originalTotalTime;
-
-        // Konversi ke index gambar
         int targetSpriteIndex = Mathf.FloorToInt(currentProgressPercent * totalImages);
 
-        // Safety: Pastikan index valid dan minimal 1 (jangan jadi biji)
+        // Safety: Pastikan index minimal 1 (Tanaman muda), jangan 0 (Biji)
         targetSpriteIndex = Mathf.Clamp(targetSpriteIndex, 1, totalImages - 1);
 
-        // Update Gambar
         UpdateSprite(targetSpriteIndex);
 
-        // Update Enum (Sesuai gambar)
         if (targetSpriteIndex >= totalImages - 1)
         {
-            // Harusnya gak masuk sini, tapi buat safety
             currentStage = GrowthStage.ReadyToHarvest;
         }
         else if (targetSpriteIndex > 1)
@@ -326,16 +313,49 @@ public class PlantSeed : UniqueIdentifiableObject
             currentStage = GrowthStage.YoungPlant;
         }
 
-        if(reGrowTimer >= plantSeedItem.regrowTime)
-        {
-            Destroy(gameObject);
-        }
-
         UpdateParticleEffect();
-        Debug.Log($"Regrow Simpel: Timer diset ke {growthTimer}. Gambar mundur ke index {targetSpriteIndex}.");
+
+        // Gunakan ini HANYA jika Anda ingin membatasi berapa kali tanaman bisa panen.
+        if (!isRegrow)
+        {
+            isRegrow = true;
+            reGrowTimer = 0; // Inisialisasi counter panen
+        }
+        reGrowTimer++; // Tambah 1 kali panen
+
+
+        FarmTile.Instance.OnRegrowHarvested(this);
+
+        Debug.Log($"Regrow Selesai. Timer: {growthTimer}. Stage: {currentStage}. Panen ke-{reGrowTimer}");
     }
 
+    public int GetWeightedDropCount(int min, int max)
+    {
+        if (min >= max) return min;
 
+        // Random.Range(0, 100) akan menghasilkan angka 0 s/d 99.
+        int roll = Random.Range(0, 100);
+
+
+        // Mendapatkan nilai MINIMUM
+        if (roll < 70)
+        {
+            return min;
+        }
+
+     
+        else if (roll < 90 && (max - min) >= 2)
+        {
+           
+            return Random.Range(min + 1, max);
+        }
+
+       
+        else
+        {
+            return max;
+        }
+    }
     public void CureInfection()
     {
         isInfected = false;
