@@ -111,18 +111,20 @@ public class HoedTileData
     public string plantID;
     public Vector3Int tilePosition;
     public int hoedTime;
-    public bool watered;
-    public bool isPlanted;
     public Item plantSeedItem; // Referensi ke item benih
-    public bool isInfected;
     public int growthProgress;
+    public float growthTime; // menghitung total waktu pertumbuhan
+
     public GrowthStage currentStage;
-    public bool isReadyToHarvest;
     public int revertDelay;
-    public bool hasFertilizer = false;
     public float fertilizerStrength;
-    public bool isWithered = false; // Dicek dari timer telat panen
     public float reGrowTimer = 0; // menghitung progres pertumbuhan setelah dipanen
+    public bool watered;
+    public bool isInfected;
+    public bool isPlanted;
+    public bool isReadyToHarvest;
+    public bool hasFertilizer = false;
+    public bool isWithered = false; // Dicek dari timer telat panen
     public bool isRegrow = false;
     //public HoedTileData(Vector3Int pos, int time)
     //{

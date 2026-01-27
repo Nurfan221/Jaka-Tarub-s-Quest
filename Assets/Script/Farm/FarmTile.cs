@@ -102,7 +102,8 @@ public class FarmTile : MonoBehaviour, ISaveable
                 hasFertilizer = respawnItem.hasFertilizer,
                 fertilizerStrength = respawnItem.fertilizerStrength,
                 isRegrow = respawnItem.isRegrow,
-                reGrowTimer = respawnItem.reGrowTimer
+                reGrowTimer = respawnItem.reGrowTimer,
+                growthTime = respawnItem.growthTime,
             });
         }
 
@@ -126,7 +127,9 @@ public class FarmTile : MonoBehaviour, ISaveable
             hasFertilizer = data.hasFertilizer,
             fertilizerStrength = data.fertilizerStrength,
             isRegrow = data.isRegrow,
-            reGrowTimer = data.reGrowTimer
+            reGrowTimer = data.reGrowTimer,
+            isInfected = data.isInfected,
+            growthTime = data.growthTime,
 
         });
         Debug.Log("[LOAD] Merestorasi data antrian respawn tanaman..." + hoedTilesList.Count);
@@ -306,46 +309,62 @@ public class FarmTile : MonoBehaviour, ISaveable
 
     private void ProcessPlantGrowth(HoedTileData tileData, PlantSeed plant)
     {
+        // Sinkronisasi Air 
         if (tileData.watered != plant.isWatered)
         {
             plant.isWatered = tileData.watered;
-            plant.UpdateParticleEffect(); // Refresh visual
+            plant.UpdateParticleEffect();
         }
-        // Hanya tumbuh jika disiram
+
         if (!plant.isWatered) return;
+        if (plant.isReadyToHarvest) return; 
 
-        // Jangan tumbuh lagi jika sudah siap panen
-        if (plant.isReadyToHarvest)
-        {
-            PlantInteractable plantInteractable = plant.GetComponent<PlantInteractable>();
-            plantInteractable.promptMessage = "Panen" + tileData.plantID;
-            return;
-        }
-
-
-        
+        // Tambah Umur tanaman
         plant.growthTimer++;
+        tileData.growthProgress = (int)plant.growthTimer; 
 
-        tileData.growthProgress = (int)plant.growthTimer;
-        Debug.Log($"[DEBUG] {plant.namaSeed} di {tileData.tilePosition}: Progress tumbuh menjadi {tileData.growthProgress}, Butuh {plant.growthTime} total.");
-
-        // Cek apakah sudah waktunya panen
+        // cek panen
         if (plant.growthTimer >= plant.growthTime)
         {
             plant.currentStage = GrowthStage.ReadyToHarvest;
             tileData.currentStage = GrowthStage.ReadyToHarvest;
             plant.isReadyToHarvest = true;
             tileData.isReadyToHarvest = true;
-            Debug.Log($"[DEBUG] {plant.namaSeed} SIAP PANEN!");
-            plant.UpdateSprite(); // Pastikan sprite terakhir (panen) juga di-update
+
+            // Pakai index terakhir array gambar
+            plant.UpdateSprite(plant.growthImages.Length - 1);
             plant.UpdateParticleEffect();
+            Debug.Log($"[DEBUG] {plant.namaSeed} SIAP PANEN!");
         }
-        // Cek apakah sudah waktunya ganti tahap pertumbuhan
-        // Pastikan growthSpeed tidak nol untuk menghindari error pembagian
-        else if (plant.growthSpeed > 0 && tileData.growthProgress % plant.growthSpeed == 0)
+        else
         {
-            plant.AdvanceGrowthStage();
-            tileData.currentStage = plant.currentStage; // Update tahap pertumbuhan di data tile
+            
+
+            float progressPercent = plant.growthTimer / plant.growthTime;
+            int totalImages = plant.growthImages.Length;
+
+            // Hitung index gambar yang seharusnya ditampilkan saat ini
+            // FloorToInt membulatkan ke bawah (misal 0.9 jadi index 0, 1.1 jadi index 1)
+            int targetIndex = Mathf.FloorToInt(progressPercent * totalImages);
+
+            // Safety: Clamp agar tidak melebihi array 
+            targetIndex = Mathf.Clamp(targetIndex, 0, totalImages - 1);
+
+            // Update Sprite Langsung
+            plant.UpdateSprite(targetIndex);
+
+            // Update Enum (Sinkronisasi Logic)
+            // Kita mapping kasar index gambar ke Enum (biar data tile tetap punya status)
+            if (targetIndex == 0)
+                tileData.currentStage = GrowthStage.Seed;
+            else if (targetIndex >= totalImages - 1)
+                tileData.currentStage = GrowthStage.ReadyToHarvest; // Jarang masuk sini karena if di atas
+            else if (targetIndex > (totalImages / 2))
+                tileData.currentStage = GrowthStage.MaturePlant;
+            else
+                tileData.currentStage = GrowthStage.YoungPlant;
+
+            plant.currentStage = tileData.currentStage;
         }
     }
 
@@ -526,7 +545,7 @@ public class FarmTile : MonoBehaviour, ISaveable
                         seedComponent.gameObject.name = tileData.plantID;
                         seedComponent.dropItem = itemTemplate.itemDropName;
                         seedComponent.growthImages = itemTemplate.growthImages;
-                        seedComponent.growthTime = itemTemplate.growthTime;
+                        seedComponent.growthTime = tileData.growthTime;
                         seedComponent.plantLocation = spawnPosition;
                         seedComponent.tilePosition = tileData.tilePosition;
                         seedComponent.isWatered = tileData.watered;
@@ -539,6 +558,7 @@ public class FarmTile : MonoBehaviour, ISaveable
                         seedComponent.hasFertilizer = tileData.hasFertilizer;
                         seedComponent.isRegrow = tileData.isRegrow;
                         seedComponent.reGrowTimer = tileData.reGrowTimer;
+                        seedComponent.isInfected = tileData.isInfected;
 
                         // Panggil Initialize untuk final setup
                         seedComponent.Initialize();

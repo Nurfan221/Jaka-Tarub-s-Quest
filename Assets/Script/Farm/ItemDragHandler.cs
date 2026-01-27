@@ -11,7 +11,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private CanvasGroup canvasGroup;
     private Canvas canvas;
     private Vector2 originalPosition; // Menyimpan posisi awal
-
+    // Variabel untuk mengingat tile terakhir yang kita proses
+    private Vector3Int lastProcessedTile;
+    private bool isDraggingActionActive = false;
     //public FarmTile farmTile;   // Akses ke FarmTile yang punya hoeedTile
 
     private Transform originalParent; // Untuk menyimpan parent asli item
@@ -84,7 +86,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Debug.LogError("EnvironmentManager tidak ditemukan saat Start!");
         }
 
-        
+
     }
 
 
@@ -242,109 +244,113 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         canvasGroup.blocksRaycasts = false; // Memungkinkan drag melewati item lain
         rectTransform.SetAsLastSibling(); // Menempatkan item di posisi paling atas dalam hierarchy
+
+        lastProcessedTile = new Vector3Int(99999, 99999, 99999);
+        isDraggingActionActive = true;
     }
+
+
 
     public void OnDrag(PointerEventData eventData)
     {
-        // Menggerakkan item mengikuti pointer
+        // Visual: Ikuti Mouse
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
 
-        // Mengecek posisi item selama drag
-        CheckItemPositionDuringDrag();
-
-
+        // Logika Pintar (Hanya jalan jika pindah tile)
+        if (isDraggingActionActive)
+        {
+            CheckAndExecuteAction();
+        }
     }
-
-    // Fungsi untuk memeriksa posisi item selama drag
-    private void CheckItemPositionDuringDrag()
+    private void CheckAndExecuteAction()
     {
+        //  Hitung Posisi Mouse
         Vector3 screenPosition = Input.mousePosition;
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, Mathf.Abs(Camera.main.transform.position.z)));
-        Vector3Int cellPosition = FarmTile.Instance.tilemap.WorldToCell(worldPosition);
+        Vector3Int currentCellPosition = FarmTile.Instance.tilemap.WorldToCell(worldPosition);
 
-        // "Tolong carikan saya data tile di list yang posisinya SAMA dengan mouse saya"
-        HoedTileData targetTile = farmTile.hoedTilesList.Find(t => t.tilePosition == cellPosition);
-
-
-        // Skenario A: Tile tidak ditemukan (Belum dicangkul) -> Pulang
-        if (targetTile == null)
+        //  GATEKEEPER: Apakah kita masih di tile yang sama dengan frame lalu?
+        if (currentCellPosition == lastProcessedTile)
         {
-            Debug.Log("Tanah belum dicangkul!");
-            return;
+            return; // STOP! Hemat CPU & Inventory.
         }
 
-        // Skenario B: Tile sudah ada tanamannya -> Pulang
-        if (targetTile.isPlanted)
+        // Kita panggil fungsi TryProcessAction (Code Anda yang sudah dirapikan)
+        bool success = TryProcessAction(currentCellPosition);
+
+        if (success)
         {
-            Debug.Log("Sudah ada tanaman di sini!");
-            return;
+            // Catat tile ini agar tidak diproses 2x
+            lastProcessedTile = currentCellPosition;
+
+            MechanicController.Instance.HandleUpdateInventory();
+
+            // Opsional: Cek jika item habis, hentikan drag visual
+             //if (itemCount <= 0) OnEndDrag(null);
+        }
+    }
+
+    private bool TryProcessAction(Vector3Int cellPosition)
+    {
+        // Cari Data Tile (Gunakan Find, HAPUS foreach loop yang tidak perlu)
+        HoedTileData targetTile = FarmTile.Instance.hoedTilesList.Find(t => t.tilePosition == cellPosition);
+
+        if (targetTile == null)
+        {
+            // Debug.Log("Tanah belum dicangkul!");
+            return false;
         }
 
        
 
-        Debug.Log("Posisi valid! Menanam benih...");
+        if (targetTile.isPlanted)
+        {
+            // Coba gunakan item ke tanaman (Pastikan fungsi ini return bool)
+            bool itemUsed = TryUseItemOnTile(cellPosition);
 
-        CekSeed(cellPosition); // Spawn Visual Tanaman
-        MechanicController.Instance.HandleUpdateInventory(); // Kurangi Inventory
+            if (itemUsed)
+            {
+                Debug.Log("Berhasil menggunakan item (Pestisida/Pupuk) ke tanaman!");
+                return true; // Sukses -> Inventory berkurang
+            }
+            return false;
+        }
+
+        else
+        {
+            bool itemUsedAsFertilizer = TryUseItemOnTile(cellPosition);
+            if (itemUsedAsFertilizer)
+            {
+                Debug.Log("Pupuk berhasil ditebar di tanah kosong!");
+                return true;
+            }
+
+          
+
+            CekSeed(cellPosition);
+
+            Debug.Log("Posisi valid! Menanam benih...");
+            // Asumsi CekSeed berhasil (karena tanah kosong & item valid).
+            return true;
+        }
     }
+
+   
+   
 
 
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = true; // Mengembalikan interaksi raycast
-
-        // Ambil posisi mouse di Screen Space
-        Vector3 screenPosition = Input.mousePosition;
-
-        // Konversi posisi dari Screen Space ke World Space
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, Mathf.Abs(Camera.main.transform.position.z)));
-
-        // Mengubah posisi world ke posisi tilemap
-        Vector3Int cellPosition = FarmTile.Instance.tilemap.WorldToCell(worldPosition);
-
-        // Mengecek tile pada posisi ini
-        TileBase currentTile = FarmTile.Instance.tilemap.GetTile(cellPosition);
-
-        if ((currentTile == statsFarm.hoeedTile || currentTile == statsFarm.wateredTile))
-        {
-            // Cek apakah tile sudah tertanami
-            foreach (var lokasihoedTile in farmTile.hoedTilesList)
-            {
-                if (lokasihoedTile.tilePosition == cellPosition )  // Membandingkan dengan Vector3Int
-                {
-                    bool berhasil = TryUseItemOnTile(cellPosition);
-
-                    if (berhasil)
-                    {
-                        Debug.Log("Berhasil membasmi serangga!");
-                    }
-                    else
-                    {
-                        MechanicController.Instance.HandleUpdateInventory();
-                        // Debug.Log("Gagal membasmi serangga, item dikembalikan.");
-                        rectTransform.SetParent(originalParent); // Baru kembalikan kalau gagal
-                    }
-                    MechanicController.Instance.HandleUpdateInventory();
-                    rectTransform.SetParent(originalParent); // Baru kembalikan kalau gagal
-                    return;
-                }
-            }
-
-
-            // Debug.Log("Item dijatuhkan di tile yang dicangkul dan belum ada tanaman.");
-            // Tanam benih pada tile yang valid
-            CekSeed(cellPosition); // Menjalankan logika menanam benih
-
-        }
-        else
-        {
-            MechanicController.Instance.HandleUpdateInventory();
-            // Debug.Log("Item tidak berada di posisi yang valid.");
-            rectTransform.SetParent(originalParent); // Kembalikan item ke posisi awal jika tidak valid
-        }
-
+        canvasGroup.blocksRaycasts = true;
         DroppedOnValidTile();
+        // Kembalikan visual item ke slot inventory
+        rectTransform.SetParent(originalParent);
+        rectTransform.anchoredPosition = Vector2.zero;
+
+        isDraggingActionActive = false;
+
+        // Update inventory terakhir kali untuk memastikan sinkronisasi
         MechanicController.Instance.HandleUpdateInventory();
     }
 
@@ -472,9 +478,10 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 float fertilizerStrength = tileData.fertilizerStrength;
 
+
                 float newGrowthTime = ApplyFertilizer(fertilizerStrength, seedComponent.growthTime);
                 seedComponent.growthTime = newGrowthTime;
-
+                tileData.growthTime = newGrowthTime;
                 Debug.Log($"Tanaman {seedItem.itemName} mendapat efek pupuk! Waktu tumbuh berkurang menjadi: {seedComponent.growthTime}");
             }
         }

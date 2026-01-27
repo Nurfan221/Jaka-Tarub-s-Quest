@@ -28,7 +28,6 @@ public class PlantSeed : UniqueIdentifiableObject
     [Header("Plant Attributes")]
     public Sprite[] growthImages;
     public float growthTime; // Total hari untuk tumbuh maksimal
-    public float growthSpeed; // Jeda hari antar tahap pertumbuhan
     public string namaSeed;
     public SeedType seedType;
     public ItemRarity rarity;
@@ -118,13 +117,7 @@ public class PlantSeed : UniqueIdentifiableObject
         {
             Debug.LogError("Gawat! Tidak ada anak bernama 'Visual' di objek ini!");
         }
-        // Hitung waktu jeda pertumbuhan jika belum di-set
-        if (growthSpeed <= 0 && growthImages.Length > 0)
-        {
-            float speedGrowth = growthTime / growthImages.Length;
-            growthSpeed = Mathf.Max(1f, speedGrowth);
-        }
-               
+        
         UpdateParticleEffect();
     }
     public void Initialize()
@@ -137,17 +130,7 @@ public class PlantSeed : UniqueIdentifiableObject
         UpdateSprite();
     }
 
-    public void AdvanceGrowthStage()
-    {
-        if (currentStage < GrowthStage.ReadyToHarvest)
-        {
-            currentStage++;
-            Debug.Log($"[DEBUG] {namaSeed} di {plantLocation} BERTUMBUH ke tahap: {currentStage}. Memanggil UpdateSprite().");
-            UpdateSprite(); // Panggilan ini sudah benar
-        }
 
-   
-    }
 
 
     public void UpdateSprite(int spriteIndex)
