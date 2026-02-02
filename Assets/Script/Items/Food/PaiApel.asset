@@ -15,11 +15,12 @@ MonoBehaviour:
   itemID: 117
   itemName: PaiApel
   quality: 0
+  rarity: 0
   types: 6
   categories: 16
   sprite: {fileID: 1109132893433667816, guid: 401540a331a3a034285790c017f0c862, type: 3}
-  itemDescription: Telur goreng dengan kuning telur yang setengah matang dan putih
-    telur yang lembut. Kaya akan protein dan nutrisi yang menyehatkan.
+  itemDescription: Pai klasik dengan kerak renyah dan isian buah apel segar yang
+    dimasak dengan kayu manis. Harum dan mengenyangkan.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -32,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 0
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -45,10 +46,15 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 50
   SellValue: 0
-  BurningTime: 0
   CookTime: 5
   itemDropName: 
   namePrefab: 
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
   seedType: 0
