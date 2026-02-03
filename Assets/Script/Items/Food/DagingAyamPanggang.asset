@@ -15,6 +15,7 @@ MonoBehaviour:
   itemID: 109
   itemName: DagingAyamPanggang
   quality: 0
+  rarity: 0
   types: 6
   categories: 16
   sprite: {fileID: 7801308808990622549, guid: 22ca46a4b54c021448c2f2ff9de9c5aa, type: 3}
@@ -32,7 +33,7 @@ MonoBehaviour:
   countHeal: 10
   countStamina: 10
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,12 +44,17 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 35
+  BuyValue: 300
   SellValue: 0
-  BurningTime: 0
   CookTime: 5
   itemDropName: 
   namePrefab: 
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
   seedType: 0
