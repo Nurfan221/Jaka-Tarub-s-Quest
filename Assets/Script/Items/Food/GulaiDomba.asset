@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 123
   itemName: GulaiDomba
-  quality: 0
+  quality: 1
   rarity: 0
   types: 6
   categories: 16
-  sprite: {fileID: -281555317483771222, guid: 58a18b59ee02aec4db5fe5e2017d3ba2, type: 3}
+  sprite: {fileID: 1279819922575600691, guid: 64556c7eeddd8284ab859679198fa574, type: 3}
   itemDescription: Potongan daging domba empuk yang dimasak perlahan dalam kuah santan
     kental yang kaya rempah.Makanan mewah yang memulihkan energi dan menghangatkan
     tubuh.
@@ -48,8 +48,8 @@ MonoBehaviour:
   BuyValue: 2500
   SellValue: 0
   CookTime: 5
-  itemDropName: 
-  namePrefab: 
+  itemDropName: GulaiDomba
+  namePrefab: GulaiDomba
   growthTime: 0
   canRegrow: 0
   regrowTime: 0

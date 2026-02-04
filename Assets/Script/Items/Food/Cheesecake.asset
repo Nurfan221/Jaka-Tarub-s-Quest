@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 106
   itemName: Cheesecake
-  quality: 0
+  quality: 1
   rarity: 0
   types: 6
   categories: 16
-  sprite: {fileID: 1813334886755186801, guid: 8affb725712f66f4e8f659f0a73ddf95, type: 3}
+  sprite: {fileID: -6305115223051734957, guid: a7bb75c0e2c41b34d9043761c8585fbc, type: 3}
   itemDescription: Kue lembut dan creamy yang terbuat dari keju segar di atas lapisan
     biskuit renyah. Perpaduan sempurna antara gurih dan manis.
   QuantityFuel: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
   BuyValue: 750
   SellValue: 0
   CookTime: 5
-  itemDropName: 
-  namePrefab: 
+  itemDropName: Cheesecake
+  namePrefab: Cheesecake
   growthTime: 0
   canRegrow: 0
   regrowTime: 0

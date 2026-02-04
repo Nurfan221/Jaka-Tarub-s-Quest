@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 [System.Serializable]
 public class RecipeCooking
@@ -26,10 +27,16 @@ public class EmoticonTemplate
 public class CraftRecipe
 {
     public string name;
-    public List<ItemData> ingredients; // Satu list untuk bahan dan jumlahnya
-    public ItemData result;            // Satu object untuk hasil dan jumlahnya
+    public List<IngredientCraft> craftIngredient;
+    public int resultCount = 1; // Default 1, tambahkan ini!
+    public Item result;            // Satu object untuk hasil dan jumlahnya
 }
-
+[System.Serializable]
+public class IngredientCraft
+{
+    public Item ingredientItem;
+    public int ingredientCount;
+}
 [System.Serializable]
 public class SpriteImageTemplate
 {
@@ -548,6 +555,7 @@ public class DatabaseManager : MonoBehaviour
     public ItemShopDatabaseSO itemShopDatabase;
     [Tooltip("Database untuk item-item yang bisa disimpan.")]
     public StorageDatabaseSO storageDatabase;
+    public ItemPoolDatabase itemPoolDatabase;
 
     [Space(10)]
     [Header("World & Environment Databases")]

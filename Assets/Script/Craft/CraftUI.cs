@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,6 +44,7 @@ public class CraftUI : MonoBehaviour
     private CraftRecipe selectedRecipe;
     private Item selectedResultItem;
     private int selectedCraftAmount;
+    private bool isCraftFood;
     #endregion
 
     #region Initialization & UI Binding
@@ -73,8 +75,9 @@ public class CraftUI : MonoBehaviour
     }
     #endregion
 
-    public void OpenUI()
+    public void OpenUI(bool valueObject)
     {
+        isCraftFood = valueObject;
         gameObject.SetActive(true);
         GameController.Instance.ShowPersistentUI(false);
         GameController.Instance.PauseGame();
@@ -94,36 +97,50 @@ public class CraftUI : MonoBehaviour
     private void RefreshRecipeList()
     {
         Debug.Log("Menyegarkan daftar resep...");
-        // Bersihkan daftar lama sebelum menambahkan yang baru
-        // agar tidak terjadi duplikasi saat OpenUI() dipanggil lagi.
+
+        // Bersihkan UI lama
         foreach (Transform child in recipeListContent)
         {
-            if (child != recipeSlotTemplate) // Jangan hancurkan template
-            {
-                Destroy(child.gameObject);
-            }
+            if (child != recipeSlotTemplate) Destroy(child.gameObject);
         }
 
-        foreach (CraftRecipe recipe in DatabaseManager.Instance.craftingDatabase.craftRecipes)
+        // Kita buat variabel list sementara.
+        List<CraftRecipe> recipesToDisplay;
+
+        if (isCraftFood)
+        {
+            recipesToDisplay = DatabaseManager.Instance.craftingDatabase.craftFoodRecipe;
+
+        }
+        else
+        {
+            recipesToDisplay = DatabaseManager.Instance.craftingDatabase.craftRecipes;
+
+
+        }
+
+        foreach (CraftRecipe recipe in recipesToDisplay)
         {
             CraftRecipe localRecipe = recipe;
-            Item itemUse = ItemPool.Instance.GetItemWithQuality(localRecipe.result.itemName, localRecipe.result.quality);
+
+            // PERUBAHAN: Langsung ambil sprite dari result (Item SO)
+            // Tidak perlu GetItemWithQuality lagi
+            Item itemUse = localRecipe.result;
+
             Transform recipeSlotGO = Instantiate(recipeSlotTemplate, recipeListContent);
             recipeSlotGO.gameObject.SetActive(true);
 
-            // 'GetChild(0)' ini "rapuh". Jika Anda mengubah urutan child di prefab, 
-            // kode ini akan rusak. Metode 'RecipeSlotUI.cs' yang kita diskusikan sebelumnya
-            // jauh lebih aman.
             Image itemImage = recipeSlotGO.GetChild(0).GetComponent<Image>();
             itemImage.gameObject.SetActive(true);
 
-            if (itemImage != null)
+            if (itemImage != null && itemUse != null)
             {
                 itemImage.sprite = itemUse.sprite;
             }
 
-            recipeSlotGO.GetComponent<Button>().onClick.RemoveAllListeners();
-            recipeSlotGO.GetComponent<Button>().onClick.AddListener(() => SelectRecipe(localRecipe));
+            Button btn = recipeSlotGO.GetComponent<Button>();
+            btn.onClick.RemoveAllListeners();
+            btn.onClick.AddListener(() => SelectRecipe(localRecipe));
         }
     }
 
@@ -182,33 +199,36 @@ public class CraftUI : MonoBehaviour
         {
             IngredientSlots currentSlot = ingredientSlots[i];
 
-            if (i < selectedRecipe.ingredients.Count)
+            // PERUBAHAN: Cek count pada 'craftIngredient'
+            if (i < selectedRecipe.craftIngredient.Count)
             {
-                ItemData ingredientData = selectedRecipe.ingredients[i];
-                Item itemObject = ItemPool.Instance.GetItem(ingredientData.itemName);
+                // Ambil data dari struktur baru
+                IngredientCraft ingData = selectedRecipe.craftIngredient[i];
+                Item itemObject = ingData.ingredientItem;
 
                 if (itemObject != null)
                 {
-                    // Tampilkan slot
                     currentSlot.slotTransform.gameObject.SetActive(true);
-
                     currentSlot.slotImage.sprite = itemObject.sprite;
                     currentSlot.slotImage.gameObject.SetActive(true);
 
-                    int requiredCount = ingredientData.count * selectedCraftAmount;
+                    // Hitung kebutuhan
+                    int requiredCount = ingData.ingredientCount * selectedCraftAmount;
                     currentSlot.slotRecipeCount.text = requiredCount.ToString();
                     currentSlot.slotRecipeCount.gameObject.SetActive(true);
 
+                    // Cek Inventory
                     int ownedCount = CountItemsInInventory(itemObject);
                     currentSlot.slotItemCount.text = $"({ownedCount})";
                     currentSlot.slotItemCount.gameObject.SetActive(true);
 
-                    // Cek apakah bahan INI cukup
                     bool hasEnoughThisItem = ownedCount >= requiredCount;
 
                     // Update Visual Text
                     currentSlot.slotItemCount.color = hasEnoughThisItem ? Color.white : Color.red;
                     currentSlot.slotRecipeCount.color = hasEnoughThisItem ? Color.white : Color.red;
+
+                    if (!hasEnoughThisItem) canCraft = false;
 
                     // Update Visual Slot (Redup/Terang)
                     if (currentSlot.canvasGroup != null)
@@ -248,25 +268,20 @@ public class CraftUI : MonoBehaviour
             }
         }
 
-        ItemData resultData = selectedRecipe.result;
-        Item resultItem = ItemPool.Instance.GetItem(resultData.itemName);
-
+        Item resultItem = selectedRecipe.result;
         if (resultItem != null)
         {
             resultSlot.slotTransform.gameObject.SetActive(true);
             resultSlot.slotImage.sprite = resultItem.sprite;
             resultSlot.slotImage.gameObject.SetActive(true);
 
-            int resultCount = resultData.count * selectedCraftAmount;
+            // Gunakan variable resultCount yang kita tambahkan di langkah 1
+            int resultCount = selectedRecipe.resultCount * selectedCraftAmount;
             resultSlot.slotRecipeCount.text = resultCount.ToString();
             resultSlot.slotRecipeCount.gameObject.SetActive(true);
         }
 
-        if (craftButton != null)
-        {
-            craftButton.interactable = canCraft;
-            Debug.Log("Tombol craft diatur ke: " + (canCraft ? "INTERACTABLE" : "NON-INTERACTABLE"));
-        }
+        if (craftButton != null) craftButton.interactable = canCraft;
 
         if (!canCraft)
         {
@@ -329,72 +344,57 @@ public class CraftUI : MonoBehaviour
     {
         if (selectedRecipe == null) return 0;
 
-        int maxAmount = int.MaxValue; // Mulai dengan angka tak terbatas
+        int maxAmount = int.MaxValue;
 
-        // Cek setiap bahan
-        foreach (ItemData ingredient in selectedRecipe.ingredients)
+        // PERUBAHAN: Loop ke 'craftIngredient'
+        foreach (IngredientCraft ingredient in selectedRecipe.craftIngredient)
         {
-            Item item = ItemPool.Instance.GetItem(ingredient.itemName);
-            if (item == null) return 0; // Jika ada item resep yg tidak valid
+            // Langsung akses item dari class IngredientCraft
+            Item item = ingredient.ingredientItem;
+
+            if (item == null) return 0;
 
             int ownedCount = CountItemsInInventory(item);
-            int requiredCount = ingredient.count;
+            int requiredCount = ingredient.ingredientCount; // Ambil jumlah dari class baru
 
-            // Jika butuh 0 (aneh) atau pemain tidak punya itemnya
-            if (requiredCount <= 0 || ownedCount == 0)
-            {
-                return 0; // Tidak bisa membuat sama sekali
-            }
+            if (requiredCount <= 0 || ownedCount == 0) return 0;
 
-            // Berapa banyak yang bisa dibuat HANYA dengan item ini
             int possibleWithThisItem = ownedCount / requiredCount;
 
-            // Kita dibatasi oleh item yang paling sedikit kita miliki
             if (possibleWithThisItem < maxAmount)
             {
                 maxAmount = possibleWithThisItem;
             }
         }
 
-        // Jika maxAmount tidak pernah berubah (misal resep tidak butuh bahan)
-        // atau jika pemain punya semua bahan, kembalikan nilainya.
-        // Jika tidak punya bahan, maxAmount akan menjadi 0.
         return maxAmount == int.MaxValue ? 0 : maxAmount;
     }
 
     private void ExecuteCraft()
     {
-        // Pastikan resep & jumlah valid
-        if (selectedRecipe == null || selectedCraftAmount <= 0)
-        {
-            Debug.LogError("Gagal craft: Resep tidak valid atau jumlah 0.");
-            return;
-        }
+        if (selectedRecipe == null || selectedCraftAmount <= 0) return;
 
-        //  Cek apakah bahan cukup
-        if (!CheckIfHasEnoughIngredients())
-        {
-            Debug.LogWarning("Gagal craft: Bahan tidak cukup.");
-            // (Opsional) Panggil efek shake tombol di sini
-            return;
-        }
+        if (!CheckIfHasEnoughIngredients()) return;
 
-        //  Siapkan Data Item Hasil 
-        ItemData recipeResult = selectedRecipe.result;
-        int totalResultCount = recipeResult.count * selectedCraftAmount;
-
-        // Asumsi Anda punya constructor: new ItemData(nama, jumlah, kualitas)
-        // Jika tidak, sesuaikan dengan cara Anda membuat ItemData baru
-        ItemData finalItemToAdd = new ItemData(recipeResult.itemName, totalResultCount, recipeResult.quality, recipeResult.itemHealth);
-
-
-        // Kita kurangi dulu agar jika tas 20/20 dan resep butuh 1 item, slotnya jadi kosong untuk hasil.
+        // 1. Kurangi Bahan
         Debug.Log("Mengurangi bahan...");
-        foreach (var ingredient in selectedRecipe.ingredients)
+        foreach (IngredientCraft ingredient in selectedRecipe.craftIngredient)
         {
-            int totalToRemove = ingredient.count * selectedCraftAmount;
-            RemoveItems(ingredient.itemName, totalToRemove);
+            int totalToRemove = ingredient.ingredientCount * selectedCraftAmount;
+            // Kita ambil nama dari ScriptableObject item
+            RemoveItems(ingredient.ingredientItem.itemName, totalToRemove);
         }
+
+        // 2. Tambahkan Hasil
+        // Kita buat ItemData baru berdasarkan info dari ScriptableObject Result
+        int totalResultCount = selectedRecipe.resultCount * selectedCraftAmount;
+
+        ItemData finalItemToAdd = new ItemData(
+            selectedRecipe.result.itemName, // Ambil nama dari SO
+            totalResultCount,
+            selectedRecipe.result.quality,  // Ambil default quality dari SO
+            selectedRecipe.result.health    // Ambil default health dari SO
+        );
 
         Debug.Log("Mencoba menambahkan item hasil...");
         bool isSuccess = ItemPool.Instance.AddItem(finalItemToAdd);
@@ -425,15 +425,20 @@ public class CraftUI : MonoBehaviour
         {
             Debug.LogError("CRITICAL: Gagal craft karena Inventaris Penuh! Melakukan REFUND bahan...");
 
-            // Karena kita sudah menghapusnya di langkah no. 4
-            foreach (var ingredient in selectedRecipe.ingredients)
+            // LOGIKA REFUND (Penting diupdate juga)
+            Debug.LogError("Inventory Penuh! Refund bahan...");
+            foreach (IngredientCraft ingredient in selectedRecipe.craftIngredient)
             {
-                int totalToRefund = ingredient.count * selectedCraftAmount;
+                int totalToRefund = ingredient.ingredientCount * selectedCraftAmount;
 
-                // Buat data refund
-                ItemData refundItem = new ItemData(ingredient.itemName, totalToRefund, ingredient.quality, ingredient.itemHealth);
+                // Buat ItemData dari IngredientCraft untuk dikembalikan
+                ItemData refundItem = new ItemData(
+                    ingredient.ingredientItem.itemName,
+                    totalToRefund,
+                    ingredient.ingredientItem.quality,
+                    ingredient.ingredientItem.health
+                );
 
-                // Di sini kita asumsi AddItem pasti berhasil untuk refund karena kita baru saja menghapusnya
                 ItemPool.Instance.AddItem(refundItem);
             }
 
@@ -449,17 +454,18 @@ public class CraftUI : MonoBehaviour
     {
         if (selectedRecipe == null) return false;
 
-        foreach (var ingredient in selectedRecipe.ingredients)
+        foreach (IngredientCraft ingredient in selectedRecipe.craftIngredient)
         {
-            Item item = ItemPool.Instance.GetItem(ingredient.itemName);
-            int requiredAmount = ingredient.count * selectedCraftAmount;
+            // Akses langsung
+            Item item = ingredient.ingredientItem;
+            int requiredAmount = ingredient.ingredientCount * selectedCraftAmount;
 
             if (CountItemsInInventory(item) < requiredAmount)
             {
-                return false; // Langsung gagal jika satu bahan saja kurang
+                return false;
             }
         }
-        return true; // Semua bahan ada
+        return true;
     }
 
     private void RemoveItems(string itemName, int amountToRemove)

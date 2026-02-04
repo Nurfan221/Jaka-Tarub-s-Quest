@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 110
   itemName: DagingBabiAsap
-  quality: 0
+  quality: 1
   rarity: 0
   types: 6
   categories: 16
@@ -47,8 +47,8 @@ MonoBehaviour:
   BuyValue: 550
   SellValue: 0
   CookTime: 5
-  itemDropName: 
-  namePrefab: 
+  itemDropName: DagingBabiAsap
+  namePrefab: DagingBabiAsap
   growthTime: 0
   canRegrow: 0
   regrowTime: 0

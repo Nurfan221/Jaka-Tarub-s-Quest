@@ -6,4 +6,5 @@ public class CraftingDatabaseSO : ScriptableObject
 {
     // Gunakan CraftingRecipeSO jika Anda sudah memisahkannya, atau class biasa
     public List<CraftRecipe> craftRecipes;
+    public List<CraftRecipe> craftFoodRecipe;
 }

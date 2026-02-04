@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 118
   itemName: Pudding
-  quality: 0
+  quality: 1
   rarity: 0
   types: 6
   categories: 16
-  sprite: {fileID: 8722072848766645262, guid: 03b9a4f83f2bdd5499caecbe02a9b3ba, type: 3}
+  sprite: {fileID: 5424206291610543831, guid: ca95eb168d7df2f41b0f69a0762fb24d, type: 3}
   itemDescription: Hidangan penutup yang lembut, kenyal, dan manis. Disajikan dingin,
     seringkali dengan saus vla vanila atau karamel.
   QuantityFuel: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
   BuyValue: 130
   SellValue: 0
   CookTime: 5
-  itemDropName: 
-  namePrefab: 
+  itemDropName: Pudding
+  namePrefab: Pudding
   growthTime: 0
   canRegrow: 0
   regrowTime: 0

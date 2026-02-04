@@ -221,9 +221,9 @@ public class MechanicController : MonoBehaviour
         InventoryUI.ChangeMenu(0);
     }
 
-    public void HandleOpenCrafting()
+    public void HandleOpenCrafting(bool isCraftFood)
     {
-        CraftingUI.OpenUI();
+        CraftingUI.OpenUI(isCraftFood);
     }
 
     public void HandleSwapItems(int sourceIndex, int destinationIndex)

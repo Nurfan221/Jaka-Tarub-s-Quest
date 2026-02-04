@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: TelurGoreng
   m_EditorClassIdentifier: 
-  itemID: 101
+  itemID: 121
   itemName: TelurGoreng
-  quality: 0
+  quality: 1
   rarity: 0
   types: 6
   categories: 16
@@ -47,8 +47,8 @@ MonoBehaviour:
   BuyValue: 100
   SellValue: 0
   CookTime: 5
-  itemDropName: 
-  namePrefab: 
+  itemDropName: TelurGoreng
+  namePrefab: TelurGoreng
   growthTime: 0
   canRegrow: 0
   regrowTime: 0

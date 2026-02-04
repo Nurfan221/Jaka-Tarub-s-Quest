@@ -150,9 +150,9 @@ public class CraftInventoryUI : MonoBehaviour
     }
     private bool IsRecipeCraftable(CraftRecipe recipe)
     {
-        foreach (var ingredient in recipe.ingredients)
+        foreach (var ingredient in recipe.craftIngredient)
         {
-            if (CountItemsInInventory(ItemPool.Instance.GetItem(ingredient.itemName)) < ingredient.count)
+            if (CountItemsInInventory(ingredient.ingredientItem) < ingredient.ingredientCount)
             {
                 return false; // Jika ada satu saja bahan yang kurang, langsung return false
             }
@@ -196,13 +196,11 @@ public class CraftInventoryUI : MonoBehaviour
         // Tampilkan bahan-bahan yang dibutuhkan
         for (int i = 0; i < ingredientSlots.Length; i++)
         {
-            if (i < selectedRecipe.ingredients.Count)
+            if (i < selectedRecipe.craftIngredient.Count)
             {
-                ItemData ingredientData = selectedRecipe.ingredients[i];
-                Item itemObject = ItemPool.Instance.GetItem(ingredientData.itemName);
                 // Menggunakan selectedCraftAmount
-                int requiredCount = ingredientData.count * selectedCraftAmount;
-                UpdateSlotUI(ingredientSlots[i], itemObject, requiredCount);
+                int requiredCount = selectedRecipe.craftIngredient[i].ingredientCount * selectedCraftAmount;
+                UpdateSlotUI(ingredientSlots[i], selectedRecipe.craftIngredient[i].ingredientItem, requiredCount);
             }
             else
             {
@@ -212,7 +210,7 @@ public class CraftInventoryUI : MonoBehaviour
 
         // Tampilkan hasil
         // Menggunakan selectedCraftAmount
-        int resultCount = selectedRecipe.result.count * selectedCraftAmount;
+        int resultCount = selectedRecipe.resultCount * selectedCraftAmount;
         UpdateSlotUI(resultSlot, selectedResultItem, resultCount);
         CheckIngredientAvailability();
     }
@@ -236,9 +234,9 @@ public class CraftInventoryUI : MonoBehaviour
         }
 
         bool canCraft = true;
-        foreach (var ingredient in selectedRecipe.ingredients)
+        foreach (var ingredient in selectedRecipe.craftIngredient)
         {
-            if (CountItemsInInventory(ItemPool.Instance.GetItem(ingredient.itemName)) < ingredient.count * selectedCraftAmount)
+            if (CountItemsInInventory(ingredient.ingredientItem) < ingredient.ingredientCount * selectedCraftAmount)
             {
                 canCraft = false;
                 break;
@@ -252,17 +250,17 @@ public class CraftInventoryUI : MonoBehaviour
         if (selectedRecipe == null || !craftButton.interactable) return;
 
         // Kurangi bahan dari inventory
-        foreach (var ingredient in selectedRecipe.ingredients)
+        foreach (var ingredient in selectedRecipe.craftIngredient)
         {
-            int countToRemove = ingredient.count * selectedCraftAmount;
-            ItemData itemToRemove = new ItemData(ingredient.itemName, countToRemove, ingredient.quality, ingredient.itemHealth);
+            int countToRemove = ingredient.ingredientCount * selectedCraftAmount;
+            ItemData itemToRemove = new ItemData(ingredient.ingredientItem.itemName, countToRemove, ItemQuality.Normal, ingredient.ingredientItem.health);
             ItemPool.Instance.RemoveItemsFromInventory(itemToRemove);
         }
 
         // Tambahkan hasil ke inventory
         ItemData resultData = new ItemData(
             selectedResultItem.itemName,
-            selectedRecipe.result.count * selectedCraftAmount,
+            selectedRecipe.resultCount * selectedCraftAmount,
             selectedResultItem.quality,
             selectedResultItem.health
         );
@@ -352,18 +350,29 @@ public class CraftInventoryUI : MonoBehaviour
     private int CalculateMaxCraftAmount()
     {
         if (selectedRecipe == null) return 0;
+
         int maxPossible = int.MaxValue;
-        foreach (var ingredient in selectedRecipe.ingredients)
+
+        // Loop menggunakan struktur baru craftIngredient
+        foreach (var ingredient in selectedRecipe.craftIngredient)
         {
-            Item itemObject = ItemPool.Instance.GetItem(ingredient.itemName);
+            // Tidak perlu ItemPool lagi, itemnya sudah nempel di resep
+            Item itemObject = ingredient.ingredientItem;
+
             int owned = CountItemsInInventory(itemObject);
-            if (ingredient.count <= 0) continue;
-            int canMake = owned / ingredient.count;
+
+            // Hindari pembagian nol
+            if (ingredient.ingredientCount <= 0) continue;
+
+            // Hitung rasio
+            int canMake = owned / ingredient.ingredientCount;
+
             if (canMake < maxPossible)
             {
                 maxPossible = canMake;
             }
         }
+
         return maxPossible;
     }
 

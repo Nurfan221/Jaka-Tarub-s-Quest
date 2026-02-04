@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 114
   itemName: Donat
-  quality: 0
+  quality: 1
   rarity: 0
   types: 6
   categories: 16
-  sprite: {fileID: 5310060569336858883, guid: cb3f46c52c2fd124a9a1dfff42a48fcb, type: 3}
+  sprite: {fileID: -2671751291847661766, guid: 2cd2788a63187fa4fa21ed9f2d4dd3f5, type: 3}
   itemDescription: Kue manis berbentuk cincin yang lembut. Dilapisi gula halus atau
     glasir cokelat yang lumer di mulut.
   QuantityFuel: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
   BuyValue: 120
   SellValue: 0
   CookTime: 5
-  itemDropName: 
-  namePrefab: 
+  itemDropName: Donat
+  namePrefab: Donat
   growthTime: 0
   canRegrow: 0
   regrowTime: 0

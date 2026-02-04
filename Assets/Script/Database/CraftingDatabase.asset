@@ -14,58 +14,89 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   craftRecipes:
   - name: Pelebur
-    ingredients:
-    - itemName: Batu
-      count: 30
-      quality: 0
-      itemHealth: 0
-    - itemName: CoalOre
-      count: 5
-      quality: 0
-      itemHealth: 0
-    result:
-      itemName: Pelebur
-      count: 1
-      quality: 0
-      itemHealth: 0
+    craftIngredient: []
+    resultCount: 1
+    result: {fileID: 0}
   - name: SeratTanaman
-    ingredients:
-    - itemName: Daun
-      count: 3
-      quality: 0
-      itemHealth: 0
-    result:
-      itemName: SeratTanaman
-      count: 1
-      quality: 0
-      itemHealth: 0
+    craftIngredient: []
+    resultCount: 1
+    result: {fileID: 0}
   - name: Tali
-    ingredients:
-    - itemName: SeratTanaman
-      count: 2
-      quality: 0
-      itemHealth: 0
-    result:
-      itemName: Tali
-      count: 2
-      quality: 0
-      itemHealth: 0
+    craftIngredient: []
+    resultCount: 1
+    result: {fileID: 0}
   - name: Perangkap
-    ingredients:
-    - itemName: SeratTanaman
-      count: 4
-      quality: 0
-      itemHealth: 0
-    - itemName: Kayu
-      count: 10
-      quality: 0
-      itemHealth: 0
-    - itemName: IronIngot
-      count: 2
-      quality: 0
-      itemHealth: 0
-    result:
-      itemName: Perangkap
-      count: 1
-      quality: 0
-      itemHealth: 0
+    craftIngredient: []
+    resultCount: 1
+    result: {fileID: 0}
+  craftFoodRecipe:
+  - name: AdonanRoti
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: bff036b9c22ff6a4599966ffa1be6f2d, type: 2}
+      ingredientCount: 2
+    - ingredientItem: {fileID: 11400000, guid: 5fd754cdb47ba6e43b5061e0ce65f4ff, type: 2}
+      ingredientCount: 1
+    - ingredientItem: {fileID: 11400000, guid: 3ea9620df0c83074c947a370e744bb82, type: 2}
+      ingredientCount: 1
+    resultCount: 1
+    result: {fileID: 11400000, guid: 12a44992f2bcd7d4f82e283eb2a25210, type: 2}
+  - name: AdonanOmlet
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: b2afd192f68f7c0409b076e15c62c405, type: 2}
+      ingredientCount: 2
+    - ingredientItem: {fileID: 11400000, guid: 18f96584fab74fc49bfb429497344463, type: 2}
+      ingredientCount: 1
+    - ingredientItem: {fileID: 11400000, guid: 83553be7a73aa4040952f25ae2378b8f, type: 2}
+      ingredientCount: 1
+    resultCount: 1
+    result: {fileID: 11400000, guid: 5798f298d205d0c448a79e7dcae68105, type: 2}
+  - name: AdonanDonat
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: bff036b9c22ff6a4599966ffa1be6f2d, type: 2}
+      ingredientCount: 2
+    - ingredientItem: {fileID: 11400000, guid: 2c4df71b3b54aaf40a8653b735c12f00, type: 2}
+      ingredientCount: 1
+    - ingredientItem: {fileID: 11400000, guid: b2afd192f68f7c0409b076e15c62c405, type: 2}
+      ingredientCount: 1
+    resultCount: 1
+    result: {fileID: 11400000, guid: 4cb8343147784e44ba3d309c3cd350d7, type: 2}
+  - name: 'AdonanCookies '
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: bff036b9c22ff6a4599966ffa1be6f2d, type: 2}
+      ingredientCount: 1
+    - ingredientItem: {fileID: 11400000, guid: 2c4df71b3b54aaf40a8653b735c12f00, type: 2}
+      ingredientCount: 2
+    - ingredientItem: {fileID: 11400000, guid: b2afd192f68f7c0409b076e15c62c405, type: 2}
+      ingredientCount: 1
+    resultCount: 1
+    result: {fileID: 11400000, guid: 29493ddba9439c14a9e4374fd0b3852d, type: 2}
+  - name: AdonanKentangGoreng
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: 83c6f7564346de341af7059256c30558, type: 2}
+      ingredientCount: 2
+    - ingredientItem: {fileID: 11400000, guid: adc9611e8f0af674bb74beed6dc9b4c6, type: 2}
+      ingredientCount: 1
+    - ingredientItem: {fileID: 11400000, guid: 3ea9620df0c83074c947a370e744bb82, type: 2}
+      ingredientCount: 1
+    resultCount: 1
+    result: {fileID: 11400000, guid: 643a4dd1c47f37b418899d88fdc7849a, type: 2}
+  - name: AdonanPudding
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: b0ca60fd4db06ac46875aa5c64588805, type: 2}
+      ingredientCount: 2
+    - ingredientItem: {fileID: 11400000, guid: b2afd192f68f7c0409b076e15c62c405, type: 2}
+      ingredientCount: 1
+    - ingredientItem: {fileID: 11400000, guid: 2c4df71b3b54aaf40a8653b735c12f00, type: 2}
+      ingredientCount: 1
+    resultCount: 1
+    result: {fileID: 11400000, guid: 6614fba055c239c498d4bca41dd52e8f, type: 2}
+  - name: Burger
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: 4e91c7eb133066447a987edc8c7f49cd, type: 2}
+      ingredientCount: 2
+    - ingredientItem: {fileID: 11400000, guid: 8750ba94bab26ec48baa37d182da9441, type: 2}
+      ingredientCount: 1
+    - ingredientItem: {fileID: 11400000, guid: 968fe862a126e86478b3640b384d1ec3, type: 2}
+      ingredientCount: 1
+    resultCount: 1
+    result: {fileID: 11400000, guid: 5420feede23264f489b3e80a3aa8d4b0, type: 2}

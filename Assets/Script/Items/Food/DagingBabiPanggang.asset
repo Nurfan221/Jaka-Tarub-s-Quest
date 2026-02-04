@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 111
   itemName: DagingBabiPanggang
-  quality: 0
+  quality: 1
   rarity: 0
   types: 2
   categories: 16
@@ -47,8 +47,8 @@ MonoBehaviour:
   BuyValue: 400
   SellValue: 0
   CookTime: 5
-  itemDropName: 
-  namePrefab: 
+  itemDropName: DagingBabiPanggang
+  namePrefab: DagingBabiPanggang
   growthTime: 0
   canRegrow: 0
   regrowTime: 0

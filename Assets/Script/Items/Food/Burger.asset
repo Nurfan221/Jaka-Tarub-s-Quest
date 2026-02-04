@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 105
   itemName: Burger
-  quality: 0
+  quality: 1
   rarity: 0
   types: 6
   categories: 16
-  sprite: {fileID: 4697479264249782702, guid: d2c467979c2e80e469a3a3fd18c21a3e, type: 3}
+  sprite: {fileID: 21300000, guid: 01c749a476c1b4d438fbb131240ea0cb, type: 3}
   itemDescription: Roti bun empuk yang mengapit daging giling panggang juicy, dilengkapi
     sayuran segar dan saus spesial. Makanan cepat saji yang memuaskan.
   QuantityFuel: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
   BuyValue: 650
   SellValue: 0
   CookTime: 5
-  itemDropName: 
-  namePrefab: 
+  itemDropName: Burger
+  namePrefab: Burger
   growthTime: 0
   canRegrow: 0
   regrowTime: 0

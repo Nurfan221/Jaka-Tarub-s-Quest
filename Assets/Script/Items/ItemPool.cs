@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 [Serializable]
@@ -15,7 +16,9 @@ public class ItemPool : MonoBehaviour
 {
     public static ItemPool Instance;
 
-    [SerializeField] public List<Item> items; // Ini adalah list TEMPLATE
+    [Header("Daftar Hubungan")]
+    public ItemPoolDatabase databaseItemPool; // Ini adalah list TEMPLATE
+    public List<Item> items; 
     public List<ItemCategoryGroup> itemCategoryGroups = new List<ItemCategoryGroup>();
 
 
@@ -374,5 +377,48 @@ public class ItemPool : MonoBehaviour
         }
 
         Debug.Log("Proses menjatuhkan item dan menghapus dari inventaris selesai.");
+    }
+
+
+
+
+    [ContextMenu("Pindahkan Items ke database ")]
+    public void AddItemsToDatabaseInEditor()
+    {
+        // Pengecekan Keamanan
+        if (databaseItemPool == null)
+        {
+            Debug.LogError("Target WorldTreeDatabaseSO belum diatur! Harap seret asetnya ke Inspector.");
+            return;
+        }
+
+        // Pastikan environmentList sudah diisi dengan data
+        if (items.Count == 0)
+        {
+            Debug.LogWarning("environmentList masih kosong. Jalankan RegisterAllObject terlebih dahulu jika perlu.");
+            return;
+        }
+
+        // Kosongkan list di SO untuk menghindari data duplikat
+        databaseItemPool.items.Clear();
+
+        Debug.Log($"Memulai migrasi {items.Count} data Item ke {databaseItemPool.name}...");
+
+        // Loop melalui setiap entri di environmentList
+        foreach (Item itemData in items)
+        {
+           
+
+            // Tambahkan data baru ke dalam list di ScriptableObject
+            databaseItemPool.items.Add(itemData);
+        }
+
+        // Tandai aset ScriptableObject sebagai "kotor" agar Unity menyimpan perubahan
+#if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(databaseItemPool);
+        UnityEditor.AssetDatabase.SaveAssets();
+#endif
+
+        Debug.Log($"Migrasi selesai! {databaseItemPool.items.Count} data pohon berhasil dipindahkan.");
     }
 }

@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 120
   itemName: StrawberryCake
-  quality: 0
+  quality: 1
   rarity: 0
   types: 6
   categories: 16
-  sprite: {fileID: -3849930226702274373, guid: 4dca7f6e72d2b7545a80f53f3ecd7b9f, type: 3}
+  sprite: {fileID: 14068353593973648, guid: 86ab8d3aad0efa44aaf1b0743bdf5229, type: 3}
   itemDescription: Kue bolu vanila yang ringan, dilapisi krim kocok segar dan dihiasi
     potongan buah stroberi asli. Manis dan menyegarkan.
   QuantityFuel: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
   BuyValue: 1200
   SellValue: 0
   CookTime: 5
-  itemDropName: 
-  namePrefab: 
+  itemDropName: StrawberryCake
+  namePrefab: StrawberryCake
   growthTime: 0
   canRegrow: 0
   regrowTime: 0

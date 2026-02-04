@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
+  m_Name: AdonanRoti
+  m_EditorClassIdentifier: 
+  itemID: 144
+  itemName: AdonanRoti
+  quality: 1
+  rarity: 0
+  types: 8
+  categories: 4624
+  sprite: {fileID: 21300000, guid: 0515500a13f9058418c26284edb8de4c, type: 3}
+  itemDescription: Campuran tepung dan ragi yang sudah diuleni hingga kalis. Tinggal
+    dipanggang di oven agar mengembang.
+  QuantityFuel: 0
+  maxhealth: 0
+  health: 0
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
+  isItemCombat: 0
+  level: 0
+  MaxLevel: 0
+  Damage: 0
+  AreaOfEffect: 0
+  SpecialAttackCD: 0
+  SpecialAttackStamina: 0
+  UpgradeCost: 0
+  UseStamina: 0
+  RangedWeapon_ProjectilePrefab: {fileID: 0}
+  isStackable: 1
+  maxStackCount: 32
+  BuyValue: 550
+  SellValue: 0
+  CookTime: 5
+  itemDropName: AdonanRoti
+  namePrefab: AdonanRoti
+  growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
+  growthImages: []
+  seedType: 0

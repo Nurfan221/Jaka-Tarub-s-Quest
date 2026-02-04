@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 115
   itemName: KentangGoreng
-  quality: 0
+  quality: 1
   rarity: 0
   types: 6
   categories: 16
-  sprite: {fileID: 3052366912710038843, guid: d220526ccaa1aae47936d51fa782186b, type: 3}
+  sprite: {fileID: 6771575703437865051, guid: ce75db2f1d882fd4c9ac17c6f639607f, type: 3}
   itemDescription: Potongan kentang yang digoreng hingga kuning keemasan. Renyah
     di luar, lembut di dalam, dan ditaburi sedikit garam.
   QuantityFuel: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
   BuyValue: 10
   SellValue: 0
   CookTime: 5
-  itemDropName: 
-  namePrefab: 
+  itemDropName: KentangGoreng
+  namePrefab: KentangGoreng
   growthTime: 0
   canRegrow: 0
   regrowTime: 0
