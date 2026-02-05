@@ -14,28 +14,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 6
   itemName: BigTorch
-  type: 6
+  quality: 1
+  rarity: 0
+  types: 0
   categories: 4096
-  sprite: {fileID: 4736707664447460310, guid: 66be3f18716eb8d4c85607da7de8551d, type: 3}
-  itemDescription: Gunakan ini untuk menyinari di malam hari
+  sprite: {fileID: 4736707664447460310, guid: fca280f743d19e646b1fd20696485c33, type: 3}
+  itemDescription: Obor yang dilapisi getah lengket agar apinya membara lebih lama.
+    Badai sekalipun tak akan bisa memadamkan semangatnya... eh, apinya.
   QuantityFuel: 0
+  maxhealth: 0
   health: 0
-  Level: 1
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
+  isItemCombat: 0
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 0
+  UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 3889454340021637116, guid: edf17111c39dce14dac089ed6bd0d467, type: 3}
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
-  dropItem: {fileID: 0}
+  seedType: 0

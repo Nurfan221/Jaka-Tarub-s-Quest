@@ -14,28 +14,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 6
   itemName: KursiPanjangBatu
-  type: 6
+  quality: 1
+  rarity: 0
+  types: 0
   categories: 4096
   sprite: {fileID: 1929411775797717093, guid: 9427cefbe0cae984fa2233944fa3afa7, type: 3}
   itemDescription: Kursi panjang hanya batu
   QuantityFuel: 0
+  maxhealth: 0
   health: 4
-  Level: 1
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
+  isItemCombat: 0
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 0
+  UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 5388214106243207399, guid: aae8e7e5250723549a2419948ff3be38, type: 3}
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
-  dropItem: {fileID: 0}
+  seedType: 0

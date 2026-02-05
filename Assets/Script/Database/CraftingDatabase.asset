@@ -13,22 +13,64 @@ MonoBehaviour:
   m_Name: CraftingDatabase
   m_EditorClassIdentifier: 
   craftRecipes:
-  - name: Pelebur
-    craftIngredient: []
+  - name: BigTorch
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: ee14f5f95bc24cb4fa864869090f4e6b, type: 2}
+      ingredientCount: 1
+    - ingredientItem: {fileID: 11400000, guid: 9e53d18d3a2d309468928c03cb5af710, type: 2}
+      ingredientCount: 1
+    - ingredientItem: {fileID: 11400000, guid: c9290670a9d9a44429086ade2743ef8b, type: 2}
+      ingredientCount: 1
     resultCount: 1
-    result: {fileID: 0}
-  - name: SeratTanaman
-    craftIngredient: []
+    result: {fileID: 11400000, guid: bdc924c3e834a9243afc118f762a9d4d, type: 2}
+  - name: Chest
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: 684aa06d2252b8d45ac749374e36de8c, type: 2}
+      ingredientCount: 8
+    - ingredientItem: {fileID: 11400000, guid: 054f23c4d33de1b479cbf9d20ec071db, type: 2}
+      ingredientCount: 4
     resultCount: 1
-    result: {fileID: 0}
+    result: {fileID: 11400000, guid: 6b17b502a0a0b174da3731f6f86ee83e, type: 2}
+  - name: Pagar
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: 684aa06d2252b8d45ac749374e36de8c, type: 2}
+      ingredientCount: 4
+    - ingredientItem: {fileID: 11400000, guid: 054f23c4d33de1b479cbf9d20ec071db, type: 2}
+      ingredientCount: 4
+    - ingredientItem: {fileID: 11400000, guid: dd265b010f604c540907f5ff131e8f85, type: 2}
+      ingredientCount: 2
+    resultCount: 4
+    result: {fileID: 11400000, guid: 6ca12769eaf85664180e1b78544ea1dc, type: 2}
   - name: Tali
-    craftIngredient: []
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: 8ad57246b41b1b74ba3abbd902bbd9fb, type: 2}
+      ingredientCount: 2
     resultCount: 1
-    result: {fileID: 0}
+    result: {fileID: 11400000, guid: dd265b010f604c540907f5ff131e8f85, type: 2}
+  - name: Signboard
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: 684aa06d2252b8d45ac749374e36de8c, type: 2}
+      ingredientCount: 2
+    - ingredientItem: {fileID: 11400000, guid: ee14f5f95bc24cb4fa864869090f4e6b, type: 2}
+      ingredientCount: 1
+    - ingredientItem: {fileID: 11400000, guid: 054f23c4d33de1b479cbf9d20ec071db, type: 2}
+      ingredientCount: 2
+    resultCount: 1
+    result: {fileID: 11400000, guid: 8002e229624377e409457034ddf45edb, type: 2}
   - name: Perangkap
-    craftIngredient: []
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: 3bd66d80fb23e764f9744b7e7fcfaa76, type: 2}
+      ingredientCount: 2
+    - ingredientItem: {fileID: 11400000, guid: 054f23c4d33de1b479cbf9d20ec071db, type: 2}
+      ingredientCount: 2
     resultCount: 1
-    result: {fileID: 0}
+    result: {fileID: 11400000, guid: a5270a7f876edb242a48cc23b681b8af, type: 2}
+  - name: PapanKayu
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
+      ingredientCount: 1
+    resultCount: 2
+    result: {fileID: 11400000, guid: 684aa06d2252b8d45ac749374e36de8c, type: 2}
   craftFoodRecipe:
   - name: AdonanRoti
     craftIngredient:

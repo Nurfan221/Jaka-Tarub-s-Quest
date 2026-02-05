@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 127
   itemName: Perangkap
-  quality: 0
+  quality: 1
+  rarity: 0
   types: 65568
   categories: 4096
   sprite: {fileID: -8135096131531685454, guid: 6865f60417eb7f041b0a3916c4337764, type: 3}
-  itemDescription: gunakan ini untuk menangkap hewan kecil
+  itemDescription: Dua batangan besi dibentuk menjadi rahang, disatukan dengan paku
+    sebagai porosnya.
   QuantityFuel: 0
   maxhealth: 0
   health: 10
@@ -48,5 +50,11 @@ MonoBehaviour:
   itemDropName: 
   namePrefab: 
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
   seedType: 0

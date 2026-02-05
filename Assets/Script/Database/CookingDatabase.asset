@@ -23,10 +23,40 @@ MonoBehaviour:
     ingredientCount: 1
     result: {fileID: 11400000, guid: 36d2ddb112a350d4da05b5a3bb31952f, type: 2}
     resultCount: 1
-  - recipeName: TelurDadat
+  - recipeName: TelurCeplok
     ingredient: {fileID: 11400000, guid: b2afd192f68f7c0409b076e15c62c405, type: 2}
     ingredientCount: 1
     result: {fileID: 11400000, guid: 788c9ddcdaabed74bb502f4e6e1ce0e8, type: 2}
+    resultCount: 1
+  - recipeName: Roti
+    ingredient: {fileID: 11400000, guid: 12a44992f2bcd7d4f82e283eb2a25210, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 4e91c7eb133066447a987edc8c7f49cd, type: 2}
+    resultCount: 1
+  - recipeName: Donat
+    ingredient: {fileID: 11400000, guid: 4cb8343147784e44ba3d309c3cd350d7, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: e0fc16276a3099746858ed704a0816c1, type: 2}
+    resultCount: 1
+  - recipeName: KentangGoreng
+    ingredient: {fileID: 11400000, guid: 643a4dd1c47f37b418899d88fdc7849a, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: bb7e3fdb3ba3d0c42bc5827c273e25b7, type: 2}
+    resultCount: 1
+  - recipeName: Pudding
+    ingredient: {fileID: 11400000, guid: 6614fba055c239c498d4bca41dd52e8f, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: eb0a96bf81f64484e94e5211fceff826, type: 2}
+    resultCount: 1
+  - recipeName: Omlet
+    ingredient: {fileID: 11400000, guid: 5798f298d205d0c448a79e7dcae68105, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 0db5cd2b19ee8594bb58dfe3fb188b4a, type: 2}
+    resultCount: 1
+  - recipeName: Cookies
+    ingredient: {fileID: 11400000, guid: 29493ddba9439c14a9e4374fd0b3852d, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: d5914af9f3b42d746ab356714191331b, type: 2}
     resultCount: 1
   smeltRecipes:
   - recipeName: CopperIngot

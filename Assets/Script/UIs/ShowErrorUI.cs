@@ -20,7 +20,7 @@ public class ShowErrorUI : MonoBehaviour
     }
     public void ShowError(string message, float showDuration = 2f, float fadeDuration = 0.5f)
     {
-
+        gameObject.transform.SetAsLastSibling();
         // Jika sudah ada error yang sedang tampil, hentikan dulu
         if (errorCoroutine != null)
         {

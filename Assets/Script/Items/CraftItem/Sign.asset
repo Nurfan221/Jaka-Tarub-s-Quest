@@ -14,14 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 8
   itemName: Sign
+  quality: 1
+  rarity: 0
   types: 32
   categories: 4096
   sprite: {fileID: -459423023, guid: cbd8ee1a8aaaeb440be7ba1038bf6683, type: 3}
-  itemDescription: Gunakan ini untuk menandai sebuah area
+  itemDescription: Papan untuk bidang tulisnya, 1 Stik untuk tiang tancapannya.
   QuantityFuel: 0
   maxhealth: 0
   health: 9
-  Level: 1
+  waktuBuffDamage: 0
+  buffDamage: 0
+  waktuBuffSprint: 0
+  buffSprint: 0
+  waktuBuffProtection: 0
+  buffProtection: 0
+  countHeal: 0
+  countStamina: 0
+  isItemCombat: 0
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -31,13 +42,18 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 5776742059324081699, guid: 0c3d0eebc85b7ba4789592768488fe7c, type: 3}
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
-  dropItem: {fileID: 0}
+  seedType: 0

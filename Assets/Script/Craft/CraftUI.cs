@@ -80,7 +80,7 @@ public class CraftUI : MonoBehaviour
         isCraftFood = valueObject;
         gameObject.SetActive(true);
         GameController.Instance.ShowPersistentUI(false);
-        GameController.Instance.PauseGame();
+        //GameController.Instance.PauseGame();
         RefreshRecipeList();
 
         // Bersihkan detail resep saat pertama kali membuka UI
@@ -148,7 +148,7 @@ public class CraftUI : MonoBehaviour
     {
         Debug.Log($"Memilih resep: {recipe.result.itemName}");
         selectedRecipe = recipe;
-        selectedResultItem = ItemPool.Instance.GetItem(recipe.result.itemName);
+        selectedResultItem = selectedRecipe.result;
         if (selectedResultItem == null) return;
 
         // Menggunakan fungsi kalkulasi yang sebenarnya, bukan 'maxPossible = 10'
@@ -376,7 +376,6 @@ public class CraftUI : MonoBehaviour
 
         if (!CheckIfHasEnoughIngredients()) return;
 
-        // 1. Kurangi Bahan
         Debug.Log("Mengurangi bahan...");
         foreach (IngredientCraft ingredient in selectedRecipe.craftIngredient)
         {
@@ -385,7 +384,6 @@ public class CraftUI : MonoBehaviour
             RemoveItems(ingredient.ingredientItem.itemName, totalToRemove);
         }
 
-        // 2. Tambahkan Hasil
         // Kita buat ItemData baru berdasarkan info dari ScriptableObject Result
         int totalResultCount = selectedRecipe.resultCount * selectedCraftAmount;
 

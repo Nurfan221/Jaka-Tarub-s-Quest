@@ -67,10 +67,10 @@ public enum ItemRarity
 
 public enum ItemQuality
 {
-    Broken,  // Rusak/Busuk
     Normal,
     Good,
-    Perfect
+    Perfect,
+    Broken,  // Rusak/Busuk
 }
 [CreateAssetMenu(menuName = "Make an Item")]
 public class Item : ScriptableObject

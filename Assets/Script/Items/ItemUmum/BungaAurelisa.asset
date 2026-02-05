@@ -15,10 +15,12 @@ MonoBehaviour:
   itemID: 35
   itemName: BungaAurelisa
   quality: 0
+  rarity: 0
   types: 8
   categories: 512
   sprite: {fileID: -263525793505709528, guid: 221e39bd7a9bfa647b48f1fb31b83d7a, type: 3}
-  itemDescription: 
+  itemDescription: Namanya seindah warnanya. Sering dipetik anak-anak desa untuk
+    dijadikan mahkota bunga atau tanda persahabatan.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -31,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 0
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -42,11 +44,17 @@ MonoBehaviour:
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
   maxStackCount: 32
-  BuyValue: 0
+  BuyValue: 35
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: BungaAurelisa
   namePrefab: BungaAurelisa
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
+  seedType: 0

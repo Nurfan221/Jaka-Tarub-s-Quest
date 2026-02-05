@@ -60,7 +60,7 @@ public class QuantityPopupUI : MonoBehaviour
         plusButton.onClick.AddListener(() => UpdateAmount(1));
         minusButton.onClick.AddListener(() => UpdateAmount(-1));
         maxButton.onClick.AddListener(SetToMax);
-        minButton.onClick.AddListener(SetToMin); // --- LISTENER BARU ---
+        minButton.onClick.AddListener(SetToMin); 
         confirmButton.onClick.AddListener(Confirm);
         cancelButton.onClick.AddListener(Cancel);
 
@@ -80,7 +80,32 @@ public class QuantityPopupUI : MonoBehaviour
 
     private void UpdateAmount(int change)
     {
-        currentAmount = Mathf.Clamp(currentAmount + change, 1, maxAmount);
+        // Prediksi dulu: "Kalau ditambah, jadinya berapa?"
+        int nextAmount = currentAmount + change;
+
+        // Cek apakah prediksi tersebut MELANGGAR batas?
+
+        //  Melebihi batas maksimal (Bahan kurang)
+        if (nextAmount > maxAmount)
+        {
+            // Tampilkan pesan error SESUAI keinginan Anda
+            PlayerUI.Instance.ShowErrorUI("Item di inventory anda tidak cukup untuk membuat lebih banyak!");
+
+            // STOP di sini. Jangan update angka. Biarkan tetap di angka maksimal.
+            return;
+        }
+
+        //  Kurang dari 1 (Minimal buat 1)
+        if (nextAmount < 1)
+        {
+            // Tidak perlu error heboh, cukup return agar tidak jadi 0 atau negatif.
+            return;
+        }
+
+        // Jika lolos pengecekan di atas, berarti AMAN. Update nilainya.
+        currentAmount = nextAmount;
+
+        //  Update Teks UI
         UpdateText();
     }
 

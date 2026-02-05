@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 102
   itemName: MejaCamp
-  quality: 0
+  quality: 1
+  rarity: 0
   types: 32
   categories: 4096
   sprite: {fileID: -3479281171318946369, guid: 13e55a2275e9c6c4098af1384054586f, type: 3}
@@ -30,7 +31,8 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
-  Level: 1
+  isItemCombat: 0
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -43,10 +45,15 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 5388214106243207399, guid: 312a3b00a7add5d46b8052f13a7121aa, type: 3}
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 0}
+  seedType: 0

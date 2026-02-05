@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 6
   itemName: KursiCampKecil
+  quality: 1
+  rarity: 0
   types: 0
   categories: 4096
   sprite: {fileID: 6530044190553100295, guid: 13e55a2275e9c6c4098af1384054586f, type: 3}
@@ -29,7 +31,8 @@ MonoBehaviour:
   buffProtection: 0
   countHeal: 0
   countStamina: 0
-  Level: 1
+  isItemCombat: 0
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -39,14 +42,18 @@ MonoBehaviour:
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 1
-  stackCount: 1
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
-  prefabItem: {fileID: 5388214106243207399, guid: 73becb872fea5344895b81af0716d8d1, type: 3}
+  itemDropName: 
+  namePrefab: 
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
-  growthObject: []
-  dropItem: {fileID: 0}
+  seedType: 0
