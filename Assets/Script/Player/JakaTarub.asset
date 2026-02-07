@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: JakaTarub
   m_EditorClassIdentifier: 
   walkSpd: 3
-  dashStamina: 30
+  dashStamina: 20
   dashDistance: 20
   dashForce: 20
   maxHealth: 100
@@ -28,10 +28,10 @@ MonoBehaviour:
     quality: 0
     itemHealth: 0
   equippedWeaponTemplate:
-    itemName: Empty
-    count: 0
+    itemName: KapakTua
+    count: 1
     quality: 0
-    itemHealth: 0
+    itemHealth: 928
   equippedItemTemplate:
     itemName: Empty
     count: 0

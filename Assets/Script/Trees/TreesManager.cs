@@ -340,14 +340,14 @@ public class TreesManager : MonoBehaviour, ISaveable
                           $"tipe: {respawnData.typePlant}, posisi: {respawnData.position}, " +
                           $"dayToRespawn: {respawnData.dayToRespawn}, stage: {respawnData.initialStage}");
 
-                // 1️⃣ Kalau belum waktunya tumbuh, lewati
+                // Kalau belum waktunya tumbuh, lewati
                 if (currentDate < respawnData.dayToRespawn)
                 {
                     Debug.Log($"[TreesManager] Pohon {respawnData.TreeID} BELUM waktunya tumbuh. (currentDate={currentDate}, dayToRespawn={respawnData.dayToRespawn})");
                     continue;
                 }
 
-                // 2️⃣ Cegah duplikasi jika sudah ada di scene
+                // Cegah duplikasi jika sudah ada di scene
                 var existingTree = parentEnvironment.Find(respawnData.TreeID);
                 if (existingTree != null)
                 {
@@ -355,7 +355,7 @@ public class TreesManager : MonoBehaviour, ISaveable
                     continue;
                 }
 
-                // 3️⃣ Ambil prefab pohon
+                // Ambil prefab pohon
                 GameObject treePrefab = DatabaseManager.Instance.GetPrefabForTreeStage(respawnData.typePlant, respawnData.initialStage);
                 if (treePrefab == null)
                 {
@@ -367,13 +367,13 @@ public class TreesManager : MonoBehaviour, ISaveable
                     Debug.Log($"[TreesManager] Prefab ditemukan: {treePrefab.name}");
                 }
 
-                // 4️⃣ Spawn pohon
+                //  Spawn pohon
                 GameObject newTree = Instantiate(treePrefab, respawnData.position, Quaternion.identity, parentEnvironment);
                 newTree.name = respawnData.TreeID;
 
                 Debug.Log($"[TreesManager] Berhasil instantiate pohon {respawnData.TreeID} di posisi {respawnData.position}");
 
-                // 5️⃣ Set Unique ID
+                // Set Unique ID
                 var unique = newTree.GetComponent<UniqueIdentifiableObject>();
                 if (unique != null)
                 {
@@ -383,6 +383,18 @@ public class TreesManager : MonoBehaviour, ISaveable
                 else
                 {
                     Debug.LogWarning($"[TreesManager] Komponen UniqueIdentifiableObject tidak ditemukan di prefab {treePrefab.name}");
+                }
+
+                TreeBehavior treeBehavior = newTree.GetComponent<TreeBehavior>();
+                if (treeBehavior != null)
+                {
+                    // Pastikan data di script TreeBehavior sinkron dengan data Manager
+                    treeBehavior.typePlant = respawnData.typePlant;
+                    treeBehavior.currentStage = respawnData.initialStage; // Opsional, tapi disarankan
+
+                    // panggil inisialisasi database
+                    treeBehavior.GetDatabaseItemDropPohon();
+                    Debug.Log($"database item drop di set menggunakan database");
                 }
 
                 spawnedCount++;
@@ -435,6 +447,17 @@ public class TreesManager : MonoBehaviour, ISaveable
                 if (unique != null)
                     unique.UniqueID = data.TreeID;
 
+                TreeBehavior treeBehavior = newTree.GetComponent<TreeBehavior>();
+                if (treeBehavior != null)
+                {
+                    // Pastikan data di script TreeBehavior sinkron dengan data Manager
+                    treeBehavior.typePlant = data.typePlant;
+                    treeBehavior.currentStage = data.initialStage; // Opsional, tapi disarankan
+
+                    // panggil inisialisasi database
+                    treeBehavior.GetDatabaseItemDropPohon();
+                    Debug.Log($"database item drop di set menggunakan database");
+                }
                 spawnedCount++;
             }
         }

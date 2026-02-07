@@ -127,7 +127,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -396163373
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 7
   m_Sprite: {fileID: -5384297822349913765, guid: 19056e470d573e74598955829121ef23, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -158,7 +158,7 @@ MonoBehaviour:
   typeObject: 7
   typePlant: 1
   currentStage: 2
-  health: 6
+  health: 10
   kayu:
     itemName: Kayu
     count: 1

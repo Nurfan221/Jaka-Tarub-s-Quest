@@ -15,6 +15,7 @@ MonoBehaviour:
   itemID: 30
   itemName: DaunApel
   quality: 0
+  rarity: 0
   types: 8
   categories: 516
   sprite: {fileID: -7281323076442242249, guid: a09498c9372c07c4f8c727335dee0161, type: 3}
@@ -31,7 +32,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -44,9 +45,15 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 2
   CookTime: 0
   itemDropName: DaunApel
   namePrefab: DaunApel
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
+  seedType: 0

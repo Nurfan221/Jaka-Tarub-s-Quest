@@ -15,6 +15,7 @@ MonoBehaviour:
   itemID: 95
   itemName: PickAxeTua
   quality: 0
+  rarity: 0
   types: 2304
   categories: 65792
   sprite: {fileID: 9056066935485543333, guid: 6264e476eb0281e46bc83f8f7809a9c8, type: 3}
@@ -33,12 +34,12 @@ MonoBehaviour:
   isItemCombat: 0
   level: 1
   MaxLevel: 3
-  Damage: 10
+  Damage: 5
   AreaOfEffect: 3
   SpecialAttackCD: 0
   SpecialAttackStamina: 0
   UpgradeCost: 500
-  UseStamina: 3
+  UseStamina: 4
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 0
   maxStackCount: 1
@@ -48,5 +49,11 @@ MonoBehaviour:
   itemDropName: 
   namePrefab: 
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
   seedType: 0

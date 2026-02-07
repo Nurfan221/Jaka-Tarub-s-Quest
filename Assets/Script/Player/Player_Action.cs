@@ -367,7 +367,7 @@ public class Player_Action : MonoBehaviour
             case "Menebang":
                 SoundManager.Instance.PlaySound(SoundName.KapakSfx);
                 break;
-            case "PickAxe":
+            case "Menambang":
                 SoundManager.Instance.PlaySound(SoundName.SwordSfx);
                 break;
             case "Sabit":

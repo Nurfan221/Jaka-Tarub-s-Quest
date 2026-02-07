@@ -11,15 +11,13 @@ public class TreeBehavior : UniqueIdentifiableObject
     public TypeObject typeObject;
 
 
-
-
     [Header("Statistik Pohon")]
     public float health = 100f;
-    public ItemData kayu;
-    public ItemData daun;
-    public ItemData getah;
-    public ItemData benih;
-    public ItemData seratTanaman;
+    public Item kayu;
+    public Item daun;
+    public Item getah;
+    public Item benih;
+    public Item seratTanaman;
 
     [Header("Logika Tanam Pohon")]
     public ParticleSystem plantEffectPrefab; // Efek partikel saat menanam
@@ -176,9 +174,8 @@ public class TreeBehavior : UniqueIdentifiableObject
             pohonBaru.name = oldUniqueID;
 
             pohonBaru.transform.SetParent(MainEnvironmentManager.Instance.pohonManager.transform);
-
+            GetDatabaseItemDropPohon();
             //UpdateReferencesInManagers(this.gameObject, pohonBaru);
-            MainEnvironmentManager.Instance.pohonManager.TumbuhkanPohonDalamAntrian(treeBehaviorBaru);
 
             Destroy(gameObject);
             Debug.Log($"Pohon '{this.namaPohon}' (ID: {oldUniqueID}) tumbuh ke tahap: {treeBehaviorBaru.currentStage}");
@@ -190,7 +187,20 @@ public class TreeBehavior : UniqueIdentifiableObject
         // Baris ini sepertinya tidak diperlukan lagi karena logika stage diurus oleh pohon baru
         // currentStage++; 
     }
+    public void GetDatabaseItemDropPohon()
+    {
+        MainEnvironmentManager.Instance.pohonManager.TumbuhkanPohonDalamAntrian(this);
 
+        DatabaseItemTrees databaseTree = DatabaseManager.Instance.GetDatabaseItemTrees(this.typePlant);
+        if (databaseTree != null)
+        {
+            this.kayu = databaseTree.kayu;
+            this.getah = databaseTree.getah;
+            this.daun = databaseTree.itemDaun;
+            this.benih = databaseTree.itemSeed;
+            this.seratTanaman = databaseTree.seratTanaman;
+        }
+    }
     // Fungsi bantu untuk merapikan kode
     private void UpdateReferencesInManagers(GameObject pohonLama, GameObject pohonBaru)
     {
@@ -439,32 +449,32 @@ public class TreeBehavior : UniqueIdentifiableObject
         Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), 0, 0);
         if (kayu != null)
         {
-            ItemPool.Instance.DropItem(kayu.itemName, kayu.itemHealth, kayu.quality, posisi + offset, woodCount);
+            ItemPool.Instance.DropItem(kayu.itemName, kayu.health, kayu.quality, posisi + offset, woodCount);
         }
 
 
         // Drop getah
         if (getah != null)
         {
-            ItemPool.Instance.DropItem(getah.itemName, getah.itemHealth, getah.quality, posisi + offset, sapCount);
+            ItemPool.Instance.DropItem(getah.itemName, getah.health, getah.quality, posisi + offset, sapCount);
         }
 
         // Drop daun
         if (daun != null)
         {
-            ItemPool.Instance.DropItem(daun.itemName, daun.itemHealth, daun.quality, posisi + offset, woodCount);
+            ItemPool.Instance.DropItem(daun.itemName, daun.health, daun.quality, posisi + offset, woodCount);
         }
 
         // Drop Serat Tanaman
 
         if (seratTanaman != null)
         {
-            ItemPool.Instance.DropItem(seratTanaman.itemName, seratTanaman.itemHealth, seratTanaman.quality, posisi + offset, sapCount);
+            ItemPool.Instance.DropItem(seratTanaman.itemName, seratTanaman.health, seratTanaman.quality, posisi + offset, sapCount);
         }
         // Drop benih
         if (benih != null)
         {
-            ItemPool.Instance.DropItem(benih.itemName, benih.itemHealth, benih.quality, posisi + offset, sapCount);
+            ItemPool.Instance.DropItem(benih.itemName, benih.health, benih.quality, posisi + offset, sapCount);
         }
 
         isRubuh = false;

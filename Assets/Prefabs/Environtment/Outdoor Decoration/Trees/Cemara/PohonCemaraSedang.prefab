@@ -127,7 +127,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -396163373
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 7
   m_Sprite: {fileID: -5643105228771564274, guid: a5ebbfc1a4462f64b8d39cf17170a04a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -155,32 +155,12 @@ MonoBehaviour:
   uniqueID: 
   hardnessLevel: 3
   typeObject: 1
-  health: 20
-  kayu:
-    itemName: Kayu
-    count: 1
-    quality: 0
-    itemHealth: 0
-  daun:
-    itemName: DaunCemara
-    count: 1
-    quality: 0
-    itemHealth: 0
-  getah:
-    itemName: Getah
-    count: 1
-    quality: 0
-    itemHealth: 0
-  benih:
-    itemName: BenihCemara
-    count: 1
-    quality: 0
-    itemHealth: 0
-  seratTanaman:
-    itemName: SeratTanaman
-    count: 1
-    quality: 0
-    itemHealth: 0
+  health: 60
+  kayu: {fileID: 0}
+  daun: {fileID: 0}
+  getah: {fileID: 0}
+  benih: {fileID: 0}
+  seratTanaman: {fileID: 0}
   plantEffectPrefab: {fileID: 6166783799726048995}
   currentStage: 2
   typePlant: 3

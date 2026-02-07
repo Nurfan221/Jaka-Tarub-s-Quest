@@ -57,9 +57,19 @@ public class TemplateTreesObject
     public string treeName;
     public TypePlant plantType;
     public List<GrowthStageTrees> growthStages; // Daftar tahap pertumbuhan
+    public DatabaseItemTrees databaseItemTrees;
 
 }
-
+[System.Serializable]
+public class DatabaseItemTrees
+{
+   
+    public Item itemSeed;
+    public Item itemDaun;
+    public Item seratTanaman;
+    public Item kayu;
+    public Item getah;
+}
 [System.Serializable]
 public class GrowthStageTrees
 {
@@ -541,6 +551,8 @@ public class UpgradeToolsSaveData
     public bool startedUpgrade = false;
     public ItemData resultItemUpgrade;
 }
+
+
 public class DatabaseManager : MonoBehaviour
 {
     public static DatabaseManager Instance { get; private set; }
@@ -869,5 +881,22 @@ public class DatabaseManager : MonoBehaviour
         {
             return NPCAdultPrefab;
         }
+    }
+
+    public DatabaseItemTrees GetDatabaseItemTrees(TypePlant typePohon)
+    {
+        TemplateTreesObject foundTree = templateTreesObject.growthTrees.FirstOrDefault(tree =>
+            tree.plantType == typePohon
+        );
+
+   
+
+        if (foundTree == null)
+        {
+            Debug.LogWarning($"DatabaseManager: Tidak dapat menemukan pohon dengan tipe '{typePohon}'");
+            return null;
+        }
+
+        return foundTree.databaseItemTrees;
     }
 }

@@ -15,6 +15,7 @@ MonoBehaviour:
   itemID: 89
   itemName: Cangkul
   quality: 0
+  rarity: 0
   types: 1280
   categories: 65792
   sprite: {fileID: 231085999161962332, guid: d566de0f6bdec3f48bd0b58bab4a43c1, type: 3}
@@ -38,7 +39,7 @@ MonoBehaviour:
   SpecialAttackCD: 0
   SpecialAttackStamina: 10
   UpgradeCost: 500
-  UseStamina: 3
+  UseStamina: 4
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 0
   maxStackCount: 1
@@ -48,5 +49,11 @@ MonoBehaviour:
   itemDropName: 
   namePrefab: 
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
   seedType: 0

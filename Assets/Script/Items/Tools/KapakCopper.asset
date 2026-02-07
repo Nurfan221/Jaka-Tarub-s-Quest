@@ -15,6 +15,7 @@ MonoBehaviour:
   itemID: 124
   itemName: KapakCopper
   quality: 0
+  rarity: 0
   types: 8448
   categories: 65792
   sprite: {fileID: -7062400869710825845, guid: 1c54632708e828940b5a2a73e301ebaa, type: 3}
@@ -34,12 +35,12 @@ MonoBehaviour:
   isItemCombat: 0
   level: 2
   MaxLevel: 3
-  Damage: 7
+  Damage: 10
   AreaOfEffect: 3
   SpecialAttackCD: 4
   SpecialAttackStamina: 4
   UpgradeCost: 500
-  UseStamina: 5
+  UseStamina: 4
   RangedWeapon_ProjectilePrefab: {fileID: 0}
   isStackable: 0
   maxStackCount: 1
@@ -49,5 +50,11 @@ MonoBehaviour:
   itemDropName: 
   namePrefab: 
   growthTime: 0
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
   seedType: 0

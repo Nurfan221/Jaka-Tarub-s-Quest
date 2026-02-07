@@ -36,6 +36,12 @@ MonoBehaviour:
       stagePrefab: {fileID: 5090815853600988913, guid: 6773ce559afe3ff40ab2860a335cbaa4, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: 1e8161a80b7df014ca484828fcdcce1e, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: d4e0a205463f84e44b86b557703ccbf5, type: 3}
+    databaseItemTrees:
+      itemSeed: {fileID: 11400000, guid: a35098307cd2e97479c7bc682d66c508, type: 2}
+      itemDaun: {fileID: 11400000, guid: 8fdb94ff32de14d4da4a8e242e804f0b, type: 2}
+      seratTanaman: {fileID: 11400000, guid: 8ad57246b41b1b74ba3abbd902bbd9fb, type: 2}
+      kayu: {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
+      getah: {fileID: 11400000, guid: c9290670a9d9a44429086ade2743ef8b, type: 2}
   - treeName: BenihOak
     plantType: 2
     growthStages:
@@ -59,6 +65,12 @@ MonoBehaviour:
       stagePrefab: {fileID: 5090815853600988913, guid: f7ee8f3f1bbd93e45900fef8c31722ec, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: f28722949a0698940acb6a4cd0fc936b, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: df5dd69d0d0b541429988a9cf7b86ef3, type: 3}
+    databaseItemTrees:
+      itemSeed: {fileID: 11400000, guid: 2dbbee85eda01ca48ad3fbbc29189684, type: 2}
+      itemDaun: {fileID: 11400000, guid: 8fdb94ff32de14d4da4a8e242e804f0b, type: 2}
+      seratTanaman: {fileID: 11400000, guid: 8ad57246b41b1b74ba3abbd902bbd9fb, type: 2}
+      kayu: {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
+      getah: {fileID: 11400000, guid: c9290670a9d9a44429086ade2743ef8b, type: 2}
   - treeName: BenihCemara
     plantType: 3
     growthStages:
@@ -82,6 +94,12 @@ MonoBehaviour:
       stagePrefab: {fileID: 5090815853600988913, guid: 1b3af91a00af8bd4b92bb9db3786cc79, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: a47b5e913b6ef6f41a1fc5a97d3c4526, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: 19e51cf2380fad5418aa0b55499e2737, type: 3}
+    databaseItemTrees:
+      itemSeed: {fileID: 11400000, guid: 61ad2419316cf194f956dc498b1b5332, type: 2}
+      itemDaun: {fileID: 11400000, guid: eb0e7eb89ca05ee4d86b2cedf4570114, type: 2}
+      seratTanaman: {fileID: 11400000, guid: 8ad57246b41b1b74ba3abbd902bbd9fb, type: 2}
+      kayu: {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
+      getah: {fileID: 11400000, guid: c9290670a9d9a44429086ade2743ef8b, type: 2}
   - treeName: BenihBirch
     plantType: 4
     growthStages:
@@ -105,3 +123,9 @@ MonoBehaviour:
       stagePrefab: {fileID: 5090815853600988913, guid: 1b404b02b6613f046a960852ff8067c0, type: 3}
       batangPrefab: {fileID: 5090815853600988913, guid: 237886413889caf4089480dfb37669ce, type: 3}
       AkarPrefab: {fileID: 1599877733878797977, guid: 1b827c5f7d64ade4db0d68f496715542, type: 3}
+    databaseItemTrees:
+      itemSeed: {fileID: 11400000, guid: 612d78a1baadc9c4aa8d35193eaaf8e1, type: 2}
+      itemDaun: {fileID: 11400000, guid: 80bd9659cccb0d0458272b0f59af5a1c, type: 2}
+      seratTanaman: {fileID: 11400000, guid: 8ad57246b41b1b74ba3abbd902bbd9fb, type: 2}
+      kayu: {fileID: 11400000, guid: 7389fac145d63824f80e70b41a9ed372, type: 2}
+      getah: {fileID: 11400000, guid: c9290670a9d9a44429086ade2743ef8b, type: 2}
