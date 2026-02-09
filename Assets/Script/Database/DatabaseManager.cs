@@ -552,6 +552,16 @@ public class UpgradeToolsSaveData
     public ItemData resultItemUpgrade;
 }
 
+[System.Serializable]
+public class TutorialData
+{
+    [Tooltip("ID Unik untuk memanggil tutorial, cth: 'intro_move', 'attack_basics'")]
+    public string tutorialID;
+
+    public Dialogues dialogueContent; // Referensi ke ScriptableObject Dialog Anda
+
+    [TextArea] public string developerNotes; // Catatan untuk Anda sendiri
+}
 
 public class DatabaseManager : MonoBehaviour
 {

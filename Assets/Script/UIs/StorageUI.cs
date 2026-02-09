@@ -129,6 +129,8 @@ public class StorageUI : MonoBehaviour
             CreateItemSlot(itemData, StorageContainer, true);
         }
 
+        MechanicController.Instance.HandleUpdateInventory();
+
         // Perbarui visibilitas tombol "Take All"
         takeAllButton.gameObject.SetActive(theStorage.storage.Count > 0);
     }

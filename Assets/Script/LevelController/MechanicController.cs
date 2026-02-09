@@ -185,7 +185,6 @@ public class MechanicController : MonoBehaviour
             }
         }
 
-        MechanicController.Instance.HandleUpdateInventory();
         //StorageUI.ClosePopUp();
 
     }

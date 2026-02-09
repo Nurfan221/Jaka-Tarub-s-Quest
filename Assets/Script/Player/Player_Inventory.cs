@@ -228,7 +228,10 @@ public class Player_Inventory : MonoBehaviour
             Debug.Log($"Item '{itemToEquip.itemName}' tidak bisa dipasang.");
             return;
         }
-
+        if (itemToEquip.itemName == "Cangkul")
+        {
+            TutorialManager.Instance.TriggerTutorial("tutorial_cangkul");
+        }
         Debug.Log($"Item '{itemToEquip.itemName}' berhasil dipasang.");
         MechanicController.Instance.HandleUpdateInventory();
         PlayerUI.Instance.UpdateItemUseUI();

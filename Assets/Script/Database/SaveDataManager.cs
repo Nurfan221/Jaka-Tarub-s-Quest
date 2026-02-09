@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//using static UnityEditor.Progress;
 
 public class SaveDataManager : MonoBehaviour
 {
@@ -107,181 +108,168 @@ public class SaveDataManager : MonoBehaviour
     // "Manajer Sensus" mengumpulkan data (SUDAH DIPERBAIKI)
     private void CaptureAllSaveableStates(GameSaveData saveData)
     {
-        foreach (ISaveable saveable in FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>())
+        // Ambil semua objek ISaveable di scene
+        var allSaveables = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>();
+
+        Debug.Log($"[SAVE SYSTEM] Memulai Absen. Ditemukan {allSaveables.Count()} objek ISaveable di scene.");
+
+        foreach (ISaveable saveable in allSaveables)
         {
-            // Pengecekan pertama: Apakah ini sebuah pohon?
+            // Debugging: Lihat siapa yang sedang diabsen
+            // Debug.Log($"Checking Object: {saveable.GetType().Name}"); 
+
+            // 1. TREES
             if (saveable is TreesManager tree)
             {
-                Debug.Log("[SAVE] Ditemukan EnvironmentManager. Memanggil CaptureState...");
+                Debug.Log("[SAVE] Ditemukan TreesManager.");
                 if (tree.CaptureState() is List<TreePlacementData> treeData)
                 {
                     saveData.savedTrees = treeData;
-                    foreach (var item in saveData.savedTrees)
-                    {
-                        Debug.Log($"Menangkap data antrian respawn pohon : {item.initialStage}");
-                    }
-                    Debug.Log("Data pohon telah ditangkap untuk penyimpanan." + saveData.savedTrees.Count);
+                    Debug.Log($"Data pohon tersimpan: {treeData.Count} pohon.");
                 }
             }
-            // Pengecekan kedua: Apakah ini pemain?
+            // 2. PLAYER
             else if (saveable is PlayerController player)
             {
-                Debug.Log("[SAVE] Ditemukan PlayerController. Memanggil CaptureState...");
+                Debug.Log("[SAVE] Ditemukan PlayerController.");
                 if (player.CaptureState() is PlayerSaveData playerData)
                 {
-                    // Anda mungkin tidak perlu ID untuk pemain jika hanya ada satu,
-                    // tapi ini adalah praktik yang baik.
-                    // playerData.id = player.GetComponent<UniqueID>().ID; 
                     saveData.savedPlayerData.Add(playerData);
-                    Debug.Log("Data pemain telah ditangkap untuk penyimpanan." + playerData.inventory.Count);
+                    Debug.Log("Data pemain tersimpan.");
                 }
             }
+            // 3. STORAGE
             else if (saveable is StorageInteractable storage)
             {
-                Debug.Log("[SAVE] Ditemukan StorageInteractable. Memanggil CaptureState...");
+                // ... (Kode Storage Anda sudah benar, salin disini) ...
                 if (storage.CaptureState() is StorageSaveData storageData && storage.isSaveable)
                 {
-                    storageData.id = storage.uniqueID;
+                    if (saveData.savedStorages == null) saveData.savedStorages = new List<StorageSaveData>();
 
-                    // Pastikan list sudah terinisialisasi
-                    if (saveData.savedStorages == null)
-                        saveData.savedStorages = new List<StorageSaveData>();
-
-                    bool isFound = false;
-
-                    // Cari apakah ID sudah ada di list
-                    foreach (var item in saveData.savedStorages)
+                    // Logika Update/Add Storage
+                    bool found = false;
+                    foreach (var s in saveData.savedStorages)
                     {
-                        if (item.id == storageData.id)
+                        if (s.id == storageData.id)
                         {
-                            item.itemsInStorage.Clear();
-                            item.itemsInStorage.AddRange(storageData.itemsInStorage);
-                            item.storagePosition = storageData.storagePosition;
-                            isFound = true;
-                            break;
+                            s.itemsInStorage = new List<ItemData>(storageData.itemsInStorage); // Copy list baru
+                            s.storagePosition = storageData.storagePosition;
+                            found = true; break;
                         }
                     }
-
-                    // Kalau belum ditemukan, tambahkan data baru
-                    if (!isFound)
-                    {
-                        saveData.savedStorages.Add(storageData);
-                        Debug.Log($"[SAVE] Storage baru ditambahkan: {storageData.id}");
-                    }
+                    if (!found) saveData.savedStorages.Add(storageData);
                 }
-
-                Debug.Log("Data storage telah ditangkap untuk penyimpanan. Jumlah total: " + saveData.savedStorages.Count);
             }
+            // 4. FURNACE (Perbaiki Kurung Kurawal Disini)
             else if (saveable is CookInteractable furnance)
             {
-                Debug.Log("[SAVE] Ditemukan CookInteractable. Memanggil CaptureState...");
+                Debug.Log("[SAVE] Ditemukan CookInteractable.");
                 if (furnance.CaptureState() is FurnanceSaveData furnanceData)
                 {
-                    furnanceData.id = furnance.interactableUniqueID.UniqueID;
+                    if (saveData.furnanceSaveData == null) saveData.furnanceSaveData = new List<FurnanceSaveData>();
 
-                    if (saveData.furnanceSaveData == null)
-                        saveData.furnanceSaveData = new List<FurnanceSaveData>();
-
-                    bool isFound = false;
-                    foreach (var item in saveData.furnanceSaveData)
+                    bool found = false;
+                    foreach (var f in saveData.furnanceSaveData)
                     {
-                        if (item.id == furnanceData.id)
+                        if (f.id == furnanceData.id)
                         {
-                            item.itemCook = furnanceData.itemCook;
-                            item.fuelCook = furnanceData.fuelCook;
-                            item.itemResult = furnanceData.itemResult;
-                            item.quantityFuel = furnanceData.quantityFuel;
-                            item.furnancePosition = furnanceData.furnancePosition;
-                            isFound = true;
+                            f.itemCook = furnanceData.itemCook;
+                            f.fuelCook = furnanceData.fuelCook;
+                            f.itemResult = furnanceData.itemResult;
+                            f.quantityFuel = furnanceData.quantityFuel;
+                            f.furnancePosition = furnanceData.furnancePosition;
+                            found = true;
                             break;
                         }
                     }
 
-                    if (!isFound)
-                    {
-                        saveData.furnanceSaveData.Add(furnanceData);
-                        Debug.Log($"[SAVE] CookInteractable baru ditambahkan: {furnanceData.id}");
-                    }
+                    if (!found) saveData.furnanceSaveData.Add(furnanceData);
                 }
-
-                Debug.Log("Data CookInteractable telah ditangkap untuk penyimpanan. Jumlah total: " + saveData.furnanceSaveData.Count);
             }
-
-
+            // 5. BATU MANAGER
             else if (saveable is BatuManager stone)
             {
-                Debug.Log("[SAVE] Ditemukan BatuManager. Memanggil CaptureState...");
+                Debug.Log("[SAVE] Ditemukan BatuManager.");
                 if (stone.CaptureState() is List<StoneRespawnSaveData> queueData)
                 {
-
                     saveData.queueRespownStone = queueData;
-                    Debug.Log("Data pemain telah ditangkap untuk StoneManager." + queueData.Count);
                 }
             }
+            // 6. TIME MANAGER
             else if (saveable is TimeManager time)
             {
-                Debug.Log("[SAVE] Ditemukan TimeManager. Memanggil CaptureState...");
+                Debug.Log("[SAVE] Ditemukan TimeManager.");
                 if (time.CaptureState() is TimeSaveData timeData)
                 {
                     saveData.timeSaveData = timeData;
-                    Debug.Log($"Data waktu telah ditangkap untuk penyimpanan. total hari = {saveData.timeSaveData.totalHari} hari ke-{saveData.timeSaveData.hari} tanggal ke-{saveData.timeSaveData.date} minggu ke-{saveData.timeSaveData.minggu} ");
                 }
             }
+            // 7. FARM TILE
             else if (saveable is FarmTile hoedTile)
             {
-                Debug.Log("[SAVE] Ditemukan TiledHoedManager. Memanggil CaptureState...");
                 if (hoedTile.CaptureState() is List<HoedTileData> hoedTiles)
                 {
                     saveData.savedHoedTilesList = hoedTiles;
-                    Debug.Log("Data Hoed Tile telah ditangkap untuk penyimpanan." + hoedTiles.Count);
                 }
             }
-            else if (saveable is ShopInteractable shopInteractable)
+            // 8. SHOP
+            else if (saveable is ShopInteractable shop)
             {
-                Debug.Log("[Save] Ditemukan ShopInteractable, memanggil CaptureState...");
-
-                // Panggil CaptureState() dan pastikan hasilnya adalah ItemShopSaveData
-                // (Berdasarkan perbaikan kita sebelumnya, fungsi ini mengembalikan satu objek, bukan list)
-                if (shopInteractable.CaptureState() is ItemShopSaveData shopData)
+                if (shop.CaptureState() is ItemShopSaveData shopData)
                 {
-                    // Tambahkan data dari toko ini ke dalam list utama di GameSaveData
                     saveData.itemShopSaveData.Add(shopData);
-                    Debug.Log($"Data untuk toko '{shopData.typeShop}' berhasil ditambahkan. Jumlah item: {shopData.items.Count}");
                 }
             }
-            else if (saveable is QuestManager questManager)
+            // 9. QUEST
+            else if (saveable is QuestManager quest)
             {
-                Debug.Log("[SAVE] Ditemukan QuestManager. Memanggil CaptureState...");
-
-                if (questManager.CaptureState() is List<ChapterQuestActiveDatabase> questData)
+                if (quest.CaptureState() is List<ChapterQuestActiveDatabase> questData)
                 {
                     saveData.savedQuestList = questData;
-
-                    Debug.Log($"Data QuestManager berhasil ditangkap. {questData.Count} chapter aktif.");
                 }
             }
-            else if (saveable is UpgradeToolsInteractable upgradeToolsInteractable)
+            // 10. UPGRADE TOOLS
+            else if (saveable is UpgradeToolsInteractable upgrade)
             {
-                Debug.Log("[SAVE] Ditemukan UpgradeToolsInteractable . Memanggil CaptureState...");
-                if (upgradeToolsInteractable.CaptureState() is UpgradeToolsSaveData upgradeSaveData)
+                if (upgrade.CaptureState() is UpgradeToolsSaveData upgradeData)
                 {
-                    saveData.upgradeToolsSaveData = upgradeSaveData;
-                    Debug.Log($"Data UpgradeToolsInteractable berhasil ditangkap. {upgradeSaveData.upgradeToolsDatabase.toolsName} siap untuk upgrade.");
+                    saveData.upgradeToolsSaveData = upgradeData;
                 }
             }
-            else if (saveable is PerangkapManager perangkapManager)
+            // 11. PERANGKAP
+            else if (saveable is PerangkapManager perangkap)
             {
-                Debug.Log("[SAVE] Ditemukan PerangkapManager. Memanggil CaptureState...");
-                if (perangkapManager.CaptureState() is List<PerangkapSaveData> perangkapData)
+                Debug.Log("[SAVE] perangkap Ditemukan ! Memproses...");
+
+                if (perangkap.CaptureState() is List<PerangkapSaveData> pData)
                 {
-                    saveData.perangkapSaveData.AddRange(perangkapData);
-                    Debug.Log("Data Perangkap telah ditangkap untuk penyimpanan." + perangkapData.Count);
+                    Debug.Log($"[SAVE] perangkap Sukses! {pData.Count} tutorial tersimpan.");
+
+
+                    saveData.perangkapSaveData.AddRange(pData);
                 }
             }
+            // 12. TUTORIAL MANAGER (TARGET UTAMA KITA)
+            else if (saveable is TutorialManager tutorialManager)
+            {
+                Debug.Log("[SAVE] Ditemukan TutorialManager! Memproses...");
 
-            // Tambahkan 'else if' lain untuk Chest, Bunga, dll. di masa depan.
-        }
-    }
+                // Panggil Capture
+                object capturedData = tutorialManager.CaptureState();
+
+                // Cek Tipe Data
+                if (capturedData is List<string> tutorialData)
+                {
+                    saveData.completedTutorials = tutorialData;
+                    Debug.Log($"[SAVE] Sukses! {tutorialData.Count} tutorial tersimpan.");
+                }
+                else
+                {
+                    Debug.LogError($"[SAVE] Gagal! CaptureState mengembalikan tipe yang salah: {capturedData?.GetType()}");
+                }
+            }
+        } // Tutup Loop Foreach
+    } // Tutup Fungsi CaptureAllSaveableStates
 
     private void SaveToFile(GameSaveData saveData)
     {

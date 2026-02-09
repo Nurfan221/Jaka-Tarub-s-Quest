@@ -344,6 +344,11 @@ public class GameController : MonoBehaviour
                 TimeManager.Instance.RestoreState(saveData.timeSaveData);
             }
 
+            if (saveData.completedTutorials != null && saveData.completedTutorials.Count > 0)
+            {
+                Debug.Log("GAmeController: Membangun Tutorial dari file save");
+                TutorialManager.Instance.RestoreState(saveData.completedTutorials);
+            }
             GenerateDefaultWorld();
         }
         else

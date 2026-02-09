@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -302,13 +303,13 @@ public class InventoryUI : MonoBehaviour
         {
             SetDescription(playerData.emptyItemTemplate);
         }
-        // Jika item kosong, tidak perlu lanjutkan refresh
-        if (stats.inventory == null || stats.inventory.Count == 0)
-        {
-            Debug.Log("No items to display in the inventory");
-            UpdateSixItemDisplay();  // Tetap update untuk bersihkan display jika kosong
-            return;
-        }
+        //// Jika item kosong, tidak perlu lanjutkan refresh
+        //if (stats.inventory == null || stats.inventory.Count == 0)
+        //{
+        //    Debug.Log("No items to display in the inventory");
+        //    UpdateSixItemDisplay();  // Tetap update untuk bersihkan display jika kosong
+        //    return;
+        //}
 
         RefreshInventoryItems();
         UpdateSixItemDisplay();
@@ -319,10 +320,30 @@ public class InventoryUI : MonoBehaviour
         Debug.Log("item inventory di refresh");
         //error
         RefreshAllActiveSlots();
+        //foreach (Transform child in ContentGO)
+        //{
+        //    if (child == SlotTemplate) continue;
+        //    Destroy(child.gameObject);
+        //}
+
+        List<GameObject> toDestroy = new List<GameObject>();
         foreach (Transform child in ContentGO)
         {
-            if (child == SlotTemplate) continue;
-            Destroy(child.gameObject);
+            // Pastikan kita tidak menghapus Template jika dia ada di dalam ContentGO
+            if (child.gameObject == SlotTemplate) continue;
+
+            toDestroy.Add(child.gameObject);
+        }
+
+        foreach (GameObject go in toDestroy)
+        {
+            // Hapus gameobject
+            Destroy(go);
+        }
+        if (stats.inventory.Count == 0)
+        {
+            Debug.Log("Inventory Kosong. UI harusnya bersih.");
+            return; // Jangan lanjut loop jika kosong
         }
 
         for (int i = 0; i < stats.inventory.Count; i++)

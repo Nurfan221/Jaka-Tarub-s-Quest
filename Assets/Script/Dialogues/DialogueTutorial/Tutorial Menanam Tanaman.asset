@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Tutorial Menanam Tanaman
+  m_EditorClassIdentifier: Assembly-CSharp::Dialogues
+  TheDialogues:
+  - name: '-'
+    sentence: Pertama gemburkan tanah menggunakan cangkul
+  - name: '-'
+    sentence: Dapatkan benih dari toko atau bisa di temukan dengan membuka kotak
+      sampah
+  - name: '-'
+    sentence: Tarik dan geser benih di inventory utama dan arahkan ke tanah yang
+      sudah di cangkul
+  - name: '-'
+    sentence: Selanjutnya siram tanaman agar bisa tumbuh
+  - name: '-'
+    sentence: Jangan lupa beri pestisida jika tanaman terinfeksi hama
+  - name: '-'
+    sentence: jika ingin tanaman tumbuh sedikit lebih cepat berikan pupuk ke tanah
+      yang sudah di cangkul sebelum menanam tanaman
+  mainSpeaker: '- '
+  promptAfterDialogue: Tutorial Menanam Tanaman
