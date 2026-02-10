@@ -82,15 +82,13 @@ public class TutorialManager : MonoBehaviour, ISaveable
         }
         else
         {
-            // Hati-hati: Terkadang JsonUtility membungkus list menjadi JArray/Object lain
-            // Jika save system Anda menggunakan Newtonsoft.Json, baris di atas sudah aman.
             Debug.LogWarning("[LOAD] Format data tidak sesuai (Bukan List<string>)");
         }
     }
     public void OpenTutorialUI(Dialogues tutorialData)
     {
         tutorialUI.gameObject.SetActive(true);
-        GameController.Instance.ShowPersistentUI(false);
+        //GameController.Instance.ShowPersistentUI(false);
         GameController.Instance.PauseGame();
         tutorialDialogue = tutorialData;
         ShowTutorial();
@@ -100,7 +98,7 @@ public class TutorialManager : MonoBehaviour, ISaveable
     {
         tutorialUI.gameObject.SetActive(false);
         tutorialDialogue = null;
-        GameController.Instance.ShowPersistentUI(true);
+        //GameController.Instance.ShowPersistentUI(true);
         GameController.Instance.ResumeGame();
     }
 
@@ -123,20 +121,21 @@ public class TutorialManager : MonoBehaviour, ISaveable
             }
         }
 
-        foreach (var dataDialogue in tutorialDialogue.TheDialogues)
+        for (int i = 0; i < tutorialDialogue.TheDialogues.Count; i++)
         {
-           
-            GameObject newItem = Instantiate(textTemplate, kontenContainer);
+            var dataDialogue = tutorialDialogue.TheDialogues[i];
 
+            GameObject newItem = Instantiate(textTemplate, kontenContainer);
             newItem.SetActive(true);
 
             TextMeshProUGUI textComponent = newItem.GetComponent<TextMeshProUGUI>();
-
             if (textComponent == null) textComponent = newItem.GetComponentInChildren<TextMeshProUGUI>();
 
             if (textComponent != null)
             {
-                textComponent.text = $" - {dataDialogue.sentence}";
+                
+
+                textComponent.text = $"{i + 1}. <indent=1.5em>{dataDialogue.sentence}</indent>";
             }
         }
     }
@@ -144,29 +143,27 @@ public class TutorialManager : MonoBehaviour, ISaveable
     // Fungsi untuk memanggil Tutorial berdasarkan ID
     public void TriggerTutorial(string tutorialID)
     {
-        // 1. Cek apakah tutorial ini ada di database?
+        // Cek apakah tutorial ini ada di database?
         if (!tutorialMap.ContainsKey(tutorialID))
         {
             Debug.LogWarning($"Tutorial ID '{tutorialID}' tidak ditemukan di Database!");
             return;
         }
 
-        // 2. Cek apakah tutorial ini SUDAH PERNAH selesai?
+        // Cek apakah tutorial ini SUDAH PERNAH selesai?
         if (IsTutorialFinished(tutorialID))
         {
             Debug.Log($"Tutorial '{tutorialID}' sudah selesai, skip.");
             return;
         }
 
-        // 3. Jika belum, Jalankan Dialog
+        // Jika belum, Jalankan Dialog
         TutorialData data = tutorialMap[tutorialID];
         Debug.Log($"Memulai Tutorial: {tutorialID}");
 
-        // Panggil sistem dialog Anda di sini
-        //DialogueSystem.Instance.HandlePlayDialogue(data.dialogueContent);
         OpenTutorialUI(data.dialogueContent);
 
-        // 4. Tandai Selesai (Opsional: bisa juga ditandai setelah dialog tutup)
+        // Tandai Selesai (Opsional: bisa juga ditandai setelah dialog tutup)
         CompleteTutorial(tutorialID);
     }
 
@@ -203,7 +200,6 @@ public class TutorialManager : MonoBehaviour, ISaveable
         return finishedList;
     }
 
-    // 2. Dipanggil saat Load Game
     // Mengubah List string dari SaveData kembali menjadi Dictionary
     public void LoadFinishedTutorials(List<string> savedIDs)
     {

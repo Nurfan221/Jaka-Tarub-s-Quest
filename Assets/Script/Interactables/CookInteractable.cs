@@ -139,6 +139,8 @@ public class CookInteractable : Interactable, ISaveable
 
     protected override void Interact()
     {
+        TutorialManager.Instance.TriggerTutorial("Tutorial_Cook/Smelt");
+
         MechanicController.Instance.HandleOpenCookUI(this);
     }
     // fungsi memanggil corountine yang di inginkan

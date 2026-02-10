@@ -324,6 +324,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         }
         Debug.Log($"Mengaktifkan Side Quest: {questToActivate.questName}");
 
+       
 
         //OnQuestLogUpdated?.Invoke();
         CreateTemplateQuest();

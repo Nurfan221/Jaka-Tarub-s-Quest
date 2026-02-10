@@ -578,6 +578,9 @@ public class DatabaseManager : MonoBehaviour
     [Tooltip("Database untuk item-item yang bisa disimpan.")]
     public StorageDatabaseSO storageDatabase;
     public ItemPoolDatabase itemPoolDatabase;
+    [Tooltip("Database untuk semua quest dan progresnya.")]
+    public GameTutorialDatabase gameTutorialDatabase;
+
 
     [Space(10)]
     [Header("World & Environment Databases")]

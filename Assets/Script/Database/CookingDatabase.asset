@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: CookingDatabase
   m_EditorClassIdentifier: 
   cookRecipes:
+  - recipeName: AyamPanggang
+    ingredient: {fileID: 11400000, guid: fbdf2c85b189a2e42aefa92b3fa09046, type: 2}
+    ingredientCount: 1
+    result: {fileID: 11400000, guid: 38edefcf53dbc7646a3f9f223a40b894, type: 2}
+    resultCount: 1
   - recipeName: DagingSapiPanggang
     ingredient: {fileID: 11400000, guid: be4a13e273645364c9af7545ac02f048, type: 2}
     ingredientCount: 1

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -528,6 +529,27 @@ public class PlayerUI : MonoBehaviour
             // Jika UI tidak aktif, tampilkan
             StopAllCoroutines(); // Hentikan jika sedang beranimasi
             StartCoroutine(AnimateShowUI());
+        }
+
+
+        //  pengecekan Count > 0
+        if (QuestManager.Instance.questActive != null && QuestManager.Instance.questActive.Count > 0)
+        {
+            // Cek juga apakah sideQuests di quest pertama tidak null
+            var firstQuest = QuestManager.Instance.questActive[0];
+
+            if (firstQuest.sideQuests != null)
+            {
+                foreach (var quest in firstQuest.sideQuests)
+                {
+                    // Cek Nama (Aman Typo Besar/Kecil)
+                    if (string.Equals(quest.questName, "Tutorial Menanam Tanaman", StringComparison.OrdinalIgnoreCase))
+                    {
+                        TutorialManager.Instance.TriggerTutorial("Tutorial_Quest");
+                        break;
+                    }
+                }
+            }
         }
 
         isUIActive = !isUIActive;
