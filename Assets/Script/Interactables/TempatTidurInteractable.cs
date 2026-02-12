@@ -23,7 +23,7 @@ public class TempatTidurInteractable : Interactable
         TimeManager.Instance.AdvanceToNextDay();
         SaveDataManager.Instance.SaveGame();
 
-        StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+        StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(true, "Saatnya Tidur, Semoga hari esok hari yang cerah"));
 
 
     }

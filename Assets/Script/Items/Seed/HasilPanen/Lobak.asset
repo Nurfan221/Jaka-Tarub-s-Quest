@@ -30,8 +30,8 @@ MonoBehaviour:
   buffSprint: 0
   waktuBuffProtection: 0
   buffProtection: 0
-  countHeal: 0
-  countStamina: 0
+  countHeal: 2
+  countStamina: 2
   isItemCombat: 0
   level: 0
   MaxLevel: 0
@@ -52,5 +52,9 @@ MonoBehaviour:
   growthTime: 0
   canRegrow: 0
   regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
   seedType: 0

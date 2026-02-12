@@ -321,6 +321,8 @@ public class Player_Health : MonoBehaviour
             // Tambahkan ini untuk tahu kondisi terpenuhi
             Debug.Log("KONDISI SEKARAT TERPENUHI! MENYIARKAN EVENT...");
             Sekarat?.Invoke();
+
+            TutorialManager.Instance.TriggerTutorial("Tutorial_KetikaSekarat");
         }
     }
 

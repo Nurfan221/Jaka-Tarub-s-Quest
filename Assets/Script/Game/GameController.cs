@@ -583,7 +583,7 @@ public class GameController : MonoBehaviour
         SaveDataManager.Instance.SaveGame();
 
 
-      
+
         Debug.Log("Pemain di RS: " + playerTransform.position);
 
         // Cek dulu apakah ada collidernya

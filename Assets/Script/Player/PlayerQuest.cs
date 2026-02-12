@@ -1,3 +1,6 @@
+
+using System.Collections.Generic;
+
 using UnityEngine;
 
 
@@ -11,6 +14,8 @@ public class PlayerQuest : MonoBehaviour
 
     public Dialogues dialogueInLocation;
     public bool mainQuestInLocation = false;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,6 +39,7 @@ public class PlayerQuest : MonoBehaviour
             Debug.Log($"Pemain masuk ke lokasi: {other.name}");
             OnPlayerEnteredLocation?.Invoke(other.transform);
         }
+  
     }
 
 
