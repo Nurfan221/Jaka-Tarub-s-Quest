@@ -13,7 +13,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource sourceA; 
     public AudioSource sourceB; 
     public AudioSource sfxSource;
-
+    public AudioSource narratorSource;
     [Header("Data Source")]
     public MusicLibrary audioLibrary; 
 
@@ -134,9 +134,31 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlayAudioClip(AudioClip clip, float volume)
+    public void PlayNarrator(AudioClip clip, float volume = 1.0f)
     {
-        sfxSource.PlayOneShot(clip, volume * sfxMasterVolume);
+        // 1. Matikan suara narasi sebelumnya (jika ada)
+        if (narratorSource.isPlaying)
+        {
+            narratorSource.Stop();
+        }
+        if (narratorSource.isPlaying && narratorSource.clip == clip)
+        {
+            // Jangan lakukan apa-apa (biarkan yang lama jalan terus)
+            return;
+        }
+        // 2. Jika clip-nya ada, putar
+        if (clip != null)
+        {
+            narratorSource.clip = clip;
+            narratorSource.volume = volume; // Bisa dikali master volume jika mau
+            narratorSource.Play();
+        }
+    }
+
+    // Fungsi untuk mematikan narasi secara paksa (misal saat skip cutscene)
+    public void StopNarrator()
+    {
+        narratorSource.Stop();
     }
     public void CheckGameplayMusic(bool isIndoors, float delay = 0f)
     {

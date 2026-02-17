@@ -130,7 +130,7 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
-    public void EndDialogue(bool useLOadingTimer = true)
+    public void EndDialogue()
     {
         OnDialogueEnded?.Invoke();
         print("End of conversations");
@@ -139,7 +139,7 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueUI.SetActive(false);
         GameController.Instance.ResumeGame();
-        if (useLOadingTimer)
+        if (useLoadingTimer)
         {
              StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
 

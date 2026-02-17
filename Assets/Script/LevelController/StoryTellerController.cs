@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI; // Untuk Image UI
-using UnityEngine.Events; // Jika ingin menggunakan Event Unity
+using UnityEngine.Events;
+using System.Collections; // Jika ingin menggunakan Event Unity
 
 public class StoryTellerController: MonoBehaviour
 {
@@ -71,7 +72,11 @@ public class StoryTellerController: MonoBehaviour
         {
             if (prologueData.contentOptionalCerita[currentIndex].audioCerita != null)
             {
-                SoundManager.Instance.PlayAudioClip(prologueData.contentOptionalCerita[currentIndex].audioCerita, 1);
+                SoundManager.Instance.PlayNarrator(prologueData.contentOptionalCerita[currentIndex].audioCerita);
+            }
+            else
+            {
+                Debug.Log($"Bagian ke-{currentIndex} tidak memiliki audio cerita.");
             }
         }
 
@@ -82,6 +87,10 @@ public class StoryTellerController: MonoBehaviour
                 Dialogues currentDialog = prologueData.contentOptionalCerita[currentIndex].dialogCerita;
 
                 DialogueSystem.Instance.HandlePlayDialogue(currentDialog, false);
+            }
+            else
+            {
+                Debug.Log($"Bagian ke-{currentIndex} tidak memiliki dialog cerita.");
             }
         }
 
@@ -98,20 +107,26 @@ public class StoryTellerController: MonoBehaviour
     // Fungsi ini dipanggil OTOMATIS ketika Dialog selesai
     public void OnSegmentFinished()
     {
+        SoundManager.Instance.StopNarrator(); // Hentikan audio narator saat dialog selesai
         Debug.Log($"Bagian ke-{currentIndex} selesai. Lanjut ke bagian berikutnya.");
 
         // Naikkan index ke 1
         currentIndex++;
 
         // Panggil fungsi play lagi (Looping logic)
-        PlayStorySegment();
+        StartCoroutine(PlayStoryWithDelay(0.1f)); // Tambahkan delay 1 detik sebelum bagian berikutnya dimulai
 
-        if (currentIndex > prologueData.contentOptionalCerita.Count)
-        {
-            currentIndex = 0; // Reset jika sudah selesai semua cerita
-        }
+        //if (currentIndex > prologueData.contentOptionalCerita.Count)
+        //{
+        //    currentIndex = 0; // Reset jika sudah selesai semua cerita
+        //}
     }
 
+    public IEnumerator PlayStoryWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PlayStorySegment();
+    }
     private void EndStory()
     {
         Debug.Log("Seluruh Prolog Selesai! Pindah ke Gameplay...");

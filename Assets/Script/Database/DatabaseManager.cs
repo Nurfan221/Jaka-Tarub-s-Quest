@@ -647,7 +647,9 @@ public class DatabaseManager : MonoBehaviour
     [Tooltip("Prefab untuk objek NPC")]
     public GameObject NPCAdultPrefab;
     public GameObject NPCChildPrefab;
-
+    [Tooltip("Prefab untuk objek sumur")]
+    public Item botolKosong;
+    public Item botolAir;
     [Space(10)]
     [Header("System & Save Data")]
     [Tooltip("Referensi ke data waktu yang bisa disimpan.")]

@@ -4,6 +4,8 @@ public class SumurInteractable : Interactable
 {
 
     public Item itemInteractable;
+    public Item botolKosong;
+    public Item botolAir;
     private PlayerController stats;
     private void Awake()
     {
@@ -22,7 +24,8 @@ public class SumurInteractable : Interactable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        botolKosong = DatabaseManager.Instance.botolKosong;
+        botolAir = DatabaseManager.Instance.botolAir;
     }
 
     // Update is called once per frame
@@ -51,6 +54,22 @@ public class SumurInteractable : Interactable
                 stats.equippedItemData[0].itemHealth = item.maxhealth;
                 PlayerUI.Instance.UpdateEquippedWeaponUI();
             }
+            else if (itemDiSlotPertama.itemName == botolKosong.itemName)
+            {
+                Debug.Log("Mengisi botol kosong di slot pertama...");
+                if (stats.equippedItemData[0].count > 1 )
+                {
+                    stats.equippedItemData[0].count -= 1;
+                }
+                else
+                {
+                    stats.equippedItemData[0] = stats.playerData.emptyItemTemplate;
+
+                }
+                ItemData itemDataBotolPenuh = new ItemData(botolAir.itemName, 1, botolAir.quality, botolAir.maxhealth);
+                ItemPool.Instance.AddItem(itemDataBotolPenuh);
+                PlayerUI.Instance.UpdateEquippedWeaponUI();
+            }
         }
         else
         {
@@ -63,6 +82,22 @@ public class SumurInteractable : Interactable
                 Debug.Log("Item di slot pertama cocok! Mengisi ulang...");
                 Item item = ItemPool.Instance.GetItemWithQuality(itemDiSlotKedua.itemName, itemDiSlotKedua.quality);
                 stats.equippedItemData[1].itemHealth = item.maxhealth;
+                PlayerUI.Instance.UpdateEquippedWeaponUI();
+            }
+            else if (itemDiSlotKedua.itemName == botolKosong.itemName)
+            {
+                Debug.Log("Mengisi botol kosong di slot pertama...");
+                if (stats.equippedItemData[1].count > 1)
+                {
+                    stats.equippedItemData[1].count -= 1;
+                }
+                else
+                {
+                    stats.equippedItemData[1] = stats.playerData.emptyItemTemplate;
+
+                }
+                ItemData itemDataBotolPenuh = new ItemData(botolAir.itemName, 1, botolAir.quality, botolAir.maxhealth);
+                ItemPool.Instance.AddItem(itemDataBotolPenuh);
                 PlayerUI.Instance.UpdateEquippedWeaponUI();
             }
         }
