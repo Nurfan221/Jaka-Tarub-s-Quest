@@ -19,7 +19,7 @@ public class DialogueSystem : MonoBehaviour
     public string firstSpeaker;
     public TMP_Text dialogueText;
     public TMP_Text narrationText;
-
+    public bool useLoadingTimer = true;
     public Button NextButton;
     public Button endButton; // Tombol untuk mengakhiri dialog
 
@@ -74,7 +74,10 @@ public class DialogueSystem : MonoBehaviour
         NextButton.onClick.RemoveAllListeners();
         NextButton.onClick.AddListener(NextDialogue);
         endButton.onClick.RemoveAllListeners();
-        endButton.onClick.AddListener(EndDialogue);
+        endButton.onClick.AddListener(() =>
+        {
+            EndDialogue();
+        });
 
         NextDialogue();
     }
@@ -127,7 +130,7 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
-    public void EndDialogue()
+    public void EndDialogue(bool useLOadingTimer = true)
     {
         OnDialogueEnded?.Invoke();
         print("End of conversations");
@@ -136,7 +139,11 @@ public class DialogueSystem : MonoBehaviour
 
         dialogueUI.SetActive(false);
         GameController.Instance.ResumeGame();
-        StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+        if (useLOadingTimer)
+        {
+             StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+
+        }
 
         npcName = "";
         // Siarkan pengumuman bahwa dialog telah berakhir!
@@ -198,8 +205,9 @@ public class DialogueSystem : MonoBehaviour
 
     }
 
-    public void HandlePlayDialogue(Dialogues dialogues)
+    public void HandlePlayDialogue(Dialogues dialogues, bool useTimer = true)
     {
+        useLoadingTimer = useTimer;
         theDialogues = dialogues;
         StartDialogue();
     }

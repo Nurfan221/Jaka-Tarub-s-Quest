@@ -509,6 +509,21 @@ public class ArrayPintu
     //public GameObject area;
 }
 
+[System.Serializable]
+public class OptionalCerita
+{
+    public string ceritaName;
+    public List<ContentOptionalCerita> contentOptionalCerita;
+
+}
+
+[System.Serializable]
+public class ContentOptionalCerita
+{
+    public Dialogues dialogCerita;
+    public Sprite gambarCerita;
+    public AudioClip audioCerita;
+}
 
 [Serializable]
 public class CookSaveData
@@ -580,6 +595,7 @@ public class DatabaseManager : MonoBehaviour
     public ItemPoolDatabase itemPoolDatabase;
     [Tooltip("Database untuk semua quest dan progresnya.")]
     public GameTutorialDatabase gameTutorialDatabase;
+    public OptionalCeritaDataaseSO optionalCeritaDataaseSO;
 
 
     [Space(10)]
@@ -911,5 +927,17 @@ public class DatabaseManager : MonoBehaviour
         }
 
         return foundTree.databaseItemTrees;
+    }
+
+    public OptionalCerita GetOptionalCerita(string ceritaName)
+    {
+        OptionalCerita foundCerita = optionalCeritaDataaseSO.listOptionalCerita.FirstOrDefault(cerita =>
+            cerita.ceritaName.Equals(ceritaName, StringComparison.OrdinalIgnoreCase)
+        );
+        if (foundCerita == null)
+        {
+            Debug.LogWarning($"DatabaseManager: Tidak dapat menemukan cerita dengan nama '{ceritaName}'");
+        }
+        return foundCerita;
     }
 }

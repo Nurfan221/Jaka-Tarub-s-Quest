@@ -92,9 +92,13 @@ public class GameController : MonoBehaviour
                 Debug.Log($"Scene '{mainGameSceneName}' dimuat. Memulai sebagai Game Baru...");
                 Debug.Log("GameController: Membangun dunia baru dari Peta Awal...");
                 GenerateDefaultWorld();
+
+                
                 FindObjectOfType<PlayerController>()?.InitializeForNewGame();
                 FindObjectOfType<PlayerController>()?.StartPlayerPosition(latestPlayerPos);
                 IsNewGame = false; // Reset "catatan"
+
+                StartCoroutine(delayLoadCerita());
 
             }
             else
@@ -110,6 +114,15 @@ public class GameController : MonoBehaviour
     }
 
 
+    public IEnumerator delayLoadCerita()
+    {
+        yield return new WaitForSeconds(1f); // Delay singkat untuk memastikan semua objek siap
+        OptionalCerita optionalCerita = DatabaseManager.Instance.GetOptionalCerita("newGameNarator");
+        if (optionalCerita != null)
+        {
+            StoryTellerController.Instance.StartStory(optionalCerita);
+        }
+    }
 
 
 

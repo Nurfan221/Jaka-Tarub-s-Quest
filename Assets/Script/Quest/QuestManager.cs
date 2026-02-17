@@ -813,5 +813,7 @@ public class QuestManager : MonoBehaviour, ISaveable
     {
         contentStory.gameObject.SetActive(false);
     }
+
+   
 }
 

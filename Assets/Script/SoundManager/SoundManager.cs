@@ -133,6 +133,11 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning("SFX not found in dictionary: " + name.ToString());
         }
     }
+
+    public void PlayAudioClip(AudioClip clip, float volume)
+    {
+        sfxSource.PlayOneShot(clip, volume * sfxMasterVolume);
+    }
     public void CheckGameplayMusic(bool isIndoors, float delay = 0f)
     {
         Season currentSeason = TimeManager.Instance.currentSeason;
