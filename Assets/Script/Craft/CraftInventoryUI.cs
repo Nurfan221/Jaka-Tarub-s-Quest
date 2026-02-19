@@ -175,7 +175,7 @@ public class CraftInventoryUI : MonoBehaviour
             return;
         }
 
-        QuantityPopupUI.Instance.Show(selectedResultItem.sprite, 1, maxPossible);
+        QuantityPopupUI.Instance.Show(selectedResultItem, 1, maxPossible);
     }
 
     public void HandlePopupConfirm(int amount)

@@ -99,7 +99,6 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
 
         // Sekarang Anda bisa mengakses nama NPC dari naskah
         this.targetNpcName = questData.namaNpcQuest;
-        MainEnvironmentManager.Instance.spawnerManager.isMainQuest1Active = true;
         Debug.Log($"NPC target untuk quest ini adalah: {this.targetNpcName}");
 
         // Cek apakah 'questData' punya state yang sudah disimpan
@@ -188,6 +187,8 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
                 objectiveInfoForUI = data?.objectiveInfoForUI ?? "";
                 nameLokasiYangDitunggu = data?.locationToEnterTrigger ?? "";
                 QuestManager.Instance.CreateTemplateQuest();
+                MainEnvironmentManager.Instance.spawnerManager.isMainQuest1Active = true;
+
                 break;
 
             case MainQuest1State.CariRusa:
@@ -553,6 +554,7 @@ public class MainQuest1_Controller : MainQuestController  // Pastikan mewarisi d
             case MainQuest1State.PamitUntukBerburu:
                 // Misalnya, spawn hewan baru atau ubah kondisi lingkungan
                 HandleSpriteAndDialogue(MainQuest1State.PamitUntukBerburu);
+
 
                 break;
             case MainQuest1State.KabarKesedihan:

@@ -732,7 +732,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                         plantSeed.UpdateParticleEffect();
 
                         MechanicController.Instance.HandleUpdateInventory();
-
+                        PlantInteractable plantInteractable = tanaman.GetComponent<PlantInteractable>();
+                        plantInteractable.promptMessage = $"Tanaman {plantSeed.namaSeed}";
                         Debug.Log("Serangga berhasil dibasmi di tanaman: " + tanaman.name);
                         return true;
                     }

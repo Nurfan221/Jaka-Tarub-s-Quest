@@ -168,7 +168,7 @@ public class StorageUI : MonoBehaviour
         Item itemSO = ItemPool.Instance.GetItemWithQuality(data.itemName, data.quality);
         if (itemSO == null) return;
 
-        QuantityPopupUI.Instance.Show(itemSO.sprite, 1, data.count);
+        QuantityPopupUI.Instance.Show(itemSO, 1, data.count);
     }
 
     public void OnInventoryItemClick(ItemData data)
@@ -178,7 +178,7 @@ public class StorageUI : MonoBehaviour
         Item itemSO = ItemPool.Instance.GetItemWithQuality(data.itemName, data.quality);
         if (itemSO == null) return;
 
-        QuantityPopupUI.Instance.Show(itemSO.sprite, 1, data.count);
+        QuantityPopupUI.Instance.Show(itemSO, 1, data.count);
     }
 
     private void HandlePopupConfirmation(int selectedAmount)

@@ -797,6 +797,8 @@ MonoBehaviour:
   EnemyWorldPrefab: {fileID: 1784783501594626427, guid: 39e0a5c4b0e9b704ea70f36a83fd4360, type: 3}
   NPCAdultPrefab: {fileID: 3632186851480370098, guid: b747942da01865a4ea8d215266b4f27b, type: 3}
   NPCChildPrefab: {fileID: 3632186851480370098, guid: 3c5fc1183684d8d40b02084ed2df389b, type: 3}
+  botolKosong: {fileID: 11400000, guid: 1f966039da031364ca6c68a74d8c791a, type: 2}
+  botolAir: {fileID: 11400000, guid: 4ff0c86271651924eb40e5c19bf326dd, type: 2}
   timeManagerDatabase:
     totalHari: 0
     hari: 0
@@ -856,7 +858,7 @@ MonoBehaviour:
   gameplaySceneName: MainGameScene
   fadeDuration: 1
   gapDuration: 0.5
-  musicMasterVolume: 0
+  musicMasterVolume: 1
   sfxMasterVolume: 1
 --- !u!4 &2046478100
 Transform:

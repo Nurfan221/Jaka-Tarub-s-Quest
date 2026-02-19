@@ -163,7 +163,7 @@ public class CraftUI : MonoBehaviour
         // Tambahkan null check untuk menghindari error jika popup tidak ada
         if (QuantityPopupUI.Instance != null)
         {
-            QuantityPopupUI.Instance.Show(selectedResultItem.sprite, 1, maxPossible);
+            QuantityPopupUI.Instance.Show(selectedResultItem, 1, maxPossible);
         }
         else
         {
@@ -409,7 +409,7 @@ public class CraftUI : MonoBehaviour
                 // Jika masih bisa buat, refresh popup
                 if (QuantityPopupUI.Instance != null)
                 {
-                    QuantityPopupUI.Instance.Show(selectedResultItem.sprite, 1, newMaxPossible);
+                    QuantityPopupUI.Instance.Show(selectedResultItem, 1, newMaxPossible);
                 }
             }
             else

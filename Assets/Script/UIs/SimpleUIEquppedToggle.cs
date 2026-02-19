@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI; // Wajib ada untuk memanipulasi UI
 
@@ -22,6 +23,7 @@ public class SimpleUIEquppedToggle : MonoBehaviour
 
     [Header("Objek milik UIPanel")]
     public Image itemIcon;
+    public TMP_Text itemName;
 
 
     void Awake()
@@ -102,6 +104,7 @@ public class SimpleUIEquppedToggle : MonoBehaviour
         if (itemUse != null && itemIcon != null)
         {
             itemIcon.sprite = itemUse.sprite;
+            itemName.text = itemUse.itemName;   
         }
     }
 

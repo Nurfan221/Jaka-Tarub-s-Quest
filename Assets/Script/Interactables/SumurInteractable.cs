@@ -9,8 +9,6 @@ public class SumurInteractable : Interactable
     private PlayerController stats;
     private void Awake()
     {
-
-
         // Ambil "Papan Pengumuman" dari Otak dan simpan ke jalan pintas kita.
         if (PlayerController.Instance != null)
         {

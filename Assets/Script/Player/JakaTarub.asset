@@ -21,17 +21,17 @@ MonoBehaviour:
   staminaRegenRate: 5
   initialGriefPenalty: 50
   totalHealingQuests: 5
-  maxItem: 25
+  maxItem: 20
   emptyItemTemplate:
     itemName: Empty
     count: 0
     quality: 0
     itemHealth: 0
   equippedWeaponTemplate:
-    itemName: KapakTua
-    count: 1
+    itemName: Empty
+    count: 0
     quality: 0
-    itemHealth: 928
+    itemHealth: 0
   equippedItemTemplate:
     itemName: Empty
     count: 0

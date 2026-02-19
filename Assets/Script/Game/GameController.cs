@@ -89,6 +89,7 @@ public class GameController : MonoBehaviour
 
             if (IsNewGame)
             {
+                StartCoroutine(delayLoadCerita());
                 Debug.Log($"Scene '{mainGameSceneName}' dimuat. Memulai sebagai Game Baru...");
                 Debug.Log("GameController: Membangun dunia baru dari Peta Awal...");
                 GenerateDefaultWorld();
@@ -98,7 +99,6 @@ public class GameController : MonoBehaviour
                 FindObjectOfType<PlayerController>()?.StartPlayerPosition(latestPlayerPos);
                 IsNewGame = false; // Reset "catatan"
 
-                StartCoroutine(delayLoadCerita());
 
             }
             else

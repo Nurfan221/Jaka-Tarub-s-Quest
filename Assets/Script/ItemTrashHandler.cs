@@ -45,7 +45,7 @@ public class ItemTrashHandler : MonoBehaviour, IDropHandler
             if (itemSO == null) return;
 
             // Tampilkan popup dengan jumlah maksimum adalah jumlah item yang dimiliki
-            QuantityPopupUI.Instance.Show(itemSO.sprite, 1, itemData.count);
+            QuantityPopupUI.Instance.Show(itemSO, 1, itemData.count);
         }
     }
 

@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: Quest-1.1
   m_EditorClassIdentifier: 
   TheDialogues:
-  - name: Pak Wirya
+  - name: Pak Fahri
     sentence: Selamat pagi, Jaka Tarub! Bagaimana kabarmu hari ini?
   - name: Jaka Tarub
-    sentence: Selamat pagi, Pak Wirya. Kabarku baik, ada yang bisa saya bantu, Pak?
-  - name: Pak Wirya
+    sentence: Selamat pagi, Pak Fahri. Kabarku baik, ada yang bisa saya bantu, Pak?
+  - name: Pak Fahri
     sentence: Syukurlah. Sebenarnya, ada satu hal yang ingin aku mintakan bantuanmu.
-  - name: Pak Wirya
+  - name: Pak Fahri
     sentence: 'Persediaan beras di desa kita mulai menipis, dan beberapa warga sudah
       merasa khawatir. '
-  - name: Pak Wirya
+  - name: Pak Fahri
     sentence: Kalau tidak keberatan, bisakah kau mengumpulkan beberapa  padi dari
       ladang untuk membantu persediaan desa?
-  - name: Pak Wirya
+  - name: Pak Fahri
     sentence: Kalau tidak keberatan, bisakah kau mengumpulkan beberapa  padi dari
       ladang untuk membantu persediaan desa?
   - name: Jaka Tarub
     sentence: Bisa, Pak. Berapa banyak padi yang dibutuhkan?
-  - name: pak wirya
-    sentence: '15 padi sepertinya cukup, tentu saja akan .saya beri imbalan '
+  - name: pak Fahri
+    sentence: '10 padi sepertinya cukup, tentu saja akan .saya beri imbalan '
   - name: Jaka Tarub
     sentence: Baik, Pak. Saya akan segera ke ladang untuk mengumpulkan padi yang
       diperlukan, dan setelah itu saya akan antarkan ke rumah Pak Wirya.
-  mainSpeaker: Pak Wirya
+  mainSpeaker: Pak Fahri
   promptAfterDialogue: Kebutuhan Padi Desa

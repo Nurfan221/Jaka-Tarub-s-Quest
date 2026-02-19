@@ -20,6 +20,7 @@ public class QuantityPopupUI : MonoBehaviour
     [SerializeField] private Button minButton;
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
+    public TMP_Text nameItem;
 
     [Header("Events untuk Komunikasi")]
     public UnityIntEvent onConfirm;
@@ -67,13 +68,14 @@ public class QuantityPopupUI : MonoBehaviour
         //gameObject.SetActive(false); // Pastikan popup tidak aktif saat awal
     }
 
-    public void Show(Sprite sprite, int initialAmount, int maxPossibleAmount)
+    public void Show(Item itemUse, int initialAmount, int maxPossibleAmount)
     {
         gameObject.transform.SetAsLastSibling();
-        Debug.Log("Showing QuantityPopupUI with sprite: " + sprite.name + ", initialAmount: " + initialAmount + ", maxPossibleAmount: " + maxPossibleAmount);
+        Debug.Log("Showing QuantityPopupUI with sprite: " + itemUse.itemName + ", initialAmount: " + initialAmount + ", maxPossibleAmount: " + maxPossibleAmount);
         gameObject.SetActive(true);
-        itemImage.sprite = sprite;
+        itemImage.sprite = itemUse.sprite;
         maxAmount = maxPossibleAmount;
+        nameItem.text = itemUse.itemName;
         currentAmount = Mathf.Clamp(initialAmount, 1, maxAmount);
         UpdateText();
     }

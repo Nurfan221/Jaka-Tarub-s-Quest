@@ -185,6 +185,8 @@ public class PlantSeed : UniqueIdentifiableObject
         else if (isInfected)
         {
             insectEffect.Play();
+            PlantInteractable plantInteractable = GetComponent<PlantInteractable>();
+            plantInteractable.promptMessage = "Tanaman ini terinfeksi hama! Gunakan pestisida untuk menyembuhkannya.";
         }
         else if (isWatered)
         {

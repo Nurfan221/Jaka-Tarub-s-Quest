@@ -49,10 +49,9 @@ public class StoryTellerController: MonoBehaviour
         PlayStorySegment();
     }
 
-    // Fungsi Utama: Memainkan 1 potongan cerita berdasarkan Index
     private void PlayStorySegment()
     {
-        // 1. Cek apakah cerita sudah habis?
+        // Cek apakah cerita sudah habis?
         if (currentIndex > prologueData.contentOptionalCerita.Count)
         {
             EndStory();
@@ -61,13 +60,13 @@ public class StoryTellerController: MonoBehaviour
 
         Debug.Log($"Memainkan Cerita Bagian ke-{currentIndex}");
 
-        // 2. Ganti Gambar (Sprite)
+        //  Ganti Gambar (Sprite)
         if (prologueData.contentOptionalCerita.Count > currentIndex)
         {
             QuestManager.Instance.HandleContentStory(prologueData.contentOptionalCerita[currentIndex].gambarCerita);
         }
 
-        // 3. Putar Audio (Voice Over)
+        //  Putar Audio (Voice Over)
         if (prologueData.contentOptionalCerita.Count > currentIndex)
         {
             if (prologueData.contentOptionalCerita[currentIndex].audioCerita != null)
@@ -95,13 +94,7 @@ public class StoryTellerController: MonoBehaviour
         }
 
 
-        // 4. Mulai Dialog
-        // DI SINI KUNCINYA: Kita harus memberitahu Dialogue Manager 
-        // "Hei, kalau dialog ini selesai, panggil fungsi 'OnSegmentFinished' ya!"
-
-
-        // Asumsi fungsi di DialogueManager Anda bisa menerima "Action" (Callback) saat selesai
-        // Jika belum ada, lihat poin nomor 3 di bawah untuk cara memodifikasinya.
+       
     }
 
     // Fungsi ini dipanggil OTOMATIS ketika Dialog selesai
