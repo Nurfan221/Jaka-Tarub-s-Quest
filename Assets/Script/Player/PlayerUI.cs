@@ -162,9 +162,9 @@ public class PlayerUI : MonoBehaviour
             Debug.LogError("switchUseItemImage is not assigned.");
         }
 
-        if (imageEquippedUI != null)
+        if (equippedUI != null)
         {
-            Button buttonAttack = imageEquippedUI.GetComponent<Button>();
+            Button buttonAttack = equippedUI.GetComponent<Button>();
             buttonAttack.onClick.AddListener(() =>
             {
                 Debug.Log("Button Attack Clicked");
@@ -185,10 +185,10 @@ public class PlayerUI : MonoBehaviour
             questButton.onClick.AddListener(ToggleQuestUI);
         }
 
-        if (imageItemUse != null)
+        if (itemUseUI != null)
         {
 
-            Button buttonItemUse = imageItemUse.GetComponent<Button>();
+            Button buttonItemUse = itemUseUI.GetComponent<Button>();
             buttonItemUse.onClick.AddListener(() =>
             {
                 Debug.Log("Item Use Button Clicked");

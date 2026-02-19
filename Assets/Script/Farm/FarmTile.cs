@@ -445,11 +445,13 @@ public class FarmTile : MonoBehaviour, ISaveable
             if (data.hasFertilizer)
             {
                 tileToSet = databaseManager.fertilezerTileWatered; // Anda butuh aset ini!
+                Debug.Log($"[DEBUG] Tile di {pos} sekarang basah dengan pupuk.");
             }
             // Jika Basah saja -> Pakai gambar tanah basah
             else
             {
                 tileToSet = databaseManager.wateredTile;
+                Debug.Log($"[DEBUG] Tile di {pos} sekarang basah tanpa pupuk.");
             }
         }
         else // Jika Kering
@@ -458,11 +460,13 @@ public class FarmTile : MonoBehaviour, ISaveable
             if (data.hasFertilizer)
             {
                 tileToSet = databaseManager.fertilizerTile;
+                Debug.Log($"[DEBUG] Tile di {pos} sekarang kering tapi memiliki pupuk.");
             }
             // Jika Kering Biasa
             else
             {
-                tileToSet = databaseManager.emptySoilTile;
+                tileToSet = databaseManager.hoeedTile;
+                Debug.Log($"[DEBUG] Tile di {pos} sekarang kering tanpa pupuk.");
             }
         }
 

@@ -326,9 +326,38 @@ public class PlayerController : MonoBehaviour, ISaveable
 
     public void HandleAttackButton()
     {
-        ActivePlayer.Action.OnAttackButtonClick();
-    }
+        // Tentukan index mana yang mau dicek berdasarkan status equipped1
+        int slotIndex = equipped1 ? 0 : 1;
 
+        // Cek apakah item di slot tersebut adalah empty template
+        if (equippedItemData[slotIndex] == playerData.emptyItemTemplate ||
+            equippedItemData[slotIndex].itemName == playerData.emptyItemTemplate.itemName)
+        {
+            PlayerUI.Instance.ShowErrorUI("tidak dapat menyerang, silahkan gunakan item tools terlebih dahulu");
+        }
+        else
+        {
+            ActivePlayer.Action.OnAttackButtonClick();
+        }
+    }
+    public void HandleButtonUseItem()
+    {
+        // Tentukan index mana yang mau dicek berdasarkan status equipped1
+        int slotIndex = itemUse1 ? 0 : 1;
+
+        // Cek apakah item di slot tersebut adalah empty template
+        if (itemUseData[slotIndex] == playerData.emptyItemTemplate ||
+            itemUseData[slotIndex].itemName == playerData.emptyItemTemplate.itemName)
+        {
+            PlayerUI.Instance.ShowErrorUI("tidak ada item untuk digunakan");
+        }
+        else
+        {
+            ActivePlayer.Action.OnAttackButtonClick();
+        }
+
+
+    }
     public void HandleSpesialAttackButton()
     {
         ActivePlayer.Action.OnSpecialAttackButtonClick();
@@ -406,10 +435,7 @@ public class PlayerController : MonoBehaviour, ISaveable
 
 
 
-    public void HandleButtonUseItem()
-    {
-        ActivePlayer.Inventory.UseQuickSlot();
-    }
+   
 
     public void HandleHealPlayer(int healthAmount, int staminaAmount)
     {

@@ -187,6 +187,7 @@ public class PlantSeed : UniqueIdentifiableObject
             insectEffect.Play();
             PlantInteractable plantInteractable = GetComponent<PlantInteractable>();
             plantInteractable.promptMessage = "Tanaman ini terinfeksi hama! Gunakan pestisida untuk menyembuhkannya.";
+            TutorialManager.Instance.TriggerTutorial("Tutorial_MembasmiHama");
         }
         else if (isWatered)
         {
@@ -213,6 +214,8 @@ public class PlantSeed : UniqueIdentifiableObject
 
     public void Harvest()
     {
+        SoundManager.Instance.PlaySound(SoundName.MulungSfx);
+
         Item itemDrop = ItemPool.Instance.GetItem(dropItem);
         if (itemDrop == null)
         {
