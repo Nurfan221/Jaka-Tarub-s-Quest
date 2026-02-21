@@ -790,10 +790,10 @@ MonoBehaviour:
   itemWorldPrefab: {fileID: 4459120725376062254, guid: fcf6058b0a7c2534a9ee6e4538b1ab04, type: 3}
   plantWorldPrefab: {fileID: 2120680195082938319, guid: 1b9eff35e73337c42be7a10f3901c222, type: 3}
   storageWorldPrefab: {fileID: 5454017072709228803, guid: 8f11ced51040e3e46a677d0212f62c77, type: 3}
-  furnanceWorldPrefab: {fileID: 8687371611602760786, guid: ccd682afe2d4aa043b01ae37338ba200, type: 3}
   perangkapWorldPrefab: {fileID: 4992219504839692284, guid: 704fea7ce88ee2c49a1cfa225bd6472f, type: 3}
-  peleburWorldPrefab: {fileID: 8687371611602760786, guid: 017bb7b06de6b68489608caa73f0b856, type: 3}
+  furnanceWorldPrefab: {fileID: 8687371611602760786, guid: 017bb7b06de6b68489608caa73f0b856, type: 3}
   komporWorldPrefab: {fileID: 8687371611602760786, guid: ccd682afe2d4aa043b01ae37338ba200, type: 3}
+  apiUnggun: {fileID: 8687371611602760786, guid: 1fc9cc6dbcff1714785e7be36a3b2929, type: 3}
   EnemyWorldPrefab: {fileID: 1784783501594626427, guid: 39e0a5c4b0e9b704ea70f36a83fd4360, type: 3}
   NPCAdultPrefab: {fileID: 3632186851480370098, guid: b747942da01865a4ea8d215266b4f27b, type: 3}
   NPCChildPrefab: {fileID: 3632186851480370098, guid: 3c5fc1183684d8d40b02084ed2df389b, type: 3}
@@ -858,7 +858,7 @@ MonoBehaviour:
   gameplaySceneName: MainGameScene
   fadeDuration: 1
   gapDuration: 0.5
-  musicMasterVolume: 0.507
+  musicMasterVolume: 0
   sfxMasterVolume: 1
 --- !u!4 &2046478100
 Transform:

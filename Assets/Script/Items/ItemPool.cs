@@ -170,6 +170,7 @@ public class ItemPool : MonoBehaviour
         // Validasi Awal: Cek apakah data item valid
         if (itemDataToAdd == null || itemDataToAdd.count <= 0)
         {
+            Debug.Log("item kosong atau null return false");
             return false;
         }
 

@@ -11,25 +11,10 @@ public class PerangkapInteractable : Interactable
         perangkapBehavior = GetComponent<PerangkapBehavior>();
         // Set prompt sekali ketika aktif
         if (perangkapBehavior != null)
-            UpdatePromptMessage(perangkapBehavior.IsFull);
+            UpdatePromptMessage(perangkapBehavior._isFull);
     }
 
-    private void OnEnable()
-    {
 
-
-        // Jika PerangkapBehavior punya event onStateChanged (mis. OnFullChanged), subscribe di sini:
-        if (perangkapBehavior != null)
-            perangkapBehavior.OnFullChanged += UpdatePromptMessage;
-
-
-    }
-
-    private void OnDisable()
-    {
-        if (perangkapBehavior != null)
-            perangkapBehavior.OnFullChanged -= UpdatePromptMessage;
-    }
 
 
 
@@ -43,7 +28,7 @@ public class PerangkapInteractable : Interactable
             return;
         }
 
-        if (perangkapBehavior.IsFull)
+        if (perangkapBehavior._isFull)
         {
             // Ambil hewan dari perangkap
             perangkapBehavior.TakeAnimal();
@@ -55,15 +40,15 @@ public class PerangkapInteractable : Interactable
         }
 
         // Setelah interaksi, update prompt agar selalu sinkron
-        UpdatePromptMessage(perangkapBehavior.IsFull);
+        UpdatePromptMessage(perangkapBehavior._isFull);
     }
 
-    private void UpdatePromptMessage(bool isFull)
+    public void UpdatePromptMessage(bool isFull)
     {
         if (isFull)
-            promptMessage = "Perangkap penuh, ambil hasil tangkapan.";
+            promptMessage = "mengambil hasil perangkap";
         else
-            promptMessage = "Perangkap kosong, tunggu hasil tangkapan.";
+            promptMessage = "mengambil perangkap";
     }
 
 }

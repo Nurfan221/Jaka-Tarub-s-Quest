@@ -202,6 +202,7 @@ public class FurnanceSaveData
     public ItemData itemCook;
     public ItemData fuelCook;
     public ItemData itemResult;
+    public typeKompor typeKompor;
     public int quantityFuel = 0; // Nilai bahan bakar saat ini
 }
 
@@ -532,6 +533,7 @@ public class CookSaveData
     public ItemData itemCook;
     public ItemData fuelCook;
     public ItemData itemResult;
+    public typeKompor typeKompor;
     public int quantityFuel = 0; // Nilai bahan bakar saat ini
 
 }
@@ -635,13 +637,13 @@ public class DatabaseManager : MonoBehaviour
     public GameObject plantWorldPrefab;
     [Tooltip("Prefab untuk objek penyimpanan (peti, dll) di dunia.")]
     public GameObject storageWorldPrefab;
-    [Tooltip("Prefab untuk objek furnance (Kompor, tunggu peleburan dll) di dunia")]
-    public GameObject furnanceWorldPrefab;
+
     [Tooltip("Prefab untuk objek perangkap di dunia")]
     public GameObject perangkapWorldPrefab;
     [Tooltip("Prefab untuk objek Pelebur dan kompor di dunia")]
-    public GameObject peleburWorldPrefab;
+    public GameObject furnanceWorldPrefab;
     public GameObject komporWorldPrefab;
+    public GameObject apiUnggun;
     [Tooltip("Prefab untuk objek Enemy")]
     public GameObject EnemyWorldPrefab;
     [Tooltip("Prefab untuk objek NPC")]

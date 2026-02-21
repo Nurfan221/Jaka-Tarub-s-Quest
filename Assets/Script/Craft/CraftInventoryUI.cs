@@ -95,8 +95,12 @@ public class CraftInventoryUI : MonoBehaviour
 
         foreach (CraftRecipe recipe in DatabaseManager.Instance.craftingDatabase.craftRecipes)
         {
+            if (recipe.craftIngredient.Count > 2)
+            {
+                continue; // Lewati resep dengan lebih dari 2 bahan
+            }
             CraftRecipe localRecipe = recipe;
-            Item itemUse = ItemPool.Instance.GetItemWithQuality(localRecipe.result.itemName, localRecipe.result.quality);
+
             GameObject recipeSlotGO = Instantiate(recipeSlotTemplate, recipeListContent);
             recipeSlotGO.SetActive(true);
 
@@ -105,14 +109,15 @@ public class CraftInventoryUI : MonoBehaviour
 
             // Dapatkan komponen Image dari slot resep
             Image itemImage = recipeSlotGO.transform.Find("ItemImage").GetComponent<Image>();
-            if (itemImage == null)
+            itemImage.gameObject.SetActive(true); // Pastikan gambar diaktifkan
+            if (itemImage == null )
             {
                 Debug.Log("Item Image tidak ditemukan");
             }
             else
             {
                 Debug.Log("Item Image ditemukan");
-                itemImage.sprite = itemUse.sprite; // Pastikan sprite hasil ditampilkan
+                itemImage.sprite = recipe.result.sprite; // Pastikan sprite hasil ditampilkan
             }
 
             //Atur warnanya berdasarkan ketersediaan
@@ -128,7 +133,7 @@ public class CraftInventoryUI : MonoBehaviour
                                                                           //recipeSlotGO.interactab
             }
 
-            // ... (sisa kode untuk menampilkan sprite dan listener) ...
+            
             recipeSlotGO.GetComponent<Button>().onClick.AddListener(() => OnRecipeSlotClicked(localRecipe, canCraft));
         }
     }

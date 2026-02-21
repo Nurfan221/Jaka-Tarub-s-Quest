@@ -2,6 +2,13 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
+public enum typeKompor
+{
+    furnance,
+    kompor,
+    apiUnggun
+}
 public class CookInteractable : Interactable, ISaveable
 {
     public InteractableUniqueID interactableUniqueID;
@@ -11,7 +18,7 @@ public class CookInteractable : Interactable, ISaveable
     private int currentFrame = 0; // Indeks frame saat ini
     public Coroutine cookingCoroutine;
     public TypeCooking typeCooking;
-
+    public typeKompor typeKompor;
     [Header("Cook settings")]
     public ItemData itemCook;
     public ItemData fuelCook;
@@ -69,6 +76,7 @@ public class CookInteractable : Interactable, ISaveable
         data.itemResult = itemResult;
         data.quantityFuel = quantityFuel;
         data.furnancePosition = gameObject.transform.position;
+        data.typeKompor = typeKompor;
 
         return data;
     }
@@ -86,6 +94,7 @@ public class CookInteractable : Interactable, ISaveable
             fuelCook = loadedData.fuelCook;
             itemResult = loadedData.itemResult;
             quantityFuel = loadedData.quantityFuel;
+            typeKompor = loadedData.typeKompor;
 
             Debug.Log($"Data CookInteractable berhasil direstorasi. ");
 

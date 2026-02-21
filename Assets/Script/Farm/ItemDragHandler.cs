@@ -651,7 +651,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // Sesuaikan posisi Y jika perlu (bisa diringkas)
             spawnPosition.z = -1f;
 
-            prefabObject = Instantiate(DatabaseManager.Instance.peleburWorldPrefab, spawnPosition, Quaternion.identity);
+            prefabObject = Instantiate(DatabaseManager.Instance.furnanceWorldPrefab, spawnPosition, Quaternion.identity);
 
             CookInteractable peleburpBehavior = prefabObject.GetComponent<CookInteractable>();
             if (peleburpBehavior == null)

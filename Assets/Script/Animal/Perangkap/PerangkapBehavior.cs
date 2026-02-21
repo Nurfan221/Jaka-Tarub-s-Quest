@@ -13,20 +13,9 @@ public class PerangkapBehavior : UniqueIdentifiableObject
     public Item[] itemPerangkap; // Item yang digunakan untuk perangkap
     public Item itemTertangkap; // Item hewan yang tertangkap
     public int perangkapHealth; // Kesehatan perangkap
-    public event System.Action<bool> OnFullChanged;
     public bool _isFull;
-    public bool IsFull
-    {
-        get => _isFull;
-        set
-        {
-            if (_isFull != value)
-            {
-                _isFull = value;
-                OnFullChanged?.Invoke(_isFull);
-            }
-        }
-    }
+
+    private PerangkapInteractable perangkapInteractable ;
 
     #region Unique ID Implementation
 
@@ -72,6 +61,12 @@ public class PerangkapBehavior : UniqueIdentifiableObject
     {
         TimeManager.OnDayChanged -= NewDay;
     }
+
+    private void Awake()
+    {
+        perangkapInteractable = GetComponent<PerangkapInteractable>();
+
+    }
     private void Start()
     {
 
@@ -79,15 +74,16 @@ public class PerangkapBehavior : UniqueIdentifiableObject
 
     public void NewDay()
     {
-        if (IsFull)
+        if (!_isFull)
         {
             GetRandomAnimal();
 
         }
+
     }
     public void GetRandomAnimal()
     {
-        if (IsFull)
+        if (_isFull)
         {
             Debug.Log("Perangkap sudah penuh, tidak bisa menangkap hewan lagi.");
             return;
@@ -120,7 +116,7 @@ public class PerangkapBehavior : UniqueIdentifiableObject
         Debug.Log($"[Perangkap] Menangkap hewan: {itemTertangkap.itemName} (Luck={dayLuck:F2}, Index={randomIndex})");
 
         _isFull = true;
-        HandlePerangkapFull(IsFull);
+        HandlePerangkapFull(_isFull);
         UpdatePerangkapInListManager();
     }
 
@@ -135,7 +131,7 @@ public class PerangkapBehavior : UniqueIdentifiableObject
             spriteRenderer.sprite = null;
         }
         spriteRenderer.gameObject.SetActive(full);
-
+        perangkapInteractable.UpdatePromptMessage(_isFull);
     }
 
     public void UpdatePerangkapInListManager()
@@ -172,7 +168,7 @@ public class PerangkapBehavior : UniqueIdentifiableObject
 
     public void TakePerangkap()
     {
-        if (!IsFull)
+        if (!_isFull)
         {
 
             Debug.Log("Mengambil perangkap kosong.");
@@ -209,9 +205,8 @@ public class PerangkapBehavior : UniqueIdentifiableObject
 
     public void TakeAnimal()
     {
-        if (IsFull)
+        if (_isFull)
         {
-
             // Logika untuk mengambil hewan dari perangkap
             Debug.Log("Mengambil hewan dari perangkap.");
             _isFull = false;
@@ -229,7 +224,7 @@ public class PerangkapBehavior : UniqueIdentifiableObject
             if (isSuccess)
             {
                 // Hapus item dari perangkap
-                HandlePerangkapFull(IsFull);
+                HandlePerangkapFull(_isFull);
                 perangkapHealth -= 1;
                 itemTertangkap = null;
                 UpdatePerangkapInListManager();

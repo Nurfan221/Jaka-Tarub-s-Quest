@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: Paku
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemID: 0
+  itemID: 145
   itemName: Paku
   quality: 0
   rarity: 0
@@ -42,8 +42,8 @@ MonoBehaviour:
   UpgradeCost: 0
   UseStamina: 0
   RangedWeapon_ProjectilePrefab: {fileID: 0}
-  isStackable: 0
-  maxStackCount: 0
+  isStackable: 1
+  maxStackCount: 32
   BuyValue: 0
   SellValue: 0
   CookTime: 0

@@ -86,61 +86,62 @@ public class CookUI : MonoBehaviour
         }
 
 
-        if (IsItemResultEmpty())
+  
+
+        Image fillImage = resultCookTemplate.GetChild(0).GetComponent<Image>(); // Ikon
+        TMP_Text resultCountText = resultCookTemplate.GetChild(1).GetComponent<TMP_Text>();
+
+        resultCookTemplate.GetComponent<Button>().onClick.RemoveAllListeners();
+        resultCookTemplate.GetComponent<Button>().onClick.AddListener(() =>
         {
-            Image fillImage = resultCookTemplate.GetChild(0).GetComponent<Image>(); // Ikon
-            TMP_Text resultCountText = resultCookTemplate.GetChild(1).GetComponent<TMP_Text>();
-
-            resultCookTemplate.GetComponent<Button>().onClick.RemoveAllListeners();
-            resultCookTemplate.GetComponent<Button>().onClick.AddListener(() =>
+            if (interactableInstance.itemResult != null && interactableInstance.itemResult.count > 0)
             {
-                if (interactableInstance.itemResult != null && interactableInstance.itemResult.count > 0)
+                // Player mengambil hasil masak
+                bool isSuccess = ItemPool.Instance.AddItem(interactableInstance.itemResult);
+                if (isSuccess)
                 {
-                    // Player mengambil hasil masak
-                    bool isSuccess = ItemPool.Instance.AddItem(interactableInstance.itemResult);
-                    if (isSuccess)
+                    if (interactableInstance.isCooking)
                     {
-                        if (interactableInstance.isCooking)
-                        {
-                            // Kalau masih masak, jangan hilangkan item — set count ke 0 agar sprite tetap tampil
-                            interactableInstance.itemResult.count = 0;
-                            Debug.Log("Player mengambil hasil, tapi tungku masih memasak. ItemResult diset count=0.");
-                        }
-                        else
-                        {
-                            // Kalau sudah tidak masak, hapus item
-                            interactableInstance.itemResult = null;
-                            Debug.Log("Player mengambil hasil dan tungku sudah berhenti. ItemResult dihapus.");
-                        }
-
-                        // Hentikan api hanya jika benar-benar tidak masak
-                        if (!interactableInstance.isCooking && isFireActive)
-                        {
-                            
-                            isFireActive = false;
-                            Debug.Log("Menghentikan animasi api karena memasak selesai.");
-                            if(fireCookAnimator != null)
-                            {
-                                fireCookAnimator.SetBool("SetAnimation", false);
-                            }
-                            fireImage.sprite = fireNotActive;
-                        }
+                        // Kalau masih masak, jangan hilangkan item — set count ke 0 agar sprite tetap tampil
+                        interactableInstance.itemResult.count = 0;
+                        Debug.Log("Player mengambil hasil, tapi tungku masih memasak. ItemResult diset count=0.");
                     }
                     else
                     {
-                        // Jangan hapus, biarkan di tungku
-                        Debug.Log("Tas penuh, item tetap di tungku.");
+                        // Kalau sudah tidak masak, hapus item
+                        interactableInstance.itemResult = null;
+                        Debug.Log("Player mengambil hasil dan tungku sudah berhenti. ItemResult dihapus.");
                     }
-                    // cek apakah tungku masih aktif memasak
 
+                    // Hentikan api hanya jika benar-benar tidak masak
+                    if (!interactableInstance.isCooking && isFireActive)
+                    {
 
-                    RefreshSlots();
-                    interactableInstance.UpdateSpriteHasil();
+                        isFireActive = false;
+                        Debug.Log("Menghentikan animasi api karena memasak selesai.");
+                        if (fireCookAnimator != null)
+                        {
+                            fireCookAnimator.SetBool("SetAnimation", false);
+                        }
+                        fireImage.sprite = fireNotActive;
+                    }
                 }
-            });
-        }
+                else
+                {
+                    // Jangan hapus, biarkan di tungku
+                    Debug.Log("Tas penuh, item tetap di tungku.");
+                }
+                // cek apakah tungku masih aktif memasak
 
 
+                RefreshSlots();
+                interactableInstance.UpdateSpriteHasil();
+            }
+            else
+            {
+                Debug.LogError("itemresult == null atau kosong");
+            }
+        });
 
     }
     public void OpenCook(CookInteractable cookInteractable)

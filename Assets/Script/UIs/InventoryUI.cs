@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     [Header("Daftar hubungan Script")]
-    [SerializeField] NPCListUI npcListUI;
+    public TutorialList tutorialList;
     [SerializeField] CraftInventoryUI craftInventoryUI;
     public SpriteImageTemplate spriteImageTemplate;
     public bool isInventoryOpen;
@@ -31,8 +31,7 @@ public class InventoryUI : MonoBehaviour
     public Transform SlotTemplate;
 
     [Header("Button")]
-    public Button openCraft;
-    public Button openInventory;
+  
     public Button btnHapus;
     public Button closeInventoryButton;  // Drag and drop the close button in the inspector
 
@@ -606,18 +605,22 @@ public class InventoryUI : MonoBehaviour
         menuPanels[menu].panelMenu.SetActive(isActive);
 
         string nameMenuPanel = menuPanels[menu].panelInventory.name;
+        Debug.Log($"Menu panel yang diaktifkan: {nameMenuPanel}");
 
         switch (nameMenuPanel)
         {
-            case "NPCList":
-                if (npcListUI != null)
+            case "TutorialList":
+                tutorialList = menuPanels[menu].panelInventory.GetComponent<TutorialList>();
+
+                Debug.Log("button tutorial di tekan");
+                if (tutorialList != null)
                 {
-                    npcListUI.RefreshNPCList();
+                    tutorialList.RefreshTutorialList();
                 }
-                if (craftInventoryUI != null)
-                {
-                    craftInventoryUI.CloseUI();
-                }
+                //if (craftInventoryUI != null)
+                //{
+                //    craftInventoryUI.CloseUI();
+                //}
                 break;
 
             case "Craft":

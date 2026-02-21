@@ -8,8 +8,7 @@ public class FurnanceObjectSystem : MonoBehaviour
 
     public List<FurnanceSaveData> environmentList = new List<FurnanceSaveData>();
     public Transform parentEnvironment; // Tempat menyimpan semua tungku aktif di scene
-    public GameObject furnanceWorldPrefab; // Prefab untuk tungku
-    public GameObject komporWorldPrefab;
+  
 
     private void Awake()
     {
@@ -21,8 +20,7 @@ public class FurnanceObjectSystem : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        furnanceWorldPrefab = DatabaseManager.Instance.furnanceWorldPrefab;
-        komporWorldPrefab = DatabaseManager.Instance.komporWorldPrefab;
+
     }
 
 
@@ -43,7 +41,8 @@ public class FurnanceObjectSystem : MonoBehaviour
                 fuelCook = cook.fuelCook,
                 itemResult = cook.itemResult,
                 quantityFuel = cook.quantityFuel,
-                furnancePosition = child.position
+                furnancePosition = child.position,
+                typeKompor = cook.typeKompor,
             };
             Debug.Log("menginputkan furnance " + cook.interactableUniqueID.UniqueID);
             environmentList.Add(data);
@@ -77,7 +76,27 @@ public class FurnanceObjectSystem : MonoBehaviour
             }
             else
             {
-                GameObject prefab = furnanceWorldPrefab;
+                GameObject prefab;
+                switch (furnanceData.typeKompor)
+                {
+                    case typeKompor.furnance:
+                        Debug.Log("type kompor furnance");
+                        prefab = DatabaseManager.Instance.furnanceWorldPrefab;
+                        break;
+                    case typeKompor.kompor:
+                        Debug.Log("type kompor kompor");
+                        prefab = DatabaseManager.Instance.komporWorldPrefab;
+                        break;
+                    case typeKompor.apiUnggun:
+                        Debug.Log("type kompr api unggun");
+                        prefab = DatabaseManager.Instance.apiUnggun;
+                        break;
+                    default:
+                        Debug.Log("kompor tidak terdefinisi");
+                        prefab = DatabaseManager.Instance.furnanceWorldPrefab;
+                        break;
+                }
+            
                 if (prefab == null)
                 {
                     Debug.LogError("[FurnanceSystem] Prefab tungku tidak ditemukan!");

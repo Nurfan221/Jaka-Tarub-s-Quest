@@ -71,6 +71,12 @@ MonoBehaviour:
       ingredientCount: 1
     resultCount: 2
     result: {fileID: 11400000, guid: 684aa06d2252b8d45ac749374e36de8c, type: 2}
+  - name: Paku
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: 3bd66d80fb23e764f9744b7e7fcfaa76, type: 2}
+      ingredientCount: 1
+    resultCount: 2
+    result: {fileID: 11400000, guid: 054f23c4d33de1b479cbf9d20ec071db, type: 2}
   craftFoodRecipe:
   - name: AdonanRoti
     craftIngredient:

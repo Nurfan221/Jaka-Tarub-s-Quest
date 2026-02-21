@@ -118,7 +118,7 @@ public class SaveDataManager : MonoBehaviour
             // Debugging: Lihat siapa yang sedang diabsen
             // Debug.Log($"Checking Object: {saveable.GetType().Name}"); 
 
-            // 1. TREES
+            // REES
             if (saveable is TreesManager tree)
             {
                 Debug.Log("[SAVE] Ditemukan TreesManager.");
@@ -128,7 +128,7 @@ public class SaveDataManager : MonoBehaviour
                     Debug.Log($"Data pohon tersimpan: {treeData.Count} pohon.");
                 }
             }
-            // 2. PLAYER
+            // PLAYER
             else if (saveable is PlayerController player)
             {
                 Debug.Log("[SAVE] Ditemukan PlayerController.");
@@ -138,10 +138,9 @@ public class SaveDataManager : MonoBehaviour
                     Debug.Log("Data pemain tersimpan.");
                 }
             }
-            // 3. STORAGE
+            //  STORAGE
             else if (saveable is StorageInteractable storage)
             {
-                // ... (Kode Storage Anda sudah benar, salin disini) ...
                 if (storage.CaptureState() is StorageSaveData storageData && storage.isSaveable)
                 {
                     if (saveData.savedStorages == null) saveData.savedStorages = new List<StorageSaveData>();
@@ -160,7 +159,7 @@ public class SaveDataManager : MonoBehaviour
                     if (!found) saveData.savedStorages.Add(storageData);
                 }
             }
-            // 4. FURNACE (Perbaiki Kurung Kurawal Disini)
+            //  FURNACE (Perbaiki Kurung Kurawal Disini)
             else if (saveable is CookInteractable furnance)
             {
                 Debug.Log("[SAVE] Ditemukan CookInteractable.");
