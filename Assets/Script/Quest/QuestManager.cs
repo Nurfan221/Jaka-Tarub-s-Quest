@@ -64,7 +64,6 @@ public class QuestManager : MonoBehaviour, ISaveable
 
     private void Start()
     {
-        //StartMainQuest(pendingMainQuest);
         CheckForNewQuests();
 
 
@@ -253,7 +252,7 @@ public class QuestManager : MonoBehaviour, ISaveable
             Debug.Log($"Main Quest '{mainQuestActive.questName}' menunggu hari aktivasi. (Sekarang: {TimeManager.Instance.date}, Aktivasi: {mainQuestActive.dateToActivate})");
         }
 
-
+       
 
 
     }
