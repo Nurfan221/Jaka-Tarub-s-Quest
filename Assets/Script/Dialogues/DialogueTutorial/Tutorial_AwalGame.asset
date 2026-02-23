@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c8768377b32f141bf723f03d648076, type: 3}
+  m_Name: Tutorial_AwalGame
+  m_EditorClassIdentifier: Assembly-CSharp::Dialogues
+  TheDialogues:
+  - name: Mbok Milah
+    sentence: Jaka... Sudah bangun rupanya. Boleh Mbok minta tolong bantu di kebun
+      sebentar
+  - name: Jaka Tarub
+    sentence: Sudah, Mbok. Baru saja Jaka cuci muka. Apa yang bisa Jaka bantu?
+  - name: Mbok Milah
+    sentence: Tanah di depan rumah sepertinya sudah keras, perlu digemburkan supaya
+      bisa kita tanami lagi. Tolong ambilkan Cangkul di Kotak Peralatan depan rumah,
+      ya.
+  - name: Jaka Tarub
+    sentence: Siap, Mbok! Jaka kerjakan sekarang. Setelah itu ada lagi?
+  - name: Mbok Milah
+    sentence: Baguslah. Nanti kalau badanmu terasa lelah, masuklah ke dapur. Kamu
+      bisa mencoba Memasak  hasil panen kita supaya tenagamu pulih.
+  - name: Mbok Milah
+    sentence: Atau kalau butuh alat lain, gunakan meja kerja untuk Merakit barang,
+      atau tungku untuk Melebur logam. Semuanya sudah Mbok siapkan di sana.
+  mainSpeaker: Mbok MIlah
+  promptAfterDialogue: Tutorial Awal Game

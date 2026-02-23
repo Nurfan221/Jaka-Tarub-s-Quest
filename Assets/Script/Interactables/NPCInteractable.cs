@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class NPCInteractable : Interactable
@@ -18,10 +19,16 @@ public class NPCInteractable : Interactable
     {
         if (npcBehavior.isLockedForQuest && npcBehavior.islocked && DialogueSystem.Instance.npcName == npcBehavior.npcName)
         {
-            npcBehavior.ReturnToPreQuestPosition();
+            StartCoroutine(npcBackToReality());
         }
     }
 
+    private IEnumerator npcBackToReality()
+    {
+        yield return new WaitForSeconds(2);
+        npcBehavior.ReturnToPreQuestPosition();
+
+    }
     void Start()
     {
 

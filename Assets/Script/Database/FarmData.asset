@@ -18,4 +18,293 @@ MonoBehaviour:
   grassTile: {fileID: 11400000, guid: bc9d6f134b157a94586bad8403ab7898, type: 2}
   fertilizerTile: {fileID: 11400000, guid: 45f4e7afa7134bc4e9d60957a887e434, type: 2}
   fertilezerTileWatered: {fileID: 11400000, guid: 50b07e0ec80621e46a2158da3126486d, type: 2}
-  hoedTilesList: []
+  hoedTilesList:
+  - plantID: Padi_Soft_Padi_Seed_8
+    tilePosition: {x: -13, y: -2, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_7
+    tilePosition: {x: -12, y: -2, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_6
+    tilePosition: {x: -11, y: -2, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_14
+    tilePosition: {x: -13, y: -3, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_13
+    tilePosition: {x: -12, y: -3, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_12
+    tilePosition: {x: -11, y: -3, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_11
+    tilePosition: {x: -10, y: -3, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_15
+    tilePosition: {x: -14, y: -3, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_9
+    tilePosition: {x: -14, y: -2, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_10
+    tilePosition: {x: -15, y: -2, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: 
+    tilePosition: {x: -15, y: -3, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 0}
+    growthProgress: 0
+    growthTime: 0
+    currentStage: 0
+    revertDelay: 3
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 0
+    isReadyToHarvest: 0
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_1
+    tilePosition: {x: -15, y: -4, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_3
+    tilePosition: {x: -13, y: -4, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_2
+    tilePosition: {x: -14, y: -4, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: 
+    tilePosition: {x: -12, y: -4, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 0}
+    growthProgress: 0
+    growthTime: 0
+    currentStage: 0
+    revertDelay: 3
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 0
+    isReadyToHarvest: 0
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_4
+    tilePosition: {x: -11, y: -4, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0
+  - plantID: Padi_Soft_Padi_Seed_5
+    tilePosition: {x: -10, y: -4, z: 0}
+    hoedTime: 1
+    plantSeedItem: {fileID: 11400000, guid: 85c4502ef91d38d419ec2ccc1f2fc5fa, type: 2}
+    growthProgress: 1
+    growthTime: 0
+    currentStage: 3
+    revertDelay: 0
+    fertilizerStrength: 0
+    reGrowTimer: 0
+    watered: 1
+    isInfected: 0
+    isPlanted: 1
+    isReadyToHarvest: 1
+    hasFertilizer: 0
+    isWithered: 0
+    isRegrow: 0

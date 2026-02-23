@@ -518,11 +518,11 @@ public class QuestManager : MonoBehaviour, ISaveable
                         }
                     }
 
-                    if (sideQuest.startLocateNpcQuest != Vector2.zero && sideQuest.finishLocateNpcQuest != Vector2.zero)
+                    if (sideQuest.lokasiNPCQuestKhusus.Length > 0 )
                     {
-                        npcTargetQuest.transform.position = sideQuest.startLocateNpcQuest;
+                        npcTargetQuest.transform.position = sideQuest.lokasiNPCQuestKhusus[0];
                         // Panggil metode yang sudah kita siapkan di NPCBehavior
-                        npcTargetQuest.OverrideForQuest(sideQuest.startLocateNpcQuest, sideQuest.finishLocateNpcQuest, sideQuest.startDialogue, "Peringatan");
+                        npcTargetQuest.OverrideForQuest(sideQuest.lokasiNPCQuestKhusus, sideQuest.startDialogue, "Peringatan");
                     }
                     NPCManager.Instance.AddDialogueForNPCQuest(sideQuest.npcName, sideQuest.startDialogue);
                 }

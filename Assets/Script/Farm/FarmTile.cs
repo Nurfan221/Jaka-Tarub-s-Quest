@@ -593,4 +593,73 @@ public class FarmTile : MonoBehaviour, ISaveable
 
         }
     }
+
+    [ContextMenu("Langkah 1: Pindahkan Data farm ke Database SO")]
+    public void MigrateTreeDataToSO()
+    {
+        // Pengecekan Keamanan
+        if (databaseManager == null)
+        {
+            Debug.LogError("Target WorldTreeDatabaseSO belum diatur! Harap seret asetnya ke Inspector.");
+            return;
+        }
+
+        // Pastikan environmentList sudah diisi dengan data
+        if (hoedTilesList.Count == 0)
+        {
+            Debug.LogWarning("environmentList masih kosong. Jalankan RegisterAllObject terlebih dahulu jika perlu.");
+            return;
+        }
+
+        // Kosongkan list di SO untuk menghindari data duplikat
+        databaseManager.hoedTilesList.Clear();
+
+        Debug.Log($"Memulai migrasi {hoedTilesList.Count} data pohon ke {databaseManager.name}...");
+
+        // Loop melalui setiap entri di environmentList
+        foreach (HoedTileData farmData in hoedTilesList)
+        {
+            // Membuat instance baru dari data
+            HoedTileData newData = new HoedTileData();
+
+            // Menyalin variabel dasar (posisi dan status tanah)
+            newData.tilePosition = farmData.tilePosition;
+            newData.hoedTime = farmData.hoedTime;
+
+            // Menyalin data tanaman dan benih
+            newData.plantID = farmData.plantID;
+            newData.plantSeedItem = farmData.plantSeedItem; // Referensi SO Item
+
+            //  Menyalin progres pertumbuhan
+            newData.growthProgress = farmData.growthProgress;
+            newData.growthTime = farmData.growthTime;
+            newData.currentStage = farmData.currentStage;
+            newData.reGrowTimer = farmData.reGrowTimer;
+
+            // Menyalin variabel status (bool)
+            newData.watered = farmData.watered;
+            newData.isInfected = farmData.isInfected;
+            newData.isPlanted = farmData.isPlanted;
+            newData.isReadyToHarvest = farmData.isReadyToHarvest;
+            newData.isWithered = farmData.isWithered;
+            newData.isRegrow = farmData.isRegrow;
+
+            // Menyalin variabel pupuk dan delay
+            newData.hasFertilizer = farmData.hasFertilizer;
+            newData.fertilizerStrength = farmData.fertilizerStrength;
+            newData.revertDelay = farmData.revertDelay;
+
+            //  Masukkan ke dalam list Database SO
+            databaseManager.hoedTilesList.Add(newData);
+        }
+
+        // Tandai aset ScriptableObject sebagai "kotor" agar Unity menyimpan perubahan
+#if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(databaseManager);
+        UnityEditor.AssetDatabase.SaveAssets();
+#endif
+
+        Debug.Log($"Migrasi selesai! {databaseManager.hoedTilesList.Count} data pohon berhasil dipindahkan.");
+    }
+
 }

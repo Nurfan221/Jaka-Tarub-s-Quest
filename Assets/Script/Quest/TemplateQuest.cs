@@ -12,8 +12,7 @@ public class TemplateQuest
     public string DeskripsiAwal; // Deskripsi awal
     [TextArea(3, 10)]
     public string DeskripsiAkhir; // Deskripsi akhir
-    public Vector2 startLocateNpcQuest;
-    public Vector2 finishLocateNpcQuest;
+    public Vector2[] lokasiNPCQuestKhusus; // Lokasi NPC untuk quest khusus
     public QuestType questType;
     public QuestProgress questProgress = QuestProgress.Accepted;
     public EmoticonTemplate questEmoticon;
@@ -57,8 +56,7 @@ public class TemplateQuest
         this.questInfo = blueprint.questInfo;
         this.DeskripsiAwal = blueprint.DeskripsiAwal;
         this.DeskripsiAkhir = blueprint.DeskripsiAkhir;
-        this.startLocateNpcQuest = blueprint.startLocateNpcQuest;
-        this.finishLocateNpcQuest = blueprint.finishLocateNpcQuest;
+        this.lokasiNPCQuestKhusus = blueprint.lokasiNPCQuestKhusus; // Salinan list baru
         this.questType = blueprint.questType;
         this.questProgress = blueprint.questProgress;
         this.questEmoticon = blueprint.questEmoticon; // Asumsi EmoticonTemplate adalah ScriptableObject/aset

@@ -145,7 +145,6 @@ public class DialogueSystem : MonoBehaviour
 
         }
 
-        npcName = "";
         // Siarkan pengumuman bahwa dialog telah berakhir!
 
     }

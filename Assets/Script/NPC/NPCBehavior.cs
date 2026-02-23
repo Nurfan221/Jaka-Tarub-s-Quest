@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -40,7 +41,8 @@ public class NPCBehavior : MonoBehaviour
     [Header("variabel for quest")]
     public ItemData itemQuestToGive; // Item yang dimiliki NPC untuk quest ini
     public bool isGivenItemForQuest = false; // Apakah NPC sudah memberikan item quest
-    Vector2[] questWaypoint;
+    public Vector2[] questWaypoint;
+    public Vector2[] back;
 
     [Tooltip("Seberapa jauh emoticon akan miring (dalam derajat).")]
     public float rotationAngle;
@@ -58,6 +60,8 @@ public class NPCBehavior : MonoBehaviour
             // Mulai ulang animasinya
             StartWiggleSafe();
         }
+
+        TimeManager.OnHourChanged += CheckSchedule; // Subscribe ke event pergantian jam
     }
 
     // OnDisable dipanggil saat GameObject dinonaktifkan.
@@ -65,6 +69,7 @@ public class NPCBehavior : MonoBehaviour
     {
         // Hentikan Coroutine saat emoticon disembunyikan untuk mencegah error.
         StopAllCoroutines();
+        TimeManager.OnHourChanged -= CheckSchedule; // Unsubscribe dari event saat NPC dinonaktifkan
     }
 
     private void Awake()
@@ -121,10 +126,7 @@ public class NPCBehavior : MonoBehaviour
         // Jangan lakukan apa-apa jika sedang dikunci oleh quest
 
         // Jika tidak sedang bergerak, periksa jadwal
-        if (!isMoving && !islocked)
-        {
-            CheckSchedule();
-        }
+       
 
         UpdateHitboxPosition();
         // Jika sedang bergerak, biarkan coroutine yang mengurusnya, tidak perlu di sini
@@ -155,6 +157,11 @@ public class NPCBehavior : MonoBehaviour
     // NPC memeriksa jadwalnya sendiri berdasarkan waktu saat ini.
     private void CheckSchedule()
     {
+
+        if (isMoving || islocked)
+        {
+            return; // Jika sedang bergerak dan terkunci, jangan ganti jadwal dulu
+        }
         // Temukan jadwal terbaru yang seharusnya sudah dimulai
         Schedule newSchedule = npcData.schedules
             .Where(s => TimeManager.Instance.hour >= s.startTime)
@@ -250,7 +257,7 @@ public class NPCBehavior : MonoBehaviour
         }
         Debug.Log("{gameObject.name} [DEBUG] NPCSemua Waypoints selesai dilalui. isMoving = false.");
     }
-    public void OverrideForQuest(Vector2 startPosition, Vector2 finishLocation, Dialogues newDialogue, string nameEmoticon)
+    public void OverrideForQuest(Vector2[] startPosition, Dialogues newDialogue, string nameEmoticon)
     {
         // Kunci NPC
         islocked = true;
@@ -259,7 +266,7 @@ public class NPCBehavior : MonoBehaviour
         preQuestPosition = transform.position;
         questOverrideDialogue = newDialogue;
 
-        questWaypoint = new Vector2[] { startPosition, finishLocation };
+        questWaypoint = startPosition;
         ShowEmoticon(nameEmoticon);
 
         if (movementCoroutine != null) StopCoroutine(movementCoroutine);
@@ -276,18 +283,36 @@ public class NPCBehavior : MonoBehaviour
     {
         Debug.Log($"NPC {this.npcName} kembali ke posisi sebelum quest.");
         if (!isLockedForQuest) return;
+
+        if (movementCoroutine != null) StopCoroutine(movementCoroutine);
+
+        int n = questWaypoint.Length;
+
+        // PERBAIKAN: Inisialisasi ukuran variabel 'back' agar tidak 0
+        back = new Vector2[n];
+
+        for (int i = 0; i < n; i++)
+        {
+            back[i] = questWaypoint[n - 1 - i];
+        }
+
+        // Jalankan Coroutine pembungkus agar bisa menunggu
+        StartCoroutine(ReturnAndThenCheckSchedule());
+    }
+    private IEnumerator ReturnAndThenCheckSchedule()
+    {
+        // Jalankan gerakan dan TUNGGU sampai selesai
+        yield return StartCoroutine(FollowWaypoints(back));
+
+        // Kode di bawah ini hanya berjalan SETELAH FollowWaypoints selesai
         isLockedForQuest = false;
         islocked = false;
-        if (movementCoroutine != null) StopCoroutine(movementCoroutine);
-        Vector2 questWaypointZero = questWaypoint[0];
-        questWaypoint[0] = questWaypoint[1];
-        questWaypoint[1] = questWaypointZero;
-        movementCoroutine = StartCoroutine(FollowWaypoints(questWaypoint));
 
+        yield return new WaitForSeconds(1); // Pastikan satu frame berlalu agar status isMoving benar-benar false sebelum memeriksa jadwal
         CheckSchedule();
-
+        DialogueSystem.Instance.npcName = "";
+        Debug.Log("NPC sudah sampai dan jadwal diperiksa.");
     }
-
     public Schedule GetScheduleForHour(int currentHour)
     {
         if (npcData == null || npcData.schedules == null) return null;

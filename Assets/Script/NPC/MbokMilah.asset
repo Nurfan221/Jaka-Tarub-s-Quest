@@ -19,7 +19,7 @@ MonoBehaviour:
   tanggalUltah: 0
   bulanUltah: 0
   npcSprite: {fileID: 0}
-  isAdult: 0
+  isChild: 0
   schedules:
   - activityName: Istirahat
     waypoints:
@@ -33,11 +33,12 @@ MonoBehaviour:
     - {x: -162, y: 75}
     - {x: -157.5, y: 75}
     - {x: -157.5, y: 71}
-    - {x: -14, y: -3}
+    - {x: -14, y: -5}
     startTime: 5
     hideOnArrival: 0
   - activityName: Istirahat
     waypoints:
+    - {x: -14, y: -5}
     - {x: -14, y: -3}
     - {x: -4, y: -3}
     - {x: -4, y: -4}

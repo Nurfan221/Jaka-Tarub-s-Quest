@@ -92,9 +92,15 @@ public class GameController : MonoBehaviour
                 StartCoroutine(delayLoadCerita());
                 Debug.Log($"Scene '{mainGameSceneName}' dimuat. Memulai sebagai Game Baru...");
                 Debug.Log("GameController: Membangun dunia baru dari Peta Awal...");
+
                 GenerateDefaultWorld();
 
-                
+                FarmTile farmTile = FindObjectOfType<FarmTile>();
+                if (farmTile != null)
+                {
+                    RestoreFarmStateFromData(DatabaseManager.Instance.farmData_SO.hoedTilesList);
+                }
+
                 FindObjectOfType<PlayerController>()?.InitializeForNewGame();
                 FindObjectOfType<PlayerController>()?.StartPlayerPosition(latestPlayerPos);
                 IsNewGame = false; // Reset "catatan"

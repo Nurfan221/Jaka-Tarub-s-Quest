@@ -17,15 +17,11 @@ MonoBehaviour:
     sentence: Jaka! Sini, nak. Mbok mau ajarin sesuatu yang penting. Kalau kau mau
       hidup di sini, kau harus tahu caranya bertani! Coba dengar baik-baik ya.
   - name: Jaka Tarub
-    sentence: Iya, Mbok. Apa yang harus Jaka lakukan?"
+    sentence: Iya, Mbok. Apa yang harus Jaka lakukan?
   - name: Mbok Rini
-    sentence: Gampang, kok. Lihat box di sebelah sana? Di situ Mbok sudah siapkan
-      15 seed padi. Kau ambil dulu. Jangan lupa, ada juga tools seperti cangkul dan
-      ember di dekatnya. Semuanya sudah Mbok siapkan untukmu.
-  - name: Mbok Rini
-    sentence: 'Mbok Rini: "Bagus! Sekarang, dengarkan baik-baik ya. Langkah pertama,
-      kau harus menggemburkan tanah dulu dengan cangkul. Tanah yang keras nggak bisa
-      ditanami padi, kan?"'
+    sentence: Tanah di depan rumah sepertinya sudah keras, perlu digemburkan supaya
+      bisa kita tanami lagi. Tolong ambilkan Cangkul di Kotak Peralatan depan rumah,
+      ya.
   - name: Jaka Tarub
     sentence: Oke, Mbok. Lalu apa setelah itu?
   - name: Mbok Rini
@@ -38,5 +34,11 @@ MonoBehaviour:
       tanaman. Tanaman yang tidak disiram akan layu, nak.
   - name: Jaka Tarub
     sentence: Oh, jadi harus disiram juga, ya. Baik, Mbok. Jaka akan coba sekarang.
+  - name: Mbok Milah
+    sentence: Baguslah. Nanti kalau badanmu terasa lelah, masuklah ke dapur. Kamu
+      bisa mencoba Memasak hasil panen kita supaya tenagamu pulih.
+  - name: Mbok Milah
+    sentence: Atau kalau butuh alat lain, gunakan meja kerja untuk Merakit barang,
+      atau tungku untuk Melebur logam. Semuanya sudah Mbok siapkan di sana.
   mainSpeaker: Mbok Rini
   promptAfterDialogue: Tutorial Farming

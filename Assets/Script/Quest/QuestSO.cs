@@ -13,8 +13,7 @@ public class QuestSO : ScriptableObject
     public string DeskripsiAwal; // Deskripsi awal
     [TextArea(3, 10)]
     public string DeskripsiAkhir; // Deskripsi akhir
-    public Vector2 startLocateNpcQuest;
-    public Vector2 finishLocateNpcQuest;
+    public Vector2[] lokasiNPCQuestKhusus; // Lokasi NPC untuk quest khusus
     public QuestType questType;
     public QuestProgress questProgress = QuestProgress.Accepted;
     public EmoticonTemplate questEmoticon;
