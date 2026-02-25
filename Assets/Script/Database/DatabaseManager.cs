@@ -191,6 +191,7 @@ public class StorageSaveData
 {
     public string id; // ID unik dari peti ini
     public Vector2 storagePosition;
+    public bool useArrawVisual;
     public List<ItemData> itemsInStorage; // Daftar item di dalamnya
 }
 
@@ -203,6 +204,7 @@ public class FurnanceSaveData
     public ItemData fuelCook;
     public ItemData itemResult;
     public typeKompor typeKompor;
+    public bool useArrowVisual;
     public int quantityFuel = 0; // Nilai bahan bakar saat ini
 }
 
@@ -534,6 +536,7 @@ public class CookSaveData
     public ItemData fuelCook;
     public ItemData itemResult;
     public typeKompor typeKompor;
+    public bool useArrowVisual;
     public int quantityFuel = 0; // Nilai bahan bakar saat ini
 
 }

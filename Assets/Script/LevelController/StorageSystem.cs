@@ -51,6 +51,7 @@ public class StorageSystem : MonoBehaviour
                 id = storageInteractable.uniqueID,
                 storagePosition = storageInteractable.gameObject.transform.position,
                 itemsInStorage = storageInteractable.storage,
+                useArrawVisual = storageInteractable.useArrowVisual
             };
 
             environmentList.Add(data);
@@ -73,6 +74,8 @@ public class StorageSystem : MonoBehaviour
                 StorageInteractable storage = existing.GetComponent<StorageInteractable>();
                 storage.storage = storageData.itemsInStorage;
                 existing.position = storageData.storagePosition;
+                storage.useArrowVisual = storageData.useArrawVisual;
+                storage.UseArrawVisualfunction();
                 Debug.Log($"Storage {storageData.id} diperbarui.");
             }
             else
@@ -92,8 +95,9 @@ public class StorageSystem : MonoBehaviour
                 storage.uniqueID = storageData.id;
                 storage.storage = storageData.itemsInStorage;
                 envId.UniqueID = storageData.id;
-
+                storage.useArrowVisual = storageData.useArrawVisual;
                 newStorage.name = storageData.id;
+                storage.UseArrawVisualfunction();
                 Debug.Log($"Storage baru {storageData.id} dibuat di {storageData.storagePosition}.");
             }
         }

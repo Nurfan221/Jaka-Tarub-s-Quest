@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using NUnit;
 using UnityEngine;
 
 public class FurnanceObjectSystem : MonoBehaviour
@@ -63,15 +64,37 @@ public class FurnanceObjectSystem : MonoBehaviour
             if (existing != null)
             {
                 CookInteractable furnance = existing.GetComponent<CookInteractable>();
-                if (furnance == null) continue;
+                InteractableUniqueID envId = furnance.GetComponent<InteractableUniqueID>();
 
-                furnance.interactableUniqueID.UniqueID = furnanceData.id;
+                
+
+                if (furnance == null || envId == null)
+                {
+                    Debug.LogError("[FurnanceSystem] Prefab tungku tidak memiliki komponen CookInteractable atau InteractableUniqueID!");
+                    continue;
+                }
+                envId.UniqueID = furnanceData.id;
                 furnance.itemCook = furnanceData.itemCook;
                 furnance.fuelCook = furnanceData.fuelCook;
                 furnance.itemResult = furnanceData.itemResult;
                 furnance.quantityFuel = furnanceData.quantityFuel;
                 existing.position = furnanceData.furnancePosition;
+                furnance.name = furnanceData.id;
+                furnance.useArrowVisual = furnanceData.useArrowVisual;
 
+                if (!furnance.isCooking)
+                {
+                    furnance.StartCook();
+                }
+
+                if (furnance.useArrowVisual && furnance.arrawVisual != null)
+                {
+                    furnance.arrawVisual.gameObject.SetActive(true); // Pastikan panah awalnya tidak aktif
+                }
+                else
+                {
+                    furnance.arrawVisual.gameObject.SetActive(false);
+                }
                 Debug.Log($"[FurnanceSystem] Tungku {furnanceData.id} diperbarui di {furnanceData.furnancePosition}.");
             }
             else
@@ -125,8 +148,21 @@ public class FurnanceObjectSystem : MonoBehaviour
                 furnance.fuelCook = furnanceData.fuelCook;
                 furnance.itemResult = furnanceData.itemResult;
                 furnance.quantityFuel = furnanceData.quantityFuel;
-
+                furnance.useArrowVisual = furnanceData.useArrowVisual;
                 newFurnance.name = furnanceData.id;
+
+                if (furnance.useArrowVisual && furnance.arrawVisual != null)
+                {
+                    furnance.arrawVisual.gameObject.SetActive(true); // Pastikan panah awalnya tidak aktif
+                }
+                else
+                {
+                    furnance.arrawVisual.gameObject.SetActive(false);
+                }
+                if (!furnance.isCooking)
+                {
+                    furnance.StartCook();
+                }
                 Debug.Log($"[FurnanceSystem] Tungku baru {furnanceData.id} dibuat di posisi dunia {furnanceData.furnancePosition}.");
             }
         }

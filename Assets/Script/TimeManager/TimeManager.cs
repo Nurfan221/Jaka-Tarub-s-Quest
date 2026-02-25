@@ -99,9 +99,9 @@ public class TimeManager : MonoBehaviour, ISaveable
         var saveData = new TimeSaveData
         {
             // Isi objek tersebut dengan nilai saat ini dari TimeManager
-            totalHari = this.totalHari + 1,
-            hari = this.hari + 1,
-            date = this.date + 1,
+            totalHari = this.totalHari,
+            hari = this.hari,
+            date = this.date,
             minggu = this.minggu,
             bulan = this.currentSeason,
             tahun = this.tahun

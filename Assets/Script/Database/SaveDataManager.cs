@@ -185,7 +185,7 @@ public class SaveDataManager : MonoBehaviour
                     if (!found) saveData.furnanceSaveData.Add(furnanceData);
                 }
             }
-            // 5. BATU MANAGER
+            // BATU MANAGER
             else if (saveable is BatuManager stone)
             {
                 Debug.Log("[SAVE] Ditemukan BatuManager.");
@@ -194,7 +194,7 @@ public class SaveDataManager : MonoBehaviour
                     saveData.queueRespownStone = queueData;
                 }
             }
-            // 6. TIME MANAGER
+            // TIME MANAGER
             else if (saveable is TimeManager time)
             {
                 Debug.Log("[SAVE] Ditemukan TimeManager.");
@@ -202,6 +202,7 @@ public class SaveDataManager : MonoBehaviour
                 {
                     saveData.timeSaveData = timeData;
                 }
+                Debug.Log($"[SAVE] TimeManager Sukses! Hari: {saveData.timeSaveData.hari}, Bulan: {saveData.timeSaveData.bulan}, Tahun: {saveData.timeSaveData.tahun}");
             }
             // 7. FARM TILE
             else if (saveable is FarmTile hoedTile)

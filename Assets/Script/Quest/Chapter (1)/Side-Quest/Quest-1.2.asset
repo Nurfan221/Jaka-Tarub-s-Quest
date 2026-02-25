@@ -17,14 +17,13 @@ MonoBehaviour:
   DeskripsiAwal: Persediaan pangan desa menipis. Kepala Desa Pak Fahri meminta bantuanmu
     mengumpulkan.
   DeskripsiAkhir: ' dari ladang. Antarkan padanya segera.'
-  startLocateNpcQuest: {x: 0, y: 0}
-  finishLocateNpcQuest: {x: 0, y: 0}
+  lokasiNPCQuestKhusus: []
   questType: 0
   questProgress: 1
   questEmoticon:
     emoticonName: 
     emoticonSprite: {fileID: 0}
-  dateToActivate: 3
+  dateToActivate: 4
   MonthToActivate: 1
   npcName: Fahri Pranajaya
   itemRequirements:

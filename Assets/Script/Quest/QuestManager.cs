@@ -518,6 +518,7 @@ public class QuestManager : MonoBehaviour, ISaveable
                         }
                     }
 
+                    
                     if (sideQuest.lokasiNPCQuestKhusus.Length > 0 )
                     {
                         npcTargetQuest.transform.position = sideQuest.lokasiNPCQuestKhusus[0];

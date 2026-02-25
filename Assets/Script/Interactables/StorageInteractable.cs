@@ -13,6 +13,8 @@ public class StorageInteractable : Interactable, ISaveable
     public int maxItem = 12;
     public bool isLocked = false;
     public bool isSaveable = false;
+    public bool useArrowVisual = false;
+    public Transform arrowVisual;
 
     //[SerializeField] StorageUI storageUI;
 
@@ -31,7 +33,7 @@ public class StorageInteractable : Interactable, ISaveable
             id = uniqueID,
             itemsInStorage = storage,
             storagePosition = gameObject.transform.position,
-
+            useArrawVisual = useArrowVisual
         };
     }
 
@@ -61,7 +63,17 @@ public class StorageInteractable : Interactable, ISaveable
         //AddItemToList();
 
     }
-
+    public void UseArrawVisualfunction()
+    {
+        if (useArrowVisual && arrowVisual != null)
+        {
+            arrowVisual.gameObject.SetActive(true); // Pastikan panah awalnya tidak aktif
+        }
+        else
+        {
+            arrowVisual.gameObject.SetActive(false);
+        }
+    }
     public void UnlockStorage()
     {
         isLocked = false;
@@ -81,6 +93,9 @@ public class StorageInteractable : Interactable, ISaveable
         StartAnimationOpen();
         // Panggil OpenStorage setelah animasi selesai
         StartCoroutine(WaitForAnimationAndOpenStorage());
+
+        useArrowVisual = false;
+        UseArrawVisualfunction();
     }
 
     private IEnumerator WaitForAnimationAndOpenStorage()

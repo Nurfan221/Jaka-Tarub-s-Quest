@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Xml;
 using UnityEngine;
 
 [System.Serializable]
@@ -24,8 +25,9 @@ public class CookInteractable : Interactable, ISaveable
     public ItemData fuelCook;
     public ItemData itemResult;
     public bool isCooking = false; // Mencegah spam klik
+    public bool useArrowVisual;
     public float currentProgress = 0f;
-
+    public Transform arrawVisual; // Referensi ke objek visual panah
     // QuantityFuel menandakan berapa item bisa di masak menggunakan fuel tersebut
     public int quantityFuel = 0; // Nilai bahan bakar saat ini
     public event Action<float> OnProgressUpdated; // progress bar
@@ -63,6 +65,14 @@ public class CookInteractable : Interactable, ISaveable
             SetupVisualComponent();
 
         }
+
+        if (useArrowVisual && arrawVisual != null)
+        {
+            arrawVisual.gameObject.SetActive(true); // Pastikan panah awalnya tidak aktif
+        }else
+        {
+            arrawVisual.gameObject.SetActive(false);
+        }
     }
 
 
@@ -77,7 +87,7 @@ public class CookInteractable : Interactable, ISaveable
         data.quantityFuel = quantityFuel;
         data.furnancePosition = gameObject.transform.position;
         data.typeKompor = typeKompor;
-
+        data.useArrowVisual = useArrowVisual;
         return data;
     }
 
@@ -95,6 +105,7 @@ public class CookInteractable : Interactable, ISaveable
             itemResult = loadedData.itemResult;
             quantityFuel = loadedData.quantityFuel;
             typeKompor = loadedData.typeKompor;
+            useArrowVisual = loadedData.useArrowVisual;
 
             Debug.Log($"Data CookInteractable berhasil direstorasi. ");
 
@@ -129,6 +140,13 @@ public class CookInteractable : Interactable, ISaveable
                 if (stoneAnimatorController != null)
                 {
                     stoneAnimator.runtimeAnimatorController = stoneAnimatorController;
+                    if (isCooking)
+                    {
+                        stoneAnimator.SetBool("SetAnimation", true);
+                    }else
+                    {
+                        stoneAnimator.SetBool("SetAnimation", false);
+                    }
                 }
                 else
                 {
@@ -150,7 +168,15 @@ public class CookInteractable : Interactable, ISaveable
     {
         TutorialManager.Instance.TriggerTutorial("Tutorial_Cook/Smelt");
         
-
+        useArrowVisual = false;
+        if (useArrowVisual && arrawVisual != null)
+        {
+            arrawVisual.gameObject.SetActive(true); // Pastikan panah awalnya tidak aktif
+        }
+        else
+        {
+            arrawVisual.gameObject.SetActive(false);
+        }
         MechanicController.Instance.HandleOpenCookUI(this);
     }
     // fungsi memanggil corountine yang di inginkan
@@ -163,19 +189,24 @@ public class CookInteractable : Interactable, ISaveable
 
     public void StartCook()
     {
+        Debug.Log($"Memulai proses memasak... dari object id {interactableUniqueID.UniqueID}");
         if (isCooking)
         {
             Debug.LogWarning("Proses memasak sedang berjalan!");
             return;
         }
 
+
         bool hasFuel = (quantityFuel > 0) || (fuelCook != null && fuelCook.count > 0);
 
-        if (itemCook == null || !hasFuel)
+        if (itemCook == null || !hasFuel )
         {
-            stoneAnimator.SetBool("SetAnimation", false);
-            Debug.LogWarning("Pastikan item masak dan bahan bakar terisi sebelum memasak.");
-            return; // Berhenti jika tidak ada item atau tidak ada bahan bakar sama sekali
+            if (stoneAnimator != null)
+            {
+                stoneAnimator.SetBool("SetAnimation", false);
+                Debug.LogWarning("Pastikan item masak dan bahan bakar terisi sebelum memasak.");
+                return; // Berhenti jika tidak ada item atau tidak ada bahan bakar sama sekali
+            }
         }
 
 
@@ -184,15 +215,21 @@ public class CookInteractable : Interactable, ISaveable
         RecipeCooking foundRecipe = null;
         if (typeCooking == TypeCooking.FoodCook)
         {
-            foreach (var recipeCooking in DatabaseManager.Instance.cookingDatabase.cookRecipes)
+            var recipes = DatabaseManager.Instance.cookingDatabase.cookRecipes;
+            Debug.Log($"Jumlah resep tersedia di database: {recipes.Count}"); // CEK INI!
+
+            foreach (var recipeCooking in recipes)
             {
-                if (recipeCooking.ingredient.itemName == itemCook.itemName)
+                // Log setiap percobaan perbandingan
+                // Debug.Log($"Membandingkan '{itemCook.itemName}' dengan '{recipeCooking.ingredient.itemName}'");
+
+                if (recipeCooking.ingredient != null &&
+                    recipeCooking.ingredient.itemName.Trim() == itemCook.itemName.Trim())
                 {
                     foundRecipe = recipeCooking;
-                    break; // Resep ditemukan, hentikan pencarian
+                    break;
                 }
             }
-
         }
         else if (typeCooking == TypeCooking.SmeltCook)
         {
@@ -207,7 +244,8 @@ public class CookInteractable : Interactable, ISaveable
         }
         if (foundRecipe == null)
         {
-            Debug.LogWarning("Tidak ada resep yang cocok untuk item ini.");
+            Debug.LogWarning($"Tidak ada resep yang cocok untuk item ini. dari object id {interactableUniqueID.UniqueID}");
+
             return;
         }
 
@@ -215,16 +253,25 @@ public class CookInteractable : Interactable, ISaveable
         if (IsItemResultEmpty() || foundRecipe.result.itemName == itemResult.itemName)
         {
 
+            Debug.Log($"Resep ditemukan: {foundRecipe.recipeName}. Memulai proses memasak... dari object id {interactableUniqueID.UniqueID}");
 
             // Mulai Coroutine dan simpan referensinya
             StartCooking(foundRecipe);
-            stoneAnimator.SetBool("SetAnimation", true);
+            if (useAnimation)
+            {
+                SetupVisualComponent();
+
+            }
 
         }
         else
         {
-            Debug.LogWarning("Tidak ada resep yang cocok untuk item ini.");
-            stoneAnimator.SetBool("SetAnimation", false);
+            Debug.Log("Resep ditemukan, tapi hasil masakan berbeda dengan yang sudah ada. Tidak bisa memasak.");
+            if (useAnimation)
+            {
+                SetupVisualComponent();
+
+            }
 
             return;
         }
