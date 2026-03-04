@@ -24,6 +24,7 @@ public class PlantSeed : UniqueIdentifiableObject
     public bool hasFertilizer = false;
     public bool isWithered = false; // Dicek dari timer telat panen
     public bool isRegrow = false;
+    public bool isPlantDie = false;
 
     [Header("Plant Attributes")]
     public Sprite[] growthImages;
@@ -170,6 +171,7 @@ public class PlantSeed : UniqueIdentifiableObject
 
     public void UpdateParticleEffect()
     {
+      
         // Safety Check
         if (growEffect == null || waterEffect == null || insectEffect == null || harvestParticle == null) return;
 
@@ -186,7 +188,7 @@ public class PlantSeed : UniqueIdentifiableObject
         {
             insectEffect.Play();
             PlantInteractable plantInteractable = GetComponent<PlantInteractable>();
-            plantInteractable.promptMessage = "Tanaman ini terinfeksi hama! Gunakan pestisida untuk menyembuhkannya.";
+            plantInteractable.promptMessage = "Tanaman ini terinfeksi hama!";
             TutorialManager.Instance.TriggerTutorial("Tutorial_MembasmiHama");
         }
         else if (isWatered)
@@ -196,6 +198,16 @@ public class PlantSeed : UniqueIdentifiableObject
         else // Kering
         {
             waterEffect.Play();
+        }
+
+        if (isPlantDie)
+        {
+            PlantInteractable plantInteractable = GetComponent<PlantInteractable>();
+            plantInteractable.promptMessage = "Bersihkan Tanaman Layu";
+            growEffect.Stop();
+            waterEffect.Stop();
+            insectEffect.Stop();
+            harvestParticle.Stop();
         }
     }
     // Logika harian untuk tanaman yang terinfeksi. Jika lebih dari 2 hari, tanaman mati.
@@ -350,4 +362,6 @@ public class PlantSeed : UniqueIdentifiableObject
         insectTime = 0;
         UpdateParticleEffect();
     }
+
+   
 }

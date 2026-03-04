@@ -137,12 +137,15 @@ public class HoedTileData
     public float fertilizerStrength;
     public float reGrowTimer = 0; // menghitung progres pertumbuhan setelah dipanen
     public bool watered;
+    public int dayWatered; // Hari ketika terakhir kali disiram
     public bool isInfected;
+    public int dayInfected; // Hari ketika tanaman mulai terinfeksi
     public bool isPlanted;
     public bool isReadyToHarvest;
     public bool hasFertilizer = false;
     public bool isWithered = false; // Dicek dari timer telat panen
     public bool isRegrow = false;
+    public bool isPlantDie = false; // kondisi untuk menyatakan apakah tanaman sudah mati
     //public HoedTileData(Vector3Int pos, int time)
     //{
     //    tilePosition = pos;
@@ -638,6 +641,7 @@ public class DatabaseManager : MonoBehaviour
     public GameObject itemWorldPrefab;
     [Tooltip("Prefab default untuk tanaman (bukan hasil tani) yang tumbuh di dunia.")]
     public GameObject plantWorldPrefab;
+    public Sprite tanamanLayuPrefab;
     [Tooltip("Prefab untuk objek penyimpanan (peti, dll) di dunia.")]
     public GameObject storageWorldPrefab;
 

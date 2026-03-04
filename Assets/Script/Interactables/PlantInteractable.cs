@@ -24,6 +24,13 @@ public class PlantInteractable : Interactable
         if (plantSeed.isReadyToHarvest)
         {
             plantSeed.Harvest();
+        }else if(plantSeed.isPlantDie)
+        {
+            SoundManager.Instance.PlaySound(SoundName.MulungSfx);
+            ItemData tanamanLayu = new ItemData("TanamanLayu", 1, ItemQuality.Normal, 0);
+            ItemPool.Instance.AddItem(tanamanLayu);
+            FarmTile.Instance.OnPlantHarvested(plantSeed.UniqueID);
+            Destroy(gameObject);
         }
     }
 }

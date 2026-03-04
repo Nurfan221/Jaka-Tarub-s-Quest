@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: Quest-1.0
   m_EditorClassIdentifier: 
   TheDialogues:
-  - name: Mbok Rini
+  - name: Mbok Milah
     sentence: Jaka! Sini, nak. Mbok mau ajarin sesuatu yang penting. Kalau kau mau
       hidup di sini, kau harus tahu caranya bertani! Coba dengar baik-baik ya.
   - name: Jaka Tarub
     sentence: Iya, Mbok. Apa yang harus Jaka lakukan?
-  - name: Mbok Rini
+  - name: Mbok Milah
     sentence: Tanah di depan rumah sepertinya sudah keras, perlu digemburkan supaya
       bisa kita tanami lagi. Tolong ambilkan Cangkul di Kotak Peralatan depan rumah,
       ya.
   - name: Jaka Tarub
     sentence: Oke, Mbok. Lalu apa setelah itu?
-  - name: Mbok Rini
+  - name: Mbok Milah
     sentence: Setelah itu, tanam bibit padi satu per satu di tanah yang sudah gembur
       tadi. Jangan lupa jaraknya harus cukup supaya padinya tumbuh dengan baik.
   - name: Jaka Tarub
     sentence: Hmm... Menggemburkan tanah, lalu tanam benih... Ada lagi, Mbok?
-  - name: Mbok Rini
+  - name: Mbok Milah
     sentence: Tentu ada! Setelah itu, kau harus sirami tanamanmu pakai air dari penyiram
       tanaman. Tanaman yang tidak disiram akan layu, nak.
   - name: Jaka Tarub
@@ -40,5 +40,5 @@ MonoBehaviour:
   - name: Mbok Milah
     sentence: Atau kalau butuh alat lain, gunakan meja kerja untuk Merakit barang,
       atau tungku untuk Melebur logam. Semuanya sudah Mbok siapkan di sana.
-  mainSpeaker: Mbok Rini
+  mainSpeaker: Mbok Milah
   promptAfterDialogue: Tutorial Farming

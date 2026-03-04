@@ -22,7 +22,7 @@ public class DialogueSystem : MonoBehaviour
     public bool useLoadingTimer = true;
     public Button NextButton;
     public Button endButton; // Tombol untuk mengakhiri dialog
-
+    private Coroutine typingCoroutine; // Simpan referensi di sini
 
 
     // Ini adalah "saluran radio" baru kita
@@ -65,6 +65,8 @@ public class DialogueSystem : MonoBehaviour
             return;
         }
 
+ 
+
         GameController.Instance.PauseGame();
         dialogueUI.SetActive(true);
         currentDialogues = theDialogues;
@@ -97,7 +99,7 @@ public class DialogueSystem : MonoBehaviour
         string playerName = GameController.Instance.playerName;
         dialogue.sentence = theDialogue.sentence.Replace("Charibert", playerName);
         dialogue.name = theDialogue.name.Replace("Charibert", playerName);
-
+      
 
         if (dialogue.name == string.Empty)
         {
@@ -141,7 +143,9 @@ public class DialogueSystem : MonoBehaviour
         GameController.Instance.ResumeGame();
         if (useLoadingTimer)
         {
-             StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
+            dialogueText.text = "";
+            narrationText.text = "";
+            StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
 
         }
 
@@ -152,33 +156,45 @@ public class DialogueSystem : MonoBehaviour
 
     void SetText(TMP_Text text, string value)
     {
-        StartCoroutine(SettingText(text, value, dialogueSpd));
+        // Jika masih ada yang berjalan, matikan dulu sebelum mulai yang baru
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+
+        typingCoroutine = StartCoroutine(SettingText(dialogueText, value));
     }
     IEnumerator SettingText(TMP_Text text, string value, float dur = 1)
     {
-        float startTime = Time.time;
-
+        // 1. Siapkan Tombol untuk Fungsi "SKIP"
         NextButton.onClick.RemoveAllListeners();
-        NextButton.onClick.AddListener(StopAllCoroutines);
-        NextButton.onClick.AddListener(() => text.text = value);
-        NextButton.onClick.AddListener(() => NextButton.onClick.RemoveAllListeners());
-        NextButton.onClick.AddListener(() => NextButton.onClick.AddListener(NextDialogue));
-        //while (text.text != value)
-        //{
-        //    text.text = value[..Mathf.Min((int)((Time.time - startTime) / dur * value.Length), value.Length)];
-        //    yield return null;
-        //}
+        NextButton.onClick.AddListener(SkipTyping);
 
+        // Fungsi lokal untuk Skip (Agar lebih rapi)
+        void SkipTyping()
+        {
+            if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+            text.text = value; // Langsung tampilkan teks penuh
+            PrepareNextButton(); // Siapkan tombol untuk dialog selanjutnya
+        }
+
+        void PrepareNextButton()
+        {
+            NextButton.onClick.RemoveAllListeners();
+            NextButton.onClick.AddListener(NextDialogue);
+            typingCoroutine = null; // Tandai bahwa coroutine sudah selesai
+        }
+
+        // 2. Proses Mengetik
         for (int i = 0; i < value.Length; i++)
         {
             text.text = value[..(i + 1)];
             yield return null;
         }
-        NextButton.onClick.RemoveAllListeners();
-        NextButton.onClick.AddListener(NextDialogue);
 
+        // 3. Jika selesai mengetik secara normal (bukan di-skip)
+        PrepareNextButton();
     }
-
     public void PlayClickSound()
     {
         //SoundManager.Instance.PlaySound("Click");

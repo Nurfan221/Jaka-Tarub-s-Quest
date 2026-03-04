@@ -77,6 +77,12 @@ MonoBehaviour:
       ingredientCount: 1
     resultCount: 2
     result: {fileID: 11400000, guid: 054f23c4d33de1b479cbf9d20ec071db, type: 2}
+  - name: Pupuk
+    craftIngredient:
+    - ingredientItem: {fileID: 11400000, guid: 4cfe878038045b945b0376a494c70f6e, type: 2}
+      ingredientCount: 3
+    resultCount: 2
+    result: {fileID: 11400000, guid: bc8c7c5ee2b801e4fb4450177456b717, type: 2}
   craftFoodRecipe:
   - name: AdonanRoti
     craftIngredient:

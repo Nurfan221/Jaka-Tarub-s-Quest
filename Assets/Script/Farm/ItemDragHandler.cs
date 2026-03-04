@@ -463,6 +463,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             tileData.isPlanted = true;
             tileData.growthProgress = 0;
+            tileData.dayWatered = TimeManager.Instance.date;
 
             // Sekarang aman mengambil ID karena ForceGenerateUniqueID sudah dipanggil di atas
             if (seedComponent != null)
