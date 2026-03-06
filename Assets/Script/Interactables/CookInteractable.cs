@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Xml;
 using UnityEngine;
 
 [System.Serializable]
@@ -220,11 +219,18 @@ public class CookInteractable : Interactable, ISaveable
 
             foreach (var recipeCooking in recipes)
             {
-                // Log setiap percobaan perbandingan
-                // Debug.Log($"Membandingkan '{itemCook.itemName}' dengan '{recipeCooking.ingredient.itemName}'");
+                // Cek apakah resep atau bahan di database ada
+                if (recipeCooking == null || recipeCooking.ingredient == null) continue;
 
-                if (recipeCooking.ingredient != null &&
-                    recipeCooking.ingredient.itemName.Trim() == itemCook.itemName.Trim())
+                // Cek apakah item yang sedang dimasak di kompor ini ada (Inilah pengaman utamanya)
+                if (itemCook == null)
+                {
+                    Debug.LogWarning($"[CookInteractable] itemCook di {interactableUniqueID.UniqueID} kosong!");
+                    break;
+                }
+
+                // Bandingkan nama
+                if (recipeCooking.ingredient.itemName.Trim() == itemCook.itemName.Trim())
                 {
                     foundRecipe = recipeCooking;
                     break;

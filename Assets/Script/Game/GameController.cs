@@ -598,6 +598,7 @@ public class GameController : MonoBehaviour
         // set disturbed ke false agar tidak terganggu saat bergerak
         PlayerController.Instance.ActivePlayer.Movement.ifDisturbed = false;
         playerTransform.position = lokasiPerawatan;
+        TimeManager.Instance.hour = 9; // Set jam ke 9 pagi saat bangun di RS
         // Save Game (Penting dilakukan setelah semua perubahan data)
         SaveDataManager.Instance.SaveGame();
 
