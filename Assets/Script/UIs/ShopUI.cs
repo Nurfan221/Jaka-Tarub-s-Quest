@@ -34,6 +34,7 @@ public class ShopUI : MonoBehaviour
     public Button btnClose;
     public Transform deskripsiUI;
     public String errorMessage;
+    public TMP_Text jumlahUang;
 
     private Dictionary<string, int> itemSellCounts = new(); // Menyimpan jumlah item yang akan dibeli
     private Dictionary<string, int> itemBuyCounts = new();
@@ -89,6 +90,7 @@ public class ShopUI : MonoBehaviour
 
     public void OpenShop(TypeShop typeShop, List<ItemData> itemsToDisplay, List<ItemData> itemSell, ShopInteractable interactable)
     {
+        jumlahUang.text = GameEconomy.Instance.coins.ToString();
         currentTypeShop = typeShop;
         if (typeShop == TypeShop.ItemShop)
         {
@@ -168,6 +170,7 @@ public class ShopUI : MonoBehaviour
 
     private void RefreshShopUI(List<ItemData> items)
     {
+        itemBuyCounts.Clear();
         ClearChildUI(contentBuyUI, templateBuyUI);
         ClearChildUI(contentSellUI, templateSellUI);
 
@@ -265,7 +268,8 @@ public class ShopUI : MonoBehaviour
             stackCountText.text = itemShop.count.ToString();
             imageItem.sprite = item.sprite;
             itemSlot.GetChild(1).GetComponent<TMP_Text>().text = item.itemName;
-            itemSlot.GetChild(3).GetComponent<TMP_Text>().text = "Rp." + CalculateShopResellPrice(item);
+            TMP_Text jumlahHarga = itemSlot.GetChild(3).GetComponent<TMP_Text>();
+            jumlahHarga.text = "Rp." + CalculateShopResellPrice(item);
 
             //Inisialisasi jumlah item yang akan dibeli
             if (!itemBuyCounts.ContainsKey(itemShop.itemName))
@@ -282,13 +286,16 @@ public class ShopUI : MonoBehaviour
             btnMinus.onClick.RemoveAllListeners();
 
 
-
             btnPlus.onClick.AddListener(() =>
             {
                 if (itemBuyCounts[itemShop.itemName] < itemShop.count)
                 {
                     itemBuyCounts[itemShop.itemName]++;
                     UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
+
+                    // kalikan harga awal dengan jumlah dibeli agar mendapatkan total harga 
+                    int totalHarga = CalculateShopResellPrice(item) * itemBuyCounts[itemShop.itemName];
+                    jumlahHarga.text = "Rp." + totalHarga.ToString();
                 }
             });
 
@@ -298,6 +305,10 @@ public class ShopUI : MonoBehaviour
                 {
                     itemBuyCounts[itemShop.itemName]--;
                     UpdateCountText(itemShop.itemName, countText, itemBuyCounts);
+
+                    // PERBAIKAN DI SINI:
+                    int totalHarga = CalculateShopResellPrice(item) * itemBuyCounts[itemShop.itemName];
+                    jumlahHarga.text = "Rp." + totalHarga.ToString();
                 }
             });
             Button btnDeskripsi = itemSlot.GetComponent<Button>();
@@ -482,7 +493,7 @@ public class ShopUI : MonoBehaviour
 
             itemBuyCounts[selectedItem.itemName] = 1;
             UpdateCountText(selectedItem.itemName, countText, itemBuyCounts);
-
+            jumlahUang.text = GameEconomy.Instance.coins.ToString();
             MechanicController.Instance.HandleUpdateInventory();
 
         }
@@ -534,6 +545,7 @@ public class ShopUI : MonoBehaviour
             }
 
             GameEconomy.Instance.GainMoney((item.SellValue * remainingToStore));
+            jumlahUang.text = GameEconomy.Instance.coins.ToString();
             DeleteItemFromInventory(selectedItem, remainingToStore);
             RefreshShopUI(currentSeasonItems);
         }

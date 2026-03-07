@@ -15,10 +15,12 @@ MonoBehaviour:
   itemID: 26
   itemName: BenihOak
   quality: 0
+  rarity: 0
   types: 32
   categories: 2048
   sprite: {fileID: 9164150160921697602, guid: 31b0c90595bfd4f4cb21fbdc818fe1ec, type: 3}
-  itemDescription: 
+  itemDescription: Cikal bakal pohon raksasa yang melambangkan kekuatan. Kayu Oak
+    adalah bahan terbaik untuk membuat peralatan yang tahan lama.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -31,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -44,9 +46,15 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: BenihOak
   namePrefab: BenihOak
   growthTime: 4
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
+  seedType: 0

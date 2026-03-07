@@ -89,7 +89,11 @@ public class GameController : MonoBehaviour
 
             if (IsNewGame)
             {
-                StartCoroutine(delayLoadCerita());
+                OptionalCerita optionalCerita = DatabaseManager.Instance.GetOptionalCerita("newGameNarator");
+                if (optionalCerita != null)
+                {
+                    StoryTellerController.Instance.StartStory(optionalCerita);
+                }
                 Debug.Log($"Scene '{mainGameSceneName}' dimuat. Memulai sebagai Game Baru...");
                 Debug.Log("GameController: Membangun dunia baru dari Peta Awal...");
 
@@ -104,6 +108,7 @@ public class GameController : MonoBehaviour
                 FindObjectOfType<PlayerController>()?.InitializeForNewGame();
                 FindObjectOfType<PlayerController>()?.StartPlayerPosition(latestPlayerPos);
                 IsNewGame = false; // Reset "catatan"
+                TimeManager.Instance.HandleNewDayFunction();
 
 
             }
@@ -120,15 +125,7 @@ public class GameController : MonoBehaviour
     }
 
 
-    public IEnumerator delayLoadCerita()
-    {
-        yield return new WaitForSeconds(1f); // Delay singkat untuk memastikan semua objek siap
-        OptionalCerita optionalCerita = DatabaseManager.Instance.GetOptionalCerita("newGameNarator");
-        if (optionalCerita != null)
-        {
-            StoryTellerController.Instance.StartStory(optionalCerita);
-        }
-    }
+ 
 
 
 

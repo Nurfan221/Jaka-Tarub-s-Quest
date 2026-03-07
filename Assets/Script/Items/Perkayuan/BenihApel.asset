@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd903c7dd23ff647a6438312cb77b78, type: 3}
   m_Name: BenihApel
   m_EditorClassIdentifier: 
-  itemID: 107
+  itemID: 103
   itemName: BenihApel
   quality: 0
+  rarity: 0
   types: 32
   categories: 2048
   sprite: {fileID: 7865146041029273321, guid: 31b0c90595bfd4f4cb21fbdc818fe1ec, type: 3}
-  itemDescription: ini biji apel
+  itemDescription: Benih kecil yang menyimpan potensi pohon buah. Tanam di tanah
+    subur dan tunggu hingga kamu bisa memetik buah apel merah yang manis.
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -31,7 +33,7 @@ MonoBehaviour:
   countHeal: 0
   countStamina: 0
   isItemCombat: 0
-  Level: 1
+  level: 0
   MaxLevel: 0
   Damage: 0
   AreaOfEffect: 0
@@ -44,9 +46,15 @@ MonoBehaviour:
   maxStackCount: 32
   BuyValue: 0
   SellValue: 0
-  BurningTime: 0
   CookTime: 0
   itemDropName: BenihApel
   namePrefab: BenihApel
   growthTime: 4
+  canRegrow: 0
+  regrowTime: 0
+  regrowSpeed: 0
+  persentasePupuk: 0
+  minDropHarvest: 0
+  maxDropHarvest: 0
   growthImages: []
+  seedType: 0

@@ -85,12 +85,15 @@ public class TimeManager : MonoBehaviour, ISaveable
         //AdvanceTime();
         //OnDayChanged?.Invoke(); // Mengirim totalHari ke semua pohon
         //UpdateDay();
+        
+
+    }
+    public void HandleNewDayFunction()
+    {
         SetRainChance(currentSeason);
         OnTimeChanged?.Invoke();
         OnDayChanged?.Invoke();
-
     }
-
     public object CaptureState()
     {
         Debug.Log("[SAVE] Menangkap data waktu (TimeManager)...");

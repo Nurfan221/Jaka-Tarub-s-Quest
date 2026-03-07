@@ -11,7 +11,9 @@ public class DialogueSystem : MonoBehaviour
 
     public Dialogues theDialogues;
     Dialogues currentDialogues;
-    Queue<Dialogues.Dialogue> dialogues = new();
+    Queue<Dialogue> dialogues = new();
+    private Queue<Dialogues> dialogueQueue = new Queue<Dialogues>();
+    private bool isDialogueRunning = false;
 
     public float dialogueSpd = 2;
     public GameObject dialogueUI;
@@ -65,25 +67,38 @@ public class DialogueSystem : MonoBehaviour
             return;
         }
 
- 
-
         GameController.Instance.PauseGame();
         dialogueUI.SetActive(true);
         currentDialogues = theDialogues;
         firstSpeaker = theDialogues.mainSpeaker;
-        dialogues = new Queue<Dialogues.Dialogue>(theDialogues.TheDialogues);
+
+        // PERBAIKAN: Gunakan variabel 'dialogues', bukan 'dialogueQueue'
+        dialogues = new Queue<Dialogue>(theDialogues.TheDialogues);
 
         NextButton.onClick.RemoveAllListeners();
         NextButton.onClick.AddListener(NextDialogue);
-        endButton.onClick.RemoveAllListeners();
-        endButton.onClick.AddListener(() =>
+
+        if (endButton != null)
         {
-            EndDialogue();
-        });
+            endButton.onClick.RemoveAllListeners();
+            endButton.onClick.AddListener(EndDialogue);
+        }
 
         NextDialogue();
     }
-
+    private void StartNextDialogueInQueue()
+    {
+        if (dialogueQueue.Count > 0)
+        {
+            isDialogueRunning = true;
+            theDialogues = dialogueQueue.Dequeue();
+            StartDialogue();
+        }
+        else
+        {
+            isDialogueRunning = false;
+        }
+    }
 
     public void NextDialogue()
     {
@@ -93,8 +108,8 @@ public class DialogueSystem : MonoBehaviour
             return;
         }
 
-        Dialogues.Dialogue theDialogue = dialogues.Dequeue();
-        Dialogues.Dialogue dialogue = new();
+        Dialogue theDialogue = dialogues.Dequeue();
+        Dialogue dialogue = new();
 
         string playerName = GameController.Instance.playerName;
         dialogue.sentence = theDialogue.sentence.Replace("Charibert", playerName);
@@ -135,24 +150,31 @@ public class DialogueSystem : MonoBehaviour
     public void EndDialogue()
     {
         OnDialogueEnded?.Invoke();
-        print("End of conversations");
         currentDialogues.AfterDialogue();
-
 
         dialogueUI.SetActive(false);
         GameController.Instance.ResumeGame();
+
         if (useLoadingTimer)
         {
             dialogueText.text = "";
             narrationText.text = "";
             StartCoroutine(LoadingScreenUI.Instance.SetLoadingandTimer(false));
-
         }
+
+        // Mulai Coroutine untuk mengecek antrean berikutnya dengan jeda
+        StartCoroutine(WaitAndPlayNextDialogue(2.0f)); // Jeda 2 detik
 
         // Siarkan pengumuman bahwa dialog telah berakhir!
 
     }
+    private IEnumerator WaitAndPlayNextDialogue(float delay)
+    {
+        yield return new WaitForSeconds(delay);
 
+        // Jalankan dialog berikutnya jika ada dalam antrean
+        StartNextDialogueInQueue();
+    }
 
     void SetText(TMP_Text text, string value)
     {
@@ -223,7 +245,14 @@ public class DialogueSystem : MonoBehaviour
     public void HandlePlayDialogue(Dialogues dialogues, bool useTimer = true)
     {
         useLoadingTimer = useTimer;
-        theDialogues = dialogues;
-        StartDialogue();
+
+        // Masukkan dialog ke dalam antrean
+        dialogueQueue.Enqueue(dialogues);
+
+        // Jika tidak ada dialog yang sedang berjalan, mulai proses antrean
+        if (!isDialogueRunning)
+        {
+            StartNextDialogueInQueue();
+        }
     }
 }

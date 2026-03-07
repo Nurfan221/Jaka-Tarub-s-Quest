@@ -604,6 +604,7 @@ public class DatabaseManager : MonoBehaviour
     [Tooltip("Database untuk semua quest dan progresnya.")]
     public GameTutorialDatabase gameTutorialDatabase;
     public OptionalCeritaDataaseSO optionalCeritaDataaseSO;
+    public Dialogues triggerQuestActive;
 
 
     [Space(10)]

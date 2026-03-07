@@ -64,7 +64,7 @@ public class QuestManager : MonoBehaviour, ISaveable
 
     private void Start()
     {
-        CheckForNewQuests();
+        //CheckForNewQuests();
 
 
     }
@@ -281,6 +281,7 @@ public class QuestManager : MonoBehaviour, ISaveable
         if (existingChapter != null)
         {
             existingChapter.sideQuests.Add(questCopy);
+            DialogueSystem.Instance.HandlePlayDialogue(CreatDialoguesTriggerQuestActive(questCopy.npcName));
         }
         else
         {
@@ -295,6 +296,7 @@ public class QuestManager : MonoBehaviour, ISaveable
 
             newChapter.sideQuests.Add(questCopy);
             questActive.Add(newChapter);
+            DialogueSystem.Instance.HandlePlayDialogue(CreatDialoguesTriggerQuestActive(questCopy.npcName));
         }
     }
 
@@ -813,7 +815,36 @@ public class QuestManager : MonoBehaviour, ISaveable
     {
         contentStory.gameObject.SetActive(false);
     }
+    public Dialogues CreatDialoguesTriggerQuestActive(string npcName)
+    {
+        Dialogues original = DatabaseManager.Instance.triggerQuestActive;
 
-   
+        if (original != null && original.TheDialogues.Count > 0)
+        {
+            // Buat salinan objek Dialogues
+            Dialogues newDialog = ScriptableObject.CreateInstance<Dialogues>();
+
+            // Perbaikan: Gunakan tipe yang benar (List dari Dialogues.Dialogue)
+            // Kita menduplikasi list agar tidak merujuk ke database asli
+            newDialog.TheDialogues = new List<Dialogue>(original.TheDialogues);
+
+            // Perbaikan Error String:
+            // Karena TheDialogues[0] adalah objek, kita harus ubah variabel string di dalamnya.
+            // Ganti '.text' dengan nama variabel string yang ada di class Dialogue kamu.
+            Dialogue teksAsli = original.TheDialogues[0];
+
+            // Kita harus buat objek Dialogue baru agar tidak menimpa data asli di database
+            Dialogue modifiedDialogue = new Dialogue();
+            modifiedDialogue.name = teksAsli.name;
+            modifiedDialogue.sentence = $"Jaka tadi {npcName}, {teksAsli.sentence}";
+
+            newDialog.TheDialogues[0] = modifiedDialogue;
+
+            return newDialog;
+        }
+
+        return null;
+    }
+
 }
 

@@ -19,8 +19,8 @@ MonoBehaviour:
   types: 4352
   categories: 65792
   sprite: {fileID: 4515062826918275721, guid: d566de0f6bdec3f48bd0b58bab4a43c1, type: 3}
-  itemDescription: "Pedang pemberian ren, cukup untuk mengusir bandit \nSpecial Skill:
-    Meningkatkan atk sebesar 100% selama 30 detik. Cd: 40 detik; Stamina: 20"
+  itemDescription: "Pedang pemberian ren, cukup untuk mengusir bandit \natau berburu
+    hewan liar."
   QuantityFuel: 0
   maxhealth: 0
   health: 0
@@ -35,7 +35,7 @@ MonoBehaviour:
   isItemCombat: 0
   level: 1
   MaxLevel: 3
-  Damage: 100
+  Damage: 10
   AreaOfEffect: 3
   SpecialAttackCD: 40
   SpecialAttackStamina: 0
